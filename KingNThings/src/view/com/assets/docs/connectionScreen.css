@@ -1,0 +1,31 @@
+@CHARSET "ISO-8859-1";
+.label{
+		-fx-font-size: 25;
+}
+.disabled{
+	-fx-text-fill: #CCCCCC;
+	-fx-padding: 0 0 0 10;
+}
+.playername{
+	-fx-padding: 0 0 0 10;
+	-fx-text-fill: #FFFFFF;
+}
+
+#vBox{	
+	-fx-spacing: 30;
+}
+#vBox2{
+	-fx-spacing: 10;
+}
+#title{
+	-fx-font-size: 60;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow( gaussian , rgba(230,230,230,0.5) , 0,0,0,1 );
+}
+#beginButton{
+    -fx-padding: 15 190 15 190;
+}
+#players{
+	-fx-font-size: 30;
+}

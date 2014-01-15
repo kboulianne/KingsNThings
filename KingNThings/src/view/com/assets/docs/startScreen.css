@@ -1,0 +1,18 @@
+@CHARSET "ISO-8859-1";
+
+#vBox{	
+	-fx-spacing: 10;
+}
+#title{
+	-fx-font-size: 60;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow( gaussian , rgba(230,230,230,0.5) , 0,0,0,1 );
+}
+#startButton{
+    -fx-padding: 15 220 15 220;
+}
+#startTF{
+    -fx-font-size: 18px;
+    -fx-width: 500px;	
+}
