@@ -38,7 +38,9 @@ public class GameScreen {
 			{4.0,6.0},{3.0,7.0},{2.0,6.0},{2.0,4.0},{2.0,2.0},{3.0,1.0},{4.0,2.0},{5.0,3.0},
 			{5.0,5.0},{5.0,7.0},{4.0,8.0},{3.0,9.0},{2.0,8.0},{1.0,7.0},{1.0,5.0},{1.0,3.0}
 	};
-	
+        // For now
+	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/seaTile.png");
+        
 	public void show(){
 		
 		//GameStatus
@@ -50,14 +52,14 @@ public class GameScreen {
 			
 		//Opponents
 		Label otherPlayerLbl1 = new Label("Sir "+otherPlayerName1);
-        otherPlayerLbl1.getStyleClass().add("playerName"); 
-        Circle circle1 = new Circle();
-        circle1.setRadius(6);
-        circle1.setFill(Paint.valueOf("FFFF00"));   
-        HBox otherPlayerBob1 = new HBox();
-        otherPlayerBob1.getChildren().addAll(circle1, otherPlayerLbl1);
-        otherPlayerBob1.setAlignment(Pos.CENTER);
-        HBox otherPlayerInfo = new HBox();
+                otherPlayerLbl1.getStyleClass().add("playerName"); 
+                Circle circle1 = new Circle();
+                circle1.setRadius(6);
+                circle1.setFill(Paint.valueOf("FFFF00"));   
+                HBox otherPlayerBob1 = new HBox();
+                otherPlayerBob1.getChildren().addAll(circle1, otherPlayerLbl1);
+                otherPlayerBob1.setAlignment(Pos.CENTER);
+                HBox otherPlayerInfo = new HBox();
 		otherPlayerInfo.setId("otherPlayerInfo");
 		otherPlayerInfo.getChildren().add(otherPlayerBob1);
 		
@@ -107,13 +109,13 @@ public class GameScreen {
 		
 		
 		Label currentPlayer = new Label("Sir "+currentPlayersName);
-        currentPlayer.getStyleClass().add("playerName"); 
-        Circle circle = new Circle();
-        circle.setRadius(6);
-        circle.setFill(Paint.valueOf("00FF00"));   
-        HBox currentPlayerBox = new HBox();
-        currentPlayerBox.getChildren().addAll(circle, currentPlayer);
-        currentPlayerBox.setAlignment(Pos.CENTER);
+                currentPlayer.getStyleClass().add("playerName"); 
+                Circle circle = new Circle();
+                circle.setRadius(6);
+                circle.setFill(Paint.valueOf("00FF00"));   
+                HBox currentPlayerBox = new HBox();
+                currentPlayerBox.getChildren().addAll(circle, currentPlayer);
+                currentPlayerBox.setAlignment(Pos.CENTER);
 		HBox playerInfo = new HBox();
 		playerInfo.getStyleClass().add("border");
 		playerInfo.getChildren().add(currentPlayerBox);
@@ -166,7 +168,7 @@ public class GameScreen {
 									yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
 		//image
 		gap=temp_width*0.05;
-		gc.drawImage(new Image("view/com/assets/pics/seaTile.png"), xOffset+gap, yOffset+gap, temp_width-(gap*2.0), height-(gap*2.0));
+		gc.drawImage(HEX_IMAGE, xOffset+gap, yOffset+gap, temp_width-(gap*2.0), height-(gap*2.0));
 		
 	}
 	
