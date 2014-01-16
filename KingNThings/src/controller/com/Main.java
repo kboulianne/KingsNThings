@@ -19,13 +19,15 @@ public class Main extends Application{
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		Main.stage = stage;
-		stage.setTitle("Kings N Things");
+		stage.setTitle("Kings & Things");
 		stage.setMinHeight(HEIGHT);
 		stage.setMinWidth(WIDTH);
 		//stage.setMaxHeight(HEIGHT);
 		//stage.setMaxWidth(WIDTH);
 		//stage.setFullScreen(true);
 		new StartScreen().show();
+		
+		//new GameScreen().show(); //temporary
 	}
 	
 	public static Stage getStage() {

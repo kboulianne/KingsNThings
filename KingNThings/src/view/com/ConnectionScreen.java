@@ -100,10 +100,12 @@ public class ConnectionScreen {
 		
 		ConnectionScreenCntrl cSC = new ConnectionScreenCntrl(player1, circle1, player2, circle2, player3, circle3, player4, circle4, beginButton);
 		//test
-		cSC.addPlayer(player1Name);
-		cSC.addPlayer("Beverly");
-		cSC.addPlayer("Hans Hanzel");
-		//cSC.addPlayer("Wilson");
-		
+		cSC.addPlayer(1, player1Name);
+		cSC.addPlayer(2, "Beverly");
+		cSC.addPlayer(3, "Hans Hanzel");
+		//cSC.addPlayer(4, "Wilson");
+		//cSC.removePlayer(2);
+		//cSC.removePlayer(3);
+		//cSC.addPlayer(2, "Chuck");
 	}
 }
