@@ -5,10 +5,12 @@
 .disabled{
 	-fx-text-fill: #CCCCCC;
 	-fx-padding: 0 0 0 10;
+	-fx-font-style: italic;
 }
 .playername{
-	-fx-padding: 0 0 0 10;
 	-fx-text-fill: #FFFFFF;
+	-fx-padding: 0 0 0 10;
+	-fx-font-style: normal;
 }
 
 #vBox{	

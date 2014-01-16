@@ -1,0 +1,38 @@
+@CHARSET "ISO-8859-1";
+
+.border {
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
+
+.subText{
+	-fx-font-size: 15;
+}
+
+#poly{
+	-fx-cursor: hand;
+}
+
+#gameStatus{
+	-fx-background-image: url("../pics/bricks.jpg");
+    -fx-background-repeat: repeat;   
+    -fx-background-size: 100 100;
+    -fx-background-position: center center;
+
+}
+
+#otherPlayerInfo{
+	-fx-background-color: #DDDDDD;
+}
+
+#playingArea{
+	-fx-background-color: #EEEEEE;
+
+	
+}
+
+.playerName{
+	-fx-padding: 0 0 0 5;	
+}
