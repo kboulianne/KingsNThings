@@ -8,6 +8,8 @@ public abstract class Hex extends GamePiece{
 	Color color;
 	boolean selected;
 	
+	Hex[] joiningHexes;
+	
 	Hex(){
 		
 	}

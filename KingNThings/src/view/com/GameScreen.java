@@ -2,6 +2,7 @@ package view.com;
 
 import model.com.Die;
 import controller.com.Main;
+import controller.com.Util;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -29,6 +30,7 @@ import javafx.stage.Stage;
 public class GameScreen {
 	
 	Canvas playingArea;
+	StackPane rootStackPane;
 	
 	String currentPlayersName = "Frank";
 	String otherPlayerName1 = "Joe";
@@ -39,9 +41,7 @@ public class GameScreen {
 	static final double HEX_HEIGHT = HEX_WIDTH *0.8;
 	double[][] hexCenterPoints;
 	double[][] choosenMapping;
-	
-	StackPane rootStackPane;
-	
+		
 	int lastHexSelected = -1;
 	static final double[][] MAPPING_37_TILES = new double[][]{{4.0,7.0},{4.0,5.0},{5.0,6.0},{5.0,8.0},{4.0,9.0},
 			{3.0,8.0},{3.0,6.0},{3.0,4.0},{4.0,3.0},{5.0,4.0},{6.0,5.0},{6.0,7.0},{6.0,9.0},
@@ -54,14 +54,14 @@ public class GameScreen {
 			{5.0,5.0},{5.0,7.0},{4.0,8.0},{3.0,9.0},{2.0,8.0},{1.0,7.0},{1.0,5.0},{1.0,3.0}
 	};
         // For now
-	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/tiles/sea.png");
-	//GameScreen.class.getResourceAsStream("icon.png"));//
+	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/tiles/desert.png");
 	
 	String[] gamePhases = {"Gold Collection","Recruiting Characters", "Recruiting Things",
 						"Random Event Phase", "Movement Phase", "Combat Phase", "Construction Phase",
 						"Special Powers Phase", "Changing Player Order"};
 	
 	
+	// for now
 	Die die1 = new Die();
 	Die die2 = new Die();
 	ImageView die1Im;
@@ -73,8 +73,6 @@ public class GameScreen {
 		//GameStatus
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
-		
-		
 		
 		final Label turn = new Label("Sir "+otherPlayerName3+"'s Turn: Roll Dice");
 		turn.getStyleClass().add("title");
@@ -161,14 +159,14 @@ public class GameScreen {
 		
 		//new GameScreenCntrl(playingArea, button);
 		
-		
+		// to be moved to controller
 		playingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				double clickPtX = event.getX();
 				double clickPtY = event.getY();
 				for(int i = 0; i<hexCenterPoints.length;i++){
-					if(distanceBtwTwoPts(clickPtX, clickPtY, hexCenterPoints[i][0], hexCenterPoints[i][1] )<HEX_WIDTH*0.30){
+					if(Util.distanceBtwTwoPts(clickPtX, clickPtY, hexCenterPoints[i][0], hexCenterPoints[i][1] )<HEX_WIDTH*0.30){
 						onHexSelected(i);
 						return;
 					}
@@ -238,6 +236,7 @@ public class GameScreen {
 			button.setOnAction(new EventHandler<ActionEvent>() {		
 				@Override
 				public void handle(ActionEvent arg0) {
+					dismissPopup();
 					rootStackPane.getChildren().remove(popupVbox);
 				}
 			});
@@ -314,6 +313,7 @@ public class GameScreen {
 		
 	}
 	
+	
 	public void onHexSelected(int id){
 		
 		if (lastHexSelected != -1){
@@ -323,7 +323,4 @@ public class GameScreen {
 		paintHex(id,Color.WHITE);
 	}
 	
-	public double distanceBtwTwoPts(double x1, double y1, double x2, double y2) {
-        return Math.sqrt( (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
-	}
 }
