@@ -8,5 +8,6 @@ public class Board {
 	Bag bag;
 	Die[] dice;
 	
+	// singleton
 
 }

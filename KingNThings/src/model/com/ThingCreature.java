@@ -1,5 +1,10 @@
 package model.com;
 
-public class ThingCreature extends Thing{
+public abstract class ThingCreature extends Thing{
+
+	ThingCreature(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
 
 }

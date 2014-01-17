@@ -40,7 +40,7 @@ public class GameScreen {
 			{5.0,5.0},{5.0,7.0},{4.0,8.0},{3.0,9.0},{2.0,8.0},{1.0,7.0},{1.0,5.0},{1.0,3.0}
 	};
         // For now
-	private static final Image HEX_IMAGE = new Image("../imgs/Tiles/desert.jpeg");
+	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/seaTile.png");
         
 	public void show(){
 		

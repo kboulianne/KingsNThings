@@ -6,7 +6,7 @@ public class Die extends GamePiece{
 	private int value;
 	
 	Die(){
-		setValue(roll());
+		roll();
 	}
 	
 	public int roll(){
