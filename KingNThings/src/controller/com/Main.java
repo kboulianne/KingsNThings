@@ -1,7 +1,7 @@
 package controller.com;
 
 
-import view.com.StartScreen;
+import view.com.GameScreen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -25,9 +25,9 @@ public class Main extends Application{
 		//stage.setMaxHeight(HEIGHT);
 		//stage.setMaxWidth(WIDTH);
 		//stage.setFullScreen(true);
-		new StartScreen().show();
+		//new StartScreen().show();
 		
-		//new GameScreen().show(); //temporary
+		new GameScreen().show(); //temporary
 	}
 	
 	public static Stage getStage() {
