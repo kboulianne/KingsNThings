@@ -1,5 +1,5 @@
 package model.com;
 
-public class Thing {
+public class Thing extends GamePiece{
 
 }
