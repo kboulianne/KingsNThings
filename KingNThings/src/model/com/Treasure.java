@@ -1,8 +1,8 @@
 package model.com;
 
-public class ThingTreasure extends Thing{
+public class Treasure extends Thing{
 
-	ThingTreasure(String name) {
+	Treasure(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}

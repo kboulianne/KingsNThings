@@ -1,6 +1,6 @@
 package model.com;
 
-public abstract class Thing extends GamePiece{
+public abstract class Thing extends GamePiece	{
 	
 	private String name;
 	
