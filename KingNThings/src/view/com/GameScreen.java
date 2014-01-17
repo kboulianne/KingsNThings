@@ -2,7 +2,10 @@ package view.com;
 
 import model.com.Die;
 import controller.com.Main;
-import controller.com.Util;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.adapter.JavaBeanObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -26,11 +29,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import jfxtras.labs.scene.control.BeanPathAdapter;
+import model.com.Player;
+import model.com.game.Game;
 
 public class GameScreen {
 	
 	Canvas playingArea;
-	StackPane rootStackPane;
 	
 	String currentPlayersName = "Frank";
 	String otherPlayerName1 = "Joe";
@@ -41,7 +46,9 @@ public class GameScreen {
 	static final double HEX_HEIGHT = HEX_WIDTH *0.8;
 	double[][] hexCenterPoints;
 	double[][] choosenMapping;
-		
+	
+	StackPane rootStackPane;
+	
 	int lastHexSelected = -1;
 	static final double[][] MAPPING_37_TILES = new double[][]{{4.0,7.0},{4.0,5.0},{5.0,6.0},{5.0,8.0},{4.0,9.0},
 			{3.0,8.0},{3.0,6.0},{3.0,4.0},{4.0,3.0},{5.0,4.0},{6.0,5.0},{6.0,7.0},{6.0,9.0},
@@ -54,18 +61,19 @@ public class GameScreen {
 			{5.0,5.0},{5.0,7.0},{4.0,8.0},{3.0,9.0},{2.0,8.0},{1.0,7.0},{1.0,5.0},{1.0,3.0}
 	};
         // For now
-	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/tiles/desert.png");
+	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/tiles/sea.png");
+	//GameScreen.class.getResourceAsStream("icon.png"));//
 	
 	String[] gamePhases = {"Gold Collection","Recruiting Characters", "Recruiting Things",
 						"Random Event Phase", "Movement Phase", "Combat Phase", "Construction Phase",
 						"Special Powers Phase", "Changing Player Order"};
 	
 	
-	// for now
 	Die die1 = new Die();
 	Die die2 = new Die();
 	ImageView die1Im;
 	ImageView die2Im;
+    private Label playerLbl;
 	
 	
 	public void show(){
@@ -73,6 +81,8 @@ public class GameScreen {
 		//GameStatus
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
+		
+		
 		
 		final Label turn = new Label("Sir "+otherPlayerName3+"'s Turn: Roll Dice");
 		turn.getStyleClass().add("title");
@@ -159,14 +169,14 @@ public class GameScreen {
 		
 		//new GameScreenCntrl(playingArea, button);
 		
-		// to be moved to controller
+		
 		playingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				double clickPtX = event.getX();
 				double clickPtY = event.getY();
 				for(int i = 0; i<hexCenterPoints.length;i++){
-					if(Util.distanceBtwTwoPts(clickPtX, clickPtY, hexCenterPoints[i][0], hexCenterPoints[i][1] )<HEX_WIDTH*0.30){
+					if(distanceBtwTwoPts(clickPtX, clickPtY, hexCenterPoints[i][0], hexCenterPoints[i][1] )<HEX_WIDTH*0.30){
 						onHexSelected(i);
 						return;
 					}
@@ -192,6 +202,10 @@ public class GameScreen {
 				die1Im.setImage(die1.getImage());
 				die2.roll();
 				die2Im.setImage(die2.getImage());
+				
+				// TESTING ============================
+				// CHanges the textProperty to simulate model change in Game instance
+				playerLbl.textProperty().set("Jake");
 			}
 		});
 	}
@@ -236,7 +250,6 @@ public class GameScreen {
 			button.setOnAction(new EventHandler<ActionEvent>() {		
 				@Override
 				public void handle(ActionEvent arg0) {
-					dismissPopup();
 					rootStackPane.getChildren().remove(popupVbox);
 				}
 			});
@@ -244,7 +257,10 @@ public class GameScreen {
 	}
 	
 	public void paintPlayerName(final String name, Color c, Pane pane){
-		Label playerLbl = new Label("Sir "+name);
+		playerLbl = new Label("Sir "+name);
+//		playerLbl = new Label();
+		// Unidirectional bind
+//		playerLbl.textProperty().bind(new PlayerViewModel(new Player("TEST")).nameProperty());
 		playerLbl.getStyleClass().add("playerName"); 
 		Circle circle = new Circle();
 		circle.setRadius(6);
@@ -313,7 +329,6 @@ public class GameScreen {
 		
 	}
 	
-	
 	public void onHexSelected(int id){
 		
 		if (lastHexSelected != -1){
@@ -323,4 +338,13 @@ public class GameScreen {
 		paintHex(id,Color.WHITE);
 	}
 	
+	public double distanceBtwTwoPts(double x1, double y1, double x2, double y2) {
+        return Math.sqrt( (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+	}
+	
+	//TODO Consider passing adapter to constructor in Main instead
+	public void setBindings(BeanPathAdapter<Game> adapter) {
+	    // Bind player label
+	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
+	}
 }

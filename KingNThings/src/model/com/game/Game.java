@@ -7,6 +7,7 @@
 package model.com.game;
 
 import java.util.List;
+import model.com.Board;
 import model.com.Player;
 
 /**
@@ -15,5 +16,27 @@ import model.com.Player;
  */
 public class Game {
     // Game state
-    private List<Player> players;
+    private List<Player> opponents;
+    /** The player owning this Game instance. */
+    private Player player = new Player("Bob");
+    /** The player who's is currently playing his/her turn. */
+    private Player current;
+    private Board board;
+    
+    
+    public void setOpponents(List<Player> players) {
+	this.opponents = players;
+    }
+    
+    public List<Player> getOpponents() {
+	return opponents;
+    }
+    
+    public final Player getPlayer() {
+	return player;
+    }
+
+    public void setPlayer(final Player player) {
+	this.player = player;
+    }
 }
