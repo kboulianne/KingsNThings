@@ -1,6 +1,6 @@
 package model.com;
 
-import java.util.Random;
+import controller.com.Util;
 
 public class Die extends GamePiece{
 	private int value;
@@ -10,8 +10,7 @@ public class Die extends GamePiece{
 	}
 	
 	public int roll(){
-		Random rand = new Random();
-		int randomNumber = rand.nextInt((6 - 1) + 1) + 1;
+		int randomNumber = Util.randomNumber(1, 6);
 		setValue(randomNumber);
 		setImage("view/com/assets/pics/die/die"+value+".png");
 		return randomNumber;
