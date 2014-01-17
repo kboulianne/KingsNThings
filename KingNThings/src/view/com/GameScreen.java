@@ -28,6 +28,7 @@ public class GameScreen {
 	static final double HEX_WIDTH = 100.0; //200 can see picture
 	static final double HEX_HEIGHT = HEX_WIDTH *0.8;
 	double[][] hexCenterPoints;
+	double[][] choosenMapping;
 	static final double[][] MAPPING_37_TILES = new double[][]{{4.0,7.0},{4.0,5.0},{5.0,6.0},{5.0,8.0},{4.0,9.0},
 			{3.0,8.0},{3.0,6.0},{3.0,4.0},{4.0,3.0},{5.0,4.0},{6.0,5.0},{6.0,7.0},{6.0,9.0},
 			{5.0,10.0},{4.0,11.0},{3.0,10.0},{2.0,9.0},{2.0,7.0},{2.0,5.0},{2.0,3.0},{3.0,2.0},
@@ -39,7 +40,7 @@ public class GameScreen {
 			{5.0,5.0},{5.0,7.0},{4.0,8.0},{3.0,9.0},{2.0,8.0},{1.0,7.0},{1.0,5.0},{1.0,3.0}
 	};
         // For now
-	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/seaTile.png");
+	private static final Image HEX_IMAGE = new Image("../imgs/Tiles/desert.jpeg");
         
 	public void show(){
 		
@@ -90,17 +91,17 @@ public class GameScreen {
 		GraphicsContext gc = playingArea.getGraphicsContext2D();
 		gc.clearRect(0, 0,playingArea.getWidth(), playingArea.getHeight());		
 		
-		double[][] mapping = MAPPING_37_TILES;
-		hexCenterPoints = new double[mapping.length][2];
+		choosenMapping = MAPPING_37_TILES;
+		hexCenterPoints = new double[choosenMapping.length][2];
 		
-		for(int i = 0; i<mapping.length;i++){
-			double x = mapping[i][0];
-			double y = mapping[i][1];
-			double xOffset = x*0.75*HEX_WIDTH;
-			double yOffset = y*0.5*HEX_HEIGHT;
+		for(int i = 0; i<choosenMapping.length;i++){
+			//double x = choosenMapping[i][0];
+			//double y = choosenMapping[i][1];
+			double xOffset = choosenMapping[i][0]*0.75*HEX_WIDTH;
+			double yOffset = choosenMapping[i][1]*0.5*HEX_HEIGHT;
 			hexCenterPoints[i][0]=xOffset+(HEX_WIDTH*0.5);
 			hexCenterPoints[i][1]=yOffset+(HEX_HEIGHT*0.5);
-			paintHex(x, y, playingArea);
+			paintHex(i, playingArea);
 		}
 		
 		
@@ -139,13 +140,13 @@ public class GameScreen {
 	
 	
 	
-	public void paintHex(double xTopLeft, double yTopLeft, Canvas canvas){
+	public void paintHex(int id, Canvas canvas){ // will be moved to Hex Class --> myHex.paint(Scene canvas)
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		
 		double height = HEX_HEIGHT;
 		
-		double xOffset = xTopLeft*0.75*HEX_WIDTH;
-		double yOffset = yTopLeft*0.5*height;
+		double xOffset = choosenMapping[id][0]*0.75*HEX_WIDTH;
+		double yOffset = choosenMapping[id][1]*0.5*height;
 		//gc.fillOval(xOffset, yOffset, xOffset+200, yOffset+200);
 		
 		//outer polygon
