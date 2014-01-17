@@ -2,6 +2,6 @@ package model.com;
 
 import java.util.List;
 
-public class Bag extends GamePiece{
+public class Cup extends GamePiece{
 	List<Thing> listOfThings;
 }

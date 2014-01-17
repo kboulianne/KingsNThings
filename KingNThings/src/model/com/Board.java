@@ -5,7 +5,7 @@ import java.util.List;
 public class Board {
 	List<Player> listOfPlayers;
 	Hex[] hexArray;
-	Bag bag;
+	Cup bag;
 	Die[] dice;
 	
 	// singleton

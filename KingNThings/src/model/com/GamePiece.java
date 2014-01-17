@@ -8,4 +8,12 @@ public abstract class GamePiece {
 	public void setImage(String directory) {
 		image = new Image(directory);
 	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
 }

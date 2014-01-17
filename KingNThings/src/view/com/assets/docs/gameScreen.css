@@ -1,38 +1,57 @@
 @CHARSET "ISO-8859-1";
 
 .border {
-    -fx-border-color: #FFFFFF;
+	-fx-border-radius: 15 15 15 15;
+  	-fx-background-radius: 15 15 15 15;
+    -fx-border-color: #DDDDDD;
     -fx-border-width: 2px;
-    -fx-padding: 10;
-    -fx-spacing: 8;
+    
 }
-
-.subText{
-	-fx-font-size: 15;
-}
-
-#poly{
+.playerName{
+	-fx-padding: 0 0 0 5;	
 	-fx-cursor: hand;
 }
+.title{
+	-fx-font-size: 34;
+}
+.popup{
+	-fx-border-color: #FFFFFF;
+	-fx-background-color: #000000;
+	
+	-fx-padding: 10;
+    
+    -fx-border-radius: 15 15 15 15;
+  	-fx-background-radius: 15 15 15 15;
+}
+
+
 
 #gameStatus{
-	-fx-background-image: url("../pics/bricks.jpg");
-    -fx-background-repeat: repeat;   
-    -fx-background-size: 100 100;
-    -fx-background-position: center center;
-
+	-fx-padding: 5 10 5 10;
+	-fx-border-radius: 10 10 0 0;
+  	-fx-background-radius: 10 10 0 0;
+  	
+  	-fx-background-color:  linear-gradient(#686868 0%, #232723 15%, #373837 100%);
+}
+#topRBox{
+	-fx-spacing: 5;
 }
 
 #otherPlayerInfo{
-	-fx-background-color: #DDDDDD;
+	-fx-padding: 10;
+	-fx-spacing: 20;
+	-fx-background-image: url("../pics/bricks.jpg");
+	-fx-background-repeat: repeat;   
+    -fx-background-size: 100 100;
+    -fx-background-position: center center;
+    -fx-padding: 5 10 5 10;
 }
 
 #playingArea{
 	-fx-background-color: #EEEEEE;
-
-	
 }
-
-.playerName{
-	-fx-padding: 0 0 0 5;	
+#playerInfo{
+	-fx-padding: 10;
+	-fx-border-radius: 0 0 10 10;
+  	-fx-background-radius: 0 0 10 10;
 }

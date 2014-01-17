@@ -5,7 +5,7 @@ import java.util.Random;
 public class Die extends GamePiece{
 	private int value;
 	
-	Die(){
+	public Die(){
 		roll();
 	}
 	
@@ -13,7 +13,7 @@ public class Die extends GamePiece{
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((6 - 1) + 1) + 1;
 		setValue(randomNumber);
-		//setImage("..//dieFace"+value+".jpg");
+		setImage("view/com/assets/pics/die/die"+value+".png");
 		return randomNumber;
 	}
 	
