@@ -27,6 +27,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import jfxtras.labs.scene.control.BeanPathAdapter;
+import model.com.game.Game;
 
 public class GameScreen {
 	
@@ -64,7 +66,7 @@ public class GameScreen {
 						"Random Event Phase", "Movement Phase", "Combat Phase", "Construction Phase",
 						"Special Powers Phase", "Changing Player Order"};
 	
-	
+	Label playerLbl;
 	// for now
 	Die die1 = new Die();
 	Die die2 = new Die();
@@ -266,7 +268,7 @@ public class GameScreen {
 	}
 	
 	public void paintPlayerName(final String name, Color c, Pane pane){
-		Label playerLbl = new Label("Sir "+name);
+		playerLbl = new Label("Sir "+name);
 		playerLbl.getStyleClass().add("playerName"); 
 		Circle circle = new Circle();
 		circle.setRadius(6);
@@ -446,4 +448,11 @@ public class GameScreen {
 		paintHexInDetails();
 	}
 	
+	
+	//TODO Consider passing adapter to constructor in Main instead
+	// Changes in the singleton game instance are automatically reflected here.
+	public void setBindings(BeanPathAdapter<Game> adapter) {
+	    // Bind player label => game.getPlayer().getName()
+	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
+	}
 }
