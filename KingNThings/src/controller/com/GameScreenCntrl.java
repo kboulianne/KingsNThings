@@ -1,35 +1,36 @@
 package controller.com;
 
-import controller.com.game.GameController;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import com.services.game.GameService;
+import javafx.application.Platform;
+import jfxtras.labs.scene.control.BeanPathAdapter;
+import model.com.game.Game;
+import view.com.GameScreen;
 
 public class GameScreenCntrl {
-
-    /** 
-     *	Delegate game actions/events to the GameController. 
-     *	This controller is responsible for handling UI actions
-     *  only.
-     */
-    private GameController gameCtrl;
     
-    public GameScreenCntrl() {
-	gameCtrl = new GameController();
+    private final GameScreen view;
+    private Game game;
+    
+
+    GameScreenCntrl(GameScreen view) {
+	this.view = view;
+	
+	game = GameService.getInstance().getGame();
     }
-    
-	public GameScreenCntrl(Button button) {
-		// TODO Auto-generated constructor stub
-		
-		button.setOnAction(new EventHandler<ActionEvent>() {	
-			@Override
-			public void handle(ActionEvent arg0) {
-			    // i.e.
-			    // gameCtrl.doStuff(...);
-			}
-		});
-	}
 
+    void initialize() {
+	// Show view
+	view.show();
 	
+	// Bind to the game instance which is managed by the GameController
+	Platform.runLater(new Runnable() {
+
+	    @Override
+	    public void run() {
+		view.setBindings(new BeanPathAdapter<>(game));
+	    }
+	});
 	
+    }
+
 }

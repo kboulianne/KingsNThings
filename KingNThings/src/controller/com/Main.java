@@ -12,6 +12,9 @@ public class Main extends Application{
 	static final double HEIGHT = 600;
 	public static Stage stage;
 	
+	
+
+	
 	public static void main(String[] args){
 		launch(args);
 	}
@@ -38,8 +41,13 @@ public class Main extends Application{
 		//stage.setMaxWidth(WIDTH);
 		//stage.setFullScreen(true);
 		//new StartScreen().show();
+
+//		view.show(); //temporary
 		
-		new GameScreen().show(); //temporary
+	    GameScreen view = new GameScreen();
+	// Model is taken from GameService
+	    GameScreenCntrl ctrl = new GameScreenCntrl(view);
+	    ctrl.initialize();
 	}
 	
 	public static Stage getStage() {

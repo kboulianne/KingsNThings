@@ -23,7 +23,13 @@
     -fx-border-radius: 15 15 15 15;
   	-fx-background-radius: 15 15 15 15;
 }
+.thing{
+	-fx-cursor: hand;
+}
 
+.block{
+	-fx-spacing: 5;
+}
 
 
 #gameStatus{
@@ -54,4 +60,5 @@
 	-fx-padding: 10;
 	-fx-border-radius: 0 0 10 10;
   	-fx-background-radius: 0 0 10 10;
+  	-fx-spacing: 5;
 }
