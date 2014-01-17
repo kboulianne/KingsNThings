@@ -54,11 +54,11 @@ public class GameScreen {
 			{5.0,5.0},{5.0,7.0},{4.0,8.0},{3.0,9.0},{2.0,8.0},{1.0,7.0},{1.0,5.0},{1.0,3.0}
 	};
         // For now
-	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/desert.png");
+	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/tiles/sea.png");
 	//GameScreen.class.getResourceAsStream("icon.png"));//
 	
 	String[] gamePhases = {"Gold Collection","Recruiting Characters", "Recruiting Things",
-						"Randon Event Phase", "Movement Phase", "Combat Phase", "Construction Phase",
+						"Random Event Phase", "Movement Phase", "Combat Phase", "Construction Phase",
 						"Special Powers Phase", "Changing Player Order"};
 	
 	
