@@ -6,10 +6,14 @@
 
 package model.com.game;
 
+import java.util.List;
+import model.com.Player;
+
 /**
  *
  * @author kurtis
  */
 public class Game {
     // Game state
+    private List<Player> players;
 }
