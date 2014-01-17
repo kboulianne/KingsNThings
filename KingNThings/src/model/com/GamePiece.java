@@ -4,7 +4,23 @@ import javafx.scene.image.Image;
 
 public abstract class GamePiece {
 	Image image;
-
+	String name;
+	
+	GamePiece()	{	}
+	
+	GamePiece(String name)	{
+		setName(name);
+	}
+	
+	// getters and setters
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public void setImage(String directory) {
 		image = new Image(directory);
 	}
