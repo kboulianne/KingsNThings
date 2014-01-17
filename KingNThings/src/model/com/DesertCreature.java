@@ -6,5 +6,4 @@ public class DesertCreature extends Creature	{
 		super(name);
 		setDomain("desert");
 	}
-
 }

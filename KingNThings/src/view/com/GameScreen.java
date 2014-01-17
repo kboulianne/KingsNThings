@@ -362,7 +362,7 @@ public class GameScreen {
 		coloredRect.setArcHeight(20);
 		coloredRect.setFill(Color.GREEN);
 		
-		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/forest/bears.jpeg"));
+		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/bears.jpeg"));
 		img.setFitWidth(thingWidth-7); 
         img.setPreserveRatio(true);
         img.setSmooth(true);
@@ -402,7 +402,7 @@ public class GameScreen {
 	public void paintThingInDetails(){
 		detailsBox.getChildren().clear();
 		
-		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/forest/bears.jpeg"));
+		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/bears.jpeg"));
 		img.setFitWidth(300); 
         img.setPreserveRatio(true);
         img.setSmooth(true);
