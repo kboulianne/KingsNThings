@@ -1,5 +1,7 @@
 package model.com;
 
-public class Block {
+import java.util.List;
 
+public class Block extends GamePiece{
+	List<Thing> listOfThings;
 }
