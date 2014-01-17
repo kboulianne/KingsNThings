@@ -2,6 +2,10 @@ package view.com;
 
 import model.com.Die;
 import controller.com.Main;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.adapter.JavaBeanObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -25,6 +29,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import jfxtras.labs.scene.control.BeanPathAdapter;
+import model.com.Player;
+import model.com.game.Game;
+import view.com.bindings.PlayerViewModel;
 
 public class GameScreen {
 	
@@ -66,6 +74,7 @@ public class GameScreen {
 	Die die2 = new Die();
 	ImageView die1Im;
 	ImageView die2Im;
+    private Label playerLbl;
 	
 	
 	public void show(){
@@ -245,7 +254,10 @@ public class GameScreen {
 	}
 	
 	public void paintPlayerName(final String name, Color c, Pane pane){
-		Label playerLbl = new Label("Sir "+name);
+		playerLbl = new Label("Sir "+name);
+//		playerLbl = new Label();
+		// Unidirectional bind
+//		playerLbl.textProperty().bind(new PlayerViewModel(new Player("TEST")).nameProperty());
 		playerLbl.getStyleClass().add("playerName"); 
 		Circle circle = new Circle();
 		circle.setRadius(6);
@@ -325,5 +337,11 @@ public class GameScreen {
 	
 	public double distanceBtwTwoPts(double x1, double y1, double x2, double y2) {
         return Math.sqrt( (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+	}
+	
+	//TODO Consider passing adapter to constructor in Main instead
+	public void setBindings(BeanPathAdapter<Game> adapter) {
+	    // Bind player label
+	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
 	}
 }
