@@ -130,17 +130,127 @@ public abstract class Creature extends Thing	{
 		combatVals.put("vampirebat", 4);
 		combatVals.put("watersnake", 1);
 		combatVals.put("will-o-wisp", 2);
-		combatVals.put("wingedpiranha", 3);
+		combatVals.put("wingedpirhana", 3);
 	}
+	private static final Set<String> flyingCreat;
+	static	{
+		flyingCreat = new HashSet<String>();
+		flyingCreat.add("wyvern");
+		flyingCreat.add("wingedpirhana");
+		flyingCreat.add("vultures");
+		flyingCreat.add("vampirebat");
+		flyingCreat.add("swampgas");
+		flyingCreat.add("pterodactylwarriors");
+		flyingCreat.add("pterodactyl");
+		flyingCreat.add("pegasus");
+		flyingCreat.add("olddragon");
+		flyingCreat.add("northwind");
+		flyingCreat.add("littleroc");
+		flyingCreat.add("killerpuffins");
+		flyingCreat.add("icebats");
+		flyingCreat.add("griffon");
+		flyingCreat.add("greatowl");
+		flyingCreat.add("greathawk");
+		flyingCreat.add("greateagle");
+		flyingCreat.add("giantwasp");
+		flyingCreat.add("giantwasp1");
+		flyingCreat.add("giantroc");
+		flyingCreat.add("giantmosquito");
+		flyingCreat.add("giantcondor");
+		flyingCreat.add("ghost");
+		flyingCreat.add("flyingsquirrel");
+		flyingCreat.add("flyingsquirrel");
+		flyingCreat.add("flyingbuffalo");
+		flyingCreat.add("eagles");
+		flyingCreat.add("dustdevil");
+		flyingCreat.add("dragonrider");
+		flyingCreat.add("dragonfly");
+		flyingCreat.add("desertbat");
+		flyingCreat.add("darkwizard");
+		flyingCreat.add("buzzard");
+		flyingCreat.add("browndragon");
+		flyingCreat.add("birdofparadise");
+		flyingCreat.add("babydragon");
+	}
+	private static final Set<String> rangedCreat;
+	static	{
+		rangedCreat = new HashSet<String>();
+		rangedCreat.add("tribesmen1");
+		rangedCreat.add("pterodactylwarriors");
+ 		rangedCreat.add("icegiant");
+		rangedCreat.add("hunters");
+		rangedCreat.add("headhunter");
+		rangedCreat.add("greathunter");
+		rangedCreat.add("forester");
+		rangedCreat.add("giant");
+		rangedCreat.add("elves");		
+		rangedCreat.add("elves1");
+		rangedCreat.add("dwarves1");
+		rangedCreat.add("dwarves");
+		rangedCreat.add("dragonrider");
+	}
+	private static final Set<String> chargingCreat;
+	static	{
+		chargingCreat = new HashSet<String>();
+		chargingCreat.add("yellowknight");
+		chargingCreat.add("whiteknight");
+ 		chargingCreat.add("mammoth");
+		chargingCreat.add("greenknight");
+		chargingCreat.add("elephant");
+		chargingCreat.add("dwarves2");
+		chargingCreat.add("brownknight");
+		chargingCreat.add("blackknight");
+	}
+	private static final Set<String> magicCreat;
+	static	{
+		magicCreat = new HashSet<String>();
+		magicCreat.add("witchdoctor");
+		magicCreat.add("will-o-wisp");
+ 		magicCreat.add("whitedragon");
+		magicCreat.add("sprite");
+		magicCreat.add("spirit");
+		magicCreat.add("sphinx");
+		magicCreat.add("olddragon");
+		magicCreat.add("northwind");
+		magicCreat.add("iceworm");		
+		magicCreat.add("gypsies1");
+		magicCreat.add("gypsies");
+		magicCreat.add("genie");
+		magicCreat.add("elfmage");
+		magicCreat.add("dryad");
+		magicCreat.add("druid");
+		magicCreat.add("dervish");
+		magicCreat.add("darkwizard");
+		magicCreat.add("basilisk");
+	}
+	
 	private int combatVal;
 	private String domain;
-
+	private boolean fly;
+	private boolean ranged;
+	private boolean charge;
+	private boolean magic;
+	
 	Creature(String name)	{
 		super(name);
+		
 		//Set combat value to value from map associating creatures with their combat values
 		setCombatVal(combatVals.get(name));
+		
 		//Set image to matching image for creature name
 		setImage("view/com/assets/pics/gamepieces/things/creatures/" + name + ".jpeg");
+		
+		//Set fly boolean
+		setFly(flyingCreat.contains(name));
+		
+		//Set ranged boolean
+		setRanged(rangedCreat.contains(name));
+		
+		//Set charge boolean
+		setCharge(chargingCreat.contains(name));
+		
+		//Set magic boolean
+		setMagic(magicCreat.contains(name));		
 	}
 	
 	//get and set methods
@@ -159,5 +269,38 @@ public abstract class Creature extends Thing	{
 	public void setDomain(String dom)	{
 		this.domain = dom;
 	}
-
+	
+	public boolean getFly()	{
+		return fly;
+	}
+	
+	public void setFly(boolean bool){
+		fly = bool;
+	}
+	
+	public boolean getRanged()	{
+		return ranged;
+	}
+	
+	public void setRanged(boolean bool){
+		ranged = bool;
+	}
+	
+	public boolean getCharge()	{
+		return charge;
+	}
+	
+	public void setCharge(boolean bool){
+		charge = bool;
+	}
+	
+	public boolean getMagic()	{
+		return magic;
+	}
+	
+	public void setMagic(boolean bool){
+		magic = bool;
+	}
+	
+	
 }
