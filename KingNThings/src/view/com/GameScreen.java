@@ -2,10 +2,7 @@ package view.com;
 
 import model.com.Die;
 import controller.com.Main;
-import javafx.beans.binding.StringBinding;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.property.adapter.JavaBeanObjectProperty;
+import controller.com.Util;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -28,14 +25,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import jfxtras.labs.scene.control.BeanPathAdapter;
-import model.com.Player;
-import model.com.game.Game;
 
 public class GameScreen {
 	
 	Canvas playingArea;
+	StackPane rootStackPane;
+	VBox detailsBox;
 	
 	String currentPlayersName = "Frank";
 	String otherPlayerName1 = "Joe";
@@ -46,10 +43,10 @@ public class GameScreen {
 	static final double HEX_HEIGHT = HEX_WIDTH *0.8;
 	double[][] hexCenterPoints;
 	double[][] choosenMapping;
-	
-	StackPane rootStackPane;
-	
+		
 	int lastHexSelected = -1;
+	Rectangle lastThingRect = null;
+	
 	static final double[][] MAPPING_37_TILES = new double[][]{{4.0,7.0},{4.0,5.0},{5.0,6.0},{5.0,8.0},{4.0,9.0},
 			{3.0,8.0},{3.0,6.0},{3.0,4.0},{4.0,3.0},{5.0,4.0},{6.0,5.0},{6.0,7.0},{6.0,9.0},
 			{5.0,10.0},{4.0,11.0},{3.0,10.0},{2.0,9.0},{2.0,7.0},{2.0,5.0},{2.0,3.0},{3.0,2.0},
@@ -61,19 +58,18 @@ public class GameScreen {
 			{5.0,5.0},{5.0,7.0},{4.0,8.0},{3.0,9.0},{2.0,8.0},{1.0,7.0},{1.0,5.0},{1.0,3.0}
 	};
         // For now
-	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/tiles/sea.png");
-	//GameScreen.class.getResourceAsStream("icon.png"));//
+	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/tiles/desert.png");
 	
 	String[] gamePhases = {"Gold Collection","Recruiting Characters", "Recruiting Things",
 						"Random Event Phase", "Movement Phase", "Combat Phase", "Construction Phase",
 						"Special Powers Phase", "Changing Player Order"};
 	
 	
+	// for now
 	Die die1 = new Die();
 	Die die2 = new Die();
 	ImageView die1Im;
 	ImageView die2Im;
-    private Label playerLbl;
 	
 	
 	public void show(){
@@ -81,8 +77,6 @@ public class GameScreen {
 		//GameStatus
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
-		
-		
 		
 		final Label turn = new Label("Sir "+otherPlayerName3+"'s Turn: Roll Dice");
 		turn.getStyleClass().add("title");
@@ -118,14 +112,15 @@ public class GameScreen {
 		paintPlayerName(otherPlayerName1, Color.YELLOW, otherPlayerInfo);
 		paintPlayerName(otherPlayerName2, Color.RED, otherPlayerInfo);
 		paintPlayerName(otherPlayerName3, Color.BLUE, otherPlayerInfo);
+		otherPlayerInfo.setAlignment(Pos.TOP_CENTER);
 		
 		//Canvas
-		playingArea = new Canvas(900,HEX_HEIGHT*7.4);
+		playingArea = new Canvas(1280*0.5-10,HEX_HEIGHT*7.2);
 		playingArea.setId("playingArea");
 		playingArea.getStyleClass().add("border");
 		
 		ScrollPane sp = new ScrollPane();
-		sp.setPrefSize(900, HEX_HEIGHT*8);
+		sp.setPrefSize(1280*0.5, HEX_HEIGHT*8);
 		sp.setContent(playingArea);
 		
 		// drawing on canvas
@@ -136,23 +131,40 @@ public class GameScreen {
 		hexCenterPoints = new double[choosenMapping.length][2];
 		
 		for(int i = 0; i<choosenMapping.length;i++){
-			double xOffset = choosenMapping[i][0]*0.75*HEX_WIDTH-50.0;
-			double yOffset = choosenMapping[i][1]*0.5*HEX_HEIGHT-25.0;
+			double xOffset = choosenMapping[i][0]*0.75*HEX_WIDTH-40.0;
+			double yOffset = choosenMapping[i][1]*0.5*HEX_HEIGHT-30.0;
 			hexCenterPoints[i][0]=xOffset+(HEX_WIDTH*0.5);
 			hexCenterPoints[i][1]=yOffset+(HEX_HEIGHT*0.5);
 			paintHex(i,Color.DARKGRAY);
 		}
 		
+		detailsBox = new VBox(); 
+		detailsBox.setAlignment(Pos.CENTER);
+		detailsBox.getStyleClass().add("border");
+		detailsBox.setMinHeight(HEX_HEIGHT*7);
+		
+		
+		VBox sidePane = new VBox();
+		sidePane.setMinWidth(1280*0.5-20);
+		sidePane.getChildren().addAll(otherPlayerInfo, detailsBox);
+		
+		HBox centerBox = new HBox();
+		centerBox.getChildren().addAll(sp,sidePane);
+		
 		// Player Info
 		HBox playerInfo = new HBox();
 		playerInfo.setId("playerInfo");
 		paintPlayerName(currentPlayersName, Color.GREEN, playerInfo);
+		//Label blockLbl= new Label("Block:");
+		//playerInfo.getChildren().add(blockLbl);
+		for(int i =0; i<7;i++)
+			paintThing(i, playerInfo);
+
 		
         
 		VBox rootVBox = new VBox();
-		
 		rootVBox.getStyleClass().add("border");
-		rootVBox.getChildren().addAll(gameStatus, otherPlayerInfo, sp, playerInfo);
+		rootVBox.getChildren().addAll(gameStatus, centerBox, playerInfo);
 		rootVBox.setAlignment(Pos.TOP_CENTER);
 		
 		rootStackPane = new StackPane();
@@ -169,14 +181,14 @@ public class GameScreen {
 		
 		//new GameScreenCntrl(playingArea, button);
 		
-		
+		// to be moved to controller
 		playingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				double clickPtX = event.getX();
 				double clickPtY = event.getY();
 				for(int i = 0; i<hexCenterPoints.length;i++){
-					if(distanceBtwTwoPts(clickPtX, clickPtY, hexCenterPoints[i][0], hexCenterPoints[i][1] )<HEX_WIDTH*0.30){
+					if(Util.distanceBtwTwoPts(clickPtX, clickPtY, hexCenterPoints[i][0], hexCenterPoints[i][1] )<HEX_WIDTH*0.30){
 						onHexSelected(i);
 						return;
 					}
@@ -202,10 +214,6 @@ public class GameScreen {
 				die1Im.setImage(die1.getImage());
 				die2.roll();
 				die2Im.setImage(die2.getImage());
-				
-				// TESTING ============================
-				// CHanges the textProperty to simulate model change in Game instance
-				playerLbl.textProperty().set("Jake");
 			}
 		});
 	}
@@ -250,6 +258,7 @@ public class GameScreen {
 			button.setOnAction(new EventHandler<ActionEvent>() {		
 				@Override
 				public void handle(ActionEvent arg0) {
+					dismissPopup();
 					rootStackPane.getChildren().remove(popupVbox);
 				}
 			});
@@ -257,10 +266,7 @@ public class GameScreen {
 	}
 	
 	public void paintPlayerName(final String name, Color c, Pane pane){
-		playerLbl = new Label("Sir "+name);
-//		playerLbl = new Label();
-		// Unidirectional bind
-//		playerLbl.textProperty().bind(new PlayerViewModel(new Player("TEST")).nameProperty());
+		Label playerLbl = new Label("Sir "+name);
 		playerLbl.getStyleClass().add("playerName"); 
 		Circle circle = new Circle();
 		circle.setRadius(6);
@@ -300,8 +306,8 @@ public class GameScreen {
 		
 		double height = HEX_HEIGHT;
 		
-		double xOffset = choosenMapping[id][0]*0.75*HEX_WIDTH-50.0; //50 move whole grid
-		double yOffset = choosenMapping[id][1]*0.5*height-25.0; //25 moves whole grid
+		double xOffset = choosenMapping[id][0]*0.75*HEX_WIDTH-40.0; //40 move whole grid
+		double yOffset = choosenMapping[id][1]*0.5*height-30.0; //30 moves whole grid
 		//gc.fillOval(xOffset, yOffset, xOffset+200, yOffset+200);
 		
 		//outer polygon
@@ -329,22 +335,115 @@ public class GameScreen {
 		
 	}
 	
-	public void onHexSelected(int id){
+	public void paintThing(int blockIndex, final HBox node){
 		
+		double thingWidth = 75;
+		
+		StackPane stack = new StackPane();
+		
+		Rectangle borderRect = new Rectangle();
+		borderRect.setX(0);
+		borderRect.setY(0);
+		borderRect.setWidth(thingWidth);
+		borderRect.setHeight(thingWidth);
+		borderRect.setArcWidth(20);
+		borderRect.setArcHeight(20);
+		
+		borderRect.setFill(Color.WHITE);
+		
+		final Rectangle coloredRect = new Rectangle();
+		coloredRect.setX(0);
+		coloredRect.setY(0);
+		coloredRect.setWidth(thingWidth-1);
+		coloredRect.setHeight(thingWidth-1);
+		coloredRect.setArcWidth(20);
+		coloredRect.setArcHeight(20);
+		coloredRect.setFill(Color.GREEN);
+		
+		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/forest/bears.jpeg"));
+		img.setFitWidth(thingWidth-7); 
+        img.setPreserveRatio(true);
+        img.setSmooth(true);
+        img.setCache(true);
+        img.getStyleClass().add("thing");
+       
+		
+		stack.getChildren().addAll(borderRect, coloredRect, img);
+		
+		
+		//lastThingIndexSelected= node.getChildren().size();
+		node.getChildren().add(stack);
+		
+		
+		img.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event arg0) {
+				// TODO Auto-generated method stub
+				if (lastThingRect != null){
+					lastThingRect.setFill(Color.GREEN);
+					//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
+				}
+				if (lastHexSelected != -1){
+					paintHex(lastHexSelected,Color.DARKGRAY);
+				}
+				lastThingRect = coloredRect;
+				paintThingInDetails();
+				coloredRect.setFill(Color.WHITE);
+			}
+		});
+		
+		
+		
+	}
+	
+	public void paintThingInDetails(){
+		detailsBox.getChildren().clear();
+		
+		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/forest/bears.jpeg"));
+		img.setFitWidth(300); 
+        img.setPreserveRatio(true);
+        img.setSmooth(true);
+        img.setCache(true);
+		
+		Label name = new Label("Bear");
+		Label type = new Label("Forest");
+		Label owner = new Label(currentPlayersName);
+		
+		detailsBox.getChildren().addAll(img, name, type, owner);
+		
+		
+	}
+	
+	public void paintHexInDetails(){
+		detailsBox.getChildren().clear();
+		
+		ImageView img = new ImageView(HEX_IMAGE);
+		img.setFitWidth(300); 
+        img.setPreserveRatio(true);
+        img.setSmooth(true);
+        img.setCache(true);
+		
+		Label name = new Label("Desert");
+		//Label type = new Label("Forest");
+		Label owner = new Label("Not Owned");
+		
+		detailsBox.getChildren().addAll(img, name, owner);
+	}
+	
+	
+	
+	public void onHexSelected(int id){
+		if (lastThingRect != null){
+			lastThingRect.setFill(Color.GREEN);
+			//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
+		}
 		if (lastHexSelected != -1){
 			paintHex(lastHexSelected,Color.DARKGRAY);
 		}
 		lastHexSelected = id;
 		paintHex(id,Color.WHITE);
+		paintHexInDetails();
 	}
 	
-	public double distanceBtwTwoPts(double x1, double y1, double x2, double y2) {
-        return Math.sqrt( (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
-	}
-	
-	//TODO Consider passing adapter to constructor in Main instead
-	public void setBindings(BeanPathAdapter<Game> adapter) {
-	    // Bind player label
-	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
-	}
 }
