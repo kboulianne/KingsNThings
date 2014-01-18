@@ -71,32 +71,32 @@ public class GameService {
     
     // Test methods
     private void test_CreatePlayer() {
-	game.setPlayer(new Player("Bob"));
+	game.setPlayer(new Player(Player.PlayerId.ONE, "Bob"));
 	game.setCurrent(game.getPlayer());
     }
     private List<Player> test_CreateOpponents() {
 	LinkedList<Player> players = new LinkedList<>();
 	
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	players.add(new Player(Player.PlayerId.TWO,"Frank"));
 	players.add(new Player(Player.PlayerId.THREE,"Joe"));
 	players.add(new Player(Player.PlayerId.FOUR,"Roxanne"));
-=======
-	game.setOpponent1(new Player("Frank"));
-	game.setOpponent2(new Player("Joe"));
-	game.setOpponent3(new Player("Roxanne"));
->>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
+//=======
+	game.setOpponent1(new Player(Player.PlayerId.TWO,"Frank"));
+	game.setOpponent2(new Player(Player.PlayerId.THREE,"Joe"));
+	game.setOpponent3(new Player(Player.PlayerId.FOUR,"Roxanne"));
+//>>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
 	
 	return players;
     }
     
-<<<<<<< HEAD
-    private Player test_CreatePlayer() {
+//<<<<<<< HEAD
+    private Player test_CreatePlayer2() {
 	return new Player(Player.PlayerId.ONE,"Bob");
     }
     
-=======
->>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
+//=======
+//>>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
     //TODO should not expose this, allows service bypassing.
     public Game getGame() {
 	return game;
