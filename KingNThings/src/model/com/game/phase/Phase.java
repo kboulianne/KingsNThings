@@ -7,19 +7,28 @@
 package model.com.game.phase;
 
 /**
- *
+ *  The Context class in the Strategy Pattern.
  * @author kurtis
  */
-public abstract class Phase {
+//TODO make final
+public class Phase {
     private String name;
+    private IPhaseStrategy behaviour;
     
     protected Phase(final String name) {
 	this.name = name;
     }
-    
-    public final void doPhase() {
+
+    public Phase() {
 	
     }
+   
+    public final void setBehaviour(IPhaseStrategy behave) {
+	behaviour = behave;
+    }
     
+    public final IPhaseStrategy getBehaviour() {
+	return behaviour;
+    }
 //    public abstract void doRoll();
 }

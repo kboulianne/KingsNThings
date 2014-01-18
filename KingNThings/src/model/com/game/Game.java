@@ -9,7 +9,9 @@ import model.com.Board;
 import model.com.Die;
 import model.com.Hex;
 import model.com.Player;
+import model.com.game.phase.IPhaseStrategy;
 import model.com.game.phase.Phase;
+import model.com.game.phase.init.StartPosPhase;
 
 /** Main entry point for the game logic.
  *
@@ -33,23 +35,26 @@ public final class Game {
     public static final int 
 	    MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
-    
-    private Set<Phase> initPhases;
+    private Phase currentPhase;
+    private Set<IPhaseStrategy> initPhases;
     
     // Constructors & Initializer Methods ==============================================================================
     /**
      *	Creates a new Game instance defaulting to Four player mode.
      */
+    //TODO not supposed to expose this (make protected?)
     public Game() {
 	mode = MODE_FOUR_PLAYER;
-	
-	// TODO: Factory for 2 or 4 player.
-	board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 	
 	// Initialize the dice
 	die1 = new Die();
 	die2 = new Die();
 	
+	currentPhase = new Phase();
+	createInitPhases();
+	
+	// TODO: Factory for 2 or 4 player.
+	board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 	initializeBoard();
     }
     
@@ -88,7 +93,7 @@ public final class Game {
 	    rand = rnd.nextInt(hexPool.size());
 	    
 	    // Add hex to position i in board hex array.
-	    board.setHex(hexPool.get(rand), i);
+	    board.addHex(hexPool.get(rand));
 	    System.out.println("Picked: " + hexPool.get(rand).getType());
 	    
 	    hexPool.remove(rand);
@@ -176,6 +181,18 @@ public final class Game {
     }
     
     /**
+     * Gets the phase that the players must currently go through.
+     * @return The current phase.
+     */
+    public final Phase getPhase() { return currentPhase; }
+    
+    /**
+     * Sets the new phase that the players will go through.
+     * @param phase The phase
+     */
+    public final void setPhase(final Phase phase) { this.currentPhase = phase; }
+    
+    /**
      * Gets the first opponent.
      * @return The opponent.
      */
@@ -223,14 +240,29 @@ public final class Game {
 	die2.roll();
     }
     
+    public final void nextPhase() {
+	// Simply change the behaviour of the phase.
+	
+	// TODO Avoid using instanceof
+	// Starting Pos Phase.
+//	if (phase. instanceof StartPosPhase)
+	
+	// Keep an iterator and reset it when reaches the end of set?
+    }
     
     public final void selectStartPosition(final Hex start) {
-	// Make sure the current phase is StartPosPhase
+	// Make sure the current phase is StartPosPhase then execute to update game.
+	
+	if (currentPhase.getBehaviour() instanceof StartPosPhase) {
+	    //FIXME why doesn't the execute parameter take Hex? It takes Object
+	    currentPhase.getBehaviour().execute(start);
+	}
     }
     
     private void createInitPhases() {
 	initPhases = new LinkedHashSet<>();
 	
-	
+	// Create the IPhaseStrategies in order (LinkedSet)
+	initPhases.add(new StartPosPhase());
     }
 }

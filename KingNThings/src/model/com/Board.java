@@ -1,17 +1,31 @@
 package model.com;
 
 // Need board method factory that creates two and three player verson, or four player version
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class Board {
 	Cup cup;
-//	Die[] dice;
 	private int numOfHexes;
-	private Hex[] hexArray;
+	private List<Hex> hexes;
 	/** Tiles are drawn face down until players select start
 	 *  positions.
 	 */
 	private boolean faceDown;
 	// Four player starting positions, in hexArray
-	int[] startPositions = new int[] {19, 23, 28, 32};
+//	int[] startPositions = new int[] {19, 23, 28, 32};
+	private static final Set<Integer> startPositions;
+
+	static {
+	    // Initialize start positions
+	    startPositions = new HashSet<>(Arrays.asList(new Integer[] {
+		19, 23, 28, 32
+	    }));
+	}
 
 	public enum NumberOfHexes { THIRTY_SEVEN(37), NINETEEN(19); 
 		private final int numberOfHexes;
@@ -24,29 +38,20 @@ public class Board {
 	    faceDown = true;
 	    cup = new Cup();
 	    numOfHexes = nOH.numberOfHexes;
-//	    dice = new Die[2];
-//	    dice[0] = new Die();
-//	    dice[1] = new Die();
-	    hexArray = new Hex[numOfHexes];
+	    hexes = new ArrayList<>();
+	    
 	}
 	
 	public int getHexNum() {
 	    return numOfHexes;
 	}
 	
-
-	
-	public void setupTiles(NumberOfHexes numOfH){
-		numOfHexes = numOfH.numberOfHexes;
-		hexArray = new Hex[numOfHexes];
-		
-		//factory = new HexFactory()
-		// factory.createHex(DESERT_HEX)
-		// or
-		// 
+	public void addHex(final Hex hex) {
+	    hexes.add(hex);
 	}
-	public void setHex(Hex hex, int index) {
-	    hexArray[index] = hex;
+	
+	public List<Hex> getHexes() {
+	    return hexes;
 	}
 	
 	public final void setFaceDown(final boolean b) {
@@ -56,6 +61,10 @@ public class Board {
 	public final boolean isFaceDown() {
 	    return faceDown;
 	}
+	
+    public final boolean isValidStartPosition(final Hex hex) {
+	return startPositions.contains(hexes.indexOf(hex));
+    }
 	
 //	public void setupTiles(int numOfH){
 //		numOfHexes = numOfH;

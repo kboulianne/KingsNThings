@@ -3,6 +3,8 @@ package controller.com;
 import com.services.game.GameService;
 import javafx.application.Platform;
 import jfxtras.labs.scene.control.BeanPathAdapter;
+import model.com.Hex;
+import model.com.game.Game;
 import view.com.GameScreen;
 
 public class GameScreenCntrl {
@@ -38,6 +40,13 @@ public class GameScreenCntrl {
 	// or can have 1 handler and use Strategy Pattern? or Template Method Pattern?
 	// Or multiple Event handlers and filter out according to Phase instance.
 	// Can use data binding to specify eventhandlers?
+	
+	// For testing
+	Hex hex = service.getGame().getBoard().getHexes().get(19);
+	
+	// Check if valid start position
+	if (service.getGame().getBoard().isValidStartPosition(hex))
+	    service.getGame().selectStartPosition(hex);
     }
 }
 
