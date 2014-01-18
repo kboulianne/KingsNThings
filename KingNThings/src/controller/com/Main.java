@@ -1,10 +1,16 @@
 package controller.com;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import model.com.Board;
+import model.com.Player;
 import view.com.GameScreen;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application{
 	
@@ -33,6 +39,10 @@ public class Main extends Application{
 		stage.setTitle("Kings & Things");
 		stage.setMinHeight(HEIGHT);
 		stage.setMinWidth(WIDTH);
+		stage.initStyle(StageStyle.DECORATED);
+		stage.setResizable(false);
+		stage.setFullScreen(false);
+		
 		
 		//stage.setIconified(true);
 		//stage.getIcons().
@@ -43,6 +53,33 @@ public class Main extends Application{
 		//new StartScreen().show();
 
 //		view.show(); //temporary
+		
+		/*// rough init 
+		//create players as they join the game
+		Player player1 = new Player(Player.PlayerId.ONE, "Paul McCartney");
+		Player player2 = new Player(Player.PlayerId.TWO, "Bill Gates");
+		Player player3 = new Player(Player.PlayerId.THREE, "Mick Jagger");
+		Player player4 = new Player(Player.PlayerId.FOUR, "Sean Connery");
+		List<Player> playerList = new ArrayList<Player>();
+		playerList.add(player1);
+		playerList.add(player2);
+		playerList.add(player3);
+		playerList.add(player4);
+		
+		// one for each application?
+		Board board = new Board();
+		int numOfPlayers = playerList.size();
+        if(numOfPlayers == 4){
+        	board.setupTiles(Board.NumberOfHexes.THIRTY_SEVEN);
+		}else if(numOfPlayers == 2||numOfPlayers == 3){
+			board.setupTiles(Board.NumberOfHexes.NINETEEN);
+		}else{
+			Util.log("Board Setup Failure: wrong number of players");
+		}
+		
+        //Game game = new Game(currentPlayer, board, playerList);
+        	
+		// done init */
 		
 	    GameScreen view = new GameScreen();
 	    // Model is taken from GameService
