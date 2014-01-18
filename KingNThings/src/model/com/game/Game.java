@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package model.com.game;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import model.com.Board;
@@ -20,7 +13,7 @@ import model.com.game.phase.Phase;
  *
  * @author kurtis
  */
-public class Game {
+public final class Game {
     // Simplifies databinding.
     private Player opponent1;
     private Player opponent2;
@@ -29,43 +22,52 @@ public class Game {
     private Player player;
     /** The player who's is currently playing his/her turn. */
     private Player current;
+    /** The game board representing hex tiles and all their contents. */
     private Board board;
     // Easier for data binding.
     private Die die1;
     private Die die2;
     private int mode;
-    public static final int MODE_FOUR_PLAYER = 1,
+    public static final int 
+	    MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
     
     private List<Phase> initPhases;
     
+    // Constructors & Initializer Methods ==============================================================================
+    /**
+     *	Creates a new Game instance defaulting to Four player mode.
+     */
     public Game() {
 	mode = MODE_FOUR_PLAYER;
 	
-	// TODO: Factory for 2 or 4 player.
+	// TODO: Factory for 2 or 4 player mode.
 	board = new Board();
 	
 	// Initialize the dice
 	die1 = new Die();
 	die2 = new Die();
+	
+	initializeBoard();
     }
     
     /**
      * Initialization logic for the game board.
      */
     private void initializeBoard() {
-
-	// Create hexes, all face down. Ui handles placement.
-	// Hex pool to choose tile from.
+	/* Create all hex instances. The board determines if they are face down or up.  Put all instances in a pool so
+	 * they can be picked and assigned at random.
+	 * 
+	 */
 	List<Hex> hexPool = new ArrayList<>();
-	// 48 tiles. Need to "set aside" 4 sea hexes, distribute rest
-	// randomly
+	// 48 tiles. Need to "set aside" 4 sea hexes, distribute rest randomly
 	// Sea hexes
 	for (int i = 0 ; i < 4 ; i ++) {
 	    hexPool.add(new Hex(Hex.SEA));
 	}
 	
-	// Others (Should be 44 tiles instead of 42?)
+	// Others
+	// TODO: Should be 44 tiles instead of 42?
 	for (int i = 0 ; i < 6 ; i ++) {
 	    hexPool.add(new Hex(Hex.DESERT));
 	    hexPool.add(new Hex(Hex.FOREST));
@@ -92,6 +94,125 @@ public class Game {
 	
     }
     
+    // Getters and Setters =============================================================================================
+    /**
+     *	Gets the player owning this Game instance. (Player "playing" this game)
+     * @return The player
+     */
+    public final Player getPlayer() { return player; }
+
+    /**
+     *	Sets the player owning this instance of the Game.
+     * @param player The player to set.
+     */
+    public void setPlayer(final Player player) { this.player = player; }
+    
+    /**
+     *	Gets the Player which is currently executing their turn.
+     * @return The current player.
+     */
+    public final Player getCurrent() { return current; }
+    
+    /**
+     *	Sets the Player which is currently executing their turn.
+     * @param current  The new player to set.
+     */
+    public final void setCurrent(final Player current) { this.current = current; }
+
+    /**
+     *	Gets the first die instance.
+     * @return The die.
+     */
+    public final Die getDie1() { return die1; }
+    
+    /**
+     * Sets the first die instance.
+     * @param die The new die.
+     */
+    public final void setDie1(final Die die) { this.die1 = die; }
+    
+    /**
+     * Gets the second die instance.
+     * @return The die.
+     */
+    public final Die getDie2() { return die2; }
+    
+    /**
+     * Sets the second die instance.
+     * @param die The new die.
+     */
+    public final void setDie2(final Die die) { die2 = die; }
+
+    /**
+     * Gets the board instance for this Game.
+     * @return The board.
+     */
+    public final Board getBoard() { return board; }
+
+    /**
+     * Sets the new board instance for this Game.
+     * @param board The new Board.
+     */
+    public final void setBoard(final Board board) { this.board = board; }
+
+    /**
+     * Gets the current play mode.
+     * <pre>
+     * Either MODE_FOUR_PLAYER (default) or MODE_TWO_THREE_PLAYER.
+     * </pre>
+     * @return The play mode.
+     */
+    public final int getMode() { return mode; }
+
+    /**
+     * Sets the current play mode.
+     * @param mode The new mode to set.
+     */
+    public final void setMode(final int mode) {
+	if (mode == MODE_TWO_THREE_PLAYER || mode == MODE_FOUR_PLAYER)
+	    this.mode = mode;
+    }
+    
+    /**
+     * Gets the first opponent.
+     * @return The opponent.
+     */
+    public final Player getOpponent1() { return opponent1; }
+
+    /**
+     * Sets the first opponent instance.
+     * @param opponent1 The new opponent.
+     */
+    public final void setOpponent1(final Player opponent1) { this.opponent1 = opponent1; }
+
+    /**
+     * Gets the second opponent.
+     * @return The opponent.
+     */
+    public final Player getOpponent2() { return opponent2; }
+
+    /**
+     * Sets the second opponent instance.
+     * @param opponent2 The new opponent.
+     */
+    public final void setOpponent2(final Player opponent2) { this.opponent2 = opponent2; }
+
+    /**
+     * Gets the third opponent.
+     * @return The opponent.
+     */
+    public final Player getOpponent3() { return opponent3; }
+
+    /**
+     * Sets the third opponent instance.
+     * @param opponent3 The new opponent.
+     */
+    public void setOpponent3(Player opponent3) { this.opponent3 = opponent3; }
+    
+       
+    
+    
+    
     /**
      * Rolls the dice and notifies the server.
      */
@@ -104,77 +225,5 @@ public class Game {
 	initPhases = new ArrayList<>();
 	
 	
-    }
-    
-    public final Player getPlayer() {
-	return player;
-    }
-
-    public void setPlayer(final Player player) {
-	this.player = player;
-    }
-    
-    public Player getCurrent() {
-	return current;
-    }
-    
-    public void setCurrent(final Player current) {
-	this.current = current;
-    }
-    
-    public Die getDie1() {
-	return die1;
-    }
-    
-    public final void setDie1(final Die die) {
-	this.die1 = die;
-    }
-    
-    public Die getDie2() {
-	return die2;
-    }
-    
-    public final void setDie2(final Die die) {
-	die2 = die;
-    }
-
-    public Board getBoard() {
-	    return board;
-    }
-
-    public void setBoard(Board board) {
-	    this.board = board;
-    }
-
-    public int getMode() {
-	    return mode;
-    }
-
-    public final void setMode(int mode) {
-	    this.mode = mode;
-    }
-    
-    public Player getOpponent1() {
-	return opponent1;
-    }
-
-    public void setOpponent1(Player opponent1) {
-	this.opponent1 = opponent1;
-    }
-
-    public Player getOpponent2() {
-	return opponent2;
-    }
-
-    public void setOpponent2(Player opponent2) {
-	this.opponent2 = opponent2;
-    }
-
-    public Player getOpponent3() {
-	return opponent3;
-    }
-
-    public void setOpponent3(Player opponent3) {
-	this.opponent3 = opponent3;
     }
 }
