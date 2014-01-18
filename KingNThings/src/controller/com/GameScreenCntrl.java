@@ -32,6 +32,10 @@ public class GameScreenCntrl {
     public void rollDice() {
 	service.getGame().rollDice();
     }
+    
+    public void selectStartPosition() {
+	
+    }
 }
 
 

@@ -12,8 +12,7 @@ public class Board {
 	private boolean faceDown;
 	// Four player starting positions, in hexArray
 	int[] startPositions = new int[] {19, 23, 28, 32};
-	
-//<<<<<<< HEAD
+
 	public enum NumberOfHexes { THIRTY_SEVEN(37), NINETEEN(19); 
 		private final int numberOfHexes;
 		NumberOfHexes(int i) {
@@ -21,7 +20,6 @@ public class Board {
 		}
 	}
 	
-///=======
 	public Board(NumberOfHexes nOH){
 	    faceDown = true;
 	    cup = new Cup();
@@ -31,13 +29,11 @@ public class Board {
 //	    dice[1] = new Die();
 	    hexArray = new Hex[numOfHexes];
 	}
-//>>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
 	
 	public int getHexNum() {
 	    return numOfHexes;
 	}
 	
-//<<<<<<< HEAD
 
 	
 	public void setupTiles(NumberOfHexes numOfH){
@@ -49,14 +45,12 @@ public class Board {
 		// or
 		// 
 	}
-//=======
 	public void setHex(Hex hex, int index) {
 	    hexArray[index] = hex;
 	}
 	
 	public final void setFaceDown(final boolean b) {
 	    faceDown = b;
-//>>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
 	}
 	
 	public final boolean isFaceDown() {

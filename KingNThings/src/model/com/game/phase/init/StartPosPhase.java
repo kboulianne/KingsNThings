@@ -14,15 +14,15 @@ import model.com.game.phase.Phase;
  *
  * @author kurtis
  */
-public class StartPosPhase extends Phase implements HexInput {
+public class StartPosPhase extends Phase /*implements HexInput*/ {
 
     public StartPosPhase() {
 	super("Starting Positions");
     }
     
-    @Override
-    public void execute(final Hex hex) {
-	
-    }
+//    @Override
+//    public void execute(final Hex hex) {
+//	
+//    }
     
 }

@@ -1,8 +1,10 @@
 package model.com.game;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import model.com.Board;
 import model.com.Die;
 import model.com.Hex;
@@ -32,7 +34,7 @@ public final class Game {
 	    MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
     
-    private List<Phase> initPhases;
+    private Set<Phase> initPhases;
     
     // Constructors & Initializer Methods ==============================================================================
     /**
@@ -212,7 +214,7 @@ public final class Game {
        
     
     
-    
+    // Behaviour Methods ===============================================================================================
     /**
      * Rolls the dice and notifies the server.
      */
@@ -221,8 +223,13 @@ public final class Game {
 	die2.roll();
     }
     
+    
+    public final void selectStartPosition(final Hex start) {
+	// Make sure the current phase is StartPosPhase
+    }
+    
     private void createInitPhases() {
-	initPhases = new ArrayList<>();
+	initPhases = new LinkedHashSet<>();
 	
 	
     }
