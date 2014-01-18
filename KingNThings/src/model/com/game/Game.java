@@ -43,7 +43,7 @@ public class Game {
 	mode = MODE_FOUR_PLAYER;
 	
 	// TODO: Factory for 2 or 4 player.
-	board = new Board();
+	board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 	
 	// Initialize the dice
 	die1 = new Die();

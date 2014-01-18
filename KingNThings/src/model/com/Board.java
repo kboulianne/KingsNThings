@@ -4,7 +4,7 @@ package model.com;
 public class Board {
 	Cup cup;
 //	Die[] dice;
-	private int numOfHexes = 37;
+	private int numOfHexes;
 	private Hex[] hexArray;
 	/** Tiles are drawn face down until players select start
 	 *  positions.
@@ -22,9 +22,10 @@ public class Board {
 	}
 	
 ///=======
-	public Board(){
+	public Board(NumberOfHexes nOH){
 	    faceDown = true;
 	    cup = new Cup();
+	    numOfHexes = nOH.numberOfHexes;
 //	    dice = new Die[2];
 //	    dice[0] = new Die();
 //	    dice[1] = new Die();
