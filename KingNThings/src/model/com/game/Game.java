@@ -18,8 +18,10 @@ import model.com.Player;
  * @author kurtis
  */
 public class Game {
-    /** The list of opposing players. */
-    private List<Player> opponents;
+    // Simplifies databinding.
+    private Player opponent1;
+    private Player opponent2;
+    private Player opponent3;
     /** The player owning "this" Game instance. */
     private Player player;
     /** The player who's is currently playing his/her turn. */
@@ -37,7 +39,6 @@ public class Game {
     public Game() {
 	mode = MODE_FOUR_PLAYER;
 	
-	opponents = new LinkedList<>();
 //	board = new Board();
 	
 	// Initialize the dice
@@ -46,15 +47,6 @@ public class Game {
 //	dice = new Die[2];
 //	dice[0] = new Die();
 //	dice[1] = new Die();
-    }
-    
-    
-    public void setOpponents(List<Player> players) {
-	this.opponents = players;
-    }
-    
-    public List<Player> getOpponents() {
-	return opponents;
     }
     
     public final Player getPlayer() {
@@ -89,5 +81,27 @@ public class Game {
 	die2 = die;
     }
     
-    // Behaviour Methods
+    public Player getOpponent1() {
+	return opponent1;
+    }
+
+    public void setOpponent1(Player opponent1) {
+	this.opponent1 = opponent1;
+    }
+
+    public Player getOpponent2() {
+	return opponent2;
+    }
+
+    public void setOpponent2(Player opponent2) {
+	this.opponent2 = opponent2;
+    }
+
+    public Player getOpponent3() {
+	return opponent3;
+    }
+
+    public void setOpponent3(Player opponent3) {
+	this.opponent3 = opponent3;
+    }
 }

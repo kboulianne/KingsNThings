@@ -30,8 +30,8 @@ public class GameService {
      *  Responsible for game state initialization.
      */
     private void initialize() {
-	game.setOpponents(test_CreateOpponents());
-	game.setPlayer(test_CreatePlayer());
+	test_CreateOpponents();
+	test_CreatePlayer();
     }
 
 
@@ -51,15 +51,16 @@ public class GameService {
     private List<Player> test_CreateOpponents() {
 	LinkedList<Player> players = new LinkedList<>();
 	
-	players.add(new Player("Frank"));
-	players.add(new Player("Joe"));
-	players.add(new Player("Roxanne"));
+	game.setOpponent1(new Player("Frank"));
+	game.setOpponent2(new Player("Joe"));
+	game.setOpponent3(new Player("Roxanne"));
 	
 	return players;
     }
     
-    private Player test_CreatePlayer() {
-	return new Player("Bob");
+    private void test_CreatePlayer() {
+	game.setPlayer(new Player("Bob"));
+	game.setCurrent(game.getPlayer());
     }
     
     //TODO should not expose this, allows service bypassing.
@@ -75,5 +76,11 @@ public class GameService {
     public void rollDice() {
 	game.getDie1().roll();
 	game.getDie2().roll();
+	
+	// send ROLL event.
+    }
+    
+    public void endPhase() {
+
     }
 }
