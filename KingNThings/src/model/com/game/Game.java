@@ -36,7 +36,7 @@ public class Game {
 	    MODE_TWO_THREE_PLAYER = 2;
     
     public Game() {
-	setMode(MODE_FOUR_PLAYER);
+	mode = MODE_FOUR_PLAYER;
 	
 	// TODO: Factory for 2 or 4 player.
 	board = new Board();
@@ -44,9 +44,6 @@ public class Game {
 	// Initialize the dice
 	die1 = new Die();
 	die2 = new Die();
-//	dice = new Die[2];
-//	dice[0] = new Die();
-//	dice[1] = new Die();
     }
     
     public final Player getPlayer() {

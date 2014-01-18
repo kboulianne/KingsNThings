@@ -20,10 +20,15 @@ import model.com.game.Game;
  * @author kurtis
  */
 public class GameService {
-    // This class is responsible for managing networking
-    
+    /** The system-wide instance of the Game class, sync'd via
+     *	the network.
+     */
     private final Game game;
     
+    /**
+     * Creates a new GameService instance. Private for singleton
+     * pattern.
+     */
     private GameService() {
 	game = new Game();
 	
@@ -41,20 +46,20 @@ public class GameService {
 	initializeBoard();
     }
 
+    /**
+     * Initialization logic for the game board.
+     */
     private void initializeBoard() {
 	// Send event to server, wait for response
 	// use response and build board.
 	
 	Board board = game.getBoard();
-	
-	
-	
+
 	// Create hexes, all face down. Ui handles placement.
 	// Hex pool to choose tile from.
 	List<Hex> hexPool = new ArrayList<>();
 	// 48 tiles. Need to "set aside" 4 sea hexes, distribute rest
 	// randomly
-	
 	// Sea hexes
 	for (int i = 0 ; i < 4 ; i ++) {
 	    hexPool.add(new Hex(Hex.SEA));
@@ -71,12 +76,10 @@ public class GameService {
 	    hexPool.add(new Hex(Hex.SWAMP));
 	}
 	
-	
-	
-	//FIXME: Hardcoded
+	// Choose Hexes at random from the pool and add to the board.
 	int rand = 0;
 	Random rnd = new Random();
-	// Choose Hexes at random from the pool and add to the board.
+	
 	for (int i = 0 ; i < board.getHexNum() ; i ++) {
 	    rand = rnd.nextInt(hexPool.size());
 	    
@@ -89,20 +92,29 @@ public class GameService {
 	
     }
     
-    
-    
+    /**
+     * Inner class responsible for holding singleton instance.
+     * Initialized once.
+     */
     private static class SingletonHolder {
 	public static final GameService INSTANCE = new GameService();
     }
 
+    public static GameService getInstance() {
+	return SingletonHolder.INSTANCE;
+    }
+    
     @Override
     protected Object clone() throws CloneNotSupportedException {
 	throw new CloneNotSupportedException("This is a singleton! Can't clone.");
     }
     
-
     
-    
+    // Test methods
+    private void test_CreatePlayer() {
+	game.setPlayer(new Player("Bob"));
+	game.setCurrent(game.getPlayer());
+    }
     private List<Player> test_CreateOpponents() {
 	LinkedList<Player> players = new LinkedList<>();
 	
@@ -113,21 +125,14 @@ public class GameService {
 	return players;
     }
     
-    private void test_CreatePlayer() {
-	game.setPlayer(new Player("Bob"));
-	game.setCurrent(game.getPlayer());
-    }
-    
     //TODO should not expose this, allows service bypassing.
     public Game getGame() {
 	return game;
     }
     
-    public static GameService getInstance() {
-	return SingletonHolder.INSTANCE;
-    }
-    
-    
+    /**
+     * Rolls the dice and notifies the server.
+     */
     public void rollDice() {
 	game.getDie1().roll();
 	game.getDie2().roll();
@@ -137,10 +142,5 @@ public class GameService {
     
     public void endPhase() {
 
-    }
-    
-    
-    public static void main(String[] args) {
-//	GameService.getInstance().initializeBoard();
     }
 }
