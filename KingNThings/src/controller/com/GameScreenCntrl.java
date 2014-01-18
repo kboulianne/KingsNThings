@@ -18,9 +18,9 @@ public class GameScreenCntrl {
 	// Show view
 	view.show();
 	
-	// Bind to the game instance which is managed by the GameController. Needs to be run from UI thread.
+	// Bind to the game instance managed by the GameController. Needs to be run from UI thread.
 	Platform.runLater(new Runnable() {
-
+	    
 	    @Override
 	    public void run() {
 		view.setBindings(new BeanPathAdapter<>(service.getGame()));
@@ -30,7 +30,7 @@ public class GameScreenCntrl {
     }
     
     public void rollDice() {
-	service.rollDice();
+	service.getGame().rollDice();
     }
 }
 

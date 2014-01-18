@@ -459,15 +459,6 @@ public class GameScreen {
 	}
 	
 	private void bindDiceImages(BeanPathAdapter<Game> adapter) {
-	    
-	    die1Im.imageProperty().addListener(new ChangeListener<Image>() {
-
-		@Override
-		public void changed(ObservableValue<? extends Image> ov, Image t, Image t1) {
-		    System.out.println("Image changed");
-		}
-	    });
-	    
 	    // Current WORKAROUND
 	    die1Im.imageProperty().bindBidirectional(adapter.getBean().getDie1().getImageProperty());
 	    die2Im.imageProperty().bind(adapter.getBean().getDie2().getImageProperty());
