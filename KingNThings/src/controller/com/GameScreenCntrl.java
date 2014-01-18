@@ -30,7 +30,7 @@ public class GameScreenCntrl {
     }
     
     public void rollDice() {
-	service.rollDice();
+	service.getGame().rollDice();
     }
 }
 

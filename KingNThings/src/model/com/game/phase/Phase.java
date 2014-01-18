@@ -16,4 +16,10 @@ public abstract class Phase {
     protected Phase(final String name) {
 	this.name = name;
     }
+    
+    public final void doPhase() {
+	
+    }
+    
+//    public abstract void doRoll();
 }
