@@ -35,18 +35,8 @@ public class GameScreenCntrl {
 	service.getGame().rollDice();
     }
     
-    public void selectStartPosition() {
-	// When StartPosPhase, want to bind startPosition Event handler?
-	// or can have 1 handler and use Strategy Pattern? or Template Method Pattern?
-	// Or multiple Event handlers and filter out according to Phase instance.
-	// Can use data binding to specify eventhandlers?
-	
-	// For testing
-	Hex hex = service.getGame().getBoard().getHexes().get(19);
-	
-	// Check if valid start position
-	if (service.getGame().getBoard().isValidStartPosition(hex))
-	    service.getGame().selectStartPosition(hex);
+    public void test_Phases() {
+	service.getGame().determinePlayerOrder();
     }
 }
 

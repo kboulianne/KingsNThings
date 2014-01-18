@@ -44,9 +44,7 @@ public class GameService {
     private void initialize() {
 	test_CreateOpponents();
 	test_CreatePlayer();
-	
-	// Initialize
-//	initializeBoard();
+	game.test_PlayerOrder();
     }
 
     
@@ -74,30 +72,13 @@ public class GameService {
 	game.setPlayer(new Player(Player.PlayerId.ONE, "Bob"));
 	game.setCurrent(game.getPlayer());
     }
-    private List<Player> test_CreateOpponents() {
-	LinkedList<Player> players = new LinkedList<>();
-	
-//<<<<<<< HEAD
-	players.add(new Player(Player.PlayerId.TWO,"Frank"));
-	players.add(new Player(Player.PlayerId.THREE,"Joe"));
-	players.add(new Player(Player.PlayerId.FOUR,"Roxanne"));
-//=======
+    
+    private void test_CreateOpponents() {
 	game.setOpponent1(new Player(Player.PlayerId.TWO,"Frank"));
 	game.setOpponent2(new Player(Player.PlayerId.THREE,"Joe"));
 	game.setOpponent3(new Player(Player.PlayerId.FOUR,"Roxanne"));
-//>>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
-	
-	return players;
     }
     
-//<<<<<<< HEAD
-    private Player test_CreatePlayer2() {
-	return new Player(Player.PlayerId.ONE,"Bob");
-    }
-    
-//=======
-//>>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
-    //TODO should not expose this, allows service bypassing.
     public Game getGame() {
 	return game;
     }

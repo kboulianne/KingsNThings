@@ -1,6 +1,7 @@
 package model.com.game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
@@ -11,6 +12,7 @@ import model.com.Hex;
 import model.com.Player;
 import model.com.game.phase.IPhaseStrategy;
 import model.com.game.phase.Phase;
+import model.com.game.phase.init.PlayerOrderPhase;
 import model.com.game.phase.init.StartPosPhase;
 
 /** Main entry point for the game logic.
@@ -25,7 +27,7 @@ public final class Game {
     /** The player owning "this" Game instance. */
     private Player player;
     /** The player who's is currently playing his/her turn. */
-    private Player current;
+    private Player currentPlayer;
     /** The game board representing hex tiles and all their contents. */
     private Board board;
     // Easier for data binding.
@@ -37,6 +39,8 @@ public final class Game {
 	    MODE_TWO_THREE_PLAYER = 2;
     private Phase currentPhase;
     private Set<IPhaseStrategy> initPhases;
+    private static Iterator<Player> nextPlayerIt;
+    private static List<Player> playerOrder;
     
     // Constructors & Initializer Methods ==============================================================================
     /**
@@ -49,6 +53,10 @@ public final class Game {
 	// Initialize the dice
 	die1 = new Die();
 	die2 = new Die();
+	
+	// Player order is arbitrary in the beginning.
+	playerOrder = new ArrayList<>();
+//	nextPlayerIt = playerOrder.iterator();
 	
 	currentPhase = new Phase();
 	createInitPhases();
@@ -118,13 +126,13 @@ public final class Game {
      *	Gets the Player which is currently executing their turn.
      * @return The current player.
      */
-    public final Player getCurrent() { return current; }
+    public final Player getCurrentPlayer() { return currentPlayer; }
     
     /**
      *	Sets the Player which is currently executing their turn.
      * @param current  The new player to set.
      */
-    public final void setCurrent(final Player current) { this.current = current; }
+    public final void setCurrent(final Player current) { this.currentPlayer = current; }
 
     /**
      *	Gets the first die instance.
@@ -228,7 +236,9 @@ public final class Game {
      */
     public void setOpponent3(Player opponent3) { this.opponent3 = opponent3; }
     
-       
+    public final int diceTotal() {
+	return die1.getValue() + die2.getValue();
+    }
     
     
     // Behaviour Methods ===============================================================================================
@@ -240,7 +250,29 @@ public final class Game {
 	die2.roll();
     }
     
+    public final void nextPlayer() {
+	// TODO Use SortedSet#first(), SortedSet#last() and keep iterator?
+	// Get next in iterator
+	if (!nextPlayerIt.hasNext()) {
+	    nextPlayerIt = playerOrder.iterator();
+	}
+	currentPlayer = nextPlayerIt.next();
+    }
+    
     public final void nextPhase() {
+	// Update the player order if phase is PlayerOrderPhase
+	// TODO put in phase end method in IPhaseStrategy?
+	if (currentPhase.getBehaviour() instanceof PlayerOrderPhase) {
+	    PlayerOrderPhase phase = (PlayerOrderPhase)currentPhase.getBehaviour();
+	    playerOrder = phase.getPlayerOrder();
+	    // Update the iterator
+	    nextPlayerIt = playerOrder.iterator();
+	    
+	    currentPlayer = nextPlayerIt.next();
+	}
+	
+	
+	
 	// Simply change the behaviour of the phase.
 	
 	// TODO Avoid using instanceof
@@ -250,12 +282,30 @@ public final class Game {
 	// Keep an iterator and reset it when reaches the end of set?
     }
     
+    public final void determinePlayerOrder() {
+	// TODO wrap into a template pattern? Repeated several times
+	// or simply do executePhase logic
+	if (currentPhase.getBehaviour() instanceof PlayerOrderPhase) {
+	    
+	    // TODO Tell user to roll. Binding on "Action" object?
+	    // When it changes, display in UI.
+	    currentPhase.getBehaviour().execute(null);
+	    
+	}
+	else {
+	    
+	}
+    }
+    
     public final void selectStartPosition(final Hex start) {
 	// Make sure the current phase is StartPosPhase then execute to update game.
-	
 	if (currentPhase.getBehaviour() instanceof StartPosPhase) {
-	    //FIXME why doesn't the execute parameter take Hex? It takes Object
+	    // FIXME why doesn't the execute parameter take Hex? It takes Object
+	    // It does throw an exception if it is not a Hex
 	    currentPhase.getBehaviour().execute(start);
+	}
+	else {
+	    // throw exception
 	}
     }
     
@@ -263,6 +313,22 @@ public final class Game {
 	initPhases = new LinkedHashSet<>();
 	
 	// Create the IPhaseStrategies in order (LinkedSet)
+	IPhaseStrategy strat = new PlayerOrderPhase();
+	currentPhase.setBehaviour(strat);
+	
+	initPhases.add(strat);
 	initPhases.add(new StartPosPhase());
+    }
+    
+    
+    // TESTING
+    public void test_PlayerOrder() {
+	// TESTING!!!
+	    playerOrder.add(currentPlayer);
+	    playerOrder.add(opponent2);
+	    playerOrder.add(opponent1);
+	    playerOrder.add(opponent3);
+	    // Start at 1 since current is already set?
+	    nextPlayerIt = playerOrder.listIterator(1);
     }
 }

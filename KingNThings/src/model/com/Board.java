@@ -16,8 +16,7 @@ public class Board {
 	 *  positions.
 	 */
 	private boolean faceDown;
-	// Four player starting positions, in hexArray
-//	int[] startPositions = new int[] {19, 23, 28, 32};
+	// Four player starting positions
 	private static final Set<Integer> startPositions;
 
 	static {
@@ -47,6 +46,12 @@ public class Board {
 	}
 	
 	public void addHex(final Hex hex) {
+	    // Adding at start position, set flag in hex.
+	    int index = hexes.size() - 1;
+	    
+	    if (startPositions.contains(index))
+		hex.setStartPosition(true);
+		
 	    hexes.add(hex);
 	}
 	
@@ -62,9 +67,9 @@ public class Board {
 	    return faceDown;
 	}
 	
-    public final boolean isValidStartPosition(final Hex hex) {
-	return startPositions.contains(hexes.indexOf(hex));
-    }
+//    public final boolean isValidStartPosition(final Hex hex) {
+//	return startPositions.contains(hexes.indexOf(hex));
+//    }
 	
 //	public void setupTiles(int numOfH){
 //		numOfHexes = numOfH;

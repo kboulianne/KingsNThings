@@ -199,7 +199,17 @@ public class GameScreen {
 			@Override
 			public void handle(ActionEvent event) {
 			    handleDieRoll(event);
+			    
 			}
+		});
+		
+		// Test handler
+		button.setOnAction(new EventHandler<ActionEvent>() {
+
+		    @Override
+		    public void handle(ActionEvent t) {
+			test();
+		    }
 		});
 	}
 	
@@ -444,6 +454,10 @@ public class GameScreen {
 //	    die1Im.setImage(die1.getImage());
 //	    die2.roll();
 //	    die2Im.setImage(die2.getImage());
+	}
+	
+	private void test() {
+	    ctrl.test_Phases();
 	}
 	
 	
