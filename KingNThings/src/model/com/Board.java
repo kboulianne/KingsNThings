@@ -14,6 +14,13 @@ public class Board {
 	// Four player starting positions, in hexArray
 	int[] startPositions = new int[] {19, 23, 28, 32};
 	
+	public enum NumberOfHexes { THIRTY_SEVEN(37), NINETEEN(19); 
+		private final int numberOfHexes;
+		NumberOfHexes(int i) {
+			numberOfHexes = i;
+		}
+	}
+	
 	
 	// singleton
 //	public Board getInstance(){
@@ -23,7 +30,7 @@ public class Board {
 //		return instance;
 //	}
 	
-	protected Board(){
+	public Board(){
 //		listOfPlayers = new ArrayList<Player>();
 		cup = new Cup();
 		dice = new Die[2];
@@ -31,9 +38,9 @@ public class Board {
 		dice[1] = new Die();
 	}
 	
-	public void setupTiles(int numOfH){
-		numOfHexes = numOfH;
-		hexArray = new Hex[numOfH];
+	public void setupTiles(NumberOfHexes numOfH){
+		numOfHexes = numOfH.numberOfHexes;
+		hexArray = new Hex[numOfHexes];
 		
 		//factory = new HexFactory()
 		// factory.createHex(DESERT_HEX)
