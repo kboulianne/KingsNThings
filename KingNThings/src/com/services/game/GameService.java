@@ -51,15 +51,15 @@ public class GameService {
     private List<Player> test_CreateOpponents() {
 	LinkedList<Player> players = new LinkedList<>();
 	
-	players.add(new Player("Frank"));
-	players.add(new Player("Joe"));
-	players.add(new Player("Roxanne"));
+	players.add(new Player(Player.PlayerId.TWO,"Frank"));
+	players.add(new Player(Player.PlayerId.THREE,"Joe"));
+	players.add(new Player(Player.PlayerId.FOUR,"Roxanne"));
 	
 	return players;
     }
     
     private Player test_CreatePlayer() {
-	return new Player("Bob");
+	return new Player(Player.PlayerId.ONE,"Bob");
     }
     
     //TODO should not expose this, allows service bypassing.
