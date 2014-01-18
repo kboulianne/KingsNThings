@@ -34,7 +34,10 @@ public class GameScreenCntrl {
     }
     
     public void selectStartPosition() {
-	
+	// When StartPosPhase, want to bind startPosition Event handler?
+	// or can have 1 handler and use Strategy Pattern? or Template Method Pattern?
+	// Or multiple Event handlers and filter out according to Phase instance.
+	// Can use data binding to specify eventhandlers?
     }
 }
 
