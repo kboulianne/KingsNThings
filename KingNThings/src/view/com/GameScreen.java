@@ -1,14 +1,8 @@
 package view.com;
 
 import controller.com.GameScreenCntrl;
-import model.com.Die;
 import controller.com.Main;
 import controller.com.Util;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -36,7 +30,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import jfxtras.labs.scene.control.BeanPathAdapter;
-import model.com.Player;
 import model.com.game.Game;
 
 public class GameScreen {
@@ -44,15 +37,12 @@ public class GameScreen {
     private GameScreenCntrl ctrl;
     
 	Canvas playingArea;
-	StackPane rootStackPane;
 	VBox detailsBox;
+	HBox currentPlayerInfoBox;
+	StackPane rootStackPane;
+	VBox popupVbox;
 	
-	String currentPlayersName = "Frank";
-//	String otherPlayerName1 = "Joe";
-//	String otherPlayerName2 = "Roxanne";
-//	String otherPlayerName3 = "Henry";
-	
-	static final double HEX_WIDTH = 100.0; //200 can see picture
+	static final double HEX_WIDTH = 100.0; 
 	static final double HEX_HEIGHT = HEX_WIDTH *0.8;
 	double[][] hexCenterPoints;
 	double[][] choosenMapping;
@@ -77,18 +67,14 @@ public class GameScreen {
 						"Random Event Phase", "Movement Phase", "Combat Phase", "Construction Phase",
 						"Special Powers Phase", "Changing Player Order"};
 	
-	private Label turnLbl;
-	private Label playerLbl;
-	private Label opp1Lbl;
-	private Label opp2Lbl;
-	private Label opp3Lbl;
-	
+	Label playerLbl;
 	// for now
-//	Die die1 = new Die();
-//	Die die2 = new Die();
 	ImageView die1Im;
 	ImageView die2Im;
-	
+	String currentPlayersName = "Frank";
+	String otherPlayerName1 = "Joe";
+	String otherPlayerName2 = "Roxanne";
+	String otherPlayerName3 = "Henry";
 	
 	public void show(){
 		
@@ -96,10 +82,11 @@ public class GameScreen {
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
 		
-		//TODO Figure out a way to prepend/append text to property. Add placeholder labels?
-//		final Label turn = new Label("Sir "+otherPlayerName3+"'s Turn: Roll Dice");
-		turnLbl = createTurnLabel(gameStatus);
-		
+		final Label turn = new Label("Sir "+otherPlayerName3+"'s Turn: Roll Dice");
+		turn.getStyleClass().add("title");
+		gameStatus.getChildren().add(turn);
+		AnchorPane.setLeftAnchor(turn, 0.0);
+		AnchorPane.setTopAnchor(turn, 5.0);
 		
 		// TODO bind dice values from model
 //		die1 = new Die();
@@ -122,38 +109,19 @@ public class GameScreen {
 		AnchorPane.setTopAnchor(topRBox, 0.0);
 		gameStatus.getChildren().add(topRBox);
 		
-		
-		//Opponents
-		HBox otherPlayerInfo = new HBox();
-		otherPlayerInfo.setId("otherPlayerInfo");
-		otherPlayerInfo.getChildren().add(new Label("Opponents:"));
-		opp1Lbl = new Label();
-		paintOpponent(opp1Lbl, Color.YELLOW, otherPlayerInfo);
-		opp2Lbl = new Label();
-		paintOpponent(opp2Lbl, Color.RED, otherPlayerInfo);
-		opp3Lbl = new Label();
-		paintOpponent(opp3Lbl, Color.BLUE, otherPlayerInfo);
-//		paintPlayerName(otherPlayerName1, Color.YELLOW, otherPlayerInfo);
-		//paintPlayerName(otherPlayerName2, Color.RED, otherPlayerInfo);
-//		paintPlayerName(otherPlayerName3, Color.BLUE, otherPlayerInfo);
-		otherPlayerInfo.setAlignment(Pos.TOP_CENTER);
-		
-		//Canvas
+		// Canvas / Playing Area
 		playingArea = new Canvas(1280*0.5-10,HEX_HEIGHT*7.2);
 		playingArea.setId("playingArea");
 		playingArea.getStyleClass().add("border");
-		
-		ScrollPane sp = new ScrollPane();
-		sp.setPrefSize(1280*0.5, HEX_HEIGHT*8);
-		sp.setContent(playingArea);
-		
-		// drawing on canvas
 		GraphicsContext gc = playingArea.getGraphicsContext2D();
-		gc.clearRect(0, 0,playingArea.getWidth(), playingArea.getHeight());		
+		gc.clearRect(0, 0,playingArea.getWidth(), playingArea.getHeight());	
+		
+		ScrollPane playingAreaScrollPane = new ScrollPane();
+		playingAreaScrollPane.setPrefSize(1280*0.5, HEX_HEIGHT*8);
+		playingAreaScrollPane.setContent(playingArea);
 		
 		choosenMapping = MAPPING_37_TILES;
 		hexCenterPoints = new double[choosenMapping.length][2];
-		
 		for(int i = 0; i<choosenMapping.length;i++){
 			double xOffset = choosenMapping[i][0]*0.75*HEX_WIDTH-40.0;
 			double yOffset = choosenMapping[i][1]*0.5*HEX_HEIGHT-30.0;
@@ -162,38 +130,45 @@ public class GameScreen {
 			paintHex(i,Color.DARKGRAY);
 		}
 		
+		// SIDE PANE
+		// Details Box
 		detailsBox = new VBox(); 
 		detailsBox.setAlignment(Pos.CENTER);
-		detailsBox.getStyleClass().add("border");
+		detailsBox.setId("detailsBox");
 		detailsBox.setMinHeight(HEX_HEIGHT*7);
-		
-		
 		VBox sidePane = new VBox();
 		sidePane.setMinWidth(1280*0.5-20);
+		//Opponents
+		HBox otherPlayerInfo = new HBox();
+		otherPlayerInfo.setId("otherPlayerInfo");
+		otherPlayerInfo.getChildren().add(new Label("Opponents:"));	
+		paintPlayerName(otherPlayerName1, Color.YELLOW, otherPlayerInfo);
+		paintPlayerName(otherPlayerName2, Color.RED, otherPlayerInfo);
+		paintPlayerName(otherPlayerName3, Color.BLUE, otherPlayerInfo);
+		otherPlayerInfo.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().addAll(otherPlayerInfo, detailsBox);
 		
 		HBox centerBox = new HBox();
-		centerBox.getChildren().addAll(sp,sidePane);
+		centerBox.getChildren().addAll(playingAreaScrollPane,sidePane);
 		
 		// Player Info
-		HBox playerInfo = new HBox();
-		playerInfo.setId("playerInfo");
-		paintPlayerName(currentPlayersName, Color.GREEN, playerInfo);
-		//Label blockLbl= new Label("Block:");
-		//playerInfo.getChildren().add(blockLbl);
+		currentPlayerInfoBox = new HBox();
+		currentPlayerInfoBox.setId("playerInfo");
+		VBox currentPlayerNameAndGold = new VBox();
+		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
+		paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
+		currentPlayerNameAndGold.getChildren().add(new Label("Gold: 50"));
+		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
 		for(int i =0; i<7;i++)
-			paintThing(i, playerInfo);
-
-		
-        
+			paintThing(i);
 		VBox rootVBox = new VBox();
 		rootVBox.getStyleClass().add("border");
-		rootVBox.getChildren().addAll(gameStatus, centerBox, playerInfo);
+		rootVBox.getChildren().addAll(gameStatus, centerBox, currentPlayerInfoBox);
 		rootVBox.setAlignment(Pos.TOP_CENTER);
 		
+		// Stack
 		rootStackPane = new StackPane();
 		rootStackPane.getChildren().add(rootVBox);
-		//rootStackPane.setMinSize(1280, 800);
 		
 		Scene scene = new Scene(rootStackPane,1280,800);
 		scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
@@ -220,49 +195,16 @@ public class GameScreen {
 			}
 		});
 		
-
-		
 		button.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent event) {
-			    handleDiceRoll(event);
+			    handleDieRoll(event);
 			}
 		});
 	}
 	
-	/**
-	 * Creates and initializes the label which displays the name of the player that is currently
-	 * executing the turn.
-	 * @param pane The AnchorPane to add the label to
-	 * 
-	 * @return The created label.
-	 */
-	private Label createTurnLabel(final AnchorPane pane) {
-	    final Label lbl = new Label();
-	    
-
-	    
-	    lbl.getStyleClass().add("title");
-	    pane.getChildren().add(lbl);
-	    AnchorPane.setLeftAnchor(lbl, 0.0);
-	    AnchorPane.setTopAnchor(lbl, 0.0);
-	    
-	    // Prepends Text
-//	    lbl.textProperty().addListener(new ChangeListener<String>() {
-//
-//		@Override
-//		public void changed(ObservableValue<? extends String> ov, String oldVal, String newVal) {
-//		    if (!oldVal.equals(newVal))
-//			lbl.setText("Sir " + newVal);
-//		}
-//	    });
-	    
-	    return lbl;
-	}
-	
-	VBox popupVbox;
-	public void popup( Node content){
-		
+	// Pop-up Functions
+	public void popup( Node content){	
 		if (rootStackPane.getChildren().size() == 1){			
 			popupVbox = new VBox();
 			popupVbox.getStyleClass().add("popup");
@@ -274,11 +216,8 @@ public class GameScreen {
 	public void dismissPopup(){
 		rootStackPane.getChildren().remove(popupVbox);
 	}
-	
 	public void popupWithTitleAndCloseButton(String title, Node content){
-		
-		if (rootStackPane.getChildren().size() == 1){
-			
+		if (rootStackPane.getChildren().size() == 1){		
 			AnchorPane ap = new AnchorPane();
 			
 			Label label = new Label(title);
@@ -307,8 +246,10 @@ public class GameScreen {
 		}
 	}
 	
+	// paint function to be moved to associated classes
+	
 	public void paintPlayerName(final String name, Color c, Pane pane){
-		playerLbl = new Label("Sir "+name);
+		Label playerLbl = new Label("Sir "+name);
 		playerLbl.getStyleClass().add("playerName"); 
 		Circle circle = new Circle();
 		circle.setRadius(6);
@@ -321,15 +262,14 @@ public class GameScreen {
 
 			@Override
 			public void handle(Event arg0) {
-			    VBox popupContentVbox = new VBox();				
-			    popupContentVbox.setMinSize(700, 400);
-			    popupContentVbox.setAlignment(Pos.CENTER);
-			    popupContentVbox.getStyleClass().add("border");
-
-			    //TODO Bind Me
-			    Label label = new Label("Player Information: "+name);
-			    popupContentVbox.getChildren().addAll(label);
-			    popup(popupContentVbox);
+				VBox popupContentVbox = new VBox();				
+				popupContentVbox.setMinSize(700, 400);
+				popupContentVbox.setAlignment(Pos.CENTER);
+				popupContentVbox.getStyleClass().add("border");
+				
+				Label label = new Label("Player Information: "+name);
+				popupContentVbox.getChildren().addAll(label);
+				popup(popupContentVbox);
 			}
 		});
 		
@@ -337,47 +277,7 @@ public class GameScreen {
 
 			@Override
 			public void handle(Event arg0) {
-			    //TODO move to Ctrl
 				dismissPopup();
-			}	
-		});
-		
-		pane.getChildren().addAll(playerBox);
-	}
-	
-	// FIXME: Code duplicated from paintPlayerName
-	private void paintOpponent(final Label label, final Color c, final Pane pane) {
-		label.getStyleClass().add("playerName");
-		// TODO Get color from Player.
-		Circle circle = new Circle();
-		circle.setRadius(6);
-		circle.setFill(c);   
-		HBox playerBox = new HBox();
-		playerBox.getChildren().addAll(circle, label);
-		playerBox.setAlignment(Pos.CENTER);
-		
-		playerBox.setOnMouseEntered(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-//				VBox popupContentVbox = new VBox();				
-//				popupContentVbox.setMinSize(700, 400);
-//				popupContentVbox.setAlignment(Pos.CENTER);
-//				popupContentVbox.getStyleClass().add("border");
-//				
-//				// TODO Bind Me
-//				Label label = new Label("Player Information: ");
-//				popupContentVbox.getChildren().addAll(label);
-//				popup(popupContentVbox);
-			}
-		});
-		
-		playerBox.setOnMouseExited(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-			    //TODO move to Ctrl
-//				dismissPopup();
 			}	
 		});
 		
@@ -414,11 +314,15 @@ public class GameScreen {
 		//image
 		gap=temp_width*0.05;
 		double imageAdjust=4.0;
-		gc.drawImage(HEX_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
-		
+		gc.drawImage(HEX_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));		
 	}
 	
-	public void paintThing(int blockIndex, final HBox node){
+	public void paintBlock(){
+		// loop
+			//paintThing(i, );
+	}
+	
+	public void paintThing(int blockIndex){
 		
 		double thingWidth = 75;
 		
@@ -455,7 +359,7 @@ public class GameScreen {
 		
 		
 		//lastThingIndexSelected= node.getChildren().size();
-		node.getChildren().add(stack);
+		currentPlayerInfoBox.getChildren().add(stack);
 		
 		
 		img.setOnMouseClicked(new EventHandler<Event>() {
@@ -475,9 +379,6 @@ public class GameScreen {
 				coloredRect.setFill(Color.WHITE);
 			}
 		});
-		
-		
-		
 	}
 	
 	public void paintThingInDetails(){
@@ -494,8 +395,6 @@ public class GameScreen {
 		Label owner = new Label(currentPlayersName);
 		
 		detailsBox.getChildren().addAll(img, name, type, owner);
-		
-		
 	}
 	
 	public void paintHexInDetails(){
@@ -508,14 +407,12 @@ public class GameScreen {
         img.setCache(true);
 		
 		Label name = new Label("Desert");
-		//Label type = new Label("Forest");
 		Label owner = new Label("Not Owned");
 		
 		detailsBox.getChildren().addAll(img, name, owner);
 	}
 	
-	
-	
+	// temp
 	public void onHexSelected(int id){
 		if (lastThingRect != null){
 			lastThingRect.setFill(Color.GREEN);
@@ -530,7 +427,7 @@ public class GameScreen {
 	}
 	
 	
-	private void handleDiceRoll(final ActionEvent event) {
+	private void handleDieRoll(ActionEvent event) {
 	    // UI stuff ok here.
 	    VBox popupContentVbox = new VBox();				
 	    popupContentVbox.setMinSize(700, 400);
@@ -551,59 +448,34 @@ public class GameScreen {
 	
 	
 	// BINDINGS
-	//TODO Consider passing adapter to constructor in Main instead of passing through Ctrl initialize
+	//TODO Consider passing adapter to constructor in Main instead
 	// Changes in the singleton game instance are automatically reflected in the UI.
-	/**
-	 * Creates Automatic DataBindings between the Singleton Game instance and the View.
-	 * Any changes made in the Game instance are automatically reflected in the UI and any value modifications
-	 * in the UI update the Game instance.
-	 * 
-	 * @param adapter The adapter that binds POJO fields to UI components.
-	 */
 	public void setBindings(BeanPathAdapter<Game> adapter) {
 	    // Bind player label => game.getPlayer().getName()
 //	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
-	    
-	    // Player bindings
-	    bindPlayers(adapter);
 	    
 	    // Dice bindings
 	    bindDiceImages(adapter);
 	}
 	
-	/**
-	 * Binds the dice ImageProperty to the corresponding ImageViews.
-	 * 
-	 * @param adapter 
-	 */
-	private void bindDiceImages(final BeanPathAdapter<Game> adapter) {
+	private void bindDiceImages(BeanPathAdapter<Game> adapter) {
 	    
-//	    die1Im.imageProperty().addListener(new ChangeListener<Image>() {
-//
-//		@Override
-//		public void changed(ObservableValue<? extends Image> ov, Image t, Image t1) {
-//		    System.out.println("Image changed");
-//		}
-//	    });
+	    die1Im.imageProperty().addListener(new ChangeListener<Image>() {
+
+		@Override
+		public void changed(ObservableValue<? extends Image> ov, Image t, Image t1) {
+		    System.out.println("Image changed");
+		}
+	    });
 	    
-	    // Does not work
-//	    adapter.bindBidirectional("die1.image", die1Im.imageProperty(), Image.class);
 	    // Current WORKAROUND
 	    die1Im.imageProperty().bindBidirectional(adapter.getBean().getDie1().getImageProperty());
 	    die2Im.imageProperty().bind(adapter.getBean().getDie2().getImageProperty());
 	    
-	    
+	    // Does not work
+//	    adapter.bindBidirectional("die.image", die1Im.imageProperty(), Image.class);
 	}
 	
-	private void bindPlayers(final BeanPathAdapter<Game> adapter) {	    
-	    // Bind the name of the player currently executing the turn.
-	    adapter.bindBidirectional("current.name", turnLbl.textProperty());
-	    
-	    // Bind the opponents
-	    adapter.bindBidirectional("opponent1.name", opp1Lbl.textProperty());
-	    adapter.bindBidirectional("opponent2.name", opp2Lbl.textProperty());
-	    adapter.bindBidirectional("opponent3.name", opp3Lbl.textProperty());
-	}
 	
 	public final void setController(GameScreenCntrl ctrl) {
 	    this.ctrl = ctrl;

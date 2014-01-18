@@ -4,8 +4,7 @@
 	-fx-border-radius: 15 15 15 15;
   	-fx-background-radius: 15 15 15 15;
     -fx-border-color: #DDDDDD;
-    -fx-border-width: 2px;
-    
+    -fx-border-width: 2px;    
 }
 .playerName{
 	-fx-padding: 0 0 0 5;	
@@ -17,32 +16,26 @@
 .popup{
 	-fx-border-color: #FFFFFF;
 	-fx-background-color: #000000;
-	
-	-fx-padding: 10;
-    
+	-fx-padding: 10;   
     -fx-border-radius: 15 15 15 15;
   	-fx-background-radius: 15 15 15 15;
 }
 .thing{
 	-fx-cursor: hand;
 }
-
 .block{
 	-fx-spacing: 5;
 }
-
 
 #gameStatus{
 	-fx-padding: 5 10 5 10;
 	-fx-border-radius: 10 10 0 0;
   	-fx-background-radius: 10 10 0 0;
-  	
   	-fx-background-color:  linear-gradient(#686868 0%, #232723 15%, #373837 100%);
 }
 #topRBox{
 	-fx-spacing: 5;
 }
-
 #otherPlayerInfo{
 	-fx-padding: 10;
 	-fx-spacing: 20;
@@ -52,9 +45,16 @@
     -fx-background-position: center center;
     -fx-padding: 5 10 5 10;
 }
-
+#detailsBox{
+	-fx-padding: 10;
+	-fx-spacing: 10;
+	-fx-border-color: #DDDDDD;
+    -fx-border-width: 2 0 2 0 ;
+}
 #playingArea{
 	-fx-background-color: #EEEEEE;
+	-fx-border-color: #FF0000;
+	-fx-cursor: OPEN_HAND;
 }
 #playerInfo{
 	-fx-padding: 10;
