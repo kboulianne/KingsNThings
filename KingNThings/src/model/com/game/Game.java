@@ -31,7 +31,6 @@ public class Game {
     private Die die2;
     
     private int mode;
-    
     public static final int MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
     
