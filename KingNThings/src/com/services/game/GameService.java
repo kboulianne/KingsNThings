@@ -16,13 +16,25 @@ import model.com.game.Game;
  * @author kurtis
  */
 public class GameService {
-    // This class is responsible for managing game state and networking
+    // This class is responsible for managing networking
     
-    private Game game;
+    private final Game game;
     
     private GameService() {
 	game = new Game();
+	
+	initialize();
     }
+    
+    /**
+     *  Responsible for game state initialization.
+     */
+    private void initialize() {
+	game.setOpponents(test_CreateOpponents());
+	game.setPlayer(test_CreatePlayer());
+    }
+
+
     
     private static class SingletonHolder {
 	public static final GameService INSTANCE = new GameService();
@@ -30,16 +42,10 @@ public class GameService {
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
-	throw new CloneNotSupportedException("This is a singleton!");
+	throw new CloneNotSupportedException("This is a singleton! Can't clone.");
     }
     
-    /**
-     *  Responsible for game state initialization.
-     */
-    public void initialize() {
-	game.setOpponents(test_CreateOpponents());
-	game.setPlayer(test_CreatePlayer());
-    }
+
     
     
     private List<Player> test_CreateOpponents() {
@@ -49,24 +55,25 @@ public class GameService {
 	players.add(new Player("Joe"));
 	players.add(new Player("Roxanne"));
 	
-	
-//		String currentPlayersName = "Frank";
-//	String otherPlayerName1 = "Joe";
-//	String otherPlayerName2 = "Roxanne";
-//	String otherPlayerName3 = "Henry";
-	
 	return players;
     }
     
     private Player test_CreatePlayer() {
-	return new Player("Henry");
+	return new Player("Bob");
     }
     
+    //TODO should not expose this, allows service bypassing.
     public Game getGame() {
 	return game;
     }
     
     public static GameService getInstance() {
 	return SingletonHolder.INSTANCE;
+    }
+    
+    
+    public void rollDice() {
+	game.getDie1().roll();
+	game.getDie2().roll();
     }
 }

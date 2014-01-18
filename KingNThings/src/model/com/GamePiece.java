@@ -9,7 +9,7 @@ public abstract class GamePiece {
 	GamePiece()	{	}
 	
 	GamePiece(String name)	{
-		setName(name);
+	    setName(name);
 	}
 	
 	// getters and setters
@@ -26,10 +26,10 @@ public abstract class GamePiece {
 	}
 
 	public Image getImage() {
-		return image;
+	    return image;
 	}
 
 	public void setImage(Image image) {
-		this.image = image;
+	    this.image = image;
 	}
 }

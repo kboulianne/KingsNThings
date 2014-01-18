@@ -45,8 +45,10 @@ public class Main extends Application{
 //		view.show(); //temporary
 		
 	    GameScreen view = new GameScreen();
-	// Model is taken from GameService
+	    // Model is taken from GameService
 	    GameScreenCntrl ctrl = new GameScreenCntrl(view);
+	    view.setController(ctrl);
+	    
 	    ctrl.initialize();
 	}
 	

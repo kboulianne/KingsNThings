@@ -1,8 +1,13 @@
 package view.com;
 
+import controller.com.GameScreenCntrl;
 import model.com.Die;
 import controller.com.Main;
 import controller.com.Util;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -28,10 +33,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import jfxtras.labs.scene.control.BeanPathAdapter;
+import model.com.Player;
 import model.com.game.Game;
 
 public class GameScreen {
 	
+    private GameScreenCntrl ctrl;
+    
 	Canvas playingArea;
 	StackPane rootStackPane;
 	VBox detailsBox;
@@ -68,8 +76,8 @@ public class GameScreen {
 	
 	Label playerLbl;
 	// for now
-	Die die1 = new Die();
-	Die die2 = new Die();
+//	Die die1 = new Die();
+//	Die die2 = new Die();
 	ImageView die1Im;
 	ImageView die2Im;
 	
@@ -86,14 +94,15 @@ public class GameScreen {
 		AnchorPane.setLeftAnchor(turn, 0.0);
 		AnchorPane.setTopAnchor(turn, 0.0);
 		
-		die1 = new Die();
-		die2 = new Die();
+		// TODO bind dice values from model
+//		die1 = new Die();
+//		die2 = new Die();
 		
-		die1Im = new ImageView(die1.getImage());
+		die1Im = new ImageView(/*die1.getImage()*/);
 		die1Im.setFitWidth(48); 
 		die1Im.setPreserveRatio(true);
 		
-		die2Im = new ImageView(die2.getImage());
+		die2Im = new ImageView(/*die2.getImage()*/);
 		die2Im.setFitWidth(48); 
 		die2Im.setPreserveRatio(true);
 		
@@ -202,20 +211,8 @@ public class GameScreen {
 		
 		button.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
-			public void handle(ActionEvent arg0) {
-				
-				VBox popupContentVbox = new VBox();				
-				popupContentVbox.setMinSize(700, 400);
-				popupContentVbox.setAlignment(Pos.CENTER);
-				popupContentVbox.getStyleClass().add("border");
-				
-				Label label = new Label("Test");
-				popupContentVbox.getChildren().addAll(label);
-				popupWithTitleAndCloseButton("Title:",popupContentVbox);
-				die1.roll();
-				die1Im.setImage(die1.getImage());
-				die2.roll();
-				die2Im.setImage(die2.getImage());
+			public void handle(ActionEvent event) {
+			    handleDieRoll(event);
 			}
 		});
 	}
@@ -268,7 +265,7 @@ public class GameScreen {
 	}
 	
 	public void paintPlayerName(final String name, Color c, Pane pane){
-		playerLbl = new Label("Sir "+name);
+		Label playerLbl = new Label("Sir "+name);
 		playerLbl.getStyleClass().add("playerName"); 
 		Circle circle = new Circle();
 		circle.setRadius(6);
@@ -362,7 +359,7 @@ public class GameScreen {
 		coloredRect.setArcHeight(20);
 		coloredRect.setFill(Color.GREEN);
 		
-		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/forest/bears.jpeg"));
+		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/bears.jpeg"));
 		img.setFitWidth(thingWidth-7); 
         img.setPreserveRatio(true);
         img.setSmooth(true);
@@ -449,10 +446,57 @@ public class GameScreen {
 	}
 	
 	
+	private void handleDieRoll(ActionEvent event) {
+	    // UI stuff ok here.
+	    VBox popupContentVbox = new VBox();				
+	    popupContentVbox.setMinSize(700, 400);
+	    popupContentVbox.setAlignment(Pos.CENTER);
+	    popupContentVbox.getStyleClass().add("border");
+
+	    Label label = new Label("Test");
+	    popupContentVbox.getChildren().addAll(label);
+	    popupWithTitleAndCloseButton("Title:",popupContentVbox);
+
+	    // Bindings will update the images.
+	    ctrl.rollDice();
+//	    die1.roll();
+//	    die1Im.setImage(die1.getImage());
+//	    die2.roll();
+//	    die2Im.setImage(die2.getImage());
+	}
+	
+	
+	// BINDINGS
 	//TODO Consider passing adapter to constructor in Main instead
-	// Changes in the singleton game instance are automatically reflected here.
+	// Changes in the singleton game instance are automatically reflected in the UI.
 	public void setBindings(BeanPathAdapter<Game> adapter) {
 	    // Bind player label => game.getPlayer().getName()
-	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
+//	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
+	    
+	    // Dice bindings
+	    bindDiceImages(adapter);
+	}
+	
+	private void bindDiceImages(BeanPathAdapter<Game> adapter) {
+	    
+	    die1Im.imageProperty().addListener(new ChangeListener<Image>() {
+
+		@Override
+		public void changed(ObservableValue<? extends Image> ov, Image t, Image t1) {
+		    System.out.println("Image changed");
+		}
+	    });
+	    
+	    // Current WORKAROUND
+	    die1Im.imageProperty().bindBidirectional(adapter.getBean().getDie1().getImageProperty());
+	    die2Im.imageProperty().bind(adapter.getBean().getDie2().getImageProperty());
+	    
+	    // Does not work
+//	    adapter.bindBidirectional("die.image", die1Im.imageProperty(), Image.class);
+	}
+	
+	
+	public final void setController(GameScreenCntrl ctrl) {
+	    this.ctrl = ctrl;
 	}
 }

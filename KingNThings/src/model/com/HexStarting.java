@@ -1,5 +1,5 @@
 package model.com;
 
-public class HexStarting extends Hex{
+public class HexStarting extends Hex {
 
 }
