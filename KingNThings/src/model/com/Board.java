@@ -1,8 +1,5 @@
 package model.com;
 
-import java.util.ArrayList;
-import java.util.List;
-
 // Need board method factory that creates two and three player verson, or four player version
 public class Board {
 //	static Board instance;

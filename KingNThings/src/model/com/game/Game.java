@@ -6,7 +6,6 @@
 
 package model.com.game;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import model.com.Board;
@@ -35,7 +34,7 @@ public class Game {
 	    MODE_TWO_THREE_PLAYER = 2;
     
     public Game() {
-	mode = MODE_FOUR_PLAYER;
+	setMode(MODE_FOUR_PLAYER);
 	
 	opponents = new LinkedList<>();
 //	board = new Board();
@@ -88,6 +87,22 @@ public class Game {
     public final void setDie2(final Die die) {
 	die2 = die;
     }
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public int getMode() {
+		return mode;
+	}
+
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
     
     // Behaviour Methods
 }

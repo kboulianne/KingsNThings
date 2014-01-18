@@ -1,11 +1,8 @@
 package view.com;
 
 import controller.com.GameScreenCntrl;
-import model.com.Die;
 import controller.com.Main;
 import controller.com.Util;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -33,7 +30,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import jfxtras.labs.scene.control.BeanPathAdapter;
-import model.com.Player;
 import model.com.game.Game;
 
 public class GameScreen {
@@ -41,15 +37,12 @@ public class GameScreen {
     private GameScreenCntrl ctrl;
     
 	Canvas playingArea;
-	StackPane rootStackPane;
 	VBox detailsBox;
+	HBox currentPlayerInfoBox;
+	StackPane rootStackPane;
+	VBox popupVbox;
 	
-	String currentPlayersName = "Frank";
-	String otherPlayerName1 = "Joe";
-	String otherPlayerName2 = "Roxanne";
-	String otherPlayerName3 = "Henry";
-	
-	static final double HEX_WIDTH = 100.0; //200 can see picture
+	static final double HEX_WIDTH = 100.0; 
 	static final double HEX_HEIGHT = HEX_WIDTH *0.8;
 	double[][] hexCenterPoints;
 	double[][] choosenMapping;
@@ -76,11 +69,12 @@ public class GameScreen {
 	
 	Label playerLbl;
 	// for now
-//	Die die1 = new Die();
-//	Die die2 = new Die();
 	ImageView die1Im;
 	ImageView die2Im;
-	
+	String currentPlayersName = "Frank";
+	String otherPlayerName1 = "Joe";
+	String otherPlayerName2 = "Roxanne";
+	String otherPlayerName3 = "Henry";
 	
 	public void show(){
 		
@@ -92,7 +86,7 @@ public class GameScreen {
 		turn.getStyleClass().add("title");
 		gameStatus.getChildren().add(turn);
 		AnchorPane.setLeftAnchor(turn, 0.0);
-		AnchorPane.setTopAnchor(turn, 0.0);
+		AnchorPane.setTopAnchor(turn, 5.0);
 		
 		// TODO bind dice values from model
 //		die1 = new Die();
@@ -115,32 +109,19 @@ public class GameScreen {
 		AnchorPane.setTopAnchor(topRBox, 0.0);
 		gameStatus.getChildren().add(topRBox);
 		
-		
-		//Opponents
-		HBox otherPlayerInfo = new HBox();
-		otherPlayerInfo.setId("otherPlayerInfo");
-		otherPlayerInfo.getChildren().add(new Label("Opponents:"));	
-		paintPlayerName(otherPlayerName1, Color.YELLOW, otherPlayerInfo);
-		paintPlayerName(otherPlayerName2, Color.RED, otherPlayerInfo);
-		paintPlayerName(otherPlayerName3, Color.BLUE, otherPlayerInfo);
-		otherPlayerInfo.setAlignment(Pos.TOP_CENTER);
-		
-		//Canvas
+		// Canvas / Playing Area
 		playingArea = new Canvas(1280*0.5-10,HEX_HEIGHT*7.2);
 		playingArea.setId("playingArea");
 		playingArea.getStyleClass().add("border");
-		
-		ScrollPane sp = new ScrollPane();
-		sp.setPrefSize(1280*0.5, HEX_HEIGHT*8);
-		sp.setContent(playingArea);
-		
-		// drawing on canvas
 		GraphicsContext gc = playingArea.getGraphicsContext2D();
-		gc.clearRect(0, 0,playingArea.getWidth(), playingArea.getHeight());		
+		gc.clearRect(0, 0,playingArea.getWidth(), playingArea.getHeight());	
+		
+		ScrollPane playingAreaScrollPane = new ScrollPane();
+		playingAreaScrollPane.setPrefSize(1280*0.5, HEX_HEIGHT*8);
+		playingAreaScrollPane.setContent(playingArea);
 		
 		choosenMapping = MAPPING_37_TILES;
 		hexCenterPoints = new double[choosenMapping.length][2];
-		
 		for(int i = 0; i<choosenMapping.length;i++){
 			double xOffset = choosenMapping[i][0]*0.75*HEX_WIDTH-40.0;
 			double yOffset = choosenMapping[i][1]*0.5*HEX_HEIGHT-30.0;
@@ -149,38 +130,45 @@ public class GameScreen {
 			paintHex(i,Color.DARKGRAY);
 		}
 		
+		// SIDE PANE
+		// Details Box
 		detailsBox = new VBox(); 
 		detailsBox.setAlignment(Pos.CENTER);
-		detailsBox.getStyleClass().add("border");
+		detailsBox.setId("detailsBox");
 		detailsBox.setMinHeight(HEX_HEIGHT*7);
-		
-		
 		VBox sidePane = new VBox();
 		sidePane.setMinWidth(1280*0.5-20);
+		//Opponents
+		HBox otherPlayerInfo = new HBox();
+		otherPlayerInfo.setId("otherPlayerInfo");
+		otherPlayerInfo.getChildren().add(new Label("Opponents:"));	
+		paintPlayerName(otherPlayerName1, Color.YELLOW, otherPlayerInfo);
+		paintPlayerName(otherPlayerName2, Color.RED, otherPlayerInfo);
+		paintPlayerName(otherPlayerName3, Color.BLUE, otherPlayerInfo);
+		otherPlayerInfo.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().addAll(otherPlayerInfo, detailsBox);
 		
 		HBox centerBox = new HBox();
-		centerBox.getChildren().addAll(sp,sidePane);
+		centerBox.getChildren().addAll(playingAreaScrollPane,sidePane);
 		
 		// Player Info
-		HBox playerInfo = new HBox();
-		playerInfo.setId("playerInfo");
-		paintPlayerName(currentPlayersName, Color.GREEN, playerInfo);
-		//Label blockLbl= new Label("Block:");
-		//playerInfo.getChildren().add(blockLbl);
+		currentPlayerInfoBox = new HBox();
+		currentPlayerInfoBox.setId("playerInfo");
+		VBox currentPlayerNameAndGold = new VBox();
+		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
+		paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
+		currentPlayerNameAndGold.getChildren().add(new Label("Gold: 50"));
+		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
 		for(int i =0; i<7;i++)
-			paintThing(i, playerInfo);
-
-		
-        
+			paintThing(i);
 		VBox rootVBox = new VBox();
 		rootVBox.getStyleClass().add("border");
-		rootVBox.getChildren().addAll(gameStatus, centerBox, playerInfo);
+		rootVBox.getChildren().addAll(gameStatus, centerBox, currentPlayerInfoBox);
 		rootVBox.setAlignment(Pos.TOP_CENTER);
 		
+		// Stack
 		rootStackPane = new StackPane();
 		rootStackPane.getChildren().add(rootVBox);
-		//rootStackPane.setMinSize(1280, 800);
 		
 		Scene scene = new Scene(rootStackPane,1280,800);
 		scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
@@ -207,8 +195,6 @@ public class GameScreen {
 			}
 		});
 		
-
-		
 		button.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent event) {
@@ -217,9 +203,8 @@ public class GameScreen {
 		});
 	}
 	
-	VBox popupVbox;
-	public void popup( Node content){
-		
+	// Pop-up Functions
+	public void popup( Node content){	
 		if (rootStackPane.getChildren().size() == 1){			
 			popupVbox = new VBox();
 			popupVbox.getStyleClass().add("popup");
@@ -231,11 +216,8 @@ public class GameScreen {
 	public void dismissPopup(){
 		rootStackPane.getChildren().remove(popupVbox);
 	}
-	
 	public void popupWithTitleAndCloseButton(String title, Node content){
-		
-		if (rootStackPane.getChildren().size() == 1){
-			
+		if (rootStackPane.getChildren().size() == 1){		
 			AnchorPane ap = new AnchorPane();
 			
 			Label label = new Label(title);
@@ -263,6 +245,8 @@ public class GameScreen {
 			});
 		}
 	}
+	
+	// paint function to be moved to associated classes
 	
 	public void paintPlayerName(final String name, Color c, Pane pane){
 		Label playerLbl = new Label("Sir "+name);
@@ -330,11 +314,15 @@ public class GameScreen {
 		//image
 		gap=temp_width*0.05;
 		double imageAdjust=4.0;
-		gc.drawImage(HEX_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
-		
+		gc.drawImage(HEX_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));		
 	}
 	
-	public void paintThing(int blockIndex, final HBox node){
+	public void paintBlock(){
+		// loop
+			//paintThing(i, );
+	}
+	
+	public void paintThing(int blockIndex){
 		
 		double thingWidth = 75;
 		
@@ -371,7 +359,7 @@ public class GameScreen {
 		
 		
 		//lastThingIndexSelected= node.getChildren().size();
-		node.getChildren().add(stack);
+		currentPlayerInfoBox.getChildren().add(stack);
 		
 		
 		img.setOnMouseClicked(new EventHandler<Event>() {
@@ -391,9 +379,6 @@ public class GameScreen {
 				coloredRect.setFill(Color.WHITE);
 			}
 		});
-		
-		
-		
 	}
 	
 	public void paintThingInDetails(){
@@ -410,8 +395,6 @@ public class GameScreen {
 		Label owner = new Label(currentPlayersName);
 		
 		detailsBox.getChildren().addAll(img, name, type, owner);
-		
-		
 	}
 	
 	public void paintHexInDetails(){
@@ -424,14 +407,12 @@ public class GameScreen {
         img.setCache(true);
 		
 		Label name = new Label("Desert");
-		//Label type = new Label("Forest");
 		Label owner = new Label("Not Owned");
 		
 		detailsBox.getChildren().addAll(img, name, owner);
 	}
 	
-	
-	
+	// temp
 	public void onHexSelected(int id){
 		if (lastThingRect != null){
 			lastThingRect.setFill(Color.GREEN);

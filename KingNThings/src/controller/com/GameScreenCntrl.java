@@ -2,9 +2,7 @@ package controller.com;
 
 import com.services.game.GameService;
 import javafx.application.Platform;
-import javafx.scene.input.MouseEvent;
 import jfxtras.labs.scene.control.BeanPathAdapter;
-import model.com.game.Game;
 import view.com.GameScreen;
 
 public class GameScreenCntrl {
