@@ -6,22 +6,13 @@
 
 package model.com.game.phase;
 
-import model.com.Hex;
-import model.com.game.HexInput;
-
 /**
  *
  * @author kurtis
  */
-public class StartPosPhase extends Phase implements HexInput {
-
-    public StartPosPhase() {
-	super("Starting Positions");
-    }
+public class ChangePlayOrderPhase extends Phase {
     
-    @Override
-    public void execute(final Hex hex) {
-	
+    public ChangePlayOrderPhase() {
+	super("Changing Player Order");
     }
-    
 }

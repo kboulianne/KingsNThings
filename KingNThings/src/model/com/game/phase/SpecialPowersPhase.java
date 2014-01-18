@@ -6,22 +6,15 @@
 
 package model.com.game.phase;
 
-import model.com.Hex;
-import model.com.game.HexInput;
-
 /**
  *
  * @author kurtis
  */
-public class StartForcesPhase extends Phase implements HexInput {
-
-    public StartForcesPhase() {
-	super("Starting Forces");
+public class SpecialPowersPhase extends Phase {
+    
+    public SpecialPowersPhase() {
+	super("Special Powers");
     }
     
-    @Override
-    public void execute(Hex hex) {
-	
-    }
     
 }

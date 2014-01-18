@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 
-package model.com.game.phase;
+package model.com.game.phase.init;
 
 import model.com.Hex;
 import model.com.game.HexInput;
+import model.com.game.phase.Phase;
 
 /**
  *
