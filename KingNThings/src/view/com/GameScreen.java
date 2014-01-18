@@ -38,7 +38,7 @@ public class GameScreen {
     
 	Canvas playingArea;
 	VBox detailsBox;
-	HBox currentPlayerInfoBox;
+	//HBox currentPlayerInfoBox;
 	StackPane rootStackPane;
 	VBox popupVbox;
 	
@@ -152,7 +152,7 @@ public class GameScreen {
 		centerBox.getChildren().addAll(playingAreaScrollPane,sidePane);
 		
 		// Player Info
-		currentPlayerInfoBox = new HBox();
+		HBox currentPlayerInfoBox = new HBox();
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
@@ -160,7 +160,7 @@ public class GameScreen {
 		currentPlayerNameAndGold.getChildren().add(new Label("Gold: 50"));
 		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
 		for(int i =0; i<7;i++)
-			paintThing(i);
+			paintThing(i, currentPlayerInfoBox);
 		VBox rootVBox = new VBox();
 		rootVBox.getStyleClass().add("border");
 		rootVBox.getChildren().addAll(gameStatus, centerBox, currentPlayerInfoBox);
@@ -262,7 +262,7 @@ public class GameScreen {
 
 			@Override
 			public void handle(Event arg0) {
-				VBox popupContentVbox = new VBox();				
+				VBox popupContentVbox = new VBox();			
 				popupContentVbox.setMinSize(700, 400);
 				popupContentVbox.setAlignment(Pos.CENTER);
 				popupContentVbox.getStyleClass().add("border");
@@ -322,7 +322,7 @@ public class GameScreen {
 			//paintThing(i, );
 	}
 	
-	public void paintThing(int blockIndex){
+	public void paintThing(int blockIndex, Pane currentPlayerInfoBox){
 		
 		double thingWidth = 75;
 		
@@ -375,13 +375,13 @@ public class GameScreen {
 					paintHex(lastHexSelected,Color.DARKGRAY);
 				}
 				lastThingRect = coloredRect;
-				paintThingInDetails();
+				paintThingInDetails(detailsBox);
 				coloredRect.setFill(Color.WHITE);
 			}
 		});
 	}
 	
-	public void paintThingInDetails(){
+	public void paintThingInDetails(Pane detailsBox){
 		detailsBox.getChildren().clear();
 		
 		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/bears.jpeg"));
@@ -397,7 +397,7 @@ public class GameScreen {
 		detailsBox.getChildren().addAll(img, name, type, owner);
 	}
 	
-	public void paintHexInDetails(){
+	public void paintHexInDetails(Pane detailsBox){
 		detailsBox.getChildren().clear();
 		
 		ImageView img = new ImageView(HEX_IMAGE);
@@ -423,7 +423,7 @@ public class GameScreen {
 		}
 		lastHexSelected = id;
 		paintHex(id,Color.WHITE);
-		paintHexInDetails();
+		paintHexInDetails(detailsBox);
 	}
 	
 	
