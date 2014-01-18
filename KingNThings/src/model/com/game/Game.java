@@ -38,7 +38,8 @@ public class Game {
     public Game() {
 	setMode(MODE_FOUR_PLAYER);
 	
-//	board = new Board();
+	// TODO: Factory for 2 or 4 player.
+	board = new Board();
 	
 	// Initialize the dice
 	die1 = new Die();
@@ -80,21 +81,21 @@ public class Game {
 	die2 = die;
     }
 
-	public Board getBoard() {
-		return board;
-	}
+    public Board getBoard() {
+	    return board;
+    }
 
-	public void setBoard(Board board) {
-		this.board = board;
-	}
+    public void setBoard(Board board) {
+	    this.board = board;
+    }
 
-	public int getMode() {
-		return mode;
-	}
+    public int getMode() {
+	    return mode;
+    }
 
-	public void setMode(int mode) {
-		this.mode = mode;
-	}
+    public final void setMode(int mode) {
+	    this.mode = mode;
+    }
     
     public Player getOpponent1() {
 	return opponent1;

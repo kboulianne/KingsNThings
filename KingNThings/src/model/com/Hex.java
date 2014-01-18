@@ -10,18 +10,28 @@ public class Hex extends GamePiece {
 	// This is in player?
 	Color color;
 	boolean selected;
+	int type;
 	int movementWeight = 1;
 	
 	Hex[] joiningHexes;
 
-//	public static final int 
-//		JUNGLE_HEX,
-//		FROZEN_WASTE_HEX,
-		
+	public static final int
+		JUNGLE_HEX = 1,
+		FROZEN_WASTE_HEX = 2,
+		FOREST = 3,
+		PLAINS = 4,
+		SWAMP = 5,
+		MOUNTAIN = 6,
+		DESERT = 7,
+		SEA = 8;
 	
+	protected Hex() {}
 	
-	Hex(){
-		
+	public Hex(int type){
+	    if (type >= 0 && type <=8) 
+		this.type = type;
+	    
+	    
 	}
 
 	
@@ -37,5 +47,9 @@ public class Hex extends GamePiece {
 	}
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+	
+	public final int getType() {
+	    return type;
 	}
 }
