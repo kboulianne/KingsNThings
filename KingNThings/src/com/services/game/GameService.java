@@ -6,8 +6,12 @@
 
 package com.services.game;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
+import model.com.Board;
+import model.com.Hex;
 import model.com.Player;
 import model.com.game.Game;
 
@@ -16,10 +20,18 @@ import model.com.game.Game;
  * @author kurtis
  */
 public class GameService {
-    // This class is responsible for managing networking
-    
+    /** The system-wide instance of the Game class, sync'd via
+     *	the network.
+     * 
+     * Will use the observer pattern to automatically fire changes
+     * to the server.
+     */
     private final Game game;
     
+    /**
+     * Creates a new GameService instance. Private for singleton
+     * pattern.
+     */
     private GameService() {
 	game = new Game();
 	
@@ -30,50 +42,63 @@ public class GameService {
      *  Responsible for game state initialization.
      */
     private void initialize() {
-	game.setOpponents(test_CreateOpponents());
-	game.setPlayer(test_CreatePlayer());
+	test_CreateOpponents();
+	test_CreatePlayer();
+	
+	// Initialize
+//	initializeBoard();
     }
 
-
     
+    
+    /**
+     * Inner class responsible for holding singleton instance.
+     * Initialized once.
+     */
     private static class SingletonHolder {
 	public static final GameService INSTANCE = new GameService();
     }
 
+    public static GameService getInstance() {
+	return SingletonHolder.INSTANCE;
+    }
+    
     @Override
     protected Object clone() throws CloneNotSupportedException {
 	throw new CloneNotSupportedException("This is a singleton! Can't clone.");
     }
     
-
     
-    
+    // Test methods
+    private void test_CreatePlayer() {
+	game.setPlayer(new Player("Bob"));
+	game.setCurrent(game.getPlayer());
+    }
     private List<Player> test_CreateOpponents() {
 	LinkedList<Player> players = new LinkedList<>();
 	
+<<<<<<< HEAD
 	players.add(new Player(Player.PlayerId.TWO,"Frank"));
 	players.add(new Player(Player.PlayerId.THREE,"Joe"));
 	players.add(new Player(Player.PlayerId.FOUR,"Roxanne"));
+=======
+	game.setOpponent1(new Player("Frank"));
+	game.setOpponent2(new Player("Joe"));
+	game.setOpponent3(new Player("Roxanne"));
+>>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
 	
 	return players;
     }
     
+<<<<<<< HEAD
     private Player test_CreatePlayer() {
 	return new Player(Player.PlayerId.ONE,"Bob");
     }
     
+=======
+>>>>>>> e5dad195aaadd999206308d0b8a5b3dbc5610d62
     //TODO should not expose this, allows service bypassing.
     public Game getGame() {
 	return game;
-    }
-    
-    public static GameService getInstance() {
-	return SingletonHolder.INSTANCE;
-    }
-    
-    
-    public void rollDice() {
-	game.getDie1().roll();
-	game.getDie2().roll();
     }
 }
