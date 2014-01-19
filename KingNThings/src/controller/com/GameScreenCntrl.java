@@ -25,7 +25,7 @@ public class GameScreenCntrl {
 	    
 	    @Override
 	    public void run() {
-		view.setBindings(new BeanPathAdapter<>(service.getGame()));
+		view.setBindingsFor(service.getGame());
 	    }
 	});
 	

@@ -3,6 +3,8 @@ package view.com;
 import controller.com.GameScreenCntrl;
 import controller.com.Main;
 import controller.com.Util;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -27,6 +29,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import jfxtras.labs.scene.control.BeanPathAdapter;
+import model.com.Die;
 import model.com.game.Game;
 
 public class GameScreen {
@@ -464,22 +467,31 @@ public class GameScreen {
 	// BINDINGS
 	//TODO Consider passing adapter to constructor in Main instead
 	// Changes in the singleton game instance are automatically reflected in the UI.
-	public void setBindings(BeanPathAdapter<Game> adapter) {
+	public void setBindingsFor(final Game game) {
 	    // Bind player label => game.getPlayer().getName()
 //	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
 	    
 	    // Dice bindings
-	    bindDiceImages(adapter);
+	    bindDice(game.getDie1Property().get(), game.getDie2Property().get());
+
 	}
 	
-	private void bindDiceImages(BeanPathAdapter<Game> adapter) {
-	    // Current WORKAROUND
-	    die1Im.imageProperty().bindBidirectional(adapter.getBean().getDie1().getImageProperty());
-	    die2Im.imageProperty().bind(adapter.getBean().getDie2().getImageProperty());
-	    
-	    // Does not work
-//	    adapter.bindBidirectional("die.image", die1Im.imageProperty(), Image.class);
+	public final void bindDice(final Die die1, final Die die2) {
+	    die1Im.imageProperty().bind(die1.getImageProperty());
+	    die2Im.imageProperty().bind(die2.getImageProperty());
 	}
+//	
+//	private void bindDiceImages(BeanPathAdapter<Game> adapter) {
+//	    // Current WORKAROUND
+////	    die1Im.imageProperty().bindBidirectional(adapter.getBean().getDie1().getImageProperty());
+////	    die1Im.
+//	    die2Im.imageProperty().bind(adapter.getBean().getDie2().getImageProperty());
+//	    
+////	    adapter.bindBidirectional("die1.image", die1Im.imageProperty(), Image.class);
+//	    
+//	    // Does not work
+////	    adapter.bindBidirectional("die.image", die1Im.imageProperty(), Image.class);
+//	}
 	
 	
 	public final void setController(GameScreenCntrl ctrl) {
