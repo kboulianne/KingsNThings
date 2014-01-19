@@ -85,6 +85,7 @@ public class GamePlay {
     }
     
     public void addPlayerRoll(int total, Player p) {
+	// TODO Handle case where two players have the same dice total.
 	rolls.put(total, p);
     }
     
@@ -96,14 +97,6 @@ public class GamePlay {
 	return rolls.values();
     }
     
-//    public final void setPhaseLogic(IPhaseStrategy strategy) {
-//	phaseLogic = strategy;
-//    }
-//    
-//    public final IPhaseStrategy getPhaseLogic() {
-//	return phaseLogic;
-//    }
-    
     private void nextPhase() {
 	
 	if (!phaseIt.hasNext()) {    
@@ -111,9 +104,7 @@ public class GamePlay {
 	    phaseIt = gamePhases.iterator();
 	}
 	phaseLogic = phaseIt.next();
-	
 
-	
 	// Phase start
 	phaseLogic.phaseStart();
     }

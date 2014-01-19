@@ -7,6 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import model.com.Board;
 import model.com.Die;
 import model.com.Hex;
@@ -18,6 +20,7 @@ import model.com.game.phase.init.StartingPosPhase;
 
 /**
  *  This is the game model. Represents the Game's "State"
+ * 
  * @author kurtis
  */
 public final class Game {
@@ -31,9 +34,9 @@ public final class Game {
     private Player currentPlayer;
     /** The game board representing hex tiles and all their contents. */
     private Board board;
-    // Easier for data binding.
-    private Die die1;
-    private Die die2;
+//    private Die die1;
+    private ObjectProperty<Die> die1;
+    private ObjectProperty<Die> die2;
     private int mode;
     public static final int 
 	    MODE_FOUR_PLAYER = 1,
@@ -52,8 +55,8 @@ public final class Game {
 	mode = MODE_FOUR_PLAYER;
 	
 	// Initialize the dice
-	die1 = new Die();
-	die2 = new Die();
+	die1 = new SimpleObjectProperty<>(new Die());
+	die2 = new SimpleObjectProperty<>(new Die());
 	
 	// Player order is arbitrary in the beginning.
 	playerOrder = new ArrayList<>();
@@ -102,7 +105,6 @@ public final class Game {
 	    
 	    // Add hex to position i in board hex array.
 	    board.addHex(hexPool.get(rand));
-//	    System.out.println("Picked: " + hexPool.get(rand).getType());
 	    
 	    hexPool.remove(rand);
 	}
@@ -138,25 +140,25 @@ public final class Game {
      *	Gets the first die instance.
      * @return The die.
      */
-    public final Die getDie1() { return die1; }
+    public final ObjectProperty<Die> getDie1Property() { return die1; }
     
     /**
      * Sets the first die instance.
      * @param die The new die.
      */
-    public final void setDie1(final Die die) { this.die1 = die; }
+    public final void setDie1Property(final ObjectProperty<Die> die) { this.die1 = die; }
     
     /**
      * Gets the second die instance.
      * @return The die.
      */
-    public final Die getDie2() { return die2; }
+    public final ObjectProperty<Die> getDie2Property() { return die2; }
     
     /**
      * Sets the second die instance.
      * @param die The new die.
      */
-    public final void setDie2(final Die die) { die2 = die; }
+    public final void setDie2(final ObjectProperty<Die> die) { die2 = die; }
 
     /**
      * Gets the board instance for this Game.
@@ -237,7 +239,7 @@ public final class Game {
     public void setOpponent3(Player opponent3) { this.opponent3 = opponent3; }
     
     public final int diceTotal() {
-	return die1.getValue() + die2.getValue();
+	return die1.get().getValue() + die2.get().getValue();
     }
     
     
@@ -246,13 +248,11 @@ public final class Game {
      * Rolls the dice and notifies the server.
      */
     public void rollDice() {
-	die1.roll();
-	die2.roll();
+	die1.get().roll();
+	die2.get().roll();
     }
     
     public final void nextPlayer() {
-	
-	
 	// Get next in iterator
 	if (!nextPlayerIt.hasNext()) {
 	    nextPlayerIt = playerOrder.iterator();
@@ -260,29 +260,6 @@ public final class Game {
 	}
 	currentPlayer = nextPlayerIt.next();
     }
-    
-//    public final void nextPhase() {
-//	// Update the player order if phase is PlayerOrderPhase
-//	// TODO put in phase end method in IPhaseStrategy?
-//	if (currentPhase.getPhaseLogic() instanceof PlayerOrderPhase) {
-//	    PlayerOrderPhase phase = (PlayerOrderPhase)currentPhase.getPhaseLogic();
-//	    playerOrder = phase.getPlayerOrder();
-//	    // Update the iterator
-//	    nextPlayerIt = playerOrder.iterator();
-//	    
-//	    currentPlayer = nextPlayerIt.next();
-//	}
-//	
-//	
-//	
-//	// Simply change the behaviour of the phase.
-//	
-//	// TODO Avoid using instanceof
-//	// Starting Pos GamePlay.
-////	if (phase. instanceof StartingPosPhase)
-//	
-//	// Keep an iterator and reset it when reaches the end of set?
-//    }
   
     // TODO use Phase class to pass data to GamePlay and next?
     public void endTurn() {
@@ -290,38 +267,10 @@ public final class Game {
 	//TODO Rename, ambiguous since it modifies this instance.
 	gamePlay.next();
     }
-    
-//    public final void determinePlayerOrder() {
-//	// TODO wrap into a template pattern? Repeated several times
-//	// or simply do executePhase logic
-////	if (gamePlay.getPhaseLogic() instanceof PlayerOrderPhase) {
-////	    
-////	    // TODO Tell user to roll. Binding on "Action" object?
-////	    // When it changes, display in UI.
-////	    gamePlay.getPhaseLogic().executePhase(null);
-////	    
-////	}
-////	else {
-////	    
-////	}
-//    }
-    
-    public final void selectStartPosition(final Hex start) {
-//	// Make sure the current phase is StartingPosPhase then executePhase to update game.
-//	if (gamePlay.getPhaseLogic() instanceof StartingPosPhase) {
-//	    // FIXME why doesn't the executePhase parameter take Hex? It takes Object
-//	    // It does throw an exception if it is not a Hex
-//	    gamePlay.getPhaseLogic().executePhase(start);
-//	}
-//	else {
-//	    // throw exception
-//	}
-    }
 
     //TODO startGame() -> signals start of phase?
     
     public final boolean isLastPlayer() {
-	// If iterator has no next, then last player?
 	return !nextPlayerIt.hasNext();
     }
     
