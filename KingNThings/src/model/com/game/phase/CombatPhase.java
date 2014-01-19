@@ -6,14 +6,42 @@
 
 package model.com.game.phase;
 
+import com.services.game.GameService;
+
 /**
  *
  * @author kurtis
  */
-public class CombatPhase extends Phase {
+public class CombatPhase extends AbstractPhaseStrategy<Object> {
 
-    public CombatPhase() {
-	super("Combat Phase");
+    public CombatPhase(GamePlay context) {
+	super(context);
     }
+
+    @Override
+    public void phaseStart() {
+	System.out.println("Game Phase: Start of Combat Phase");
+    }
+
+    @Override
+    public void preExecutePhase(Object input) {
+	
+    }
+
+    @Override
+    public void executePhase(Object input) {
+	System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+    }
+
+    @Override
+    public void postExecutePhase(Object input) {
+	
+    }
+
+    @Override
+    public void phaseEnd() {
+	System.out.println("Game Phase: End of Combat Phase");
+    }
+    
     
 }

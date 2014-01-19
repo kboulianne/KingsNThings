@@ -12,15 +12,15 @@ import com.services.game.GameService;
  *
  * @author kurtis
  */
-public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
+public class ConstructionPhase extends AbstractPhaseStrategy<Object> {
     
-    public SpecialPowersPhase(GamePlay context) {
+    public ConstructionPhase(GamePlay context) {
 	super(context);
     }
 
     @Override
     public void phaseStart() {
-	System.out.println("Game Phase: Start of Special Powers Phase");
+	System.out.println("Game Phase: Start of Construction Phase");
     }
 
     @Override
@@ -40,7 +40,6 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 
     @Override
     public void phaseEnd() {
-	System.out.println("Game Phase: End of Special Powers Phase");
+	System.out.println("Game Phase: End of Construction Phase");
     }
-    
 }

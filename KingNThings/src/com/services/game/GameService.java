@@ -42,9 +42,9 @@ public class GameService {
      *  Responsible for game state initialization.
      */
     private void initialize() {
-	test_CreateOpponents();
-	test_CreatePlayer();
-	game.test_PlayerOrder();
+//	test_CreateOpponents();
+	test_CreatePlayers();
+//	game.test_PlayerOrder();
     }
 
     
@@ -68,16 +68,24 @@ public class GameService {
     
     
     // Test methods
-    private void test_CreatePlayer() {
+    private void test_CreatePlayers() {
+	// Set the player owning the game instance.
 	game.setPlayer(new Player(Player.PlayerId.ONE, "Bob"));
-	game.setCurrent(game.getPlayer());
-    }
-    
-    private void test_CreateOpponents() {
 	game.setOpponent1(new Player(Player.PlayerId.TWO,"Frank"));
 	game.setOpponent2(new Player(Player.PlayerId.THREE,"Joe"));
 	game.setOpponent3(new Player(Player.PlayerId.FOUR,"Roxanne"));
+	
+	// Initial PlayerOrder.
+	List<Player> players = new ArrayList<>();
+	players.add(game.getOpponent2());
+	players.add(game.getPlayer());
+	players.add(game.getOpponent3());
+	players.add(game.getOpponent1());
+	
+	game.setPlayerOrder(players);
+//	game.setCurrent(game.getPlayer());
     }
+    
     
     public Game getGame() {
 	return game;

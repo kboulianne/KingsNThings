@@ -1,5 +1,6 @@
 package controller.com;
 
+import java.util.Comparator;
 import java.util.Random;
 
 // misc. global static functions
@@ -17,5 +18,20 @@ public class Util {
 	public static int randomNumber(int min, int max){
 		Random rand = new Random();
 		return rand.nextInt((max - min) + 1) + min;
+	}
+	
+	/**
+	 * Integer comparator from high to low. (reverse sort)
+	 */
+	public static final class ReverseIntegerSortComparator implements Comparator<Integer> {
+
+	    @Override
+	    public int compare(Integer i1, Integer i2) {
+		if (i1 > i2) return -1;
+		if (i1 < i2) return 1;
+		
+		return 0;
+	    }
+	    
 	}
 }

@@ -1,6 +1,7 @@
 package model.com.game;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -11,12 +12,12 @@ import model.com.Die;
 import model.com.Hex;
 import model.com.Player;
 import model.com.game.phase.IPhaseStrategy;
-import model.com.game.phase.Phase;
+import model.com.game.phase.GamePlay;
 import model.com.game.phase.init.PlayerOrderPhase;
-import model.com.game.phase.init.StartPosPhase;
+import model.com.game.phase.init.StartingPosPhase;
 
-/** Main entry point for the game logic.
- *
+/**
+ *  This is the game model. Represents the Game's "State"
  * @author kurtis
  */
 public final class Game {
@@ -37,10 +38,10 @@ public final class Game {
     public static final int 
 	    MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
-    private Phase currentPhase;
-    private Set<IPhaseStrategy> initPhases;
-    private static Iterator<Player> nextPlayerIt;
-    private static List<Player> playerOrder;
+    private GamePlay gamePlay;
+//    private Set<IPhaseStrategy> initPhases;
+    private Iterator<Player> nextPlayerIt;
+    private List<Player> playerOrder;
     
     // Constructors & Initializer Methods ==============================================================================
     /**
@@ -58,8 +59,7 @@ public final class Game {
 	playerOrder = new ArrayList<>();
 //	nextPlayerIt = playerOrder.iterator();
 	
-	currentPhase = new Phase();
-	createInitPhases();
+	gamePlay = new GamePlay();
 	
 	// TODO: Factory for 2 or 4 player.
 	board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
@@ -102,7 +102,7 @@ public final class Game {
 	    
 	    // Add hex to position i in board hex array.
 	    board.addHex(hexPool.get(rand));
-	    System.out.println("Picked: " + hexPool.get(rand).getType());
+//	    System.out.println("Picked: " + hexPool.get(rand).getType());
 	    
 	    hexPool.remove(rand);
 	}
@@ -192,13 +192,13 @@ public final class Game {
      * Gets the phase that the players must currently go through.
      * @return The current phase.
      */
-    public final Phase getPhase() { return currentPhase; }
+    public final GamePlay getPhase() { return gamePlay; }
     
     /**
      * Sets the new phase that the players will go through.
      * @param phase The phase
      */
-    public final void setPhase(final Phase phase) { this.currentPhase = phase; }
+    public final void setPhase(final GamePlay phase) { this.gamePlay = phase; }
     
     /**
      * Gets the first opponent.
@@ -251,84 +251,90 @@ public final class Game {
     }
     
     public final void nextPlayer() {
-	// TODO Use SortedSet#first(), SortedSet#last() and keep iterator?
+	
+	
 	// Get next in iterator
 	if (!nextPlayerIt.hasNext()) {
 	    nextPlayerIt = playerOrder.iterator();
+	    // Notify GamePlay that it should switch phases?
 	}
 	currentPlayer = nextPlayerIt.next();
     }
     
-    public final void nextPhase() {
-	// Update the player order if phase is PlayerOrderPhase
-	// TODO put in phase end method in IPhaseStrategy?
-	if (currentPhase.getBehaviour() instanceof PlayerOrderPhase) {
-	    PlayerOrderPhase phase = (PlayerOrderPhase)currentPhase.getBehaviour();
-	    playerOrder = phase.getPlayerOrder();
-	    // Update the iterator
-	    nextPlayerIt = playerOrder.iterator();
-	    
-	    currentPlayer = nextPlayerIt.next();
-	}
-	
-	
-	
-	// Simply change the behaviour of the phase.
-	
-	// TODO Avoid using instanceof
-	// Starting Pos Phase.
-//	if (phase. instanceof StartPosPhase)
-	
-	// Keep an iterator and reset it when reaches the end of set?
+//    public final void nextPhase() {
+//	// Update the player order if phase is PlayerOrderPhase
+//	// TODO put in phase end method in IPhaseStrategy?
+//	if (currentPhase.getPhaseLogic() instanceof PlayerOrderPhase) {
+//	    PlayerOrderPhase phase = (PlayerOrderPhase)currentPhase.getPhaseLogic();
+//	    playerOrder = phase.getPlayerOrder();
+//	    // Update the iterator
+//	    nextPlayerIt = playerOrder.iterator();
+//	    
+//	    currentPlayer = nextPlayerIt.next();
+//	}
+//	
+//	
+//	
+//	// Simply change the behaviour of the phase.
+//	
+//	// TODO Avoid using instanceof
+//	// Starting Pos GamePlay.
+////	if (phase. instanceof StartingPosPhase)
+//	
+//	// Keep an iterator and reset it when reaches the end of set?
+//    }
+  
+    // TODO use Phase class to pass data to GamePlay and next?
+    public void endTurn() {
+	// Execute the phase logic
+	//TODO Rename, ambiguous since it modifies this instance.
+	gamePlay.next();
     }
     
-    public final void determinePlayerOrder() {
-	// TODO wrap into a template pattern? Repeated several times
-	// or simply do executePhase logic
-	if (currentPhase.getBehaviour() instanceof PlayerOrderPhase) {
-	    
-	    // TODO Tell user to roll. Binding on "Action" object?
-	    // When it changes, display in UI.
-	    currentPhase.getBehaviour().execute(null);
-	    
-	}
-	else {
-	    
-	}
-    }
+//    public final void determinePlayerOrder() {
+//	// TODO wrap into a template pattern? Repeated several times
+//	// or simply do executePhase logic
+////	if (gamePlay.getPhaseLogic() instanceof PlayerOrderPhase) {
+////	    
+////	    // TODO Tell user to roll. Binding on "Action" object?
+////	    // When it changes, display in UI.
+////	    gamePlay.getPhaseLogic().executePhase(null);
+////	    
+////	}
+////	else {
+////	    
+////	}
+//    }
     
     public final void selectStartPosition(final Hex start) {
-	// Make sure the current phase is StartPosPhase then execute to update game.
-	if (currentPhase.getBehaviour() instanceof StartPosPhase) {
-	    // FIXME why doesn't the execute parameter take Hex? It takes Object
-	    // It does throw an exception if it is not a Hex
-	    currentPhase.getBehaviour().execute(start);
-	}
-	else {
-	    // throw exception
-	}
+//	// Make sure the current phase is StartingPosPhase then executePhase to update game.
+//	if (gamePlay.getPhaseLogic() instanceof StartingPosPhase) {
+//	    // FIXME why doesn't the executePhase parameter take Hex? It takes Object
+//	    // It does throw an exception if it is not a Hex
+//	    gamePlay.getPhaseLogic().executePhase(start);
+//	}
+//	else {
+//	    // throw exception
+//	}
+    }
+
+    //TODO startGame() -> signals start of phase?
+    
+    public final boolean isLastPlayer() {
+	// If iterator has no next, then last player?
+	return !nextPlayerIt.hasNext();
     }
     
-    private void createInitPhases() {
-	initPhases = new LinkedHashSet<>();
+    public final void setPlayerOrder(final Collection<Player> playersHighToLow) {
+	// Contains all four players.
+	this.playerOrder = new ArrayList<>(playersHighToLow);
+	// Reset Iterator to the new playerOrder
+	nextPlayerIt = playerOrder.iterator();
 	
-	// Create the IPhaseStrategies in order (LinkedSet)
-	IPhaseStrategy strat = new PlayerOrderPhase();
-	currentPhase.setBehaviour(strat);
+	// TODO change the player ID's? That way GamePlay can check if it is player 4's turn and move to the next phase.
 	
-	initPhases.add(strat);
-	initPhases.add(new StartPosPhase());
-    }
-    
-    
-    // TESTING
-    public void test_PlayerOrder() {
-	// TESTING!!!
-	    playerOrder.add(currentPlayer);
-	    playerOrder.add(opponent2);
-	    playerOrder.add(opponent1);
-	    playerOrder.add(opponent3);
-	    // Start at 1 since current is already set?
-	    nextPlayerIt = playerOrder.listIterator(1);
+	// Set current to the first player in the list if needed
+	if (currentPlayer == null)
+	    currentPlayer = nextPlayerIt.next();
     }
 }

@@ -36,7 +36,7 @@ public class GameScreenCntrl {
     }
     
     public void test_Phases() {
-	service.getGame().determinePlayerOrder();
+	service.getGame().endTurn();
     }
 }
 

@@ -6,22 +6,44 @@
 
 package model.com.game.phase.init;
 
+import com.services.game.GameService;
 import model.com.Thing;
 import model.com.game.ThingInput;
-import model.com.game.phase.Phase;
+import model.com.game.phase.AbstractPhaseStrategy;
+import model.com.game.phase.GamePlay;
 
 /**
  *
  * @author kurtis
  */
-public class ExchangePhase extends Phase implements ThingInput {
+public class ExchangePhase extends AbstractPhaseStrategy<Object> {
     
-    public ExchangePhase() {
-	super("Exchange Things");
+    public ExchangePhase(GamePlay context) {
+	super(context);
     }
 
     @Override
-    public void execute(Thing thing) {
+    public void phaseStart() {
+	System.out.println("Init Phase: Start of Exchange Things Phase");
+    }
+
+    @Override
+    public void preExecutePhase(Object input) {
 	
+    }
+
+    @Override
+    public void executePhase(Object input) {
+	System.out.println("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+    }
+
+    @Override
+    public void postExecutePhase(Object input) {
+	
+    }
+
+    @Override
+    public void phaseEnd() {
+	System.out.println("Init Phase: End of Exchange Things Phase");
     }
 }

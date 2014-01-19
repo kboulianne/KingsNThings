@@ -14,48 +14,75 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import model.com.Player;
 import model.com.game.Game;
+import model.com.game.phase.AbstractPhaseStrategy;
+import model.com.game.phase.GamePlay;
 import model.com.game.phase.IPhaseStrategy;
 
 /**
  *
  * @author kurtis
  */
-//TODO needs a different strategy implementation one with simply execute()
-public class PlayerOrderPhase implements IPhaseStrategy<Object> {
+//TODO needs a different strategy implementation one with simply executePhase()
+public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 
-    // Maps roll value the player, getting valueSet should contain play order
-    private final SortedMap<Integer, Player> rolls;
- 
-    public PlayerOrderPhase() {
-	rolls = new TreeMap<>();
+    public PlayerOrderPhase(GamePlay context) {
+	super(context);
     }
+
+    @Override
+    public void phaseStart() {
+	System.out.println("Init Phase: Start of Player Order Phase");
+    }
+
     
-    // TODO phaseStart?
-    //TODO preExecute()?
-    // clear rolls here
     
     @Override
-    public void execute(Object input) {
+    public void preExecutePhase(Object input) {
+	
+    }
+
+    
+    @Override
+    public void executePhase(Object input) {
 	Game game = GameService.getInstance().getGame();
 	
-	// Roll
+	// Automatic Roll
 	game.rollDice();
 	
-	//TODO handle case where dice totals are equal.
-	rolls.put(game.diceTotal(), game.getCurrentPlayer());
-	
+	// Add the rolled dice total to the context for later use.
+	context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());
+//	//TODO handle case where dice totals are equal.
+//	phase.getRolls().put(game.diceTotal(), game.getCurrentPlayer());
+//	
 	System.out.println("Added roll total " + game.diceTotal()
 	    + " for " + game.getCurrentPlayer().getName());
-	
-	
+//	
+//	
 	// Move to postExecute in AbstractPhaseImpl?
-	game.nextPlayer();
+//	game.nextPlayer();
     }
     
     // TODO phaseEnd()?
     // TODO postExecute()?
     
-    public List<Player> getPlayerOrder() {
-	return new ArrayList<>(rolls.values());
+//    public List<Player> getPlayerOrder() {
+//	return new ArrayList<>(rolls.values());
+//    }
+
+
+    @Override
+    public void postExecutePhase(Object input) {
+
     }
+
+    @Override
+    public void phaseEnd() {
+	// Updates the player order.
+	Game game = GameService.getInstance().getGame();
+	game.setPlayerOrder(context.getPlayersHighToLow());
+	
+	System.out.println("Init Phase: End of Player Order Phase");
+    }
+    
+    
 }

@@ -6,13 +6,40 @@
 
 package model.com.game.phase;
 
+import com.services.game.GameService;
+
 /**
  *
  * @author kurtis
  */
-public class RandomEventPhase extends Phase {
+public class RandomEventPhase extends AbstractPhaseStrategy<Object> {
     
-    public RandomEventPhase() {
-	super("Random Events Phase");
+   public RandomEventPhase(GamePlay context) {
+       super(context);
+   }
+
+    @Override
+    public void phaseStart() {
+	System.out.println("Game Phase: Start of Random Events Phase");
+    }
+
+    @Override
+    public void preExecutePhase(Object input) {
+	
+    }
+
+    @Override
+    public void executePhase(Object input) {
+	System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+    }
+
+    @Override
+    public void postExecutePhase(Object input) {
+	
+    }
+
+    @Override
+    public void phaseEnd() {
+	System.out.println("Game Phase: End of Random Events Phase");
     }
 }

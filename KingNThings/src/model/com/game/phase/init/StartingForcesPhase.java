@@ -4,23 +4,27 @@
  * and open the template in the editor.
  */
 
-package model.com.game.phase;
+package model.com.game.phase.init;
 
 import com.services.game.GameService;
+import model.com.Hex;
+import model.com.game.HexInput;
+import model.com.game.phase.AbstractPhaseStrategy;
+import model.com.game.phase.GamePlay;
 
 /**
  *
  * @author kurtis
  */
-public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
-    
-    public SpecialPowersPhase(GamePlay context) {
+public class StartingForcesPhase extends AbstractPhaseStrategy<Object>{
+
+    public StartingForcesPhase(GamePlay context) {
 	super(context);
     }
-
+    
     @Override
     public void phaseStart() {
-	System.out.println("Game Phase: Start of Special Powers Phase");
+	System.out.println("Init Phase: Start of Starting Forces Phase");
     }
 
     @Override
@@ -30,7 +34,7 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 
     @Override
     public void executePhase(Object input) {
-	System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+	System.out.println("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
     }
 
     @Override
@@ -40,7 +44,8 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 
     @Override
     public void phaseEnd() {
-	System.out.println("Game Phase: End of Special Powers Phase");
+	System.out.println("Init Phase: End of Starting Forces Phase");
     }
+
     
 }
