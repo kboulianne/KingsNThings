@@ -3,8 +3,7 @@ package view.com;
 import controller.com.GameScreenCntrl;
 import controller.com.Main;
 import controller.com.Util;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -30,6 +29,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import jfxtras.labs.scene.control.BeanPathAdapter;
 import model.com.Die;
+import model.com.Player;
 import model.com.game.Game;
 
 public class GameScreen {
@@ -67,7 +67,7 @@ public class GameScreen {
 						"Random Event Phase", "Movement Phase", "Combat Phase", "Construction Phase",
 						"Special Powers Phase", "Changing Player Order"};
 	
-	Label playerLbl;
+	Label currentPlayerLbl;
 	// for now
 	ImageView die1Im;
 	ImageView die2Im;
@@ -159,7 +159,8 @@ public class GameScreen {
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
-		paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
+//		paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
+		createCurrentPlayerLabel(currentPlayerNameAndGold);
 		currentPlayerNameAndGold.getChildren().add(new Label("Gold: 50"));
 		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
 		for(int i =0; i<7;i++)
@@ -260,6 +261,22 @@ public class GameScreen {
 	}
 	
 	// paint function to be moved to associated classes
+	
+	private void createCurrentPlayerLabel(final Pane p) {
+	    currentPlayerLbl = new Label();
+	    currentPlayerLbl.getStyleClass().add("playerName"); 
+	    Circle circle = new Circle();
+	    circle.setRadius(6);
+	    // TODO Hardcoded. Bind
+	    circle.setFill(Color.WHITE);   
+	    HBox playerBox = new HBox();
+	    playerBox.getChildren().addAll(circle, currentPlayerLbl);
+	    playerBox.setAlignment(Pos.CENTER);
+	    
+	    // TODO no handlers.
+	    
+	    p.getChildren().addAll(playerBox);
+	}
 	
 	public void paintPlayerName(final String name, Color c, Pane pane){
 		Label playerLbl = new Label("Sir "+name);
@@ -453,10 +470,6 @@ public class GameScreen {
 
 	    // Bindings will update the images.
 	    ctrl.rollDice();
-//	    die1.roll();
-//	    die1Im.setImage(die1.getImage());
-//	    die2.roll();
-//	    die2Im.setImage(die2.getImage());
 	}
 	
 	private void test() {
@@ -474,24 +487,22 @@ public class GameScreen {
 	    // Dice bindings
 	    bindDice(game.getDie1Property().get(), game.getDie2Property().get());
 
+	    // Bind players
+	    bindPlayers(game.getCurrentPlayer());
 	}
 	
 	public final void bindDice(final Die die1, final Die die2) {
 	    die1Im.imageProperty().bind(die1.getImageProperty());
 	    die2Im.imageProperty().bind(die2.getImageProperty());
 	}
-//	
-//	private void bindDiceImages(BeanPathAdapter<Game> adapter) {
-//	    // Current WORKAROUND
-////	    die1Im.imageProperty().bindBidirectional(adapter.getBean().getDie1().getImageProperty());
-////	    die1Im.
-//	    die2Im.imageProperty().bind(adapter.getBean().getDie2().getImageProperty());
-//	    
-////	    adapter.bindBidirectional("die1.image", die1Im.imageProperty(), Image.class);
-//	    
-//	    // Does not work
-////	    adapter.bindBidirectional("die.image", die1Im.imageProperty(), Image.class);
-//	}
+
+	public final void bindPlayers(final Player player) {
+	    // Bind the current player
+	    // TODO add Male/Female property
+	    currentPlayerLbl.textProperty().bind(Bindings.concat("Sir ").concat(player.getNameProperty()));
+	    
+	    
+	}
 	
 	
 	public final void setController(GameScreenCntrl ctrl) {
