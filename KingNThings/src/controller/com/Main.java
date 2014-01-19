@@ -1,11 +1,6 @@
 package controller.com;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import model.com.Board;
-import model.com.Player;
 import view.com.GameScreen;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -43,6 +38,8 @@ public class Main extends Application{
 		stage.setResizable(false);
 		stage.setFullScreen(false);
 		
+		//doesnt work
+		//Font.loadFont(Main.class.getResource("VIKING.TTF").toExternalForm(), 12);
 		
 		//stage.setIconified(true);
 		//stage.getIcons().
