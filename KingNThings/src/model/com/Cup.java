@@ -1,7 +1,7 @@
 package model.com;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Cup extends GamePiece{
-	List<Thing> listOfThings;
+	ArrayList<Thing> listOfThings;
 }

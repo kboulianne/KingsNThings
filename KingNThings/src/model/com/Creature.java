@@ -301,6 +301,4 @@ public abstract class Creature extends Thing	{
 	public void setMagic(boolean bool){
 		magic = bool;
 	}
-	
-	
 }

@@ -3,8 +3,6 @@ package controller.com;
 import com.services.game.GameService;
 import javafx.application.Platform;
 import jfxtras.labs.scene.control.BeanPathAdapter;
-import model.com.Hex;
-import model.com.game.Game;
 import view.com.GameScreen;
 
 public class GameScreenCntrl {
