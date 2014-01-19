@@ -3,8 +3,6 @@ package view.com;
 import controller.com.GameScreenCntrl;
 import controller.com.Main;
 import controller.com.Util;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -16,7 +14,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -86,7 +83,7 @@ public class GameScreen {
 		turn.getStyleClass().add("title");
 		gameStatus.getChildren().add(turn);
 		AnchorPane.setLeftAnchor(turn, 0.0);
-		AnchorPane.setTopAnchor(turn, 5.0);
+		AnchorPane.setTopAnchor(turn, 10.0);
 		
 		// TODO bind dice values from model
 //		die1 = new Die();
@@ -115,10 +112,12 @@ public class GameScreen {
 		playingArea.getStyleClass().add("border");
 		GraphicsContext gc = playingArea.getGraphicsContext2D();
 		gc.clearRect(0, 0,playingArea.getWidth(), playingArea.getHeight());	
+		Image imgBg = new Image("view/com/assets/pics/background.jpg");
+		gc.drawImage(imgBg, 0,0,playingArea.getWidth(), playingArea.getHeight());
 		
-		ScrollPane playingAreaScrollPane = new ScrollPane();
-		playingAreaScrollPane.setPrefSize(1280*0.5, HEX_HEIGHT*8);
-		playingAreaScrollPane.setContent(playingArea);
+		//ScrollPane playingAreaScrollPane = new ScrollPane();
+		//playingAreaScrollPane.setPrefSize(1280*0.5, HEX_HEIGHT*7.2);//8
+		//playingAreaScrollPane.setContent(playingArea);
 		
 		choosenMapping = MAPPING_37_TILES;
 		hexCenterPoints = new double[choosenMapping.length][2];
@@ -149,7 +148,8 @@ public class GameScreen {
 		sidePane.getChildren().addAll(otherPlayerInfo, detailsBox);
 		
 		HBox centerBox = new HBox();
-		centerBox.getChildren().addAll(playingAreaScrollPane,sidePane);
+		sidePane.setId("sidePane");
+		centerBox.getChildren().addAll(sidePane, playingArea);
 		
 		// Player Info
 		HBox currentPlayerInfoBox = new HBox();
@@ -334,7 +334,7 @@ public class GameScreen {
 	
 	public void paintThing(int blockIndex, Pane currentPlayerInfoBox){
 		
-		double thingWidth = 75;
+		double thingWidth = 60;
 		
 		StackPane stack = new StackPane();
 		
@@ -395,7 +395,7 @@ public class GameScreen {
 		detailsBox.getChildren().clear();
 		
 		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/bears.jpeg"));
-		img.setFitWidth(300); 
+		img.setFitWidth(260); 
         img.setPreserveRatio(true);
         img.setSmooth(true);
         img.setCache(true);
