@@ -2,6 +2,7 @@ package controller.com;
 
 
 import view.com.GameScreen;
+import view.com.StartScreen;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -44,7 +45,7 @@ public class Main extends Application{
 		//stage.setMaxHeight(HEIGHT);
 		//stage.setMaxWidth(WIDTH);
 		//stage.setFullScreen(true);
-		//new StartScreen().show();
+	   //new StartScreen().show();
 
 //		view.show(); //temporary
 		
