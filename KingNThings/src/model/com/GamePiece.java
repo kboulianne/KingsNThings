@@ -17,8 +17,8 @@ public abstract class GamePiece {
 		return name;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String n) {
+		name = n;
 	}
 	
 	public void setImage(String directory) {
@@ -29,7 +29,7 @@ public abstract class GamePiece {
 	    return image;
 	}
 
-	public void setImage(Image image) {
-	    this.image = image;
+	public void setImage(Image i) {
+	    image = i;
 	}
 }

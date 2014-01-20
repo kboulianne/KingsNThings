@@ -7,16 +7,9 @@
 package model.com.game.phase.init;
 
 import com.services.game.GameService;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import model.com.Player;
 import model.com.game.Game;
 import model.com.game.phase.AbstractPhaseStrategy;
 import model.com.game.phase.GamePlay;
-import model.com.game.phase.IPhaseStrategy;
 
 /**
  *

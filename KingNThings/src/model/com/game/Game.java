@@ -3,20 +3,15 @@ package model.com.game;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import model.com.Board;
 import model.com.Die;
 import model.com.Hex;
 import model.com.Player;
-import model.com.game.phase.IPhaseStrategy;
 import model.com.game.phase.GamePlay;
-import model.com.game.phase.init.PlayerOrderPhase;
-import model.com.game.phase.init.StartingPosPhase;
 
 /**
  *  This is the game model. Represents the Game's "State"
@@ -81,19 +76,19 @@ public final class Game {
 	// 48 tiles. Need to "set aside" 4 sea hexes, distribute rest randomly
 	// Sea hexes
 	for (int i = 0 ; i < 4 ; i ++) {
-	    hexPool.add(new Hex(Hex.SEA));
+	    hexPool.add(new Hex(Hex.HexType.SEA));
 	}
 	
 	// Others
 	// TODO: Should be 44 tiles instead of 42?
 	for (int i = 0 ; i < 6 ; i ++) {
-	    hexPool.add(new Hex(Hex.DESERT));
-	    hexPool.add(new Hex(Hex.FOREST));
-	    hexPool.add(new Hex(Hex.FROZEN_WASTE_HEX));
-	    hexPool.add(new Hex(Hex.JUNGLE_HEX));
-	    hexPool.add(new Hex(Hex.MOUNTAIN));
-	    hexPool.add(new Hex(Hex.PLAINS));
-	    hexPool.add(new Hex(Hex.SWAMP));
+	    hexPool.add(new Hex(Hex.HexType.DESERT));
+	    hexPool.add(new Hex(Hex.HexType.FOREST));
+	    hexPool.add(new Hex(Hex.HexType.FROZEN_WASTE_HEX));
+	    hexPool.add(new Hex(Hex.HexType.JUNGLE_HEX));
+	    hexPool.add(new Hex(Hex.HexType.MOUNTAIN));
+	    hexPool.add(new Hex(Hex.HexType.PLAINS));
+	    hexPool.add(new Hex(Hex.HexType.SWAMP));
 	}
 	
 	// Choose Hexes at random from the pool and add to the board.

@@ -2,10 +2,26 @@ package model.com;
 
 import java.util.ArrayList;
 
-public abstract class Thing extends GamePiece	{
+import view.com.GameScreen;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import controller.com.Paintable;
+
+public abstract class Thing extends GamePiece implements Paintable	{
+	
+	Color color;
+	String owner;
 	
 	Thing(String name)	{
 		super(name);
+		owner = "Bag";
+		color = Color.BLACK;
 	}
 	
 	public static ArrayList<Thing> createThings()	{
@@ -172,5 +188,97 @@ public abstract class Thing extends GamePiece	{
 		creatures.add(new FrozenWasteCreature("whitedragon"));
 		
 		return creatures;
+	}
+	
+	public void paint(Pane pane){
+		double thingWidth = 60;
+		
+		StackPane stack = new StackPane();
+		
+		Rectangle borderRect = new Rectangle();
+		borderRect.setX(0);
+		borderRect.setY(0);
+		borderRect.setWidth(thingWidth);
+		borderRect.setHeight(thingWidth);
+		borderRect.setArcWidth(20);
+		borderRect.setArcHeight(20);
+		
+		borderRect.setFill(Color.WHITE);
+		
+		final Rectangle coloredRect = new Rectangle();
+		coloredRect.setX(0);
+		coloredRect.setY(0);
+		coloredRect.setWidth(thingWidth-1);
+		coloredRect.setHeight(thingWidth-1);
+		coloredRect.setArcWidth(20);
+		coloredRect.setArcHeight(20);
+		coloredRect.setFill(color);
+		
+		ImageView img = new ImageView(image);
+		img.setFitWidth(thingWidth-7); 
+        img.setPreserveRatio(true);
+        img.setSmooth(true);
+        img.setCache(true);
+        img.getStyleClass().add("thing");
+       
+		
+		stack.getChildren().addAll(borderRect, coloredRect, img);
+		
+		
+		//lastThingIndexSelected= node.getChildren().size();
+		pane.getChildren().add(stack);
+		
+		
+		img.setOnMouseClicked(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event arg0) {
+				// TODO Auto-generated method stub
+				/*if (lastThingRect != null){
+					lastThingRect.setFill(Color.GREEN);
+					//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
+				}
+				if (lastHexSelected != -1){
+					paintHex(lastHexSelected,Color.DARKGRAY);
+				}*/
+				//lastThingRect = coloredRect;
+				paintThingInDetails(GameScreen.detailsBox);
+				//coloredRect.setFill(Color.WHITE);
+			}
+		});
+	}
+	
+	public void paintThingInDetails(Pane detailsBox){
+		detailsBox.getChildren().clear();
+		
+		ImageView img = new ImageView(image);
+		img.setFitWidth(260); 
+        img.setPreserveRatio(true);
+        img.setSmooth(true);
+        img.setCache(true);
+		
+		Label thingNameLbl = new Label(name);
+		Label typeLbl = new Label("Type: TODO");
+		Label ownerLbl = new Label("Owner: " + owner);
+		
+		detailsBox.getChildren().addAll(img, thingNameLbl, typeLbl, ownerLbl);
+	}
+	
+	//setters and getters
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 }

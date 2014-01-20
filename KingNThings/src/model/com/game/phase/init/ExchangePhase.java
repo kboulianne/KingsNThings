@@ -7,8 +7,6 @@
 package model.com.game.phase.init;
 
 import com.services.game.GameService;
-import model.com.Thing;
-import model.com.game.ThingInput;
 import model.com.game.phase.AbstractPhaseStrategy;
 import model.com.game.phase.GamePlay;
 

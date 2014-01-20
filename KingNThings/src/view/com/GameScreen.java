@@ -1,12 +1,12 @@
 package view.com;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import controller.com.GameScreenCntrl;
 import controller.com.Main;
 import controller.com.Util;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -21,31 +21,32 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import jfxtras.labs.scene.control.BeanPathAdapter;
+//import jfxtras.labs.scene.control.BeanPathAdapter;
 import model.com.Die;
+import model.com.Hex;
+import model.com.HexDesert;
+import model.com.Player;
+import model.com.SwampCreature;
+import model.com.Thing;
 import model.com.game.Game;
 
 public class GameScreen {
 	
     private GameScreenCntrl ctrl;
     
-	Canvas playingArea;
-	VBox detailsBox;
-	//HBox currentPlayerInfoBox;
-	StackPane rootStackPane;
-	VBox popupVbox;
+	public static Canvas playingArea;
+	public static VBox detailsBox;
+	static StackPane rootStackPane;
+	static VBox popupVbox;
 	
 	static final double HEX_WIDTH = 100.0; 
 	static final double HEX_HEIGHT = HEX_WIDTH *0.8;
 	double[][] hexCenterPoints;
-	double[][] choosenMapping;
+	static double[][] choosenMapping;
 		
 	int lastHexSelected = -1;
 	Rectangle lastThingRect = null;
@@ -60,21 +61,17 @@ public class GameScreen {
 			{4.0,6.0},{3.0,7.0},{2.0,6.0},{2.0,4.0},{2.0,2.0},{3.0,1.0},{4.0,2.0},{5.0,3.0},
 			{5.0,5.0},{5.0,7.0},{4.0,8.0},{3.0,9.0},{2.0,8.0},{1.0,7.0},{1.0,5.0},{1.0,3.0}
 	};
-        // For now
-	private static final Image HEX_IMAGE = new Image("view/com/assets/pics/tiles/desert.png");
+    
 	
-	String[] gamePhases = {"Gold Collection","Recruiting Characters", "Recruiting Things",
-						"Random Event Phase", "Movement Phase", "Combat Phase", "Construction Phase",
-						"Special Powers Phase", "Changing Player Order"};
-	
-	Label playerLbl;
 	// for now
 	ImageView die1Im;
 	ImageView die2Im;
-	String currentPlayersName = "Frank";
-	String otherPlayerName1 = "Joe";
-	String otherPlayerName2 = "Roxanne";
-	String otherPlayerName3 = "Henry";
+	Player player1 = new Player(Player.PlayerId.ONE, "Paul McCartney");
+	Player player2 = new Player(Player.PlayerId.TWO, "Bill Gates");
+	Player player3 = new Player(Player.PlayerId.THREE, "Mick Jagger");
+	Player player4 = new Player(Player.PlayerId.FOUR, "Sean Connery");
+	Thing thing = new SwampCreature("ghost");
+	List<Hex> hexes = new ArrayList<Hex>();
 	
 	public void show(){
 		
@@ -82,7 +79,7 @@ public class GameScreen {
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
 		
-		final Label turn = new Label("Sir "+otherPlayerName3+"'s Turn: Roll Dice");
+		final Label turn = new Label("Sir "+player4.getName()+"'s Turn: Roll Dice");
 		turn.getStyleClass().add("title");
 		gameStatus.getChildren().add(turn);
 		AnchorPane.setLeftAnchor(turn, 0.0);
@@ -129,7 +126,9 @@ public class GameScreen {
 			double yOffset = choosenMapping[i][1]*0.5*HEX_HEIGHT-30.0;
 			hexCenterPoints[i][0]=xOffset+(HEX_WIDTH*0.5);
 			hexCenterPoints[i][1]=yOffset+(HEX_HEIGHT*0.5);
-			paintHex(i,Color.DARKGRAY);
+			Hex hex = new HexDesert(i);
+			hexes.add(hex);
+			hex.paint(null);
 		}
 		
 		// SIDE PANE
@@ -144,9 +143,13 @@ public class GameScreen {
 		HBox otherPlayerInfo = new HBox();
 		otherPlayerInfo.setId("otherPlayerInfo");
 		otherPlayerInfo.getChildren().add(new Label("Opponents:"));	
-		paintPlayerName(otherPlayerName1, Color.YELLOW, otherPlayerInfo);
-		paintPlayerName(otherPlayerName2, Color.RED, otherPlayerInfo);
-		paintPlayerName(otherPlayerName3, Color.BLUE, otherPlayerInfo);
+		
+		player1.paint(otherPlayerInfo);
+		player2.paint(otherPlayerInfo);
+		player3.paint(otherPlayerInfo);
+		//paintPlayerName(otherPlayerName1, Color.YELLOW, otherPlayerInfo);
+		//paintPlayerName(otherPlayerName2, Color.RED, otherPlayerInfo);
+		//paintPlayerName(otherPlayerName3, Color.BLUE, otherPlayerInfo);
 		otherPlayerInfo.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().addAll(otherPlayerInfo, detailsBox);
 		
@@ -159,11 +162,15 @@ public class GameScreen {
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
-		paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
+		player4.paint(currentPlayerNameAndGold);
+		//paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
 		currentPlayerNameAndGold.getChildren().add(new Label("Gold: 50"));
 		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
+		
+		
+		
 		for(int i =0; i<7;i++)
-			paintThing(i, currentPlayerInfoBox);
+			thing.paint(currentPlayerInfoBox);
 		VBox rootVBox = new VBox();
 		rootVBox.getStyleClass().add("border");
 		rootVBox.getChildren().addAll(gameStatus, centerBox, currentPlayerInfoBox);
@@ -217,7 +224,7 @@ public class GameScreen {
 	}
 	
 	// Pop-up Functions
-	public void popup( Node content){	
+	public static void popup( Node content){	
 		if (rootStackPane.getChildren().size() == 1){			
 			popupVbox = new VBox();
 			popupVbox.getStyleClass().add("popup");
@@ -226,7 +233,7 @@ public class GameScreen {
 			rootStackPane.getChildren().add(popupVbox);
 		}
 	}
-	public void dismissPopup(){
+	public static void dismissPopup(){
 		rootStackPane.getChildren().remove(popupVbox);
 	}
 	public void popupWithTitleAndCloseButton(String title, Node content){
@@ -259,184 +266,18 @@ public class GameScreen {
 		}
 	}
 	
-	// paint function to be moved to associated classes
-	
-	public void paintPlayerName(final String name, Color c, Pane pane){
-		Label playerLbl = new Label("Sir "+name);
-		playerLbl.getStyleClass().add("playerName"); 
-		Circle circle = new Circle();
-		circle.setRadius(6);
-		circle.setFill(c);   
-		HBox playerBox = new HBox();
-		playerBox.getChildren().addAll(circle, playerLbl);
-		playerBox.setAlignment(Pos.CENTER);
-		
-		playerBox.setOnMouseEntered(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-				VBox popupContentVbox = new VBox();			
-				popupContentVbox.setMinSize(700, 400);
-				popupContentVbox.setAlignment(Pos.CENTER);
-				popupContentVbox.getStyleClass().add("border");
-				
-				Label label = new Label("Player Information: "+name);
-				popupContentVbox.getChildren().addAll(label);
-				popup(popupContentVbox);
-			}
-		});
-		
-		playerBox.setOnMouseExited(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-				dismissPopup();
-			}	
-		});
-		
-		pane.getChildren().addAll(playerBox);
-	}
-	
-	public void paintHex(int id, Color c){ // will be moved to Hex Class --> myHex.paint(Scene canvas)
-		GraphicsContext gc = playingArea.getGraphicsContext2D();
-		
-		double height = HEX_HEIGHT;
-		
-		double xOffset = choosenMapping[id][0]*0.75*HEX_WIDTH-40.0; //40 move whole grid
-		double yOffset = choosenMapping[id][1]*0.5*height-30.0; //30 moves whole grid
-		//gc.fillOval(xOffset, yOffset, xOffset+200, yOffset+200);
-		
-		//outer polygon
-		gc.setFill(Color.BLACK);
-		gc.fillPolygon(new double[]{(xOffset+(HEX_WIDTH*0.25)), (xOffset+(HEX_WIDTH*0.75)), (xOffset+HEX_WIDTH), 	
-									 xOffset+(HEX_WIDTH*0.75), xOffset+(HEX_WIDTH*0.25), xOffset},
-					   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
-									yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
-		//inner polygon
-		double gap=HEX_WIDTH*0.05;
-		double temp_width = HEX_WIDTH;
-		xOffset+=gap;
-		yOffset+=gap;
-		height-=(gap*2);
-		temp_width-=(gap*2);
-		gc.setFill(c);
-		gc.fillPolygon(new double[]{(xOffset+(temp_width*0.25)), (xOffset+(temp_width*0.75)), (xOffset+temp_width), 	
-				 					xOffset+(temp_width*0.75), xOffset+(temp_width*0.25), xOffset},
-				 	   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
-									yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
-		//image
-		gap=temp_width*0.05;
-		double imageAdjust=4.0;
-		gc.drawImage(HEX_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));		
-	}
-	
-	public void paintBlock(){
-		// loop
-			//paintThing(i, );
-	}
-	
-	public void paintThing(int blockIndex, Pane currentPlayerInfoBox){
-		
-		double thingWidth = 60;
-		
-		StackPane stack = new StackPane();
-		
-		Rectangle borderRect = new Rectangle();
-		borderRect.setX(0);
-		borderRect.setY(0);
-		borderRect.setWidth(thingWidth);
-		borderRect.setHeight(thingWidth);
-		borderRect.setArcWidth(20);
-		borderRect.setArcHeight(20);
-		
-		borderRect.setFill(Color.WHITE);
-		
-		final Rectangle coloredRect = new Rectangle();
-		coloredRect.setX(0);
-		coloredRect.setY(0);
-		coloredRect.setWidth(thingWidth-1);
-		coloredRect.setHeight(thingWidth-1);
-		coloredRect.setArcWidth(20);
-		coloredRect.setArcHeight(20);
-		coloredRect.setFill(Color.GREEN);
-		
-		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/bears.jpeg"));
-		img.setFitWidth(thingWidth-7); 
-        img.setPreserveRatio(true);
-        img.setSmooth(true);
-        img.setCache(true);
-        img.getStyleClass().add("thing");
-       
-		
-		stack.getChildren().addAll(borderRect, coloredRect, img);
-		
-		
-		//lastThingIndexSelected= node.getChildren().size();
-		currentPlayerInfoBox.getChildren().add(stack);
-		
-		
-		img.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-				// TODO Auto-generated method stub
-				if (lastThingRect != null){
-					lastThingRect.setFill(Color.GREEN);
-					//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
-				}
-				if (lastHexSelected != -1){
-					paintHex(lastHexSelected,Color.DARKGRAY);
-				}
-				lastThingRect = coloredRect;
-				paintThingInDetails(detailsBox);
-				coloredRect.setFill(Color.WHITE);
-			}
-		});
-	}
-	
-	public void paintThingInDetails(Pane detailsBox){
-		detailsBox.getChildren().clear();
-		
-		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/bears.jpeg"));
-		img.setFitWidth(260); 
-        img.setPreserveRatio(true);
-        img.setSmooth(true);
-        img.setCache(true);
-		
-		Label name = new Label("Bear");
-		Label type = new Label("Forest");
-		Label owner = new Label(currentPlayersName);
-		
-		detailsBox.getChildren().addAll(img, name, type, owner);
-	}
-	
-	public void paintHexInDetails(Pane detailsBox){
-		detailsBox.getChildren().clear();
-		
-		ImageView img = new ImageView(HEX_IMAGE);
-		img.setFitWidth(300); 
-        img.setPreserveRatio(true);
-        img.setSmooth(true);
-        img.setCache(true);
-		
-		Label name = new Label("Desert");
-		Label owner = new Label("Not Owned");
-		
-		detailsBox.getChildren().addAll(img, name, owner);
-	}
 	
 	// temp
 	public void onHexSelected(int id){
-		if (lastThingRect != null){
+		/*if (lastThingRect != null){
 			lastThingRect.setFill(Color.GREEN);
 			//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
 		}
 		if (lastHexSelected != -1){
-			paintHex(lastHexSelected,Color.DARKGRAY);
+			//paintHex(lastHexSelected,Color.DARKGRAY);
 		}
-		lastHexSelected = id;
-		paintHex(id,Color.WHITE);
-		paintHexInDetails(detailsBox);
+		lastHexSelected = id;*/
+		hexes.get(id).paintHexInDetails(detailsBox);
 	}
 	
 	
@@ -496,5 +337,17 @@ public class GameScreen {
 	
 	public final void setController(GameScreenCntrl ctrl) {
 	    this.ctrl = ctrl;
+	}
+
+	public static double getHexWidth() {
+		return HEX_WIDTH;
+	}
+
+	public static double getHexHeight() {
+		return HEX_HEIGHT;
+	}
+
+	public static double[][] getChoosenMapping() {
+		return choosenMapping;
 	}
 }
