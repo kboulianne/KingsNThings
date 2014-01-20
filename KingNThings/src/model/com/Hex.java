@@ -18,13 +18,14 @@ public class Hex extends GamePiece implements Paintable {
 	Color color;
 	/** Is the owner's start position. */
 	private boolean startPosition;
-	
 	//boolean facedUp; // is right side up?
 	boolean selected;
 	HexType type;
 	int movementWeight = 1;
-	
 	Hex[] joiningHexes;
+	
+	// list of armies for all players
+	// list of misc Things
 
 	public enum HexType {
 		JUNGLE_HEX("Jungle"),
@@ -44,7 +45,7 @@ public class Hex extends GamePiece implements Paintable {
 	protected Hex() {
 	    startPosition = false;
 	}
-	public Hex(HexType type){ // need to get 
+	public Hex(HexType type){ // doesn't specify id 
 	    this();
 		this.type = type;
 		color = Color.DARKGRAY;

@@ -3,7 +3,11 @@ package model.com;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block extends GamePiece{
+import javafx.scene.layout.Pane;
+import controller.com.Paintable;
+import controller.com.Util;
+
+public class Block extends GamePiece implements Paintable{
 	List<Thing> listOfThings;
 	
 	Block(){
@@ -12,6 +16,11 @@ public class Block extends GamePiece{
 	
 	public boolean addThing(Thing thing){	
 		// cannot add special characters, gold counters and forts
+		if(thing instanceof Fort || thing instanceof SpecialCharacter ||
+				thing instanceof IncomeCounter){
+			Util.log("Error: Unable to add special characters, gold counters or forts to block");
+			return false;
+		}
 		listOfThings.add(thing);
 		return true;
 	}
@@ -20,6 +29,10 @@ public class Block extends GamePiece{
 		listOfThings.remove(thing);
 		return true;
 	}
-	
-	// paint
+
+	@Override
+	public void paint(Pane pane) {
+		for(Thing thing: listOfThings)
+			thing.paint(pane);
+	}
 }

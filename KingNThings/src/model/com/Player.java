@@ -20,10 +20,7 @@ public class Player implements Paintable{
 	PlayerId id; 		// {1, 2, 3, 4}
 	Color color;	// {blue, green, red, yellow}
 	Block block;
-
-	//private String name;
 	int gold;
-
 	private StringProperty name;
 	
 	public enum PlayerId { ONE(Color.BLUE),TWO(Color.GREEN),THREE(Color.RED),FOUR(Color.YELLOW); 
@@ -101,5 +98,9 @@ public class Player implements Paintable{
 		
 		pane.getChildren().addAll(playerBox);
 		
+	}
+	
+	public void paintGold(Pane pane){
+		pane.getChildren().add(new Label("Gold: "+gold));
 	}
 }
