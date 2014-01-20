@@ -7,11 +7,7 @@
 package com.services.game;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-import model.com.Board;
-import model.com.Hex;
 import model.com.Player;
 import model.com.game.Game;
 

@@ -2,7 +2,7 @@ package controller.com;
 
 import com.services.game.GameService;
 import javafx.application.Platform;
-import jfxtras.labs.scene.control.BeanPathAdapter;
+//import jfxtras.labs.scene.control.BeanPathAdapter;
 import view.com.GameScreen;
 
 public class GameScreenCntrl {
@@ -11,7 +11,7 @@ public class GameScreenCntrl {
     private GameService service = GameService.getInstance();
 
     GameScreenCntrl(GameScreen view) {
-	this.view = view;
+    	this.view = view;
     }
 
     void initialize() {
