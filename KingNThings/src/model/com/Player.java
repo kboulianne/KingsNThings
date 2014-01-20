@@ -1,5 +1,6 @@
 package model.com;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import view.com.GameScreen;
@@ -11,6 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+=======
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+>>>>>>> c008603ba85771b5aaf6541adb92e9988f3a77c8
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -18,8 +23,12 @@ public class Player implements Paintable{
 	PlayerId id; 		// {1, 2, 3, 4}
 	Color color;	// {blue, green, red, yellow}
 	Block block;
+<<<<<<< HEAD
 	private String name;
 	int gold;
+=======
+	private StringProperty name;
+>>>>>>> c008603ba85771b5aaf6541adb92e9988f3a77c8
 	
 	public enum PlayerId { ONE(Color.BLUE),TWO(Color.GREEN),THREE(Color.RED),FOUR(Color.YELLOW); 
 		private final Color color;
@@ -29,17 +38,25 @@ public class Player implements Paintable{
 	}
 	
 	public Player(PlayerId id, String name) {
-	    this.name = name;
+	    this.name = new SimpleStringProperty(name);
 	    color = id.color;
 	    block = new Block();
 	    gold = 0;
 	}
 	
+	/**
+	 * Convenience getter for the player's name.
+	 * @return 
+	 */
 	public final String getName() {
+	    return name.get();
+	}
+	
+	public final StringProperty getNameProperty() {
 	    return name;
 	}
 	
-	public final void setName(final String name) {
+	public final void setNameProperty(final StringProperty name) {
 	    this.name = name;
 	}
 
