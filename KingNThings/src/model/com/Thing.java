@@ -25,169 +25,191 @@ public abstract class Thing extends GamePiece implements Paintable	{
 	}
 	
 	public static ArrayList<Thing> createThings()	{
-		ArrayList<Thing> creatures = new ArrayList<Thing>();
+		ArrayList<Thing> things = new ArrayList<Thing>();
 		
 		//Add swamp creatures
-		creatures.add(new SwampCreature("giantlizard"));
-		creatures.add(new SwampCreature("giantlizard"));
-		creatures.add(new SwampCreature("crocodilesswamp"));
-		creatures.add(new SwampCreature("ghost"));
-		creatures.add(new SwampCreature("ghost"));
-		creatures.add(new SwampCreature("ghost"));
-		creatures.add(new SwampCreature("ghost"));
-		creatures.add(new SwampCreature("vampirebat"));
-		creatures.add(new SwampCreature("swamprat"));
-		creatures.add(new SwampCreature("sprite"));
-		creatures.add(new SwampCreature("giantsnakeswamp"));
-		creatures.add(new SwampCreature("swampgas"));
-		creatures.add(new SwampCreature("slimebeast"));
-		creatures.add(new SwampCreature("will-o-wisp"));
-		creatures.add(new SwampCreature("watersnake"));
-		creatures.add(new SwampCreature("darkwizard"));
-		creatures.add(new SwampCreature("poisonfrog"));
-		creatures.add(new SwampCreature("pirates"));
-		creatures.add(new SwampCreature("basilisk"));
-		creatures.add(new SwampCreature("wingedpirhana"));
-		creatures.add(new SwampCreature("spirit"));
-		creatures.add(new SwampCreature("thing"));
-		creatures.add(new SwampCreature("blackknight"));
-		creatures.add(new SwampCreature("hugeleech"));
-		creatures.add(new SwampCreature("giantmosquito"));
+		things.add(new SwampCreature("giantlizard"));
+		things.add(new SwampCreature("giantlizard"));
+		things.add(new SwampCreature("crocodilesswamp"));
+		things.add(new SwampCreature("ghost"));
+		things.add(new SwampCreature("ghost"));
+		things.add(new SwampCreature("ghost"));
+		things.add(new SwampCreature("ghost"));
+		things.add(new SwampCreature("vampirebat"));
+		things.add(new SwampCreature("swamprat"));
+		things.add(new SwampCreature("sprite"));
+		things.add(new SwampCreature("giantsnakeswamp"));
+		things.add(new SwampCreature("swampgas"));
+		things.add(new SwampCreature("slimebeast"));
+		things.add(new SwampCreature("will-o-wisp"));
+		things.add(new SwampCreature("watersnake"));
+		things.add(new SwampCreature("darkwizard"));
+		things.add(new SwampCreature("poisonfrog"));
+		things.add(new SwampCreature("pirates"));
+		things.add(new SwampCreature("basilisk"));
+		things.add(new SwampCreature("wingedpirhana"));
+		things.add(new SwampCreature("spirit"));
+		things.add(new SwampCreature("thing"));
+		things.add(new SwampCreature("blackknight"));
+		things.add(new SwampCreature("hugeleech"));
+		things.add(new SwampCreature("giantmosquito"));
 		
-		//Add desert creatures
-		creatures.add(new DesertCreature("sandworm"));
-		creatures.add(new DesertCreature("giantspider"));
-		creatures.add(new DesertCreature("nomads"));
-		creatures.add(new DesertCreature("nomads"));
-		creatures.add(new DesertCreature("vultures"));
-		creatures.add(new DesertCreature("griffon"));
-		creatures.add(new DesertCreature("skeletons"));
-		creatures.add(new DesertCreature("skeletons"));
-		creatures.add(new DesertCreature("babydragon"));
-		creatures.add(new DesertCreature("dervish"));
-		creatures.add(new DesertCreature("dervish"));
-		creatures.add(new DesertCreature("giantwasp"));
-		creatures.add(new DesertCreature("giantwasp1"));
-		creatures.add(new DesertCreature("desertbat"));
-		creatures.add(new DesertCreature("camelcorps"));
-		creatures.add(new DesertCreature("genie"));
-		creatures.add(new DesertCreature("dustdevil"));
-		creatures.add(new DesertCreature("sphinx"));
-		creatures.add(new DesertCreature("buzzard"));
-		creatures.add(new DesertCreature("yellowknight"));
-		creatures.add(new DesertCreature("olddragon"));
+		//Add desert things
+		things.add(new DesertCreature("sandworm"));
+		things.add(new DesertCreature("giantspider"));
+		things.add(new DesertCreature("nomads"));
+		things.add(new DesertCreature("nomads"));
+		things.add(new DesertCreature("vultures"));
+		things.add(new DesertCreature("griffon"));
+		things.add(new DesertCreature("skeletons"));
+		things.add(new DesertCreature("skeletons"));
+		things.add(new DesertCreature("babydragon"));
+		things.add(new DesertCreature("dervish"));
+		things.add(new DesertCreature("dervish"));
+		things.add(new DesertCreature("giantwasp"));
+		things.add(new DesertCreature("giantwasp1"));
+		things.add(new DesertCreature("desertbat"));
+		things.add(new DesertCreature("camelcorps"));
+		things.add(new DesertCreature("genie"));
+		things.add(new DesertCreature("dustdevil"));
+		things.add(new DesertCreature("sphinx"));
+		things.add(new DesertCreature("buzzard"));
+		things.add(new DesertCreature("yellowknight"));
+		things.add(new DesertCreature("olddragon"));
 		
-		//Add forest creatures
-		creatures.add(new ForestCreature("pixies"));
-		creatures.add(new ForestCreature("killerracoon"));
-		creatures.add(new ForestCreature("druid"));
-		creatures.add(new ForestCreature("elfmage"));
-		creatures.add(new ForestCreature("bandits"));
-		creatures.add(new ForestCreature("flyingsquirrel"));
-		creatures.add(new ForestCreature("flyingsquirrel1"));
-		creatures.add(new ForestCreature("greenknight"));
-		creatures.add(new ForestCreature("pixies"));
-		creatures.add(new ForestCreature("dryad"));
-		creatures.add(new ForestCreature("elves"));
-		creatures.add(new ForestCreature("elves1"));
-		creatures.add(new ForestCreature("bears"));
-		creatures.add(new ForestCreature("elves"));
-		creatures.add(new ForestCreature("greatowl"));
-		creatures.add(new ForestCreature("wildcat"));
-		creatures.add(new ForestCreature("wyvern"));
-		creatures.add(new ForestCreature("bigfoot"));
-		creatures.add(new ForestCreature("unicorn"));
-		creatures.add(new ForestCreature("forester"));
-		creatures.add(new ForestCreature("walkingtree"));
+		//Add forest things
+		things.add(new ForestCreature("pixies"));
+		things.add(new ForestCreature("killerracoon"));
+		things.add(new ForestCreature("druid"));
+		things.add(new ForestCreature("elfmage"));
+		things.add(new ForestCreature("bandits"));
+		things.add(new ForestCreature("flyingsquirrel"));
+		things.add(new ForestCreature("flyingsquirrel1"));
+		things.add(new ForestCreature("greenknight"));
+		things.add(new ForestCreature("pixies"));
+		things.add(new ForestCreature("dryad"));
+		things.add(new ForestCreature("elves"));
+		things.add(new ForestCreature("elves1"));
+		things.add(new ForestCreature("bears"));
+		things.add(new ForestCreature("elves"));
+		things.add(new ForestCreature("greatowl"));
+		things.add(new ForestCreature("wildcat"));
+		things.add(new ForestCreature("wyvern"));
+		things.add(new ForestCreature("bigfoot"));
+		things.add(new ForestCreature("unicorn"));
+		things.add(new ForestCreature("forester"));
+		things.add(new ForestCreature("walkingtree"));
 		
-		//Add mountain creatures
-		creatures.add(new MountainCreature("goblins"));
-		creatures.add(new MountainCreature("goblins"));
-		creatures.add(new MountainCreature("goblins"));
-		creatures.add(new MountainCreature("goblins"));
-		creatures.add(new MountainCreature("dwarves"));
-		creatures.add(new MountainCreature("dwarves1"));
-		creatures.add(new MountainCreature("dwarves2"));
-		creatures.add(new MountainCreature("troll"));
-		creatures.add(new MountainCreature("greateagle"));
-		creatures.add(new MountainCreature("browndragon"));
-		creatures.add(new MountainCreature("mountainmen"));
-		creatures.add(new MountainCreature("mountainmen"));
-		creatures.add(new MountainCreature("giantroc"));
-		creatures.add(new MountainCreature("giantcondor"));
-		creatures.add(new MountainCreature("cyclops"));
-		creatures.add(new MountainCreature("greathawk"));
-		creatures.add(new MountainCreature("ogre"));
-		creatures.add(new MountainCreature("brownknight"));
-		creatures.add(new MountainCreature("littleroc"));
-		creatures.add(new MountainCreature("giant"));
-		creatures.add(new MountainCreature("mountainlion"));
+		//Add mountain things
+		things.add(new MountainCreature("goblins"));
+		things.add(new MountainCreature("goblins"));
+		things.add(new MountainCreature("goblins"));
+		things.add(new MountainCreature("goblins"));
+		things.add(new MountainCreature("dwarves"));
+		things.add(new MountainCreature("dwarves1"));
+		things.add(new MountainCreature("dwarves2"));
+		things.add(new MountainCreature("troll"));
+		things.add(new MountainCreature("greateagle"));
+		things.add(new MountainCreature("browndragon"));
+		things.add(new MountainCreature("mountainmen"));
+		things.add(new MountainCreature("mountainmen"));
+		things.add(new MountainCreature("giantroc"));
+		things.add(new MountainCreature("giantcondor"));
+		things.add(new MountainCreature("cyclops"));
+		things.add(new MountainCreature("greathawk"));
+		things.add(new MountainCreature("ogre"));
+		things.add(new MountainCreature("brownknight"));
+		things.add(new MountainCreature("littleroc"));
+		things.add(new MountainCreature("giant"));
+		things.add(new MountainCreature("mountainlion"));
 		
-		//Add plains creatures
-		creatures.add(new PlainsCreature("villains"));
-		creatures.add(new PlainsCreature("gypsies"));
-		creatures.add(new PlainsCreature("gypsies1"));
-		creatures.add(new PlainsCreature("whiteknight"));
-		creatures.add(new PlainsCreature("tribesmen"));
-		creatures.add(new PlainsCreature("tribesmen"));
-		creatures.add(new PlainsCreature("tribesmen1"));
-		creatures.add(new PlainsCreature("flyingbuffalo"));
-		creatures.add(new PlainsCreature("greathunter"));
-		creatures.add(new PlainsCreature("wolfpack"));
-		creatures.add(new PlainsCreature("lionpride"));
-		creatures.add(new PlainsCreature("farmers"));
-		creatures.add(new PlainsCreature("farmers"));
-		creatures.add(new PlainsCreature("farmers"));
-		creatures.add(new PlainsCreature("farmers"));
-		creatures.add(new PlainsCreature("eagles"));
-		creatures.add(new PlainsCreature("buffaloherd"));
-		creatures.add(new PlainsCreature("buffaloherd1"));
-		creatures.add(new PlainsCreature("greathawk"));
-		creatures.add(new PlainsCreature("giantbeetle"));
-		creatures.add(new PlainsCreature("centaur"));
-		creatures.add(new PlainsCreature("pegasus"));
-		creatures.add(new PlainsCreature("pterodactyl"));
-		creatures.add(new PlainsCreature("dragonfly"));
-		creatures.add(new PlainsCreature("hunters"));
+		//Add plains things
+		things.add(new PlainsCreature("villains"));
+		things.add(new PlainsCreature("gypsies"));
+		things.add(new PlainsCreature("gypsies1"));
+		things.add(new PlainsCreature("whiteknight"));
+		things.add(new PlainsCreature("tribesmen"));
+		things.add(new PlainsCreature("tribesmen"));
+		things.add(new PlainsCreature("tribesmen1"));
+		things.add(new PlainsCreature("flyingbuffalo"));
+		things.add(new PlainsCreature("greathunter"));
+		things.add(new PlainsCreature("wolfpack"));
+		things.add(new PlainsCreature("lionpride"));
+		things.add(new PlainsCreature("farmers"));
+		things.add(new PlainsCreature("farmers"));
+		things.add(new PlainsCreature("farmers"));
+		things.add(new PlainsCreature("farmers"));
+		things.add(new PlainsCreature("eagles"));
+		things.add(new PlainsCreature("buffaloherd"));
+		things.add(new PlainsCreature("buffaloherd1"));
+		things.add(new PlainsCreature("greathawk"));
+		things.add(new PlainsCreature("giantbeetle"));
+		things.add(new PlainsCreature("centaur"));
+		things.add(new PlainsCreature("pegasus"));
+		things.add(new PlainsCreature("pterodactyl"));
+		things.add(new PlainsCreature("dragonfly"));
+		things.add(new PlainsCreature("hunters"));
 		
-		//Add jungle creatures
-		creatures.add(new JungleCreature("crawlingvines"));
-		creatures.add(new JungleCreature("giantape"));
-		creatures.add(new JungleCreature("giantape"));
-		creatures.add(new JungleCreature("headhunter"));
-		creatures.add(new JungleCreature("dinosaur"));
-		creatures.add(new JungleCreature("pygmies"));
-		creatures.add(new JungleCreature("witchdoctor"));
-		creatures.add(new JungleCreature("tigers"));
-		creatures.add(new JungleCreature("tigers"));
-		creatures.add(new JungleCreature("pterodactylwarriors"));
-		creatures.add(new JungleCreature("pterodactylwarriors"));
-		creatures.add(new JungleCreature("crocodilesjungle"));
-		creatures.add(new JungleCreature("watusi"));
-		creatures.add(new JungleCreature("elephant"));
-		creatures.add(new JungleCreature("giantsnakejungle"));
-		creatures.add(new JungleCreature("birdofparadies"));
+		//Add jungle things
+		things.add(new JungleCreature("crawlingvines"));
+		things.add(new JungleCreature("giantape"));
+		things.add(new JungleCreature("giantape"));
+		things.add(new JungleCreature("headhunter"));
+		things.add(new JungleCreature("dinosaur"));
+		things.add(new JungleCreature("pygmies"));
+		things.add(new JungleCreature("witchdoctor"));
+		things.add(new JungleCreature("tigers"));
+		things.add(new JungleCreature("tigers"));
+		things.add(new JungleCreature("pterodactylwarriors"));
+		things.add(new JungleCreature("pterodactylwarriors"));
+		things.add(new JungleCreature("crocodilesjungle"));
+		things.add(new JungleCreature("watusi"));
+		things.add(new JungleCreature("elephant"));
+		things.add(new JungleCreature("giantsnakejungle"));
+		things.add(new JungleCreature("birdofparadies"));
 		
-		//Add frozen waste creatures
-		creatures.add(new FrozenWasteCreature("killerpuffins"));
-		creatures.add(new FrozenWasteCreature("icegiant"));
-		creatures.add(new FrozenWasteCreature("eskimos"));
-		creatures.add(new FrozenWasteCreature("eskimos"));
-		creatures.add(new FrozenWasteCreature("eskimos"));
-		creatures.add(new FrozenWasteCreature("eskimos"));
-		creatures.add(new FrozenWasteCreature("whitebear"));
-		creatures.add(new FrozenWasteCreature("walrus"));
-		creatures.add(new FrozenWasteCreature("dragonrider"));
-		creatures.add(new FrozenWasteCreature("iceworm"));
-		creatures.add(new FrozenWasteCreature("mammoth"));
-		creatures.add(new FrozenWasteCreature("killerpenguins"));
-		creatures.add(new FrozenWasteCreature("northwind"));
-		creatures.add(new FrozenWasteCreature("wolves"));
-		creatures.add(new FrozenWasteCreature("icebats"));
-		creatures.add(new FrozenWasteCreature("elkherd"));
-		creatures.add(new FrozenWasteCreature("whitedragon"));
+		//Add frozen waste things
+		things.add(new FrozenWasteCreature("killerpuffins"));
+		things.add(new FrozenWasteCreature("icegiant"));
+		things.add(new FrozenWasteCreature("eskimos"));
+		things.add(new FrozenWasteCreature("eskimos"));
+		things.add(new FrozenWasteCreature("eskimos"));
+		things.add(new FrozenWasteCreature("eskimos"));
+		things.add(new FrozenWasteCreature("whitebear"));
+		things.add(new FrozenWasteCreature("walrus"));
+		things.add(new FrozenWasteCreature("dragonrider"));
+		things.add(new FrozenWasteCreature("iceworm"));
+		things.add(new FrozenWasteCreature("mammoth"));
+		things.add(new FrozenWasteCreature("killerpenguins"));
+		things.add(new FrozenWasteCreature("northwind"));
+		things.add(new FrozenWasteCreature("wolves"));
+		things.add(new FrozenWasteCreature("icebats"));
+		things.add(new FrozenWasteCreature("elkherd"));
+		things.add(new FrozenWasteCreature("whitedragon"));
 		
-		return creatures;
+		//Add income counters
+		/*things.add(new IncomeCounter("timberland"));
+		things.add(new IncomeCounter("silvermine"));
+		things.add(new IncomeCounter("silvermine"));
+		things.add(new IncomeCounter("peatbog"));
+		things.add(new IncomeCounter("oilfield"));
+		things.add(new IncomeCounter("goldmine"));
+		things.add(new IncomeCounter("farmlands"));
+		things.add(new IncomeCounter("elephantsgraveyard"));
+		things.add(new IncomeCounter("diamondfield"));
+		things.add(new IncomeCounter("coppermine"));
+		
+		//Add treasure
+		things.add(new Treasure("treasurechest"));
+		things.add(new Treasure("sapphire"));
+		things.add(new Treasure("ruby"));
+		things.add(new Treasure("pearl"));
+		things.add(new Treasure("emerald"));
+		things.add(new Treasure("diamond"));*/
+		
+		//Add magic items
+		
+		return things;
 	}
 	
 	public void paint(Pane pane){

@@ -356,7 +356,6 @@ public class GameScreen {
 	}
 	
 	// getters and setters
-
 	public static double getHexWidth() {
 		return HEX_WIDTH;
 	}
