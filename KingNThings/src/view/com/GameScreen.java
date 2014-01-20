@@ -9,7 +9,6 @@ import controller.com.Util;
 
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -41,7 +40,6 @@ import model.com.Player;
 import model.com.SwampCreature;
 import model.com.Thing;
 
-import model.com.Player;
 import model.com.game.Game;
 
 public class GameScreen {
@@ -153,15 +151,10 @@ public class GameScreen {
 		sidePane.setMinWidth(1280*0.5-20);
 		//Opponents
 		HBox otherPlayerInfo = new HBox();
-		otherPlayerInfo.setId("otherPlayerInfo");
-		otherPlayerInfo.getChildren().add(new Label("Opponents:"));	
-		
+		otherPlayerInfo.setId("otherPlayerInfo");		
 		player1.paint(otherPlayerInfo);
 		player2.paint(otherPlayerInfo);
 		player3.paint(otherPlayerInfo);
-		//paintPlayerName(otherPlayerName1, Color.YELLOW, otherPlayerInfo);
-		//paintPlayerName(otherPlayerName2, Color.RED, otherPlayerInfo);
-		//paintPlayerName(otherPlayerName3, Color.BLUE, otherPlayerInfo);
 		otherPlayerInfo.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().addAll(otherPlayerInfo, detailsBox);
 		
@@ -175,14 +168,8 @@ public class GameScreen {
 		VBox currentPlayerNameAndGold = new VBox();
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
 		player4.paint(currentPlayerNameAndGold);
-		//paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
-//		paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
-		//createCurrentPlayerLabel(currentPlayerNameAndGold);
-
-		currentPlayerNameAndGold.getChildren().add(new Label("Gold: 50"));
+		player4.paintGold(currentPlayerNameAndGold);
 		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
-		
-		
 		
 		for(int i =0; i<7;i++)
 			thing.paint(currentPlayerInfoBox);
@@ -359,15 +346,16 @@ public class GameScreen {
 	   
 		// Bind the current player
 	    // TODO add Male/Female property
+		// broken here
 	    currentPlayerLbl.textProperty().bind(Bindings.concat("Sir ").concat(player.getNameProperty()));
-	    
-	    
 	}
 	
 	
 	public final void setController(GameScreenCntrl ctrl) {
 	    this.ctrl = ctrl;
 	}
+	
+	// getters and setters
 
 	public static double getHexWidth() {
 		return HEX_WIDTH;
