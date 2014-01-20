@@ -13,9 +13,6 @@ public class Main extends Application{
 	static final double HEIGHT = 600;
 	public static Stage stage;
 	
-	
-
-	
 	public static void main(String[] args){
 		launch(args);
 	}
