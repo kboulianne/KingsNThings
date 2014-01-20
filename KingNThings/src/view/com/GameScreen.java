@@ -6,11 +6,10 @@ import java.util.List;
 import controller.com.GameScreenCntrl;
 import controller.com.Main;
 import controller.com.Util;
-<<<<<<< HEAD
-=======
+
 import javafx.beans.binding.Bindings;
->>>>>>> c008603ba85771b5aaf6541adb92e9988f3a77c8
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -20,26 +19,29 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 //import jfxtras.labs.scene.control.BeanPathAdapter;
 import model.com.Die;
-<<<<<<< HEAD
+
 import model.com.Hex;
 import model.com.HexDesert;
 import model.com.Player;
 import model.com.SwampCreature;
 import model.com.Thing;
-=======
+
 import model.com.Player;
->>>>>>> c008603ba85771b5aaf6541adb92e9988f3a77c8
 import model.com.game.Game;
 
 public class GameScreen {
@@ -71,11 +73,9 @@ public class GameScreen {
 	};
     
 	
-<<<<<<< HEAD
-=======
-	Label currentPlayerLbl;
->>>>>>> c008603ba85771b5aaf6541adb92e9988f3a77c8
+
 	// for now
+	Labeled currentPlayerLbl;
 	ImageView die1Im;
 	ImageView die2Im;
 	Player player1 = new Player(Player.PlayerId.ONE, "Paul McCartney");
@@ -174,13 +174,11 @@ public class GameScreen {
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
-<<<<<<< HEAD
 		player4.paint(currentPlayerNameAndGold);
 		//paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
-=======
 //		paintPlayerName(currentPlayersName, Color.GREEN, currentPlayerNameAndGold);
-		createCurrentPlayerLabel(currentPlayerNameAndGold);
->>>>>>> c008603ba85771b5aaf6541adb92e9988f3a77c8
+		//createCurrentPlayerLabel(currentPlayerNameAndGold);
+
 		currentPlayerNameAndGold.getChildren().add(new Label("Gold: 50"));
 		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
 		
@@ -283,8 +281,7 @@ public class GameScreen {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
+
 	// paint function to be moved to associated classes
 	
 	private void createCurrentPlayerLabel(final Pane p) {
@@ -303,170 +300,7 @@ public class GameScreen {
 	    p.getChildren().addAll(playerBox);
 	}
 	
-	public void paintPlayerName(final String name, Color c, Pane pane){
-		Label playerLbl = new Label("Sir "+name);
-		playerLbl.getStyleClass().add("playerName"); 
-		Circle circle = new Circle();
-		circle.setRadius(6);
-		circle.setFill(c);   
-		HBox playerBox = new HBox();
-		playerBox.getChildren().addAll(circle, playerLbl);
-		playerBox.setAlignment(Pos.CENTER);
-		
-		playerBox.setOnMouseEntered(new EventHandler<Event>() {
 
-			@Override
-			public void handle(Event arg0) {
-				VBox popupContentVbox = new VBox();			
-				popupContentVbox.setMinSize(700, 400);
-				popupContentVbox.setAlignment(Pos.CENTER);
-				popupContentVbox.getStyleClass().add("border");
-				
-				Label label = new Label("Player Information: "+name);
-				popupContentVbox.getChildren().addAll(label);
-				popup(popupContentVbox);
-			}
-		});
-		
-		playerBox.setOnMouseExited(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-				dismissPopup();
-			}	
-		});
-		
-		pane.getChildren().addAll(playerBox);
-	}
-	
-	public void paintHex(int id, Color c){ // will be moved to Hex Class --> myHex.paint(Scene canvas)
-		GraphicsContext gc = playingArea.getGraphicsContext2D();
-		
-		double height = HEX_HEIGHT;
-		
-		double xOffset = choosenMapping[id][0]*0.75*HEX_WIDTH-40.0; //40 move whole grid
-		double yOffset = choosenMapping[id][1]*0.5*height-30.0; //30 moves whole grid
-		//gc.fillOval(xOffset, yOffset, xOffset+200, yOffset+200);
-		
-		//outer polygon
-		gc.setFill(Color.BLACK);
-		gc.fillPolygon(new double[]{(xOffset+(HEX_WIDTH*0.25)), (xOffset+(HEX_WIDTH*0.75)), (xOffset+HEX_WIDTH), 	
-									 xOffset+(HEX_WIDTH*0.75), xOffset+(HEX_WIDTH*0.25), xOffset},
-					   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
-									yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
-		//inner polygon
-		double gap=HEX_WIDTH*0.05;
-		double temp_width = HEX_WIDTH;
-		xOffset+=gap;
-		yOffset+=gap;
-		height-=(gap*2);
-		temp_width-=(gap*2);
-		gc.setFill(c);
-		gc.fillPolygon(new double[]{(xOffset+(temp_width*0.25)), (xOffset+(temp_width*0.75)), (xOffset+temp_width), 	
-				 					xOffset+(temp_width*0.75), xOffset+(temp_width*0.25), xOffset},
-				 	   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
-									yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
-		//image
-		gap=temp_width*0.05;
-		double imageAdjust=4.0;
-		gc.drawImage(HEX_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));		
-	}
-	
-	public void paintBlock(){
-		// loop
-			//paintThing(i, );
-	}
-	
-	public void paintThing(int blockIndex, Pane currentPlayerInfoBox){
-		
-		double thingWidth = 60;
-		
-		StackPane stack = new StackPane();
-		
-		Rectangle borderRect = new Rectangle();
-		borderRect.setX(0);
-		borderRect.setY(0);
-		borderRect.setWidth(thingWidth);
-		borderRect.setHeight(thingWidth);
-		borderRect.setArcWidth(20);
-		borderRect.setArcHeight(20);
-		
-		borderRect.setFill(Color.WHITE);
-		
-		final Rectangle coloredRect = new Rectangle();
-		coloredRect.setX(0);
-		coloredRect.setY(0);
-		coloredRect.setWidth(thingWidth-1);
-		coloredRect.setHeight(thingWidth-1);
-		coloredRect.setArcWidth(20);
-		coloredRect.setArcHeight(20);
-		coloredRect.setFill(Color.GREEN);
-		
-		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/bears.jpeg"));
-		img.setFitWidth(thingWidth-7); 
-        img.setPreserveRatio(true);
-        img.setSmooth(true);
-        img.setCache(true);
-        img.getStyleClass().add("thing");
-       
-		
-		stack.getChildren().addAll(borderRect, coloredRect, img);
-		
-		
-		//lastThingIndexSelected= node.getChildren().size();
-		currentPlayerInfoBox.getChildren().add(stack);
-		
-		
-		img.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-				// TODO Auto-generated method stub
-				if (lastThingRect != null){
-					lastThingRect.setFill(Color.GREEN);
-					//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
-				}
-				if (lastHexSelected != -1){
-					paintHex(lastHexSelected,Color.DARKGRAY);
-				}
-				lastThingRect = coloredRect;
-				paintThingInDetails(detailsBox);
-				coloredRect.setFill(Color.WHITE);
-			}
-		});
-	}
-	
-	public void paintThingInDetails(Pane detailsBox){
-		detailsBox.getChildren().clear();
-		
-		ImageView img = new ImageView(new Image("view/com/assets/pics/gamepieces/things/creatures/bears.jpeg"));
-		img.setFitWidth(260); 
-        img.setPreserveRatio(true);
-        img.setSmooth(true);
-        img.setCache(true);
-		
-		Label name = new Label("Bear");
-		Label type = new Label("Forest");
-		Label owner = new Label(currentPlayersName);
-		
-		detailsBox.getChildren().addAll(img, name, type, owner);
-	}
-	
-	public void paintHexInDetails(Pane detailsBox){
-		detailsBox.getChildren().clear();
-		
-		ImageView img = new ImageView(HEX_IMAGE);
-		img.setFitWidth(300); 
-        img.setPreserveRatio(true);
-        img.setSmooth(true);
-        img.setCache(true);
-		
-		Label name = new Label("Desert");
-		Label owner = new Label("Not Owned");
-		
-		detailsBox.getChildren().addAll(img, name, owner);
-	}
->>>>>>> c008603ba85771b5aaf6541adb92e9988f3a77c8
 	
 	// temp
 	public void onHexSelected(int id){
@@ -522,7 +356,8 @@ public class GameScreen {
 	}
 
 	public final void bindPlayers(final Player player) {
-	    // Bind the current player
+	   
+		// Bind the current player
 	    // TODO add Male/Female property
 	    currentPlayerLbl.textProperty().bind(Bindings.concat("Sir ").concat(player.getNameProperty()));
 	    
