@@ -3,9 +3,9 @@ package view.com;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.com.GameScreenCntrl;
-import controller.com.Main;
-import controller.com.Util;
+import com.presenter.GameScreenCntrl;
+import com.presenter.Main;
+import com.presenter.Util;
 
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -32,15 +32,14 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 //import jfxtras.labs.scene.control.BeanPathAdapter;
-import model.com.Die;
+import com.model.Die;
+import com.model.Hex;
+import com.model.HexDesert;
+import com.model.Player;
+import com.model.SwampCreature;
+import com.model.Thing;
 
-import model.com.Hex;
-import model.com.HexDesert;
-import model.com.Player;
-import model.com.SwampCreature;
-import model.com.Thing;
-
-import model.com.game.Game;
+import com.model.game.Game;
 
 public class GameScreen {
 	

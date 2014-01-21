@@ -1,7 +1,7 @@
 package view.com;
 
-import controller.com.ConnectionScreenCntrl;
-import controller.com.Main;
+import com.presenter.ConnectionScreenCntrl;
+import com.presenter.Main;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
