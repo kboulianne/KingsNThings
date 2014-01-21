@@ -166,7 +166,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 		things.add(new JungleCreature("watusi"));
 		things.add(new JungleCreature("elephant"));
 		things.add(new JungleCreature("giantsnakejungle"));
-		things.add(new JungleCreature("birdofparadies"));
+		things.add(new JungleCreature("birdofparadise"));
 		
 		//Add frozen waste things
 		things.add(new FrozenWasteCreature("killerpuffins"));

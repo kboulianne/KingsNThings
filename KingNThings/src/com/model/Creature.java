@@ -10,6 +10,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("babydragon", 3);
 		combatVals.put("dervish", 2);
 		combatVals.put("dustdevil", 4);
+		combatVals.put("camelcorps", 3);
 		combatVals.put("giantspider", 1);
 		combatVals.put("giantwasp", 2);
 		combatVals.put("giantwasp1", 4);
@@ -39,6 +40,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("greatowl", 2);
 		combatVals.put("greenknight", 4);
 		combatVals.put("killerracoon", 2);
+		combatVals.put("pixies", 1);
 		combatVals.put("unicorn", 4);
 		combatVals.put("walkingtree", 5);
 		combatVals.put("wildcat", 2);
@@ -62,7 +64,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("birdofparadise", 1);
 		combatVals.put("crawlingvines", 6);
 		combatVals.put("crocodilesjungle", 2);
-		combatVals.put("dinsosaur", 4);
+		combatVals.put("dinosaur", 4);
 		combatVals.put("elephant", 4);
 		combatVals.put("giantape", 5);
 		combatVals.put("giantsnakejungle", 3);
@@ -92,6 +94,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("troll", 4);
 		//Insert plains creatures
 		combatVals.put("buffaloherd", 3);
+		combatVals.put("buffaloherd1", 4);
 		combatVals.put("centaur", 2);
 		combatVals.put("dragonfly", 2);
 		combatVals.put("eagles", 2);
@@ -100,6 +103,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("greathunter", 4);
 		combatVals.put("gypsies", 2);
 		combatVals.put("gypsies1", 1);
+		combatVals.put("giantbeetle", 2);
 		combatVals.put("hunters", 1);
 		combatVals.put("lionpride", 3);
 		combatVals.put("pegasus", 2);
@@ -143,6 +147,7 @@ public abstract class Creature extends Thing	{
 		flyingCreat.add("pterodactylwarriors");
 		flyingCreat.add("pterodactyl");
 		flyingCreat.add("pegasus");
+		flyingCreat.add("pixies");
 		flyingCreat.add("olddragon");
 		flyingCreat.add("northwind");
 		flyingCreat.add("littleroc");
@@ -158,6 +163,7 @@ public abstract class Creature extends Thing	{
 		flyingCreat.add("giantmosquito");
 		flyingCreat.add("giantcondor");
 		flyingCreat.add("ghost");
+		flyingCreat.add("giantbeetle");
 		flyingCreat.add("flyingsquirrel");
 		flyingCreat.add("flyingsquirrel");
 		flyingCreat.add("flyingbuffalo");
