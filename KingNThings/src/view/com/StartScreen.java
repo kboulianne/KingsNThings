@@ -1,7 +1,7 @@
 package view.com;
 
-import controller.com.Main;
-import controller.com.StartScreenCntrl;
+import com.presenter.Main;
+import com.presenter.StartScreenCntrl;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
