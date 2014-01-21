@@ -66,21 +66,5 @@ public class Board {
 	public final boolean isFaceDown() {
 	    return faceDown;
 	}
-	
-//    public final boolean isValidStartPosition(final Hex hex) {
-//	return startPositions.contains(hexes.indexOf(hex));
-//    }
-	
-//	public void setupTiles(int numOfH){
-//		numOfHexes = numOfH;
-//		hexArray = new Hex[numOfH];
-//		
-//		//factory = new HexFactory()
-//		// factory.createHex(DESERT_HEX)
-//		// or
-//		// 
-//	}
-	
-	
 
 }

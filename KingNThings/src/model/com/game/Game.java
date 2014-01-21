@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import controller.com.HexFactory;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import model.com.Board;
@@ -47,64 +49,38 @@ public final class Game {
      */
     //TODO not supposed to expose this (make protected?)
     public Game() {
-	mode = MODE_FOUR_PLAYER;
+		mode = MODE_FOUR_PLAYER;
+		
+		// Initialize the dice
+		die1 = new SimpleObjectProperty<>(new Die());
+		die2 = new SimpleObjectProperty<>(new Die());
+		
+		// Player order is arbitrary in the beginning.
+		playerOrder = new ArrayList<>();
+	//	nextPlayerIt = playerOrder.iterator();
+		
+		gamePlay = new GamePlay();
+		
+		// TODO: Factory for 2 or 4 player.
+		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
+		
+		HexFactory hexFactory = new HexFactory();
+		
+		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
+		
+		// Choose Hexes at random from the pool and add to the board.
+		int rand = 0;
+		Random rnd = new Random();
 	
-	// Initialize the dice
-	die1 = new SimpleObjectProperty<>(new Die());
-	die2 = new SimpleObjectProperty<>(new Die());
-	
-	// Player order is arbitrary in the beginning.
-	playerOrder = new ArrayList<>();
-//	nextPlayerIt = playerOrder.iterator();
-	
-	gamePlay = new GamePlay();
-	
-	// TODO: Factory for 2 or 4 player.
-	board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
-	initializeBoard();
+		for (int i = 0 ; i < board.getHexNum() ; i ++) {
+		    rand = rnd.nextInt(hexPool.size());
+		    // Add hex to position i in board hex array.
+		    board.addHex(hexPool.get(rand));
+		    
+		    hexPool.remove(rand);
+		}
     }
-    
-    /**
-     * Initialization logic for the game board.
-     */
-    private void initializeBoard() {
-	/* Create all hex instances. The board determines if they are face down or up.  Put all instances in a pool so
-	 * they can be picked and assigned at random.
-	 * 
-	 */
-	List<Hex> hexPool = new ArrayList<>();
-	// 48 tiles. Need to "set aside" 4 sea hexes, distribute rest randomly
-	// Sea hexes
-	for (int i = 0 ; i < 4 ; i ++) {
-	    hexPool.add(new Hex(Hex.HexType.SEA));
-	}
-	
-	// Others
-	// TODO: Should be 44 tiles instead of 42?
-	for (int i = 0 ; i < 6 ; i ++) {
-	    hexPool.add(new Hex(Hex.HexType.DESERT));
-	    hexPool.add(new Hex(Hex.HexType.FOREST));
-	    hexPool.add(new Hex(Hex.HexType.FROZEN_WASTE_HEX));
-	    hexPool.add(new Hex(Hex.HexType.JUNGLE_HEX));
-	    hexPool.add(new Hex(Hex.HexType.MOUNTAIN));
-	    hexPool.add(new Hex(Hex.HexType.PLAINS));
-	    hexPool.add(new Hex(Hex.HexType.SWAMP));
-	}
-	
-	// Choose Hexes at random from the pool and add to the board.
-	int rand = 0;
-	Random rnd = new Random();
-	
-	for (int i = 0 ; i < board.getHexNum() ; i ++) {
-	    rand = rnd.nextInt(hexPool.size());
-	    
-	    // Add hex to position i in board hex array.
-	    board.addHex(hexPool.get(rand));
-	    
-	    hexPool.remove(rand);
-	}
-	
-    }
+
     
     // Getters and Setters =============================================================================================
     /**
