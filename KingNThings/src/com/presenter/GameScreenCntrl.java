@@ -18,7 +18,7 @@ public class GameScreenCntrl {
 	// Show view
 	view.show();
 	
-	// Bind to the game instance managed by the GameController. Needs to be run from UI thread.
+	// Bind to the game instance managed by the GameService. Needs to be run from UI thread.
 	Platform.runLater(new Runnable() {
 	    
 	    @Override

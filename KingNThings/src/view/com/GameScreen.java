@@ -346,7 +346,7 @@ public class GameScreen {
 		// Bind the current player
 	    // TODO add Male/Female property
 		// broken here
-	    currentPlayerLbl.textProperty().bind(Bindings.concat("Sir ").concat(player.getNameProperty()));
+//	    currentPlayerLbl.textProperty().bind(Bindings.concat("Sir ").concat(player.getNameProperty()));
 	}
 	
 	
