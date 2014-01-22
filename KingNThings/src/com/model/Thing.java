@@ -5,18 +5,21 @@ import java.util.ArrayList;
 import view.com.GameScreen;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
 import com.presenter.Paintable;
 
 public abstract class Thing extends GamePiece implements Paintable	{
 	
 	Color color;
 	String owner;
+	
 	
 	Thing(String name)	{
 		super(name);
@@ -116,7 +119,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 		things.add(new MountainCreature("giantroc"));
 		things.add(new MountainCreature("giantcondor"));
 		things.add(new MountainCreature("cyclops"));
-		things.add(new MountainCreature("greathawk"));
+		things.add(new MountainCreature("greathawkmountains"));
 		things.add(new MountainCreature("ogre"));
 		things.add(new MountainCreature("brownknight"));
 		things.add(new MountainCreature("littleroc"));
@@ -142,7 +145,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 		things.add(new PlainsCreature("eagles"));
 		things.add(new PlainsCreature("buffaloherd"));
 		things.add(new PlainsCreature("buffaloherd1"));
-		things.add(new PlainsCreature("greathawk"));
+		things.add(new PlainsCreature("greathawkplains"));
 		things.add(new PlainsCreature("giantbeetle"));
 		things.add(new PlainsCreature("centaur"));
 		things.add(new PlainsCreature("pegasus"));
@@ -166,7 +169,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 		things.add(new JungleCreature("watusi"));
 		things.add(new JungleCreature("elephant"));
 		things.add(new JungleCreature("giantsnakejungle"));
-		things.add(new JungleCreature("birdofparadies"));
+		things.add(new JungleCreature("birdofparadise"));
 		
 		//Add frozen waste things
 		things.add(new FrozenWasteCreature("killerpuffins"));

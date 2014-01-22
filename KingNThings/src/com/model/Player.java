@@ -49,6 +49,14 @@ public class Player implements Paintable{
 	    return name;
 	}
 	
+	public Block getBlock() {
+		return block;
+	}
+
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+	
 	public final void setNameProperty(final StringProperty name) {
 	    this.name = name;
 	}
@@ -69,15 +77,18 @@ public class Player implements Paintable{
 
 			@Override
 			public void handle(Event arg0) {
-				VBox popupContentVbox = new VBox();			
+				VBox popupContentVbox = new VBox();	
+				popupContentVbox.getStyleClass().add("block");
 				popupContentVbox.setMinSize(700, 400);
 				popupContentVbox.setAlignment(Pos.CENTER);
-				popupContentVbox.getStyleClass().add("border");
+				//popupContentVbox.getStyleClass().add("border");
 				
-				Label playerNameLbl = new Label("Player Information: "+name.getValue());
+				Label playerNameLbl = new Label("Name: Sir "+name.getValue());
 				//Label blockNameLbl = new Label(block.name);
 				Label goldLbl = new Label("Gold: "+gold);
-				HBox blockHBox = new HBox();	
+				HBox blockHBox = new HBox();
+				blockHBox.setAlignment(Pos.CENTER);
+				blockHBox.getStyleClass().add("block");
 				List<Thing> listOfThings = block.listOfThings;
 				for(Thing thing: listOfThings){
 					thing.paint(blockHBox);

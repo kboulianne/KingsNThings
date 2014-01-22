@@ -2,6 +2,14 @@ package com.model;
 
 import java.util.*;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+
 public abstract class Creature extends Thing	{
 	private static final Map<String, Integer> combatVals;
 	static	{
@@ -10,6 +18,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("babydragon", 3);
 		combatVals.put("dervish", 2);
 		combatVals.put("dustdevil", 4);
+		combatVals.put("camelcorps", 3);
 		combatVals.put("giantspider", 1);
 		combatVals.put("giantwasp", 2);
 		combatVals.put("giantwasp1", 4);
@@ -39,6 +48,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("greatowl", 2);
 		combatVals.put("greenknight", 4);
 		combatVals.put("killerracoon", 2);
+		combatVals.put("pixies", 1);
 		combatVals.put("unicorn", 4);
 		combatVals.put("walkingtree", 5);
 		combatVals.put("wildcat", 2);
@@ -62,7 +72,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("birdofparadise", 1);
 		combatVals.put("crawlingvines", 6);
 		combatVals.put("crocodilesjungle", 2);
-		combatVals.put("dinsosaur", 4);
+		combatVals.put("dinosaur", 4);
 		combatVals.put("elephant", 4);
 		combatVals.put("giantape", 5);
 		combatVals.put("giantsnakejungle", 3);
@@ -84,7 +94,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("giantroc", 3);
 		combatVals.put("goblins", 1);
 		combatVals.put("greateagle", 2);
-		combatVals.put("greathawk", 1);
+		combatVals.put("greathawkmountains", 1);
 		combatVals.put("littleroc", 2);
 		combatVals.put("mountainlion", 2);
 		combatVals.put("mountainmen", 1);
@@ -92,14 +102,17 @@ public abstract class Creature extends Thing	{
 		combatVals.put("troll", 4);
 		//Insert plains creatures
 		combatVals.put("buffaloherd", 3);
+		combatVals.put("buffaloherd1", 4);
 		combatVals.put("centaur", 2);
 		combatVals.put("dragonfly", 2);
 		combatVals.put("eagles", 2);
+		combatVals.put("greathawkplains", 2);
 		combatVals.put("farmers", 1);
 		combatVals.put("flyingbuffalo", 2);
 		combatVals.put("greathunter", 4);
 		combatVals.put("gypsies", 2);
 		combatVals.put("gypsies1", 1);
+		combatVals.put("giantbeetle", 2);
 		combatVals.put("hunters", 1);
 		combatVals.put("lionpride", 3);
 		combatVals.put("pegasus", 2);
@@ -143,6 +156,7 @@ public abstract class Creature extends Thing	{
 		flyingCreat.add("pterodactylwarriors");
 		flyingCreat.add("pterodactyl");
 		flyingCreat.add("pegasus");
+		flyingCreat.add("pixies");
 		flyingCreat.add("olddragon");
 		flyingCreat.add("northwind");
 		flyingCreat.add("littleroc");
@@ -150,7 +164,8 @@ public abstract class Creature extends Thing	{
 		flyingCreat.add("icebats");
 		flyingCreat.add("griffon");
 		flyingCreat.add("greatowl");
-		flyingCreat.add("greathawk");
+		flyingCreat.add("greathawkmountains");
+		flyingCreat.add("greathawkplains");
 		flyingCreat.add("greateagle");
 		flyingCreat.add("giantwasp");
 		flyingCreat.add("giantwasp1");
@@ -158,6 +173,7 @@ public abstract class Creature extends Thing	{
 		flyingCreat.add("giantmosquito");
 		flyingCreat.add("giantcondor");
 		flyingCreat.add("ghost");
+		flyingCreat.add("giantbeetle");
 		flyingCreat.add("flyingsquirrel");
 		flyingCreat.add("flyingsquirrel");
 		flyingCreat.add("flyingbuffalo");
@@ -230,9 +246,13 @@ public abstract class Creature extends Thing	{
 	private boolean ranged;
 	private boolean charge;
 	private boolean magic;
+	int hexLocation; // -1 if not on board
+	int numberOfMovesAvailable;
 	
 	Creature(String name)	{
 		super(name);
+		numberOfMovesAvailable = 4;
+		hexLocation = -1;
 		
 		//Set combat value to value from map associating creatures with their combat values
 		setCombatVal(combatVals.get(name));
@@ -300,5 +320,72 @@ public abstract class Creature extends Thing	{
 	
 	public void setMagic(boolean bool){
 		magic = bool;
+	}
+	
+	public void paintThingInDetails(Pane detailsBox){
+		detailsBox.getChildren().clear();
+		
+		ImageView img = new ImageView(image);
+		img.setFitWidth(260); 
+        img.setPreserveRatio(true);
+        img.setSmooth(true);
+        img.setCache(true);
+		
+		Label thingNameLbl = new Label(name);
+		Label typeLbl = new Label("Type: " + domain);
+		Label ownerLbl = new Label("Owner: " + owner);
+		
+		Label combatLbl = new Label("Combat Value: " + combatVal);
+		Label specialAbilitiesLbl = new Label("Abilities: " + (fly?"flying ":"")+(ranged?"ranged ":"")
+				+(charge?"charging ":"")+ (magic?"magic ":""));
+		if(specialAbilitiesLbl.getText().length() == 11){
+			specialAbilitiesLbl.setText("Abilities: None");
+		}
+		
+		detailsBox.getChildren().addAll(img, thingNameLbl, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl);
+		
+		Button moveButton = new Button("Move");
+		detailsBox.getChildren().add(moveButton);
+		moveButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				highlighAvailableMoves();
+			}
+		});
+		
+	}
+	
+	public void highlighAvailableMoves(){
+		//TODO
+		int hexLocation = 0;
+		
+		Map<Integer, Hex> hexesThatCanBeMovedToMap = new HashMap<Integer, Hex>(); // to be moved to board class 
+		
+		//Integer is the cost to move to that hex
+		
+		//get joining hexes 1 radius away
+		//hexesThatCanBeMovedToMap.put(1, new Hex());
+		// 2 radius away
+		//hexesThatCanBeMovedToMap.put(2, new Hex());
+		// 3 radius 
+		//hexesThatCanBeMovedToMap.put(3, new Hex());
+		// 4 radius
+		//hexesThatCanBeMovedToMap.put(4, new Hex());
+		
+		for (Hex hex : hexesThatCanBeMovedToMap.values()) {
+			hex.setSelectable(true);
+			hex.setHighlighted(true);
+			// set onClick Listener for tiles
+		}
+		
+		//loop through all hexes and paint
+		
+		
+		
+		
+		
+		//highlight hexes that are 
 	}
 }

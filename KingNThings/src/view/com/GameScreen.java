@@ -1,6 +1,5 @@
 package view.com;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.presenter.GameScreenCntrl;
@@ -23,22 +22,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import com.game.services.GameService;
+import com.model.Creature;
+import com.model.DesertCreature;
 //import jfxtras.labs.scene.control.BeanPathAdapter;
 import com.model.Die;
 import com.model.Hex;
-import com.model.HexDesert;
 import com.model.Player;
 import com.model.SwampCreature;
 import com.model.Thing;
-
 import com.model.game.Game;
 
 public class GameScreen {
@@ -56,7 +54,7 @@ public class GameScreen {
 	static double[][] choosenMapping;
 		
 	int lastHexSelected = -1;
-	Rectangle lastThingRect = null;
+	//Rectangle lastThingRect = null;
 	
 	static final double[][] MAPPING_37_TILES = new double[][]{{4.0,7.0},{4.0,5.0},{5.0,6.0},{5.0,8.0},{4.0,9.0},
 			{3.0,8.0},{3.0,6.0},{3.0,4.0},{4.0,3.0},{5.0,4.0},{6.0,5.0},{6.0,7.0},{6.0,9.0},
@@ -68,27 +66,37 @@ public class GameScreen {
 			{4.0,6.0},{3.0,7.0},{2.0,6.0},{2.0,4.0},{2.0,2.0},{3.0,1.0},{4.0,2.0},{5.0,3.0},
 			{5.0,5.0},{5.0,7.0},{4.0,8.0},{3.0,9.0},{2.0,8.0},{1.0,7.0},{1.0,5.0},{1.0,3.0}
 	};
-    
-	
 
 	// for now
 	Labeled currentPlayerLbl;
 	ImageView die1Im;
 	ImageView die2Im;
-	Player player1 = new Player(Player.PlayerId.ONE, "Paul McCartney");
-	Player player2 = new Player(Player.PlayerId.TWO, "Bill Gates");
-	Player player3 = new Player(Player.PlayerId.THREE, "Mick Jagger");
-	Player player4 = new Player(Player.PlayerId.FOUR, "Sean Connery");
-	Thing thing = new SwampCreature("ghost");
-	List<Hex> hexes = new ArrayList<Hex>();
+	
+	Game game;
+	List<Hex> hexes;
 	
 	public void show(){
+		
+		game = GameService.getInstance().getGame();
+		hexes = game.getBoard().getHexes();
+		
+		//TODO
+		//remove later for testing
+		Thing thing = new SwampCreature("ghost");
+		Creature goblin = new SwampCreature("goblins");
+		Creature dragon = new DesertCreature("olddragon");
+		hexes.get(0).addThingToHex(new SwampCreature("spirit"), "");
+		hexes.get(0).addThingToHex(goblin, "");
+		hexes.get(0).addThingToHex(dragon, "");
+		game.getCurrentPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
+		game.getCurrentPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
+		
 		
 		//GameStatus
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
 		
-		final Label turn = new Label("Sir "+player4.getName()+"'s Turn: Roll Dice");
+		final Label turn = new Label("Sir "+game.getCurrentPlayer().getName()+"'s Turn: Roll Dice");
 		turn.getStyleClass().add("title");
 		gameStatus.getChildren().add(turn);
 		AnchorPane.setLeftAnchor(turn, 0.0);
@@ -135,9 +143,7 @@ public class GameScreen {
 			double yOffset = choosenMapping[i][1]*0.5*HEX_HEIGHT-30.0;
 			hexCenterPoints[i][0]=xOffset+(HEX_WIDTH*0.5);
 			hexCenterPoints[i][1]=yOffset+(HEX_HEIGHT*0.5);
-			Hex hex = new HexDesert(i);
-			hexes.add(hex);
-			hex.paint(null);
+			hexes.get(i).paint(null);
 		}
 		
 		// SIDE PANE
@@ -150,10 +156,10 @@ public class GameScreen {
 		sidePane.setMinWidth(1280*0.5-20);
 		//Opponents
 		HBox otherPlayerInfo = new HBox();
-		otherPlayerInfo.setId("otherPlayerInfo");		
-		player1.paint(otherPlayerInfo);
-		player2.paint(otherPlayerInfo);
-		player3.paint(otherPlayerInfo);
+		otherPlayerInfo.setId("otherPlayerInfo");	
+		game.getOpponent1().paint(otherPlayerInfo);
+		game.getOpponent2().paint(otherPlayerInfo);
+		game.getOpponent3().paint(otherPlayerInfo);
 		otherPlayerInfo.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().addAll(otherPlayerInfo, detailsBox);
 		
@@ -162,16 +168,20 @@ public class GameScreen {
 		centerBox.getChildren().addAll(sidePane, playingArea);
 		
 		// Player Info
+		Player currentPlayer = game.getCurrentPlayer();
 		HBox currentPlayerInfoBox = new HBox();
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
-		player4.paint(currentPlayerNameAndGold);
-		player4.paintGold(currentPlayerNameAndGold);
-		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
+		currentPlayer.paint(currentPlayerNameAndGold);
+		currentPlayer.paintGold(currentPlayerNameAndGold);
+		//TODO move
+		Button viewCupBtn = new Button("View Cup");
+		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, viewCupBtn);
 		
-		for(int i =0; i<7;i++)
-			thing.paint(currentPlayerInfoBox);
+		List<Thing> currentPlayerBlock = currentPlayer.getBlock().getListOfThings();
+		for(int i =0; i<currentPlayerBlock.size();i++)
+			currentPlayerBlock.get(i).paint(currentPlayerInfoBox);
 		VBox rootVBox = new VBox();
 		rootVBox.getStyleClass().add("border");
 		rootVBox.getChildren().addAll(gameStatus, centerBox, currentPlayerInfoBox);
@@ -190,6 +200,34 @@ public class GameScreen {
 		stage.show();
 		
 		//new GameScreenCntrl(playingArea, button);
+		
+		viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				FlowPane flow = new FlowPane();
+			    //flow.setPadding(new Insets(5, 0, 5, 0));
+			    flow.setVgap(4);
+			    flow.setHgap(4);
+			    flow.setPrefWrapLength(1180); // preferred width allows for two columns
+			    //flow.setStyle("-fx-background-color: DAE6F3;");
+
+				List<Thing> bag = game.getBag();
+				for(Thing t: bag){
+					ImageView im = new ImageView(t.getImage());
+					im.setFitWidth(60); 
+			        im.setPreserveRatio(true);
+			        im.setSmooth(true);
+			        im.setCache(true);
+					flow.getChildren().add(im);
+					
+				}
+				
+				popupWithTitleAndCloseButton("Bag",flow);
+			}
+		});
 		
 		// to be moved to controller
 		playingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -270,6 +308,7 @@ public class GameScreen {
 
 	// paint function to be moved to associated classes
 	
+	/*
 	private void createCurrentPlayerLabel(final Pane p) {
 	    currentPlayerLbl = new Label();
 	    currentPlayerLbl.getStyleClass().add("playerName"); 
@@ -284,7 +323,7 @@ public class GameScreen {
 	    // TODO no handlers.
 	    
 	    p.getChildren().addAll(playerBox);
-	}
+	}*/
 	
 
 	
@@ -293,12 +332,17 @@ public class GameScreen {
 		/*if (lastThingRect != null){
 			lastThingRect.setFill(Color.GREEN);
 			//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
-		}
+		}*/
 		if (lastHexSelected != -1){
-			//paintHex(lastHexSelected,Color.DARKGRAY);
+			Hex lastHex = hexes.get(lastHexSelected);
+			lastHex.setSelected(false);
+			lastHex.paint(null);
 		}
-		lastHexSelected = id;*/
-		hexes.get(id).paintHexInDetails(detailsBox);
+		lastHexSelected = id;
+		Hex hex = hexes.get(id);
+		hex.setSelected(true);
+		hex.paint(null);
+		hex.paintHexInDetails(detailsBox);
 	}
 	
 	

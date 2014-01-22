@@ -2,8 +2,8 @@ package com.model;
 
 public class DesertCreature extends Creature	{
 
-	DesertCreature(String name) {
+	public DesertCreature(String name) {
 		super(name);
-		setDomain("desert");
+		setDomain("Desert");
 	}
 }

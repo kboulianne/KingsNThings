@@ -14,13 +14,14 @@ public class Block extends GamePiece implements Paintable{
 		listOfThings = new ArrayList<Thing>();
 	}
 	
-	public boolean addThing(Thing thing){	
+	public boolean addThing(Thing thing, String owner){	
 		// cannot add special characters, gold counters and forts
 		if(thing instanceof Fort || thing instanceof SpecialCharacter ||
 				thing instanceof IncomeCounter){
 			Util.log("Error: Unable to add special characters, gold counters or forts to block");
 			return false;
 		}
+		thing.setOwner(owner);
 		listOfThings.add(thing);
 		return true;
 	}
@@ -34,5 +35,9 @@ public class Block extends GamePiece implements Paintable{
 	public void paint(Pane pane) {
 		for(Thing thing: listOfThings)
 			thing.paint(pane);
+	}
+
+	public List<Thing> getListOfThings() {
+		return listOfThings;
 	}
 }
