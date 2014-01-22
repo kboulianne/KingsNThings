@@ -1,22 +1,19 @@
 package com.presenter;
 
-<<<<<<< HEAD:KingNThings/src/controller/com/HexFactory.java
+
 import java.util.ArrayList;
 import java.util.List;
-import model.com.Board.NumberOfHexes;
-import model.com.Hex;
-import model.com.HexDesert;
-import model.com.HexForest;
-import model.com.HexFrozenWaste;
-import model.com.HexJungle;
-import model.com.HexMountain;
-import model.com.HexPlains;
-import model.com.HexSea;
-import model.com.HexSwamp;
-=======
+
+import com.model.Board.NumberOfHexes;
 import com.model.Hex;
 import com.model.HexDesert;
->>>>>>> 7bd07708f36d5b15124dd4db3695e990860b13a5:KingNThings/src/com/presenter/HexFactory.java
+import com.model.HexForest;
+import com.model.HexFrozenWaste;
+import com.model.HexJungle;
+import com.model.HexMountain;
+import com.model.HexPlains;
+import com.model.HexSea;
+import com.model.HexSwamp;
 
 public class HexFactory {
 

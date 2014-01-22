@@ -1,4 +1,4 @@
-package model.com;
+package com.model;
 
 public class HexForest extends Hex{
 	public HexForest(int id) {

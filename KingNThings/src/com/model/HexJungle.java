@@ -1,4 +1,4 @@
-package model.com;
+package com.model;
 
 public class HexJungle extends Hex{
 	public HexJungle(int id) {

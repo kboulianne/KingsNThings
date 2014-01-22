@@ -1,4 +1,4 @@
-package model.com;
+package com.model;
 
 public class HexMountain extends Hex {
 	public HexMountain(int id) {

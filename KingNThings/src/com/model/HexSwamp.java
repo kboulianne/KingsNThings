@@ -1,4 +1,4 @@
-package model.com;
+package com.model;
 
 public class HexSwamp extends Hex {
 	public HexSwamp(int id) {

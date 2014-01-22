@@ -1,4 +1,4 @@
-package model.com;
+package com.model;
 
 public class HexPlains extends Hex{
 	public HexPlains(int id) {

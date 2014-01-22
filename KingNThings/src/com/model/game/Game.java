@@ -6,15 +6,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import controller.com.HexFactory;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+
 import com.model.Board;
 import com.model.Die;
 import com.model.Hex;
 import com.model.Player;
 import com.model.game.phase.GamePlay;
 import com.model.Thing;
+import com.presenter.HexFactory;
 
 /**
  *  This is the game model. Represents the current "State" of the game
@@ -74,7 +75,6 @@ public final class Game {
 		int rand = 0;
 		Random rnd = new Random();
 	
-<<<<<<< HEAD:KingNThings/src/model/com/game/Game.java
 		for (int i = 0 ; i < board.getHexNum() ; i ++) {
 		    rand = rnd.nextInt(hexPool.size());
 		    // Add hex to position i in board hex array.
@@ -82,11 +82,10 @@ public final class Game {
 		    
 		    hexPool.remove(rand);
 		}
-=======
+
 	//Bag created with all things required for gameplay
 	bag = Thing.createThings();
-	
->>>>>>> 7bd07708f36d5b15124dd4db3695e990860b13a5:KingNThings/src/com/model/game/Game.java
+
     }
 
     

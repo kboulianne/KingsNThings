@@ -1,4 +1,4 @@
-package model.com;
+package com.model;
 
 public class HexFrozenWaste extends Hex{
 	public HexFrozenWaste(int id) {

@@ -3,13 +3,10 @@ package com.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.com.GameScreen;
-<<<<<<< HEAD:KingNThings/src/model/com/Hex.java
-import controller.com.Paintable;
-import javafx.geometry.Pos;
-=======
 import com.presenter.Paintable;
->>>>>>> 7bd07708f36d5b15124dd4db3695e990860b13a5:KingNThings/src/com/model/Hex.java
+
+import view.com.GameScreen;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

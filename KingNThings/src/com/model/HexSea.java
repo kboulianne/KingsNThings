@@ -1,4 +1,4 @@
-package model.com;
+package com.model;
 
 public class HexSea extends Hex{
 	public HexSea(int id) {
