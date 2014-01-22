@@ -94,7 +94,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("giantroc", 3);
 		combatVals.put("goblins", 1);
 		combatVals.put("greateagle", 2);
-		combatVals.put("greathawk", 1);
+		combatVals.put("greathawkmountains", 1);
 		combatVals.put("littleroc", 2);
 		combatVals.put("mountainlion", 2);
 		combatVals.put("mountainmen", 1);
@@ -106,6 +106,7 @@ public abstract class Creature extends Thing	{
 		combatVals.put("centaur", 2);
 		combatVals.put("dragonfly", 2);
 		combatVals.put("eagles", 2);
+		combatVals.put("greathawkplains", 2);
 		combatVals.put("farmers", 1);
 		combatVals.put("flyingbuffalo", 2);
 		combatVals.put("greathunter", 4);
@@ -163,7 +164,8 @@ public abstract class Creature extends Thing	{
 		flyingCreat.add("icebats");
 		flyingCreat.add("griffon");
 		flyingCreat.add("greatowl");
-		flyingCreat.add("greathawk");
+		flyingCreat.add("greathawkmountains");
+		flyingCreat.add("greathawkplains");
 		flyingCreat.add("greateagle");
 		flyingCreat.add("giantwasp");
 		flyingCreat.add("giantwasp1");

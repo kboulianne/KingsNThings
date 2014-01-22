@@ -6,7 +6,7 @@ public class SwampCreature extends Creature {
 
 	public SwampCreature(String name) {
 		super(name);
-		setDomain("swamp");
+		setDomain("Swamp");
 		setColor(Color.GREENYELLOW);
 	}
 }

@@ -119,7 +119,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 		things.add(new MountainCreature("giantroc"));
 		things.add(new MountainCreature("giantcondor"));
 		things.add(new MountainCreature("cyclops"));
-		things.add(new MountainCreature("greathawk"));
+		things.add(new MountainCreature("greathawkmountains"));
 		things.add(new MountainCreature("ogre"));
 		things.add(new MountainCreature("brownknight"));
 		things.add(new MountainCreature("littleroc"));
@@ -145,7 +145,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 		things.add(new PlainsCreature("eagles"));
 		things.add(new PlainsCreature("buffaloherd"));
 		things.add(new PlainsCreature("buffaloherd1"));
-		things.add(new PlainsCreature("greathawk"));
+		things.add(new PlainsCreature("greathawkplains"));
 		things.add(new PlainsCreature("giantbeetle"));
 		things.add(new PlainsCreature("centaur"));
 		things.add(new PlainsCreature("pegasus"));
