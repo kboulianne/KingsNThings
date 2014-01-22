@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -174,7 +175,9 @@ public class GameScreen {
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
 		currentPlayer.paint(currentPlayerNameAndGold);
 		currentPlayer.paintGold(currentPlayerNameAndGold);
-		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
+		//TODO move
+		Button viewCupBtn = new Button("View Cup");
+		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, viewCupBtn);
 		
 		List<Thing> currentPlayerBlock = currentPlayer.getBlock().getListOfThings();
 		for(int i =0; i<currentPlayerBlock.size();i++)
@@ -197,6 +200,34 @@ public class GameScreen {
 		stage.show();
 		
 		//new GameScreenCntrl(playingArea, button);
+		
+		viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				FlowPane flow = new FlowPane();
+			    //flow.setPadding(new Insets(5, 0, 5, 0));
+			    flow.setVgap(4);
+			    flow.setHgap(4);
+			    flow.setPrefWrapLength(1180); // preferred width allows for two columns
+			    //flow.setStyle("-fx-background-color: DAE6F3;");
+
+				List<Thing> bag = game.getBag();
+				for(Thing t: bag){
+					ImageView im = new ImageView(t.getImage());
+					im.setFitWidth(60); 
+			        im.setPreserveRatio(true);
+			        im.setSmooth(true);
+			        im.setCache(true);
+					flow.getChildren().add(im);
+					
+				}
+				
+				popupWithTitleAndCloseButton("Bag",flow);
+			}
+		});
 		
 		// to be moved to controller
 		playingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
