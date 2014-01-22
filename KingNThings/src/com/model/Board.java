@@ -66,5 +66,5 @@ public class Board {
 	public final boolean isFaceDown() {
 	    return faceDown;
 	}
-
+	
 }

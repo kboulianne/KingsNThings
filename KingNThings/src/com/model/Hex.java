@@ -6,6 +6,8 @@ import java.util.List;
 import com.presenter.Paintable;
 
 import view.com.GameScreen;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -13,7 +15,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 //TODO Use Factory Pattern?
 public class Hex extends GamePiece implements Paintable {
@@ -104,8 +109,21 @@ public class Hex extends GamePiece implements Paintable {
 		//TODO
 		//remove later
 		player1Army = new ArrayList<Creature>(); // for testing
+		player2Army = new ArrayList<Creature>(); 
+		player3Army = new ArrayList<Creature>(); // for testing
+		player4Army = new ArrayList<Creature>(); // for testing
+		Creature goblin = new SwampCreature("goblins");
+		Creature dragon = new DesertCreature("olddragon");
 		player1Army.add(new SwampCreature("spirit"));
-		player1Army.add(new SwampCreature("goblins"));
+		player1Army.add(goblin);
+		
+		for (int i=0;i<10;i++)
+			player2Army.add(goblin);
+		for (int i=0;i<5;i++)
+			player3Army.add(goblin);
+		for (int i=0;i<10;i++)
+			player4Army.add(dragon);
+		
 
 	}
 
@@ -165,6 +183,22 @@ public class Hex extends GamePiece implements Paintable {
 		//else 17 do later
 	}
 	
+	public boolean isSelectable() {
+		return selectable;
+	}
+
+	public void setSelectable(boolean selectable) {
+		this.selectable = selectable;
+	}
+
+	public boolean isHighlighted() {
+		return highlighted;
+	}
+
+	public void setHighlighted(boolean highlighted) {
+		this.highlighted = highlighted;
+	}
+	
 	//paint
     
 	@Override
@@ -195,7 +229,13 @@ public class Hex extends GamePiece implements Paintable {
 		yOffset+=gap;
 		height-=(gap*2);//
 		temp_width-=(gap*2);
-		gc.setFill(color);
+		if(highlighted){
+			gc.setFill(Color.LIGHTBLUE);
+		}else if(selected){
+			gc.setFill(Color.WHITESMOKE);
+		}else{
+			gc.setFill(color);
+		}
 		gc.fillPolygon(new double[]{(xOffset+(temp_width*0.25)), (xOffset+(temp_width*0.75)), (xOffset+temp_width), 	
 				 					xOffset+(temp_width*0.75), xOffset+(temp_width*0.25), xOffset},
 				 	   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
@@ -219,36 +259,70 @@ public class Hex extends GamePiece implements Paintable {
         img.setSmooth(true);
         img.setCache(true);
 		
+        VBox contentBox = new VBox();
+        contentBox.getStyleClass().add("block");
+        contentBox.setAlignment(Pos.CENTER);
+        
 		Label nameLbl = new Label("Type: "+name);
+		String test = "";
+		for (int i: joiningHexes){
+			test+=i+", "; 
+		}
+		Label testLbl = new Label("removeLater: "+test);
 		Label ownerLbl = new Label("Owner: Not owned");
 		if (owner != null){
 			ownerLbl.setText("Owner:"+ owner.getName());
 		}
 		
-		detailsBox.getChildren().addAll(img, nameLbl, ownerLbl);
+		contentBox.getChildren().addAll(img, nameLbl, ownerLbl, testLbl);
 		
-		if(!player1Army.isEmpty()){
+		drawArmy(player1Army, contentBox, detailsBox);
+		drawArmy(player2Army, contentBox, detailsBox);
+		drawArmy(player3Army, contentBox, detailsBox);
+		drawArmy(player4Army, contentBox, detailsBox);
+		
+		StackPane sp = new StackPane();
+		
+		sp.getChildren().addAll(img, contentBox);
+		detailsBox.getChildren().add(sp);
+		
+	}
+	
+	private void drawArmy(List<Creature> army, Pane contentBox, final Pane detailsBox){
+		if(!army.isEmpty()){
 			HBox armyBox = new HBox();
-			Label player1block = new Label("player1 army:");
-			armyBox.getChildren().add(player1block);
+			armyBox.getStyleClass().add("army");
+			
+			StackPane circleStackPane = new StackPane();
+			Circle circle = new Circle();
+			circle.setRadius(22);
+			circle.setFill(Color.RED);//color of player 
+			Label armySizeLbl = new Label(Integer.toString(army.size()));
+			circleStackPane.getChildren().addAll(circle,armySizeLbl);
+			armyBox.getChildren().add(circleStackPane);
 			armyBox.setAlignment(Pos.CENTER);
-			for(Thing t:player1Army){
+			for(final Thing t:army){
 				ImageView thingImg = new ImageView(t.image);
-				thingImg.setFitWidth(60); 
+				thingImg.setFitWidth(50); 
 				thingImg.setPreserveRatio(true);
 				thingImg.setSmooth(true);
 				thingImg.setCache(true);
+				thingImg.getStyleClass().add("thing");
 				armyBox.getChildren().add(thingImg);
 				//t.paintThingInDetails(detailsBox);
+				thingImg.setOnMouseClicked(new EventHandler<Event>() {
+					@Override
+					public void handle(Event arg0) {
+						detailsBox.getChildren().clear();
+						t.paintThingInDetails(detailsBox);	
+					}
+				});
 			}	
-			detailsBox.getChildren().add(armyBox);
-		}
 			
-		
-			
-			
-		
-		
+			contentBox.getChildren().add(armyBox);
+		}	
 	}
+
+	
 	
 }

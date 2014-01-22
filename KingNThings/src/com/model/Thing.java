@@ -5,18 +5,21 @@ import java.util.ArrayList;
 import view.com.GameScreen;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
 import com.presenter.Paintable;
 
 public abstract class Thing extends GamePiece implements Paintable	{
 	
 	Color color;
 	String owner;
+	
 	
 	Thing(String name)	{
 		super(name);

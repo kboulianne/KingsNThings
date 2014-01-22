@@ -26,6 +26,9 @@
 .block{
 	-fx-spacing: 5;
 }
+.army{
+	-fx-spacing: 3;
+}
 
 #gameStatus{
 	-fx-padding: 5 10 5 10;

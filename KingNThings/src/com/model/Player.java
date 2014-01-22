@@ -72,9 +72,9 @@ public class Player implements Paintable{
 				VBox popupContentVbox = new VBox();			
 				popupContentVbox.setMinSize(700, 400);
 				popupContentVbox.setAlignment(Pos.CENTER);
-				popupContentVbox.getStyleClass().add("border");
+				//popupContentVbox.getStyleClass().add("border");
 				
-				Label playerNameLbl = new Label("Player Information: "+name.getValue());
+				Label playerNameLbl = new Label("Name: Sir "+name.getValue());
 				//Label blockNameLbl = new Label(block.name);
 				Label goldLbl = new Label("Gold: "+gold);
 				HBox blockHBox = new HBox();	

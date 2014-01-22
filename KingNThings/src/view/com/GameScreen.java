@@ -291,12 +291,17 @@ public class GameScreen {
 		/*if (lastThingRect != null){
 			lastThingRect.setFill(Color.GREEN);
 			//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
-		}
+		}*/
 		if (lastHexSelected != -1){
-			//paintHex(lastHexSelected,Color.DARKGRAY);
+			Hex lastHex = hexes.get(lastHexSelected);
+			lastHex.setSelected(false);
+			lastHex.paint(null);
 		}
-		lastHexSelected = id;*/
-		hexes.get(id).paintHexInDetails(detailsBox);
+		lastHexSelected = id;
+		Hex hex = hexes.get(id);
+		hex.setSelected(true);
+		hex.paint(null);
+		hex.paintHexInDetails(detailsBox);
 	}
 	
 	
