@@ -34,8 +34,8 @@ public final class Game {
     /** The game board representing hex tiles and all their contents. */
     private Board board;
 //    private Die die1;
-    private ObjectProperty<Die> die1;
-    private ObjectProperty<Die> die2;
+    private Die die1;
+    private Die die2;
     private int mode;
     public static final int 
 	    MODE_FOUR_PLAYER = 1,
@@ -55,8 +55,8 @@ public final class Game {
 		mode = MODE_FOUR_PLAYER;
 		
 		// Initialize the dice
-		die1 = new SimpleObjectProperty<>(new Die());
-		die2 = new SimpleObjectProperty<>(new Die());
+		die1 = new Die();
+		die2 = new Die();
 		
 		// Player order is arbitrary in the beginning.
 		playerOrder = new ArrayList<>();
@@ -118,25 +118,25 @@ public final class Game {
      *	Gets the first die instance.
      * @return The die.
      */
-    public final ObjectProperty<Die> getDie1Property() { return die1; }
+    public final Die getDie1() { return die1; }
     
     /**
      * Sets the first die instance.
      * @param die The new die.
      */
-    public final void setDie1Property(final ObjectProperty<Die> die) { this.die1 = die; }
+    public final void setDie1(final Die die) { this.die1 = die; }
     
     /**
      * Gets the second die instance.
      * @return The die.
      */
-    public final ObjectProperty<Die> getDie2Property() { return die2; }
+    public final Die getDie2() { return die2; }
     
     /**
      * Sets the second die instance.
      * @param die The new die.
      */
-    public final void setDie2(final ObjectProperty<Die> die) { die2 = die; }
+    public final void setDie2(final Die die) { die2 = die; }
 
     /**
      * Gets the board instance for this Game.
@@ -217,7 +217,7 @@ public final class Game {
     public void setOpponent3(Player opponent3) { this.opponent3 = opponent3; }
     
     public final int diceTotal() {
-	return die1.get().getValue() + die2.get().getValue();
+	return die1.getValue() + die2.getValue();
     }
     
     //Returns the bag
@@ -231,8 +231,8 @@ public final class Game {
      * Rolls the dice and notifies the server.
      */
     public void rollDice() {
-	die1.get().roll();
-	die2.get().roll();
+	die1.roll();
+	die2.roll();
     }
     
     public final void nextPlayer() {

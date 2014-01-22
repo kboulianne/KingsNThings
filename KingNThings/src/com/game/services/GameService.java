@@ -86,4 +86,11 @@ public class GameService {
     public Game getGame() {
 	return game;
     }
+    
+    public void roll() {
+	// TODO
+	game.rollDice();
+	
+	// Fire towards network.
+    }
 }

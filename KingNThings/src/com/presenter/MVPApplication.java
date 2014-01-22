@@ -6,10 +6,9 @@
 
 package com.presenter;
 
-import com.view.model.GameViewModel;
+import com.game.services.GameService;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import view.com.GameView;
@@ -18,7 +17,7 @@ import view.com.GameView;
  *
  * @author kurtis
  */
-public class MVPMain extends Application {
+public class MVPApplication extends Application {
 
     static final double WIDTH = 1000;
     static final double HEIGHT = 600;
@@ -33,19 +32,19 @@ public class MVPMain extends Application {
         stage.setWidth(WIDTH);
         stage.setHeight(HEIGHT);
         stage.initStyle(StageStyle.DECORATED);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setFullScreen(false);
         
-        GameViewModel model = new GameViewModel();
-        GameView view = new GameView(model);
-        GamePresenter presenter = new GamePresenter(model, view);
+        GameView view = new GameView(GameService.getInstance().getGame());
+        GamePresenter presenter = new GamePresenter(view);
         
-        //TODO check how they init in example
+        // TODO create initScene method
         Scene scene = new Scene(view);
+	scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
+	scene.getStylesheets().add("view/com/assets/docs/gameScreen.css");
+	
         stage.setScene(scene);
         stage.show();
-        
-        stage.setScene(null);
     }
     
 }

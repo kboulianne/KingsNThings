@@ -374,15 +374,15 @@ public class GameScreen {
 //	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
 	    
 	    // Dice bindings
-	    bindDice(game.getDie1Property().get(), game.getDie2Property().get());
+//	    bindDice(game.getDie1Property().get(), game.getDie2Property().get());
 
 	    // Bind players
 	    bindPlayers(game.getCurrentPlayer());
 	}
 	
 	public final void bindDice(final Die die1, final Die die2) {
-	    die1Im.imageProperty().bind(die1.getImageProperty());
-	    die2Im.imageProperty().bind(die2.getImageProperty());
+//	    die1Im.imageProperty().bind(die1.getImageProperty());
+//	    die2Im.imageProperty().bind(die2.getImageProperty());
 	}
 
 	public final void bindPlayers(final Player player) {
