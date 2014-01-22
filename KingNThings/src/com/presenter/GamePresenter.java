@@ -6,6 +6,8 @@
 
 package com.presenter;
 
+import com.game.services.GameService;
+import com.model.game.Game;
 import view.com.GameView;
 
 /**
@@ -26,6 +28,10 @@ public class GamePresenter {
     
     public GamePresenter(final GameView view /* service and Other presenters here */) {
         this.view = view;
+	
+	// Update view
+	Game model = GameService.getInstance().getGame();
+	view.setGame(model);
     }
     
     
@@ -42,4 +48,13 @@ public class GamePresenter {
     // Presenter operations go here
     // i.e. what happens when a button is pressed...
     // public void rollDice();
+
+    public void endPlayerTurn() {
+	GameService.getInstance().endTurn();
+	
+	Game game = GameService.getInstance().getGame();
+	
+	// Not a glitch, UI displays player that will execute game logic next
+	view.setGame(game);
+    }
 }

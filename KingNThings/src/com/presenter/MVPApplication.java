@@ -37,7 +37,8 @@ public class MVPApplication extends Application {
         
         GameView view = new GameView(GameService.getInstance().getGame());
         GamePresenter presenter = new GamePresenter(view);
-        
+        view.setPresenter(presenter);
+	
         // TODO create initScene method
         Scene scene = new Scene(view);
 	scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");

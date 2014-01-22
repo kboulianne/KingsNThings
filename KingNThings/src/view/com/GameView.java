@@ -9,6 +9,9 @@ package view.com;
 import com.model.game.Game;
 import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
@@ -19,7 +22,9 @@ import javafx.scene.layout.AnchorPane;
 public class GameView extends AnchorPane {
 
     private GamePresenter presenter;
+    // Sub-presenters
     private DicePresenter dicePresenter;
+    // Initial model
     private Game model;
     
     private Label currentPlayerLbl;
@@ -50,6 +55,19 @@ public class GameView extends AnchorPane {
 	AnchorPane.setLeftAnchor(currentPlayerLbl, 0.0);
 	AnchorPane.setTopAnchor(currentPlayerLbl, 10.0);
 	
+	// TESTING FOR current player
+	Button btn = new Button("Test End Turn");
+	AnchorPane.setLeftAnchor(btn, 0d);
+	AnchorPane.setTopAnchor(btn, 100d);
+	btn.setOnAction(new EventHandler<ActionEvent>() {
+	    @Override
+	    public void handle(ActionEvent t) {
+		presenter.endPlayerTurn();
+	    }
+	    
+	});
+	getChildren().add(btn);
+	
 	// Create the dice view and presenterPane
 	createAndAddDiceView();
     }
@@ -64,9 +82,12 @@ public class GameView extends AnchorPane {
     }
     
     public void setGame(final Game game) {
+	this.model = game;
 	// As a precaution.
 	if (game != null) {
 	    // Set all properties here
+	    currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName());
+	    
 	}
     }
 }

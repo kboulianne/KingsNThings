@@ -88,9 +88,14 @@ public class GameService {
     }
     
     public void roll() {
-	// TODO
+	// TODO remove rollDice(), allows the service to be bypassed.
 	game.rollDice();
 	
 	// Fire towards network.
+    }
+    
+    public void endTurn() {
+	// TODO remove this from game class.
+	game.endTurn();
     }
 }
