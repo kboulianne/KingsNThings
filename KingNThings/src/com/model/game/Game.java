@@ -79,12 +79,12 @@ public final class Game {
 		    rand = rnd.nextInt(hexPool.size());
 		    // Add hex to position i in board hex array.
 		    board.addHex(hexPool.get(rand));
-		    
+		    hexPool.get(rand).setId(i);
 		    hexPool.remove(rand);
 		}
 
-	//Bag created with all things required for gameplay
-	bag = Thing.createThings();
+		//Bag created with all things required for gameplay
+		bag = Thing.createThings();
 
     }
 

@@ -47,10 +47,10 @@ public class Board {
 	
 	public void addHex(final Hex hex) {
 	    // Adding at start position, set flag in hex.
-	    int index = hexes.size() - 1;
+	    int index = hexes.size();
 	    
 	    if (startPositions.contains(index))
-		hex.setStartPosition(true);
+	    	hex.setStartPosition(true);
 		
 	    hexes.add(hex);
 	}

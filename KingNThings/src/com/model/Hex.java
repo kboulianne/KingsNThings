@@ -65,7 +65,7 @@ public class Hex extends GamePiece implements Paintable {
 	List<Creature> player1Army; // can be maps
 	List<Creature> player2Army;
 	List<Creature> player3Army;
-	List<Creature> player4Army;
+	List<Creature> currentPlayerArmy;
 
 	public enum HexType {
 		JUNGLE_HEX("Jungle"),
@@ -82,21 +82,7 @@ public class Hex extends GamePiece implements Paintable {
 		}
 	}
 	
-	protected Hex() {
-	    startPosition = false;
-	}
-	/*public Hex(HexType type){ // doesn't specify id 
-	    this();
-		this.type = type;
-		color = Color.DARKGRAY;
-		name = type.typeName;
-		startPosition =  false;
-		selected = false;
-		selectable = true; // may have to change for startup
-	}*/
-	
 	public Hex(int id, HexType type){
-	    this();
 		this.type = type;
 		this.id= id;
 		color = Color.DARKGRAY;
@@ -105,26 +91,10 @@ public class Hex extends GamePiece implements Paintable {
 		selected = false;
 		selectable = true; // may have to change for startup
 		setJoiningHexes();
-		
-		//TODO
-		//remove later
-		player1Army = new ArrayList<Creature>(); // for testing
+		player1Army = new ArrayList<Creature>(); 
 		player2Army = new ArrayList<Creature>(); 
-		player3Army = new ArrayList<Creature>(); // for testing
-		player4Army = new ArrayList<Creature>(); // for testing
-		Creature goblin = new SwampCreature("goblins");
-		Creature dragon = new DesertCreature("olddragon");
-		player1Army.add(new SwampCreature("spirit"));
-		player1Army.add(goblin);
-		
-		for (int i=0;i<10;i++)
-			player2Army.add(goblin);
-		for (int i=0;i<5;i++)
-			player3Army.add(goblin);
-		for (int i=0;i<10;i++)
-			player4Army.add(dragon);
-		
-
+		player3Army = new ArrayList<Creature>(); 
+		currentPlayerArmy = new ArrayList<Creature>();
 	}
 
 	
@@ -199,6 +169,12 @@ public class Hex extends GamePiece implements Paintable {
 		this.highlighted = highlighted;
 	}
 	
+	public void addThingToHex(Thing thing, String key){
+		//TODO
+		currentPlayerArmy.add((Creature) thing);
+		//setOwner(player);
+	}
+	
 	//paint
     
 	@Override
@@ -268,7 +244,7 @@ public class Hex extends GamePiece implements Paintable {
 		for (int i: joiningHexes){
 			test+=i+", "; 
 		}
-		Label testLbl = new Label("removeLater: "+test);
+		Label testLbl = new Label("removeLater: id="+id+" joins with:"+test);
 		Label ownerLbl = new Label("Owner: Not owned");
 		if (owner != null){
 			ownerLbl.setText("Owner:"+ owner.getName());
@@ -279,7 +255,7 @@ public class Hex extends GamePiece implements Paintable {
 		drawArmy(player1Army, contentBox, detailsBox);
 		drawArmy(player2Army, contentBox, detailsBox);
 		drawArmy(player3Army, contentBox, detailsBox);
-		drawArmy(player4Army, contentBox, detailsBox);
+		drawArmy(currentPlayerArmy, contentBox, detailsBox);
 		
 		StackPane sp = new StackPane();
 		

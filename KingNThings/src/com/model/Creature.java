@@ -364,13 +364,13 @@ public abstract class Creature extends Thing	{
 		//Integer is the cost to move to that hex
 		
 		//get joining hexes 1 radius away
-		hexesThatCanBeMovedToMap.put(1, new Hex());
+		//hexesThatCanBeMovedToMap.put(1, new Hex());
 		// 2 radius away
-		hexesThatCanBeMovedToMap.put(2, new Hex());
+		//hexesThatCanBeMovedToMap.put(2, new Hex());
 		// 3 radius 
-		hexesThatCanBeMovedToMap.put(3, new Hex());
+		//hexesThatCanBeMovedToMap.put(3, new Hex());
 		// 4 radius
-		hexesThatCanBeMovedToMap.put(4, new Hex());
+		//hexesThatCanBeMovedToMap.put(4, new Hex());
 		
 		for (Hex hex : hexesThatCanBeMovedToMap.values()) {
 			hex.setSelectable(true);
