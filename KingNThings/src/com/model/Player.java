@@ -21,7 +21,7 @@ public class Player implements Paintable{
 	Color color;	// {blue, green, red, yellow}
 	Block block;
 	int gold;
-	private StringProperty name;
+	private String name;
 	
 	public enum PlayerId { ONE(Color.BLUE),TWO(Color.GREEN),THREE(Color.RED),FOUR(Color.YELLOW); 
 		private final Color color;
@@ -32,7 +32,7 @@ public class Player implements Paintable{
 	
 	
 	public Player(PlayerId i, String name) {
-	    this.name = new SimpleStringProperty(name);
+	    this.name = name;
 	    color = i.color;
 	    id = i;
 	    block = new Block();
@@ -44,10 +44,6 @@ public class Player implements Paintable{
 	 * @return 
 	 */
 	public final String getName() {
-	    return name.get();
-	}
-	
-	public final StringProperty getNameProperty() {
 	    return name;
 	}
 	
@@ -59,17 +55,18 @@ public class Player implements Paintable{
 		this.block = block;
 	}
 	
+	public Color getColor() {
+	    return color;
+	}
+	
 	public PlayerId getId() {
 		return id;
-	}
-	public final void setNameProperty(final StringProperty name) {
-	    this.name = name;
 	}
 
 	@Override
 	public void paint(Pane pane) {
 		// TODO Auto-generated method stub
-		Label playerLbl = new Label("Sir "+name.getValue());
+		Label playerLbl = new Label("Sir "+name);
 		playerLbl.getStyleClass().add("playerName"); 
 		Circle circle = new Circle();
 		circle.setRadius(6);
@@ -88,7 +85,7 @@ public class Player implements Paintable{
 				popupContentVbox.setAlignment(Pos.CENTER);
 				//popupContentVbox.getStyleClass().add("border");
 				
-				Label playerNameLbl = new Label("Name: Sir "+name.getValue());
+				Label playerNameLbl = new Label("Name: Sir "+name);
 				//Label blockNameLbl = new Label(block.name);
 				Label goldLbl = new Label("Gold: "+gold);
 				HBox blockHBox = new HBox();
