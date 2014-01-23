@@ -27,6 +27,9 @@ public class DetailsView extends VBox {
     private DetailsPresenter presenter;
     
     private ImageView hexImage;
+    private Label nameLbl;
+    private Label testLbl;
+    private Label ownerLbl;
     
     public DetailsView() {
 	buildView();
@@ -49,14 +52,19 @@ public class DetailsView extends VBox {
 	contentBox.getStyleClass().add("block");
 	contentBox.setAlignment(Pos.CENTER);
 	
+	// Name Label
+	nameLbl = new Label();
+	// Test
+	testLbl = new Label();
+	// owner
+	ownerLbl = new Label();
 	
-	contentBox.getChildren().addAll(hexImage);
+	contentBox.getChildren().addAll(hexImage, nameLbl, ownerLbl, testLbl);
 	
 	StackPane sp = new StackPane();
+	// I think having image here was a bug since added in contentBox
 	sp.getChildren().addAll(/*hexImage,*/ contentBox);
 	getChildren().add(sp);
-	
-//	getChildren().add(new Label("This is DetailsView"));
     }
     
     public void setPresenter(final DetailsPresenter presenter) {
@@ -73,8 +81,24 @@ public class DetailsView extends VBox {
 	// update ui here.
 	
 	if (hex != null) {
+	    // Set the Hex Name
+	    nameLbl.setText("Type: " + hex.getType().name());
 	    // Set the new image.
 	    hexImage.setImage(hex.getImage());
+	    // Set the owner if it exists
+	    if (hex.getOwner() != null) {
+		ownerLbl.setText("Owner: " + hex.getOwner().getName());
+	    }
+	    else {
+		ownerLbl.setText("Owner: Not Owned");
+	    }
+	    
+	    // Test label
+	    String test = "";
+	    for (int i: hex.getJoiningHexes()){
+		    test+=i+", "; 
+	    }
+	    testLbl.setText("removeLater: id=" + hex.getId() + " joins with:"+test);
 	}
     }
 }

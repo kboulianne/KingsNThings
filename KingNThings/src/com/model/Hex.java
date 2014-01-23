@@ -89,7 +89,6 @@ public class Hex extends GamePiece implements Paintable {
 		this.type = type;
 		this.id= id;
 		color = Color.DARKGRAY;
-		name = type.typeName;
 		startPosition =  false;
 		selected = false;
 		selectable = true; // may have to change for startup
@@ -250,15 +249,15 @@ public class Hex extends GamePiece implements Paintable {
 		
 		ImageView img = new ImageView(image);
 		img.setFitWidth(300); 
-        img.setPreserveRatio(true);
-        img.setSmooth(true);
-        img.setCache(true);
-		
-        VBox contentBox = new VBox();
-        contentBox.getStyleClass().add("block");
-        contentBox.setAlignment(Pos.CENTER);
+	    img.setPreserveRatio(true);
+	    img.setSmooth(true);
+	    img.setCache(true);
+
+	    VBox contentBox = new VBox();
+	    contentBox.getStyleClass().add("block");
+	    contentBox.setAlignment(Pos.CENTER);
         
-		Label nameLbl = new Label("Type: "+name);
+		Label nameLbl = new Label("Type: "+ type.typeName);
 		String test = "";
 		for (int i: joiningHexes){
 			test+=i+", "; 
