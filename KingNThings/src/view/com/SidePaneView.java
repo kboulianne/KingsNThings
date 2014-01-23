@@ -6,6 +6,7 @@
 
 package view.com;
 
+import com.presenter.DetailsPresenter;
 import com.model.Player;
 import com.presenter.SidePanePresenter;
 import javafx.geometry.Pos;
@@ -19,11 +20,13 @@ import javafx.scene.layout.VBox;
  */
 public class SidePaneView extends VBox {
     
+    // FIXME: Duplicate, put in global stuff? Put in GamePresenter?
     // View specific stuff
     static final double HEX_WIDTH = 100.0; 
     static final double HEX_HEIGHT = HEX_WIDTH *0.8;
     
     private SidePanePresenter presenter;
+    private DetailsPresenter detailsPresenter;
     
     private PlayerLabel opp1Lbl;
     private PlayerLabel opp2Lbl;
@@ -39,12 +42,12 @@ public class SidePaneView extends VBox {
 	//FIXME: Hardcoded
 	setMinWidth(1280 * 0.5 - 20);
 
-	// Details
+	
 	// TODO Sub-view?
-	VBox detailsBox = new VBox(); 
-	detailsBox.setAlignment(Pos.CENTER);
-	detailsBox.setId("detailsBox");
-	detailsBox.setMinHeight(HEX_HEIGHT*7);
+//	VBox detailsBox = new VBox(); 
+//	detailsBox.setAlignment(Pos.CENTER);
+//	detailsBox.setId("detailsBox");
+//	detailsBox.setMinHeight(HEX_HEIGHT*7);
 	
 	// Opponents
 	HBox otherPlayerInfo = new HBox();
@@ -55,7 +58,8 @@ public class SidePaneView extends VBox {
 	opp3Lbl = new PlayerLabel();
 	otherPlayerInfo.getChildren().addAll(opp1Lbl, opp2Lbl, opp3Lbl);
 	
-	getChildren().addAll(otherPlayerInfo, detailsBox);
+	// Adds opponents and DetailsView
+	getChildren().addAll(otherPlayerInfo, detailsPresenter.getView());
 
     }
     

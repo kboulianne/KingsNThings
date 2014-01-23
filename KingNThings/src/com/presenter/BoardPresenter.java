@@ -18,7 +18,7 @@ import view.com.BoardView;
 public class BoardPresenter {
     private final BoardView view;
     // Required Presenters
-    private SidePanePresenter sidePanePresenter;
+    private DetailsPresenter detailsPresenter;
     private GamePresenter mainPresenter;
     
     // Usually BoardService, but ok for our purposes. We will see in IT2
@@ -26,10 +26,10 @@ public class BoardPresenter {
     
     private int lastHexSelected = -1;
     
-    public BoardPresenter(BoardView view, SidePanePresenter side, GamePresenter main) {
+    public BoardPresenter(BoardView view, DetailsPresenter details, GamePresenter main) {
 	this.view = view;
 	this.view.setPresenter(this);
-	this.sidePanePresenter = side;
+	this.detailsPresenter = details;
 	this.mainPresenter = main;
 	
 	// Set initial model (usually uses a service.
@@ -61,6 +61,6 @@ public class BoardPresenter {
 	view.setBoard(b);
 	
 	// Update SidePane via SidePanePresenter
-	sidePanePresenter.showSelectedHex(b.getHexes().get(selected));
+	detailsPresenter.showHex(b.getHexes().get(selected));
     }
 }

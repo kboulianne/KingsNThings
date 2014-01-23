@@ -40,6 +40,7 @@ public class GamePresenter {
 	
 	// Keep DicePresenter and add its view to the main view
 	this.dicePresenter = dicePresenter;
+	// TODO WHAT AM I DOING? JUST ADD VIEW FROM PRESENTER
 	this.view.addDiceView(dicePresenter.getView());
 	
 	// SidePane initialization
