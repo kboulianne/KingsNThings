@@ -43,8 +43,6 @@ public class DiceView extends HBox {
     protected void buildView() {
 	// View initializations
 	setId("topRBox");
-	AnchorPane.setRightAnchor(this, 0.0);
-	AnchorPane.setTopAnchor(this, 0.0);
 	
 	// First die
 	die1Iv = new ImageView();

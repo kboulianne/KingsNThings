@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.presenter;
 
 import com.game.services.GameService;
-import com.model.Die;
 import com.model.game.Game;
-import javafx.application.Platform;
 import view.com.DiceView;
 
 /**
- *
+ *  Presenter encapsulating logic for the two dice and roll action.
+ * 
  * @author kurtis
  */
 public class DicePresenter {
@@ -32,15 +25,20 @@ public class DicePresenter {
 	view.setDice(game.getDie1(), game.getDie2());
     }
     
+    /**
+     * Gets the view being managed by this presenter.
+     * @return The DiceView.
+     */
     public DiceView getView() {
 	return view;
     }
     
+    /**
+     * The logic to execute when the players presses the roll button.
+     */
     public void roll() {
-	// usually service.something
+	//TODO Currently possible to do game.rollDice(), bypassing the service.
 	GameService.getInstance().roll();
-	// Currently possible to do game.rollDice(), bypassing the service.
-	
 
 	Game game = GameService.getInstance().getGame();
 

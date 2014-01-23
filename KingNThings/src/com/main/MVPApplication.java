@@ -22,8 +22,8 @@ import view.com.GameView;
  */
 public class MVPApplication extends Application {
 
-    static final double WIDTH = 1000;
-    static final double HEIGHT = 600;
+    static final double WIDTH = 1280;
+    static final double HEIGHT = 800;
     
     public static void main(String[] args) {
         launch(args);

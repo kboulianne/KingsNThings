@@ -8,8 +8,10 @@ package com.main;
 
 import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
+import com.presenter.SidePanePresenter;
 import view.com.DiceView;
 import view.com.GameView;
+import view.com.SidePaneView;
 
 /**
  *
@@ -18,13 +20,17 @@ import view.com.GameView;
 public class KingsNThingsAppFactory {
     private GamePresenter mainPresenter;
     private DicePresenter dicePresenter;
+    private SidePanePresenter sidePanePresenter;
     
     // TODO refactor into a better factory? Or is this sufficient?
     public GamePresenter getMainPresenter() {
 	if (mainPresenter == null) {
 	    GameView view = new GameView();
-	    mainPresenter = new GamePresenter(view);
-	    mainPresenter.setDicePresenter(getDicePresenter());
+	    mainPresenter = new GamePresenter(
+		    view,
+		    getDicePresenter(),
+		    getSidePanePresenter()
+	    );
 	}
 	
 	return mainPresenter;
@@ -38,5 +44,14 @@ public class KingsNThingsAppFactory {
 	}
 	
 	return dicePresenter;
+    }
+    
+    public SidePanePresenter getSidePanePresenter() {
+	if (sidePanePresenter == null) {
+	    SidePaneView view = new SidePaneView();
+	    sidePanePresenter = new SidePanePresenter(view, mainPresenter);    
+	}
+	
+	return sidePanePresenter;
     }
 }

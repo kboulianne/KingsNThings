@@ -15,22 +15,33 @@ import view.com.GameView;
  * OPTION 1 of:
  * http://www.zenjava.com/2011/12/11/javafx-and-mvp-a-smorgasbord-of-design-patterns/
  * 
- * Logic stuff goes here.
+ * Logic stuff for the game goes here. Sub-views have their own presenters
+ * to encapsulate their logic.
  *
  * @author kurtis
  */
 public class GamePresenter {
     private final GameView view;
     // Singleton for now, not needed here
-    // Service is usually responsible for CRUD operations of databases. In our case, networking.
-    // Everything we will do will require service eventually.
 //    private GameService gameService;
-    // Presenters for sub-views go here
     private DicePresenter dicePresenter;
+    private SidePanePresenter sidePanePresenter;
     
-    public GamePresenter(final GameView view /* service and Other presenters here */) {
+    public GamePresenter(
+	    final GameView view, 
+	    final DicePresenter dicePresenter,
+	    final SidePanePresenter sidePanePresenter
+	    /* service and Other presenters here */) {
         this.view = view;
 	this.view.setPresenter(this);
+	
+	// Keep DicePresenter and add its view to the main view
+	this.dicePresenter = dicePresenter;
+	this.view.addDiceView(dicePresenter.getView());
+	
+	// SidePane initialization
+	this.sidePanePresenter = sidePanePresenter;
+	this.view.addSidePaneView(sidePanePresenter.getView());
 	
 	// Update view
 	Game model = GameService.getInstance().getGame();
@@ -38,37 +49,25 @@ public class GamePresenter {
     }
     
     
-    
+    /**
+     * Gets the view managed by this presenter.
+     * @return 
+     */
     public GameView getView() {
         return view;
-    }
-    
-//    public DiceView getDiceView() {
-//	return dicePresenter.getView();
-//    }
-//    
-    public void setDicePresenter(DicePresenter presenter) {
-	dicePresenter = presenter;
-	
-	// Add the DiceView to the game view
-	view.addDiceView(presenter.getView());
     }
     
     public void handleGamePlayEvents(Object someFutureObjectClass) {
 	// Hook up to game.getGamePlay().someEvent?
 	// then update view
     }
-    
-    // Presenter operations go here
-    // i.e. what happens when a button is pressed...
-    // public void rollDice();
 
+    // UI Logic stuff is done here. Access service for model.
+    
     public void endPlayerTurn() {
 	GameService.getInstance().endTurn();
 	
 	Game game = GameService.getInstance().getGame();
-	
-	// Not a glitch, UI displays player that will execute game logic next
 	view.setGame(game);
     }
 }
