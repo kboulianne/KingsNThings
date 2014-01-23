@@ -10,12 +10,14 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import com.model.Board;
+import com.model.Cup;
 import com.model.Die;
 import com.model.Hex;
 import com.model.Player;
 import com.model.game.phase.GamePlay;
 import com.model.Thing;
 import com.presenter.HexFactory;
+import com.presenter.Util;
 
 /**
  *  This is the game model. Represents the current "State" of the game
@@ -44,7 +46,7 @@ public final class Game {
 //    private Set<IPhaseStrategy> initPhases;
     private Iterator<Player> nextPlayerIt;
     private List<Player> playerOrder;
-    private List<Thing> bag;
+    private Cup cup;
     
     // Constructors & Initializer Methods ==============================================================================
     /**
@@ -63,6 +65,7 @@ public final class Game {
 	//	nextPlayerIt = playerOrder.iterator();
 		
 		gamePlay = new GamePlay();
+		cup = new Cup();
 		
 		// TODO: Factory for 2 or 4 player.
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
@@ -84,7 +87,7 @@ public final class Game {
 		}
 
 		//Bag created with all things required for gameplay
-		bag = Thing.createThings();
+		cup.setListOfThings(Util.getRandomList(Thing.createThings()));
 
     }
 
@@ -221,10 +224,8 @@ public final class Game {
     }
     
     //Returns the bag
-    public List<Thing> getBag()	{	return bag;	}
+    public Cup getCup()	{	return cup;	}
     
-    //Bag is set to incoming list of things
-    public void setBag(List<Thing> list)	{	bag = list;    }
     
     // Behaviour Methods ===============================================================================================
     /**

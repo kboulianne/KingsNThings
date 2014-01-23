@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import view.com.GameScreen;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -216,59 +215,11 @@ public abstract class Thing extends GamePiece implements Paintable	{
 	}
 	
 	public void paint(Pane pane){
-		double thingWidth = 60;
-		
-		StackPane stack = new StackPane();
-		
-		Rectangle borderRect = new Rectangle();
-		borderRect.setX(0);
-		borderRect.setY(0);
-		borderRect.setWidth(thingWidth);
-		borderRect.setHeight(thingWidth);
-		borderRect.setArcWidth(20);
-		borderRect.setArcHeight(20);
-		
-		borderRect.setFill(Color.WHITE);
-		
-		final Rectangle coloredRect = new Rectangle();
-		coloredRect.setX(0);
-		coloredRect.setY(0);
-		coloredRect.setWidth(thingWidth-1);
-		coloredRect.setHeight(thingWidth-1);
-		coloredRect.setArcWidth(20);
-		coloredRect.setArcHeight(20);
-		coloredRect.setFill(color);
-		
-		ImageView img = new ImageView(image);
-		img.setFitWidth(thingWidth-7); 
-        img.setPreserveRatio(true);
-        img.setSmooth(true);
-        img.setCache(true);
-        img.getStyleClass().add("thing");
-       
-		
-		stack.getChildren().addAll(borderRect, coloredRect, img);
-		
-		
-		//lastThingIndexSelected= node.getChildren().size();
-		pane.getChildren().add(stack);
-		
-		
+		ImageView img = paintThingRectangle(60, pane);		
 		img.setOnMouseClicked(new EventHandler<Event>() {
-
 			@Override
 			public void handle(Event arg0) {
-				// TODO Auto-generated method stub
-				/*if (lastThingRect != null){
-					lastThingRect.setFill(Color.GREEN);
-					//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
-				}
-				if (lastHexSelected != -1){
-					paintHex(lastHexSelected,Color.DARKGRAY);
-				}*/
-				//lastThingRect = coloredRect;
 				paintThingInDetails(GameScreen.detailsBox);
-				//coloredRect.setFill(Color.WHITE);
 			}
 		});
 	}
@@ -281,14 +232,58 @@ public abstract class Thing extends GamePiece implements Paintable	{
         img.setPreserveRatio(true);
         img.setSmooth(true);
         img.setCache(true);
+        
 		
 		Label thingNameLbl = new Label(name);
-		Label typeLbl = new Label("Type: TODO");
+		String type = "error";
+		if(this instanceof Creature){
+			type = ((Creature) this).getDomain();
+		}
+		///TODO
+		Label typeLbl = new Label("Type: "+type);
 		Label ownerLbl = new Label("Owner: " + owner);
 		
 		detailsBox.getChildren().addAll(img, thingNameLbl, typeLbl, ownerLbl);
 	}
 	
+	
+	public ImageView paintThingRectangle(int size, Pane pane){
+		
+		StackPane stack = new StackPane();
+		
+		Rectangle borderRect = new Rectangle();
+		borderRect.setX(0);
+		borderRect.setY(0);
+		borderRect.setWidth(size);
+		borderRect.setHeight(size);
+		borderRect.setArcWidth(20);
+		borderRect.setArcHeight(20);
+		
+		borderRect.setFill(Color.WHITE);
+		
+		final Rectangle coloredRect = new Rectangle();
+		coloredRect.setX(0);
+		coloredRect.setY(0);
+		coloredRect.setWidth(size-1);
+		coloredRect.setHeight(size-1);
+		coloredRect.setArcWidth(20);
+		coloredRect.setArcHeight(20);
+		coloredRect.setFill(color);
+		
+		ImageView img = new ImageView(image);
+		img.setFitWidth(size-7); 
+		img.setFitHeight(size-7);
+        img.setPreserveRatio(false);
+        img.setSmooth(true);
+        img.setCache(true);
+        img.getStyleClass().add("thing");
+       
+		
+		stack.getChildren().addAll(borderRect, coloredRect, img);
+		pane.getChildren().add(stack);
+		
+		return img;
+	}
 	//setters and getters
 
 	public Color getColor() {
