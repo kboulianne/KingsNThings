@@ -7,6 +7,7 @@
 package com.presenter;
 
 import com.game.services.GameService;
+import com.model.Hex;
 import com.model.game.Game;
 import view.com.SidePaneView;
 
@@ -33,4 +34,8 @@ public class SidePanePresenter {
     }
     
     // Handlers go here.
+
+    public void showSelectedHex(Hex h) {
+	
+    }
 }

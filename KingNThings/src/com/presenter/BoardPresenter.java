@@ -7,6 +7,7 @@
 package com.presenter;
 
 import com.game.services.GameService;
+import com.model.Board;
 import com.model.game.Game;
 import view.com.BoardView;
 
@@ -16,15 +17,24 @@ import view.com.BoardView;
  */
 public class BoardPresenter {
     private final BoardView view;
+    // Required Presenters
+    private SidePanePresenter sidePanePresenter;
     private GamePresenter mainPresenter;
     
-    public BoardPresenter(BoardView view, GamePresenter main) {
+    // Usually BoardService, but ok for our purposes. We will see in IT2
+    private GameService svc;
+    
+    private int lastHexSelected = -1;
+    
+    public BoardPresenter(BoardView view, SidePanePresenter side, GamePresenter main) {
 	this.view = view;
 	this.view.setPresenter(this);
+	this.sidePanePresenter = side;
 	this.mainPresenter = main;
 	
 	// Set initial model (usually uses a service.
-	Game game = GameService.getInstance().getGame();
+	svc = GameService.getInstance();
+	Game game = svc.getGame();
 	
 	view.setBoard(game.getBoard());
     }
@@ -34,4 +44,23 @@ public class BoardPresenter {
     }
     
     // UI Logic here.
+
+    public void handleHexClick(int selected) {
+	// Only need service to fetch board.
+	// TODO create GameService#selectHex(...)?
+	Board b = svc.getGame().getBoard();
+	
+	// undo last selection.
+	if (lastHexSelected > -1) {
+	    b.getHexes().get(lastHexSelected).setSelected(false);
+	}
+	lastHexSelected = selected;
+	b.getHexes().get(selected).setSelected(true);
+	
+	// Update BoardView
+	view.setBoard(b);
+	
+	// Update SidePane via SidePanePresenter
+	sidePanePresenter.showSelectedHex(b.getHexes().get(selected));
+    }
 }

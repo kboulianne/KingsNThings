@@ -9,10 +9,13 @@ package view.com;
 import com.model.Board;
 import com.model.Hex;
 import com.presenter.BoardPresenter;
+import com.presenter.Util;
 import java.util.List;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import static view.com.GameScreen.playingArea;
 
@@ -46,6 +49,7 @@ public class BoardView extends Canvas {
 	// FIXME Hardcoded stuff. is it needed?
 	super(1280 * 0.5 - 10, HEX_HEIGHT * 7.2);
 	buildView();
+	addHandlers();
     }
     
     public void setPresenter(final BoardPresenter presenter) {
@@ -74,6 +78,30 @@ public class BoardView extends Canvas {
 	}
     }
 
+    private void addHandlers() {
+	setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+	    @Override
+	    public void handle(MouseEvent event) {
+		double clickPtX = event.getX();
+		double clickPtY = event.getY();
+		for(int i = 0; i<hexCenterPoints.length;i++){
+		    if(Util.distanceBtwTwoPts(
+			    clickPtX, clickPtY,
+			    hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH*0.30) {
+			
+			presenter.handleHexClick(i);
+			break;
+		    }
+		}
+//		presenter.handleHexClick(event.getX(), event.getY());
+	    }
+	});
+    }
+    
+    /**
+     * Paints the Background Image on the canvas.
+     */
     private void paintBackgroundImage() {
 	GraphicsContext gc = getGraphicsContext2D();
 	gc.clearRect(0, 0,getWidth(), getHeight());	
@@ -81,50 +109,58 @@ public class BoardView extends Canvas {
 	gc.drawImage(imgBg, 0,0,getWidth(), getHeight());
     }
     
-    private void paintHex(Hex hex) {
-		GraphicsContext gc = getGraphicsContext2D();
-		double height = HEX_HEIGHT;
+    /**
+     * Paints the specified Hex on the canvas.
+     * @param hex The hex to paint.
+     */
+    private void paintHex(final Hex hex) {
+	GraphicsContext gc = getGraphicsContext2D();
+	double height = HEX_HEIGHT;
 //		double choosenMapping[][] = GameScreen.getChoosenMapping();
-		
-		double xOffset = choosenMapping[hex.getId()][0]*0.75*HEX_WIDTH-40.0; //40 move whole grid
-		double yOffset = choosenMapping[hex.getId()][1]*0.5*height-30.0; //30 moves whole grid
-		//gc.fillOval(xOffset, yOffset, xOffset+200, yOffset+200);
-		
-		//outer polygon
-		gc.setFill(Color.BLACK);
-		gc.fillPolygon(new double[]{(xOffset+(HEX_WIDTH*0.25)), (xOffset+(HEX_WIDTH*0.75)), (xOffset+HEX_WIDTH), 	
-									 xOffset+(HEX_WIDTH*0.75), xOffset+(HEX_WIDTH*0.25), xOffset},
-					   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
-									yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
-		//inner polygon
-		double gap=HEX_WIDTH*0.05;
-		double temp_width = HEX_WIDTH;
-		xOffset+=gap;
-		yOffset+=gap;
-		height-=(gap*2);//
-		temp_width-=(gap*2);
-		if (hex.isHighlighted()){
-		    gc.setFill(Color.LIGHTBLUE);
-		}
-		else if (hex.isSelected()){
-		    gc.setFill(Color.WHITESMOKE);
-		}
-		else {
-		    gc.setFill(hex.getColor());
-		}
-		gc.fillPolygon(new double[]{(xOffset+(temp_width*0.25)), (xOffset+(temp_width*0.75)), (xOffset+temp_width), 	
-				 					xOffset+(temp_width*0.75), xOffset+(temp_width*0.25), xOffset},
-				 	   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
-									yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
-		//image
-		gap=temp_width*0.05;
-		double imageAdjust=4.0;
-		if(hex.isStartPosition())
-			gc.drawImage(START_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
-		else
-			gc.drawImage(hex.getImage(), xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
+
+	double xOffset = choosenMapping[hex.getId()][0]*0.75*HEX_WIDTH-40.0; //40 move whole grid
+	double yOffset = choosenMapping[hex.getId()][1]*0.5*height-30.0; //30 moves whole grid
+	//gc.fillOval(xOffset, yOffset, xOffset+200, yOffset+200);
+
+	//outer polygon
+	gc.setFill(Color.BLACK);
+	gc.fillPolygon(new double[]{(xOffset+(HEX_WIDTH*0.25)), (xOffset+(HEX_WIDTH*0.75)), (xOffset+HEX_WIDTH), 	
+								 xOffset+(HEX_WIDTH*0.75), xOffset+(HEX_WIDTH*0.25), xOffset},
+				   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
+								yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
+	//inner polygon
+	double gap=HEX_WIDTH*0.05;
+	double temp_width = HEX_WIDTH;
+	xOffset+=gap;
+	yOffset+=gap;
+	height-=(gap*2);//
+	temp_width-=(gap*2);
+	if (hex.isHighlighted()){
+	    gc.setFill(Color.LIGHTBLUE);
+	}
+	else if (hex.isSelected()){
+	    gc.setFill(Color.WHITESMOKE);
+	}
+	else {
+	    gc.setFill(hex.getColor());
+	}
+	gc.fillPolygon(new double[]{(xOffset+(temp_width*0.25)), (xOffset+(temp_width*0.75)), (xOffset+temp_width), 	
+								xOffset+(temp_width*0.75), xOffset+(temp_width*0.25), xOffset},
+				   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
+								yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
+	//image
+	gap=temp_width*0.05;
+	double imageAdjust=4.0;
+	if(hex.isStartPosition())
+	    gc.drawImage(START_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
+	else
+	    gc.drawImage(hex.getImage(), xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
     }
     
+    /**
+     * Sets the board instance that the UI must display.
+     * @param board The board to display.
+     */
     public void setBoard(Board board) {
 	List<Hex> hexes = board.getHexes();
 	
@@ -132,6 +168,4 @@ public class BoardView extends Canvas {
 	    paintHex(h);
 	}
     }
-    
-    
 }
