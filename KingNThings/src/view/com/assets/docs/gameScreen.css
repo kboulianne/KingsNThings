@@ -73,6 +73,8 @@
 #playerInfo{
 	-fx-padding: 5;
   	-fx-spacing: 10;
-  	-fx-border-color: #DDDDDD;
+}
+#bottomSection{
+	 -fx-border-color: #DDDDDD;
     -fx-border-width: 2 0 0 0 ;
 }

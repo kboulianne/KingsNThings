@@ -1,0 +1,115 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007fff98d0f390, pid=3071, tid=4682506240
+#
+# JRE version: 7.0_04-b21
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (23.0-b21 mixed mode bsd-amd64 compressed oops)
+# Problematic frame:
+# C  [libobjc.A.dylib+0xb390]  objc_msgSend_vtable14+0x10
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f876381f000):  JavaThread "QuantumRenderer-0" daemon [_thread_in_native, id=387538944, stack(0x0000000117096000,0x0000000117196000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=0 (SEGV0), si_addr=0x0000000000000000
+
+Registers:
+RAX=0x7000000000000000, RBX=0x00007f8764366a90, RCX=0x00000000000f9ab0, RDX=0x000000010d990d00
+RSP=0x0000000117195588, RBP=0x00000001171955b0, RSI=0x00000001177bf7c8, RDI=0x00007f8764366a90
+R8 =0x0000000000000006, R9 =0x00007f876435cb00, R10=0x000000004515131e, R11=0x00000000d051c1a3
+R12=0x00007f876381f1d8, R13=0x0000000000000001, R14=0x0000000117195668, R15=0x00007f876381f000
+RIP=0x00007fff98d0f390, EFLAGS=0x0000000000010246, ERR=0x0000000000000000
+  TRAPNO=0x000000000000000d
+
+Top of Stack: (sp=0x0000000117195588)
+0x0000000117195588:   0000000117797e55 0000000000000000
+0x0000000117195598:   00000007a2f98d48 0000000000000000
+0x00000001171955a8:   00000007a2f98d48 0000000117195628
+0x00000001171955b8:   000000010e648f90 00000007a2abc6b0
+0x00000001171955c8:   0000000117195600 00000007a2abcf80
+0x00000001171955d8:   0000000000000000 00000007a2abc6b8
+0x00000001171955e8:   00000001171955e8 0000000000000000
+0x00000001171955f8:   0000000117195668 00000007a2f9a2c0
+0x0000000117195608:   0000000000000000 00000007a2f98d48
+0x0000000117195618:   0000000000000000 0000000117195648
+0x0000000117195628:   00000001171956b0 000000010e63d158
+0x0000000117195638:   0000000000000000 000000010e645dd8
+0x0000000117195648:   0000000000000001 0000000000000000
+0x0000000117195658:   00007f8764366a90 000000010e63d158
+0x0000000117195668:   00000007e396b3a0 0000000117195670
+0x0000000117195678:   00000007a2f747e6 00000001171956c8
+0x0000000117195688:   00000007a2f773d8 0000000000000000
+0x0000000117195698:   00000007a2f74810 0000000117195648
+0x00000001171956a8:   00000001171956c0 0000000117195710
+0x00000001171956b8:   000000010e63d158 0000000000000001
+0x00000001171956c8:   00000007e396b3a0 00000001171956d0
+0x00000001171956d8:   00000007a2f91dcd 0000000117195720
+0x00000001171956e8:   00000007a2f923b8 0000000000000000
+0x00000001171956f8:   00000007a2f91de8 00000001171956c0
+0x0000000117195708:   0000000117195720 0000000117195768
+0x0000000117195718:   000000010e63d158 00000007e396af60
+0x0000000117195728:   0000000117195728 00000007a2fd5da4
+0x0000000117195738:   0000000117195790 00000007a2fd7a88
+0x0000000117195748:   0000000000000000 00000007a2fd5e68
+0x0000000117195758:   0000000117195720 0000000117195790
+0x0000000117195768:   00000001171957d8 000000010e63d806
+0x0000000117195778:   0000000000000000 0000000000000000 
+
+Instructions: (pc=0x00007fff98d0f390)
+0x00007fff98d0f370:   8b 42 18 48 8b 76 08 ff 60 68 66 0f 1f 44 00 00
+0x00007fff98d0f380:   48 85 ff 74 16 f7 c7 01 00 00 00 75 12 48 8b 07
+0x00007fff98d0f390:   48 8b 40 18 48 8b 76 08 ff 60 70 31 c0 c3 90 89
+0x00007fff98d0f3a0:   f8 83 e0 0f 4c 8d 15 2d 51 84 e6 4d 8b 14 c2 49 
+
+Register to memory mapping:
+
+RAX=0x7000000000000000 is an unknown value
+RBX=0x00007f8764366a90 is an unknown value
+RCX=0x00000000000f9ab0 is an unknown value
+RDX=0x000000010d990d00 is an unknown value
+RSP=0x0000000117195588 is pointing into the stack for thread: 0x00007f876381f000
+RBP=0x00000001171955b0 is pointing into the stack for thread: 0x00007f876381f000
+RSI=0x00000001177bf7c8: OBJC_CLASS_$_GlassWindow_Normal+0x48 in /Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/libglass.dylib at 0x000000011777e000
+RDI=0x00007f8764366a90 is an unknown value
+R8 =0x0000000000000006 is an unknown value
+R9 =0x00007f876435cb00 is an unknown value
+R10=0x000000004515131e is an unknown value
+R11=0x00000000d051c1a3 is an unknown value
+R12=0x00007f876381f1d8 is an unknown value
+R13=0x0000000000000001 is an unknown value
+R14=0x0000000117195668 is pointing into the stack for thread: 0x00007f876381f000
+R15=0x00007f876381f000 is a thread
+
+
+Stack: [0x0000000117096000,0x0000000117196000],  sp=0x0000000117195588,  free space=1021k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libobjc.A.dylib+0xb390]  objc_msgSend_vtable14+0x10
+j  com.sun.glass.ui.mac.MacView._end(JZZ)V+0
+j  com.sun.glass.ui.View.unlock(Z)V+14
+j  com.sun.glass.ui.Pen.end()V+5
+j  com.sun.javafx.tk.quantum.PresentingPainter.run()V+628
+j  java.util.concurrent.Executors$RunnableAdapter.call()Ljava/lang/Object;+4
+j  java.util.concurrent.FutureTask$Sync.innerRunAndReset()Z+30
+j  java.util.concurrent.FutureTask.runAndReset()Z+4
+j  com.sun.prism.render.RenderJob.run()V+1
+j  java.util.concurrent.ThreadPoolExecutor.runWorker(Ljava/util/concurrent/ThreadPoolExecutor$Worker;)V+46
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+5
+j  com.sun.javafx.tk.quantum.QuantumRenderer$PipelineRunnable.run()V+8
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+V  [libjvm.dylib+0x286acf]
+V  [libjvm.dylib+0x286fac]
+V  [libjvm.dylib+0x2870e6]
+V  [libjvm.dylib+0x2bd820]
+V  [libjvm.dylib+0x4763cc]
+V  [libjvm.dylib+0x4778b2]
+V  [libjvm.dylib+0x3b393d]

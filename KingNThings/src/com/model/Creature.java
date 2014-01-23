@@ -4,10 +4,8 @@ import java.util.*;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public abstract class Creature extends Thing	{
@@ -325,24 +323,32 @@ public abstract class Creature extends Thing	{
 	public void paintThingInDetails(Pane detailsBox){
 		detailsBox.getChildren().clear();
 		
-		ImageView img = new ImageView(image);
-		img.setFitWidth(260); 
-        img.setPreserveRatio(true);
-        img.setSmooth(true);
-        img.setCache(true);
-		
+		paintThingRectangle(260, detailsBox);
+
 		Label thingNameLbl = new Label(name);
 		Label typeLbl = new Label("Type: " + domain);
 		Label ownerLbl = new Label("Owner: " + owner);
 		
 		Label combatLbl = new Label("Combat Value: " + combatVal);
-		Label specialAbilitiesLbl = new Label("Abilities: " + (fly?"flying ":"")+(ranged?"ranged ":"")
-				+(charge?"charging ":"")+ (magic?"magic ":""));
-		if(specialAbilitiesLbl.getText().length() == 11){
-			specialAbilitiesLbl.setText("Abilities: None");
+		String abilities = "";
+		if(fly){
+			abilities += " Flying";
 		}
+		if(ranged){
+			abilities += " Ranged";
+		}
+		if(charge){
+			abilities += " Charging";
+		}
+		if(magic){
+			abilities += " Magic";
+		}
+		if(abilities.isEmpty()){
+			abilities = " None";
+		}
+		Label specialAbilitiesLbl = new Label("Abilities:"+abilities );
 		
-		detailsBox.getChildren().addAll(img, thingNameLbl, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl);
+		detailsBox.getChildren().addAll(thingNameLbl, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl);
 		
 		Button moveButton = new Button("Move");
 		detailsBox.getChildren().add(moveButton);
@@ -359,7 +365,7 @@ public abstract class Creature extends Thing	{
 	
 	public void highlighAvailableMoves(){
 		//TODO
-		int hexLocation = 0;
+		//int hexLocation = 0;
 		
 		Map<Integer, Hex> hexesThatCanBeMovedToMap = new HashMap<Integer, Hex>(); // to be moved to board class 
 		
