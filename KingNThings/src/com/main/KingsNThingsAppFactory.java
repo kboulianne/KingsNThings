@@ -56,7 +56,7 @@ public class KingsNThingsAppFactory {
     public SidePanePresenter getSidePanePresenter() {
 	if (sidePanePresenter == null) {
 	    SidePaneView view = new SidePaneView();
-	    sidePanePresenter = new SidePanePresenter(view, mainPresenter);    
+	    sidePanePresenter = new SidePanePresenter(view, getDetailsPresenter());    
 	}
 	
 	return sidePanePresenter;

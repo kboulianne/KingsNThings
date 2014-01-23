@@ -9,6 +9,7 @@ package com.presenter;
 import com.game.services.GameService;
 import com.model.Hex;
 import com.model.game.Game;
+import view.com.DetailsView;
 import view.com.SidePaneView;
 
 /**
@@ -17,12 +18,14 @@ import view.com.SidePaneView;
  */
 public class SidePanePresenter {
     private final SidePaneView view;
-    private GamePresenter mainPresenter;
+    private DetailsPresenter detailsPresenter;
     
-    public SidePanePresenter(SidePaneView view, GamePresenter mainPresenter) {
+    public SidePanePresenter(SidePaneView view, DetailsPresenter detailsPresenter) {
 	this.view = view;
 	this.view.setPresenter(this);
-	this.mainPresenter = mainPresenter;
+	this.detailsPresenter = detailsPresenter;
+	// Add the details view
+	this.view.addDetailsView(detailsPresenter.getView());
 	
 	Game game = GameService.getInstance().getGame();
 	
@@ -32,6 +35,8 @@ public class SidePanePresenter {
     public SidePaneView getView() {
 	return view;
     }
+    
+    
     
     // Handlers go here.
 

@@ -16,7 +16,7 @@ import view.com.DetailsView;
 public class DetailsPresenter {
     private DetailsView view;
     
-    public DetailsPresenter(DetailsView view /* Needed presenters go here. */) {
+    public DetailsPresenter(DetailsView view/* Needed presenters go here. */) {
 	this.view = view;
 	this.view.setPresenter(this);
     }

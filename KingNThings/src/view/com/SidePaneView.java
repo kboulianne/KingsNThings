@@ -26,7 +26,6 @@ public class SidePaneView extends VBox {
     static final double HEX_HEIGHT = HEX_WIDTH *0.8;
     
     private SidePanePresenter presenter;
-    private DetailsPresenter detailsPresenter;
     
     private PlayerLabel opp1Lbl;
     private PlayerLabel opp2Lbl;
@@ -41,13 +40,6 @@ public class SidePaneView extends VBox {
 	setId("sidePane");
 	//FIXME: Hardcoded
 	setMinWidth(1280 * 0.5 - 20);
-
-	
-	// TODO Sub-view?
-//	VBox detailsBox = new VBox(); 
-//	detailsBox.setAlignment(Pos.CENTER);
-//	detailsBox.setId("detailsBox");
-//	detailsBox.setMinHeight(HEX_HEIGHT*7);
 	
 	// Opponents
 	HBox otherPlayerInfo = new HBox();
@@ -59,8 +51,16 @@ public class SidePaneView extends VBox {
 	otherPlayerInfo.getChildren().addAll(opp1Lbl, opp2Lbl, opp3Lbl);
 	
 	// Adds opponents and DetailsView
-	getChildren().addAll(otherPlayerInfo, detailsPresenter.getView());
+	getChildren().add(otherPlayerInfo);
 
+    }
+    
+    /**
+     * Adds the Hex detail view.
+     * @param view The view to add as a sub-view.
+     */
+    public void addDetailsView(DetailsView view) {
+	getChildren().add(view);
     }
     
     public void setPresenter(final SidePanePresenter presenter) {

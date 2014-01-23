@@ -9,6 +9,7 @@ package view.com;
 import com.model.Hex;
 import com.presenter.DetailsPresenter;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 /**
@@ -23,12 +24,17 @@ public class DetailsView extends VBox {
     
     private DetailsPresenter presenter;
     
+    public DetailsView() {
+	buildView();
+    }
+    
     protected void buildView() {
 	setAlignment(Pos.CENTER);
 	setId("detailsBox");
 	setMinHeight(HEX_HEIGHT * 7);
 	
 	// Define content.
+	getChildren().add(new Label("This is DetailsView"));
     }
     
     public void setPresenter(final DetailsPresenter presenter) {
