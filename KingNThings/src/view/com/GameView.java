@@ -114,10 +114,12 @@ public class GameView extends StackPane {
 //	rootVBox.getChildren().add(1, centerBox);
     }
     
-    public void addPlayAreaView() {
+    public void addBoardView(BoardView view) {
 	//.add(1, view) as precaution
 	//rootVBox.getChildren().add(2, playingArea);
+	centerBox.getChildren().add(view);
     }
+    
     
     /**
      * Sets the new UI State according to the data contained in Game instance.

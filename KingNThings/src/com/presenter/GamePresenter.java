@@ -26,11 +26,14 @@ public class GamePresenter {
 //    private GameService gameService;
     private DicePresenter dicePresenter;
     private SidePanePresenter sidePanePresenter;
+    private BoardPresenter boardPresenter;
+    
     
     public GamePresenter(
 	    final GameView view, 
 	    final DicePresenter dicePresenter,
-	    final SidePanePresenter sidePanePresenter
+	    final SidePanePresenter sidePanePresenter,
+	    final BoardPresenter boardPresenter
 	    /* service and Other presenters here */) {
         this.view = view;
 	this.view.setPresenter(this);
@@ -42,6 +45,10 @@ public class GamePresenter {
 	// SidePane initialization
 	this.sidePanePresenter = sidePanePresenter;
 	this.view.addSidePaneView(sidePanePresenter.getView());
+	
+	// Board initialization
+	this.boardPresenter = boardPresenter;
+	this.view.addBoardView(boardPresenter.getView());
 	
 	// Update view
 	Game model = GameService.getInstance().getGame();
