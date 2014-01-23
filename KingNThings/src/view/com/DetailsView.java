@@ -10,6 +10,8 @@ import com.model.Hex;
 import com.presenter.DetailsPresenter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -24,6 +26,8 @@ public class DetailsView extends VBox {
     
     private DetailsPresenter presenter;
     
+    private ImageView hexImage;
+    
     public DetailsView() {
 	buildView();
     }
@@ -33,8 +37,26 @@ public class DetailsView extends VBox {
 	setId("detailsBox");
 	setMinHeight(HEX_HEIGHT * 7);
 	
-	// Define content.
-	getChildren().add(new Label("This is DetailsView"));
+	// Define content. (FROM paintHexInDetails
+	hexImage = new ImageView();
+	// FIXME Hardcoded
+	hexImage.setFitWidth(300);
+	hexImage.setPreserveRatio(true);
+	hexImage.setSmooth(true);
+	hexImage.setCache(true);
+	
+	VBox contentBox = new VBox();
+	contentBox.getStyleClass().add("block");
+	contentBox.setAlignment(Pos.CENTER);
+	
+	
+	contentBox.getChildren().addAll(hexImage);
+	
+	StackPane sp = new StackPane();
+	sp.getChildren().addAll(/*hexImage,*/ contentBox);
+	getChildren().add(sp);
+	
+//	getChildren().add(new Label("This is DetailsView"));
     }
     
     public void setPresenter(final DetailsPresenter presenter) {
@@ -47,7 +69,12 @@ public class DetailsView extends VBox {
         this.presenter = presenter;
     }
     
-    public void setHex(Hex h) {
+    public void setHex(Hex hex) {
 	// update ui here.
+	
+	if (hex != null) {
+	    // Set the new image.
+	    hexImage.setImage(hex.getImage());
+	}
     }
 }

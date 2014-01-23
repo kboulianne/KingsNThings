@@ -41,8 +41,8 @@ public class MVPApplication extends Application {
 //        view.setPresenter(presenter);
 	
         stage.setTitle("Kings & Things");
-        stage.setWidth(WIDTH);
-        stage.setHeight(HEIGHT);
+        stage.setMinWidth(1000);
+        stage.setMinHeight(600);
         stage.initStyle(StageStyle.DECORATED);
         stage.setResizable(false);
         stage.setFullScreen(false);
