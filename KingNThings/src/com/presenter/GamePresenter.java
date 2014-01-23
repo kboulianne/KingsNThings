@@ -8,6 +8,7 @@ package com.presenter;
 
 import com.game.services.GameService;
 import com.model.game.Game;
+import view.com.DiceView;
 import view.com.GameView;
 
 /**
@@ -25,9 +26,11 @@ public class GamePresenter {
     // Everything we will do will require service eventually.
 //    private GameService gameService;
     // Presenters for sub-views go here
+    private DicePresenter dicePresenter;
     
     public GamePresenter(final GameView view /* service and Other presenters here */) {
         this.view = view;
+	this.view.setPresenter(this);
 	
 	// Update view
 	Game model = GameService.getInstance().getGame();
@@ -38,6 +41,17 @@ public class GamePresenter {
     
     public GameView getView() {
         return view;
+    }
+    
+//    public DiceView getDiceView() {
+//	return dicePresenter.getView();
+//    }
+//    
+    public void setDicePresenter(DicePresenter presenter) {
+	dicePresenter = presenter;
+	
+	// Add the DiceView to the game view
+	view.addDiceView(presenter.getView());
     }
     
     public void handleGamePlayEvents(Object someFutureObjectClass) {

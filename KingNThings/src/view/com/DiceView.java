@@ -8,7 +8,6 @@ package view.com;
 
 import com.model.Die;
 import com.presenter.DicePresenter;
-import com.presenter.GamePresenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -23,18 +22,11 @@ import javafx.scene.layout.HBox;
 public class DiceView extends HBox {
     
     private DicePresenter presenter;
-    
-    // The model(s)
-    private Die die1;
-    private Die die2;
-    
+
     private ImageView die1Iv;
     private ImageView die2Iv;
     
-    public DiceView(Die die1, Die die2) {
-	this.die1 = die1;
-	this.die2 = die2;
-	
+    public DiceView() {
 	buildView();
     }
     

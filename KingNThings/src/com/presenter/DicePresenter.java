@@ -23,6 +23,7 @@ public class DicePresenter {
     
     public DicePresenter(DiceView view, GamePresenter mainPresenter) {
 	this.view = view;
+	this.view.setPresenter(this);
 	this.mainPresenter = mainPresenter;
 	
 	// Set initial model
@@ -45,8 +46,5 @@ public class DicePresenter {
 
 	// Update the view
 	view.setDice(game.getDie1(), game.getDie2());
-	    
-	
-	
     }
 }

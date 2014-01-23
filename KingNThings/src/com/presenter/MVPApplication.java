@@ -7,8 +7,10 @@
 package com.presenter;
 
 import com.game.services.GameService;
+import com.main.KingsNThingsAppFactory;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import view.com.GameView;
@@ -28,19 +30,24 @@ public class MVPApplication extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("MVP Option 1");
+
+	
+	KingsNThingsAppFactory factory = new KingsNThingsAppFactory();
+	GamePresenter main = factory.getMainPresenter();
+	
+//        GameView view = new GameView(GameService.getInstance().getGame());
+//        GamePresenter presenter = new GamePresenter(view);
+//        view.setPresenter(presenter);
+	
+        stage.setTitle("Kings & Things");
         stage.setWidth(WIDTH);
         stage.setHeight(HEIGHT);
         stage.initStyle(StageStyle.DECORATED);
         stage.setResizable(false);
         stage.setFullScreen(false);
-        
-        GameView view = new GameView(GameService.getInstance().getGame());
-        GamePresenter presenter = new GamePresenter(view);
-        view.setPresenter(presenter);
+        stage.getIcons().add(new Image("view/com/assets/pics/icon.png"));
 	
-        // TODO create initScene method
-        Scene scene = new Scene(view);
+        Scene scene = new Scene(main.getView(), WIDTH, HEIGHT);
 	scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
 	scene.getStylesheets().add("view/com/assets/docs/gameScreen.css");
 	

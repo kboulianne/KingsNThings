@@ -22,17 +22,17 @@ import javafx.scene.layout.AnchorPane;
 public class GameView extends AnchorPane {
 
     private GamePresenter presenter;
-    // Sub-presenters
-    private DicePresenter dicePresenter;
+//    // Sub-presenters
+//    private DicePresenter dicePresenter;
     // Initial model
-    private Game model;
+//    private Game model;
     
     private Label currentPlayerLbl;
     
     // Class-level controls needing exposure outside buildView()
     // private Button roll;
-    public GameView(final Game game) {
-        this.model = game;
+    public GameView() {
+//        this.model = game;
         buildView();
     }
     
@@ -49,7 +49,8 @@ public class GameView extends AnchorPane {
     protected void buildView() {
 	setId("gameStatus");
 	
-	currentPlayerLbl = new Label("Sir "+model.getCurrentPlayer().getName()+"'s Turn: Roll Dice");
+//	currentPlayerLbl = new Label("Sir "+model.getCurrentPlayer().getName()+"'s Turn: Roll Dice");
+	currentPlayerLbl = new Label();
 	currentPlayerLbl.getStyleClass().add("title");
 	getChildren().add(currentPlayerLbl);
 	AnchorPane.setLeftAnchor(currentPlayerLbl, 0.0);
@@ -69,24 +70,29 @@ public class GameView extends AnchorPane {
 	getChildren().add(btn);
 	
 	// Create the dice view and presenterPane
-	createAndAddDiceView();
+//	createAndAddDiceView();
     }
     
-    private void createAndAddDiceView() {
-	DiceView diceView = new DiceView(model.getDie1(), model.getDie2());
-	dicePresenter = new DicePresenter(diceView, presenter);
-	// TODO pass to constructor?
-	diceView.setPresenter(dicePresenter);
-	
-	getChildren().add(diceView);
+    public void addDiceView(DiceView view) {
+	getChildren().add(view);
+//	DiceView diceView = new DiceView(model.getDie1(), model.getDie2());
+//	dicePresenter = new DicePresenter(diceView, presenter);
+//	// TODO pass to constructor?
+//	diceView.setPresenter(dicePresenter);
+//	
+//	getChildren().add(diceView);
     }
     
     public void setGame(final Game game) {
-	this.model = game;
+//	this.model = game;
 	// As a precaution.
 	if (game != null) {
-	    // Set all properties here
+	    // Set all game properties here
 	    currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName());
+	    
+	    
+	    
+	    
 	    
 	}
     }
