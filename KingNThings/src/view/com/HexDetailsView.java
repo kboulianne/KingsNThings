@@ -50,14 +50,7 @@ public class HexDetailsView extends StackPane {
 	buildView();
     }
     
-    protected void buildView() {
-        // now content in SidePaneView
-//	setAlignment(Pos.CENTER);
-//	setId("detailsBox");
-//	setMinHeight(HEX_HEIGHT * 7);
-	
-
-        
+    protected void buildView() {        
 	// TODO Put in create Methods
 	// Define content. (FROM paintHexInDetails
 	hexImage = new ImageView();

@@ -28,7 +28,7 @@ public class ArmyOrMisc extends HBox {
     
     private Circle circle;
     private Label sizeLbl;
-    private StackPane thingHolder;
+    private HBox thingHolder;
     
     public ArmyOrMisc(EventHandler<MouseEvent> click) {
 	buildComponent();
@@ -44,7 +44,7 @@ public class ArmyOrMisc extends HBox {
 	sizeLbl = new Label(/*Integer.toString(army.size())*/);
 	circleStackPane.getChildren().addAll(circle, sizeLbl);
         
-        thingHolder = new StackPane();
+        thingHolder = new HBox();
         
 	getChildren().addAll(circleStackPane, thingHolder);
 	
@@ -81,8 +81,9 @@ public class ArmyOrMisc extends HBox {
         img.setCache(true);
         img.getStyleClass().add("thing");
        
-		
-	thingHolder.getChildren().addAll(borderRect, coloredRect, img);
+	StackPane pane = new StackPane();
+	pane.getChildren().addAll(borderRect, coloredRect, img);
+        thingHolder.getChildren().add(pane);
 //		pane.getChildren().add(stack);
 		
 		return img;
@@ -91,10 +92,16 @@ public class ArmyOrMisc extends HBox {
     public void setArmy(Player armyOwner, List<Thing> army) {
         thingHolder.getChildren().clear();
         
-        sizeLbl.setText(String.valueOf(army.size()));
-        circle.setFill(armyOwner.getColor());
+
         
 	if (!army.isEmpty()) {
+            sizeLbl.setVisible(true);
+            circle.setVisible(true);
+            thingHolder.setVisible(true);
+            
+            sizeLbl.setText(String.valueOf(army.size()));
+            circle.setFill(armyOwner.getColor());
+            
 	    for (Thing t : army) {
 		// TODO create object pool to avoid recreating image views.
                 // create and add image views
@@ -102,6 +109,12 @@ public class ArmyOrMisc extends HBox {
                 createArmyImageView(t);
 	    }
 	}
+        else {
+            // Make invisible
+            sizeLbl.setVisible(false);
+            circle.setVisible(false);
+            thingHolder.setVisible(false);
+        }
 	//	for(final Thing t:army){
 	    //ImageView thingImg = t.paintThingRectangle(50, armyBox);
 				//t.paintThingInDetails(detailsBox);
