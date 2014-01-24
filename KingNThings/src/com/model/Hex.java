@@ -107,7 +107,7 @@ public class Hex extends GamePiece implements Paintable {
 
 	    // TODO put the army in player and link here?
 //	    armies = new HashMap<>();
-//	    // TESTING for now
+	    // TESTING for now
 //	    Game game = GameService.getInstance().getGame();
 //	    armies.put(game.getOpponent1(), player1Army);
 //	    armies.put(game.getOpponent1(), player2Army);
@@ -210,9 +210,23 @@ public class Hex extends GamePiece implements Paintable {
     public void addThingToHex(Thing t){
 	    miscThings.add(t);
     }
-	
+
+    // For now
+    public List<Thing> getOpponent1Army() {
+        return player1Army;
+    }
     
+    public List<Thing> getOpponent2Army() {
+        return player2Army;
+    }
     
+    public List<Thing> getOpponent3Army() {
+        return player3Army;
+    }
+    
+    public List<Thing> getCurrentPlayerArmy() {
+        return currentPlayerArmy;
+    }
     
 	@Override
 	public void paint(Pane pane) {

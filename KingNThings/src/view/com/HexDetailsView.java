@@ -44,7 +44,7 @@ public class HexDetailsView extends StackPane {
     private ArmyOrMisc opp2Army;
     private ArmyOrMisc opp3Army;
     private ArmyOrMisc currentPlayerArmy;
-    
+    //addmisc
     
     public HexDetailsView() {
 	buildView();
@@ -86,11 +86,7 @@ public class HexDetailsView extends StackPane {
 	opp3Army = new ArmyOrMisc(null);
 	currentPlayerArmy = new ArmyOrMisc(null);
 	
-//	StackPane sp = new StackPane();
-	// I think having image here was a bug since added in contentBox
-//	sp.getChildren().addAll(/*hexImage,*/ contentBox);
-//	getChildren().add(sp); 
-        getChildren().add(contentBox);
+        getChildren().addAll(contentBox, opp1Army, opp2Army, opp3Army, currentPlayerArmy);
     }
     
     // TODO Put in ArmyOrMiscView?
@@ -134,13 +130,16 @@ public class HexDetailsView extends StackPane {
 	    testLbl.setText("removeLater: id=" + hex.getId() + " joins with:"+test);
 	    // TODO Hardcoded stuff!
 	    // Update the armies
+            
+            
 //	    Map<Player, List<Thing>> armies = hex.getArmies();
-//	    // TESTING: THIS SHOULD NOT BE HERE
-//	    Game game = GameService.getInstance().getGame();
+	    // TESTING: SERVICE SHOULD NOT BE HERE
+	    Game game = GameService.getInstance().getGame();
+            opp1Army.setArmy(game.getOpponent1(), hex.getOpponent1Army());
 //	    opp1Army.setArmy(game.getOpponent1(), armies.get(game.getOpponent1()));
-//	    opp2Army.setArmy(game.getOpponent2(), armies.get(game.getOpponent2()));
-//	    opp3Army.setArmy(game.getOpponent3(), armies.get(game.getOpponent3()));
-//	    currentPlayerArmy.setArmy(game.getCurrentPlayer(), armies.get(game.getCurrentPlayer()));
+	    opp2Army.setArmy(game.getOpponent2(), hex.getOpponent2Army());
+	    opp3Army.setArmy(game.getOpponent3(), hex.getOpponent3Army());
+	    currentPlayerArmy.setArmy(game.getCurrentPlayer(), hex.getCurrentPlayerArmy());
 	    
 	    //TODO Misc things
 	    
