@@ -22,12 +22,9 @@ public class SidePanePresenter {
     private HexDetailsPresenter hexDetailsPresenter;
     private ThingDetailsPresenter thingDetailsPresenter;
     
-    public SidePanePresenter(SidePaneView view, HexDetailsPresenter detailsPresenter,
-            ThingDetailsPresenter thingDetailPresenter) {
+    public SidePanePresenter(SidePaneView view) {
 	this.view = view;
 	this.view.setPresenter(this);
-	this.hexDetailsPresenter = detailsPresenter;
-	this.thingDetailsPresenter = thingDetailPresenter;
         
 	Game game = GameService.getInstance().getGame();
 	
@@ -38,7 +35,27 @@ public class SidePanePresenter {
 	return view;
     }
     
+    public void setHexDetailsPresenter(final HexDetailsPresenter presenter) {
+	if (presenter == null) {
+	    throw new NullPointerException("Presenter cannot be null.");
+	}
+	if (hexDetailsPresenter != null) {
+	    throw new IllegalStateException("Presenter has already been set.");
+	}
+	
+	hexDetailsPresenter = presenter;
+    }
     
+    public void setThingDetailsPresenter(final ThingDetailsPresenter presenter) {
+	if (presenter == null) {
+	    throw new NullPointerException("Presenter cannot be null.");
+	}
+	if (thingDetailsPresenter != null) {
+	    throw new IllegalStateException("Presenter has already been set.");
+	}
+	
+	thingDetailsPresenter = presenter;
+    }
     
     // Handlers go here.
     public void showHexDetailsFor(Hex h) {

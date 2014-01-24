@@ -59,8 +59,11 @@ public class KingsNThingsAppFactory {
     public SidePanePresenter getSidePanePresenter() {
 	if (sidePanePresenter == null) {
 	    SidePaneView view = new SidePaneView();
-	    sidePanePresenter = new SidePanePresenter(view, getHexDetailsPresenter(),
-                    getThingDetailsPresenter());    
+	    sidePanePresenter = new SidePanePresenter(view);
+	    
+	    // Avoids infinite recursion
+	    sidePanePresenter.setHexDetailsPresenter(getHexDetailsPresenter());
+	    sidePanePresenter.setThingDetailsPresenter(getThingDetailsPresenter());
 	}
 	
 	return sidePanePresenter;

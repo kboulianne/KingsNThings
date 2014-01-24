@@ -30,9 +30,14 @@ public class ArmyOrMisc extends HBox {
     private Label sizeLbl;
     private HBox thingHolder;
     
+    private EventHandler<ThingEvent> thingHandler;
+    
     public ArmyOrMisc(EventHandler<ThingEvent> click) {
+	this.thingHandler = click;
 	buildComponent();
     }
+    
+    
     StackPane circleStackPane;
     protected void buildComponent() {
 	getStyleClass().add("army");
@@ -91,15 +96,7 @@ public class ArmyOrMisc extends HBox {
         });
         
         // Add custom handler
-        img.addEventFilter(ThingEvent.THING_CLICKED, new EventHandler<ThingEvent>() {
-
-            @Override
-            public void handle(ThingEvent t) {
-                System.out.println("I clicked a thing and I liked it!");
-                System.out.println(t.getThing());
-                
-            }
-        });
+        img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
         
 	StackPane pane = new StackPane();
 	pane.getChildren().addAll(borderRect, coloredRect, img);

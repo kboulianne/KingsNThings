@@ -19,7 +19,7 @@ public class HexDetailsPresenter {
     
     private SidePanePresenter sidePanePresenter;
     
-    public HexDetailsPresenter(HexDetailsView view, SidePanePresenter sidePanePresenter/* Needed presenters go here. */) {
+    public HexDetailsPresenter(HexDetailsView view, SidePanePresenter sidePanePresenter) {
 	this.view = view;
 	this.view.setPresenter(this);
         
