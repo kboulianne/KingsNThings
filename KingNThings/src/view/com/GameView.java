@@ -39,7 +39,6 @@ public class GameView extends StackPane {
     // Class-level controls needing exposure outside buildView()
     // private Button roll;
     public GameView() {
-//        this.model = game;
         buildView();
     }
     
@@ -76,21 +75,9 @@ public class GameView extends StackPane {
 	
 	// Contains sidepaneview and PlayArea
 	centerBox = new HBox();
-	// TESTING FOR current player
-//	Button btn = new Button("Test End Turn");
-//	AnchorPane.setLeftAnchor(btn, 0d);
-//	AnchorPane.setTopAnchor(btn, 100d);
-//	btn.setOnAction(new EventHandler<ActionEvent>() {
-//	    @Override
-//	    public void handle(ActionEvent t) {
-//		presenter.endPlayerTurn();
-//	    }
-//	    
-//	});
 	
 	rootVBox.getChildren().addAll(gameStatus, centerBox);
 	getChildren().add(rootVBox);
-//	getChildren().add(btn);
     }
     
     /**

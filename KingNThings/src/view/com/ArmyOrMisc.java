@@ -30,7 +30,7 @@ public class ArmyOrMisc extends HBox {
     private Label sizeLbl;
     private HBox thingHolder;
     
-    private EventHandler<ThingEvent> thingHandler;
+    private final EventHandler<ThingEvent> thingHandler;
     
     public ArmyOrMisc(EventHandler<ThingEvent> click) {
 	this.thingHandler = click;
@@ -56,7 +56,7 @@ public class ArmyOrMisc extends HBox {
         
     }
     
-    private ImageView createArmyImageView(final Thing t) {
+    private void createArmyImageView(final Thing t) {
         int size = 50;
         
         Rectangle borderRect = new Rectangle();
@@ -91,6 +91,7 @@ public class ArmyOrMisc extends HBox {
 
             @Override
             public void handle(MouseEvent me) {
+		// Fire custom event on mouse clicked
                 img.fireEvent(new ThingEvent(t));
             }
         });
@@ -101,15 +102,10 @@ public class ArmyOrMisc extends HBox {
 	StackPane pane = new StackPane();
 	pane.getChildren().addAll(borderRect, coloredRect, img);
         thingHolder.getChildren().add(pane);
-//		pane.getChildren().add(stack);
-		
-		return img;
     }
     
     public void setArmy(Player armyOwner, List<Thing> army) {
         thingHolder.getChildren().clear();
-        
-
         
 	if (!army.isEmpty()) {
             sizeLbl.setVisible(true);
@@ -131,17 +127,6 @@ public class ArmyOrMisc extends HBox {
             sizeLbl.setVisible(false);
             circle.setVisible(false);
             thingHolder.setVisible(false);
-        }
-	//	for(final Thing t:army){
-	    //ImageView thingImg = t.paintThingRectangle(50, armyBox);
-				//t.paintThingInDetails(detailsBox);
-//				thingImg.setOnMouseClicked(new EventHandler<Event>() {
-//					@Override
-//					public void handle(Event arg0) {
-//						detailsBox.getChildren().clear();
-//						t.paintThingInDetails(detailsBox);	
-//					}
-//				});
-//			}	
+        }	
     }
 }
