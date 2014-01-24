@@ -16,7 +16,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Player implements Paintable{
+public class Player implements Paintable	{
 	PlayerId id; 		// {1, 2, 3, 4}
 	Color color;	// {blue, green, red, yellow}
 	Block block;

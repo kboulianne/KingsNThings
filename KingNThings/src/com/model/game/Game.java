@@ -44,7 +44,6 @@ public final class Game {
 //    private Set<IPhaseStrategy> initPhases;
     private Iterator<Player> nextPlayerIt;
     private List<Player> playerOrder;
-    private List<Thing> bag;
     
     // Constructors & Initializer Methods ==============================================================================
     /**
@@ -82,10 +81,6 @@ public final class Game {
 		    hexPool.get(rand).setId(i);
 		    hexPool.remove(rand);
 		}
-
-		//Bag created with all things required for gameplay
-		bag = Thing.createThings();
-
     }
 
     
@@ -219,12 +214,6 @@ public final class Game {
     public final int diceTotal() {
 	return die1.get().getValue() + die2.get().getValue();
     }
-    
-    //Returns the bag
-    public List<Thing> getBag()	{	return bag;	}
-    
-    //Bag is set to incoming list of things
-    public void setBag(List<Thing> list)	{	bag = list;    }
     
     // Behaviour Methods ===============================================================================================
     /**

@@ -37,9 +37,11 @@ public class Board {
 	    faceDown = true;
 	    cup = new Cup();
 	    numOfHexes = nOH.numberOfHexes;
-	    hexes = new ArrayList<>();
-	    
+	    hexes = new ArrayList<>();	    
 	}
+	
+	public Cup getCup()	{	return cup;	}
+	public void setCup(Cup c)	{	cup = c;	}
 	
 	public int getHexNum() {
 	    return numOfHexes;

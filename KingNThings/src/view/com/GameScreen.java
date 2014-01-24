@@ -214,7 +214,7 @@ public class GameScreen {
 			    flow.setPrefWrapLength(1180); // preferred width allows for two columns
 			    //flow.setStyle("-fx-background-color: DAE6F3;");
 
-				List<Thing> bag = game.getBag();
+				List<Thing> bag = game.getBoard().getCup().getThings();
 				for(Thing t: bag){
 					ImageView im = new ImageView(t.getImage());
 					im.setFitWidth(60); 
