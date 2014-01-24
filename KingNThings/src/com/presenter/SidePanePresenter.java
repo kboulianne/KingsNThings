@@ -18,14 +18,12 @@ import view.com.SidePaneView;
  */
 public class SidePanePresenter {
     private final SidePaneView view;
-    private HexDetailsPresenter detailsPresenter;
+    private HexDetailsPresenter hexDetailsPresenter;
     
     public SidePanePresenter(SidePaneView view, HexDetailsPresenter detailsPresenter) {
 	this.view = view;
 	this.view.setPresenter(this);
-	this.detailsPresenter = detailsPresenter;
-	// Add the details view
-	this.view.addDetailsView(detailsPresenter.getView());
+	this.hexDetailsPresenter = detailsPresenter;
 	
 	Game game = GameService.getInstance().getGame();
 	
@@ -39,8 +37,10 @@ public class SidePanePresenter {
     
     
     // Handlers go here.
-
-    public void showSelectedHex(Hex h) {
+    public void showHexDetailsFor(Hex h) {
+	view.showHexDetailsView(hexDetailsPresenter.getView());
 	
+	// make the presenter update the view
+	hexDetailsPresenter.showHex(h);
     }
 }

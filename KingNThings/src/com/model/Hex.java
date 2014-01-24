@@ -106,13 +106,13 @@ public class Hex extends GamePiece implements Paintable {
 	    miscThings = new ArrayList<>();
 
 	    // TODO put the army in player and link here?
-	    armies = new HashMap<>();
-	    // TESTING for now
-	    Game game = GameService.getInstance().getGame();
-	    armies.put(game.getOpponent1(), player1Army);
-	    armies.put(game.getOpponent1(), player2Army);
-	    armies.put(game.getOpponent1(), player3Army);
-	    armies.put(game.getCurrentPlayer(), currentPlayerArmy);
+//	    armies = new HashMap<>();
+//	    // TESTING for now
+//	    Game game = GameService.getInstance().getGame();
+//	    armies.put(game.getOpponent1(), player1Army);
+//	    armies.put(game.getOpponent1(), player2Army);
+//	    armies.put(game.getOpponent1(), player3Army);
+//	    armies.put(game.getCurrentPlayer(), currentPlayerArmy);
 	}
 
 	

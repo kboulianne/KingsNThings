@@ -6,13 +6,16 @@
 
 package view.com;
 
+import com.model.Hex;
 import com.presenter.HexDetailsPresenter;
 import com.model.Player;
 import com.presenter.SidePanePresenter;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -28,8 +31,9 @@ public class SidePaneView extends VBox {
     
     private SidePanePresenter presenter;
     
-    // Content currently being displayed in the view
-    private Node content;
+    // Current detailsview being displayed in the view
+    // TODO Create abstract DetailsView?
+    private BorderPane content;
     
     private PlayerLabel opp1Lbl;
     private PlayerLabel opp2Lbl;
@@ -54,17 +58,12 @@ public class SidePaneView extends VBox {
 	opp3Lbl = new PlayerLabel();
 	otherPlayerInfo.getChildren().addAll(opp1Lbl, opp2Lbl, opp3Lbl);
 	
+	// TODO make Content take the background image.
+	content = new BorderPane();
+	
 	// Adds opponents and HexDetailsView
-	getChildren().add(otherPlayerInfo);
+	getChildren().addAll(otherPlayerInfo, content);
 
-    }
-    
-    /**
-     * Adds the Hex detail view.
-     * @param view The view to add as a sub-view.
-     */
-    public void addDetailsView(HexDetailsView view) {
-	getChildren().add(view);
     }
     
     public void setPresenter(final SidePanePresenter presenter) {
@@ -82,5 +81,12 @@ public class SidePaneView extends VBox {
 	opp1Lbl.setPlayer(o1);
 	opp2Lbl.setPlayer(o2);
 	opp3Lbl.setPlayer(o3);
+    }
+    
+    public void showHexDetailsView(HexDetailsView view) {
+	// Set the pane to the HexDetailsView
+	content.getChildren().clear();
+	content.getChildren().add(view);
+	BorderPane.setAlignment(view, Pos.CENTER);
     }
 }

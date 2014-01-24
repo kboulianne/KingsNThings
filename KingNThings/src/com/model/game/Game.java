@@ -72,7 +72,7 @@ public final class Game {
 		
 		HexFactory hexFactory = new HexFactory();
 		
-		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
+ 		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
 		
 		// Choose Hexes at random from the pool and add to the board.
 		int rand = 0;
