@@ -222,9 +222,9 @@ public final class Game {
 	return die1.getValue() + die2.getValue();
     }
     
-    //Returns the bag
     public Cup getCup()	{	return cup;	}
-    
+	public void setCup(Cup c)	{	cup = c;	}
+	    
     // Behaviour Methods ===============================================================================================
     /**
      * Rolls the dice and notifies the server.
