@@ -91,8 +91,8 @@ public class GameScreen {
 		
 		hexes.get(0).addThingToArmy(goblin, game.getPlayer().getId());
 		hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
-		game.getPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
-		game.getPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
+		game.getPlayer().getBlock().addThing(thing,game.getPlayer().getName());
+		game.getPlayer().getBlock().addThing(goblin,game.getPlayer().getName());
 		for(int i=0;i<10;i++){
 			hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
 		}
