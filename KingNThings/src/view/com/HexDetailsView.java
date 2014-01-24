@@ -27,7 +27,7 @@ import javafx.scene.shape.Circle;
  *
  * @author kurtis
  */
-public class HexDetailsView extends StackPane {
+public class HexDetailsView extends VBox {
     
     // FIXME: Duplicate
     static final double HEX_WIDTH = 100.0; 

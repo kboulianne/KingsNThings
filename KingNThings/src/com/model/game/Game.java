@@ -30,7 +30,7 @@ public final class Game {
     private Player opponent2;
     private Player opponent3;
     /** The player owning "this" Game instance. */
-    private Player player;
+//    private Player player;
     /** The player who's is currently playing his/her turn. */
     private Player currentPlayer;
     /** The game board representing hex tiles and all their contents. */
@@ -97,13 +97,13 @@ public final class Game {
      *	Gets the player owning this Game instance. (Player "playing" this game)
      * @return The player
      */
-    public final Player getPlayer() { return player; }
+//    public final Player getPlayer() { return player; }
 
     /**
      *	Sets the player owning this instance of the Game.
      * @param player The player to set.
      */
-    public void setPlayer(final Player player) { this.player = player; }
+//    public void setPlayer(final Player player) { this.player = player; }
     
     /**
      *	Gets the Player which is currently executing their turn.
@@ -115,7 +115,7 @@ public final class Game {
      *	Sets the Player which is currently executing their turn.
      * @param current  The new player to set.
      */
-    public final void setCurrent(final Player current) { this.currentPlayer = current; }
+    public final void setCurrentPlayer(final Player current) { this.currentPlayer = current; }
 
     /**
      *	Gets the first die instance.

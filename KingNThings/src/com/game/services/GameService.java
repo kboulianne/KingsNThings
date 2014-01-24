@@ -72,8 +72,7 @@ public class GameService {
     
     // Test methods
     private void test_CreatePlayers() {
-	// Set the player owning the game instance.
-	game.setPlayer(new Player(Player.PlayerId.ONE, "Bob"));
+	game.setCurrentPlayer(new Player(Player.PlayerId.ONE, "Bob"));
 	game.setOpponent1(new Player(Player.PlayerId.TWO,"Frank"));
 	game.setOpponent2(new Player(Player.PlayerId.THREE,"Joe"));
 	game.setOpponent3(new Player(Player.PlayerId.FOUR,"Roxanne"));
@@ -81,7 +80,7 @@ public class GameService {
 	// Initial PlayerOrder.
 	List<Player> players = new ArrayList<>();
 	players.add(game.getOpponent2());
-	players.add(game.getPlayer());
+	players.add(game.getCurrentPlayer());
 	players.add(game.getOpponent3());
 	players.add(game.getOpponent1());
 	
@@ -95,10 +94,10 @@ public class GameService {
         Creature dragon = new DesertCreature("olddragon");
         List<Hex> hexes = game.getBoard().getHexes();
         
-        hexes.get(0).addThingToArmy(goblin, game.getPlayer().getId());
-        hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
-        game.getPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
-        game.getPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
+        hexes.get(0).addThingToArmy(goblin, game.getCurrentPlayer().getId());
+        hexes.get(0).addThingToArmy(dragon, game.getCurrentPlayer().getId());
+        game.getCurrentPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
+        game.getCurrentPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
         for(int i=0;i<10;i++){
                 hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
         }
@@ -109,7 +108,7 @@ public class GameService {
                 hexes.get(0).addThingToArmy(dragon, game.getOpponent3().getId());
         }
         for(int i=0;i<7;i++){
-                hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
+                hexes.get(0).addThingToArmy(dragon, game.getCurrentPlayer().getId());
         }
     }
     

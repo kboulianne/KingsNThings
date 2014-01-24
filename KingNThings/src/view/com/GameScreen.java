@@ -84,27 +84,27 @@ public class GameScreen {
 		
 		//TODO
 		//remove later for testing
-		Thing thing = new SwampCreature("ghost");
-		Creature goblin = new MountainCreature("goblins");
-		Creature dragon = new DesertCreature("olddragon");
-
-		
-		hexes.get(0).addThingToArmy(goblin, game.getPlayer().getId());
-		hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
-		game.getPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
-		game.getPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
-		for(int i=0;i<10;i++){
-			hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
-		}
-		for(int i=0;i<5;i++){
-			hexes.get(0).addThingToArmy(dragon, game.getOpponent2().getId());
-		}
-		for(int i=0;i<8;i++){
-			hexes.get(0).addThingToArmy(dragon, game.getOpponent3().getId());
-		}
-		for(int i=0;i<7;i++){
-			hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
-		}
+//		Thing thing = new SwampCreature("ghost");
+//		Creature goblin = new MountainCreature("goblins");
+//		Creature dragon = new DesertCreature("olddragon");
+//
+//		
+//		hexes.get(0).addThingToArmy(goblin, game.getCurrentPlayer().getId());
+//		hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
+//		game.getPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
+//		game.getPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
+//		for(int i=0;i<10;i++){
+//			hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
+//		}
+//		for(int i=0;i<5;i++){
+//			hexes.get(0).addThingToArmy(dragon, game.getOpponent2().getId());
+//		}
+//		for(int i=0;i<8;i++){
+//			hexes.get(0).addThingToArmy(dragon, game.getOpponent3().getId());
+//		}
+//		for(int i=0;i<7;i++){
+//			hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
+//		}
 		//GameStatus
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
@@ -181,7 +181,7 @@ public class GameScreen {
 		centerBox.getChildren().addAll(sidePane, playingArea);
 		
 		// Player Info
-		Player currentPlayer = game.getPlayer();
+		Player currentPlayer = game.getCurrentPlayer();
 		HBox currentPlayerInfoBox = new HBox();
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
