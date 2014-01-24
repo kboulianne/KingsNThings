@@ -8,6 +8,7 @@ package com.presenter;
 
 import com.game.services.GameService;
 import com.model.Hex;
+import com.model.Player;
 import com.model.Thing;
 import com.model.game.Game;
 import com.view.HexDetailsView;
@@ -21,6 +22,7 @@ public class SidePanePresenter {
     private final SidePaneView view;
     private HexDetailsPresenter hexDetailsPresenter;
     private ThingDetailsPresenter thingDetailsPresenter;
+    private GamePresenter mainPresenter;
     
     public SidePanePresenter(SidePaneView view) {
 	this.view = view;
@@ -35,6 +37,7 @@ public class SidePanePresenter {
 	return view;
     }
     
+    // FIXME: To be removed when Factory is fixed.
     public void setHexDetailsPresenter(final HexDetailsPresenter presenter) {
 	if (presenter == null) {
 	    throw new NullPointerException("Presenter cannot be null.");
@@ -57,6 +60,17 @@ public class SidePanePresenter {
 	thingDetailsPresenter = presenter;
     }
     
+    public void setGamePresenter(final GamePresenter presenter) {
+	if (presenter == null) {
+	    throw new NullPointerException("Presenter cannot be null.");
+	}
+	if (mainPresenter != null) {
+	    throw new IllegalStateException("Presenter has already been set.");
+	}
+	
+	mainPresenter = presenter;
+    }
+    
     // Handlers go here.
     public void showHexDetailsFor(Hex h) {
 	view.showHexDetailsView(hexDetailsPresenter.getView());
@@ -70,5 +84,13 @@ public class SidePanePresenter {
 	
 	// Make the presenter update the UI
 	thingDetailsPresenter.showThing(t);
+    }
+
+    public void showOpponentInfo(Player player) {
+	mainPresenter.showPlayerInfoPopup(player);
+    }
+    
+    public void dismissOpponentInfo() {
+	mainPresenter.dismissPopup();
     }
 }

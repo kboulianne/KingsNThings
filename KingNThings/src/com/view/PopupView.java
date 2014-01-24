@@ -94,7 +94,7 @@ public class PopupView extends VBox {
 	}
     }
     
-    protected void dismiss() {
+    public void dismiss() {
 	if (isVisible()) {
 	    // Remove and null the content
 	    getChildren().remove(1);

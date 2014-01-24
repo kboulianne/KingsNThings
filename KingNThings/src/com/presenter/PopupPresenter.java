@@ -6,6 +6,8 @@
 
 package com.presenter;
 
+import com.model.Player;
+import com.view.PlayerPopup;
 import com.view.PopupView;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -18,26 +20,25 @@ public class PopupPresenter {
     private PopupView view;
     
     // All the views (Pane classes) this popup can display.
-    private StackPane test;
+    private PlayerPopup playerPopup;
     
     public PopupPresenter(PopupView view) {
 	this.view = view;
 	this.view.setPresenter(this);
+	
+//	this.playerPopup = playerPopup;
     }
+  
 
     public PopupView getView() {
 	return view;
     }
-    
-    public void showPopup() {
-	test = new StackPane();
-	test.getChildren().add(new Label("TEST POPUP"));
-	
-	view.show(test);
+
+    public void dismissPopup() {
+	view.dismiss();
     }
 
-    // Do we really need this?
-    public void dismissPopup() {
-	
+    public void showPlayerPopup(Player p) {
+	view.show(new PlayerPopup(p));
     }
 }

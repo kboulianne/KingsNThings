@@ -73,6 +73,7 @@ public class KingsNThingsAppFactory {
 	    // Avoids infinite recursion
 	    sidePanePresenter.setHexDetailsPresenter(getHexDetailsPresenter());
 	    sidePanePresenter.setThingDetailsPresenter(getThingDetailsPresenter());
+	    sidePanePresenter.setGamePresenter(getMainPresenter());
 	}
 	
 	return sidePanePresenter;

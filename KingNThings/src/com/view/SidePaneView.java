@@ -20,6 +20,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import static com.view.HexDetailsView.HEX_HEIGHT;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
@@ -44,6 +46,8 @@ public class SidePaneView extends VBox {
     
     public SidePaneView() {
 	buildView();
+	
+	addHandlers();
     }
     
     protected void buildView() {
@@ -69,6 +73,31 @@ public class SidePaneView extends VBox {
 	// Adds opponents and details container
 	getChildren().addAll(otherPlayerInfo, content);
 
+    }
+    
+    public void addHandlers() {
+	EventHandler<MouseEvent> playerLabelHandler = new EventHandler<MouseEvent>() {
+	    @Override
+	    public void handle(MouseEvent t) {
+		PlayerLabel lbl = (PlayerLabel) t.getSource();
+		// TODO create a custom event.
+		presenter.showOpponentInfo(lbl.getPlayer());
+	    }
+	};
+	opp1Lbl.setOnMouseEntered(playerLabelHandler);
+	opp2Lbl.setOnMouseEntered(playerLabelHandler);
+	opp3Lbl.setOnMouseEntered(playerLabelHandler);
+	
+	EventHandler<MouseEvent> exitHandler = new EventHandler<MouseEvent>() {
+
+	    @Override
+	    public void handle(MouseEvent t) {
+		presenter.dismissOpponentInfo();
+	    }
+	};
+	opp1Lbl.setOnMouseExited(exitHandler);
+	opp2Lbl.setOnMouseExited(exitHandler);
+	opp3Lbl.setOnMouseExited(exitHandler);
     }
     
     public void setPresenter(final SidePanePresenter presenter) {

@@ -7,6 +7,7 @@
 package com.presenter;
 
 import com.game.services.GameService;
+import com.model.Player;
 import com.model.game.Game;
 import com.view.DiceView;
 import com.view.GameView;
@@ -96,6 +97,14 @@ public class GamePresenter {
 	System.out.println("Showing Cup");
 	
 	// TESTING
-	popupPresenter.showPopup();
+//	popupPresenter.showPopup();
+    }
+    
+    public void showPlayerInfoPopup(Player p) {
+	popupPresenter.showPlayerPopup(p);
+    }
+    
+    public void dismissPopup() {
+	popupPresenter.dismissPopup();
     }
 }

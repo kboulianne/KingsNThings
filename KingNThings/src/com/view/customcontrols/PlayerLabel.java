@@ -20,6 +20,7 @@ public class PlayerLabel extends HBox {
     
     private Circle color;
     private Label name;
+    private Player model;
     
     public PlayerLabel() {
 	buildComponent();
@@ -76,7 +77,12 @@ public class PlayerLabel extends HBox {
 //	pane.getChildren().addAll(playerBox);
     }
     
+    public Player getPlayer() {
+	return model;
+    }
+    
     public void setPlayer(Player player) {
+	this.model = player;
 	color.setFill(player.getColor());
 	name.setText("Sir " + player.getName());
     }
