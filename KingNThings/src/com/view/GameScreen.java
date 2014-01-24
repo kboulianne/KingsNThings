@@ -219,39 +219,34 @@ public class GameScreen {
 		
 		//new GameScreenCntrl(playingArea, button);
 		
-//		viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent arg0) {	
-//				FlowPane flow = new FlowPane();
-//<<<<<<< HEAD
-//			    //flow.setPadding(new Insets(5, 0, 5, 0));
-//			    flow.setVgap(4);
-//			    flow.setHgap(4);
-//			    flow.setPrefWrapLength(1180); // preferred width allows for two columns
-//			    //flow.setStyle("-fx-background-color: DAE6F3;");
-//
-//				List<Thing> bag = game.getBoard().getCup().getThings();
-//				for(Thing t: bag){
-//					ImageView im = new ImageView(t.getImage());
-//					im.setFitWidth(60); 
-//			        im.setPreserveRatio(true);
-//			        im.setSmooth(true);
-//			        im.setCache(true);
-//					flow.getChildren().add(im);
-//					
-//				}
-//				
-//				popupWithTitleAndCloseButton("Bag",flow);
-//=======
-//				flow.setVgap(1);
-//			    flow.setHgap(1);
-//			    flow.setPadding(new Insets(10,0,0,0));
-//			    flow.setPrefWrapLength(1180);
-//			    game.getCup().paint(flow);
-//				popupWithTitleAndCloseButton("Cup",flow);
-//>>>>>>> 14a41e787637a3d31617e0d160fb5480c8faf70c
-//			}
-//		});
+		viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {	
+				FlowPane flow = new FlowPane();
+			    //flow.setPadding(new Insets(5, 0, 5, 0));
+			    flow.setVgap(4);
+			    flow.setHgap(4);
+			    flow.setPrefWrapLength(1180); // preferred width allows for two columns
+			    //flow.setStyle("-fx-background-color: DAE6F3;");
+
+				List<Thing> bag = game.getCup().getListOfThings();
+				for(Thing t: bag){
+					ImageView im = new ImageView(t.getImage());
+					im.setFitWidth(60); 
+			        im.setPreserveRatio(true);
+			        im.setSmooth(true);
+			        im.setCache(true);
+					flow.getChildren().add(im);
+					
+				}
+				
+				flow.setVgap(1);
+			    flow.setHgap(1);
+			    flow.setPadding(new Insets(10,0,0,0));
+			    flow.setPrefWrapLength(1180);
+				popupWithTitleAndCloseButton("Cup",flow);
+			}
+		});
 		
 		// to be moved to controller
 		playingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -287,7 +282,7 @@ public class GameScreen {
 	}
 	
 	// Pop-up Functions
-	public static void popup( Node content){	
+	public static void popup(Node content){	
 		if (rootStackPane.getChildren().size() == 1){			
 			popupVbox = new VBox();
 			popupVbox.getStyleClass().add("popup");

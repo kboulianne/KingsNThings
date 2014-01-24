@@ -63,10 +63,17 @@ public class Player implements Paintable	{
 		return id;
 	}
 
+	public void setGold(int g)	{
+		gold = g;
+	}
+	
 	public int getGold() {
 	    return gold;
 	}
 	
+	public void addGold(int g)	{
+		gold += g;
+	}
 	@Override
 	public void paint(Pane pane) {
 		// TODO Auto-generated method stub
