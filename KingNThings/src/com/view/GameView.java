@@ -76,9 +76,16 @@ public class GameView extends StackPane {
 	// Contains sidepaneview and PlayArea
 	centerBox = new HBox();
 
+	Button test = new Button("Test Phases");
+	test.setOnAction(new EventHandler<ActionEvent>() {
 
+	    @Override
+	    public void handle(ActionEvent t) {
+		presenter.endPlayerTurn();
+	    }
+	});
 	
-	rootVBox.getChildren().addAll(gameStatus, centerBox);
+	rootVBox.getChildren().addAll(test, gameStatus, centerBox);
 	getChildren().add(rootVBox);
     }
     

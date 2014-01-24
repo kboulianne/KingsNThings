@@ -93,6 +93,8 @@ public class GamePresenter {
 	
 	Game game = GameService.getInstance().getGame();
 	view.setGame(game);
+	// For now
+	playerInfoPresenter.getView().setPlayer(game.getCurrentPlayer());
     }
     
     public void showCup() {
