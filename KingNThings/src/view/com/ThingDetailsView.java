@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
  */
 public class ThingDetailsView extends VBox {
     
-    private ThingDetailsPresenter presenter;
+    protected ThingDetailsPresenter presenter;
     
     private ImageView thingIv;
     private Label thingNameLbl;
