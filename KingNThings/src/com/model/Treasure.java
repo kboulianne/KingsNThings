@@ -18,7 +18,7 @@ public class Treasure extends Thing{
 	
 	Treasure(String name) {
 		super(name);
-		setImage("view/com/assets/pics/gamepieces/things/incomecounters/" + name + ".jpeg");
+		setImage("view/com/assets/pics/gamepieces/things/treasure/" + name + ".jpeg");
 		setValue(goldInc.get(name));
 	}
 

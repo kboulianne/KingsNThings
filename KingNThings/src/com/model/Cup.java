@@ -2,7 +2,7 @@ package com.model;
 
 import java.util.ArrayList;
 
-import view.com.GameScreen;
+import com.view.GameScreen;
 
 import com.presenter.Paintable;
 

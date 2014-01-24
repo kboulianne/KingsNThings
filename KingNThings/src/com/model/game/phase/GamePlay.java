@@ -47,12 +47,12 @@ public class GamePlay {
     
 
     public GamePlay() {
-	initPhases = new LinkedHashSet<>();
-	gamePhases = new LinkedHashSet<>();
-	rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
-	
-	createInitPhases();
-	createGamePhases();
+		initPhases = new LinkedHashSet<>();
+		gamePhases = new LinkedHashSet<>();
+		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
+		
+		createInitPhases();
+		createGamePhases();
     }
    
     private void createInitPhases() {

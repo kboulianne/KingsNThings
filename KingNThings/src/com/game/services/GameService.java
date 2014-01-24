@@ -6,9 +6,15 @@
 
 package com.game.services;
 
+import com.model.Creature;
+import com.model.DesertCreature;
+import com.model.Hex;
+import com.model.MountainCreature;
 import java.util.ArrayList;
 import java.util.List;
 import com.model.Player;
+import com.model.SwampCreature;
+import com.model.Thing;
 import com.model.game.Game;
 
 /**
@@ -40,6 +46,7 @@ public class GameService {
     private void initialize() {
 //	test_CreateOpponents();
 	test_CreatePlayers();
+        test_AddThingsAndCreatures();
 //	game.test_PlayerOrder();
     }
 
@@ -65,8 +72,7 @@ public class GameService {
     
     // Test methods
     private void test_CreatePlayers() {
-	// Set the player owning the game instance.
-	game.setPlayer(new Player(Player.PlayerId.ONE, "Bob"));
+	game.setCurrentPlayer(new Player(Player.PlayerId.ONE, "Bob"));
 	game.setOpponent1(new Player(Player.PlayerId.TWO,"Frank"));
 	game.setOpponent2(new Player(Player.PlayerId.THREE,"Joe"));
 	game.setOpponent3(new Player(Player.PlayerId.FOUR,"Roxanne"));
@@ -74,7 +80,7 @@ public class GameService {
 	// Initial PlayerOrder.
 	List<Player> players = new ArrayList<>();
 	players.add(game.getOpponent2());
-	players.add(game.getPlayer());
+	players.add(game.getCurrentPlayer());
 	players.add(game.getOpponent3());
 	players.add(game.getOpponent1());
 	
@@ -82,8 +88,44 @@ public class GameService {
 //	game.setCurrent(game.getPlayer());
     }
     
+    private void test_AddThingsAndCreatures() {
+        Thing thing = new SwampCreature("ghost");
+        Creature goblin = new MountainCreature("goblins");
+        Creature dragon = new DesertCreature("olddragon");
+        List<Hex> hexes = game.getBoard().getHexes();
+        
+        hexes.get(0).addThingToArmy(goblin, game.getCurrentPlayer().getId());
+        hexes.get(0).addThingToArmy(dragon, game.getCurrentPlayer().getId());
+        game.getCurrentPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
+        game.getCurrentPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
+        for(int i=0;i<10;i++){
+                hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
+        }
+        for(int i=0;i<5;i++){
+                hexes.get(0).addThingToArmy(dragon, game.getOpponent2().getId());
+        }
+        for(int i=0;i<8;i++){
+                hexes.get(0).addThingToArmy(dragon, game.getOpponent3().getId());
+        }
+        for(int i=0;i<7;i++){
+                hexes.get(0).addThingToArmy(dragon, game.getCurrentPlayer().getId());
+        }
+    }
+    
     
     public Game getGame() {
 	return game;
+    }
+    
+    public void roll() {
+	// TODO remove rollDice(), allows the service to be bypassed.
+	game.rollDice();
+	
+	// Fire towards network.
+    }
+    
+    public void endTurn() {
+	// TODO remove this from game class.
+	game.endTurn();
     }
 }

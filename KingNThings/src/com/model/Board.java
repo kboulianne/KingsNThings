@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 public class Board {
-	Cup cup;
 	private int numOfHexes;
 	private List<Hex> hexes;
 	/** Tiles are drawn face down until players select start
@@ -35,10 +34,8 @@ public class Board {
 	
 	public Board(NumberOfHexes nOH){
 	    faceDown = true;
-	    cup = new Cup();
 	    numOfHexes = nOH.numberOfHexes;
-	    hexes = new ArrayList<>();
-	    
+	    hexes = new ArrayList<>();	    
 	}
 	
 	public int getHexNum() {

@@ -1,6 +1,6 @@
 package com.presenter;
 
-import view.com.ConnectionScreen;
+import com.view.ConnectionScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

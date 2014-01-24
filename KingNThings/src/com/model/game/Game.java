@@ -30,20 +30,20 @@ public final class Game {
     private Player opponent2;
     private Player opponent3;
     /** The player owning "this" Game instance. */
-    private Player player;
+//    private Player player;
     /** The player who's is currently playing his/her turn. */
     private Player currentPlayer;
     /** The game board representing hex tiles and all their contents. */
     private Board board;
 //    private Die die1;
-    private ObjectProperty<Die> die1;
-    private ObjectProperty<Die> die2;
+    private Die die1;
+    private Die die2;
     private int mode;
     public static final int 
 	    MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
     private GamePlay gamePlay;
-//    private Set<IPhaseStrategy> initPhases;
+
     private Iterator<Player> nextPlayerIt;
     private List<Player> playerOrder;
     private Cup cup;
@@ -57,8 +57,8 @@ public final class Game {
 		mode = MODE_FOUR_PLAYER;
 		
 		// Initialize the dice
-		die1 = new SimpleObjectProperty<>(new Die());
-		die2 = new SimpleObjectProperty<>(new Die());
+		die1 = new Die();
+		die2 = new Die();
 		
 		// Player order is arbitrary in the beginning.
 		playerOrder = new ArrayList<>();
@@ -72,7 +72,7 @@ public final class Game {
 		
 		HexFactory hexFactory = new HexFactory();
 		
-		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
+ 		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
 		
 		// Choose Hexes at random from the pool and add to the board.
 		int rand = 0;
@@ -88,7 +88,6 @@ public final class Game {
 
 		//Bag created with all things required for gameplay
 		cup.setListOfThings(Util.getRandomList(Thing.createThings()));
-
     }
 
     
@@ -97,13 +96,13 @@ public final class Game {
      *	Gets the player owning this Game instance. (Player "playing" this game)
      * @return The player
      */
-    public final Player getPlayer() { return player; }
+//    public final Player getPlayer() { return player; }
 
     /**
      *	Sets the player owning this instance of the Game.
      * @param player The player to set.
      */
-    public void setPlayer(final Player player) { this.player = player; }
+//    public void setPlayer(final Player player) { this.player = player; }
     
     /**
      *	Gets the Player which is currently executing their turn.
@@ -115,31 +114,31 @@ public final class Game {
      *	Sets the Player which is currently executing their turn.
      * @param current  The new player to set.
      */
-    public final void setCurrent(final Player current) { this.currentPlayer = current; }
+    public final void setCurrentPlayer(final Player current) { this.currentPlayer = current; }
 
     /**
      *	Gets the first die instance.
      * @return The die.
      */
-    public final ObjectProperty<Die> getDie1Property() { return die1; }
+    public final Die getDie1() { return die1; }
     
     /**
      * Sets the first die instance.
      * @param die The new die.
      */
-    public final void setDie1Property(final ObjectProperty<Die> die) { this.die1 = die; }
+    public final void setDie1(final Die die) { this.die1 = die; }
     
     /**
      * Gets the second die instance.
      * @return The die.
      */
-    public final ObjectProperty<Die> getDie2Property() { return die2; }
+    public final Die getDie2() { return die2; }
     
     /**
      * Sets the second die instance.
      * @param die The new die.
      */
-    public final void setDie2(final ObjectProperty<Die> die) { die2 = die; }
+    public final void setDie2(final Die die) { die2 = die; }
 
     /**
      * Gets the board instance for this Game.
@@ -220,20 +219,19 @@ public final class Game {
     public void setOpponent3(Player opponent3) { this.opponent3 = opponent3; }
     
     public final int diceTotal() {
-	return die1.get().getValue() + die2.get().getValue();
+	return die1.getValue() + die2.getValue();
     }
     
-    //Returns the bag
     public Cup getCup()	{	return cup;	}
-    
-    
+	public void setCup(Cup c)	{	cup = c;	}
+	    
     // Behaviour Methods ===============================================================================================
     /**
      * Rolls the dice and notifies the server.
      */
     public void rollDice() {
-	die1.get().roll();
-	die2.get().roll();
+	die1.roll();
+	die2.roll();
     }
     
     public final void nextPlayer() {

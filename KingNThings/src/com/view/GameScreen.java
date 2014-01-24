@@ -1,4 +1,4 @@
-package view.com;
+package com.view;
 
 import java.util.List;
 
@@ -84,6 +84,7 @@ public class GameScreen {
 		
 		//TODO
 		//remove later for testing
+<<<<<<< HEAD:KingNThings/src/view/com/GameScreen.java
 		Thing thing = new SwampCreature("ghost");
 		Creature goblin = new MountainCreature("goblins");
 		Creature dragon = new DesertCreature("olddragon");
@@ -105,6 +106,29 @@ public class GameScreen {
 		for(int i=0;i<7;i++){
 			hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
 		}
+=======
+//		Thing thing = new SwampCreature("ghost");
+//		Creature goblin = new MountainCreature("goblins");
+//		Creature dragon = new DesertCreature("olddragon");
+//
+//		
+//		hexes.get(0).addThingToArmy(goblin, game.getCurrentPlayer().getId());
+//		hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
+//		game.getPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
+//		game.getPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
+//		for(int i=0;i<10;i++){
+//			hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
+//		}
+//		for(int i=0;i<5;i++){
+//			hexes.get(0).addThingToArmy(dragon, game.getOpponent2().getId());
+//		}
+//		for(int i=0;i<8;i++){
+//			hexes.get(0).addThingToArmy(dragon, game.getOpponent3().getId());
+//		}
+//		for(int i=0;i<7;i++){
+//			hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
+//		}
+>>>>>>> 01a851aaab03d1deeaf630a94543bbadf12a7e8f:KingNThings/src/com/view/GameScreen.java
 		//GameStatus
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
@@ -181,7 +205,7 @@ public class GameScreen {
 		centerBox.getChildren().addAll(sidePane, playingArea);
 		
 		// Player Info
-		Player currentPlayer = game.getPlayer();
+		Player currentPlayer = game.getCurrentPlayer();
 		HBox currentPlayerInfoBox = new HBox();
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
@@ -219,18 +243,39 @@ public class GameScreen {
 		
 		//new GameScreenCntrl(playingArea, button);
 		
-		viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {	
-				FlowPane flow = new FlowPane();
-				flow.setVgap(1);
-			    flow.setHgap(1);
-			    flow.setPadding(new Insets(10,0,0,0));
-			    flow.setPrefWrapLength(1180);
-			    game.getCup().paint(flow);
-				popupWithTitleAndCloseButton("Cup",flow);
-			}
-		});
+//		viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent arg0) {	
+//				FlowPane flow = new FlowPane();
+//<<<<<<< HEAD
+//			    //flow.setPadding(new Insets(5, 0, 5, 0));
+//			    flow.setVgap(4);
+//			    flow.setHgap(4);
+//			    flow.setPrefWrapLength(1180); // preferred width allows for two columns
+//			    //flow.setStyle("-fx-background-color: DAE6F3;");
+//
+//				List<Thing> bag = game.getBoard().getCup().getThings();
+//				for(Thing t: bag){
+//					ImageView im = new ImageView(t.getImage());
+//					im.setFitWidth(60); 
+//			        im.setPreserveRatio(true);
+//			        im.setSmooth(true);
+//			        im.setCache(true);
+//					flow.getChildren().add(im);
+//					
+//				}
+//				
+//				popupWithTitleAndCloseButton("Bag",flow);
+//=======
+//				flow.setVgap(1);
+//			    flow.setHgap(1);
+//			    flow.setPadding(new Insets(10,0,0,0));
+//			    flow.setPrefWrapLength(1180);
+//			    game.getCup().paint(flow);
+//				popupWithTitleAndCloseButton("Cup",flow);
+//>>>>>>> 14a41e787637a3d31617e0d160fb5480c8faf70c
+//			}
+//		});
 		
 		// to be moved to controller
 		playingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -378,15 +423,15 @@ public class GameScreen {
 //	    adapter.bindBidirectional("player.name", playerLbl.textProperty());
 	    
 	    // Dice bindings
-	    bindDice(game.getDie1Property().get(), game.getDie2Property().get());
+//	    bindDice(game.getDie1Property().get(), game.getDie2Property().get());
 
 	    // Bind players
 	    bindPlayers(game.getCurrentPlayer());
 	}
 	
 	public final void bindDice(final Die die1, final Die die2) {
-	    die1Im.imageProperty().bind(die1.getImageProperty());
-	    die2Im.imageProperty().bind(die2.getImageProperty());
+//	    die1Im.imageProperty().bind(die1.getImageProperty());
+//	    die2Im.imageProperty().bind(die2.getImageProperty());
 	}
 
 	public final void bindPlayers(final Player player) {
@@ -394,7 +439,7 @@ public class GameScreen {
 		// Bind the current player
 	    // TODO add Male/Female property
 		// broken here
-	    currentPlayerLbl.textProperty().bind(Bindings.concat("Sir ").concat(player.getNameProperty()));
+//	    currentPlayerLbl.textProperty().bind(Bindings.concat("Sir ").concat(player.getNameProperty()));
 	}
 	
 	

@@ -2,7 +2,7 @@ package com.model;
 
 import java.util.ArrayList;
 
-import view.com.GameScreen;
+import com.view.GameScreen;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -190,7 +190,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 		things.add(new FrozenWasteCreature("whitedragon"));
 		
 		//Add income counters
-		/*things.add(new IncomeCounter("timberland"));
+		things.add(new IncomeCounter("timberland"));
 		things.add(new IncomeCounter("silvermine"));
 		things.add(new IncomeCounter("silvermine"));
 		things.add(new IncomeCounter("peatbog"));
@@ -201,6 +201,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 		things.add(new IncomeCounter("diamondfield"));
 		things.add(new IncomeCounter("coppermine"));
 		
+		/*
 		//Add treasure
 		things.add(new Treasure("treasurechest"));
 		things.add(new Treasure("sapphire"));

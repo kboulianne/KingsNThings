@@ -3,7 +3,7 @@ package com.presenter;
 import com.game.services.GameService;
 import javafx.application.Platform;
 //import jfxtras.labs.scene.control.BeanPathAdapter;
-import view.com.GameScreen;
+import com.view.GameScreen;
 
 public class GameScreenCntrl {
     
@@ -18,7 +18,7 @@ public class GameScreenCntrl {
 	// Show view
 	view.show();
 	
-	// Bind to the game instance managed by the GameController. Needs to be run from UI thread.
+	// Bind to the game instance managed by the GameService. Needs to be run from UI thread.
 	Platform.runLater(new Runnable() {
 	    
 	    @Override

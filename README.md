@@ -5,5 +5,12 @@ Group Project
 COMP3004
 
 
-Dependencies
-jfxtras-labs-2.2-r5.jar from jfxtras.org
+GameService.java
+Networking will go here.
+
+Game.java
+Game state goes here.
+
+GamePlay.java
+Game Behaviour is defined here.
+
