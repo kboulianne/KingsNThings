@@ -14,10 +14,12 @@ import com.model.game.Game;
 import com.presenter.HexDetailsPresenter;
 import java.util.List;
 import java.util.Map;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -73,6 +75,15 @@ public class HexDetailsView extends VBox {
 	
 	contentBox.getChildren().addAll(hexImage, nameLbl, ownerLbl, testLbl);
 	
+        // Create the mouse handler for the things and hook it up to the presenter.
+        EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                presenter.handleThingClick();
+            }
+          
+        };
+        
 	// ArmyOrMisc components
 	opp1Army = new ArmyOrMisc(null);
 	opp2Army = new ArmyOrMisc(null);

@@ -51,7 +51,7 @@ public class ArmyOrMisc extends HBox {
         
     }
     
-    private ImageView createArmyImageView(Thing t) {
+    private ImageView createArmyImageView(final Thing t) {
         int size = 50;
         
         Rectangle borderRect = new Rectangle();
@@ -73,14 +73,33 @@ public class ArmyOrMisc extends HBox {
 	coloredRect.setArcHeight(20);
 	coloredRect.setFill(t.getColor());
 	
-	ImageView img = new ImageView(t.getImage());
+	final ImageView img = new ImageView(t.getImage());
 	img.setFitWidth(size-7); 
 	img.setFitHeight(size-7);
         img.setPreserveRatio(false);
         img.setSmooth(true);
         img.setCache(true);
         img.getStyleClass().add("thing");
-       
+        
+        // TODO Clean me up
+        img.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent me) {
+                img.fireEvent(new ThingEvent(t));
+            }
+        });
+        
+        // Add custom handler
+        img.addEventFilter(ThingEvent.THING_CLICKED, new EventHandler<ThingEvent>() {
+
+            @Override
+            public void handle(ThingEvent t) {
+                System.out.println("I clicked a thing and I liked it!");
+                System.out.println(t.getThing());
+            }
+        });
+        
 	StackPane pane = new StackPane();
 	pane.getChildren().addAll(borderRect, coloredRect, img);
         thingHolder.getChildren().add(pane);

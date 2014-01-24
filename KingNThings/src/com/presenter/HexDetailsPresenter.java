@@ -29,4 +29,8 @@ public class HexDetailsPresenter {
     public void showHex(Hex h) {
 	view.setHex(h);
     }
+
+    public void handleThingClick() {
+        // Show ThingDetailView in SidePane.
+    }
 }
