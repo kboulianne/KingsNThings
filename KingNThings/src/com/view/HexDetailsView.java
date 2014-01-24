@@ -9,22 +9,13 @@ package com.view;
 import com.view.customcontrols.ArmyOrMisc;
 import com.game.services.GameService;
 import com.model.Hex;
-import com.model.Player;
-import com.model.Thing;
 import com.model.game.Game;
 import com.presenter.HexDetailsPresenter;
-import java.util.List;
-import java.util.Map;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 
 /**
  *

@@ -6,7 +6,6 @@
 
 package com.view;
 
-import com.game.services.GameService;
 import com.view.customcontrols.PlayerLabel;
 import com.model.Player;
 import com.presenter.PlayerInfoPresenter;

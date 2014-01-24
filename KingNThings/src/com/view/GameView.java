@@ -7,7 +7,6 @@
 package com.view;
 
 import com.model.game.Game;
-import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

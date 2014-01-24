@@ -7,19 +7,12 @@
 package com.view;
 
 import com.view.customcontrols.PlayerLabel;
-import com.model.Hex;
-import com.presenter.HexDetailsPresenter;
 import com.model.Player;
 import com.presenter.SidePanePresenter;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import static com.view.HexDetailsView.HEX_HEIGHT;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

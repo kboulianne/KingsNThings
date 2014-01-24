@@ -2,7 +2,6 @@ package com.presenter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Random;
 
 // misc. global static functions

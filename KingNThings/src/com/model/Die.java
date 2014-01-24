@@ -1,9 +1,6 @@
 package com.model;
 
 import com.presenter.Util;
-import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.image.Image;
 
 public class Die extends GamePiece {
