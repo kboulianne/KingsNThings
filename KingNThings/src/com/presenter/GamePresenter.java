@@ -28,13 +28,15 @@ public class GamePresenter {
     private SidePanePresenter sidePanePresenter;
     private BoardPresenter boardPresenter;
     private PlayerInfoPresenter playerInfoPresenter;
+    private PopupPresenter popupPresenter;
     
     public GamePresenter(
 	    final GameView view, 
 	    final DicePresenter dicePresenter,
 	    final SidePanePresenter sidePanePresenter,
 	    final BoardPresenter boardPresenter,
-	    final PlayerInfoPresenter playerInfoPresenter
+	    final PlayerInfoPresenter playerInfoPresenter,
+	    final PopupPresenter popupPresenter
 	    /* service and Other presenters here */) {
         this.view = view;
 	this.view.setPresenter(this);
@@ -56,6 +58,11 @@ public class GamePresenter {
 	// PlayerInfo initialization
 	this.playerInfoPresenter = playerInfoPresenter;
 	this.view.addPlayerInfoView(playerInfoPresenter.getView());
+	
+	// The presenter which displays popups on the screen.
+	this.popupPresenter = popupPresenter;
+	// Set the parent view
+	this.popupPresenter.getView().setParent(this.view);
 	
 	// Update view
 	Game model = GameService.getInstance().getGame();
@@ -87,5 +94,8 @@ public class GamePresenter {
     
     public void showCup() {
 	System.out.println("Showing Cup");
+	
+	// TESTING
+	popupPresenter.showPopup();
     }
 }
