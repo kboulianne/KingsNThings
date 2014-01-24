@@ -27,17 +27,19 @@ public class GamePresenter {
     private DicePresenter dicePresenter;
     private SidePanePresenter sidePanePresenter;
     private BoardPresenter boardPresenter;
-    
+    private PlayerInfoPresenter playerInfoPresenter;
     
     public GamePresenter(
 	    final GameView view, 
 	    final DicePresenter dicePresenter,
 	    final SidePanePresenter sidePanePresenter,
-	    final BoardPresenter boardPresenter
+	    final BoardPresenter boardPresenter,
+	    final PlayerInfoPresenter playerInfoPresenter
 	    /* service and Other presenters here */) {
         this.view = view;
 	this.view.setPresenter(this);
 	
+	// TODO forced to add sub-views in order due to current layout. Fix this.
 	// Keep DicePresenter and add its view to the main view
 	this.dicePresenter = dicePresenter;
 	// TODO WHAT AM I DOING? JUST ADD VIEW FROM PRESENTER
@@ -50,6 +52,10 @@ public class GamePresenter {
 	// Board initialization
 	this.boardPresenter = boardPresenter;
 	this.view.addBoardView(boardPresenter.getView());
+	
+	// PlayerInfo initialization
+	this.playerInfoPresenter = playerInfoPresenter;
+	this.view.addPlayerInfoView(playerInfoPresenter.getView());
 	
 	// Update view
 	Game model = GameService.getInstance().getGame();

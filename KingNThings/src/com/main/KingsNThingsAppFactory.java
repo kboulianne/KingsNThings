@@ -10,6 +10,7 @@ import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
 import com.presenter.BoardPresenter;
 import com.presenter.HexDetailsPresenter;
+import com.presenter.PlayerInfoPresenter;
 import com.presenter.SidePanePresenter;
 import com.presenter.ThingDetailsPresenter;
 import view.com.BoardView;
@@ -17,6 +18,7 @@ import view.com.CreatureDetailsView;
 import view.com.HexDetailsView;
 import view.com.DiceView;
 import view.com.GameView;
+import view.com.PlayerInfoView;
 import view.com.SidePaneView;
 import view.com.ThingDetailsView;
 
@@ -31,6 +33,7 @@ public class KingsNThingsAppFactory {
     private BoardPresenter boardPresenter;
     private HexDetailsPresenter hexDetailsPresenter;
     private ThingDetailsPresenter thingDetailsPresenter;
+    private PlayerInfoPresenter playerInfoPresenter;
     
     // TODO refactor into a better factory? Or is this sufficient?
     public GamePresenter getMainPresenter() {
@@ -40,7 +43,8 @@ public class KingsNThingsAppFactory {
 		    view,
 		    getDicePresenter(),
 		    getSidePanePresenter(),
-		    getBoardPresenter()
+		    getBoardPresenter(),
+		    getPlayerInfoPresenter()
 	    );
 	}
 	
@@ -99,5 +103,14 @@ public class KingsNThingsAppFactory {
         }
         
         return thingDetailsPresenter;
+    }
+    
+    public PlayerInfoPresenter getPlayerInfoPresenter() {
+	if (playerInfoPresenter == null) {
+	    PlayerInfoView view = new PlayerInfoView();
+	    playerInfoPresenter = new PlayerInfoPresenter(view);
+	}
+	
+	return playerInfoPresenter;
     }
 }

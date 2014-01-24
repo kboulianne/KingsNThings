@@ -63,6 +63,10 @@ public class Player implements Paintable{
 		return id;
 	}
 
+	public int getGold() {
+	    return gold;
+	}
+	
 	@Override
 	public void paint(Pane pane) {
 		// TODO Auto-generated method stub

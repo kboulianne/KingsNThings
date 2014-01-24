@@ -75,7 +75,7 @@ public class GameView extends StackPane {
 	
 	// Contains sidepaneview and PlayArea
 	centerBox = new HBox();
-	
+
 	rootVBox.getChildren().addAll(gameStatus, centerBox);
 	getChildren().add(rootVBox);
     }
@@ -107,12 +107,17 @@ public class GameView extends StackPane {
 	centerBox.getChildren().add(view);
     }
     
+    public void addPlayerInfoView(PlayerInfoView view) {
+	rootVBox.getChildren().add(view);
+    }
     
     /**
      * Sets the new UI State according to the data contained in Game instance.
      * @param game The game object the UI should display.
      */
     public void setGame(final Game game) {
+	//TODO Could actually do most updating here since this presenter has all
+	// other presenters as a dependency.
 	// As a precaution.
 	if (game != null) {
 	    // Set all GameView properties here
