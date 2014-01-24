@@ -6,19 +6,29 @@
 
 package view.com;
 
+import com.model.Creature;
 import com.model.Thing;
 import com.presenter.ThingDetailsPresenter;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /** When a thing is clicked, display this in SidePaneView using
  * SidePaneView#showThingDetailsView
  *
  * @author kurtis
  */
-public class ThingDetailsView extends StackPane {
+public class ThingDetailsView extends VBox {
     
     private ThingDetailsPresenter presenter;
+    
+    private ImageView thingIv;
+    private Label thingNameLbl;
+    private Label typeLbl;
+    private Label ownerLbl;
+    
     
     public ThingDetailsView() {
         buildView();
@@ -35,10 +45,35 @@ public class ThingDetailsView extends StackPane {
     }
     
     protected void buildView() {
-        getChildren().add(new Label("This is ThingDetailsView"));
+	setAlignment(Pos.CENTER);
+	
+	thingIv = new ImageView();
+	// Hardcoded value
+	thingIv.setFitWidth(260);
+	thingIv.setPreserveRatio(true);
+	thingIv.setSmooth(true);
+	thingIv.setCache(true);
+	
+	thingNameLbl = new Label();
+	typeLbl = new Label();
+	ownerLbl = new Label();
+	
+	getChildren().addAll(thingIv, thingNameLbl, typeLbl, ownerLbl);
+//        getChildren().add(new Label("This is ThingDetailsView"));
     }
     
-    public void setThing(Thing thing) {
-        
+    public void setThing(final Thing thing) {
+        if (thing != null) {
+	    thingIv.setImage(thing.getImage());
+	    thingNameLbl.setText(thing.getName());
+	    
+	    String type = "error";
+	    if(thing instanceof Creature) {
+		type = ((Creature) thing).getDomain();
+	    }
+	    
+	    typeLbl.setText("Type: " + type);
+	    ownerLbl.setText("Owner: " + thing.getOwner());
+	}
     }
 }

@@ -91,7 +91,6 @@ public class SidePaneView extends VBox {
 	// Set the pane to the HexDetailsView
 	content.getChildren().clear();
         content.getChildren().add(view);
-//	BorderPane.setAlignment(view, Pos.CENTER);
     }
     
     public void showThingDetailsView(ThingDetailsView view) {

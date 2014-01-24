@@ -6,6 +6,7 @@
 
 package com.presenter;
 
+import com.model.Thing;
 import view.com.ThingDetailsView;
 
 /**
@@ -22,5 +23,9 @@ public class ThingDetailsPresenter {
     
     public ThingDetailsView getView() {
         return view;
+    }
+    
+    public void showThing(Thing t) {
+	view.setThing(t);
     }
 }
