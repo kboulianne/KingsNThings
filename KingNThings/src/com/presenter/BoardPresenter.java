@@ -18,7 +18,7 @@ import view.com.BoardView;
 public class BoardPresenter {
     private final BoardView view;
     // Required Presenters
-    private DetailsPresenter detailsPresenter;
+    private HexDetailsPresenter detailsPresenter;
     private GamePresenter mainPresenter;
     
     // Usually BoardService, but ok for our purposes. We will see in IT2
@@ -26,7 +26,7 @@ public class BoardPresenter {
     
     private int lastHexSelected = -1;
     
-    public BoardPresenter(BoardView view, DetailsPresenter details, GamePresenter main) {
+    public BoardPresenter(BoardView view, HexDetailsPresenter details, GamePresenter main) {
 	this.view = view;
 	this.view.setPresenter(this);
 	this.detailsPresenter = details;

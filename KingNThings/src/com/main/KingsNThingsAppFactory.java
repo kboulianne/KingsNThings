@@ -9,10 +9,10 @@ package com.main;
 import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
 import com.presenter.BoardPresenter;
-import com.presenter.DetailsPresenter;
+import com.presenter.HexDetailsPresenter;
 import com.presenter.SidePanePresenter;
 import view.com.BoardView;
-import view.com.DetailsView;
+import view.com.HexDetailsView;
 import view.com.DiceView;
 import view.com.GameView;
 import view.com.SidePaneView;
@@ -26,7 +26,7 @@ public class KingsNThingsAppFactory {
     private DicePresenter dicePresenter;
     private SidePanePresenter sidePanePresenter;
     private BoardPresenter boardPresenter;
-    private DetailsPresenter detailsPresenter;
+    private HexDetailsPresenter detailsPresenter;
     
     // TODO refactor into a better factory? Or is this sufficient?
     public GamePresenter getMainPresenter() {
@@ -75,10 +75,10 @@ public class KingsNThingsAppFactory {
 	return boardPresenter;
     }
     
-    public DetailsPresenter getDetailsPresenter() {
+    public HexDetailsPresenter getDetailsPresenter() {
 	if (detailsPresenter == null) {
-	    DetailsView view = new DetailsView();
-	    detailsPresenter = new DetailsPresenter(view);
+	    HexDetailsView view = new HexDetailsView();
+	    detailsPresenter = new HexDetailsPresenter(view);
 	}
 	
 	return detailsPresenter;

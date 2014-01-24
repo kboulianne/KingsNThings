@@ -1,10 +1,14 @@
 package com.model;
 
+import com.game.services.GameService;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.model.Player.PlayerId;
+import com.model.game.Game;
 import com.presenter.Paintable;
+import java.util.HashMap;
+import java.util.Map;
 
 import view.com.GameScreen;
 import javafx.event.Event;
@@ -63,6 +67,8 @@ public class Hex extends GamePiece implements Paintable {
 	static final Image START_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
 	// list of armies for all players
 	// list of misc Things
+	private Map<Player, List<Thing>> armies;
+	// Kept for now
 	List<Thing> player1Army; // can be maps
 	List<Thing> player2Army;
 	List<Thing> player3Army;
@@ -86,18 +92,27 @@ public class Hex extends GamePiece implements Paintable {
 	}
 	
 	public Hex(int id, HexType type){
-		this.type = type;
-		this.id= id;
-		color = Color.DARKGRAY;
-		startPosition =  false;
-		selected = false;
-		selectable = true; // may have to change for startup
-		setJoiningHexes();
-		player1Army = new ArrayList<Thing>(); 
-		player2Army = new ArrayList<Thing>(); 
-		player3Army = new ArrayList<Thing>(); 
-		currentPlayerArmy = new ArrayList<Thing>();
-		miscThings = new ArrayList<Thing>();
+	    this.type = type;
+	    this.id= id;
+	    color = Color.DARKGRAY;
+	    startPosition =  false;
+	    selected = false;
+	    selectable = true; // may have to change for startup
+	    setJoiningHexes();
+	    player1Army = new ArrayList<>(); 
+	    player2Army = new ArrayList<>(); 
+	    player3Army = new ArrayList<>(); 
+	    currentPlayerArmy = new ArrayList<>();
+	    miscThings = new ArrayList<>();
+
+	    // TODO put the army in player and link here?
+	    armies = new HashMap<>();
+	    // TESTING for now
+	    Game game = GameService.getInstance().getGame();
+	    armies.put(game.getOpponent1(), player1Army);
+	    armies.put(game.getOpponent1(), player2Army);
+	    armies.put(game.getOpponent1(), player3Army);
+	    armies.put(game.getCurrentPlayer(), currentPlayerArmy);
 	}
 
 	
@@ -135,65 +150,69 @@ public class Hex extends GamePiece implements Paintable {
     	this.startPosition = b;
     }
 
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-		setJoiningHexes();
-	}
-	
-	public int[] getJoiningHexes() {
-		return joiningHexes;
-	}
-	public void setJoiningHexes() {
-		//TODO
-		//if 37 mapping
-		joiningHexes = new int[6];
-		for(int i=0; i<6; i++){
-			joiningHexes[i] = joiningHexes37Mapping[id][i];
-		}
-		//else 17 do later
-	}
-	
-	public boolean isSelectable() {
-		return selectable;
-	}
+    public int getId() {
+	    return id;
+    }
+    public void setId(int id) {
+	    this.id = id;
+	    setJoiningHexes();
+    }
 
-	public void setSelectable(boolean selectable) {
-		this.selectable = selectable;
-	}
+    public int[] getJoiningHexes() {
+	    return joiningHexes;
+    }
+    public void setJoiningHexes() {
+	    //TODO
+	    //if 37 mapping
+	    joiningHexes = new int[6];
+	    for(int i=0; i<6; i++){
+		    joiningHexes[i] = joiningHexes37Mapping[id][i];
+	    }
+	    //else 17 do later
+    }
 
-	public boolean isHighlighted() {
-		return highlighted;
-	}
+    public boolean isSelectable() {
+	    return selectable;
+    }
 
-	public void setHighlighted(boolean highlighted) {
-		this.highlighted = highlighted;
-	}
+    public void setSelectable(boolean selectable) {
+	    this.selectable = selectable;
+    }
+
+    public boolean isHighlighted() {
+	    return highlighted;
+    }
+
+    public void setHighlighted(boolean highlighted) {
+	    this.highlighted = highlighted;
+    }
+    
+    public Map<Player, List<Thing>> getArmies() {
+	return armies;
+    }
+
+    public void addThingToArmy(Creature creature, PlayerId key){
+	    if(key.equals(PlayerId.ONE)){
+		    if(player1Army.size()<11)
+			    player1Army.add(creature);
+	    }else if(key.equals(PlayerId.TWO)){
+		    if(player2Army.size()<11)
+			    player2Army.add(creature);
+	    }else if(key.equals(PlayerId.THREE)){
+		    if(player3Army.size()<11)
+			    player3Army.add(creature);
+	    }else if(key.equals(PlayerId.FOUR)){
+		    if(currentPlayerArmy.size()<11)
+			    currentPlayerArmy.add(creature);
+	    }
+    }
+
+    public void addThingToHex(Thing t){
+	    miscThings.add(t);
+    }
 	
-	public void addThingToArmy(Creature creature, PlayerId key){
-		if(key.equals(PlayerId.ONE)){
-			if(player1Army.size()<11)
-				player1Army.add(creature);
-		}else if(key.equals(PlayerId.TWO)){
-			if(player2Army.size()<11)
-				player2Army.add(creature);
-		}else if(key.equals(PlayerId.THREE)){
-			if(player3Army.size()<11)
-				player3Army.add(creature);
-		}else if(key.equals(PlayerId.FOUR)){
-			if(currentPlayerArmy.size()<11)
-				currentPlayerArmy.add(creature);
-		}
-	}
-	
-	public void addThingToHex(Thing t){
-		miscThings.add(t);
-	}
-	
-	
-	//paint
+    
+    
     
 	@Override
 	public void paint(Pane pane) {

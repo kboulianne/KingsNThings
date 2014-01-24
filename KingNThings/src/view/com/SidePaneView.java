@@ -6,10 +6,11 @@
 
 package view.com;
 
-import com.presenter.DetailsPresenter;
+import com.presenter.HexDetailsPresenter;
 import com.model.Player;
 import com.presenter.SidePanePresenter;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +27,9 @@ public class SidePaneView extends VBox {
     static final double HEX_HEIGHT = HEX_WIDTH *0.8;
     
     private SidePanePresenter presenter;
+    
+    // Content currently being displayed in the view
+    private Node content;
     
     private PlayerLabel opp1Lbl;
     private PlayerLabel opp2Lbl;
@@ -50,7 +54,7 @@ public class SidePaneView extends VBox {
 	opp3Lbl = new PlayerLabel();
 	otherPlayerInfo.getChildren().addAll(opp1Lbl, opp2Lbl, opp3Lbl);
 	
-	// Adds opponents and DetailsView
+	// Adds opponents and HexDetailsView
 	getChildren().add(otherPlayerInfo);
 
     }
@@ -59,7 +63,7 @@ public class SidePaneView extends VBox {
      * Adds the Hex detail view.
      * @param view The view to add as a sub-view.
      */
-    public void addDetailsView(DetailsView view) {
+    public void addDetailsView(HexDetailsView view) {
 	getChildren().add(view);
     }
     

@@ -9,7 +9,7 @@ package com.presenter;
 import com.game.services.GameService;
 import com.model.Hex;
 import com.model.game.Game;
-import view.com.DetailsView;
+import view.com.HexDetailsView;
 import view.com.SidePaneView;
 
 /**
@@ -18,9 +18,9 @@ import view.com.SidePaneView;
  */
 public class SidePanePresenter {
     private final SidePaneView view;
-    private DetailsPresenter detailsPresenter;
+    private HexDetailsPresenter detailsPresenter;
     
-    public SidePanePresenter(SidePaneView view, DetailsPresenter detailsPresenter) {
+    public SidePanePresenter(SidePaneView view, HexDetailsPresenter detailsPresenter) {
 	this.view = view;
 	this.view.setPresenter(this);
 	this.detailsPresenter = detailsPresenter;
