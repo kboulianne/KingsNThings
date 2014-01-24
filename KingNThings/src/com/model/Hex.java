@@ -118,11 +118,11 @@ public class Hex extends GamePiece implements Paintable {
 	
     // setters and getters
     public final Player getOwner() {
-	return owner;
+    	return owner;
     }
     
     public final void setOwner(final Player player) {
-	this.owner = player;
+    	this.owner = player;
     }
 	
     public Color getColor() {

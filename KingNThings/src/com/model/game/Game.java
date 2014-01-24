@@ -88,7 +88,6 @@ public final class Game {
 
 		//Bag created with all things required for gameplay
 		cup.setListOfThings(Util.getRandomList(Thing.createThings()));
-
     }
 
     
@@ -225,7 +224,6 @@ public final class Game {
     
     //Returns the bag
     public Cup getCup()	{	return cup;	}
-    
     
     // Behaviour Methods ===============================================================================================
     /**

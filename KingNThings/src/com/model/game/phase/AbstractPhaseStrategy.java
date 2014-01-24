@@ -16,7 +16,7 @@ public abstract class AbstractPhaseStrategy<T> implements IPhaseStrategy<T> {
     
     // TODO Avoid calling this in subclases. Don't remember if it is possible.
     protected AbstractPhaseStrategy(final GamePlay context) {
-	this.context = context;
+    	this.context = context;
     }
     
 //    @Override
@@ -35,9 +35,9 @@ public abstract class AbstractPhaseStrategy<T> implements IPhaseStrategy<T> {
 //    }
     
     public final void execute(T input) {
-	preExecutePhase(input);
-	executePhase(input);
-	postExecutePhase(input);
+		preExecutePhase(input);
+		executePhase(input);
+		postExecutePhase(input);
     }
     
 }
