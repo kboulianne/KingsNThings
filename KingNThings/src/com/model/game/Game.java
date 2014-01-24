@@ -43,7 +43,7 @@ public final class Game {
 	    MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
     private GamePlay gamePlay;
-//    private Set<IPhaseStrategy> initPhases;
+
     private Iterator<Player> nextPlayerIt;
     private List<Player> playerOrder;
     private Cup cup;
