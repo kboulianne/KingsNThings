@@ -28,6 +28,7 @@ public class PopupView extends VBox {
 
     private PopupPresenter presenter;
 
+    private AnchorPane rootAnchorPane;
     // Content to display
     private Pane content;
     
@@ -59,6 +60,18 @@ public class PopupView extends VBox {
 	StackPane.setAlignment(this, Pos.CENTER);
     }
     
+    public void show(Pane content) {
+	titleLbl.setVisible(false);
+	closeBtn.setVisible(false);
+	
+	if (!isVisible()) {
+	    // Set the view to display
+	    getChildren().add(content);
+	    
+	    setVisible(true);
+	}
+    }
+    
     /**
      * Shows the Popup with specified content and title.
      * 
@@ -66,6 +79,10 @@ public class PopupView extends VBox {
      * @param title 
      */
     public void show(Pane content, String title) {
+	titleLbl.setVisible(true);
+	closeBtn.setVisible(true);
+	
+	
 	// Only execute if not visible
 	if (!isVisible()) {
 	    // Set the view to display.
@@ -81,21 +98,18 @@ public class PopupView extends VBox {
 	if (isVisible()) {
 	    // Remove and null the content
 	    getChildren().remove(1);
-	    content = null;
 	    
 	    setVisible(false);
 	}
     }
     
     protected void buildPopup() {
-	
-	
-	AnchorPane ap = new AnchorPane();
+	rootAnchorPane = new AnchorPane();
 	
 	// Title
 	titleLbl = new Label();
 	titleLbl.getStyleClass().add("title");
-	ap.getChildren().add(titleLbl);
+	rootAnchorPane.getChildren().add(titleLbl);
 	AnchorPane.setLeftAnchor(titleLbl, 0.0);
 	
 	// Close button
@@ -108,14 +122,14 @@ public class PopupView extends VBox {
 		presenter.dismissPopup();
 	    }
 	});
-	ap.getChildren().add(closeBtn);
+	rootAnchorPane.getChildren().add(closeBtn);
 	AnchorPane.setRightAnchor(closeBtn, 0.0);
 	
 	// Self
 	getStyleClass().add("popup");
-	getChildren().addAll(ap);
+	getChildren().addAll(rootAnchorPane);
 	setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
-	setAlignment(Pos.CENTER);
+//	setAlignment(Pos.CENTER);
 	
 	// Add to parent in invisible state
 	setVisible(false);

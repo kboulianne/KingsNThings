@@ -33,10 +33,10 @@ public class PopupPresenter {
 	test = new StackPane();
 	test.getChildren().add(new Label("TEST POPUP"));
 	
-	view.show(test, "A test popup with a title");
+	view.show(test);
     }
 
-    // Do we really neeed this?
+    // Do we really need this?
     public void dismissPopup() {
 	
     }
