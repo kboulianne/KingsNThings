@@ -20,18 +20,17 @@ public class BoardPresenter {
     // Required Presenters
 //    private HexDetailsPresenter detailsPresenter;
     private SidePanePresenter sidePanePresenter;
-    private GamePresenter mainPresenter;
     
     // Usually BoardService, but ok for our purposes. We will see in IT2
     private GameService svc;
     
     private int lastHexSelected = -1;
     
-    public BoardPresenter(BoardView view, HexDetailsPresenter details, GamePresenter main) {
+    public BoardPresenter(BoardView view, SidePanePresenter sidePanePresenter) {
 	this.view = view;
 	this.view.setPresenter(this);
 //	this.detailsPresenter = details;
-	this.mainPresenter = main;
+	this.sidePanePresenter = sidePanePresenter;
 	
 	// Set initial model (usually uses a service.
 	svc = GameService.getInstance();

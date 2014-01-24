@@ -16,7 +16,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import static view.com.HexDetailsView.HEX_HEIGHT;
 
 /**
  *
@@ -33,7 +35,7 @@ public class SidePaneView extends VBox {
     
     // Current detailsview being displayed in the view
     // TODO Create abstract DetailsView?
-    private BorderPane content;
+    private StackPane content;
     
     private PlayerLabel opp1Lbl;
     private PlayerLabel opp2Lbl;
@@ -59,9 +61,11 @@ public class SidePaneView extends VBox {
 	otherPlayerInfo.getChildren().addAll(opp1Lbl, opp2Lbl, opp3Lbl);
 	
 	// TODO make Content take the background image.
-	content = new BorderPane();
+	content = new StackPane();        
+	content.setId("detailsBox");
+	content.setMinHeight(HEX_HEIGHT * 7);
 	
-	// Adds opponents and HexDetailsView
+	// Adds opponents and details container
 	getChildren().addAll(otherPlayerInfo, content);
 
     }
@@ -86,7 +90,11 @@ public class SidePaneView extends VBox {
     public void showHexDetailsView(HexDetailsView view) {
 	// Set the pane to the HexDetailsView
 	content.getChildren().clear();
-	content.getChildren().add(view);
-	BorderPane.setAlignment(view, Pos.CENTER);
+        content.getChildren().add(view);
+//	BorderPane.setAlignment(view, Pos.CENTER);
+    }
+    
+    public void showArmyDetailsView() {
+        // Like above
     }
 }

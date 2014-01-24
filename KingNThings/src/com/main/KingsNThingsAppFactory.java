@@ -67,8 +67,7 @@ public class KingsNThingsAppFactory {
 	    BoardView view = new BoardView();
 	    boardPresenter = new BoardPresenter(
 		    view,
-		    getDetailsPresenter(),
-		    mainPresenter
+		    getSidePanePresenter()
 	    );
 	}
 	

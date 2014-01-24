@@ -27,7 +27,7 @@ import javafx.scene.shape.Circle;
  *
  * @author kurtis
  */
-public class HexDetailsView extends VBox {
+public class HexDetailsView extends StackPane {
     
     // FIXME: Duplicate
     static final double HEX_WIDTH = 100.0; 
@@ -51,10 +51,13 @@ public class HexDetailsView extends VBox {
     }
     
     protected void buildView() {
-	setAlignment(Pos.CENTER);
-	setId("detailsBox");
-	setMinHeight(HEX_HEIGHT * 7);
+        // now content in SidePaneView
+//	setAlignment(Pos.CENTER);
+//	setId("detailsBox");
+//	setMinHeight(HEX_HEIGHT * 7);
 	
+
+        
 	// TODO Put in create Methods
 	// Define content. (FROM paintHexInDetails
 	hexImage = new ImageView();
@@ -65,7 +68,7 @@ public class HexDetailsView extends VBox {
 	hexImage.setCache(true);
 	
 	VBox contentBox = new VBox();
-	contentBox.getStyleClass().add("block");
+        contentBox.getStyleClass().add("block");
 	contentBox.setAlignment(Pos.CENTER);
 	
 	// Name Label
@@ -83,10 +86,11 @@ public class HexDetailsView extends VBox {
 	opp3Army = new ArmyOrMisc(null);
 	currentPlayerArmy = new ArmyOrMisc(null);
 	
-	StackPane sp = new StackPane();
+//	StackPane sp = new StackPane();
 	// I think having image here was a bug since added in contentBox
-	sp.getChildren().addAll(/*hexImage,*/ contentBox);
-	getChildren().add(sp);
+//	sp.getChildren().addAll(/*hexImage,*/ contentBox);
+//	getChildren().add(sp); 
+        getChildren().add(contentBox);
     }
     
     // TODO Put in ArmyOrMiscView?
