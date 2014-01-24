@@ -19,6 +19,7 @@ public class PlayerInfoPresenter {
     
     private PlayerInfoView view;
     private SidePanePresenter sidePanePresenter;
+    private GamePresenter mainPresenter;
     
     
     public PlayerInfoPresenter(PlayerInfoView view, SidePanePresenter sidePanePresenter) {
@@ -35,6 +36,18 @@ public class PlayerInfoPresenter {
 	return view;
     }
     
+    // Avoids infinite recursion in Factory. To be fixed later.
+    public void setGamePresenter(final GamePresenter presenter) {
+	if (presenter == null) {
+	    throw new NullPointerException("Presenter cannot be null.");
+	}
+	if (mainPresenter != null) {
+	    throw new IllegalStateException("Presenter has already been set.");
+	}
+	
+	mainPresenter = presenter;
+    }
+    
     //TODO ViewCup should be managed by GamePresenter
 
     public void handleRackClick(ThingEvent t) {
@@ -43,5 +56,10 @@ public class PlayerInfoPresenter {
 	
 	// Show thing in detailsview
 	sidePanePresenter.showThingDetailsFor(t.getThing());
+    }
+
+    public void handleCupClick() {
+	// Delegate to the GamePresenter
+	mainPresenter.showCup();
     }
 }

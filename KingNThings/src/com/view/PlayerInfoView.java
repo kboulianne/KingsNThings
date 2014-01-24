@@ -11,8 +11,10 @@ import com.view.customcontrols.PlayerLabel;
 import com.model.Player;
 import com.presenter.PlayerInfoPresenter;
 import com.view.customcontrols.Rack;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -28,6 +30,8 @@ public class PlayerInfoView extends AnchorPane {
     private PlayerLabel currentPlayerlbl;
     private Label goldLbl;
     private Rack rack;
+    
+    private Button viewCupBtn;
     
     public PlayerInfoView() {
 	buildView();
@@ -62,7 +66,20 @@ public class PlayerInfoView extends AnchorPane {
 	rack = new Rack(handler);
 	currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
 	
-	getChildren().addAll(currentPlayerInfoBox);
+		// For now Should be in GameView
+	viewCupBtn = new Button("View Cup");
+	viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+	    @Override
+	    public void handle(ActionEvent t) {
+		presenter.handleCupClick();
+	    }
+	});
+	
+	AnchorPane.setRightAnchor(viewCupBtn, 10.0);
+	AnchorPane.setBottomAnchor(viewCupBtn, 12.0);
+	
+	getChildren().addAll(viewCupBtn, currentPlayerInfoBox);
     }
     
     public void setPresenter(final PlayerInfoPresenter presenter) {

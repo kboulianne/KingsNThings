@@ -112,6 +112,9 @@ public class KingsNThingsAppFactory {
 		    view,
 		    getSidePanePresenter()
 	    );
+	    
+	    // Avoids infinite recursion
+	    playerInfoPresenter.setGamePresenter(getMainPresenter());
 	}
 	
 	return playerInfoPresenter;

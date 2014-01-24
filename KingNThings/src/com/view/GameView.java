@@ -36,6 +36,8 @@ public class GameView extends StackPane {
     private HBox centerBox;
     private Label currentPlayerLbl;
     
+    
+    
     // Class-level controls needing exposure outside buildView()
     // private Button roll;
     public GameView() {
@@ -76,6 +78,8 @@ public class GameView extends StackPane {
 	// Contains sidepaneview and PlayArea
 	centerBox = new HBox();
 
+
+	
 	rootVBox.getChildren().addAll(gameStatus, centerBox);
 	getChildren().add(rootVBox);
     }

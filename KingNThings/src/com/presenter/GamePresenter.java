@@ -84,4 +84,8 @@ public class GamePresenter {
 	Game game = GameService.getInstance().getGame();
 	view.setGame(game);
     }
+    
+    public void showCup() {
+	System.out.println("Showing Cup");
+    }
 }
