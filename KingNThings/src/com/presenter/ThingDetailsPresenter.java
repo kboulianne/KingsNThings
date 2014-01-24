@@ -6,7 +6,9 @@
 
 package com.presenter;
 
+import com.model.Creature;
 import com.model.Thing;
+import view.com.CreatureDetailsView;
 import view.com.ThingDetailsView;
 
 /**
@@ -15,17 +17,26 @@ import view.com.ThingDetailsView;
  */
 public class ThingDetailsPresenter {
     private ThingDetailsView view;
+    private CreatureDetailsView cView;
     
-    public ThingDetailsPresenter(ThingDetailsView view) {
+    
+    public ThingDetailsPresenter(ThingDetailsView view, CreatureDetailsView cView) {
         this.view = view;
         this.view.setPresenter(this);
+	
+	this.cView = cView;
+	this.cView.setPresenter(this);
     }
     
-    public ThingDetailsView getView() {
-        return view;
+    public ThingDetailsView getViewFor(Thing t) {
+	if (t instanceof Creature) 
+	    return cView;
+	else
+	    return view;
     }
     
     public void showThing(Thing t) {
-	view.setThing(t);
+	// Need to swap views according to Thing Type
+	getViewFor(t).setThing(t);
     }
 }

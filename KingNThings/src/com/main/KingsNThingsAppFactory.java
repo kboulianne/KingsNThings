@@ -13,6 +13,7 @@ import com.presenter.HexDetailsPresenter;
 import com.presenter.SidePanePresenter;
 import com.presenter.ThingDetailsPresenter;
 import view.com.BoardView;
+import view.com.CreatureDetailsView;
 import view.com.HexDetailsView;
 import view.com.DiceView;
 import view.com.GameView;
@@ -93,7 +94,8 @@ public class KingsNThingsAppFactory {
     public ThingDetailsPresenter getThingDetailsPresenter() {
         if (thingDetailsPresenter == null) {
             ThingDetailsView view = new ThingDetailsView();
-            thingDetailsPresenter = new ThingDetailsPresenter(view);
+	    CreatureDetailsView cView = new CreatureDetailsView();
+            thingDetailsPresenter = new ThingDetailsPresenter(view, cView);
         }
         
         return thingDetailsPresenter;

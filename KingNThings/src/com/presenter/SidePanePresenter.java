@@ -66,7 +66,7 @@ public class SidePanePresenter {
     }
 
     void showThingDetailsFor(Thing t) {
-        view.showThingDetailsView(thingDetailsPresenter.getView());
+        view.showThingDetailsView(thingDetailsPresenter.getViewFor(t));
 	
 	// Make the presenter update the UI
 	thingDetailsPresenter.showThing(t);
