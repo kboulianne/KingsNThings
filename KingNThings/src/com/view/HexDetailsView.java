@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package view.com;
+package com.view;
 
+import com.view.customcontrols.ArmyOrMisc;
 import com.game.services.GameService;
 import com.model.Hex;
 import com.model.Player;

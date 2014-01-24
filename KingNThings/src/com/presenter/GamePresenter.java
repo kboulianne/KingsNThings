@@ -8,8 +8,8 @@ package com.presenter;
 
 import com.game.services.GameService;
 import com.model.game.Game;
-import view.com.DiceView;
-import view.com.GameView;
+import com.view.DiceView;
+import com.view.GameView;
 
 /**
  * OPTION 1 of:

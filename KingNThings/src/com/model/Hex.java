@@ -10,7 +10,7 @@ import com.presenter.Paintable;
 import java.util.HashMap;
 import java.util.Map;
 
-import view.com.GameScreen;
+import com.view.GameScreen;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

@@ -9,7 +9,7 @@ package com.presenter;
 import com.game.services.GameService;
 import com.model.Board;
 import com.model.game.Game;
-import view.com.BoardView;
+import com.view.BoardView;
 
 /**
  *

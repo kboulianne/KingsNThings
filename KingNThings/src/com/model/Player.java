@@ -2,7 +2,7 @@ package com.model;
 
 import java.util.List;
 
-import view.com.GameScreen;
+import com.view.GameScreen;
 import com.presenter.Paintable;
 import javafx.event.Event;
 import javafx.event.EventHandler;

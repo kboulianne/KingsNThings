@@ -4,59 +4,57 @@
  * and open the template in the editor.
  */
 
-package view.com;
+package com.view.customcontrols;
 
-import com.model.Player;
 import com.model.Thing;
+import com.view.ThingEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-/** A Control.  Using DetailsView as a presenter.
+/**
  *
  * @author kurtis
  */
-public class ArmyOrMisc extends HBox {
+public class Rack extends HBox {
     
-    private Circle circle;
-    private Label sizeLbl;
-    private HBox thingHolder;
+    public static final int CAPACITY = 8;
     
-    private final EventHandler<ThingEvent> thingHandler;
+    // Maximum of 8 Tiles on Rack
+    // TODO Make Tile since ArmyOrMisc uses same logic.
+    // Change to List<TileView/Component>
+    //TODO ObjectPool
+//    private List<StackPane> things;
+    private EventHandler<ThingEvent> thingHandler;
     
-    public ArmyOrMisc(EventHandler<ThingEvent> click) {
-	this.thingHandler = click;
+    public Rack(EventHandler<ThingEvent> thingHandler) {
+//	things = new ArrayList<>();
+	this.thingHandler = thingHandler;
+	
+//	for (int i = 0 ; i < CAPACITY ; i ++) {
+//	    thingsIv.add(new ImageView());
+//	}
+	
 	buildComponent();
     }
     
-    
-    StackPane circleStackPane;
     protected void buildComponent() {
-	getStyleClass().add("army");
 	setAlignment(Pos.CENTER);
+	getStyleClass().add("block");
 	
-	circleStackPane = new StackPane();
-	circle = new Circle();
-	circle.setRadius(22);
-	sizeLbl = new Label(/*Integer.toString(army.size())*/);
-	circleStackPane.getChildren().addAll(circle, sizeLbl);
-        
-        thingHolder = new HBox();
-        
-	getChildren().addAll(circleStackPane, thingHolder);
+	// Initialize Image Views.
 	
-        
     }
     
-    private void createArmyImageView(final Thing t) {
+    // FIXME: Copied from ArmyOrMisc. Make this class, and ArmyOrMisc use Tile component
+    private void createRackImageView(final Thing t) {
         int size = 50;
         
         Rectangle borderRect = new Rectangle();
@@ -101,32 +99,20 @@ public class ArmyOrMisc extends HBox {
         
 	StackPane pane = new StackPane();
 	pane.getChildren().addAll(borderRect, coloredRect, img);
-        thingHolder.getChildren().add(pane);
+        getChildren().add(pane);
     }
     
-    public void setArmy(Player armyOwner, List<Thing> army) {
-        thingHolder.getChildren().clear();
-        
-	if (!army.isEmpty()) {
-            sizeLbl.setVisible(true);
-            circle.setVisible(true);
-            thingHolder.setVisible(true);
-            
-            sizeLbl.setText(String.valueOf(army.size()));
-            circle.setFill(armyOwner.getColor());
-            
-	    for (Thing t : army) {
-		// TODO create object pool to avoid recreating image views.
-                // create and add image views
-                // FIXME, only drawing 1
-                createArmyImageView(t);
+    public void setThings(List<Thing> things) {
+	getChildren().clear();
+	
+	
+	if (!things.isEmpty()) {
+	    for (Thing t : things) {
+		createRackImageView(t);
 	    }
 	}
-        else {
-            // Make invisible
-            sizeLbl.setVisible(false);
-            circle.setVisible(false);
-            thingHolder.setVisible(false);
-        }	
+	else {
+	    
+	}
     }
 }

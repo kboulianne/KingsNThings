@@ -1,4 +1,4 @@
-package view.com;
+package com.view;
 
 import com.presenter.ConnectionScreenCntrl;
 import com.presenter.Main;

@@ -8,8 +8,8 @@ package com.presenter;
 
 import com.model.Creature;
 import com.model.Thing;
-import view.com.CreatureDetailsView;
-import view.com.ThingDetailsView;
+import com.view.CreatureDetailsView;
+import com.view.ThingDetailsView;
 
 /**
  *

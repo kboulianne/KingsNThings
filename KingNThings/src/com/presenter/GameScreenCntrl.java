@@ -3,7 +3,7 @@ package com.presenter;
 import com.game.services.GameService;
 import javafx.application.Platform;
 //import jfxtras.labs.scene.control.BeanPathAdapter;
-import view.com.GameScreen;
+import com.view.GameScreen;
 
 public class GameScreenCntrl {
     

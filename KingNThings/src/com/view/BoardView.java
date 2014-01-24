@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package view.com;
+package com.view;
 
 import com.model.Board;
 import com.model.Hex;
@@ -17,7 +17,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import static view.com.GameScreen.playingArea;
+import static com.view.GameScreen.playingArea;
 
 /**
  *

@@ -8,7 +8,7 @@ package com.presenter;
 
 import com.model.Hex;
 import com.model.Thing;
-import view.com.HexDetailsView;
+import com.view.HexDetailsView;
 
 /**
  *

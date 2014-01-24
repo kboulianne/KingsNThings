@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 
-package view.com;
+package com.view;
 
+import com.game.services.GameService;
+import com.view.customcontrols.PlayerLabel;
 import com.model.Player;
 import com.presenter.PlayerInfoPresenter;
+import com.view.customcontrols.Rack;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +27,7 @@ public class PlayerInfoView extends AnchorPane {
     
     private PlayerLabel currentPlayerlbl;
     private Label goldLbl;
+    private Rack rack;
     
     public PlayerInfoView() {
 	buildView();
@@ -40,11 +45,22 @@ public class PlayerInfoView extends AnchorPane {
 	VBox currentPlayerNameAndGold = new VBox();
 	currentPlayerNameAndGold.setAlignment(Pos.CENTER);
 	
+	// Current player and gold
 	currentPlayerlbl = new PlayerLabel();
 	goldLbl = new Label();
 	currentPlayerNameAndGold.getChildren().addAll(currentPlayerlbl, goldLbl);
 	
-	currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
+	// Rack
+	EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
+
+	    @Override
+	    public void handle(ThingEvent t) {
+		presenter.handleRackClick(t);
+	    }
+	};
+	
+	rack = new Rack(handler);
+	currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
 	
 	getChildren().addAll(currentPlayerInfoBox);
     }
@@ -64,6 +80,8 @@ public class PlayerInfoView extends AnchorPane {
 	    //TODO refactor to take Name and Color
 	    currentPlayerlbl.setPlayer(current);
 	    goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
+	    
+	    rack.setThings(current.getBlock().getListOfThings());
 	}
     }
 }

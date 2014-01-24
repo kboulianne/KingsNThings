@@ -1,6 +1,6 @@
 package com.presenter;
 
-import view.com.GameScreen;
+import com.view.GameScreen;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;

@@ -10,8 +10,8 @@ import com.game.services.GameService;
 import com.model.Hex;
 import com.model.Thing;
 import com.model.game.Game;
-import view.com.HexDetailsView;
-import view.com.SidePaneView;
+import com.view.HexDetailsView;
+import com.view.SidePaneView;
 
 /**
  *

@@ -13,14 +13,14 @@ import com.presenter.HexDetailsPresenter;
 import com.presenter.PlayerInfoPresenter;
 import com.presenter.SidePanePresenter;
 import com.presenter.ThingDetailsPresenter;
-import view.com.BoardView;
-import view.com.CreatureDetailsView;
-import view.com.HexDetailsView;
-import view.com.DiceView;
-import view.com.GameView;
-import view.com.PlayerInfoView;
-import view.com.SidePaneView;
-import view.com.ThingDetailsView;
+import com.view.BoardView;
+import com.view.CreatureDetailsView;
+import com.view.HexDetailsView;
+import com.view.DiceView;
+import com.view.GameView;
+import com.view.PlayerInfoView;
+import com.view.SidePaneView;
+import com.view.ThingDetailsView;
 
 /**
  *
@@ -108,7 +108,10 @@ public class KingsNThingsAppFactory {
     public PlayerInfoPresenter getPlayerInfoPresenter() {
 	if (playerInfoPresenter == null) {
 	    PlayerInfoView view = new PlayerInfoView();
-	    playerInfoPresenter = new PlayerInfoPresenter(view);
+	    playerInfoPresenter = new PlayerInfoPresenter(
+		    view,
+		    getSidePanePresenter()
+	    );
 	}
 	
 	return playerInfoPresenter;

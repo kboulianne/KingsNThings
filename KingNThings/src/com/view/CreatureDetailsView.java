@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package view.com;
+package com.view;
 
 import com.model.Creature;
 import com.model.Thing;

@@ -2,7 +2,7 @@ package com.model;
 
 import java.util.ArrayList;
 
-import view.com.GameScreen;
+import com.view.GameScreen;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;

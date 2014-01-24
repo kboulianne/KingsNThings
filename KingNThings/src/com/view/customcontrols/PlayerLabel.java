@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package view.com;
+package com.view.customcontrols;
 
 import com.model.Player;
 import javafx.geometry.Pos;

@@ -1,4 +1,4 @@
-package view.com;
+package com.view;
 
 import java.util.List;
 

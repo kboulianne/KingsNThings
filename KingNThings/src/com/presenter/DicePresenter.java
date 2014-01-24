@@ -2,7 +2,7 @@ package com.presenter;
 
 import com.game.services.GameService;
 import com.model.game.Game;
-import view.com.DiceView;
+import com.view.DiceView;
 
 /**
  *  Presenter encapsulating logic for the two dice and roll action.

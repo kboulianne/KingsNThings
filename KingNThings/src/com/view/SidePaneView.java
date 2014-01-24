@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package view.com;
+package com.view;
 
+import com.view.customcontrols.PlayerLabel;
 import com.model.Hex;
 import com.presenter.HexDetailsPresenter;
 import com.model.Player;
@@ -18,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import static view.com.HexDetailsView.HEX_HEIGHT;
+import static com.view.HexDetailsView.HEX_HEIGHT;
 
 /**
  *
