@@ -3,6 +3,7 @@ package com.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.model.Player.PlayerId;
 import com.presenter.Paintable;
 
 import view.com.GameScreen;
@@ -62,11 +63,13 @@ public class Hex extends GamePiece implements Paintable {
 	static final Image START_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
 	// list of armies for all players
 	// list of misc Things
-	List<Creature> player1Army; // can be maps
-	List<Creature> player2Army;
-	List<Creature> player3Army;
-	List<Creature> currentPlayerArmy;
+	List<Thing> player1Army; // can be maps
+	List<Thing> player2Army;
+	List<Thing> player3Army;
+	List<Thing> currentPlayerArmy;
+	List<Thing> miscThings; 
 
+	
 	public enum HexType {
 		JUNGLE_HEX("Jungle"),
 		FROZEN_WASTE_HEX("Frozen Waste"),
@@ -91,10 +94,11 @@ public class Hex extends GamePiece implements Paintable {
 		selected = false;
 		selectable = true; // may have to change for startup
 		setJoiningHexes();
-		player1Army = new ArrayList<Creature>(); 
-		player2Army = new ArrayList<Creature>(); 
-		player3Army = new ArrayList<Creature>(); 
-		currentPlayerArmy = new ArrayList<Creature>();
+		player1Army = new ArrayList<Thing>(); 
+		player2Army = new ArrayList<Thing>(); 
+		player3Army = new ArrayList<Thing>(); 
+		currentPlayerArmy = new ArrayList<Thing>();
+		miscThings = new ArrayList<Thing>();
 	}
 
 	
@@ -169,11 +173,26 @@ public class Hex extends GamePiece implements Paintable {
 		this.highlighted = highlighted;
 	}
 	
-	public void addThingToHex(Thing thing, String key){
-		//TODO
-		currentPlayerArmy.add((Creature) thing);
-		//setOwner(player);
+	public void addThingToArmy(Creature creature, PlayerId key){
+		if(key.equals(PlayerId.ONE)){
+			if(player1Army.size()<11)
+				player1Army.add(creature);
+		}else if(key.equals(PlayerId.TWO)){
+			if(player2Army.size()<11)
+				player2Army.add(creature);
+		}else if(key.equals(PlayerId.THREE)){
+			if(player3Army.size()<11)
+				player3Army.add(creature);
+		}else if(key.equals(PlayerId.FOUR)){
+			if(currentPlayerArmy.size()<11)
+				currentPlayerArmy.add(creature);
+		}
 	}
+	
+	public void addThingToHex(Thing t){
+		miscThings.add(t);
+	}
+	
 	
 	//paint
     
@@ -252,10 +271,11 @@ public class Hex extends GamePiece implements Paintable {
 		
 		contentBox.getChildren().addAll(img, nameLbl, ownerLbl, testLbl);
 		
-		drawArmy(player1Army, contentBox, detailsBox);
-		drawArmy(player2Army, contentBox, detailsBox);
-		drawArmy(player3Army, contentBox, detailsBox);
-		drawArmy(currentPlayerArmy, contentBox, detailsBox);
+		paintArmyORMisc(player1Army, Color.BLUE, contentBox, detailsBox);
+		paintArmyORMisc(player2Army, Color.GREEN, contentBox, detailsBox);
+		paintArmyORMisc(player3Army, Color.RED, contentBox, detailsBox);
+		paintArmyORMisc(currentPlayerArmy, Color.YELLOW, contentBox, detailsBox);
+		paintArmyORMisc(miscThings, Color.GRAY, contentBox, detailsBox);
 		
 		StackPane sp = new StackPane();
 		
@@ -264,7 +284,7 @@ public class Hex extends GamePiece implements Paintable {
 		
 	}
 	
-	private void drawArmy(List<Creature> army, Pane contentBox, final Pane detailsBox){
+	private void paintArmyORMisc(List<Thing> army, Color c, Pane contentBox, final Pane detailsBox){
 		if(!army.isEmpty()){
 			HBox armyBox = new HBox();
 			armyBox.getStyleClass().add("army");
@@ -272,19 +292,13 @@ public class Hex extends GamePiece implements Paintable {
 			StackPane circleStackPane = new StackPane();
 			Circle circle = new Circle();
 			circle.setRadius(22);
-			circle.setFill(Color.RED);//color of player 
+			circle.setFill(c);//color of player 
 			Label armySizeLbl = new Label(Integer.toString(army.size()));
 			circleStackPane.getChildren().addAll(circle,armySizeLbl);
 			armyBox.getChildren().add(circleStackPane);
 			armyBox.setAlignment(Pos.CENTER);
 			for(final Thing t:army){
-				ImageView thingImg = new ImageView(t.image);
-				thingImg.setFitWidth(50); 
-				thingImg.setPreserveRatio(true);
-				thingImg.setSmooth(true);
-				thingImg.setCache(true);
-				thingImg.getStyleClass().add("thing");
-				armyBox.getChildren().add(thingImg);
+				ImageView thingImg = t.paintThingRectangle(50, armyBox);
 				//t.paintThingInDetails(detailsBox);
 				thingImg.setOnMouseClicked(new EventHandler<Event>() {
 					@Override

@@ -1,6 +1,8 @@
 package com.presenter;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 
 // misc. global static functions
@@ -33,5 +35,23 @@ public class Util {
 		return 0;
 	    }
 	    
+	}
+	
+	/**
+	 * creates random list
+	 * @param list
+	 * @return
+	 */
+	public static <T> ArrayList<T> getRandomList(ArrayList<T> list){
+		int rand = 0;
+		int size = list.size();
+		Random rnd = new Random();
+		ArrayList<T> newList = new ArrayList<T>();
+		for (int i = 0 ; i < size ; i ++) {
+		    rand = rnd.nextInt(list.size());
+		    newList.add(list.get(rand));
+		    list.remove(rand);
+		}
+		return newList;
 	}
 }

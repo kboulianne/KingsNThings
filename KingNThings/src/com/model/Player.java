@@ -30,9 +30,11 @@ public class Player implements Paintable	{
 		}
 	}
 	
-	public Player(PlayerId id, String name) {
+	
+	public Player(PlayerId i, String name) {
 	    this.name = new SimpleStringProperty(name);
-	    color = id.color;
+	    color = i.color;
+	    id = i;
 	    block = new Block();
 	    gold = 0;
 	}
@@ -57,6 +59,9 @@ public class Player implements Paintable	{
 		this.block = block;
 	}
 	
+	public PlayerId getId() {
+		return id;
+	}
 	public final void setNameProperty(final StringProperty name) {
 	    this.name = name;
 	}

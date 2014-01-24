@@ -9,6 +9,7 @@ import com.presenter.Util;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -34,6 +35,7 @@ import com.model.DesertCreature;
 //import jfxtras.labs.scene.control.BeanPathAdapter;
 import com.model.Die;
 import com.model.Hex;
+import com.model.MountainCreature;
 import com.model.Player;
 import com.model.SwampCreature;
 import com.model.Thing;
@@ -83,15 +85,26 @@ public class GameScreen {
 		//TODO
 		//remove later for testing
 		Thing thing = new SwampCreature("ghost");
-		Creature goblin = new SwampCreature("goblins");
+		Creature goblin = new MountainCreature("goblins");
 		Creature dragon = new DesertCreature("olddragon");
-		hexes.get(0).addThingToHex(new SwampCreature("spirit"), "");
-		hexes.get(0).addThingToHex(goblin, "");
-		hexes.get(0).addThingToHex(dragon, "");
-		game.getCurrentPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
-		game.getCurrentPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
+
 		
-		
+		hexes.get(0).addThingToArmy(goblin, game.getPlayer().getId());
+		hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
+		game.getPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
+		game.getPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
+		for(int i=0;i<10;i++){
+			hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
+		}
+		for(int i=0;i<5;i++){
+			hexes.get(0).addThingToArmy(dragon, game.getOpponent2().getId());
+		}
+		for(int i=0;i<8;i++){
+			hexes.get(0).addThingToArmy(dragon, game.getOpponent3().getId());
+		}
+		for(int i=0;i<7;i++){
+			hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
+		}
 		//GameStatus
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
@@ -168,23 +181,28 @@ public class GameScreen {
 		centerBox.getChildren().addAll(sidePane, playingArea);
 		
 		// Player Info
-		Player currentPlayer = game.getCurrentPlayer();
+		Player currentPlayer = game.getPlayer();
 		HBox currentPlayerInfoBox = new HBox();
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
 		currentPlayer.paint(currentPlayerNameAndGold);
 		currentPlayer.paintGold(currentPlayerNameAndGold);
-		//TODO move
-		Button viewCupBtn = new Button("View Cup");
-		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, viewCupBtn);
+		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
+		currentPlayer.getBlock().paint(currentPlayerInfoBox);
 		
-		List<Thing> currentPlayerBlock = currentPlayer.getBlock().getListOfThings();
-		for(int i =0; i<currentPlayerBlock.size();i++)
-			currentPlayerBlock.get(i).paint(currentPlayerInfoBox);
+		Button viewCupBtn = new Button("View Cup");
+		AnchorPane bottomSection = new AnchorPane();
+		bottomSection.setId("bottomSection");
+		bottomSection.getChildren().addAll(viewCupBtn, currentPlayerInfoBox);
+		AnchorPane.setLeftAnchor(currentPlayerInfoBox, 10.0);
+		AnchorPane.setBottomAnchor(currentPlayerInfoBox, 0.0);
+		AnchorPane.setRightAnchor(viewCupBtn, 10.0);
+		AnchorPane.setBottomAnchor(viewCupBtn, 12.0);
+		
 		VBox rootVBox = new VBox();
 		rootVBox.getStyleClass().add("border");
-		rootVBox.getChildren().addAll(gameStatus, centerBox, currentPlayerInfoBox);
+		rootVBox.getChildren().addAll(gameStatus, centerBox, bottomSection);
 		rootVBox.setAlignment(Pos.TOP_CENTER);
 		
 		// Stack
@@ -202,12 +220,10 @@ public class GameScreen {
 		//new GameScreenCntrl(playingArea, button);
 		
 		viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
 			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
+			public void handle(ActionEvent arg0) {	
 				FlowPane flow = new FlowPane();
+<<<<<<< HEAD
 			    //flow.setPadding(new Insets(5, 0, 5, 0));
 			    flow.setVgap(4);
 			    flow.setHgap(4);
@@ -226,6 +242,14 @@ public class GameScreen {
 				}
 				
 				popupWithTitleAndCloseButton("Bag",flow);
+=======
+				flow.setVgap(1);
+			    flow.setHgap(1);
+			    flow.setPadding(new Insets(10,0,0,0));
+			    flow.setPrefWrapLength(1180);
+			    game.getCup().paint(flow);
+				popupWithTitleAndCloseButton("Cup",flow);
+>>>>>>> 14a41e787637a3d31617e0d160fb5480c8faf70c
 			}
 		});
 		
@@ -272,9 +296,7 @@ public class GameScreen {
 			rootStackPane.getChildren().add(popupVbox);
 		}
 	}
-	public static void dismissPopup(){
-		rootStackPane.getChildren().remove(popupVbox);
-	}
+	
 	public void popupWithTitleAndCloseButton(String title, Node content){
 		if (rootStackPane.getChildren().size() == 1){		
 			AnchorPane ap = new AnchorPane();
@@ -288,7 +310,7 @@ public class GameScreen {
 			ap.getChildren().add(button);
 			AnchorPane.setRightAnchor(button, 0.0);
 			
-			final VBox popupVbox = new VBox();
+			popupVbox = new VBox();
 			popupVbox.getStyleClass().add("popup");
 			popupVbox.getChildren().addAll(ap, content);
 			popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
@@ -299,10 +321,13 @@ public class GameScreen {
 				@Override
 				public void handle(ActionEvent arg0) {
 					dismissPopup();
-					rootStackPane.getChildren().remove(popupVbox);
 				}
 			});
 		}
+	}
+	
+	public static void dismissPopup(){
+		rootStackPane.getChildren().remove(popupVbox);
 	}
 	
 
