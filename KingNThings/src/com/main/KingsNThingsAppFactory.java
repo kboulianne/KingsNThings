@@ -11,11 +11,13 @@ import com.presenter.GamePresenter;
 import com.presenter.BoardPresenter;
 import com.presenter.HexDetailsPresenter;
 import com.presenter.SidePanePresenter;
+import com.presenter.ThingDetailsPresenter;
 import view.com.BoardView;
 import view.com.HexDetailsView;
 import view.com.DiceView;
 import view.com.GameView;
 import view.com.SidePaneView;
+import view.com.ThingDetailsView;
 
 /**
  *
@@ -26,7 +28,8 @@ public class KingsNThingsAppFactory {
     private DicePresenter dicePresenter;
     private SidePanePresenter sidePanePresenter;
     private BoardPresenter boardPresenter;
-    private HexDetailsPresenter detailsPresenter;
+    private HexDetailsPresenter hexDetailsPresenter;
+    private ThingDetailsPresenter thingDetailsPresenter;
     
     // TODO refactor into a better factory? Or is this sufficient?
     public GamePresenter getMainPresenter() {
@@ -56,7 +59,8 @@ public class KingsNThingsAppFactory {
     public SidePanePresenter getSidePanePresenter() {
 	if (sidePanePresenter == null) {
 	    SidePaneView view = new SidePaneView();
-	    sidePanePresenter = new SidePanePresenter(view, getDetailsPresenter());    
+	    sidePanePresenter = new SidePanePresenter(view, getHexDetailsPresenter(),
+                    getThingDetailsPresenter());    
 	}
 	
 	return sidePanePresenter;
@@ -74,12 +78,21 @@ public class KingsNThingsAppFactory {
 	return boardPresenter;
     }
     
-    public HexDetailsPresenter getDetailsPresenter() {
-	if (detailsPresenter == null) {
+    public HexDetailsPresenter getHexDetailsPresenter() {
+	if (hexDetailsPresenter == null) {
 	    HexDetailsView view = new HexDetailsView();
-	    detailsPresenter = new HexDetailsPresenter(view);
+	    hexDetailsPresenter = new HexDetailsPresenter(view, getSidePanePresenter());
 	}
 	
-	return detailsPresenter;
+	return hexDetailsPresenter;
+    }
+    
+    public ThingDetailsPresenter getThingDetailsPresenter() {
+        if (thingDetailsPresenter == null) {
+            ThingDetailsView view = new ThingDetailsView();
+            thingDetailsPresenter = new ThingDetailsPresenter(view);
+        }
+        
+        return thingDetailsPresenter;
     }
 }

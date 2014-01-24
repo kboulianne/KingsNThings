@@ -7,6 +7,7 @@
 package com.presenter;
 
 import com.model.Hex;
+import com.model.Thing;
 import view.com.HexDetailsView;
 
 /**
@@ -16,9 +17,13 @@ import view.com.HexDetailsView;
 public class HexDetailsPresenter {
     private HexDetailsView view;
     
-    public HexDetailsPresenter(HexDetailsView view/* Needed presenters go here. */) {
+    private SidePanePresenter sidePanePresenter;
+    
+    public HexDetailsPresenter(HexDetailsView view, SidePanePresenter sidePanePresenter/* Needed presenters go here. */) {
 	this.view = view;
 	this.view.setPresenter(this);
+        
+        this.sidePanePresenter = sidePanePresenter;
     }
     
     public HexDetailsView getView() {
@@ -30,7 +35,8 @@ public class HexDetailsPresenter {
 	view.setHex(h);
     }
 
-    public void handleThingClick() {
+    public void handleThingClick(Thing t) {
         // Show ThingDetailView in SidePane.
+        sidePanePresenter.showThingDetailsFor(t);
     }
 }

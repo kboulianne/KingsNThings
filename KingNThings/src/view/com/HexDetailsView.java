@@ -76,19 +76,19 @@ public class HexDetailsView extends VBox {
 	contentBox.getChildren().addAll(hexImage, nameLbl, ownerLbl, testLbl);
 	
         // Create the mouse handler for the things and hook it up to the presenter.
-        EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
+        EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
             @Override
-            public void handle(MouseEvent t) {
-                presenter.handleThingClick();
+            public void handle(ThingEvent t) {
+                presenter.handleThingClick(t.getThing());
             }
           
         };
         
 	// ArmyOrMisc components
-	opp1Army = new ArmyOrMisc(null);
-	opp2Army = new ArmyOrMisc(null);
-	opp3Army = new ArmyOrMisc(null);
-	currentPlayerArmy = new ArmyOrMisc(null);
+	opp1Army = new ArmyOrMisc(handler);
+	opp2Army = new ArmyOrMisc(handler);
+	opp3Army = new ArmyOrMisc(handler);
+	currentPlayerArmy = new ArmyOrMisc(handler);
 	
         getChildren().addAll(contentBox, opp1Army, opp2Army, opp3Army, currentPlayerArmy);
     }

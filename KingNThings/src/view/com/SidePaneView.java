@@ -94,7 +94,8 @@ public class SidePaneView extends VBox {
 //	BorderPane.setAlignment(view, Pos.CENTER);
     }
     
-    public void showArmyDetailsView() {
-        // Like above
+    public void showThingDetailsView(ThingDetailsView view) {
+        content.getChildren().clear();
+        content.getChildren().add(view);
     }
 }

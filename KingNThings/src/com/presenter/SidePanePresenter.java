@@ -8,6 +8,7 @@ package com.presenter;
 
 import com.game.services.GameService;
 import com.model.Hex;
+import com.model.Thing;
 import com.model.game.Game;
 import view.com.HexDetailsView;
 import view.com.SidePaneView;
@@ -19,12 +20,15 @@ import view.com.SidePaneView;
 public class SidePanePresenter {
     private final SidePaneView view;
     private HexDetailsPresenter hexDetailsPresenter;
+    private ThingDetailsPresenter thingDetailsPresenter;
     
-    public SidePanePresenter(SidePaneView view, HexDetailsPresenter detailsPresenter) {
+    public SidePanePresenter(SidePaneView view, HexDetailsPresenter detailsPresenter,
+            ThingDetailsPresenter thingDetailPresenter) {
 	this.view = view;
 	this.view.setPresenter(this);
 	this.hexDetailsPresenter = detailsPresenter;
-	
+	this.thingDetailsPresenter = thingDetailPresenter;
+        
 	Game game = GameService.getInstance().getGame();
 	
 	view.setOpponents(game.getOpponent1(), game.getOpponent2(), game.getOpponent3());
@@ -42,5 +46,9 @@ public class SidePanePresenter {
 	
 	// make the presenter update the view
 	hexDetailsPresenter.showHex(h);
+    }
+
+    void showThingDetailsFor(Thing t) {
+        view.showThingDetailsView(thingDetailsPresenter.getView());
     }
 }

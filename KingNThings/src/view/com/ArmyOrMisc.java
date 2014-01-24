@@ -30,7 +30,7 @@ public class ArmyOrMisc extends HBox {
     private Label sizeLbl;
     private HBox thingHolder;
     
-    public ArmyOrMisc(EventHandler<MouseEvent> click) {
+    public ArmyOrMisc(EventHandler<ThingEvent> click) {
 	buildComponent();
     }
     StackPane circleStackPane;
@@ -97,6 +97,7 @@ public class ArmyOrMisc extends HBox {
             public void handle(ThingEvent t) {
                 System.out.println("I clicked a thing and I liked it!");
                 System.out.println(t.getThing());
+                
             }
         });
         
