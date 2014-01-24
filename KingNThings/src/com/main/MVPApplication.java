@@ -6,7 +6,6 @@
 
 package com.main;
 
-import com.game.services.GameService;
 import com.main.KingsNThingsAppFactory;
 import com.presenter.GamePresenter;
 import javafx.application.Application;
@@ -14,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import com.view.GameView;
 
 /**
  *

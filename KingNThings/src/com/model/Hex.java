@@ -1,13 +1,10 @@
 package com.model;
 
-import com.game.services.GameService;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.model.Player.PlayerId;
-import com.model.game.Game;
 import com.presenter.Paintable;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.view.GameScreen;

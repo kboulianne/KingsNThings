@@ -11,7 +11,6 @@ import com.model.Hex;
 import com.model.Player;
 import com.model.Thing;
 import com.model.game.Game;
-import com.view.HexDetailsView;
 import com.view.SidePaneView;
 
 /**

@@ -6,10 +6,8 @@ import com.presenter.GameScreenCntrl;
 import com.presenter.Main;
 import com.presenter.Util;
 
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -23,7 +21,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -84,16 +81,16 @@ public class GameScreen {
 		
 		//TODO
 		//remove later for testing
-<<<<<<< HEAD:KingNThings/src/view/com/GameScreen.java
+
 		Thing thing = new SwampCreature("ghost");
 		Creature goblin = new MountainCreature("goblins");
 		Creature dragon = new DesertCreature("olddragon");
 
 		
-		hexes.get(0).addThingToArmy(goblin, game.getPlayer().getId());
-		hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
-		game.getPlayer().getBlock().addThing(thing,game.getPlayer().getName());
-		game.getPlayer().getBlock().addThing(goblin,game.getPlayer().getName());
+		hexes.get(0).addThingToArmy(goblin, game.getCurrentPlayer().getId());
+		hexes.get(0).addThingToArmy(dragon, game.getCurrentPlayer().getId());
+		game.getCurrentPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
+		game.getCurrentPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
 		for(int i=0;i<10;i++){
 			hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
 		}
@@ -104,31 +101,9 @@ public class GameScreen {
 			hexes.get(0).addThingToArmy(dragon, game.getOpponent3().getId());
 		}
 		for(int i=0;i<7;i++){
-			hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
+			hexes.get(0).addThingToArmy(dragon, game.getCurrentPlayer().getId());
 		}
-=======
-//		Thing thing = new SwampCreature("ghost");
-//		Creature goblin = new MountainCreature("goblins");
-//		Creature dragon = new DesertCreature("olddragon");
-//
-//		
-//		hexes.get(0).addThingToArmy(goblin, game.getCurrentPlayer().getId());
-//		hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
-//		game.getPlayer().getBlock().addThing(thing,game.getCurrentPlayer().getName());
-//		game.getPlayer().getBlock().addThing(goblin,game.getCurrentPlayer().getName());
-//		for(int i=0;i<10;i++){
-//			hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
-//		}
-//		for(int i=0;i<5;i++){
-//			hexes.get(0).addThingToArmy(dragon, game.getOpponent2().getId());
-//		}
-//		for(int i=0;i<8;i++){
-//			hexes.get(0).addThingToArmy(dragon, game.getOpponent3().getId());
-//		}
-//		for(int i=0;i<7;i++){
-//			hexes.get(0).addThingToArmy(dragon, game.getPlayer().getId());
-//		}
->>>>>>> 01a851aaab03d1deeaf630a94543bbadf12a7e8f:KingNThings/src/com/view/GameScreen.java
+
 		//GameStatus
 		AnchorPane gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");

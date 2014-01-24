@@ -17,7 +17,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import static com.view.GameScreen.playingArea;
 
 /**
  *
