@@ -56,27 +56,39 @@ public class PopupView extends VBox {
 	
 	// Add to parent once set
 	parent.getChildren().add(this);
+	StackPane.setAlignment(this, Pos.CENTER);
     }
     
+    /**
+     * Shows the Popup with specified content and title.
+     * 
+     * @param content
+     * @param title 
+     */
     public void show(Pane content, String title) {
-	// Remove old content
-	
-	// Set the view to display.
-	getChildren().add(content);
-	
-	titleLbl.setText(title);
-	
-	setVisible(true);
-	// Just check visibility?
-//	showing = true;
+	// Only execute if not visible
+	if (!isVisible()) {
+	    // Set the view to display.
+	    getChildren().add(content);
+
+	    titleLbl.setText(title);
+
+	    setVisible(true);
+	}
     }
     
-    public void dismiss() {
-	
+    protected void dismiss() {
+	if (isVisible()) {
+	    // Remove and null the content
+	    getChildren().remove(1);
+	    content = null;
+	    
+	    setVisible(false);
+	}
     }
     
     protected void buildPopup() {
-	setAlignment(Pos.CENTER);
+	
 	
 	AnchorPane ap = new AnchorPane();
 	
@@ -92,7 +104,8 @@ public class PopupView extends VBox {
 
 	    @Override
 	    public void handle(ActionEvent t) {
-		presenter.showPopup();
+		dismiss();
+		presenter.dismissPopup();
 	    }
 	});
 	ap.getChildren().add(closeBtn);
@@ -102,6 +115,7 @@ public class PopupView extends VBox {
 	getStyleClass().add("popup");
 	getChildren().addAll(ap);
 	setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
+	setAlignment(Pos.CENTER);
 	
 	// Add to parent in invisible state
 	setVisible(false);

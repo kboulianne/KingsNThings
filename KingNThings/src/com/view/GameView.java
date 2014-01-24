@@ -31,7 +31,7 @@ public class GameView extends StackPane {
 //    // Sub-presenters
 //    private DicePresenter dicePresenter;
    
-    private VBox rootVBox;
+    public VBox rootVBox;
     private AnchorPane gameStatus;
     private HBox centerBox;
     private Label currentPlayerLbl;

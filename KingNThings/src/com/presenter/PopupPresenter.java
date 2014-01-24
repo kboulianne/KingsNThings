@@ -35,4 +35,9 @@ public class PopupPresenter {
 	
 	view.show(test, "A test popup with a title");
     }
+
+    // Do we really neeed this?
+    public void dismissPopup() {
+	
+    }
 }
