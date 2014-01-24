@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -51,6 +52,21 @@ public class PlayerInfoView extends AnchorPane {
 	
 	// Current player and gold
 	currentPlayerlbl = new PlayerLabel();
+	currentPlayerlbl.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+	    @Override
+	    public void handle(MouseEvent t) {
+		presenter.showCurrentPlayerInfo();
+	    }
+	});
+	currentPlayerlbl.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+	    @Override
+	    public void handle(MouseEvent t) {
+		presenter.dismissCurrentPlayerInfo();
+	    }
+	});
+	
 	goldLbl = new Label();
 	currentPlayerNameAndGold.getChildren().addAll(currentPlayerlbl, goldLbl);
 	

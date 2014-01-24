@@ -7,6 +7,7 @@
 package com.presenter;
 
 import com.game.services.GameService;
+import com.model.Player;
 import com.model.game.Game;
 import com.view.PlayerInfoView;
 import com.view.ThingEvent;
@@ -61,5 +62,14 @@ public class PlayerInfoPresenter {
     public void handleCupClick() {
 	// Delegate to the GamePresenter
 	mainPresenter.showCup();
+    }
+
+    public void showCurrentPlayerInfo() {
+	Player p = GameService.getInstance().getGame().getCurrentPlayer();
+	mainPresenter.showPlayerInfoPopup(p);
+    }
+    
+    public void dismissCurrentPlayerInfo() {
+	mainPresenter.dismissPopup();
     }
 }

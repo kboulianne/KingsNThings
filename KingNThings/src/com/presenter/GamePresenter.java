@@ -11,6 +11,8 @@ import com.model.Player;
 import com.model.game.Game;
 import com.view.DiceView;
 import com.view.GameView;
+import com.view.ThingEvent;
+import javafx.event.EventHandler;
 
 /**
  * OPTION 1 of:
@@ -95,6 +97,22 @@ public class GamePresenter {
     
     public void showCup() {
 	System.out.println("Showing Cup");
+	
+	// Get the cup content
+	Game game = GameService.getInstance().getGame();
+	
+	// For now until can find a cleaner way.
+	EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
+
+	    @Override
+	    public void handle(ThingEvent t) {
+		// Dispatch to ThingDetailsView
+		sidePanePresenter.showThingDetailsFor(t.getThing());
+		popupPresenter.dismissPopup();
+	    }
+	};
+	
+	popupPresenter.showCupPopup(game.getCup().getListOfThings(), "Cup", handler);
 	
 	// TESTING
 //	popupPresenter.showPopup();

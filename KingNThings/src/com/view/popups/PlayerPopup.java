@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.view;
+package com.view.popups;
 
 import com.model.Player;
 import javafx.scene.control.Label;

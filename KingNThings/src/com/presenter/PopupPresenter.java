@@ -7,8 +7,13 @@
 package com.presenter;
 
 import com.model.Player;
-import com.view.PlayerPopup;
+import com.model.Thing;
+import com.view.popups.PlayerPopup;
 import com.view.PopupView;
+import com.view.ThingEvent;
+import com.view.popups.CupPopup;
+import java.util.List;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
@@ -21,6 +26,7 @@ public class PopupPresenter {
     
     // All the views (Pane classes) this popup can display.
     private PlayerPopup playerPopup;
+    private CupPopup cupPopup;
     
     public PopupPresenter(PopupView view) {
 	this.view = view;
@@ -40,5 +46,10 @@ public class PopupPresenter {
 
     public void showPlayerPopup(Player p) {
 	view.show(new PlayerPopup(p));
+    }
+    
+    public void showCupPopup(List<Thing> things, String title, EventHandler<ThingEvent> event) {
+
+	view.show(new CupPopup(things, event), title);
     }
 }
