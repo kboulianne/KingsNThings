@@ -4,10 +4,6 @@ import java.util.*;
 
 import com.presenter.Util;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 public abstract class Creature extends Thing	{
@@ -322,49 +318,6 @@ public abstract class Creature extends Thing	{
 		magic = bool;
 	}
 	
-	public void paintThingInDetails(Pane detailsBox){
-		/*detailsBox.getChildren().clear();
-		
-		paintThingRectangle(260, detailsBox);
-
-		Label thingNameLbl = new Label(name);
-		Label typeLbl = new Label("Type: " + domain);
-		Label ownerLbl = new Label("Owner: " + owner);
-		
-		Label combatLbl = new Label("Combat Value: " + combatVal);
-		String abilities = "";
-		if(fly){
-			abilities += " Flying";
-		}
-		if(ranged){
-			abilities += " Ranged";
-		}
-		if(charge){
-			abilities += " Charging";
-		}
-		if(magic){
-			abilities += " Magic";
-		}
-		if(abilities.isEmpty()){
-			abilities = " None";
-		}
-		Label specialAbilitiesLbl = new Label("Abilities:"+abilities );
-		
-		detailsBox.getChildren().addAll(thingNameLbl, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl);
-		
-		Button moveButton = new Button("Moverrrrr");
-		detailsBox.getChildren().add(moveButton);
-		moveButton.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				Util.log("Here");
-				highlighAvailableMoves();
-			}
-		});*/
-		
-	}
 	
 	public void highlighAvailableMoves(){
 		//TODO

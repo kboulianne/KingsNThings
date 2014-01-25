@@ -40,7 +40,7 @@ public class HexDetailsView extends StackPane {
     private ArmyOrMisc opp2Army;
     private ArmyOrMisc opp3Army;
     private ArmyOrMisc currentPlayerArmy;
-    private ArmyOrMisc misc;
+    //private ArmyOrMisc misc;
     
     public HexDetailsView() {
     	buildView();

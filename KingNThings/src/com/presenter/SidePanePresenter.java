@@ -6,10 +6,6 @@
 
 package com.presenter;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-
 import com.game.services.GameService;
 import com.model.Hex;
 import com.model.Player;

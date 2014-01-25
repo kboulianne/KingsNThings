@@ -7,8 +7,6 @@
 package com.view;
 
 import com.presenter.PopupPresenter;
-import com.presenter.Util;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -25,13 +23,13 @@ import javafx.scene.layout.VBox;
  */
 public class PopupView extends VBox {
     
-    private GameView parent;
+    //private GameView parent;
 
     private PopupPresenter presenter;
 
     private AnchorPane rootAnchorPane;
     // Content to display
-    private Pane content;
+    //private Pane content;
     
     private Label titleLbl;
     private Button closeBtn; 
@@ -52,7 +50,7 @@ public class PopupView extends VBox {
     }
     
     public void setParent(GameView parent) {
-		this.parent = parent;
+		//this.parent = parent;
 		
 		// Add to parent once set
 		parent.getChildren().add(this);
@@ -61,7 +59,6 @@ public class PopupView extends VBox {
     
     public void show(Pane content) {
     	this.getChildren().clear();
-    	Util.log("no title");
     	//content.getChildren().removeAll(titleLbl, closeBtn);
 		
     	//TODO 

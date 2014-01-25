@@ -9,7 +9,6 @@ package com.presenter;
 import com.game.services.GameService;
 import com.model.Player;
 import com.model.game.Game;
-import com.view.DiceView;
 import com.view.GameView;
 import com.view.ThingEvent;
 import javafx.event.EventHandler;
@@ -27,9 +26,9 @@ public class GamePresenter {
     private final GameView view;
     // Singleton for now, not needed here
 //    private GameService gameService;
-    private DicePresenter dicePresenter;
+    //private DicePresenter dicePresenter;
     private SidePanePresenter sidePanePresenter;
-    private BoardPresenter boardPresenter;
+    //private BoardPresenter boardPresenter;
     private PlayerInfoPresenter playerInfoPresenter;
     private PopupPresenter popupPresenter;
     
@@ -46,7 +45,7 @@ public class GamePresenter {
 	
 	// TODO forced to add sub-views in order due to current layout. Fix this.
 	// Keep DicePresenter and add its view to the main view
-	this.dicePresenter = dicePresenter;
+	//this.dicePresenter = dicePresenter;
 	// TODO WHAT AM I DOING? JUST ADD VIEW FROM PRESENTER
 	this.view.addDiceView(dicePresenter.getView());
 	
@@ -55,7 +54,7 @@ public class GamePresenter {
 	this.view.addSidePaneView(sidePanePresenter.getView());
 	
 	// Board initialization
-	this.boardPresenter = boardPresenter;
+	//this.boardPresenter = boardPresenter;
 	this.view.addBoardView(boardPresenter.getView());
 	
 	// PlayerInfo initialization
@@ -98,7 +97,7 @@ public class GamePresenter {
     }
     
     public void showCup() {
-	System.out.println("Showing Cup");
+
 	
 	// Get the cup content
 	Game game = GameService.getInstance().getGame();

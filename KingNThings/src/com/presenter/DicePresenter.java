@@ -12,12 +12,12 @@ import com.view.DiceView;
 public class DicePresenter {
     private final DiceView view;
     // In case we need to do something else in the main screen.
-    private GamePresenter mainPresenter;
+  //  private GamePresenter mainPresenter;
     
     public DicePresenter(DiceView view, GamePresenter mainPresenter) {
 	this.view = view;
 	this.view.setPresenter(this);
-	this.mainPresenter = mainPresenter;
+//	this.mainPresenter = mainPresenter;
 	
 	// Set initial model
 	Game game = GameService.getInstance().getGame();

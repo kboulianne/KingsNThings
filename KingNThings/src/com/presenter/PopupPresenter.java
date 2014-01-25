@@ -14,8 +14,6 @@ import com.view.ThingEvent;
 import com.view.popups.CupPopup;
 import java.util.List;
 import javafx.event.EventHandler;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 
 /**
  *
@@ -25,8 +23,8 @@ public class PopupPresenter {
     private PopupView view;
     
     // All the views (Pane classes) this popup can display.
-    private PlayerPopup playerPopup;
-    private CupPopup cupPopup;
+    //private PlayerPopup playerPopup;
+   // private CupPopup cupPopup;
     
     public PopupPresenter(PopupView view) {
 		this.view = view;

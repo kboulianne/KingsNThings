@@ -13,15 +13,10 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.geometry.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.LineBuilder;
 
 import com.game.services.GameService;
 import com.model.game.Game;
@@ -51,7 +46,8 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object>{
 
     @Override
     public void executePhase(Object input) {
-    	ArrayList<Thing> list;
+    	@SuppressWarnings("unused")
+		ArrayList<Thing> list;
     	int hexGold = 100;
     	int fortGold = 50;
     	int counterGold = 25;

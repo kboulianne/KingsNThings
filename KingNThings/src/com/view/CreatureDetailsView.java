@@ -8,10 +8,6 @@ package com.view;
 
 import com.model.Creature;
 import com.model.Thing;
-import com.presenter.Util;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -29,19 +25,17 @@ public class CreatureDetailsView extends ThingDetailsView {
     @Override
     protected void buildView() {
 		// Build Controls in super
-		super.buildView(); 
+    	super.buildView();
 		
 		combatLbl = new Label();
 		specialAbilitiesLbl = new Label();
 		
 		moveButton = new Button("Move");
-		
-		getChildren().addAll(combatLbl, specialAbilitiesLbl, moveButton);
     }
 
     @Override
     public void setThing(Thing thing) {
-    	super.setThing(thing);
+    	
 		if (thing != null && thing instanceof Creature) {
 		    Creature c = (Creature)thing;
 		    String abilities = "";
@@ -64,9 +58,12 @@ public class CreatureDetailsView extends ThingDetailsView {
 		    
 		    combatLbl.setText("Combat Value: " + c.getCombatVal());
 		    specialAbilitiesLbl.setText("Abilities: " + abilities);
+		    
 		}
-		//presenter.handleMoveButtonClick(moveButton);
 		
+		//presenter.handleMoveButtonClick(moveButton);
+		super.setThing(thing);
+		getChildren().addAll(combatLbl, specialAbilitiesLbl, moveButton);
     }
 
 	public Button getMoveButton() {

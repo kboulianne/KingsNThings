@@ -14,7 +14,10 @@ import com.presenter.ThingDetailsPresenter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /** When a thing is clicked, display this in SidePaneView using
  * SidePaneView#showThingDetailsView
@@ -25,11 +28,14 @@ public class ThingDetailsView extends VBox {
     
     protected ThingDetailsPresenter presenter;
     
-    private ImageView thingIv;
+    //private ImageView thingIv;
+    StackPane stack;
+    Rectangle borderRect;
+    private ImageView img;
     private Label thingNameLbl;
     private Label typeLbl;
     private Label ownerLbl;
-    
+    private Rectangle coloredRect;
     
     public ThingDetailsView() {
         buildView();
@@ -48,36 +54,63 @@ public class ThingDetailsView extends VBox {
     protected void buildView() {
 		setAlignment(Pos.CENTER);
 		getStyleClass().add("block");
-		thingIv = new ImageView();
-		// Hardcoded value
-		thingIv.setFitWidth(260);
-		thingIv.setPreserveRatio(true);
-		thingIv.setSmooth(true);
-		thingIv.setCache(true);
 		
+		stack = new StackPane();
+		
+		int size = 260;
+        
+		borderRect = new Rectangle();
+        borderRect.setX(0);
+        borderRect.setY(0);
+        borderRect.setWidth(size);
+        borderRect.setHeight(size);
+        borderRect.setArcWidth(20);
+        borderRect.setArcHeight(20);
+        borderRect.setFill(Color.WHITE);
+		
+		coloredRect = new Rectangle();
+		coloredRect.setX(0);
+		coloredRect.setY(0);
+		coloredRect.setWidth(size-1);
+		coloredRect.setHeight(size-1);
+		coloredRect.setArcWidth(20);
+		coloredRect.setArcHeight(20);
+		
+		img = new ImageView();
+		img.setFitWidth(260-7); 
+		img.setFitHeight(260-7);
+        img.setPreserveRatio(true);
+        img.setSmooth(true);
+        img.setCache(true);
+        img.getStyleClass().add("thing");
+        
 		thingNameLbl = new Label();
 		typeLbl = new Label();
 		ownerLbl = new Label();
-		
-		getChildren().addAll(thingIv, thingNameLbl, typeLbl, ownerLbl);
-	//        getChildren().add(new Label("This is ThingDetailsView"));
     }
     
     public void setThing(final Thing thing) {
         if (thing != null) {
-	    thingIv.setImage(thing.getImage());
-	    thingNameLbl.setText(thing.getName());
-	    
-	    String type = "error";
-	    if(thing instanceof Creature) {
-	    	type = ((Creature) thing).getDomain();
-	    }
-	    if(thing instanceof IncomeCounter){
-	    	type = "Income Counter";
-	    }
-	    
-	    typeLbl.setText("Type: " + type);
-	    ownerLbl.setText("Owner: " + thing.getOwner());
-	}
+        	
+		    img.setImage(thing.getImage());
+		    coloredRect.setFill(thing.getColor());
+		    
+		    String type = "error";
+		    if(thing instanceof Creature) {
+		    	type = ((Creature) thing).getDomain();
+		    }
+		    if(thing instanceof IncomeCounter){
+		    	type = "Income Counter";
+		    }
+		    
+		    thingNameLbl.setText(thing.getName().toUpperCase());
+		    typeLbl.setText("Type: " + type);
+		    ownerLbl.setText("Owner: " + thing.getOwner());
+		    
+		    stack.getChildren().addAll(borderRect, coloredRect, img);
+		    getChildren().addAll(stack, thingNameLbl, typeLbl, ownerLbl);
+		    
+		    
+        }
     }
 }

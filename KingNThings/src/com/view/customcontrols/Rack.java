@@ -8,7 +8,6 @@ package com.view.customcontrols;
 
 import com.model.Thing;
 import com.view.ThingEvent;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

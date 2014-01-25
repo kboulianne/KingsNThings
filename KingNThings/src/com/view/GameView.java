@@ -75,6 +75,8 @@ public class GameView extends StackPane {
 	centerBox = new HBox();
 
 	Button test = new Button("Test Phases");
+	AnchorPane.setLeftAnchor(test, 500.0);
+	AnchorPane.setTopAnchor(test, 0.0);
 	test.setOnAction(new EventHandler<ActionEvent>() {
 
 	    @Override

@@ -12,9 +12,7 @@ import javafx.scene.control.Button;
 
 import com.model.Creature;
 import com.model.Thing;
-import com.view.BoardView;
 import com.view.CreatureDetailsView;
-import com.view.GameScreen;
 import com.view.ThingDetailsView;
 
 /**

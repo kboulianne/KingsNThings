@@ -281,6 +281,7 @@ public class GameScreen {
 	}
 	
 	// Pop-up Functions
+	
 	public static void popup(Node content){	
 		if (rootStackPane.getChildren().size() == 1){			
 			popupVbox = new VBox();

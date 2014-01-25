@@ -10,14 +10,17 @@ import com.model.Thing;
 import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.event.EventType;
-import javafx.scene.input.MouseEvent;
 
 /**
  *
  * @author kurtis
  */
 public class ThingEvent extends Event {
-    private Thing thing;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5197694746437106725L;
+	private Thing thing;
     public static final EventType<ThingEvent> THING_CLICKED = new EventType<>(ANY, "THING_CLICKED");
     
     public ThingEvent(Thing thing) {

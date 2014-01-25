@@ -8,11 +8,13 @@ package com.model.game.phase;
 
 import com.game.services.GameService;
 import com.presenter.Util;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
 import com.model.Player;
 import com.model.game.Game;
 import com.model.game.phase.init.ExchangePhase;
@@ -27,6 +29,7 @@ import com.model.game.phase.init.StartingPosPhase;
  * @author kurtis
  */
 //TODO make final
+@SuppressWarnings("rawtypes")
 public class GamePlay {
     /**
      * Current gameplay logic to execute.
@@ -37,7 +40,8 @@ public class GamePlay {
     
     /** Initial phases */
     private final LinkedHashSet<AbstractPhaseStrategy> initPhases;
-    private final LinkedHashSet<AbstractPhaseStrategy> gamePhases;
+    
+	private final LinkedHashSet<AbstractPhaseStrategy> gamePhases;
     // Current phase being played by the players.
     private Iterator<AbstractPhaseStrategy> phaseIt;
     
@@ -111,21 +115,22 @@ public class GamePlay {
     /**
      * Goes to the next player, and switches phases if needed.
      */
-    public final void next() {
-	// TODO make sure to no mismatch Game "state" stuff and game "logic" stuff in here. State stuff goes in Game.
-	Game game = GameService.getInstance().getGame();
-	
-	// Execute logic then go to next player / phase
-	phaseLogic.execute(null);
-	
-	// Signal end of phase
-	if (game.isLastPlayer()) {
-	    phaseLogic.phaseEnd();
-	    nextPhase();    // Next call to execute, does new phase logic.
-	}
-	
-	// State modification. Call method in game
-	game.nextPlayer();
+    @SuppressWarnings("unchecked")
+	public final void next() {
+		// TODO make sure to no mismatch Game "state" stuff and game "logic" stuff in here. State stuff goes in Game.
+		Game game = GameService.getInstance().getGame();
+		
+		// Execute logic then go to next player / phase
+		phaseLogic.execute(null);
+		
+		// Signal end of phase
+		if (game.isLastPlayer()) {
+		    phaseLogic.phaseEnd();
+		    nextPhase();    // Next call to execute, does new phase logic.
+		}
+		
+		// State modification. Call method in game
+		game.nextPlayer();
     }
 
 }
