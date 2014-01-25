@@ -6,6 +6,8 @@
 
 package com.model.game.phase;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -25,6 +27,7 @@ import com.game.services.GameService;
 import com.model.game.Game;
 import com.model.Player;
 import com.model.Hex;
+import com.model.Thing;
 import com.view.GameScreen;
 
 /**
@@ -48,6 +51,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object>{
 
     @Override
     public void executePhase(Object input) {
+    	ArrayList<Thing> list;
     	int hexGold = 100;
     	int fortGold = 50;
     	int counterGold = 25;
@@ -60,6 +64,11 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object>{
     	for(Hex h: game.getBoard().getHexes())	{
     		if((h != null) && (h.getOwner() == player))	{
     			hexGold++;
+    			for(Player p: h.getArmies().keySet())	{
+    				if(p == player)	{
+    					list = h.getArmies().get(p);
+    				}
+    			}
     		}
     	}
     	

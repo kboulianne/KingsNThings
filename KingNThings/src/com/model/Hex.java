@@ -64,7 +64,7 @@ public class Hex extends GamePiece implements Paintable {
 	static final Image START_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
 	// list of armies for all players
 	// list of misc Things
-	private Map<Player, List<Thing>> armies;
+	private Map<Player, ArrayList<Thing>> armies;
 	// Kept for now
 	List<Thing> player1Army; // can be maps
 	List<Thing> player2Army;
@@ -184,8 +184,8 @@ public class Hex extends GamePiece implements Paintable {
 	    this.highlighted = highlighted;
     }
     
-    public Map<Player, List<Thing>> getArmies() {
-	return armies;
+    public Map<Player, ArrayList<Thing>> getArmies() {
+    	return armies;
     }
 
     public void addThingToArmy(Creature creature, PlayerId key){

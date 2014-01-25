@@ -6,7 +6,7 @@ public class MountainCreature extends Creature {
 
 	public MountainCreature(String name) {
 		super(name);
-		setDomain("Mountains");
+		setDomain("Mountain");
 		setColor(Color.BROWN);
 	}
 }
