@@ -68,8 +68,9 @@ public class ThingDetailsView extends VBox {
 	    
 	    String type = "error";
 	    if(thing instanceof Creature) {
-		type = ((Creature) thing).getDomain();
+	    	type = ((Creature) thing).getDomain();
 	    }
+	    //TODO
 	    
 	    typeLbl.setText("Type: " + type);
 	    ownerLbl.setText("Owner: " + thing.getOwner());

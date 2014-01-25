@@ -250,6 +250,7 @@ public class GameScreen {
 		});
 		
 		// to be moved to controller
+		/*
 		playingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -262,7 +263,7 @@ public class GameScreen {
 					}
 				}
 			}
-		});
+		});*/
 		
 		button.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
@@ -347,13 +348,10 @@ public class GameScreen {
 	}*/
 	
 
-	
+	/*
 	// temp
 	public void onHexSelected(int id){
-		/*if (lastThingRect != null){
-			lastThingRect.setFill(Color.GREEN);
-			//paintThing(lastThingIndexSelected, node);//(lastHexSelected,Color.DARKGRAY);
-		}*/
+
 		if (lastHexSelected != -1){
 			Hex lastHex = hexes.get(lastHexSelected);
 			lastHex.setSelected(false);
@@ -364,7 +362,7 @@ public class GameScreen {
 		hex.setSelected(true);
 		hex.paint(null);
 		hex.paintHexInDetails(detailsBox);
-	}
+	}*/
 	
 	
 	private void handleDieRoll(ActionEvent event) {

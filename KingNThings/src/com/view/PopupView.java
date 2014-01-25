@@ -38,37 +38,34 @@ public class PopupView extends VBox {
     
     // Parent will always be GameView
     public PopupView() {
-	buildPopup();
+    	buildPopup();
     }
     
     public void setPresenter(final PopupPresenter presenter) {
         if (presenter == null)
             throw new NullPointerException("Presenter cannot be null");
-        
         if (this.presenter != null)
             throw new IllegalStateException("The presenter was already set.");
-        
         this.presenter = presenter;
     }
     
     public void setParent(GameView parent) {
-	this.parent = parent;
-	
-	// Add to parent once set
-	parent.getChildren().add(this);
-	StackPane.setAlignment(this, Pos.CENTER);
+		this.parent = parent;
+		
+		// Add to parent once set
+		parent.getChildren().add(this);
+		StackPane.setAlignment(this, Pos.CENTER);
     }
     
     public void show(Pane content) {
-	titleLbl.setVisible(false);
-	closeBtn.setVisible(false);
-	
-	if (!isVisible()) {
-	    // Set the view to display
-	    getChildren().add(content);
-	    
-	    setVisible(true);
-	}
+		titleLbl.setVisible(false);
+		closeBtn.setVisible(false);
+		
+		if (!isVisible()) {
+		    // Set the view to display
+		    getChildren().add(content);   
+		    setVisible(true);
+		}
     }
     
     /**
@@ -78,59 +75,56 @@ public class PopupView extends VBox {
      * @param title 
      */
     public void show(Pane content, String title) {
-	titleLbl.setVisible(true);
-	closeBtn.setVisible(true);
+		titleLbl.setVisible(true);
+		closeBtn.setVisible(true);
+		// Only execute if not visible
+		if (!isVisible()) {
+		    // Set the view to display.
+		    getChildren().add(content);
 	
+		    titleLbl.setText(title);
 	
-	// Only execute if not visible
-	if (!isVisible()) {
-	    // Set the view to display.
-	    getChildren().add(content);
-
-	    titleLbl.setText(title);
-
-	    setVisible(true);
-	}
+		    setVisible(true);
+		}
     }
     
     public void dismiss() {
-	if (isVisible()) {
-	    // Remove and null the content
-	    getChildren().remove(1);
-	    
-	    setVisible(false);
-	}
+		if (isVisible()) {
+		    // Remove and null the content
+		    getChildren().remove(1);   
+		    setVisible(false);
+		}
     }
     
     protected void buildPopup() {
-	rootAnchorPane = new AnchorPane();
+		rootAnchorPane = new AnchorPane();
+		
+		// Title
+		titleLbl = new Label();
+		titleLbl.getStyleClass().add("title");
+		rootAnchorPane.getChildren().add(titleLbl);
+		AnchorPane.setLeftAnchor(titleLbl, 0.0);
+		
+		// Close button
+		closeBtn = new Button("Close");
+		closeBtn.setOnAction(new EventHandler<ActionEvent>() {
 	
-	// Title
-	titleLbl = new Label();
-	titleLbl.getStyleClass().add("title");
-	rootAnchorPane.getChildren().add(titleLbl);
-	AnchorPane.setLeftAnchor(titleLbl, 0.0);
-	
-	// Close button
-	closeBtn = new Button("Close");
-	closeBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-	    @Override
-	    public void handle(ActionEvent t) {
-		dismiss();
-		presenter.dismissPopup();
-	    }
-	});
-	rootAnchorPane.getChildren().add(closeBtn);
-	AnchorPane.setRightAnchor(closeBtn, 0.0);
-	
-	// Self
-	getStyleClass().add("popup");
-	getChildren().addAll(rootAnchorPane);
-	setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
-//	setAlignment(Pos.CENTER);
-	
-	// Add to parent in invisible state
-	setVisible(false);
+		    @Override
+		    public void handle(ActionEvent t) {
+			dismiss();
+			presenter.dismissPopup();
+		    }
+		});
+		rootAnchorPane.getChildren().add(closeBtn);
+		AnchorPane.setRightAnchor(closeBtn, 0.0);
+		
+		// Self
+		getStyleClass().add("popup");
+		getChildren().addAll(rootAnchorPane);
+		setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
+		//	setAlignment(Pos.CENTER);
+		
+		// Add to parent in invisible state
+		setVisible(false);
     }
 }

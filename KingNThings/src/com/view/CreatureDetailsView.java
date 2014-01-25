@@ -8,6 +8,10 @@ package com.view;
 
 import com.model.Creature;
 import com.model.Thing;
+import com.presenter.Util;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -24,45 +28,55 @@ public class CreatureDetailsView extends ThingDetailsView {
     
     @Override
     protected void buildView() {
-	// Build Controls in super
-	super.buildView(); 
-	
-	combatLbl = new Label();
-	specialAbilitiesLbl = new Label();
-	
-	moveButton = new Button("Move");
-	
-	getChildren().addAll(combatLbl, specialAbilitiesLbl, moveButton);
+		// Build Controls in super
+		super.buildView(); 
+		
+		combatLbl = new Label();
+		specialAbilitiesLbl = new Label();
+		
+		moveButton = new Button("Move");
+		
+		getChildren().addAll(combatLbl, specialAbilitiesLbl, moveButton);
     }
 
     @Override
     public void setThing(Thing thing) {
-	super.setThing(thing);
-	
-	if (thing != null && thing instanceof Creature) {
-	    Creature c = (Creature)thing;
-	    String abilities = "";
-	    
-	    if (c.getFly()) {
-		abilities += " Flying";
-	    }
-	    if (c.getRanged()) {
-		abilities += " Ranged";
-	    }
-	    if (c.getCharge()) {
-		abilities += " Charging";
-	    }
-	    if(c.getMagic()){
-		abilities += " Magic";
-	    }
-	    
-	    if(abilities.isEmpty()){
-		abilities = " None";
-	    }
-	    
-	    combatLbl.setText("Combat Value: " + c.getCombatVal());
-	    specialAbilitiesLbl.setText("Abilities: " + abilities);
-	}
+    	super.setThing(thing);
+		if (thing != null && thing instanceof Creature) {
+		    Creature c = (Creature)thing;
+		    String abilities = "";
+		    
+		    if (c.getFly()) {
+			abilities += " Flying";
+		    }
+		    if (c.getRanged()) {
+			abilities += " Ranged";
+		    }
+		    if (c.getCharge()) {
+			abilities += " Charging";
+		    }
+		    if(c.getMagic()){
+			abilities += " Magic";
+		    }
+		    
+		    if(abilities.isEmpty()){
+			abilities = " None";
+		    }
+		    
+		    combatLbl.setText("Combat Value: " + c.getCombatVal());
+		    specialAbilitiesLbl.setText("Abilities: " + abilities);
+		}
+		
+		
+		moveButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				Util.log("SeletectIndex");
+				//highlighAvailableMoves();
+			}
+		});
     }
     
     

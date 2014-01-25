@@ -19,7 +19,6 @@ public abstract class Thing extends GamePiece implements Paintable	{
 	Color color;
 	String owner;
 	
-	
 	Thing(String name)	{
 		super(name);
 		owner = "Bag";
