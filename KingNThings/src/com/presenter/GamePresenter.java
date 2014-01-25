@@ -13,6 +13,7 @@ import com.model.game.phase.GamePlay;
 import com.view.GameView;
 import com.view.ThingEvent;
 import java.util.concurrent.locks.Lock;
+import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
@@ -94,52 +95,27 @@ public class GamePresenter {
 		GamePlay.getInstance();
 		// Start a background thread that wakes up when GamePlay notifies it
 		// of a new action.
-//	Service<Void> service = new Service<Void>() {
-//
-//	    @Override
-//	    protected Task<Void> createTask() {
-//		return new Task<Void>() {
-//
-//		    // For now 
-//		    
-//		    @Override
-//		    protected Void call() throws Exception {
-//			// Get the lock from gameplay
-//			// TODO See potential singleton threading issues.
-////			final Lock lock = GamePlay.getInstance().getTestLock();
-//			
-//			consume();
-//			
-//			// Wait for gameplay to unlock.
-////			lock.lock();
-////			lock.unlock();
-//			return null;
-//		    }
-//		};
-//	    }
-//	};
-//	
-//	service.start();
-
-		Task<Void> consumer = new Task<Void>() {
-			final GameEvents ge = GamePlay.getInstance().getGameEvents();
+		Service<Void> service = new Service<Void>() {
 
 			@Override
-			protected Void call() throws Exception {
-				// consume the event
-				ge.consume();
-				return null;
+			protected Task<Void> createTask() {
+				return new Task<Void>() {
+
+					@Override
+					protected Void call() throws Exception {
+						System.out.println("GamePresenter: call()");
+						
+						// Consumes messages
+						GameEvents.getConsumer().run();
+						
+						return null;
+					}
+				};
 			}
 		};
-		Thread t = new Thread(consumer);
-		t.setDaemon(true);
-		t.start();
 
-	}
-
-	private synchronized void consume() {
-		System.out.println("Consume and notify");
-		notify();
+		service.start();
+		
 	}
 
 	// UI Logic stuff is done here. Access service for model.
@@ -171,7 +147,9 @@ public class GamePresenter {
 
 		popupPresenter.showCupPopup(game.getCup().getListOfThings(), "Cup", handler);
 
-		// TESTING
+		// TESTING: THIS WILL BE IN phase executes
+		GameEvents.getProducer().setMessage("A TEST MESSAGE");
+
 //	popupPresenter.showPopup();
 	}
 

@@ -5,6 +5,8 @@
  */
 package com.model.game;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,31 +16,18 @@ import java.util.logging.Logger;
  */
 public class GameEvents {
 
-	private boolean available = false;
-
-	public synchronized void produce(/* eventtype */) {
-		while (available == true) {
-			try {
-				wait();
-			} catch (InterruptedException ex) {
-				Logger.getLogger(GameEvents.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		available = true;
-		notifyAll();
-		System.out.println("Produced");
+	static final BlockingQueue<String> sharedQueue = new ArrayBlockingQueue<>(1);
+	static GameEventProducer producer = new GameEventProducer(sharedQueue);
+	static GameEventConsumer consumer = new GameEventConsumer(sharedQueue);
+//	Thread producer = new Thread(new GameEventProducer(sharedQueue));
+//	Thread consumer = new Thread
+	
+	
+	public static GameEventProducer getProducer() {
+		return producer;
 	}
-
-	public synchronized void/* eventtype */ consume() {
-		while (available == false) {
-			try {
-				wait();
-			} catch (InterruptedException ex) {
-				Logger.getLogger(GameEvents.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		System.out.println("Consumed");
-		available = false;
-		notifyAll();
+	
+	public static GameEventConsumer getConsumer() {
+		return consumer;
 	}
 }

@@ -81,13 +81,15 @@ public class GamePlay {
 		createGamePhases();
 
 		// TESTING
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				gameEvents.produce();
-			}
-		}).start();
+		// TODO call run on demand?
+		new Thread(GameEvents.getProducer()).start();
+//		new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				gameEvents.produce();
+//			}
+//		}).start();
 	}
 
 	private void createInitPhases() {
