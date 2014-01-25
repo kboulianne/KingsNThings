@@ -11,17 +11,19 @@ import com.game.services.GameService;
 import com.model.Hex;
 import com.model.game.Game;
 import com.presenter.HexDetailsPresenter;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
  *
  * @author kurtis
  */
-public class HexDetailsView extends VBox {
+public class HexDetailsView extends StackPane {
     
     // FIXME: Duplicate
     static final double HEX_WIDTH = 100.0; 
@@ -38,34 +40,36 @@ public class HexDetailsView extends VBox {
     private ArmyOrMisc opp2Army;
     private ArmyOrMisc opp3Army;
     private ArmyOrMisc currentPlayerArmy;
-    //addmisc
+    private ArmyOrMisc misc;
     
     public HexDetailsView() {
-	buildView();
+    	buildView();
     }
     
-    protected void buildView() {        
-	// TODO Put in create Methods
-	// Define content. (FROM paintHexInDetails
-	hexImage = new ImageView();
-	// FIXME Hardcoded
-	hexImage.setFitWidth(300);
-	hexImage.setPreserveRatio(true);
-	hexImage.setSmooth(true);
-	hexImage.setCache(true);
-	
-	VBox contentBox = new VBox();
-        contentBox.getStyleClass().add("block");
-	contentBox.setAlignment(Pos.CENTER);
-	
-	// Name Label
-	nameLbl = new Label();
-	// Test
-	testLbl = new Label();
-	// owner
-	ownerLbl = new Label();
-	
-	contentBox.getChildren().addAll(hexImage, nameLbl, ownerLbl, testLbl);
+    protected void buildView() {  
+    	
+    	VBox content = new VBox();
+		// TODO Put in create Methods
+		// Define content. (FROM paintHexInDetails
+		hexImage = new ImageView();
+		// FIXME Hardcoded
+		hexImage.setFitWidth(300);
+		hexImage.setPreserveRatio(true);
+		hexImage.setSmooth(true);
+		hexImage.setCache(true);
+		getStyleClass().add("block");
+		VBox contentBox = new VBox();
+	        contentBox.getStyleClass().add("block");
+		contentBox.setAlignment(Pos.CENTER);
+		
+		// Name Label
+		nameLbl = new Label();
+		// Test
+		testLbl = new Label();
+		// owner
+		ownerLbl = new Label();
+		
+		contentBox.getChildren().addAll(nameLbl, ownerLbl, testLbl);
 	
         // Create the mouse handler for the things and hook it up to the presenter.
         EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
@@ -76,13 +80,19 @@ public class HexDetailsView extends VBox {
           
         };
         
-	// ArmyOrMisc components
-	opp1Army = new ArmyOrMisc(handler);
-	opp2Army = new ArmyOrMisc(handler);
-	opp3Army = new ArmyOrMisc(handler);
-	currentPlayerArmy = new ArmyOrMisc(handler);
+        // ArmyOrMisc components
+        //misc = new ArmyOrMisc(handler);
+        
+        //TODO shouldn't add these if empty
+        opp1Army = new ArmyOrMisc(handler);
+        opp2Army = new ArmyOrMisc(handler);
+        opp3Army = new ArmyOrMisc(handler);
+        currentPlayerArmy = new ArmyOrMisc(handler);
 	
-        getChildren().addAll(contentBox, opp1Army, opp2Army, opp3Army, currentPlayerArmy);
+        content.getChildren().addAll(contentBox, opp1Army, opp2Army, opp3Army, currentPlayerArmy);
+        getChildren().addAll(hexImage, content);
+        content.setAlignment(Pos.CENTER);
+        content.getStyleClass().add("block");
     }
     
     // TODO Put in ArmyOrMiscView?
@@ -107,7 +117,7 @@ public class HexDetailsView extends VBox {
 	
 	if (hex != null) {
 	    // Set the Hex Name
-	    nameLbl.setText("Type: " + hex.getType().name());
+	    nameLbl.setText("Type: " + hex.getTypeAsString());
 	    // Set the new image.
 	    hexImage.setImage(hex.getImage());
 	    // Set the owner if it exists

@@ -2,19 +2,10 @@ package com.model;
 
 import java.util.ArrayList;
 
-import com.view.GameScreen;
-
-import com.presenter.Paintable;
-
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-
-public class Cup extends GamePiece implements Paintable{
+public class Cup extends GamePiece {
 	ArrayList<Thing> listOfThings;
 	
-	
+	/*
 	public void paint(Pane pane){
 		for(final Thing t: listOfThings){
 			ImageView img = t.paintThingRectangle(55, pane);	
@@ -27,7 +18,7 @@ public class Cup extends GamePiece implements Paintable{
 				}
 			});
 		}
-	}
+	}*/
 
 	public ArrayList<Thing> getListOfThings() {
 		return listOfThings;

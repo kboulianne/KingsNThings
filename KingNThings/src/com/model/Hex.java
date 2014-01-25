@@ -2,28 +2,16 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.model.Player.PlayerId;
-import com.presenter.Paintable;
 import java.util.Map;
-
 import com.view.GameScreen;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 //TODO Use Factory Pattern?
-public class Hex extends GamePiece implements Paintable {
+public class Hex extends GamePiece {
 	
     int id; // location on grid
 	private Player owner;
@@ -37,6 +25,7 @@ public class Hex extends GamePiece implements Paintable {
 	boolean selectable;
 	boolean highlighted;
 	HexType type;
+	String typeAsString; 
 	int movementWeight; // value of -1 if not able to move to
 	
 	int[] joiningHexes; // Integer array of hex id's, size 6
@@ -91,6 +80,7 @@ public class Hex extends GamePiece implements Paintable {
 	public Hex(int id, HexType type){
 	    this.type = type;
 	    this.id= id;
+	    typeAsString = type.typeName;
 	    color = Color.DARKGRAY;
 	    startPosition =  false;
 	    selected = false;
@@ -227,7 +217,7 @@ public class Hex extends GamePiece implements Paintable {
         return currentPlayerArmy;
     }
     
-	@Override
+
 	public void paint(Pane pane) {
 		
 		//pane not needed we need a canvas object
@@ -273,6 +263,11 @@ public class Hex extends GamePiece implements Paintable {
 			gc.drawImage(START_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
 		else
 			gc.drawImage(image, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
+	}
+
+
+	public String getTypeAsString() {
+		return typeAsString;
 	}
 	
 	/*

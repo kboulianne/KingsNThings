@@ -25,10 +25,10 @@ import javafx.scene.shape.Rectangle;
 public class CupPopup extends FlowPane {
     
     private EventHandler<ThingEvent> thingHandler;
-    // Might not be the best way but works.
-    public CupPopup(List<Thing> things, EventHandler<ThingEvent> event) {
-	this.thingHandler = event;
-	buildPopup(things);
+	    // Might not be the best way but works.
+	    public CupPopup(List<Thing> things, EventHandler<ThingEvent> event) {
+		this.thingHandler = event;
+		buildPopup(things);
     }
     
     private void buildPopup(List<Thing> things) {
@@ -57,38 +57,38 @@ public class CupPopup extends FlowPane {
 		
         borderRect.setFill(Color.WHITE);
 		
-	final Rectangle coloredRect = new Rectangle();
-	coloredRect.setX(0);
-	coloredRect.setY(0);
-	coloredRect.setWidth(size-1);
-	coloredRect.setHeight(size-1);
-	coloredRect.setArcWidth(20);
-	coloredRect.setArcHeight(20);
-	coloredRect.setFill(t.getColor());
+		final Rectangle coloredRect = new Rectangle();
+		coloredRect.setX(0);
+		coloredRect.setY(0);
+		coloredRect.setWidth(size-1);
+		coloredRect.setHeight(size-1);
+		coloredRect.setArcWidth(20);
+		coloredRect.setArcHeight(20);
+		coloredRect.setFill(t.getColor());
+		
+		final ImageView img = new ImageView(t.getImage());
+		img.setFitWidth(size-7); 
+		img.setFitHeight(size-7);
+	        img.setPreserveRatio(false);
+	        img.setSmooth(true);
+	        img.setCache(true);
+	        img.getStyleClass().add("thing");
+	        
+	        // TODO Clean me up
+	        img.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	
-	final ImageView img = new ImageView(t.getImage());
-	img.setFitWidth(size-7); 
-	img.setFitHeight(size-7);
-        img.setPreserveRatio(false);
-        img.setSmooth(true);
-        img.setCache(true);
-        img.getStyleClass().add("thing");
-        
-        // TODO Clean me up
-        img.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent me) {
-		// Fire custom event on mouse clicked
-                img.fireEvent(new ThingEvent(t));
-            }
-        });
-        
-        // Add custom handler
-        img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
-        
-	StackPane pane = new StackPane();
-	pane.getChildren().addAll(borderRect, coloredRect, img);
-	getChildren().add(pane);
+	            @Override
+	            public void handle(MouseEvent me) {
+			// Fire custom event on mouse clicked
+	                img.fireEvent(new ThingEvent(t));
+	            }
+	        });
+	        
+	        // Add custom handler
+	        img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
+	        
+		StackPane pane = new StackPane();
+		pane.getChildren().addAll(borderRect, coloredRect, img);
+		getChildren().add(pane);
     }
 }

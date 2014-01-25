@@ -2,12 +2,9 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javafx.scene.layout.Pane;
-import com.presenter.Paintable;
 import com.presenter.Util;
 
-public class Block extends GamePiece implements Paintable{
+public class Block extends GamePiece {
 	List<Thing> listOfThings;
 	
 	Block(){
@@ -31,11 +28,12 @@ public class Block extends GamePiece implements Paintable{
 		return true;
 	}
 
+	/*
 	@Override
 	public void paint(Pane pane) {
 		for(Thing thing: listOfThings)
 			thing.paint(pane);
-	}
+	}*/
 
 	public List<Thing> getListOfThings() {
 		return listOfThings;

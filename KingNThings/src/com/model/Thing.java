@@ -2,26 +2,21 @@ package com.model;
 
 import java.util.ArrayList;
 
-import com.view.GameScreen;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import com.presenter.Paintable;
 
-public abstract class Thing extends GamePiece implements Paintable	{
+public abstract class Thing extends GamePiece	{
 	
 	Color color;
 	String owner;
 	
 	Thing(String name)	{
 		super(name);
-		owner = "Bag";
+		owner = "Cup";
 		color = Color.BLACK;
 	}
 	
@@ -213,7 +208,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 		
 		return things;
 	}
-	
+	/*
 	public void paint(Pane pane){
 		ImageView img = paintThingRectangle(60, pane);		
 		img.setOnMouseClicked(new EventHandler<Event>() {
@@ -223,7 +218,7 @@ public abstract class Thing extends GamePiece implements Paintable	{
 			}
 		});
 	}
-	
+	/*
 	public void paintThingInDetails(Pane detailsBox){
 		detailsBox.getChildren().clear();
 		
@@ -235,16 +230,19 @@ public abstract class Thing extends GamePiece implements Paintable	{
         
 		
 		Label thingNameLbl = new Label(name);
-		String type = "error";
+		String type = "type set error";
 		if(this instanceof Creature){
 			type = ((Creature) this).getDomain();
+		}
+		if(this instanceof IncomeCounter){
+			type = "Income Counter";
 		}
 		///TODO
 		Label typeLbl = new Label("Type: "+type);
 		Label ownerLbl = new Label("Owner: " + owner);
 		
 		detailsBox.getChildren().addAll(img, thingNameLbl, typeLbl, ownerLbl);
-	}
+	}*/
 	
 	
 	public ImageView paintThingRectangle(int size, Pane pane){

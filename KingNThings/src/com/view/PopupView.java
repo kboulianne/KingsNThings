@@ -7,6 +7,8 @@
 package com.view;
 
 import com.presenter.PopupPresenter;
+import com.presenter.Util;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -58,8 +60,13 @@ public class PopupView extends VBox {
     }
     
     public void show(Pane content) {
-		titleLbl.setVisible(false);
-		closeBtn.setVisible(false);
+    	this.getChildren().clear();
+    	Util.log("no title");
+    	//content.getChildren().removeAll(titleLbl, closeBtn);
+		
+    	//TODO 
+    	//titleLbl.setVisible(true);
+		//closeBtn.setVisible(false);
 		
 		if (!isVisible()) {
 		    // Set the view to display
@@ -75,32 +82,9 @@ public class PopupView extends VBox {
      * @param title 
      */
     public void show(Pane content, String title) {
-		titleLbl.setVisible(true);
-		closeBtn.setVisible(true);
-		// Only execute if not visible
-		if (!isVisible()) {
-		    // Set the view to display.
-		    getChildren().add(content);
-	
-		    titleLbl.setText(title);
-	
-		    setVisible(true);
-		}
-    }
-    
-    public void dismiss() {
-		if (isVisible()) {
-		    // Remove and null the content
-		    getChildren().remove(1);   
-		    setVisible(false);
-		}
-    }
-    
-    protected void buildPopup() {
-		rootAnchorPane = new AnchorPane();
-		
-		// Title
-		titleLbl = new Label();
+    	
+    	// Title
+		titleLbl = new Label(title);
 		titleLbl.getStyleClass().add("title");
 		rootAnchorPane.getChildren().add(titleLbl);
 		AnchorPane.setLeftAnchor(titleLbl, 0.0);
@@ -117,14 +101,31 @@ public class PopupView extends VBox {
 		});
 		rootAnchorPane.getChildren().add(closeBtn);
 		AnchorPane.setRightAnchor(closeBtn, 0.0);
-		
-		// Self
+    	
+		//titleLbl.setVisible(true);
+		//closeBtn.setVisible(true);
+		// Only execute if not visible
+		//if (!isVisible()) {
+		    // Set the view to display.
+		    getChildren().addAll(rootAnchorPane,content);	
+		    setVisible(true);
+		//}
+    }
+    
+    public void dismiss() {
+    	//Util.log("dismiss");
+		if (isVisible()) {
+		    // Remove and null the content
+		    getChildren().clear();   
+		    setVisible(false);
+		}
+    }
+    
+    protected void buildPopup() {
+		rootAnchorPane = new AnchorPane();
 		getStyleClass().add("popup");
 		getChildren().addAll(rootAnchorPane);
 		setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
-		//	setAlignment(Pos.CENTER);
-		
-		// Add to parent in invisible state
 		setVisible(false);
     }
 }

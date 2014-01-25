@@ -25,6 +25,7 @@ public class BoardPresenter {
     private GameService svc;
     
     private int lastHexSelected = -1;
+  
     
     public BoardPresenter(BoardView view, SidePanePresenter sidePanePresenter) {
 	this.view = view;
@@ -40,28 +41,28 @@ public class BoardPresenter {
     }
     
     public BoardView getView() {
-	return view;
+    	return view;
     }
     
     // UI Logic here.
 
     public void handleHexClick(int selected) {
-	// Only need service to fetch board.
-	// TODO create GameService#selectHex(...)?
-	Board b = svc.getGame().getBoard();
-	
-	// undo last selection.
-	if (lastHexSelected > -1) {
-	    b.getHexes().get(lastHexSelected).setSelected(false);
-	}
-	lastHexSelected = selected;
-	b.getHexes().get(selected).setSelected(true);
-	
-	// Update BoardView
-	view.setBoard(b);
-	
-	// Show the HexDetails in sidepane
-	sidePanePresenter.showHexDetailsFor(b.getHexes().get(selected));
-//	detailsPresenter.showHex(b.getHexes().get(selected));
+		// Only need service to fetch board.
+		// TODO create GameService#selectHex(...)?
+		Board b = svc.getGame().getBoard();
+		
+		// undo last selection.
+		if (lastHexSelected > -1) {
+		    b.getHexes().get(lastHexSelected).setSelected(false);
+		}
+		lastHexSelected = selected;
+		b.getHexes().get(selected).setSelected(true);
+		
+		// Update BoardView
+		view.setBoard(b);
+		
+		// Show the HexDetails in sidepane
+		sidePanePresenter.showHexDetailsFor(b.getHexes().get(selected));
+		//	detailsPresenter.showHex(b.getHexes().get(selected));
     }
 }

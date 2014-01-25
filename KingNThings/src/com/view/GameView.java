@@ -57,7 +57,6 @@ public class GameView extends StackPane {
 	rootVBox.getStyleClass().add("border");
 	rootVBox.setAlignment(Pos.TOP_CENTER);
 	
-	getStyleClass().add("border");
 	setAlignment(Pos.TOP_CENTER);
 	
 	
@@ -83,8 +82,8 @@ public class GameView extends StackPane {
 		presenter.endPlayerTurn();
 	    }
 	});
-	
-	rootVBox.getChildren().addAll(test, gameStatus, centerBox);
+	gameStatus.getChildren().add(test);
+	rootVBox.getChildren().addAll(gameStatus, centerBox);
 	getChildren().add(rootVBox);
     }
     
@@ -124,17 +123,12 @@ public class GameView extends StackPane {
      * @param game The game object the UI should display.
      */
     public void setGame(final Game game) {
-	//TODO Could actually do most updating here since this presenter has all
-	// other presenters as a dependency.
-	// As a precaution.
-	if (game != null) {
-	    // Set all GameView properties here
-	    currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: <ACTION>");
-	    
-	    
-	    
-	    
-	    
-	}
+		//TODO Could actually do most updating here since this presenter has all
+		// other presenters as a dependency.
+		// As a precaution.
+		if (game != null) {
+		    // Set all GameView properties here
+		    currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: <ACTION>");   
+		}
     }
 }

@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.presenter.GameScreenCntrl;
 import com.presenter.Main;
-import com.presenter.Util;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -140,7 +137,7 @@ public class GameScreen {
 		// Canvas / Playing Area
 		playingArea = new Canvas(1280*0.5-10,HEX_HEIGHT*7.2);
 		playingArea.setId("playingArea");
-		playingArea.getStyleClass().add("border");
+		//playingArea.getStyleClass().add("border");
 		GraphicsContext gc = playingArea.getGraphicsContext2D();
 		gc.clearRect(0, 0,playingArea.getWidth(), playingArea.getHeight());	
 		Image imgBg = new Image("view/com/assets/pics/background.jpg");
@@ -171,9 +168,9 @@ public class GameScreen {
 		//Opponents
 		HBox otherPlayerInfo = new HBox();
 		otherPlayerInfo.setId("otherPlayerInfo");	
-		game.getOpponent1().paint(otherPlayerInfo);
-		game.getOpponent2().paint(otherPlayerInfo);
-		game.getOpponent3().paint(otherPlayerInfo);
+		//game.getOpponent1().paint(otherPlayerInfo);
+		//game.getOpponent2().paint(otherPlayerInfo);
+		//game.getOpponent3().paint(otherPlayerInfo);
 		otherPlayerInfo.setAlignment(Pos.TOP_CENTER);
 		sidePane.getChildren().addAll(otherPlayerInfo, detailsBox);
 		
@@ -187,10 +184,10 @@ public class GameScreen {
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
-		currentPlayer.paint(currentPlayerNameAndGold);
+		//currentPlayer.paint(currentPlayerNameAndGold);
 		currentPlayer.paintGold(currentPlayerNameAndGold);
 		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
-		currentPlayer.getBlock().paint(currentPlayerInfoBox);
+		//currentPlayer.getBlock().paint(currentPlayerInfoBox);
 		
 		Button viewCupBtn = new Button("View Cup");
 		AnchorPane bottomSection = new AnchorPane();
@@ -202,7 +199,7 @@ public class GameScreen {
 		AnchorPane.setBottomAnchor(viewCupBtn, 12.0);
 		
 		VBox rootVBox = new VBox();
-		rootVBox.getStyleClass().add("border");
+		//rootVBox.getStyleClass().add("border");
 		rootVBox.getChildren().addAll(gameStatus, centerBox, bottomSection);
 		rootVBox.setAlignment(Pos.TOP_CENTER);
 		
@@ -370,7 +367,7 @@ public class GameScreen {
 	    VBox popupContentVbox = new VBox();				
 	    popupContentVbox.setMinSize(700, 400);
 	    popupContentVbox.setAlignment(Pos.CENTER);
-	    popupContentVbox.getStyleClass().add("border");
+	    //popupContentVbox.getStyleClass().add("border");
 
 	    Label label = new Label("Test");
 	    popupContentVbox.getChildren().addAll(label);
@@ -379,6 +376,7 @@ public class GameScreen {
 	    // Bindings will update the images.
 	    ctrl.rollDice();
 	}
+	
 	
 	private void test() {
 	    ctrl.test_Phases();
@@ -428,5 +426,9 @@ public class GameScreen {
 
 	public static double[][] getChoosenMapping() {
 		return choosenMapping;
+	}
+
+	public int getLastHexSelected() {
+		return lastHexSelected;
 	}
 }

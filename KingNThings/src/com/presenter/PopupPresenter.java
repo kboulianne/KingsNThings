@@ -29,23 +29,21 @@ public class PopupPresenter {
     private CupPopup cupPopup;
     
     public PopupPresenter(PopupView view) {
-	this.view = view;
-	this.view.setPresenter(this);
-	
-//	this.playerPopup = playerPopup;
+		this.view = view;
+		this.view.setPresenter(this);
     }
   
 
     public PopupView getView() {
-	return view;
+    	return view;
     }
 
     public void dismissPopup() {
-	view.dismiss();
+    	view.dismiss();
     }
 
     public void showPlayerPopup(Player p) {
-	view.show(new PlayerPopup(p));
+    	view.show(new PlayerPopup(p));
     }
     
     public void showCupPopup(List<Thing> things, String title, EventHandler<ThingEvent> event) {

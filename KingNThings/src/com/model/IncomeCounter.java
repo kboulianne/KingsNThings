@@ -2,6 +2,8 @@ package com.model;
 
 import java.util.HashMap;
 
+import javafx.scene.paint.Color;
+
 public class IncomeCounter extends Thing {
 
 		private static final HashMap<String, String> domains;
@@ -38,6 +40,7 @@ public class IncomeCounter extends Thing {
 		setImage("view/com/assets/pics/gamepieces/things/incomecounters/" + name + ".jpeg");
 		setDomain(domains.get(name));
 		setValue(goldInc.get(name));
+		setColor(Color.rgb(160,140,160));
 	}
 	
 	//Get and set methods
@@ -56,4 +59,6 @@ public class IncomeCounter extends Thing {
 	public void setValue(int val)	{
 		goldVal = val;
 	}
+
+
 }

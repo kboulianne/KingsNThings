@@ -91,8 +91,10 @@ public class PlayerInfoView extends AnchorPane {
 		    }
 		});
 		
+		AnchorPane.setLeftAnchor(currentPlayerInfoBox, 10.0);
+		AnchorPane.setTopAnchor(currentPlayerInfoBox, 5.0);
 		AnchorPane.setRightAnchor(viewCupBtn, 10.0);
-		AnchorPane.setBottomAnchor(viewCupBtn, 12.0);
+		AnchorPane.setTopAnchor(viewCupBtn, 8.0);
 		
 		getChildren().addAll(viewCupBtn, currentPlayerInfoBox);
     }

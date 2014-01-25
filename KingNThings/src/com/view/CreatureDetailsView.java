@@ -58,26 +58,20 @@ public class CreatureDetailsView extends ThingDetailsView {
 		    if(c.getMagic()){
 			abilities += " Magic";
 		    }
-		    
 		    if(abilities.isEmpty()){
-			abilities = " None";
+		    	abilities = " None";
 		    }
 		    
 		    combatLbl.setText("Combat Value: " + c.getCombatVal());
 		    specialAbilitiesLbl.setText("Abilities: " + abilities);
 		}
+		//presenter.handleMoveButtonClick(moveButton);
 		
-		
-		moveButton.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				Util.log("SeletectIndex");
-				//highlighAvailableMoves();
-			}
-		});
     }
+
+	public Button getMoveButton() {
+		return moveButton;
+	}
     
     
 }

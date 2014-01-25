@@ -1,20 +1,10 @@
 package com.model;
 
-import java.util.List;
-
-import com.view.GameScreen;
-import com.presenter.Paintable;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
-public class Player implements Paintable	{
+public class Player 	{
 	PlayerId id; 		// {1, 2, 3, 4}
 	Color color;	// {blue, green, red, yellow}
 	Block block;
@@ -72,6 +62,7 @@ public class Player implements Paintable	{
 	public void addGold(int g)	{
 		gold += g;
 	}
+	/*
 	@Override
 	public void paint(Pane pane) {
 		// TODO Auto-generated method stub
@@ -121,7 +112,7 @@ public class Player implements Paintable	{
 		pane.getChildren().addAll(playerBox);
 		
 	}
-	
+	*/
 	public void paintGold(Pane pane){
 		pane.getChildren().add(new Label("Gold: "+gold));
 	}

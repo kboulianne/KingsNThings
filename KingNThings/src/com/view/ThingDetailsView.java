@@ -7,8 +7,10 @@
 package com.view;
 
 import com.model.Creature;
+import com.model.IncomeCounter;
 import com.model.Thing;
 import com.presenter.ThingDetailsPresenter;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -44,21 +46,21 @@ public class ThingDetailsView extends VBox {
     }
     
     protected void buildView() {
-	setAlignment(Pos.CENTER);
-	
-	thingIv = new ImageView();
-	// Hardcoded value
-	thingIv.setFitWidth(260);
-	thingIv.setPreserveRatio(true);
-	thingIv.setSmooth(true);
-	thingIv.setCache(true);
-	
-	thingNameLbl = new Label();
-	typeLbl = new Label();
-	ownerLbl = new Label();
-	
-	getChildren().addAll(thingIv, thingNameLbl, typeLbl, ownerLbl);
-//        getChildren().add(new Label("This is ThingDetailsView"));
+		setAlignment(Pos.CENTER);
+		getStyleClass().add("block");
+		thingIv = new ImageView();
+		// Hardcoded value
+		thingIv.setFitWidth(260);
+		thingIv.setPreserveRatio(true);
+		thingIv.setSmooth(true);
+		thingIv.setCache(true);
+		
+		thingNameLbl = new Label();
+		typeLbl = new Label();
+		ownerLbl = new Label();
+		
+		getChildren().addAll(thingIv, thingNameLbl, typeLbl, ownerLbl);
+	//        getChildren().add(new Label("This is ThingDetailsView"));
     }
     
     public void setThing(final Thing thing) {
@@ -70,7 +72,9 @@ public class ThingDetailsView extends VBox {
 	    if(thing instanceof Creature) {
 	    	type = ((Creature) thing).getDomain();
 	    }
-	    //TODO
+	    if(thing instanceof IncomeCounter){
+	    	type = "Income Counter";
+	    }
 	    
 	    typeLbl.setText("Type: " + type);
 	    ownerLbl.setText("Owner: " + thing.getOwner());

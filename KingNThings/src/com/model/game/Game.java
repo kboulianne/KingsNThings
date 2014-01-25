@@ -83,7 +83,7 @@ public final class Game {
 		    hexPool.remove(rand);
 		}
 
-		//Bag created with all things required for gameplay
+		//Cup created with all things required for gameplay
 		cup.setListOfThings(Util.getRandomList(Thing.createThings()));
     }
 
