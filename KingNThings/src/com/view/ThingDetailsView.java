@@ -87,7 +87,6 @@ public class ThingDetailsView extends VBox {
         img.setPreserveRatio(true);
         img.setSmooth(true);
         img.setCache(true);
-        img.getStyleClass().add("thing");
         
 		thingNameLbl = new Label();
 		typeLbl = new Label();

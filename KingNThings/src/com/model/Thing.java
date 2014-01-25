@@ -2,11 +2,7 @@ package com.model;
 
 import java.util.ArrayList;
 
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 
 public abstract class Thing extends GamePiece	{
@@ -244,7 +240,7 @@ public abstract class Thing extends GamePiece	{
 		detailsBox.getChildren().addAll(img, thingNameLbl, typeLbl, ownerLbl);
 	}*/
 	
-	
+	/*
 	public ImageView paintThingRectangle(int size, Pane pane){
 		
 		StackPane stack = new StackPane();
@@ -281,7 +277,7 @@ public abstract class Thing extends GamePiece	{
 		pane.getChildren().add(stack);
 		
 		return img;
-	}
+	}*/
 	//setters and getters
 
 	public Color getColor() {

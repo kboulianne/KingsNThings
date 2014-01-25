@@ -88,9 +88,8 @@ public class BoardView extends Canvas {
 			    if(Util.distanceBtwTwoPts(
 				    clickPtX, clickPtY,
 				    hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH*0.30) {
-				
-				presenter.handleHexClick(i);
-				break;
+			    	presenter.handleHexClick(i);
+			    	break;
 			    }
 			}
 	//		presenter.handleHexClick(event.getX(), event.getY());

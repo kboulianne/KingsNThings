@@ -8,8 +8,11 @@ package com.view.customcontrols;
 
 import com.model.Player;
 import com.model.Thing;
+import com.presenter.Util;
 import com.view.ThingEvent;
+
 import java.util.List;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -91,7 +94,7 @@ public class ArmyOrMisc extends HBox {
 
         @Override
         public void handle(MouseEvent me) {
-		// Fire custom event on mouse clicked
+        		// Fire custom event on mouse clicked
                 img.fireEvent(new ThingEvent(t));
             }
         });

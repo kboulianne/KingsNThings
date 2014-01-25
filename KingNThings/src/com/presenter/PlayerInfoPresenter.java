@@ -52,8 +52,6 @@ public class PlayerInfoPresenter {
     //TODO ViewCup should be managed by GamePresenter
 
     public void handleRackClick(ThingEvent t) {
-	System.out.println("I clicked a thing and I liked it!");
-	System.out.println(t.getThing().toString());
 	
 	// Show thing in detailsview
 	sidePanePresenter.showThingDetailsFor(t.getThing());
