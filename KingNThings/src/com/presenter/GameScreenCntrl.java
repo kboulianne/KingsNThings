@@ -33,9 +33,6 @@ public class GameScreenCntrl {
 	service.getGame().rollDice();
     }
     
-    public void test_Phases() {
-	service.getGame().endTurn();
-    }
 }
 
 

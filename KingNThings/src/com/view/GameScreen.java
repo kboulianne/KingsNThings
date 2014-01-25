@@ -269,15 +269,6 @@ public class GameScreen {
 			    
 			}
 		});
-		
-		// Test handler
-		button.setOnAction(new EventHandler<ActionEvent>() {
-
-		    @Override
-		    public void handle(ActionEvent t) {
-			test();
-		    }
-		});
 	}
 	
 	// Pop-up Functions
@@ -379,9 +370,9 @@ public class GameScreen {
 	}
 	
 	
-	private void test() {
-	    ctrl.test_Phases();
-	}
+//	private void test() {
+//	    ctrl.test_Phases();
+//	}
 	
 	
 	// BINDINGS

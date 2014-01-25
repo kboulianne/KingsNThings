@@ -22,15 +22,21 @@ import com.model.game.phase.init.PlayerOrderPhase;
 import com.model.game.phase.init.StartingForcesPhase;
 import com.model.game.phase.init.StartingKingdomPhase;
 import com.model.game.phase.init.StartingPosPhase;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import javafx.application.Platform;
 
 /**
- *  The Context class in the Strategy Pattern.  This is the Game's "Behaviour".
+ *  The Context class in the Strategy Pattern.  
+ * This is the Game's "Behaviour" or logic and does not need to be coupled with the
+ * game.
  * 
  * @author kurtis
  */
 //TODO make final
 @SuppressWarnings("rawtypes")
 public class GamePlay {
+    
     /**
      * Current gameplay logic to execute.
      */
@@ -41,7 +47,7 @@ public class GamePlay {
     /** Initial phases */
     private final LinkedHashSet<AbstractPhaseStrategy> initPhases;
     
-	private final LinkedHashSet<AbstractPhaseStrategy> gamePhases;
+    private final LinkedHashSet<AbstractPhaseStrategy> gamePhases;
     // Current phase being played by the players.
     private Iterator<AbstractPhaseStrategy> phaseIt;
     
@@ -49,14 +55,28 @@ public class GamePlay {
     // Maps dice total to the player that made the roll.
     private final SortedMap<Integer, Player> rolls;
     
+    /**
+     * Inner class responsible for holding singleton instance.
+     * Initialized once.
+     */
+    private static class SingletonHolder {
+	public static final GamePlay INSTANCE = new GamePlay();
+    }
 
-    public GamePlay() {
-		initPhases = new LinkedHashSet<>();
-		gamePhases = new LinkedHashSet<>();
-		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
-		
-		createInitPhases();
-		createGamePhases();
+    public static GamePlay getInstance() {
+	return SingletonHolder.INSTANCE;
+    }
+    
+
+    private GamePlay() {
+	initPhases = new LinkedHashSet<>();
+	gamePhases = new LinkedHashSet<>();
+	rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
+
+	createInitPhases();
+	createGamePhases();
+	
+	initEventProducer();
     }
    
     private void createInitPhases() {
@@ -133,4 +153,15 @@ public class GamePlay {
 		game.nextPlayer();
     }
 
+private void initEventProducer() {
+
+    Platform.runLater(new Runnable() {
+
+	@Override
+	public void run() {
+//	    lock.lock();
+	}
+    });
+    
+}
 }

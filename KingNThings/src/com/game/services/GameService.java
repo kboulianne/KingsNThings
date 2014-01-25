@@ -117,6 +117,13 @@ public class GameService {
 	return game;
     }
     
+    public void startGame() {
+	// Start executing first phase.
+	
+    }
+    
+    
+    
     public void roll() {
 	// TODO remove rollDice(), allows the service to be bypassed.
 	game.rollDice();
@@ -126,6 +133,6 @@ public class GameService {
     
     public void endTurn() {
 	// TODO remove this from game class.
-	game.endTurn();
+//	game.endTurn();
     }
 }

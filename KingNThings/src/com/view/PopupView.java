@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.view;
 
 import com.presenter.PopupPresenter;
@@ -22,41 +21,41 @@ import javafx.scene.layout.VBox;
  * @author kurtis
  */
 public class PopupView extends VBox {
-    
-    //private GameView parent;
 
+    //private GameView parent;
     private PopupPresenter presenter;
 
     private AnchorPane rootAnchorPane;
     // Content to display
     //private Pane content;
-    
+
     private Label titleLbl;
-    private Button closeBtn; 
-    
+    private Button closeBtn;
+
 //    private boolean showing = false;
-    
     // Parent will always be GameView
     public PopupView() {
-    	buildPopup();
+	buildPopup();
     }
-    
+
     public void setPresenter(final PopupPresenter presenter) {
-        if (presenter == null)
-            throw new NullPointerException("Presenter cannot be null");
-        if (this.presenter != null)
-            throw new IllegalStateException("The presenter was already set.");
-        this.presenter = presenter;
+	if (presenter == null) {
+	    throw new NullPointerException("Presenter cannot be null");
+	}
+	if (this.presenter != null) {
+	    throw new IllegalStateException("The presenter was already set.");
+	}
+	this.presenter = presenter;
     }
-    
+
     public void setParent(GameView parent) {
 		//this.parent = parent;
-		
-		// Add to parent once set
-		parent.getChildren().add(this);
-		StackPane.setAlignment(this, Pos.CENTER);
+
+	// Add to parent once set
+	parent.getChildren().add(this);
+	StackPane.setAlignment(this, Pos.CENTER);
     }
-    
+
     public void show(Pane content) {
     	this.getChildren().clear();
 		
@@ -66,12 +65,12 @@ public class PopupView extends VBox {
 		    setVisible(true);
 		}
     }
-    
+
     /**
      * Shows the Popup with specified content and title.
-     * 
+     *
      * @param content
-     * @param title 
+     * @param title
      */
     public void show(Pane content, String title) {
     	this.getChildren().clear();
@@ -102,7 +101,7 @@ public class PopupView extends VBox {
 		    setVisible(true);
 		}
     }
-    
+
     public void dismiss() {
 		if (isVisible()) {
 		    // Remove and null the content
@@ -110,12 +109,12 @@ public class PopupView extends VBox {
 		    setVisible(false);
 		}
     }
-    
+
     protected void buildPopup() {
-		rootAnchorPane = new AnchorPane();
-		getStyleClass().add("popup");
-		getChildren().addAll(rootAnchorPane);
-		setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
-		setVisible(false);
+	rootAnchorPane = new AnchorPane();
+	getStyleClass().add("popup");
+	getChildren().addAll(rootAnchorPane);
+	setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
+	setVisible(false);
     }
 }

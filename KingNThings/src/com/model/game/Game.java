@@ -39,7 +39,7 @@ public final class Game {
     public static final int 
 	    MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
-    private GamePlay gamePlay;
+//    private GamePlay gamePlay;
 
     private Iterator<Player> nextPlayerIt;
     private List<Player> playerOrder;
@@ -61,7 +61,7 @@ public final class Game {
 		playerOrder = new ArrayList<>();
 	//	nextPlayerIt = playerOrder.iterator();
 		
-		gamePlay = new GamePlay();
+//		gamePlay = new GamePlay();
 		cup = new Cup();
 		
 		// TODO: Factory for 2 or 4 player.
@@ -171,13 +171,13 @@ public final class Game {
      * Gets the phase that the players must currently go through.
      * @return The current phase.
      */
-    public final GamePlay getPhase() { return gamePlay; }
-    
-    /**
-     * Sets the new phase that the players will go through.
-     * @param phase The phase
-     */
-    public final void setPhase(final GamePlay phase) { this.gamePlay = phase; }
+//    public final GamePlay getPhase() { return gamePlay; }
+//    
+//    /**
+//     * Sets the new phase that the players will go through.
+//     * @param phase The phase
+//     */
+//    public final void setPhase(final GamePlay phase) { this.gamePlay = phase; }
     
     /**
      * Gets the first opponent.
@@ -241,13 +241,16 @@ public final class Game {
     }
   
     // TODO use Phase class to pass data to GamePlay and next?
-    public void endTurn() {
-	// Execute the phase logic
-	//TODO Rename, ambiguous since it modifies this instance.
-	gamePlay.next();
-    }
+//    public void endTurn() {
+//	// Execute the phase logic
+//	//TODO Rename, ambiguous since it modifies this instance.
+//	gamePlay.next();
+//    }
 
     //TODO startGame() -> signals start of phase?
+    public void start() {
+	
+    }
     
     /**
      * Returns true if the current player is the last player in the turn order.

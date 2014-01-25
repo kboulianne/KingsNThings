@@ -9,8 +9,12 @@ package com.presenter;
 import com.game.services.GameService;
 import com.model.Player;
 import com.model.game.Game;
+import com.model.game.phase.GamePlay;
 import com.view.GameView;
 import com.view.ThingEvent;
+import java.util.concurrent.locks.Lock;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 
 /**
@@ -69,6 +73,11 @@ public class GamePresenter {
 	// Update view
 	Game model = GameService.getInstance().getGame();
 	view.setGame(model);
+	
+	// Everything is loaded, start game
+	GameService.getInstance().startGame();
+	
+	listenForGameEvents();
     }
     
     
@@ -80,9 +89,36 @@ public class GamePresenter {
         return view;
     }
     
-    public void handleGamePlayEvents(Object someFutureObjectClass) {
+    private void listenForGameEvents() {
 	// Hook up to game.getGamePlay().someEvent?
 	// then update view
+	
+	// Start a background thread that wakes up when GamePlay notifies it
+	// of a new action.
+	Service<Void> service = new Service<Void>() {
+
+	    @Override
+	    protected Task<Void> createTask() {
+		return new Task<Void>() {
+
+		    // For now 
+		    
+		    @Override
+		    protected Void call() throws Exception {
+			// Get the lock from gameplay
+			// TODO See potential singleton threading issues.
+//			final Lock lock = GamePlay.getInstance().getTestLock();
+			
+			// Wait for gameplay to unlock.
+//			lock.lock();
+//			lock.unlock();
+			return null;
+		    }
+		};
+	    }
+	};
+	
+	service.start();
     }
 
     // UI Logic stuff is done here. Access service for model.
@@ -92,8 +128,9 @@ public class GamePresenter {
 	
 	Game game = GameService.getInstance().getGame();
 	view.setGame(game);
+	
 	// For now
-	playerInfoPresenter.getView().setPlayer(game.getCurrentPlayer());
+//	playerInfoPresenter.getView().setPlayer(game.getCurrentPlayer());
     }
     
     public void showCup() {

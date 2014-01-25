@@ -39,6 +39,8 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
     public void executePhase(Object input) {
 	Game game = GameService.getInstance().getGame();
 	
+	// Request action from the user
+	
 	// Automatic Roll
 	game.rollDice();
 	
