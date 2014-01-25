@@ -31,6 +31,8 @@ public class CreatureDetailsView extends ThingDetailsView {
 		specialAbilitiesLbl = new Label();
 		
 		moveButton = new Button("Move");
+		
+		getChildren().addAll(combatLbl, specialAbilitiesLbl, moveButton);
     }
 
     @Override
@@ -60,15 +62,13 @@ public class CreatureDetailsView extends ThingDetailsView {
 		    specialAbilitiesLbl.setText("Abilities: " + abilities);
 		    
 		}
+		// TODO Don't know how to do this, presenter should be boardPresenter for moveButton
+		// but boardPresenter is null
 		
-		//presenter.handleMoveButtonClick(moveButton);
+		//boardPresenter.handleMoveButtonClick(moveButton);
 		super.setThing(thing);
-		getChildren().addAll(combatLbl, specialAbilitiesLbl, moveButton);
+		
     }
-
-	public Button getMoveButton() {
-		return moveButton;
-	}
     
     
 }

@@ -4,8 +4,6 @@ import java.util.*;
 
 import com.presenter.Util;
 
-import javafx.scene.layout.Pane;
-
 public abstract class Creature extends Thing	{
 	private static final Map<String, Integer> combatVals;
 	static	{

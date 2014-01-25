@@ -112,7 +112,7 @@ public class BoardView extends Canvas {
      * Paints the specified Hex on the canvas.
      * @param hex The hex to paint.
      */
-    private void paintHex(final Hex hex) {
+    public void paintHex(final Hex hex) {
 		GraphicsContext gc = getGraphicsContext2D();
 		double height = HEX_HEIGHT;
 	//		double choosenMapping[][] = GameScreen.getChoosenMapping();

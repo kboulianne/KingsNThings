@@ -26,7 +26,7 @@ public class CupPopup extends FlowPane {
     
     private EventHandler<ThingEvent> thingHandler;
 	    // Might not be the best way but works.
-	    public CupPopup(List<Thing> things, EventHandler<ThingEvent> event) {
+	public CupPopup(List<Thing> things, EventHandler<ThingEvent> event) {
 		this.thingHandler = event;
 		buildPopup(things);
     }
@@ -69,23 +69,23 @@ public class CupPopup extends FlowPane {
 		final ImageView img = new ImageView(t.getImage());
 		img.setFitWidth(size-7); 
 		img.setFitHeight(size-7);
-	        img.setPreserveRatio(false);
-	        img.setSmooth(true);
-	        img.setCache(true);
-	        img.getStyleClass().add("thing");
-	        
-	        // TODO Clean me up
-	        img.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	
-	            @Override
-	            public void handle(MouseEvent me) {
-			// Fire custom event on mouse clicked
-	                img.fireEvent(new ThingEvent(t));
-	            }
-	        });
-	        
-	        // Add custom handler
-	        img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
+        img.setPreserveRatio(false);
+        img.setSmooth(true);
+        img.setCache(true);
+        img.getStyleClass().add("thing");
+        
+        // TODO Clean me up
+        img.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent me) {
+            	// Fire custom event on mouse clicked
+                img.fireEvent(new ThingEvent(t));
+            }
+        });
+        
+        // Add custom handler
+        img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
 	        
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(borderRect, coloredRect, img);

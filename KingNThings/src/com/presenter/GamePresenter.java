@@ -124,6 +124,8 @@ public class GamePresenter {
     }
     
     public void dismissPopup() {
+    	
 	popupPresenter.dismissPopup();
     }
+    
 }

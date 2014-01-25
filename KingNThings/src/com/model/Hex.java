@@ -269,6 +269,16 @@ public class Hex extends GamePiece {
 	public String getTypeAsString() {
 		return typeAsString;
 	}
+
+
+	public int getMovementWeight() {
+		return movementWeight;
+	}
+
+
+	public void setMovementWeight(int movementWeight) {
+		this.movementWeight = movementWeight;
+	}
 	
 	/*
 	public void paintHexInDetails(Pane detailsBox){

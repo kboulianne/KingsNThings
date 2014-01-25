@@ -59,11 +59,6 @@ public class PopupView extends VBox {
     
     public void show(Pane content) {
     	this.getChildren().clear();
-    	//content.getChildren().removeAll(titleLbl, closeBtn);
-		
-    	//TODO 
-    	//titleLbl.setVisible(true);
-		//closeBtn.setVisible(false);
 		
 		if (!isVisible()) {
 		    // Set the view to display
@@ -79,11 +74,11 @@ public class PopupView extends VBox {
      * @param title 
      */
     public void show(Pane content, String title) {
+    	this.getChildren().clear();
     	
     	// Title
 		titleLbl = new Label(title);
 		titleLbl.getStyleClass().add("title");
-		rootAnchorPane.getChildren().add(titleLbl);
 		AnchorPane.setLeftAnchor(titleLbl, 0.0);
 		
 		// Close button
@@ -92,25 +87,23 @@ public class PopupView extends VBox {
 	
 		    @Override
 		    public void handle(ActionEvent t) {
-			dismiss();
-			presenter.dismissPopup();
+		    	dismiss();
 		    }
 		});
-		rootAnchorPane.getChildren().add(closeBtn);
+		rootAnchorPane.getChildren().addAll(titleLbl, closeBtn);
 		AnchorPane.setRightAnchor(closeBtn, 0.0);
     	
 		//titleLbl.setVisible(true);
 		//closeBtn.setVisible(true);
 		// Only execute if not visible
-		//if (!isVisible()) {
+		if (!isVisible()) {
 		    // Set the view to display.
 		    getChildren().addAll(rootAnchorPane,content);	
 		    setVisible(true);
-		//}
+		}
     }
     
     public void dismiss() {
-    	//Util.log("dismiss");
 		if (isVisible()) {
 		    // Remove and null the content
 		    getChildren().clear();   

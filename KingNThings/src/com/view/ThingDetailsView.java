@@ -9,6 +9,7 @@ package com.view;
 import com.model.Creature;
 import com.model.IncomeCounter;
 import com.model.Thing;
+import com.presenter.BoardPresenter;
 import com.presenter.ThingDetailsPresenter;
 
 import javafx.geometry.Pos;
@@ -27,6 +28,10 @@ import javafx.scene.shape.Rectangle;
 public class ThingDetailsView extends VBox {
     
     protected ThingDetailsPresenter presenter;
+   
+    //TODO
+    //needs to be set or shouldnt be here
+    BoardPresenter boardPresenter;
     
     //private ImageView thingIv;
     StackPane stack;
@@ -87,6 +92,9 @@ public class ThingDetailsView extends VBox {
 		thingNameLbl = new Label();
 		typeLbl = new Label();
 		ownerLbl = new Label();
+		
+		stack.getChildren().addAll(borderRect, coloredRect, img);
+	    getChildren().addAll(stack, thingNameLbl, typeLbl, ownerLbl);
     }
     
     public void setThing(final Thing thing) {
@@ -105,12 +113,7 @@ public class ThingDetailsView extends VBox {
 		    
 		    thingNameLbl.setText(thing.getName().toUpperCase());
 		    typeLbl.setText("Type: " + type);
-		    ownerLbl.setText("Owner: " + thing.getOwner());
-		    
-		    stack.getChildren().addAll(borderRect, coloredRect, img);
-		    getChildren().addAll(stack, thingNameLbl, typeLbl, ownerLbl);
-		    
-		    
+		    ownerLbl.setText("Owner: " + thing.getOwner()); 
         }
     }
 }
