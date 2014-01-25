@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.presenter;
 
 import com.model.Hex;
@@ -15,26 +14,26 @@ import com.view.HexDetailsView;
  * @author kurtis
  */
 public class HexDetailsPresenter {
-    private HexDetailsView view;
-    private SidePanePresenter sidePanePresenter;
-    
-    public HexDetailsPresenter(HexDetailsView view, SidePanePresenter sidePanePresenter) {
-    	this.view = view;
-    	this.view.setPresenter(this);
-        this.sidePanePresenter = sidePanePresenter;
-    }
-    
-    public HexDetailsView getView() {
-	return view;
-    }
-    
-    
-    public void showHex(Hex h) {
-    	view.setHex(h);
-    }
 
-    public void handleThingClick(Thing t) {
-        // Show ThingDetailView in SidePane.
-        sidePanePresenter.showThingDetailsFor(t);
-    }
+	private HexDetailsView view;
+	private SidePanePresenter sidePanePresenter;
+
+	public HexDetailsPresenter(HexDetailsView view, SidePanePresenter sidePanePresenter) {
+		this.view = view;
+		this.view.setPresenter(this);
+		this.sidePanePresenter = sidePanePresenter;
+	}
+
+	public HexDetailsView getView() {
+		return view;
+	}
+
+	public void showHex(Hex h) {
+		view.setHex(h);
+	}
+
+	public void handleThingClick(Thing t) {
+		// Show ThingDetailView in SidePane.
+		sidePanePresenter.showThingDetailsFor(t);
+	}
 }

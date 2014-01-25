@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.model.game.phase;
 
 import com.game.services.GameService;
@@ -17,6 +16,7 @@ import java.util.TreeMap;
 
 import com.model.Player;
 import com.model.game.Game;
+import com.model.game.GameEvents;
 import com.model.game.phase.init.ExchangePhase;
 import com.model.game.phase.init.PlayerOrderPhase;
 import com.model.game.phase.init.StartingForcesPhase;
@@ -24,144 +24,148 @@ import com.model.game.phase.init.StartingKingdomPhase;
 import com.model.game.phase.init.StartingPosPhase;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 
 /**
- *  The Context class in the Strategy Pattern.  
- * This is the Game's "Behaviour" or logic and does not need to be coupled with the
- * game.
- * 
+ * The Context class in the Strategy Pattern. This is the Game's "Behaviour" or logic and does not need to be coupled
+ * with the game.
+ *
  * @author kurtis
  */
 //TODO make final
 @SuppressWarnings("rawtypes")
 public class GamePlay {
-    
-    /**
-     * Current gameplay logic to execute.
-     */
-    private AbstractPhaseStrategy phaseLogic;
+
+	/**
+	 * Current gameplay logic to execute.
+	 */
+	private AbstractPhaseStrategy phaseLogic;
     // Shared Model this strategy acts upon
-    
-    
-    /** Initial phases */
-    private final LinkedHashSet<AbstractPhaseStrategy> initPhases;
-    
-    private final LinkedHashSet<AbstractPhaseStrategy> gamePhases;
-    // Current phase being played by the players.
-    private Iterator<AbstractPhaseStrategy> phaseIt;
-    
+
+	/**
+	 * Initial phases
+	 */
+	private final LinkedHashSet<AbstractPhaseStrategy> initPhases;
+
+	private final LinkedHashSet<AbstractPhaseStrategy> gamePhases;
+	// Current phase being played by the players.
+	private Iterator<AbstractPhaseStrategy> phaseIt;
+
     // TODO Add a model?
-    // Maps dice total to the player that made the roll.
-    private final SortedMap<Integer, Player> rolls;
-    
-    /**
-     * Inner class responsible for holding singleton instance.
-     * Initialized once.
-     */
-    private static class SingletonHolder {
-	public static final GamePlay INSTANCE = new GamePlay();
-    }
+	// Maps dice total to the player that made the roll.
+	private final SortedMap<Integer, Player> rolls;
 
-    public static GamePlay getInstance() {
-	return SingletonHolder.INSTANCE;
-    }
-    
+	// TESTING FOR NOW
+	private GameEvents gameEvents = new GameEvents();
 
-    private GamePlay() {
-	initPhases = new LinkedHashSet<>();
-	gamePhases = new LinkedHashSet<>();
-	rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
+	/**
+	 * Inner class responsible for holding singleton instance. Initialized once.
+	 */
+	private static class SingletonHolder {
 
-	createInitPhases();
-	createGamePhases();
-	
-	initEventProducer();
-    }
-   
-    private void createInitPhases() {
-	initPhases.add(new PlayerOrderPhase(this));
-	initPhases.add(new StartingPosPhase(this));
-	initPhases.add(new StartingKingdomPhase(this));
-	initPhases.add(new StartingForcesPhase(this));
-	initPhases.add(new ExchangePhase(this));
-	
-	// Set current phase logic/strategy
-	phaseIt = initPhases.iterator();
-	phaseLogic = phaseIt.next();
-	
-	// TODO move me elsewhere.
-	// Signal start of phase
-	phaseLogic.phaseStart();
-    }
-    
-    private void createGamePhases() {
-	gamePhases.add(new GoldCollectPhase(this));
-	gamePhases.add(new RecruitCharPhase(this));
-	gamePhases.add(new RecruitThingsPhase(this));
-	gamePhases.add(new RandomEventPhase(this));
-	gamePhases.add(new MovementPhase(this));
-	gamePhases.add(new CombatPhase(this));
-	gamePhases.add(new ConstructionPhase(this));
-	gamePhases.add(new SpecialPowersPhase(this));
-	gamePhases.add(new ChangePlayOrderPhase(this));
-    }
-    
-    public void addPlayerRoll(int total, Player p) {
-	// TODO Handle case where two players have the same dice total.
-	rolls.put(total, p);
-    }
-    
-    public void clearRolls() {
-	rolls.clear();
-    }
-    
-    public final Collection<Player> getPlayersHighToLow() {
-	return rolls.values();
-    }
-    
-    private void nextPhase() {
-	
-	if (!phaseIt.hasNext()) {    
-	    // Move iterator to gamePhases.
-	    phaseIt = gamePhases.iterator();
+		public static final GamePlay INSTANCE = new GamePlay();
 	}
-	phaseLogic = phaseIt.next();
 
-	// Phase start
-	phaseLogic.phaseStart();
-    }
-    
-    /**
-     * Goes to the next player, and switches phases if needed.
-     */
-    @SuppressWarnings("unchecked")
+	public static GamePlay getInstance() {
+		return SingletonHolder.INSTANCE;
+	}
+
+	private GamePlay() {
+		initPhases = new LinkedHashSet<>();
+		gamePhases = new LinkedHashSet<>();
+		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
+
+		createInitPhases();
+		createGamePhases();
+
+		// TESTING
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				gameEvents.produce();
+			}
+		}).start();
+	}
+
+	private void createInitPhases() {
+		initPhases.add(new PlayerOrderPhase(this));
+		initPhases.add(new StartingPosPhase(this));
+		initPhases.add(new StartingKingdomPhase(this));
+		initPhases.add(new StartingForcesPhase(this));
+		initPhases.add(new ExchangePhase(this));
+
+		// Set current phase logic/strategy
+		phaseIt = initPhases.iterator();
+		phaseLogic = phaseIt.next();
+
+	// TODO move me elsewhere.
+		// Signal start of phase
+		phaseLogic.phaseStart();
+	}
+
+	private void createGamePhases() {
+		gamePhases.add(new GoldCollectPhase(this));
+		gamePhases.add(new RecruitCharPhase(this));
+		gamePhases.add(new RecruitThingsPhase(this));
+		gamePhases.add(new RandomEventPhase(this));
+		gamePhases.add(new MovementPhase(this));
+		gamePhases.add(new CombatPhase(this));
+		gamePhases.add(new ConstructionPhase(this));
+		gamePhases.add(new SpecialPowersPhase(this));
+		gamePhases.add(new ChangePlayOrderPhase(this));
+	}
+
+	public void addPlayerRoll(int total, Player p) {
+		// TODO Handle case where two players have the same dice total.
+		rolls.put(total, p);
+	}
+
+	public void clearRolls() {
+		rolls.clear();
+	}
+
+	public final Collection<Player> getPlayersHighToLow() {
+		return rolls.values();
+	}
+
+	private void nextPhase() {
+
+		if (!phaseIt.hasNext()) {
+			// Move iterator to gamePhases.
+			phaseIt = gamePhases.iterator();
+		}
+		phaseLogic = phaseIt.next();
+
+		// Phase start
+		phaseLogic.phaseStart();
+	}
+
+	/**
+	 * Goes to the next player, and switches phases if needed.
+	 */
+	@SuppressWarnings("unchecked")
 	public final void next() {
 		// TODO make sure to no mismatch Game "state" stuff and game "logic" stuff in here. State stuff goes in Game.
 		Game game = GameService.getInstance().getGame();
-		
+
 		// Execute logic then go to next player / phase
 		phaseLogic.execute(null);
-		
+
 		// Signal end of phase
 		if (game.isLastPlayer()) {
-		    phaseLogic.phaseEnd();
-		    nextPhase();    // Next call to execute, does new phase logic.
+			phaseLogic.phaseEnd();
+			nextPhase();    // Next call to execute, does new phase logic.
 		}
-		
+
 		// State modification. Call method in game
 		game.nextPlayer();
-    }
-
-private void initEventProducer() {
-
-    Platform.runLater(new Runnable() {
-
-	@Override
-	public void run() {
-//	    lock.lock();
 	}
-    });
-    
-}
+
+	public GameEvents getGameEvents() {
+		return gameEvents;
+	}
+
 }

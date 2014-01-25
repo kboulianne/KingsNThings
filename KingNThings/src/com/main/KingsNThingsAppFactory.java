@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.main;
 
 import com.presenter.DicePresenter;
@@ -29,108 +28,109 @@ import com.view.ThingDetailsView;
  * @author kurtis
  */
 public class KingsNThingsAppFactory {
-    private GamePresenter mainPresenter;
-    private DicePresenter dicePresenter;
-    private SidePanePresenter sidePanePresenter;
-    private BoardPresenter boardPresenter;
-    private HexDetailsPresenter hexDetailsPresenter;
-    private ThingDetailsPresenter thingDetailsPresenter;
-    private PlayerInfoPresenter playerInfoPresenter;
-    private PopupPresenter popupPresenter;
-    
-    // TODO refactor into a better factory? Or is this sufficient?
-    public GamePresenter getMainPresenter() {
-	if (mainPresenter == null) {
-	    GameView view = new GameView();
-	    mainPresenter = new GamePresenter(
-		    view,
-		    getDicePresenter(),
-		    getSidePanePresenter(),
-		    getBoardPresenter(),
-		    getPlayerInfoPresenter(),
-		    getPopupPresenter()
-	    );
+
+	private GamePresenter mainPresenter;
+	private DicePresenter dicePresenter;
+	private SidePanePresenter sidePanePresenter;
+	private BoardPresenter boardPresenter;
+	private HexDetailsPresenter hexDetailsPresenter;
+	private ThingDetailsPresenter thingDetailsPresenter;
+	private PlayerInfoPresenter playerInfoPresenter;
+	private PopupPresenter popupPresenter;
+
+	// TODO refactor into a better factory? Or is this sufficient?
+	public GamePresenter getMainPresenter() {
+		if (mainPresenter == null) {
+			GameView view = new GameView();
+			mainPresenter = new GamePresenter(
+					view,
+					getDicePresenter(),
+					getSidePanePresenter(),
+					getBoardPresenter(),
+					getPlayerInfoPresenter(),
+					getPopupPresenter()
+			);
+		}
+
+		return mainPresenter;
 	}
-	
-	return mainPresenter;
-    }
-    
-    public DicePresenter getDicePresenter() {
-	/// Create the presenter if needed.
-	if (dicePresenter == null) {
-	    DiceView view = new DiceView();
-	    dicePresenter = new DicePresenter(view, mainPresenter);
+
+	public DicePresenter getDicePresenter() {
+		/// Create the presenter if needed.
+		if (dicePresenter == null) {
+			DiceView view = new DiceView();
+			dicePresenter = new DicePresenter(view, mainPresenter);
+		}
+
+		return dicePresenter;
 	}
-	
-	return dicePresenter;
-    }
-    
-    public SidePanePresenter getSidePanePresenter() {
-	if (sidePanePresenter == null) {
-	    SidePaneView view = new SidePaneView();
-	    sidePanePresenter = new SidePanePresenter(view);
-	    
-	    // Avoids infinite recursion
-	    sidePanePresenter.setHexDetailsPresenter(getHexDetailsPresenter());
-	    sidePanePresenter.setThingDetailsPresenter(getThingDetailsPresenter());
-	    sidePanePresenter.setGamePresenter(getMainPresenter());
+
+	public SidePanePresenter getSidePanePresenter() {
+		if (sidePanePresenter == null) {
+			SidePaneView view = new SidePaneView();
+			sidePanePresenter = new SidePanePresenter(view);
+
+			// Avoids infinite recursion
+			sidePanePresenter.setHexDetailsPresenter(getHexDetailsPresenter());
+			sidePanePresenter.setThingDetailsPresenter(getThingDetailsPresenter());
+			sidePanePresenter.setGamePresenter(getMainPresenter());
+		}
+
+		return sidePanePresenter;
 	}
-	
-	return sidePanePresenter;
-    }
-    
-    public BoardPresenter getBoardPresenter() {
-	if (boardPresenter == null) {
-	    BoardView view = new BoardView();
-	    boardPresenter = new BoardPresenter(
-		    view,
-		    getSidePanePresenter()
-	    );
+
+	public BoardPresenter getBoardPresenter() {
+		if (boardPresenter == null) {
+			BoardView view = new BoardView();
+			boardPresenter = new BoardPresenter(
+					view,
+					getSidePanePresenter()
+			);
+		}
+
+		return boardPresenter;
 	}
-	
-	return boardPresenter;
-    }
-    
-    public HexDetailsPresenter getHexDetailsPresenter() {
-	if (hexDetailsPresenter == null) {
-	    HexDetailsView view = new HexDetailsView();
-	    hexDetailsPresenter = new HexDetailsPresenter(view, getSidePanePresenter());
+
+	public HexDetailsPresenter getHexDetailsPresenter() {
+		if (hexDetailsPresenter == null) {
+			HexDetailsView view = new HexDetailsView();
+			hexDetailsPresenter = new HexDetailsPresenter(view, getSidePanePresenter());
+		}
+
+		return hexDetailsPresenter;
 	}
-	
-	return hexDetailsPresenter;
-    }
-    
-    public ThingDetailsPresenter getThingDetailsPresenter() {
-        if (thingDetailsPresenter == null) {
-            ThingDetailsView view = new ThingDetailsView();
-	    CreatureDetailsView cView = new CreatureDetailsView();
-            thingDetailsPresenter = new ThingDetailsPresenter(view, cView);
-        }
-        
-        return thingDetailsPresenter;
-    }
-    
-    public PlayerInfoPresenter getPlayerInfoPresenter() {
-	if (playerInfoPresenter == null) {
-	    PlayerInfoView view = new PlayerInfoView();
-	    playerInfoPresenter = new PlayerInfoPresenter(
-		    view,
-		    getSidePanePresenter()
-	    );
-	    
-	    // Avoids infinite recursion
-	    playerInfoPresenter.setGamePresenter(getMainPresenter());
+
+	public ThingDetailsPresenter getThingDetailsPresenter() {
+		if (thingDetailsPresenter == null) {
+			ThingDetailsView view = new ThingDetailsView();
+			CreatureDetailsView cView = new CreatureDetailsView();
+			thingDetailsPresenter = new ThingDetailsPresenter(view, cView);
+		}
+
+		return thingDetailsPresenter;
 	}
-	
-	return playerInfoPresenter;
-    }
-    
-    public PopupPresenter getPopupPresenter() {
-	if (popupPresenter == null) {
-	    PopupView view = new PopupView();
-	    popupPresenter = new PopupPresenter(view);
+
+	public PlayerInfoPresenter getPlayerInfoPresenter() {
+		if (playerInfoPresenter == null) {
+			PlayerInfoView view = new PlayerInfoView();
+			playerInfoPresenter = new PlayerInfoPresenter(
+					view,
+					getSidePanePresenter()
+			);
+
+			// Avoids infinite recursion
+			playerInfoPresenter.setGamePresenter(getMainPresenter());
+		}
+
+		return playerInfoPresenter;
 	}
-	
-	return popupPresenter;
-    }
+
+	public PopupPresenter getPopupPresenter() {
+		if (popupPresenter == null) {
+			PopupView view = new PopupView();
+			popupPresenter = new PopupPresenter(view);
+		}
+
+		return popupPresenter;
+	}
 }

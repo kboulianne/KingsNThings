@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.model.game.phase;
 
 import java.util.ArrayList;
@@ -29,102 +28,102 @@ import com.view.GameScreen;
  *
  * @author kurtis
  */
-public class GoldCollectPhase extends AbstractPhaseStrategy<Object>{
+public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 
-    public GoldCollectPhase(GamePlay context) {
-    	super(context);
-    }
+	public GoldCollectPhase(GamePlay context) {
+		super(context);
+	}
 
-    @Override
-    public void phaseStart() {
-	System.out.println("Game Phase: Start of Gold Collection Phase");
-    }
+	@Override
+	public void phaseStart() {
+		System.out.println("Game Phase: Start of Gold Collection Phase");
+	}
 
-    @Override
-    public void preExecutePhase(Object input) {
-    }
+	@Override
+	public void preExecutePhase(Object input) {
+	}
 
-    @Override
-    public void executePhase(Object input) {
-    	@SuppressWarnings("unused")
+	@Override
+	public void executePhase(Object input) {
+		@SuppressWarnings("unused")
 		ArrayList<Thing> list;
-    	int hexGold = 100;
-    	int fortGold = 50;
-    	int counterGold = 25;
-    	int specCharGold = 0;
-    	int totalGold = 0;
-    	Game game = GameService.getInstance().getGame();
-    	Player player = game.getCurrentPlayer();
-    	System.out.println("Game Phase: Logic for " + player.getName());
-    	
-    	for(Hex h: game.getBoard().getHexes())	{
-    		if((h != null) && (h.getOwner() == player))	{
-    			hexGold++;
-    			for(Player p: h.getArmies().keySet())	{
-    				if(p == player)	{
-    					list = h.getArmies().get(p);
-    				}
-    			}
-    		}
-    	}
-    	
-    	totalGold += (hexGold + fortGold + counterGold + specCharGold);
-    	
-    	AnchorPane ap = new AnchorPane();
-    	ap.setPrefSize(500,500);
-		
+		int hexGold = 100;
+		int fortGold = 50;
+		int counterGold = 25;
+		int specCharGold = 0;
+		int totalGold = 0;
+		Game game = GameService.getInstance().getGame();
+		Player player = game.getCurrentPlayer();
+		System.out.println("Game Phase: Logic for " + player.getName());
+
+		for (Hex h : game.getBoard().getHexes()) {
+			if ((h != null) && (h.getOwner() == player)) {
+				hexGold++;
+				for (Player p : h.getArmies().keySet()) {
+					if (p == player) {
+						list = h.getArmies().get(p);
+					}
+				}
+			}
+		}
+
+		totalGold += (hexGold + fortGold + counterGold + specCharGold);
+
+		AnchorPane ap = new AnchorPane();
+		ap.setPrefSize(500, 500);
+
 		Label label = new Label("Gold Income");
 		label.getStyleClass().add("title");
 		ap.getChildren().add(label);
 		AnchorPane.setLeftAnchor(label, 0.0);
-		
+
 		Button button = new Button("  X  ");
 		ap.getChildren().add(button);
 		AnchorPane.setRightAnchor(button, 0.0);
-		
+
 		ImageView im = new ImageView("view/com/assets/pics/gold.png");
 		im.setFitWidth(500);
 		im.setPreserveRatio(true);
 		ap.getChildren().add(im);
 		AnchorPane.setTopAnchor(im, 60.0);
-    	Label hexes = new Label("Hex Income:  " + hexGold);
-    	Label forts = new Label("Fort Income:  " + fortGold);
-    	Label counters = new Label("Counter Income:  " + counterGold);
-    	Label specChars = new Label("Character Income:  " + specCharGold);
-    	Label divider = new Label("------------------------");
-    	Label total = new Label("Total Income:  " + totalGold);
-    	VBox labels = new VBox();
-    	labels.setAlignment(Pos.BASELINE_RIGHT);
-    	labels.getChildren().addAll(hexes, forts, counters, specChars, divider, total);
-    	ap.getChildren().add(labels);
-    	AnchorPane.setLeftAnchor(labels, 120.0);
-    	AnchorPane.setTopAnchor(labels, 420.0);
-		
+		Label hexes = new Label("Hex Income:  " + hexGold);
+		Label forts = new Label("Fort Income:  " + fortGold);
+		Label counters = new Label("Counter Income:  " + counterGold);
+		Label specChars = new Label("Character Income:  " + specCharGold);
+		Label divider = new Label("------------------------");
+		Label total = new Label("Total Income:  " + totalGold);
+		VBox labels = new VBox();
+		labels.setAlignment(Pos.BASELINE_RIGHT);
+		labels.getChildren().addAll(hexes, forts, counters, specChars, divider, total);
+		ap.getChildren().add(labels);
+		AnchorPane.setLeftAnchor(labels, 120.0);
+		AnchorPane.setTopAnchor(labels, 420.0);
+
 		VBox popupVbox = new VBox();
 		popupVbox.getStyleClass().add("popup");
 		popupVbox.getChildren().addAll(ap);
 		popupVbox.setAlignment(Pos.CENTER);
 		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
-		
-		button.setOnAction(new EventHandler<ActionEvent>() {		
+
+		button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
 				GameScreen.dismissPopup();
 			}
 		});
-		
+
 		GameScreen.popup(popupVbox);
 		player.addGold(totalGold);
-    }
+	}
 
-    @Override
-    public void postExecutePhase(Object input) {
-	
-    }
+	@Override
+	public void postExecutePhase(Object input) {
 
-    @Override
-    public void phaseEnd() {
-	System.out.println("Game Phase: End of Gold Collection Phase");
-    }
-    
+	}
+
+	@Override
+	public void phaseEnd() {
+		System.out.println("Game Phase: End of Gold Collection Phase");
+	}
+
 }
