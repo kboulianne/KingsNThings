@@ -34,67 +34,67 @@ public class PlayerInfoView extends AnchorPane {
     private Button viewCupBtn;
     
     public PlayerInfoView() {
-	buildView();
+    	buildView();
     }
     
     protected void buildView() {
-	setId("bottomSection");
+		setId("bottomSection");
+		
+		// Current PlayerInfo Box. Wraps PlayerLabel and Gold VBox, and Rack.
+		HBox currentPlayerInfoBox = new HBox();
+		currentPlayerInfoBox.setId("playerInfo");
+		
+		
+		// Holds PlayerLabel and Gold
+		VBox currentPlayerNameAndGold = new VBox();
+		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
+		
+		// Current player and gold
+		currentPlayerlbl = new PlayerLabel();
+		currentPlayerlbl.setOnMouseEntered(new EventHandler<MouseEvent>() {
 	
-	// Current PlayerInfo Box. Wraps PlayerLabel and Gold VBox, and Rack.
-	HBox currentPlayerInfoBox = new HBox();
-	currentPlayerInfoBox.setId("playerInfo");
+		    @Override
+		    public void handle(MouseEvent t) {
+			presenter.showCurrentPlayerInfo();
+		    }
+		});
+		currentPlayerlbl.setOnMouseExited(new EventHandler<MouseEvent>() {
 	
+		    @Override
+		    public void handle(MouseEvent t) {
+			presenter.dismissCurrentPlayerInfo();
+		    }
+		});
+		
+		goldLbl = new Label();
+		currentPlayerNameAndGold.getChildren().addAll(currentPlayerlbl, goldLbl);
+		
+		// Rack
+		EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
 	
-	// Holds PlayerLabel and Gold
-	VBox currentPlayerNameAndGold = new VBox();
-	currentPlayerNameAndGold.setAlignment(Pos.CENTER);
+		    @Override
+		    public void handle(ThingEvent t) {
+			presenter.handleRackClick(t);
+		    }
+		};
+		
+		rack = new Rack(handler);
+		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
+		
+			// For now Should be in GameView
+		viewCupBtn = new Button("View Cup");
+		viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
 	
-	// Current player and gold
-	currentPlayerlbl = new PlayerLabel();
-	currentPlayerlbl.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-	    @Override
-	    public void handle(MouseEvent t) {
-		presenter.showCurrentPlayerInfo();
-	    }
-	});
-	currentPlayerlbl.setOnMouseExited(new EventHandler<MouseEvent>() {
-
-	    @Override
-	    public void handle(MouseEvent t) {
-		presenter.dismissCurrentPlayerInfo();
-	    }
-	});
-	
-	goldLbl = new Label();
-	currentPlayerNameAndGold.getChildren().addAll(currentPlayerlbl, goldLbl);
-	
-	// Rack
-	EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
-
-	    @Override
-	    public void handle(ThingEvent t) {
-		presenter.handleRackClick(t);
-	    }
-	};
-	
-	rack = new Rack(handler);
-	currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
-	
-		// For now Should be in GameView
-	viewCupBtn = new Button("View Cup");
-	viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-	    @Override
-	    public void handle(ActionEvent t) {
-		presenter.handleCupClick();
-	    }
-	});
-	
-	AnchorPane.setRightAnchor(viewCupBtn, 10.0);
-	AnchorPane.setBottomAnchor(viewCupBtn, 12.0);
-	
-	getChildren().addAll(viewCupBtn, currentPlayerInfoBox);
+		    @Override
+		    public void handle(ActionEvent t) {
+			presenter.handleCupClick();
+		    }
+		});
+		
+		AnchorPane.setRightAnchor(viewCupBtn, 10.0);
+		AnchorPane.setBottomAnchor(viewCupBtn, 12.0);
+		
+		getChildren().addAll(viewCupBtn, currentPlayerInfoBox);
     }
     
     public void setPresenter(final PlayerInfoPresenter presenter) {
@@ -108,12 +108,12 @@ public class PlayerInfoView extends AnchorPane {
     }
     
     public void setPlayer(Player current) {
-	if (current != null) {
-	    //TODO refactor to take Name and Color
-	    currentPlayerlbl.setPlayer(current);
-	    goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
-	    
-	    rack.setThings(current.getBlock().getListOfThings());
-	}
+		if (current != null) {
+		    //TODO refactor to take Name and Color
+		    currentPlayerlbl.setPlayer(current);
+		    goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
+		    
+		    rack.setThings(current.getBlock().getListOfThings());
+		}
     }
 }

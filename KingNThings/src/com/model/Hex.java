@@ -37,7 +37,7 @@ public class Hex extends GamePiece implements Paintable {
 	boolean selectable;
 	boolean highlighted;
 	HexType type;
-	int movementWeight = 1;
+	int movementWeight; // value of -1 if not able to move to
 	
 	int[] joiningHexes; // Integer array of hex id's, size 6
 	
@@ -102,6 +102,8 @@ public class Hex extends GamePiece implements Paintable {
 	    currentPlayerArmy = new ArrayList<>();
 	    miscThings = new ArrayList<>();
 
+	    movementWeight = -1;
+	    
 	    // TODO put the army in player and link here?
 //	    armies = new HashMap<>();
 	    // TESTING for now
@@ -273,7 +275,7 @@ public class Hex extends GamePiece implements Paintable {
 			gc.drawImage(image, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
 	}
 	
-	
+	/*
 	public void paintHexInDetails(Pane detailsBox){
 		detailsBox.getChildren().clear();
 		
@@ -292,7 +294,7 @@ public class Hex extends GamePiece implements Paintable {
 		for (int i: joiningHexes){
 			test+=i+", "; 
 		}
-		Label testLbl = new Label("removeLater: id="+id+" joins with:"+test);
+		Label testLbl = new Label("removeLater: id:"+id+" joins with:"+test);
 		Label ownerLbl = new Label("Owner: Not owned");
 		if (owner != null){
 			ownerLbl.setText("Owner:"+ owner.getName());
@@ -311,8 +313,9 @@ public class Hex extends GamePiece implements Paintable {
 		sp.getChildren().addAll(img, contentBox);
 		detailsBox.getChildren().add(sp);
 		
-	}
+	}*/
 	
+	/*
 	private void paintArmyORMisc(List<Thing> army, Color c, Pane contentBox, final Pane detailsBox){
 		if(!army.isEmpty()){
 			HBox armyBox = new HBox();
@@ -340,7 +343,7 @@ public class Hex extends GamePiece implements Paintable {
 			
 			contentBox.getChildren().add(armyBox);
 		}	
-	}
+	}*/
 
 	
 	

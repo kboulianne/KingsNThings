@@ -32,15 +32,15 @@ public class CupPopup extends FlowPane {
     }
     
     private void buildPopup(List<Thing> things) {
-	setVgap(1);
-	setHgap(1);
-	setPadding(new Insets(10, 0, 0, 0));
-	//TODO Hardcoded
-	setPrefWrapLength(1180);
-	
-	for (Thing t : things) {
-	    createTileImageView(t);
-	}
+		setVgap(1);
+		setHgap(1);
+		setPadding(new Insets(10, 0, 0, 0));
+		//TODO Hardcoded
+		setPrefWrapLength(1180);
+		
+		for (Thing t : things) {
+		    createTileImageView(t);
+		}
     }
     
     // IS DUPLICATED NEED TO BE PUT IN Tile class

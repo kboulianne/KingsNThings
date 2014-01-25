@@ -2,6 +2,8 @@ package com.model;
 
 import java.util.*;
 
+import com.presenter.Util;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -321,7 +323,7 @@ public abstract class Creature extends Thing	{
 	}
 	
 	public void paintThingInDetails(Pane detailsBox){
-		detailsBox.getChildren().clear();
+		/*detailsBox.getChildren().clear();
 		
 		paintThingRectangle(260, detailsBox);
 
@@ -350,16 +352,17 @@ public abstract class Creature extends Thing	{
 		
 		detailsBox.getChildren().addAll(thingNameLbl, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl);
 		
-		Button moveButton = new Button("Move");
+		Button moveButton = new Button("Moverrrrr");
 		detailsBox.getChildren().add(moveButton);
 		moveButton.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				Util.log("Here");
 				highlighAvailableMoves();
 			}
-		});
+		});*/
 		
 	}
 	
@@ -368,7 +371,7 @@ public abstract class Creature extends Thing	{
 		//int hexLocation = 0;
 		
 		Map<Integer, Hex> hexesThatCanBeMovedToMap = new HashMap<Integer, Hex>(); // to be moved to board class 
-		
+		Util.log("Here");
 		//Integer is the cost to move to that hex
 		
 		//get joining hexes 1 radius away

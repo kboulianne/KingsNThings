@@ -16,13 +16,11 @@ import com.view.HexDetailsView;
  */
 public class HexDetailsPresenter {
     private HexDetailsView view;
-    
     private SidePanePresenter sidePanePresenter;
     
     public HexDetailsPresenter(HexDetailsView view, SidePanePresenter sidePanePresenter) {
-	this.view = view;
-	this.view.setPresenter(this);
-        
+    	this.view = view;
+    	this.view.setPresenter(this);
         this.sidePanePresenter = sidePanePresenter;
     }
     
@@ -32,7 +30,7 @@ public class HexDetailsPresenter {
     
     
     public void showHex(Hex h) {
-	view.setHex(h);
+    	view.setHex(h);
     }
 
     public void handleThingClick(Thing t) {
