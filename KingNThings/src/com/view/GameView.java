@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.view;
 
 import com.model.game.Game;
@@ -19,118 +18,121 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 // TODO: Can't really make an abstract view since multiple inheritance is forbidden. Use Template Pattern?
-
-/** Main Entry point of MVP. This is the main game screen.
+/**
+ * Main Entry point of MVP. This is the main game screen.
  *
  * @author kurtis
  */
 public class GameView extends StackPane {
 
-    private GamePresenter presenter;
+	private GamePresenter presenter;
 //    // Sub-presenters
 //    private DicePresenter dicePresenter;
-   
-    public VBox rootVBox;
-    private AnchorPane gameStatus;
-    private HBox centerBox;
-    private Label currentPlayerLbl;
-    
+
+	public VBox rootVBox;
+	private AnchorPane gameStatus;
+	private HBox centerBox;
+	private Label currentPlayerLbl;
+
     // Class-level controls needing exposure outside buildView()
-    // private Button roll;
-    public GameView() {
-        buildView();
-    }
-    
-    public void setPresenter(final GamePresenter presenter) {
-        if (presenter == null)
-            throw new NullPointerException("Presenter cannot be null");
-        
-        if (this.presenter != null)
-            throw new IllegalStateException("The presenter was already set.");
-        
-        this.presenter = presenter;
-    }
-    
-    protected void buildView() {
-	// Root Pane stuff
-	rootVBox = new VBox();
-	rootVBox.getStyleClass().add("border");
-	rootVBox.setAlignment(Pos.TOP_CENTER);
-	
-	setAlignment(Pos.TOP_CENTER);
-	
-	
-	// Game status stuff
-	gameStatus = new AnchorPane();
-	gameStatus.setId("gameStatus");
-	
-	// TODO add a "Current action to execute" label.
-	currentPlayerLbl = new Label();
-	currentPlayerLbl.getStyleClass().add("title");
-	gameStatus.getChildren().add(currentPlayerLbl);
-	AnchorPane.setLeftAnchor(currentPlayerLbl, 0.0);
-	AnchorPane.setTopAnchor(currentPlayerLbl, 10.0);
-	
-	// Contains sidepaneview and PlayArea
-	centerBox = new HBox();
+	// private Button roll;
+	public GameView() {
+		buildView();
+	}
 
-	Button test = new Button("Test Phases");
-	AnchorPane.setLeftAnchor(test, 500.0);
-	AnchorPane.setTopAnchor(test, 0.0);
-	test.setOnAction(new EventHandler<ActionEvent>() {
+	public void setPresenter(final GamePresenter presenter) {
+		if (presenter == null) {
+			throw new NullPointerException("Presenter cannot be null");
+		}
 
-	    @Override
-	    public void handle(ActionEvent t) {
-		presenter.endPlayerTurn();
-	    }
-	});
-	gameStatus.getChildren().add(test);
-	rootVBox.getChildren().addAll(gameStatus, centerBox);
-	getChildren().add(rootVBox);
-    }
-    
-    /**
-     * Adds the DiceView as a sub-view.
-     * @param view The DiceView to add.
-     */
-    public void addDiceView(DiceView view) {
-	gameStatus.getChildren().add(view);
-	
-	AnchorPane.setRightAnchor(view, 0.0);
-	AnchorPane.setTopAnchor(view, 0.0);
-	
+		if (this.presenter != null) {
+			throw new IllegalStateException("The presenter was already set.");
+		}
+
+		this.presenter = presenter;
+	}
+
+	protected void buildView() {
+		// Root Pane stuff
+		rootVBox = new VBox();
+		rootVBox.getStyleClass().add("border");
+		rootVBox.setAlignment(Pos.TOP_CENTER);
+
+		setAlignment(Pos.TOP_CENTER);
+
+		// Game status stuff
+		gameStatus = new AnchorPane();
+		gameStatus.setId("gameStatus");
+
+		// TODO add a "Current action to execute" label.
+		currentPlayerLbl = new Label();
+		currentPlayerLbl.getStyleClass().add("title");
+		gameStatus.getChildren().add(currentPlayerLbl);
+		AnchorPane.setLeftAnchor(currentPlayerLbl, 0.0);
+		AnchorPane.setTopAnchor(currentPlayerLbl, 10.0);
+
+		// Contains sidepaneview and PlayArea
+		centerBox = new HBox();
+
+//	Button test = new Button("Test Phases");
+//	AnchorPane.setLeftAnchor(test, 500.0);
+//	AnchorPane.setTopAnchor(test, 0.0);
+//	test.setOnAction(new EventHandler<ActionEvent>() {
+//
+//	    @Override
+//	    public void handle(ActionEvent t) {
+//		presenter.endPlayerTurn();
+//	    }
+//	});
+//	gameStatus.getChildren().add(test);
+		rootVBox.getChildren().addAll(gameStatus, centerBox);
+		getChildren().add(rootVBox);
+	}
+
+	/**
+	 * Adds the DiceView as a sub-view.
+	 *
+	 * @param view The DiceView to add.
+	 */
+	public void addDiceView(DiceView view) {
+		gameStatus.getChildren().add(view);
+
+		AnchorPane.setRightAnchor(view, 0.0);
+		AnchorPane.setTopAnchor(view, 0.0);
+
 //	rootVBox.getChildren().add(0, gameStatus);
-    }
-    
-    public void addSidePaneView(SidePaneView view) {
-	// Add to the centerBox
-	centerBox.getChildren().add(view);
-	
-	// TODO needs restructuring
+	}
+
+	public void addSidePaneView(SidePaneView view) {
+		// Add to the centerBox
+		centerBox.getChildren().add(view);
+
+		// TODO needs restructuring
 //	rootVBox.getChildren().add(1, centerBox);
-    }
-    
-    public void addBoardView(BoardView view) {
+	}
+
+	public void addBoardView(BoardView view) {
 	//.add(1, view) as precaution
-	//rootVBox.getChildren().add(2, playingArea);
-	centerBox.getChildren().add(view);
-    }
-    
-    public void addPlayerInfoView(PlayerInfoView view) {
-	rootVBox.getChildren().add(view);
-    }
-    
-    /**
-     * Sets the new UI State according to the data contained in Game instance.
-     * @param game The game object the UI should display.
-     */
-    public void setGame(final Game game) {
+		//rootVBox.getChildren().add(2, playingArea);
+		centerBox.getChildren().add(view);
+	}
+
+	public void addPlayerInfoView(PlayerInfoView view) {
+		rootVBox.getChildren().add(view);
+	}
+
+	/**
+	 * Sets the new UI State according to the data contained in Game instance.
+	 *
+	 * @param game The game object the UI should display.
+	 */
+	public void setGame(final Game game) {
 		//TODO Could actually do most updating here since this presenter has all
 		// other presenters as a dependency.
 		// As a precaution.
 		if (game != null) {
-		    // Set all GameView properties here
-		    currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: <ACTION>");   
+			// Set all GameView properties here
+			currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: <ACTION>");
 		}
-    }
+	}
 }

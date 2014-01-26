@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.view.customcontrols;
 
 import com.model.Player;
@@ -17,28 +16,27 @@ import javafx.scene.shape.Circle;
  * @author kurtis
  */
 public class PlayerLabel extends HBox {
-    
-    private Circle color;
-    private Label name;
-    private Player model;
-    
-    public PlayerLabel() {
-	buildComponent();
-    }
-    
-    protected void buildComponent() {
-	// Positioning
-	setAlignment(Pos.CENTER);
-	
-	name = new Label();
-	name.getStyleClass().add("playerName"); 
-	color = new Circle();
-	color.setRadius(6);
+
+	private Circle color;
+	private Label name;
+	private Player model;
+
+	public PlayerLabel() {
+		buildComponent();
+	}
+
+	protected void buildComponent() {
+		// Positioning
+		setAlignment(Pos.CENTER);
+
+		name = new Label();
+		name.getStyleClass().add("playerName");
+		color = new Circle();
+		color.setRadius(6);
 //	circle.setFill(color);   
 //	HBox playerBox = new HBox();
-	getChildren().addAll(color, name);
+		getChildren().addAll(color, name);
 
-		
 //		playerBox.setOnMouseEntered(new EventHandler<Event>() {
 //
 //			@Override
@@ -64,7 +62,6 @@ public class PlayerLabel extends HBox {
 //				GameScreen.popup(popupContentVbox);
 //			}
 //		});
-		
 //		playerBox.setOnMouseExited(new EventHandler<Event>() {
 //
 //			@Override
@@ -73,17 +70,16 @@ public class PlayerLabel extends HBox {
 //			}	
 //		});
 //		
-	
 //	pane.getChildren().addAll(playerBox);
-    }
-    
-    public Player getPlayer() {
-	return model;
-    }
-    
-    public void setPlayer(Player player) {
-	this.model = player;
-	color.setFill(player.getColor());
-	name.setText("Sir " + player.getName());
-    }
+	}
+
+	public Player getPlayer() {
+		return model;
+	}
+
+	public void setPlayer(Player player) {
+		this.model = player;
+		color.setFill(player.getColor());
+		name.setText("Sir " + player.getName());
+	}
 }

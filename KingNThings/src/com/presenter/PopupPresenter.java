@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.presenter;
 
 import com.model.Player;
@@ -20,32 +19,31 @@ import javafx.event.EventHandler;
  * @author kurtis
  */
 public class PopupPresenter {
-    private PopupView view;
-    
+
+	private PopupView view;
+
     // All the views (Pane classes) this popup can display.
-    //private PlayerPopup playerPopup;
-   // private CupPopup cupPopup;
-    
-    public PopupPresenter(PopupView view) {
+	//private PlayerPopup playerPopup;
+	// private CupPopup cupPopup;
+	public PopupPresenter(PopupView view) {
 		this.view = view;
 		this.view.setPresenter(this);
-    }
-  
+	}
 
-    public PopupView getView() {
-    	return view;
-    }
+	public PopupView getView() {
+		return view;
+	}
 
-    public void dismissPopup() {
-    	view.dismiss();
-    }
+	public void dismissPopup() {
+		view.dismiss();
+	}
 
-    public void showPlayerPopup(Player p) {
-    	view.show(new PlayerPopup(p));
-    }
-    
-    public void showCupPopup(List<Thing> things, String title, EventHandler<ThingEvent> event) {
+	public void showPlayerPopup(Player p) {
+		view.show(new PlayerPopup(p));
+	}
 
-	view.show(new CupPopup(things, event), title);
-    }
+	public void showCupPopup(List<Thing> things, String title, EventHandler<ThingEvent> event) {
+
+		view.show(new CupPopup(things, event), title);
+	}
 }

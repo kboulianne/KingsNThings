@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.model.game.phase.init;
 
 import com.game.services.GameService;
@@ -16,16 +15,18 @@ import com.model.game.phase.GamePlay;
  * @author kurtis
  */
 public class StartingPosPhase extends AbstractPhaseStrategy<Hex> /*implements HexInput*/ {
-    
-    public StartingPosPhase(GamePlay context) {
-	super(context);
-    }
-    /**
-     * Execute this phase's logic.
-     * @param input The hex tile selected as the start position.
-     */
-    @Override
-    public void executePhase(final Hex input) {
+
+	public StartingPosPhase(GamePlay context) {
+		super(context);
+	}
+
+	/**
+	 * Execute this phase's logic.
+	 *
+	 * @param input The hex tile selected as the start position.
+	 */
+	@Override
+	public void executePhase(final Hex input) {
 //	Game game = service.getGame();
 //	
 //	// Set the starting position for the current player.  Just need to take ownership of the hex.	
@@ -33,35 +34,32 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Hex> /*implements He
 //	
 //	// Next player
 //	game.nextPlayer();
-	
-	System.out.println("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-    }
 
-    
-    
+		System.out.println("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+	}
+
 //    @Override
 //    public void executePhase(final Hex hex) {
 //	
 //    }
+	@Override
+	public void preExecutePhase(Hex input) {
 
-    @Override
-    public void preExecutePhase(Hex input) {
-	
-    }
+	}
 
-    @Override
-    public void postExecutePhase(Hex input) {
+	@Override
+	public void postExecutePhase(Hex input) {
 
-    }
+	}
 
-    @Override
-    public void phaseStart() {
-	System.out.println("Start of Starting Positions Phase");
-    }
+	@Override
+	public void phaseStart() {
+		System.out.println("Start of Starting Positions Phase");
+	}
 
-    @Override
-    public void phaseEnd() {
-	System.out.println("End of Starting Positions Phase");
-    }
-    
+	@Override
+	public void phaseEnd() {
+		System.out.println("End of Starting Positions Phase");
+	}
+
 }
