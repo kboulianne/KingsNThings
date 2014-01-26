@@ -28,7 +28,6 @@ public class ThingDetailsView extends VBox {
 	protected ThingDetailsPresenter presenter;
 
     //TODO
-<<<<<<< HEAD
     //needs to be set or shouldnt be here
    // private BoardPresenter boardPresenter;
 
@@ -55,37 +54,7 @@ public class ThingDetailsView extends VBox {
     }
     
     protected void buildView() {
-=======
-	//needs to be set or shouldnt be here
-	BoardPresenter boardPresenter;
 
-	//private ImageView thingIv;
-	StackPane stack;
-	Rectangle borderRect;
-	private ImageView img;
-	private Label thingNameLbl;
-	private Label typeLbl;
-	private Label ownerLbl;
-	private Rectangle coloredRect;
-
-	public ThingDetailsView() {
-		buildView();
-	}
-
-	public void setPresenter(final ThingDetailsPresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
-		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
-	}
-
-	protected void buildView() {
->>>>>>> 35ce1c56cdfad54c35f765cd7a597e27db5fc074
 		setAlignment(Pos.CENTER);
 		getStyleClass().add("block");
 
@@ -122,29 +91,7 @@ public class ThingDetailsView extends VBox {
 		ownerLbl = new Label();
 
 		stack.getChildren().addAll(borderRect, coloredRect, img);
-<<<<<<< HEAD
-	    getChildren().addAll(stack, thingNameLbl, typeLbl, ownerLbl);
-    }
-    
-    public void setThing(final Thing thing) {
-        if (thing != null) {
-        	
-		    img.setImage(thing.getImage());
-		    coloredRect.setFill(thing.getColor());
-		    
-		    String type = "error";
-		    if(thing instanceof Creature) {
-		    	type = ((Creature) thing).getDomain();
-		    }
-		    if(thing instanceof IncomeCounter){
-		    	type = "Income Counter";
-		    }
-		    thingNameLbl.setText(thing.getName().toUpperCase());
-		    typeLbl.setText("Type: " + type);
-		    ownerLbl.setText("Owner: " + thing.getOwner()); 
-        }
-    }
-=======
+
 		getChildren().addAll(stack, thingNameLbl, typeLbl, ownerLbl);
 	}
 
@@ -167,5 +114,4 @@ public class ThingDetailsView extends VBox {
 			ownerLbl.setText("Owner: " + thing.getOwner());
 		}
 	}
->>>>>>> 35ce1c56cdfad54c35f765cd7a597e27db5fc074
 }

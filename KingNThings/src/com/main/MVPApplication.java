@@ -19,7 +19,6 @@ import javafx.stage.StageStyle;
  */
 public class MVPApplication extends Application {
 
-<<<<<<< HEAD
     static final double WIDTH = 1280;
     static final double HEIGHT = 800;
     
@@ -52,38 +51,4 @@ public class MVPApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-=======
-	static final double WIDTH = 1280;
-	static final double HEIGHT = 800;
-
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-	@Override
-	public void start(Stage stage) throws Exception {
-
-		KingsNThingsAppFactory factory = new KingsNThingsAppFactory();
-		GamePresenter main = factory.getMainPresenter();
-
-//        GameView view = new GameView(GameService.getInstance().getGame());
-//        GamePresenter presenter = new GamePresenter(view);
-//        view.setPresenter(presenter);
-		stage.setTitle("Kings & Things");
-		stage.setMinWidth(1000);
-		stage.setMinHeight(600);
-		stage.initStyle(StageStyle.DECORATED);
-		stage.setResizable(false);
-		stage.setFullScreen(false);
-		stage.getIcons().add(new Image("view/com/assets/pics/icon.png"));
-
-		Scene scene = new Scene(main.getView(), WIDTH, HEIGHT);
-		scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
-		scene.getStylesheets().add("view/com/assets/docs/gameScreen.css");
-
-		stage.setScene(scene);
-		stage.show();
-	}
-
->>>>>>> 35ce1c56cdfad54c35f765cd7a597e27db5fc074
 }

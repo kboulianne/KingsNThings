@@ -145,21 +145,12 @@ public class GameScreen {
 		//playingAreaScrollPane.setContent(playingArea);
 		choosenMapping = MAPPING_37_TILES;
 		hexCenterPoints = new double[choosenMapping.length][2];
-<<<<<<< HEAD
 		for(int i = 0; i<choosenMapping.length;i++){
 			double xOffset = choosenMapping[i][0]*0.75*HEX_WIDTH-40.0;
 			double yOffset = choosenMapping[i][1]*0.5*HEX_HEIGHT-30.0;
 			hexCenterPoints[i][0]=xOffset+(HEX_WIDTH*0.5);
 			hexCenterPoints[i][1]=yOffset+(HEX_HEIGHT*0.5);
 			//hexes.get(i).paint(null);
-=======
-		for (int i = 0; i < choosenMapping.length; i++) {
-			double xOffset = choosenMapping[i][0] * 0.75 * HEX_WIDTH - 40.0;
-			double yOffset = choosenMapping[i][1] * 0.5 * HEX_HEIGHT - 30.0;
-			hexCenterPoints[i][0] = xOffset + (HEX_WIDTH * 0.5);
-			hexCenterPoints[i][1] = yOffset + (HEX_HEIGHT * 0.5);
-			hexes.get(i).paint(null);
->>>>>>> 35ce1c56cdfad54c35f765cd7a597e27db5fc074
 		}
 
 		// SIDE PANE

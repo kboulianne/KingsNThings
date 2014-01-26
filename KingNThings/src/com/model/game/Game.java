@@ -40,7 +40,6 @@ public final class Game {
 	 */
 	private Board board;
 //    private Die die1;
-<<<<<<< HEAD
     private Die die1;
     private Die die2;
     private int mode;
@@ -59,25 +58,7 @@ public final class Game {
      */
     //TODO not supposed to expose this (make protected?)
     public Game() {
-=======
-	private Die die1;
-	private Die die2;
-	private int mode;
-	public static final int MODE_FOUR_PLAYER = 1,
-			MODE_TWO_THREE_PLAYER = 2;
-//    private GamePlay gamePlay;
 
-	private Iterator<Player> nextPlayerIt;
-	private List<Player> playerOrder;
-	private Cup cup;
-
-	// Constructors & Initializer Methods ==============================================================================
-	/**
-	 * Creates a new Game instance defaulting to Four player mode.
-	 */
-	//TODO not supposed to expose this (make protected?)
-	public Game() {
->>>>>>> 35ce1c56cdfad54c35f765cd7a597e27db5fc074
 		mode = MODE_FOUR_PLAYER;
 
 		// Initialize the dice
@@ -93,10 +74,7 @@ public final class Game {
 
 		// TODO: Factory for 2 or 4 player.
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
-<<<<<<< HEAD
-=======
 
->>>>>>> 35ce1c56cdfad54c35f765cd7a597e27db5fc074
 		HexFactory hexFactory = new HexFactory();
 
 		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
@@ -104,7 +82,7 @@ public final class Game {
 		// Choose Hexes at random from the pool and add to the board.
 		int rand = 0;
 		Random rnd = new Random();
-<<<<<<< HEAD
+
 	
 		for (int i = 0 ; i < board.getHexNum() ; i ++) {
 		    rand = rnd.nextInt(hexPool.size());
@@ -112,15 +90,7 @@ public final class Game {
 		    board.addHex(hexPool.get(rand));
 		    hexPool.get(rand).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
 		    hexPool.remove(rand);
-=======
 
-		for (int i = 0; i < board.getHexNum(); i++) {
-			rand = rnd.nextInt(hexPool.size());
-			// Add hex to position i in board hex array.
-			board.addHex(hexPool.get(rand));
-			hexPool.get(rand).setId(i);
-			hexPool.remove(rand);
->>>>>>> 35ce1c56cdfad54c35f765cd7a597e27db5fc074
 		}
 
 		//Cup created with all things required for gameplay
