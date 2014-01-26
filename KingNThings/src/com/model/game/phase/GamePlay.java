@@ -16,12 +16,13 @@ import java.util.TreeMap;
 
 import com.model.Player;
 import com.model.game.Game;
-import com.model.game.GameEvents;
 import com.model.game.phase.init.ExchangePhase;
 import com.model.game.phase.init.PlayerOrderPhase;
 import com.model.game.phase.init.StartingForcesPhase;
 import com.model.game.phase.init.StartingKingdomPhase;
 import com.model.game.phase.init.StartingPosPhase;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
@@ -57,9 +58,9 @@ public class GamePlay {
 	// Maps dice total to the player that made the roll.
 	private final SortedMap<Integer, Player> rolls;
 
-	// TESTING FOR NOW
-	private GameEvents gameEvents = new GameEvents();
-
+	// public for now
+	public final BlockingQueue<String> actions;
+	
 	/**
 	 * Inner class responsible for holding singleton instance. Initialized once.
 	 */
@@ -76,13 +77,14 @@ public class GamePlay {
 		initPhases = new LinkedHashSet<>();
 		gamePhases = new LinkedHashSet<>();
 		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
+		actions = new ArrayBlockingQueue<>(1);
 
 		createInitPhases();
 		createGamePhases();
 
 		// TESTING
 		// TODO call run on demand?
-		new Thread(GameEvents.getProducer()).start();
+//		new Thread(GameEvents.getProducer()).start();
 //		new Thread(new Runnable() {
 //
 //			@Override
@@ -166,8 +168,8 @@ public class GamePlay {
 		game.nextPlayer();
 	}
 
-	public GameEvents getGameEvents() {
-		return gameEvents;
-	}
+//	public GameEvents getGameEvents() {
+//		return gameEvents;
+//	}
 
 }

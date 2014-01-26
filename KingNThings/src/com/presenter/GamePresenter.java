@@ -8,14 +8,17 @@ package com.presenter;
 import com.game.services.GameService;
 import com.model.Player;
 import com.model.game.Game;
-import com.model.game.GameEvents;
 import com.model.game.phase.GamePlay;
 import com.view.GameView;
 import com.view.ThingEvent;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.locks.Lock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 
 /**
@@ -36,6 +39,29 @@ public class GamePresenter {
 	private PlayerInfoPresenter playerInfoPresenter;
 	private PopupPresenter popupPresenter;
 
+	final static Task<Void> gamePlayActions;
+	
+	static {
+		gamePlayActions = new Task<Void>() {
+
+			@Override
+			protected Void call() throws Exception {
+			
+				// Listen for next action to be executed by user.
+				synchronized (GamePlay.getInstance().actions) {
+					System.out.println("Blocked TASK");
+					GamePlay.getInstance().actions.wait();
+					System.out.println("Unblocked TASK");
+				}
+				return null;
+			}
+		};
+		
+		new Thread(gamePlayActions).start();
+	}
+	
+	
+	
 	public GamePresenter(
 			final GameView view,
 			final DicePresenter dicePresenter,
@@ -75,9 +101,9 @@ public class GamePresenter {
 		view.setGame(model);
 
 		// Everything is loaded, start game
-		GameService.getInstance().startGame();
+//		GameService.getInstance().startGame();
 
-		listenForGameEvents();
+//		initGamePlayThread();
 	}
 
 	/**
@@ -89,39 +115,60 @@ public class GamePresenter {
 		return view;
 	}
 
-	private void listenForGameEvents() {
-		// Hook up to game.getGamePlay().someEvent?
+	private void initGamePlayThread() {
+		//TODO Factory creates the presenter 3 times.
+		System.out.println("INIT");
+//		final Task<String> task = new Task<String>() {
+//
+//			@Override
+//			protected String call() throws Exception {
+//				
+//			}
+//		};
+//		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+//
+//			@Override
+//			public void handle(WorkerStateEvent t) {
+//				System.out.println(task.getValue());
+//			}
+//		});
+//
+//		new Thread(task).start();
+		
+// Hook up to game.getGamePlay().someEvent?
 		// then update view
-		GamePlay.getInstance();
-		// Start a background thread that wakes up when GamePlay notifies it
-		// of a new action.
-		Service<Void> service = new Service<Void>() {
-
-			@Override
-			protected Task<Void> createTask() {
-				return new Task<Void>() {
-
-					@Override
-					protected Void call() throws Exception {
-						System.out.println("GamePresenter: call()");
-						
-						// Consumes messages
-						GameEvents.getConsumer().run();
-						
-						return null;
-					}
-				};
-			}
-		};
-
-		service.start();
+//		GamePlay.getInstance();
+//		// Start a background thread that wakes up when GamePlay notifies it
+//		// of a new action.
+//		Service<Void> service = new Service<Void>() {
+//
+//			@Override
+//			protected Task<Void> createTask() {
+//				return new Task<Void>() {
+//
+//					@Override
+//					protected Void call() throws Exception {
+//						System.out.println("GamePresenter: call()");
+//						
+//						// Consumes messages
+//						GameEvents.getConsumer().run();
+//						
+//						return null;
+//					}
+//				};
+//			}
+//		};
+//
+//		service.start();
 		
 	}
 
 	// UI Logic stuff is done here. Access service for model.
 	public void endPlayerTurn() {
-		GameService.getInstance().endTurn();
-
+//		GameService.getInstance().endTurn();
+		// FOR NOW 
+		GamePlay.getInstance().next();
+		
 		Game game = GameService.getInstance().getGame();
 		view.setGame(game);
 
@@ -148,7 +195,7 @@ public class GamePresenter {
 		popupPresenter.showCupPopup(game.getCup().getListOfThings(), "Cup", handler);
 
 		// TESTING: THIS WILL BE IN phase executes
-		GameEvents.getProducer().setMessage("A TEST MESSAGE");
+//		GameEvents.getProducer().setMessage("A TEST MESSAGE");
 
 //	popupPresenter.showPopup();
 	}

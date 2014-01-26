@@ -9,6 +9,8 @@ import com.game.services.GameService;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,6 +39,28 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 
 		// Request action from the user
 		// Automatic Roll
+		
+		//TODO Abstract this into 1 call
+		synchronized (context.actions) {
+			context.actions.offer("please roll");
+			context.actions.notifyAll();
+			
+			try {
+				// Wait for UI to trigger the action.
+				System.out.println("Waiting for UI.");
+				context.actions.wait();
+				System.out.println("UI triggered the action.");
+			} catch (InterruptedException ex) {
+				Logger.getLogger(PlayerOrderPhase.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+//		synchronized (context.actions) {
+//			try {
+//				context.actions.wait();
+//			} catch (InterruptedException ex) {
+//				Logger.getLogger(PlayerOrderPhase.class.getName()).log(Level.SEVERE, null, ex);
+//			}
+//		}
 		game.rollDice();
 
 		// Add the rolled dice total to the context for later use.

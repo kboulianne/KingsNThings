@@ -32,9 +32,18 @@ public abstract class AbstractPhaseStrategy<T> implements IPhaseStrategy<T> {
 //    public void postExecutePhase(T input) {
 //	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-	public final void execute(T input) {
+	public final void execute(final T input) {
 		preExecutePhase(input);
-		executePhase(input);
+		
+		// TESTING FOR NOW
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				executePhase(input);
+			}
+		}).start();
+		
 		postExecutePhase(input);
 	}
 
