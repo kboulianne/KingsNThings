@@ -8,7 +8,6 @@ package com.view.customcontrols;
 
 import com.model.Player;
 import com.model.Thing;
-import com.presenter.Util;
 import com.view.ThingEvent;
 
 import java.util.List;

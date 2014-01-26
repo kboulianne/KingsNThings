@@ -7,8 +7,8 @@ import javafx.scene.paint.Color;
 
 public abstract class Thing extends GamePiece	{
 	
-	Color color;
-	String owner;
+	private Color color;
+	private String owner;
 	
 	Thing(String name)	{
 		super(name);

@@ -9,7 +9,6 @@ package com.view;
 import com.model.Creature;
 import com.model.IncomeCounter;
 import com.model.Thing;
-import com.presenter.BoardPresenter;
 import com.presenter.ThingDetailsPresenter;
 
 import javafx.geometry.Pos;
@@ -31,11 +30,10 @@ public class ThingDetailsView extends VBox {
    
     //TODO
     //needs to be set or shouldnt be here
-    BoardPresenter boardPresenter;
-    
-    //private ImageView thingIv;
-    StackPane stack;
-    Rectangle borderRect;
+   // private BoardPresenter boardPresenter;
+
+    private StackPane stack;
+    private Rectangle borderRect;
     private ImageView img;
     private Label thingNameLbl;
     private Label typeLbl;
@@ -109,7 +107,6 @@ public class ThingDetailsView extends VBox {
 		    if(thing instanceof IncomeCounter){
 		    	type = "Income Counter";
 		    }
-		    
 		    thingNameLbl.setText(thing.getName().toUpperCase());
 		    typeLbl.setText("Type: " + type);
 		    ownerLbl.setText("Owner: " + thing.getOwner()); 

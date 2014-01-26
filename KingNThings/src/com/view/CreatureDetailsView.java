@@ -20,6 +20,7 @@ public class CreatureDetailsView extends ThingDetailsView {
 
     private Label combatLbl;
     private Label specialAbilitiesLbl;
+    private Label testLbl;
     private Button moveButton;
     
     @Override
@@ -29,10 +30,11 @@ public class CreatureDetailsView extends ThingDetailsView {
 		
 		combatLbl = new Label();
 		specialAbilitiesLbl = new Label();
+		testLbl = new Label();
 		
 		moveButton = new Button("Move");
 		
-		getChildren().addAll(combatLbl, specialAbilitiesLbl, moveButton);
+		getChildren().addAll(combatLbl, specialAbilitiesLbl, testLbl, moveButton);
     }
 
     @Override
@@ -57,7 +59,7 @@ public class CreatureDetailsView extends ThingDetailsView {
 		    if(abilities.isEmpty()){
 		    	abilities = " None";
 		    }
-		    
+		    testLbl.setText("Avail Moves: "+ c.getNumberOfMovesAvailable());
 		    combatLbl.setText("Combat Value: " + c.getCombatVal());
 		    specialAbilitiesLbl.setText("Abilities: " + abilities);
 		    

@@ -30,13 +30,12 @@ public class MVPApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
+    	KingsNThingsAppFactory factory = new KingsNThingsAppFactory();
+    	GamePresenter main = factory.getMainPresenter();
 	
-	KingsNThingsAppFactory factory = new KingsNThingsAppFactory();
-	GamePresenter main = factory.getMainPresenter();
-	
-//        GameView view = new GameView(GameService.getInstance().getGame());
-//        GamePresenter presenter = new GamePresenter(view);
-//        view.setPresenter(presenter);
+		// GameView view = new GameView(GameService.getInstance().getGame());
+		// GamePresenter presenter = new GamePresenter(view);
+		// view.setPresenter(presenter);
 	
         stage.setTitle("Kings & Things");
         stage.setMinWidth(1000);
@@ -47,11 +46,10 @@ public class MVPApplication extends Application {
         stage.getIcons().add(new Image("view/com/assets/pics/icon.png"));
 	
         Scene scene = new Scene(main.getView(), WIDTH, HEIGHT);
-	scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
-	scene.getStylesheets().add("view/com/assets/docs/gameScreen.css");
+        scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
+        scene.getStylesheets().add("view/com/assets/docs/gameScreen.css");
 	
         stage.setScene(scene);
         stage.show();
     }
-    
 }

@@ -40,64 +40,63 @@ public class KingsNThingsAppFactory {
     
     // TODO refactor into a better factory? Or is this sufficient?
     public GamePresenter getMainPresenter() {
-	if (mainPresenter == null) {
-	    GameView view = new GameView();
-	    mainPresenter = new GamePresenter(
-		    view,
-		    getDicePresenter(),
-		    getSidePanePresenter(),
-		    getBoardPresenter(),
-		    getPlayerInfoPresenter(),
-		    getPopupPresenter()
-	    );
-	}
-	
-	return mainPresenter;
+		if (mainPresenter == null) {
+		    GameView view = new GameView();
+		    mainPresenter = new GamePresenter(
+			    view,
+			    getDicePresenter(),
+			    getSidePanePresenter(),
+			    getBoardPresenter(),
+			    getPlayerInfoPresenter(),
+			    getPopupPresenter()
+		    );
+		}
+		
+		return mainPresenter;
     }
     
     public DicePresenter getDicePresenter() {
-	/// Create the presenter if needed.
-	if (dicePresenter == null) {
-	    DiceView view = new DiceView();
-	    dicePresenter = new DicePresenter(view, mainPresenter);
-	}
-	
-	return dicePresenter;
+		/// Create the presenter if needed.
+		if (dicePresenter == null) {
+		    DiceView view = new DiceView();
+		    dicePresenter = new DicePresenter(view, mainPresenter);
+		}
+		return dicePresenter;
     }
     
     public SidePanePresenter getSidePanePresenter() {
-	if (sidePanePresenter == null) {
-	    SidePaneView view = new SidePaneView();
-	    sidePanePresenter = new SidePanePresenter(view);
-	    
-	    // Avoids infinite recursion
-	    sidePanePresenter.setHexDetailsPresenter(getHexDetailsPresenter());
-	    sidePanePresenter.setThingDetailsPresenter(getThingDetailsPresenter());
-	    sidePanePresenter.setGamePresenter(getMainPresenter());
-	}
-	
-	return sidePanePresenter;
+		if (sidePanePresenter == null) {
+		    SidePaneView view = new SidePaneView();
+		    sidePanePresenter = new SidePanePresenter(view);
+		    
+		    // Avoids infinite recursion
+		    sidePanePresenter.setHexDetailsPresenter(getHexDetailsPresenter());
+		    sidePanePresenter.setThingDetailsPresenter(getThingDetailsPresenter());
+		    sidePanePresenter.setGamePresenter(getMainPresenter());
+		}
+		
+		return sidePanePresenter;
     }
     
     public BoardPresenter getBoardPresenter() {
-	if (boardPresenter == null) {
-	    BoardView view = new BoardView();
-	    boardPresenter = new BoardPresenter(
-		    view,
-		    getSidePanePresenter()
-	    );
-	}
-	
-	return boardPresenter;
+		if (boardPresenter == null) {
+		    BoardView view = new BoardView();
+		    boardPresenter = new BoardPresenter(
+			    view,
+			    getSidePanePresenter()
+		    );
+		}
+		
+		return boardPresenter;
     }
     
     public HexDetailsPresenter getHexDetailsPresenter() {
-	if (hexDetailsPresenter == null) {
-	    HexDetailsView view = new HexDetailsView();
-	    hexDetailsPresenter = new HexDetailsPresenter(view, getSidePanePresenter());
-	}
-	
-	return hexDetailsPresenter;
+		if (hexDetailsPresenter == null) {
+		    HexDetailsView view = new HexDetailsView();
+		    hexDetailsPresenter = new HexDetailsPresenter(view, getSidePanePresenter());
+		}
+		
+		return hexDetailsPresenter;
     }
     
     public ThingDetailsPresenter getThingDetailsPresenter() {
@@ -111,26 +110,26 @@ public class KingsNThingsAppFactory {
     }
     
     public PlayerInfoPresenter getPlayerInfoPresenter() {
-	if (playerInfoPresenter == null) {
-	    PlayerInfoView view = new PlayerInfoView();
-	    playerInfoPresenter = new PlayerInfoPresenter(
-		    view,
-		    getSidePanePresenter()
-	    );
-	    
-	    // Avoids infinite recursion
-	    playerInfoPresenter.setGamePresenter(getMainPresenter());
-	}
-	
-	return playerInfoPresenter;
+		if (playerInfoPresenter == null) {
+		    PlayerInfoView view = new PlayerInfoView();
+		    playerInfoPresenter = new PlayerInfoPresenter(
+			    view,
+			    getSidePanePresenter()
+		    );
+		    
+		    // Avoids infinite recursion
+		    playerInfoPresenter.setGamePresenter(getMainPresenter());
+		}
+		
+		return playerInfoPresenter;
     }
     
     public PopupPresenter getPopupPresenter() {
-	if (popupPresenter == null) {
-	    PopupView view = new PopupView();
-	    popupPresenter = new PopupPresenter(view);
-	}
-	
-	return popupPresenter;
+		if (popupPresenter == null) {
+		    PopupView view = new PopupView();
+		    popupPresenter = new PopupPresenter(view);
+		}
+		
+		return popupPresenter;
     }
 }

@@ -2,33 +2,30 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.model.Board.NumberOfHexes;
 import com.model.Player.PlayerId;
+
 import java.util.Map;
-import com.view.GameScreen;
-import javafx.scene.canvas.GraphicsContext;
+
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 //TODO Use Factory Pattern?
 public class Hex extends GamePiece {
 	
-    int id; // location on grid
+    private int id; // location on grid
 	private Player owner;
-	
-	// This is in player?
-	Color color;
-	/** Is the owner's start position. */
-	private boolean startPosition;
+	private Color color;
+	private boolean startPosition; // Is the owner's start position
+	private boolean selected;
+	private boolean selectable;
+	private boolean highlighted;
 	//boolean facedUp; // is right side up?
-	boolean selected;
-	boolean selectable;
-	boolean highlighted;
-	HexType type;
-	String typeAsString; 
-	int movementWeight; // value of -1 if not able to move to
-	
-	int[] joiningHexes; // Integer array of hex id's, size 6
+	private HexType type;
+	private String typeAsString; 
+	private int movementWeight; // value of -1 if not able to move to
+	private int[] joiningHexes; // Integer array of hex id's, size 6
 	
 	//      __0__        
 	//   5 /     \ 1
@@ -48,18 +45,19 @@ public class Hex extends GamePiece {
 		{26,-1,-1,-1,28,12},{12,27,-1,-1,29,13},{13,28,-1,-1,30,14},{14,29,-1,-1,-1,31},// 27-30
 		{15,14,30,-1,-1,32},{16,15,31,-1,-1,33},{34,16,32,-1,-1,-1},{35,17,16,33,-1,-1},// 31-34
 		{36,18,17,34,-1,-1},{-1,19,18,35,-1,-1}};
-	
+	//TODO init
+	static final int joiningHexes19Mapping[][] = {};
 	
 	static final Image START_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
 	// list of armies for all players
 	// list of misc Things
 	private Map<Player, ArrayList<Thing>> armies;
 	// Kept for now
-	List<Thing> player1Army; // can be maps
-	List<Thing> player2Army;
-	List<Thing> player3Army;
-	List<Thing> currentPlayerArmy;
-	List<Thing> miscThings; 
+	private List<Thing> player1Army; // can be maps
+	private List<Thing> player2Army;
+	private List<Thing> player3Army;
+	private List<Thing> currentPlayerArmy;
+	private List<Thing> miscThings; 
 
 	
 	public enum HexType {
@@ -85,7 +83,7 @@ public class Hex extends GamePiece {
 	    startPosition =  false;
 	    selected = false;
 	    selectable = true; // may have to change for startup
-	    setJoiningHexes();
+	    //setJoiningHexes();
 	    player1Army = new ArrayList<>(); 
 	    player2Army = new ArrayList<>(); 
 	    player3Army = new ArrayList<>(); 
@@ -109,11 +107,9 @@ public class Hex extends GamePiece {
     public final Player getOwner() {
     	return owner;
     }
-    
     public final void setOwner(final Player player) {
     	this.owner = player;
     }
-	
     public Color getColor() {
 	    return color;
     }
@@ -126,56 +122,49 @@ public class Hex extends GamePiece {
     public void setSelected(boolean selected) {
 	    this.selected = selected;
     }
-
     public final HexType getType() {
     	return type;
     }
-
     public final boolean isStartPosition() {
     	return startPosition;
     }
-	
     public void setStartPosition(boolean b) {
     	this.startPosition = b;
     }
-
     public int getId() {
 	    return id;
     }
-    public void setId(int id) {
+    public void setId(int id, NumberOfHexes numOfHexes) {
 	    this.id = id;
-	    setJoiningHexes();
+	    setJoiningHexes(numOfHexes);
     }
-
     public int[] getJoiningHexes() {
 	    return joiningHexes;
     }
-    public void setJoiningHexes() {
-	    //TODO
-	    //if 37 mapping
+    protected void setJoiningHexes(NumberOfHexes numOfHexes) {
 	    joiningHexes = new int[6];
-	    for(int i=0; i<6; i++){
-		    joiningHexes[i] = joiningHexes37Mapping[id][i];
+	    if(numOfHexes.equals(NumberOfHexes.THIRTY_SEVEN)){
+		    for(int i=0; i<6; i++){
+			    joiningHexes[i] = joiningHexes37Mapping[id][i];
+		    }
+	    }else if(numOfHexes.equals(NumberOfHexes.NINETEEN)){
+	    	for(int i=0; i<6; i++){
+			    joiningHexes[i] = joiningHexes19Mapping[id][i];
+		    }
 	    }
-	    //else 17 do later
     }
-
     public boolean isSelectable() {
 	    return selectable;
     }
-
     public void setSelectable(boolean selectable) {
 	    this.selectable = selectable;
     }
-
     public boolean isHighlighted() {
 	    return highlighted;
     }
-
     public void setHighlighted(boolean highlighted) {
 	    this.highlighted = highlighted;
-    }
-    
+    }   
     public Map<Player, ArrayList<Thing>> getArmies() {
     	return armies;
     }
@@ -217,7 +206,7 @@ public class Hex extends GamePiece {
         return currentPlayerArmy;
     }
     
-
+/*
 	public void paint(Pane pane) {
 		
 		//pane not needed we need a canvas object
@@ -263,18 +252,16 @@ public class Hex extends GamePiece {
 			gc.drawImage(START_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
 		else
 			gc.drawImage(image, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
-	}
+	}*/
 
 
 	public String getTypeAsString() {
 		return typeAsString;
 	}
 
-
 	public int getMovementWeight() {
 		return movementWeight;
 	}
-
 
 	public void setMovementWeight(int movementWeight) {
 		this.movementWeight = movementWeight;
@@ -349,7 +336,4 @@ public class Hex extends GamePiece {
 			contentBox.getChildren().add(armyBox);
 		}	
 	}*/
-
-	
-	
 }

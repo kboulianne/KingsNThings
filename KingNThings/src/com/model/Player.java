@@ -1,14 +1,12 @@
 package com.model;
 
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class Player 	{
-	PlayerId id; 		// {1, 2, 3, 4}
-	Color color;	// {blue, green, red, yellow}
-	Block block;
-	int gold;
+	private PlayerId id; 		// {1, 2, 3, 4}
+	private Color color;	// {blue, green, red, yellow}
+	private Block block;
+	private int gold;
 	private String name;
 	
 	public enum PlayerId { ONE(Color.BLUE),TWO(Color.GREEN),THREE(Color.RED),FOUR(Color.YELLOW); 
@@ -17,7 +15,6 @@ public class Player 	{
 			color = c;
 		}
 	}
-	
 	
 	public Player(PlayerId i, String name) {
 	    this.name = name;
@@ -112,8 +109,8 @@ public class Player 	{
 		pane.getChildren().addAll(playerBox);
 		
 	}
-	*/
+	
 	public void paintGold(Pane pane){
 		pane.getChildren().add(new Label("Gold: "+gold));
-	}
+	}*/
 }

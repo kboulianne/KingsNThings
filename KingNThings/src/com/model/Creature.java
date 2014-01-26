@@ -2,10 +2,18 @@ package com.model;
 
 import java.util.*;
 
-import com.presenter.Util;
-
 public abstract class Creature extends Thing	{
+	
+	private String domain;
+	private boolean fly;
+	private boolean ranged;
+	private boolean charge;
+	private boolean magic;
+	private int combatVal;
+	private int hexLocation; // -1 if not on board
+	private int numberOfMovesAvailable;
 	private static final Map<String, Integer> combatVals;
+	
 	static	{
 		combatVals = new HashMap<String, Integer>();
 		//Insert desert creatures
@@ -234,19 +242,10 @@ public abstract class Creature extends Thing	{
 		magicCreat.add("basilisk");
 	}
 	
-	private int combatVal;
-	private String domain;
-	private boolean fly;
-	private boolean ranged;
-	private boolean charge;
-	private boolean magic;
-	int hexLocation; // -1 if not on board
-	int numberOfMovesAvailable;
-	
-	Creature(String name)	{
+	public Creature(String name)	{
 		super(name);
-		numberOfMovesAvailable = 4;
-		hexLocation = -1;
+		setNumberOfMovesAvailable(4);
+		setHexLocation(-1);
 		
 		//Set combat value to value from map associating creatures with their combat values
 		setCombatVal(combatVals.get(name));
@@ -271,81 +270,49 @@ public abstract class Creature extends Thing	{
 	public int getCombatVal()	{
 		return combatVal;
 	}
-	
 	public void setCombatVal(int val)	{
 		this.combatVal = val;
 	}
-	
 	public String getDomain()	{
 		return domain;
 	}
-	
 	public void setDomain(String dom)	{
 		this.domain = dom;
 	}
-	
 	public boolean getFly()	{
 		return fly;
 	}
-	
 	public void setFly(boolean bool){
 		fly = bool;
 	}
-	
 	public boolean getRanged()	{
 		return ranged;
 	}
-	
 	public void setRanged(boolean bool){
 		ranged = bool;
 	}
-	
 	public boolean getCharge()	{
 		return charge;
 	}
-	
 	public void setCharge(boolean bool){
 		charge = bool;
 	}
-	
 	public boolean getMagic()	{
 		return magic;
 	}
-	
 	public void setMagic(boolean bool){
 		magic = bool;
 	}
-	
-	
-	public void highlighAvailableMoves(){
-		//TODO
-		//int hexLocation = 0;
-		
-		Map<Integer, Hex> hexesThatCanBeMovedToMap = new HashMap<Integer, Hex>(); // to be moved to board class 
-		Util.log("Here");
-		//Integer is the cost to move to that hex
-		
-		//get joining hexes 1 radius away
-		//hexesThatCanBeMovedToMap.put(1, new Hex());
-		// 2 radius away
-		//hexesThatCanBeMovedToMap.put(2, new Hex());
-		// 3 radius 
-		//hexesThatCanBeMovedToMap.put(3, new Hex());
-		// 4 radius
-		//hexesThatCanBeMovedToMap.put(4, new Hex());
-		
-		for (Hex hex : hexesThatCanBeMovedToMap.values()) {
-			hex.setSelectable(true);
-			hex.setHighlighted(true);
-			// set onClick Listener for tiles
-		}
-		
-		//loop through all hexes and paint
-		
-		
-		
-		
-		
-		//highlight hexes that are 
+	public int getHexLocation() {
+		return hexLocation;
+	}
+	public void setHexLocation(int hexLocation) {
+		this.hexLocation = hexLocation;
+	}
+	public int getNumberOfMovesAvailable() {
+		return numberOfMovesAvailable;
+	}
+	public void setNumberOfMovesAvailable(int numberOfMovesAvailable) {
+		this.numberOfMovesAvailable = numberOfMovesAvailable;
 	}
 }

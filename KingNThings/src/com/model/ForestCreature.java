@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 public class ForestCreature extends Creature {
 
-	ForestCreature(String name) {
+	public ForestCreature(String name) {
 		super(name);
 		setDomain("Forest");
 		setColor(Color.DARKGREEN);

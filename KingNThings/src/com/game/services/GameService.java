@@ -35,57 +35,54 @@ public class GameService {
      * pattern.
      */
     private GameService() {
-	game = new Game();
-	
-	initialize();
+		game = new Game();
+		initialize();
     }
     
     /**
      *  Responsible for game state initialization.
      */
     private void initialize() {
-//	test_CreateOpponents();
-	test_CreatePlayers();
+    	//	test_CreateOpponents();
+    	test_CreatePlayers();
         test_AddThingsAndCreatures();
-//	game.test_PlayerOrder();
+        //	game.test_PlayerOrder();
     }
-
-    
     
     /**
      * Inner class responsible for holding singleton instance.
      * Initialized once.
      */
     private static class SingletonHolder {
-	public static final GameService INSTANCE = new GameService();
+    	public static final GameService INSTANCE = new GameService();
     }
 
     public static GameService getInstance() {
-	return SingletonHolder.INSTANCE;
+    	return SingletonHolder.INSTANCE;
     }
     
     @Override
     protected Object clone() throws CloneNotSupportedException {
-	throw new CloneNotSupportedException("This is a singleton! Can't clone.");
+    	throw new CloneNotSupportedException("This is a singleton! Can't clone.");
     }
     
     
     // Test methods
     private void test_CreatePlayers() {
-	game.setCurrentPlayer(new Player(Player.PlayerId.ONE, "Bob"));
-	game.setOpponent1(new Player(Player.PlayerId.TWO,"Frank"));
-	game.setOpponent2(new Player(Player.PlayerId.THREE,"Joe"));
-	game.setOpponent3(new Player(Player.PlayerId.FOUR,"Roxanne"));
-	
-	// Initial PlayerOrder.
-	List<Player> players = new ArrayList<>();
-	players.add(game.getOpponent2());
-	players.add(game.getCurrentPlayer());
-	players.add(game.getOpponent3());
-	players.add(game.getOpponent1());
-	
-	game.setPlayerOrder(players);
-//	game.setCurrent(game.getPlayer());
+		game.setCurrentPlayer(new Player(Player.PlayerId.ONE, "Bob"));
+		game.setOpponent1(new Player(Player.PlayerId.TWO,"Frank"));
+		game.setOpponent2(new Player(Player.PlayerId.THREE,"Joe"));
+		game.setOpponent3(new Player(Player.PlayerId.FOUR,"Roxanne"));
+		
+		// Initial PlayerOrder.
+		List<Player> players = new ArrayList<>();
+		players.add(game.getOpponent2());
+		players.add(game.getCurrentPlayer());
+		players.add(game.getOpponent3());
+		players.add(game.getOpponent1());
+		
+		game.setPlayerOrder(players);
+		//	game.setCurrent(game.getPlayer());
     }
     
     private void test_AddThingsAndCreatures() {
@@ -112,20 +109,18 @@ public class GameService {
         }
     }
     
-    
     public Game getGame() {
-	return game;
+    	return game;
     }
     
     public void roll() {
-	// TODO remove rollDice(), allows the service to be bypassed.
-	game.rollDice();
-	
-	// Fire towards network.
+		// TODO remove rollDice(), allows the service to be bypassed.
+		game.rollDice();
+		// Fire towards network.
     }
     
     public void endTurn() {
-	// TODO remove this from game class.
-	game.endTurn();
+    	// TODO remove this from game class.
+    	game.endTurn();
     }
 }

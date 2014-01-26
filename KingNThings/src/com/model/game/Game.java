@@ -37,7 +37,7 @@ public final class Game {
     private Die die2;
     private int mode;
     public static final int 
-	    MODE_FOUR_PLAYER = 1,
+    	MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
     private GamePlay gamePlay;
 
@@ -66,7 +66,6 @@ public final class Game {
 		
 		// TODO: Factory for 2 or 4 player.
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
-		
 		HexFactory hexFactory = new HexFactory();
 		
  		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
@@ -79,7 +78,7 @@ public final class Game {
 		    rand = rnd.nextInt(hexPool.size());
 		    // Add hex to position i in board hex array.
 		    board.addHex(hexPool.get(rand));
-		    hexPool.get(rand).setId(i);
+		    hexPool.get(rand).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
 		    hexPool.remove(rand);
 		}
 

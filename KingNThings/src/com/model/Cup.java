@@ -3,7 +3,7 @@ package com.model;
 import java.util.ArrayList;
 
 public class Cup extends GamePiece {
-	ArrayList<Thing> listOfThings;
+	private ArrayList<Thing> listOfThings;
 	
 	/*
 	public void paint(Pane pane){
@@ -23,8 +23,6 @@ public class Cup extends GamePiece {
 	public ArrayList<Thing> getListOfThings() {
 		return listOfThings;
 	}
-
-
 	public void setListOfThings(ArrayList<Thing> listOfThings) {
 		this.listOfThings = listOfThings;
 	}

@@ -9,20 +9,16 @@ import java.util.List;
 import java.util.Set;
 
 public class Board {
+	
 	private int numOfHexes;
 	private List<Hex> hexes;
-	/** Tiles are drawn face down until players select start
-	 *  positions.
-	 */
-	private boolean faceDown;
-	// Four player starting positions
-	private static final Set<Integer> startPositions;
+	private boolean faceDown; //Tiles are drawn face down until players select start positions.
+	private static final Set<Integer> startPositions; // Four player starting positions
 
 	static {
 	    // Initialize start positions
-	    startPositions = new HashSet<>(Arrays.asList(new Integer[] {
-		19, 23, 28, 32
-	    }));
+		//TODO 19hex game start points
+	    startPositions = new HashSet<>(Arrays.asList(new Integer[] { 19, 23, 28, 32 }));
 	}
 
 	public enum NumberOfHexes { THIRTY_SEVEN(37), NINETEEN(19); 
@@ -38,28 +34,23 @@ public class Board {
 	    hexes = new ArrayList<>();	    
 	}
 	
-	public int getHexNum() {
-	    return numOfHexes;
-	}
-	
 	public void addHex(final Hex hex) {
 	    // Adding at start position, set flag in hex.
-	    int index = hexes.size();
-	    
+	    int index = hexes.size();   
 	    if (startPositions.contains(index))
 	    	hex.setStartPosition(true);
-		
 	    hexes.add(hex);
 	}
 	
+	public int getHexNum() {
+	    return numOfHexes;
+	}
 	public List<Hex> getHexes() {
 	    return hexes;
 	}
-	
 	public final void setFaceDown(final boolean b) {
 	    faceDown = b;
 	}
-	
 	public final boolean isFaceDown() {
 	    return faceDown;
 	}

@@ -154,7 +154,7 @@ public class GameScreen {
 			double yOffset = choosenMapping[i][1]*0.5*HEX_HEIGHT-30.0;
 			hexCenterPoints[i][0]=xOffset+(HEX_WIDTH*0.5);
 			hexCenterPoints[i][1]=yOffset+(HEX_HEIGHT*0.5);
-			hexes.get(i).paint(null);
+			//hexes.get(i).paint(null);
 		}
 		
 		// SIDE PANE
@@ -179,13 +179,13 @@ public class GameScreen {
 		centerBox.getChildren().addAll(sidePane, playingArea);
 		
 		// Player Info
-		Player currentPlayer = game.getCurrentPlayer();
+		//Player currentPlayer = game.getCurrentPlayer();
 		HBox currentPlayerInfoBox = new HBox();
 		currentPlayerInfoBox.setId("playerInfo");
 		VBox currentPlayerNameAndGold = new VBox();
 		currentPlayerNameAndGold.setAlignment(Pos.CENTER);
 		//currentPlayer.paint(currentPlayerNameAndGold);
-		currentPlayer.paintGold(currentPlayerNameAndGold);
+		//currentPlayer.paintGold(currentPlayerNameAndGold);
 		currentPlayerInfoBox.getChildren().add(currentPlayerNameAndGold);
 		//currentPlayer.getBlock().paint(currentPlayerInfoBox);
 		

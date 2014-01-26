@@ -34,7 +34,7 @@ public class Die extends GamePiece {
 //    public void setImage(String dir) {
 //	super.setImage(dir);
 //	
-//	// TODO makes things extremely messy
+//	
 //	// Need to be invoked on FXApplication Thread.
 //	Platform.runLater(new Runnable() {
 //

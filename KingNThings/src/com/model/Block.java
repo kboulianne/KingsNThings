@@ -5,9 +5,10 @@ import java.util.List;
 import com.presenter.Util;
 
 public class Block extends GamePiece {
-	List<Thing> listOfThings;
 	
-	Block(){
+	private List<Thing> listOfThings;
+	
+	public Block(){
 		listOfThings = new ArrayList<Thing>();
 	}
 	

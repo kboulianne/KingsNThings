@@ -3,12 +3,12 @@ package com.model;
 import javafx.scene.image.Image;
 
 public abstract class GamePiece {
-	Image image;
-	String name;
+	private Image image;
+	private String name;
 	
-	GamePiece()	{	}
+	public GamePiece()	{	}
 	
-	GamePiece(String name)	{
+	public GamePiece(String name)	{
 	    setName(name);
 	}
 	
@@ -16,20 +16,13 @@ public abstract class GamePiece {
 	public String getName() {
 		return name;
 	}
-	
 	public void setName(String n) {
 		name = n;
 	}
-	
 	public void setImage(String directory) {
 		image = new Image(directory);
 	}
-
 	public Image getImage() {
 	    return image;
-	}
-
-	public void setImage(Image i) {
-	    image = i;
 	}
 }

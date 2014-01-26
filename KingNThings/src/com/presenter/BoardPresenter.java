@@ -134,12 +134,19 @@ public class BoardPresenter {
 		}
 		
 		//fornow
-		int weight = minValue + 1;//(hex.getType().equals(Hex.HexType.SWAMP)?2:1);
+		int weight = minValue + 1;
+		//(hex.getType().equals(Hex.HexType.SWAMP)||
+		// hex.getType().equals(Hex.HexType.MOUNTAIN)||
+		// hex.getType().equals(Hex.HexType.FOREST||
+		// hex.getType().equals(Hex.HexType.JUNGLE)))?2:1);
 		
 		int availableMovesForSelectedThing; //=
 		//for now
 		availableMovesForSelectedThing = 4;
-		if(weight>availableMovesForSelectedThing+1){//|| (hex.getType().equals(Hex.HexType.SEA  )&& weight ==availableMovesForSelectedThing)){ 
+		if(weight>availableMovesForSelectedThing+1){
+		//|| (hex.getType().equals(Hex.HexType.SEA  )&& weight ==availableMovesForSelectedThing)
+	    // || friendly army ==10 at hex(<-- exception citadel)){
+			
 			Util.log("    id:"+hexId+"-->not selectable");
 			return;
 		}
