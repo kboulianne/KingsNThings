@@ -43,7 +43,6 @@ public class PopupPresenter {
 	}
 
 	public void showCupPopup(List<Thing> things, String title, EventHandler<ThingEvent> event) {
-
 		view.show(new CupPopup(things, event), title);
 	}
 }

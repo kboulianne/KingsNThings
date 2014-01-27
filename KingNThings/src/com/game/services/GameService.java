@@ -92,21 +92,21 @@ public class GameService {
 		Creature dragon = new DesertCreature("olddragon");
 		List<Hex> hexes = game.getBoard().getHexes();
 
-		hexes.get(0).addThingToArmy(goblin, game.getCurrentPlayer().getId());
-		hexes.get(0).addThingToArmy(dragon, game.getCurrentPlayer().getId());
+		hexes.get(0).addCreatToArmy(goblin, game.getCurrentPlayer().getId());
+		hexes.get(0).addCreatToArmy(dragon, game.getCurrentPlayer().getId());
 		game.getCurrentPlayer().getBlock().addThing(thing, game.getCurrentPlayer().getName());
 		game.getCurrentPlayer().getBlock().addThing(goblin, game.getCurrentPlayer().getName());
 		for (int i = 0; i < 10; i++) {
-			hexes.get(0).addThingToArmy(dragon, game.getOpponent1().getId());
+			hexes.get(0).addCreatToArmy(dragon, game.getOpponent1().getId());
 		}
 		for (int i = 0; i < 5; i++) {
-			hexes.get(0).addThingToArmy(dragon, game.getOpponent2().getId());
+			hexes.get(0).addCreatToArmy(dragon, game.getOpponent2().getId());
 		}
 		for (int i = 0; i < 8; i++) {
-			hexes.get(0).addThingToArmy(dragon, game.getOpponent3().getId());
+			hexes.get(0).addCreatToArmy(dragon, game.getOpponent3().getId());
 		}
 		for (int i = 0; i < 7; i++) {
-			hexes.get(0).addThingToArmy(dragon, game.getCurrentPlayer().getId());
+			hexes.get(0).addCreatToArmy(dragon, game.getCurrentPlayer().getId());
 		}
 	}
 

@@ -51,7 +51,9 @@ public class Hex extends GamePiece {
 	static final Image START_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
 	// list of armies for all players
 	// list of misc Things
-	private Map<Player, ArrayList<Thing>> armies;
+	private Map<Player, ArrayList<Creature>> armies;
+	private ArrayList<GamePiece> miscItems;
+
 	// Kept for now
 	private List<Thing> player1Army; // can be maps
 	private List<Thing> player2Army;
@@ -165,11 +167,22 @@ public class Hex extends GamePiece {
     public void setHighlighted(boolean highlighted) {
 	    this.highlighted = highlighted;
     }   
-    public Map<Player, ArrayList<Thing>> getArmies() {
+    public Map<Player, ArrayList<Creature>> getArmies() {
     	return armies;
     }
+    public ArrayList<Creature> getArmies(Player p)	{
+    	return armies.get(p);
+    }
+    
+    public ArrayList<GamePiece> getMiscItems() {
+		return miscItems;
+	}
 
-    public void addThingToArmy(Creature creature, PlayerId key){
+	public void setMiscItems(ArrayList<GamePiece> miscItems) {
+		this.miscItems = miscItems;
+	}
+
+    public void addCreatToArmy(Creature creature, PlayerId key){
 	    if(key.equals(PlayerId.ONE)){
 		    if(player1Army.size()<11)
 			    player1Army.add(creature);
@@ -184,7 +197,17 @@ public class Hex extends GamePiece {
 			    currentPlayerArmy.add(creature);
 	    }
     }
+    
+    public void addCreatToArmy(Creature creature, Player p)	{
+    	if(armies.get(p).size() < 10)	{
+    		armies.get(p).add(creature);
+    	}
+    }
 
+    public void addItemToHex(GamePiece item)	{
+    	miscItems.add(item);
+    }
+    
     public void addThingToHex(Thing t){
 	    miscThings.add(t);
     }

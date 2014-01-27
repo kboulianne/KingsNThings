@@ -5,8 +5,6 @@
  */
 package com.model.game.phase;
 
-import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -19,9 +17,12 @@ import javafx.scene.layout.VBox;
 
 import com.game.services.GameService;
 import com.model.game.Game;
+import com.model.Fort;
+import com.model.GamePiece;
+import com.model.IncomeCounter;
 import com.model.Player;
 import com.model.Hex;
-import com.model.Thing;
+import com.model.SpecialCharacter;
 import com.view.GameScreen;
 
 /**
@@ -45,11 +46,9 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void executePhase(Object input) {
-		@SuppressWarnings("unused")
-		ArrayList<Thing> list;
-		int hexGold = 100;
-		int fortGold = 50;
-		int counterGold = 25;
+		int hexGold = 0;
+		int fortGold = 0;
+		int counterGold = 0;
 		int specCharGold = 0;
 		int totalGold = 0;
 		Game game = GameService.getInstance().getGame();
@@ -59,16 +58,16 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		for (Hex h : game.getBoard().getHexes()) {
 			if ((h != null) && (h.getOwner() == player)) {
 				hexGold++;
-				for (Player p : h.getArmies().keySet()) {
-					if (p == player) {
-						list = h.getArmies().get(p);
-					}
+				for (GamePiece g : h.getArmies(player)) {
+					if(g instanceof Fort)	fortGold ++; //= g.fortValue;
+					else if(g instanceof IncomeCounter)	counterGold += ((IncomeCounter)g).getValue();
+					else if(g instanceof SpecialCharacter)	specCharGold ++;
 				}
 			}
 		}
 
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
-
+		
 		AnchorPane ap = new AnchorPane();
 		ap.setPrefSize(500, 500);
 
@@ -113,6 +112,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		});
 
 		GameScreen.popup(popupVbox);
+		
 		player.addGold(totalGold);
 	}
 
