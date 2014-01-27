@@ -7,6 +7,7 @@ package com.model.game.phase.init;
 
 import com.game.services.GameService;
 import com.model.game.Game;
+import com.model.game.GameAction;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import java.util.logging.Level;
@@ -26,11 +27,12 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseStart() {
 		System.out.println("Init Phase: Start of Player Order Phase");
+		context.clearRolls();
 	}
 
 	@Override
 	public void preExecutePhase(Object input) {
-
+		
 	}
 
 	@Override
@@ -38,30 +40,23 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		Game game = GameService.getInstance().getGame();
 
 		// Request action from the user
-		// Automatic Roll
+		// Suspend this execution until notified by ui.
 		
-		//TODO Abstract this into 1 call
 		synchronized (context.actions) {
-			context.actions.offer("please roll");
-			context.actions.notifyAll();
 			
 			try {
-				// Wait for UI to trigger the action.
-				System.out.println("Waiting for UI.");
+
+				context.actions.offer(GameAction.ROLL);
+				System.out.println("LOCKED: PlayerOrderPhase");
+				context.actions.notifyAll();
+				// Wait here until action is triggered.
 				context.actions.wait();
-				System.out.println("UI triggered the action.");
+				System.out.println("UNLOCKED: PlayerOrderPhase");
 			} catch (InterruptedException ex) {
 				Logger.getLogger(PlayerOrderPhase.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
-//		synchronized (context.actions) {
-//			try {
-//				context.actions.wait();
-//			} catch (InterruptedException ex) {
-//				Logger.getLogger(PlayerOrderPhase.class.getName()).log(Level.SEVERE, null, ex);
-//			}
-//		}
-		game.rollDice();
+		
 
 		// Add the rolled dice total to the context for later use.
 		context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());

@@ -16,6 +16,7 @@ import java.util.TreeMap;
 
 import com.model.Player;
 import com.model.game.Game;
+import com.model.game.GameAction;
 import com.model.game.phase.init.ExchangePhase;
 import com.model.game.phase.init.PlayerOrderPhase;
 import com.model.game.phase.init.StartingForcesPhase;
@@ -59,7 +60,7 @@ public class GamePlay {
 	private final SortedMap<Integer, Player> rolls;
 
 	// public for now
-	public final BlockingQueue<String> actions;
+	public final BlockingQueue<GameAction> actions;
 	
 	/**
 	 * Inner class responsible for holding singleton instance. Initialized once.

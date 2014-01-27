@@ -6,6 +6,7 @@
 package com.view;
 
 import com.model.game.Game;
+import com.model.game.GameAction;
 import com.presenter.GamePresenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,6 +34,7 @@ public class GameView extends StackPane {
 	private AnchorPane gameStatus;
 	private HBox centerBox;
 	private Label currentPlayerLbl;
+	private Label currentActionLbl;
 
     // Class-level controls needing exposure outside buildView()
 	// private Button roll;
@@ -64,24 +66,30 @@ public class GameView extends StackPane {
 		gameStatus = new AnchorPane();
 		gameStatus.setId("gameStatus");
 
-		// TODO add a "Current action to execute" label.
+		// Holds Current Player Label and Current Action Label.
+		HBox box = new HBox();
 		currentPlayerLbl = new Label();
 		currentPlayerLbl.getStyleClass().add("title");
-		gameStatus.getChildren().add(currentPlayerLbl);
-		AnchorPane.setLeftAnchor(currentPlayerLbl, 0.0);
-		AnchorPane.setTopAnchor(currentPlayerLbl, 10.0);
-
+		
+		currentActionLbl = new Label();
+		currentActionLbl.getStyleClass().add("title");
+		box.getChildren().addAll(currentPlayerLbl, currentActionLbl);
+		
+		gameStatus.getChildren().add(box);
+		AnchorPane.setLeftAnchor(box, 0.0);
+		AnchorPane.setTopAnchor(box, 10.0);
+		
 		// Contains sidepaneview and PlayArea
 		centerBox = new HBox();
 
-		Button test = new Button("Test Phases");
+		Button test = new Button("Test");
 		AnchorPane.setLeftAnchor(test, 500.0);
 		AnchorPane.setTopAnchor(test, 0.0);
 		test.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent t) {
-				presenter.endPlayerTurn();
+				presenter.test();
 			}
 		});
 		gameStatus.getChildren().add(test);
@@ -132,7 +140,13 @@ public class GameView extends StackPane {
 		// As a precaution.
 		if (game != null) {
 			// Set all GameView properties here
-			currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: <ACTION>");
+			currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: ");
 		}
+	}
+	
+	
+	public void setAction(GameAction action) {
+		System.out.println("GameView: " + action.getActionString());
+		currentActionLbl.setText(action.getActionString());
 	}
 }

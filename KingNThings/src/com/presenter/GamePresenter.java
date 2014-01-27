@@ -39,26 +39,28 @@ public class GamePresenter {
 	private PlayerInfoPresenter playerInfoPresenter;
 	private PopupPresenter popupPresenter;
 
-	final static Task<Void> gamePlayActions;
-	
-	static {
-		gamePlayActions = new Task<Void>() {
-
-			@Override
-			protected Void call() throws Exception {
-			
-				// Listen for next action to be executed by user.
-				synchronized (GamePlay.getInstance().actions) {
-					System.out.println("Blocked TASK");
-					GamePlay.getInstance().actions.wait();
-					System.out.println("Unblocked TASK");
-				}
-				return null;
-			}
-		};
-		
-		new Thread(gamePlayActions).start();
-	}
+//	final static Task<Void> gamePlayActions;
+//	
+//	static {
+//		gamePlayActions = new Task<Void>() {
+//
+//			@Override
+//			protected Void call() throws Exception {
+//			
+//				while (true) {
+//					// Listen for next action to be executed by user.
+//					synchronized (GamePlay.getInstance().actions) {
+//						System.out.println("Blocked TASK");
+//						GamePlay.getInstance().actions.wait();
+//						System.out.println("Unblocked TASK");
+//						
+//					}
+//				}
+//			}
+//		};
+//		
+//		new Thread(gamePlayActions).start();
+//	}
 	
 	
 	
@@ -100,10 +102,6 @@ public class GamePresenter {
 		Game model = GameService.getInstance().getGame();
 		view.setGame(model);
 
-		// Everything is loaded, start game
-//		GameService.getInstance().startGame();
-
-//		initGamePlayThread();
 	}
 
 	/**
@@ -115,65 +113,47 @@ public class GamePresenter {
 		return view;
 	}
 
-	private void initGamePlayThread() {
-		//TODO Factory creates the presenter 3 times.
-		System.out.println("INIT");
-//		final Task<String> task = new Task<String>() {
-//
-//			@Override
-//			protected String call() throws Exception {
-//				
-//			}
-//		};
-//		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-//
-//			@Override
-//			public void handle(WorkerStateEvent t) {
-//				System.out.println(task.getValue());
-//			}
-//		});
-//
-//		new Thread(task).start();
-		
-// Hook up to game.getGamePlay().someEvent?
-		// then update view
-//		GamePlay.getInstance();
-//		// Start a background thread that wakes up when GamePlay notifies it
-//		// of a new action.
-//		Service<Void> service = new Service<Void>() {
-//
-//			@Override
-//			protected Task<Void> createTask() {
-//				return new Task<Void>() {
-//
-//					@Override
-//					protected Void call() throws Exception {
-//						System.out.println("GamePresenter: call()");
-//						
-//						// Consumes messages
-//						GameEvents.getConsumer().run();
-//						
-//						return null;
-//					}
-//				};
-//			}
-//		};
-//
-//		service.start();
-		
-	}
 
 	// UI Logic stuff is done here. Access service for model.
-	public void endPlayerTurn() {
-//		GameService.getInstance().endTurn();
-		// FOR NOW 
-		GamePlay.getInstance().next();
-		
-		Game game = GameService.getInstance().getGame();
-		view.setGame(game);
+	public void test() {
+		// So we don't block the ui thread.
+		final Task<Void> task = new Task<Void>() {
 
-		// For now
-//	playerInfoPresenter.getView().setPlayer(game.getCurrentPlayer());
+			@Override
+			protected Void call() throws Exception {
+				
+				// Everything is loaded, start game
+				GameService.getInstance().startGame();
+
+				// FOR NOW
+				synchronized(GamePlay.getInstance().actions) {
+					try {
+						System.out.println("LOCKED: GamePresenter");
+						// Wait for GameAction to be set.
+						GamePlay.getInstance().actions.wait();
+						
+						System.out.println("UNLOCKED: GamePresenter");
+					} catch (InterruptedException ex) {
+						Logger.getLogger(GamePresenter.class.getName()).log(Level.SEVERE, null, ex);
+					}
+
+					
+					// Needs to execute on FX Thread.
+					Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							view.setAction(GamePlay.getInstance().actions.peek());
+						}
+					});
+					
+				}
+				
+				return null;
+			}
+		};
+		new Thread(task).start();
+
 	}
 
 	public void showCup() {
