@@ -6,6 +6,9 @@
 package com.model.game.phase;
 
 import com.game.services.GameService;
+import com.model.Hex;
+import com.model.Player;
+import com.model.game.Game;
 
 /**
  *
@@ -30,6 +33,16 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void executePhase(Object input) {
 		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		
+		int hexCount = 0;
+		Game game = GameService.getInstance().getGame();
+		Player player = game.getCurrentPlayer();
+		
+		for (Hex h : game.getBoard().getHexes()) {
+			if ((h != null) && (h.getOwner() == player)) {
+				hexCount++;
+			}
+		}
 	}
 
 	@Override

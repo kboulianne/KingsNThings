@@ -46,6 +46,8 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void executePhase(Object input) {
+		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		
 		int hexGold = 0;
 		int fortGold = 0;
 		int counterGold = 0;
@@ -53,8 +55,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		int totalGold = 0;
 		Game game = GameService.getInstance().getGame();
 		Player player = game.getCurrentPlayer();
-		System.out.println("Game Phase: Logic for " + player.getName());
-
+		
 		for (Hex h : game.getBoard().getHexes()) {
 			if ((h != null) && (h.getOwner() == player)) {
 				hexGold++;
