@@ -18,16 +18,19 @@ public class HexDetailsPresenter {
 	private HexDetailsView view;
 	private SidePanePresenter sidePanePresenter;
 
-	public HexDetailsPresenter(HexDetailsView view, SidePanePresenter sidePanePresenter) {
+	public HexDetailsPresenter(HexDetailsView view) {
 		this.view = view;
 		this.view.setPresenter(this);
-		this.sidePanePresenter = sidePanePresenter;
 	}
 
 	public HexDetailsView getView() {
 		return view;
 	}
 
+	public void setDependencies(SidePanePresenter sidePanePresenter) {
+		this.sidePanePresenter = sidePanePresenter;
+	}
+	
 	public void showHex(Hex h) {
 		view.setHex(h);
 	}

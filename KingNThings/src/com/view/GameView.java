@@ -8,6 +8,7 @@ package com.view;
 import com.model.game.Game;
 import com.model.game.GameAction;
 import com.presenter.GamePresenter;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -139,8 +140,8 @@ public class GameView extends StackPane {
 		// other presenters as a dependency.
 		// As a precaution.
 		if (game != null) {
-			// Set all GameView properties here
 			currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: ");
+	
 		}
 	}
 	

@@ -42,20 +42,20 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		// Request action from the user
 		// Suspend this execution until notified by ui.
 		
-		synchronized (context.actions) {
-			
-			try {
-
-				context.actions.offer(GameAction.ROLL);
-				System.out.println("LOCKED: PlayerOrderPhase");
-				context.actions.notifyAll();
-				// Wait here until action is triggered.
-				context.actions.wait();
-				System.out.println("UNLOCKED: PlayerOrderPhase");
-			} catch (InterruptedException ex) {
-				Logger.getLogger(PlayerOrderPhase.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
+//		synchronized (context.actions) {
+//			
+//			try {
+//
+//				context.actions.offer(GameAction.ROLL);
+//				System.out.println("LOCKED: PlayerOrderPhase");
+//				context.actions.notifyAll();
+//				// Wait here until action is triggered.
+//				context.actions.wait();
+//				System.out.println("UNLOCKED: PlayerOrderPhase");
+//			} catch (InterruptedException ex) {
+//				Logger.getLogger(PlayerOrderPhase.class.getName()).log(Level.SEVERE, null, ex);
+//			}
+//		}
 		
 
 		// Add the rolled dice total to the context for later use.

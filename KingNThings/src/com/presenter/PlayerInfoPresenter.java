@@ -21,11 +21,9 @@ public class PlayerInfoPresenter {
 	private SidePanePresenter sidePanePresenter;
 	private GamePresenter mainPresenter;
 
-	public PlayerInfoPresenter(PlayerInfoView view, SidePanePresenter sidePanePresenter) {
+	public PlayerInfoPresenter(PlayerInfoView view) {
 		this.view = view;
 		this.view.setPresenter(this);
-
-		this.sidePanePresenter = sidePanePresenter;
 
 		Game game = GameService.getInstance().getGame();
 		view.setPlayer(game.getCurrentPlayer());
@@ -35,17 +33,22 @@ public class PlayerInfoPresenter {
 		return view;
 	}
 
-	// Avoids infinite recursion in Factory. To be fixed later.
-	public void setGamePresenter(final GamePresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null.");
-		}
-		if (mainPresenter != null) {
-			throw new IllegalStateException("Presenter has already been set.");
-		}
-
-		mainPresenter = presenter;
+	public void setDependencies(SidePanePresenter sidePanePresenter, GamePresenter mainPresenter) {
+		this.sidePanePresenter = sidePanePresenter;
+		this.mainPresenter = mainPresenter;
 	}
+	
+//	// Avoids infinite recursion in Factory. To be fixed later.
+//	public void setGamePresenter(final GamePresenter presenter) {
+//		if (presenter == null) {
+//			throw new NullPointerException("Presenter cannot be null.");
+//		}
+//		if (mainPresenter != null) {
+//			throw new IllegalStateException("Presenter has already been set.");
+//		}
+//
+//		mainPresenter = presenter;
+//	}
 
     //TODO ViewCup should be managed by GamePresenter
 	public void handleRackClick(ThingEvent t) {

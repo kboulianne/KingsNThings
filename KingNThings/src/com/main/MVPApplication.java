@@ -5,7 +5,7 @@
  */
 package com.main;
 
-import com.main.KingsNThingsAppFactory;
+import com.main.KNTAppFactory;
 import com.presenter.GamePresenter;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -30,7 +30,7 @@ public class MVPApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-    	KingsNThingsAppFactory factory = new KingsNThingsAppFactory();
+    	KNTAppFactory factory = new KNTAppFactory();
     	GamePresenter main = factory.getMainPresenter();
 	
 		// GameView view = new GameView(GameService.getInstance().getGame());

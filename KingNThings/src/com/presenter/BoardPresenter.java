@@ -33,11 +33,9 @@ public class BoardPresenter {
 
 	private int lastHexSelected = -1; //FIXME this variable also exists in GameScreen
 
-	public BoardPresenter(BoardView view, SidePanePresenter sidePanePresenter) {
+	public BoardPresenter(BoardView view) {
 		this.view = view;
 		this.view.setPresenter(this);
-		//this.detailsPresenter = details;
-		this.sidePanePresenter = sidePanePresenter;
 
 		// Set initial model (usually uses a service.
 		svc = GameService.getInstance();
@@ -50,6 +48,10 @@ public class BoardPresenter {
 		return view;
 	}
 
+	public final void setDependencies(SidePanePresenter sidePanePresenter) {
+		this.sidePanePresenter = sidePanePresenter;
+	}
+	
     // UI Logic here.
 	public void handleHexClick(int selected) {
 		// Only need service to fetch board.
@@ -81,7 +83,7 @@ public class BoardPresenter {
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				Util.log("SeletectIndex-->" + lastHexSelected);
-				ArrayList<Integer> moveableHexIdList = new ArrayList<Integer>();
+				ArrayList<Integer> moveableHexIdList = new ArrayList<>();
 				calculateMovementWeight(lastHexSelected, moveableHexIdList);
 
 				//repaint moveableHexIdList
@@ -100,8 +102,8 @@ public class BoardPresenter {
 	public void calculateMovementWeight(int hexId, ArrayList<Integer> calculated) {
 		Hex hex = svc.getGame().getBoard().getHexes().get(hexId);
 
-		ArrayList<Integer> checkedList = new ArrayList<Integer>();
-		ArrayList<Integer> uncheckedList = new ArrayList<Integer>();
+		ArrayList<Integer> checkedList = new ArrayList<>();
+		ArrayList<Integer> uncheckedList = new ArrayList<>();
 
 		int[] joiningHexes = hex.getJoiningHexes();
 		for (int i = 0; i < joiningHexes.length; i++) {

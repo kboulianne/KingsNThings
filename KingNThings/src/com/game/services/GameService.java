@@ -121,21 +121,22 @@ public class GameService {
 	}
 
 	public void roll() {
+		game.rollDice();
 		// Check the required action in gameplay, then roll
 		// TODO Abstract this
 		// TESTING FOR NOW
-		synchronized (GamePlay.getInstance().actions) {
-			try {
-				if (GamePlay.getInstance().actions.take() == GameAction.ROLL) {
-					// Roll and unlock
-					game.rollDice();
-
-					GamePlay.getInstance().actions.notifyAll();
-				}
-			} catch (InterruptedException ex) {
-				Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
+//		synchronized (GamePlay.getInstance().actions) {
+//			try {
+//				if (GamePlay.getInstance().actions.take() == GameAction.ROLL) {
+//					// Roll and unlock
+//					game.rollDice();
+//
+//					GamePlay.getInstance().actions.notifyAll();
+//				}
+//			} catch (InterruptedException ex) {
+//				Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, ex);
+//			}
+//		}
 	}
 
 	public void endTurn() {

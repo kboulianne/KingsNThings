@@ -36,39 +36,49 @@ public class SidePanePresenter {
 		return view;
 	}
 
+	public void setDependencies(
+			HexDetailsPresenter hexDetailsPresenter,
+			ThingDetailsPresenter thingDetailsPresenter,
+			GamePresenter mainPresenter) {
+		
+		this.hexDetailsPresenter = hexDetailsPresenter;
+		this.thingDetailsPresenter = thingDetailsPresenter;
+		this.mainPresenter = mainPresenter;
+	}
+	
 	// FIXME: To be removed when Factory is fixed.
-	public void setHexDetailsPresenter(final HexDetailsPresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null.");
-		}
-		if (hexDetailsPresenter != null) {
-			throw new IllegalStateException("Presenter has already been set.");
-		}
-
-		hexDetailsPresenter = presenter;
-	}
-
-	public void setThingDetailsPresenter(final ThingDetailsPresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null.");
-		}
-		if (thingDetailsPresenter != null) {
-			throw new IllegalStateException("Presenter has already been set.");
-		}
-
-		thingDetailsPresenter = presenter;
-	}
-
-	public void setGamePresenter(final GamePresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null.");
-		}
-		if (mainPresenter != null) {
-			throw new IllegalStateException("Presenter has already been set.");
-		}
-
-		mainPresenter = presenter;
-	}
+//	public void setHexDetailsPresenter(final HexDetailsPresenter presenter) {
+//		if (presenter == null) {
+//			throw new NullPointerException("Presenter cannot be null.");
+//		}
+//		if (hexDetailsPresenter != null) {
+//			throw new IllegalStateException("Presenter has already been set.");
+//		}
+//
+//		hexDetailsPresenter = presenter;
+//	}
+//
+//	public void setThingDetailsPresenter(final ThingDetailsPresenter presenter) {
+//		if (presenter == null) {
+//			throw new NullPointerException("Presenter cannot be null.");
+//		}
+//		if (thingDetailsPresenter != null) {
+//			throw new IllegalStateException("Presenter has already been set.");
+//		}
+//
+//		thingDetailsPresenter = presenter;
+//	}
+//
+//	public void setGamePresenter(final GamePresenter presenter) {
+//		if (presenter == null) {
+//			throw new NullPointerException("Presenter cannot be null.");
+//		}
+//		if (mainPresenter != null) {
+//			throw new IllegalStateException("Presenter has already been set.");
+//		}
+//
+//		mainPresenter = presenter;
+//	}
 
 	// Handlers go here.
 	public void showHexDetailsFor(Hex h) {

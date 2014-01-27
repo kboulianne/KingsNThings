@@ -13,12 +13,11 @@ public class DicePresenter {
 
 	private final DiceView view;
     // In case we need to do something else in the main screen.
-	//  private GamePresenter mainPresenter;
+	private GamePresenter mainPresenter;
 
-	public DicePresenter(DiceView view, GamePresenter mainPresenter) {
+	public DicePresenter(DiceView view) {
 		this.view = view;
 		this.view.setPresenter(this);
-//	this.mainPresenter = mainPresenter;
 
 		// Set initial model
 		Game game = GameService.getInstance().getGame();
@@ -35,6 +34,10 @@ public class DicePresenter {
 		return view;
 	}
 
+	public void setDependencies(GamePresenter gp) {
+		this.mainPresenter = gp;
+	}
+	
 	/**
 	 * The logic to execute when the players presses the roll button.
 	 */
@@ -46,5 +49,8 @@ public class DicePresenter {
 
 		// Update the view
 		view.setDice(game.getDie1(), game.getDie2());
+		
+		// Update GameView
+		mainPresenter.updateView();
 	}
 }

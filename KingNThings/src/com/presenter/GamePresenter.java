@@ -33,77 +33,46 @@ public class GamePresenter {
 	private final GameView view;
 	// Singleton for now, not needed here
 //    private GameService gameService;
-	//private DicePresenter dicePresenter;
 	private SidePanePresenter sidePanePresenter;
-	//private BoardPresenter boardPresenter;
-	private PlayerInfoPresenter playerInfoPresenter;
 	private PopupPresenter popupPresenter;
 
-//	final static Task<Void> gamePlayActions;
-//	
-//	static {
-//		gamePlayActions = new Task<Void>() {
-//
-//			@Override
-//			protected Void call() throws Exception {
-//			
-//				while (true) {
-//					// Listen for next action to be executed by user.
-//					synchronized (GamePlay.getInstance().actions) {
-//						System.out.println("Blocked TASK");
-//						GamePlay.getInstance().actions.wait();
-//						System.out.println("Unblocked TASK");
-//						
-//					}
-//				}
-//			}
-//		};
-//		
-//		new Thread(gamePlayActions).start();
-//	}
 	
-	
-	
-	public GamePresenter(
-			final GameView view,
+	public GamePresenter( final GameView view) {
+		this.view = view;
+		this.view.setPresenter(this);
+
+		// Update view
+		updateView();
+//		Game model = GameService.getInstance().getGame();
+//		view.setGame(model);
+
+	}
+
+	public void setDependencies(
 			final DicePresenter dicePresenter,
 			final SidePanePresenter sidePanePresenter,
 			final BoardPresenter boardPresenter,
 			final PlayerInfoPresenter playerInfoPresenter,
-			final PopupPresenter popupPresenter
-	/* service and Other presenters here */) {
-		this.view = view;
-		this.view.setPresenter(this);
-
-		// TODO forced to add sub-views in order due to current layout. Fix this.
-		// Keep DicePresenter and add its view to the main view
-		//this.dicePresenter = dicePresenter;
-		// TODO WHAT AM I DOING? JUST ADD VIEW FROM PRESENTER
+			final PopupPresenter popupPresenter) {
+		
+		// DicePresenter
 		this.view.addDiceView(dicePresenter.getView());
-
-		// SidePane initialization
+		
+		// SidePanePresenter
 		this.sidePanePresenter = sidePanePresenter;
 		this.view.addSidePaneView(sidePanePresenter.getView());
-
-		// Board initialization
-		//this.boardPresenter = boardPresenter;
+		
+		// BoardPresenter
 		this.view.addBoardView(boardPresenter.getView());
-
-		// PlayerInfo initialization
-		this.playerInfoPresenter = playerInfoPresenter;
+		
+		// PlayerInfoView
 		this.view.addPlayerInfoView(playerInfoPresenter.getView());
-
-		// The presenter which displays popups on the screen.
+		
+		// PopupPresenter
 		this.popupPresenter = popupPresenter;
-		// Set the parent view
-		this.popupPresenter.getView().setParent(this.view);
-
-		// Update view
-		Game model = GameService.getInstance().getGame();
-		view.setGame(model);
-
+		this.popupPresenter.getView().setParent(view);
 	}
-
+	
 	/**
 	 * Gets the view managed by this presenter.
 	 *
@@ -117,45 +86,49 @@ public class GamePresenter {
 	// UI Logic stuff is done here. Access service for model.
 	public void test() {
 		// So we don't block the ui thread.
-		final Task<Void> task = new Task<Void>() {
-
-			@Override
-			protected Void call() throws Exception {
-				
-				// Everything is loaded, start game
-				GameService.getInstance().startGame();
-
-				// FOR NOW
-				synchronized(GamePlay.getInstance().actions) {
-					try {
-						System.out.println("LOCKED: GamePresenter");
-						// Wait for GameAction to be set.
-						GamePlay.getInstance().actions.wait();
-						
-						System.out.println("UNLOCKED: GamePresenter");
-					} catch (InterruptedException ex) {
-						Logger.getLogger(GamePresenter.class.getName()).log(Level.SEVERE, null, ex);
-					}
-
-					
-					// Needs to execute on FX Thread.
-					Platform.runLater(new Runnable() {
-
-						@Override
-						public void run() {
-							view.setAction(GamePlay.getInstance().actions.peek());
-						}
-					});
-					
-				}
-				
-				return null;
-			}
-		};
-		new Thread(task).start();
+//		final Task<Void> task = new Task<Void>() {
+//
+//			@Override
+//			protected Void call() throws Exception {
+//				
+//				// Everything is loaded, start game
+//				GameService.getInstance().startGame();
+//
+//				// FOR NOW
+//				synchronized(GamePlay.getInstance().actions) {
+//					try {
+//						System.out.println("LOCKED: GamePresenter");
+//						// Wait for GameAction to be set.
+//						GamePlay.getInstance().actions.wait();
+//						
+//						System.out.println("UNLOCKED: GamePresenter");
+//					} catch (InterruptedException ex) {
+//						Logger.getLogger(GamePresenter.class.getName()).log(Level.SEVERE, null, ex);
+//					}
+//
+//					
+//					// Needs to execute on FX Thread.
+//					Platform.runLater(new Runnable() {
+//
+//						@Override
+//						public void run() {
+//							view.setAction(GamePlay.getInstance().actions.peek());
+//						}
+//					});
+//					
+//				}
+//				
+//				return null;
+//			}
+//		};
+//		new Thread(task).start();
 
 	}
 
+	public void updateView() {
+		view.setGame(GameService.getInstance().getGame());
+	}
+	
 	public void showCup() {
 
 		// Get the cup content
@@ -173,11 +146,6 @@ public class GamePresenter {
 		};
 
 		popupPresenter.showCupPopup(game.getCup().getListOfThings(), "Cup", handler);
-
-		// TESTING: THIS WILL BE IN phase executes
-//		GameEvents.getProducer().setMessage("A TEST MESSAGE");
-
-//	popupPresenter.showPopup();
 	}
 
 	public void showPlayerInfoPopup(Player p) {
