@@ -1,6 +1,5 @@
 package com.view;
 
-import com.presenter.Main;
 import com.presenter.StartScreenCntrl;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
@@ -50,9 +49,9 @@ public class StartScreen {
 		scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
 		scene.getStylesheets().add("view/com/assets/docs/startScreen.css");
 
-		Stage stage = Main.getStage();
-		stage.setScene(scene);
-		stage.show();
+		//Stage stage = Main.getStage();
+		//stage.setScene(scene);
+		//stage.show();
 
 		//fade
 		FadeTransition ft = new FadeTransition(Duration.millis(2000), root);

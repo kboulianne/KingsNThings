@@ -30,12 +30,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		context.clearRolls();
 	}
 
-	@Override
-	public void preExecutePhase(Object input) {
-		
-	}
-
-	@Override
+	/*@Override
 	public void executePhase(Object input) {
 		Game game = GameService.getInstance().getGame();
 
@@ -76,10 +71,9 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 //    public List<Player> getPlayerOrder() {
 //	return new ArrayList<>(rolls.values());
 //    }
-	@Override
-	public void postExecutePhase(Object input) {
-
-	}
+ * (non-Javadoc)
+ * @see com.model.game.phase.IPhaseStrategy#phaseEnd()
+ */
 
 	@Override
 	public void phaseEnd() {
@@ -88,6 +82,30 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		game.setPlayerOrder(context.getPlayersHighToLow());
 
 		System.out.println("Init Phase: End of Player Order Phase");
+	}
+
+	@Override
+	public void turnStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turnEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addHandlers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeHandlers() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

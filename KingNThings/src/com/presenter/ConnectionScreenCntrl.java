@@ -1,6 +1,5 @@
 package com.presenter;
 
-import com.view.GameScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -90,7 +89,7 @@ public class ConnectionScreenCntrl {
 		beginButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				new GameScreen().show();
+				
 			}
 		});
 	}

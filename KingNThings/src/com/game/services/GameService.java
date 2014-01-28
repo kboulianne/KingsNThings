@@ -15,7 +15,6 @@ import com.model.Player;
 import com.model.SwampCreature;
 import com.model.Thing;
 import com.model.game.Game;
-import com.model.game.GameAction;
 import com.model.game.phase.GamePlay;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,7 +46,6 @@ public class GameService {
 	private void initialize() {
 		//	test_CreateOpponents();
 		test_CreatePlayers();
-		test_AddThingsAndCreatures();
 		//	game.test_PlayerOrder();
 	}
 
@@ -84,30 +82,6 @@ public class GameService {
 
 		game.setPlayerOrder(players);
 //	game.setCurrent(game.getPlayer());
-	}
-
-	private void test_AddThingsAndCreatures() {
-		Thing thing = new SwampCreature("ghost");
-		Creature goblin = new MountainCreature("goblins");
-		Creature dragon = new DesertCreature("olddragon");
-		List<Hex> hexes = game.getBoard().getHexes();
-
-		hexes.get(0).addCreatToArmy(goblin, game.getCurrentPlayer().getId());
-		hexes.get(0).addCreatToArmy(dragon, game.getCurrentPlayer().getId());
-		game.getCurrentPlayer().getBlock().addThing(thing, game.getCurrentPlayer().getName());
-		game.getCurrentPlayer().getBlock().addThing(goblin, game.getCurrentPlayer().getName());
-		for (int i = 0; i < 10; i++) {
-			hexes.get(0).addCreatToArmy(dragon, game.getOpponent1().getId());
-		}
-		for (int i = 0; i < 5; i++) {
-			hexes.get(0).addCreatToArmy(dragon, game.getOpponent2().getId());
-		}
-		for (int i = 0; i < 8; i++) {
-			hexes.get(0).addCreatToArmy(dragon, game.getOpponent3().getId());
-		}
-		for (int i = 0; i < 7; i++) {
-			hexes.get(0).addCreatToArmy(dragon, game.getCurrentPlayer().getId());
-		}
 	}
 
 	// TODO remove me and handle/ return stuff from service.

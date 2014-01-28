@@ -6,7 +6,6 @@
 package com.view;
 
 import com.model.game.Game;
-import com.model.game.GameAction;
 import com.presenter.GamePresenter;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -145,9 +144,9 @@ public class GameView extends StackPane {
 		}
 	}
 	
-	
+	/*
 	public void setAction(GameAction action) {
 		System.out.println("GameView: " + action.getActionString());
 		currentActionLbl.setText(action.getActionString());
-	}
+	}*/
 }
