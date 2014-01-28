@@ -29,25 +29,25 @@ import com.view.ThingDetailsView;
  */
 public class KNTAppFactory {
 
-    private final GamePresenter mainPresenter;
-    private final DicePresenter dicePresenter;
-    private final SidePanePresenter sidePanePresenter;
-    private final BoardPresenter boardPresenter;
-    private final HexDetailsPresenter hexDetailsPresenter;
-    private final ThingDetailsPresenter thingDetailsPresenter;
-    private final PlayerInfoPresenter playerInfoPresenter;
-    private final PopupPresenter popupPresenter;
+    private static final GamePresenter mainPresenter;
+    private static final DicePresenter dicePresenter;
+    private static final SidePanePresenter sidePanePresenter;
+    private static final BoardPresenter boardPresenter;
+    private static final HexDetailsPresenter hexDetailsPresenter;
+    private static final ThingDetailsPresenter thingDetailsPresenter;
+    private static final PlayerInfoPresenter playerInfoPresenter;
+    private static final PopupPresenter popupPresenter;
     
-	public KNTAppFactory() {
-		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
-		this.mainPresenter = createMainPresenter();
-		this.dicePresenter = createDicePresenter();
-		this.sidePanePresenter = createSidePanePresenter();
-		this.boardPresenter = createBoardPresenter();
-		this.hexDetailsPresenter = createHexDetailsPresenter();
-		this.thingDetailsPresenter = createThingDetailsPresenter();
-		this.playerInfoPresenter = createPlayerInfoPresenter();
-		this.popupPresenter = createPopupPresenter();
+    static {
+    	// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
+    	mainPresenter = createMainPresenter();
+		dicePresenter = createDicePresenter();
+		sidePanePresenter = createSidePanePresenter();
+		boardPresenter = createBoardPresenter();
+		hexDetailsPresenter = createHexDetailsPresenter();
+		thingDetailsPresenter = createThingDetailsPresenter();
+		playerInfoPresenter = createPlayerInfoPresenter();
+		popupPresenter = createPopupPresenter();
 		
 		// Set dependencies
 		mainPresenter.setDependencies(dicePresenter, sidePanePresenter, boardPresenter, playerInfoPresenter, popupPresenter);
@@ -56,44 +56,47 @@ public class KNTAppFactory {
 		boardPresenter.setDependencies(sidePanePresenter);
 		hexDetailsPresenter.setDependencies(sidePanePresenter);
 		playerInfoPresenter.setDependencies(sidePanePresenter, mainPresenter);
-	}
+    		
+    }
+		
+    private KNTAppFactory() {}
 	
-	private GamePresenter createMainPresenter() {
+	private static GamePresenter createMainPresenter() {
 		GameView view = new GameView();
 		GamePresenter presenter = new GamePresenter(view);
 		
 		return presenter;
 	}
 	
-	private DicePresenter createDicePresenter() {
+	private static DicePresenter createDicePresenter() {
 		DiceView view = new DiceView();
 		DicePresenter presenter = new DicePresenter(view);
 		
 		return presenter;
 	}
 	
-	private SidePanePresenter createSidePanePresenter() {
+	private static SidePanePresenter createSidePanePresenter() {
 		SidePaneView view = new SidePaneView();
 		SidePanePresenter presenter = new SidePanePresenter(view);
 		
 		return presenter;
 	}
 	
-	private BoardPresenter createBoardPresenter() {
+	private static BoardPresenter createBoardPresenter() {
 		BoardView view = new BoardView();
 		BoardPresenter presenter = new BoardPresenter(view);
 		
 		return presenter;
 	}
 	
-	private HexDetailsPresenter createHexDetailsPresenter() {
+	private static HexDetailsPresenter createHexDetailsPresenter() {
 		HexDetailsView view = new HexDetailsView();
 		HexDetailsPresenter presenter = new HexDetailsPresenter(view);
 		
 		return presenter;
 	}
 	
-	private ThingDetailsPresenter createThingDetailsPresenter() {
+	private static ThingDetailsPresenter createThingDetailsPresenter() {
 		ThingDetailsView tView = new ThingDetailsView();
 		CreatureDetailsView cView = new CreatureDetailsView();
 		ThingDetailsPresenter presenter = new ThingDetailsPresenter(tView, cView);
@@ -101,21 +104,21 @@ public class KNTAppFactory {
 		return presenter;
 	}
 	
-	private PlayerInfoPresenter createPlayerInfoPresenter() {
+	private static PlayerInfoPresenter createPlayerInfoPresenter() {
 		PlayerInfoView view = new PlayerInfoView();
 		PlayerInfoPresenter presenter = new PlayerInfoPresenter(view);
 		
 		return presenter;
 	}
 	
-	private PopupPresenter createPopupPresenter() {
+	private static PopupPresenter createPopupPresenter() {
 		PopupView view = new PopupView();
 		PopupPresenter presenter = new PopupPresenter(view);
 		
 		return presenter;
 	}
 	
-    public GamePresenter getMainPresenter() {
+    public static GamePresenter getMainPresenter() {
 		return mainPresenter;
     }
     

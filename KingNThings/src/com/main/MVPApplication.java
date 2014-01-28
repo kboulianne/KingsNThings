@@ -29,9 +29,7 @@ public class MVPApplication extends Application {
 	
     @Override
     public void start(Stage stage) throws Exception {
-
-    	KNTAppFactory factory = new KNTAppFactory();
-    	GamePresenter main = factory.getMainPresenter();
+    	GamePresenter main = KNTAppFactory.getMainPresenter();
 	
 		// GameView view = new GameView(GameService.getInstance().getGame());
 		// GamePresenter presenter = new GamePresenter(view);
