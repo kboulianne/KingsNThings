@@ -29,24 +29,4 @@ public class Die extends GamePiece {
 	public void setValue(int value) {
 		this.value = value;
 	}
-
-//    @Override
-//    public void setImage(String dir) {
-//	super.setImage(dir);
-//	
-//	
-//	// Need to be invoked on FXApplication Thread.
-//	Platform.runLater(new Runnable() {
-//
-//	    @Override
-//	    public void run() {
-//		imagePropery.set(getImage());
-//	    }
-//	});
-//	
-//    }
-//	
-//    public ObjectProperty<Image> getImageProperty() {
-//	return imagePropery;
-//    }
 }

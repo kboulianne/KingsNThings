@@ -29,13 +29,6 @@ public class Block extends GamePiece {
 		return true;
 	}
 
-	/*
-	@Override
-	public void paint(Pane pane) {
-		for(Thing thing: listOfThings)
-			thing.paint(pane);
-	}*/
-
 	public List<Thing> getListOfThings() {
 		return listOfThings;
 	}

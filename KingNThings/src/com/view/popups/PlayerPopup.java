@@ -24,6 +24,7 @@ public class PlayerPopup extends VBox {
     
     private void createPopup(Player p) {
     	setAlignment(Pos.CENTER);
+    	getStyleClass().add("block");
     	Label nameLbl = new Label("Name: Sir " + p.getName());
     	Label goldLbl = new Label("Gold: " + p.getGold());
 	
