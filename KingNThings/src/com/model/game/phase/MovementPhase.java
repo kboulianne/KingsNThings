@@ -5,7 +5,11 @@
  */
 package com.model.game.phase;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
 
 /**
  *
@@ -20,6 +24,21 @@ public class MovementPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseStart() {
 		System.out.println("Game Phase: Start of Movement Phase");
+		
+		KNTAppFactory.getThingdetailspresenter().getcView().getMoveButton().setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				KNTAppFactory.getBoardpresenter().handleMoveButtonClick();
+				
+			}
+		});
+		
+		
+	
+		
 	}
 
 	/*

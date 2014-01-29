@@ -10,6 +10,14 @@ import com.model.Board;
 import com.model.Cup;
 import com.model.Die;
 import com.model.Hex;
+import com.model.HexDesert;
+import com.model.HexForest;
+import com.model.HexFrozenWaste;
+import com.model.HexJungle;
+import com.model.HexMountain;
+import com.model.HexPlains;
+import com.model.HexSea;
+import com.model.HexSwamp;
 import com.model.Player;
 import com.model.game.phase.GamePlay;
 import com.model.Thing;
@@ -75,14 +83,56 @@ public final class Game {
 		// TODO: Factory for 2 or 4 player.
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 
-		HexFactory hexFactory = new HexFactory();
+		// for iteration 1
+		
+		board.addHex(new HexFrozenWaste(0));
+		board.addHex(new HexForest(1));
+		board.addHex(new HexJungle(2));
+		board.addHex(new HexPlains(3));
+		board.addHex(new HexSea(4));
+		board.addHex(new HexForest(5));
+		board.addHex(new HexSwamp(6));
+		board.addHex(new HexPlains(7));
+		board.addHex(new HexFrozenWaste(8));
+		board.addHex(new HexMountain(9));
+		board.addHex(new HexFrozenWaste(10));
+		board.addHex(new HexSwamp(11));
+		board.addHex(new HexDesert(12));
+		board.addHex(new HexSwamp(13));
+		board.addHex(new HexForest(14));
+		board.addHex(new HexDesert(15));
+		board.addHex(new HexPlains(16));
+		board.addHex(new HexMountain(17));
+		board.addHex(new HexJungle(18));
+		board.addHex(new HexSwamp(19));
+		board.addHex(new HexMountain(20));
+		board.addHex(new HexJungle(21));
+		board.addHex(new HexSwamp(22));
+		board.addHex(new HexDesert(23));
+		board.addHex(new HexForest(24));
+		board.addHex(new HexPlains(25));
+		board.addHex(new HexForest(26));
+		board.addHex(new HexFrozenWaste(27));
+		board.addHex(new HexJungle(28));
+		board.addHex(new HexMountain(29));
+		board.addHex(new HexDesert(30));
+		board.addHex(new HexPlains(31));
+		board.addHex(new HexJungle(32));
+		board.addHex(new HexMountain(33));
+		board.addHex(new HexForest(34));
+		board.addHex(new HexFrozenWaste(35));
+		board.addHex(new HexDesert(36));
+
+		
+		/*//Removed for iteration 1
+		 * 
+		 * HexFactory hexFactory = new HexFactory();
 
 		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
 
 		// Choose Hexes at random from the pool and add to the board.
 		int rand = 0;
 		Random rnd = new Random();
-
 	
 		for (int i = 0 ; i < board.getHexNum() ; i ++) {
 		    rand = rnd.nextInt(hexPool.size());
@@ -91,7 +141,7 @@ public final class Game {
 		    hexPool.get(rand).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
 		    hexPool.remove(rand);
 
-		}
+		}*/
 
 		//Cup created with all things required for gameplay
 		cup.setListOfThings(Util.getRandomList(Thing.createThings()));

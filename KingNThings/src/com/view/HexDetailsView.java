@@ -122,9 +122,9 @@ public class HexDetailsView extends StackPane {
 
 			// Test label
 			String test = "";
-			for (int i : hex.getJoiningHexes()) {
+			/*for (int i : hex.getJoiningHexes()) {
 				test += i + ", ";
-			}
+			}*/
 			testLbl.setText("removeLater: id=" + hex.getId() + " joins with:" + test);
 		}
 	}

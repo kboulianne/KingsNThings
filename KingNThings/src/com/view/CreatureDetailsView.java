@@ -75,4 +75,8 @@ public class CreatureDetailsView extends ThingDetailsView {
 
 	}
 
+	public Button getMoveButton() {
+		return moveButton;
+	}
+
 }

@@ -39,4 +39,8 @@ public class ThingDetailsPresenter {
 		getViewFor(t).setThing(t);
 	}
 
+	public CreatureDetailsView getcView() {
+		return cView;
+	}
+
 }

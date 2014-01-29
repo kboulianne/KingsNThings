@@ -5,19 +5,11 @@
  */
 package com.game.services;
 
-import com.model.Creature;
-import com.model.DesertCreature;
-import com.model.Hex;
-import com.model.MountainCreature;
 import java.util.ArrayList;
 import java.util.List;
 import com.model.Player;
-import com.model.SwampCreature;
-import com.model.Thing;
 import com.model.game.Game;
 import com.model.game.phase.GamePlay;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

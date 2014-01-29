@@ -64,9 +64,11 @@ public class DiceView extends HBox {
 				presenter.roll();
 			}
 		});
+		
+		Button finishTurnBtn = new Button("Finished Turn");
 
 		// Add all controls
-		getChildren().addAll(die1Iv, die2Iv, roll);
+		getChildren().addAll(die1Iv, die2Iv, roll, finishTurnBtn);
 	}
 
 	public void setDice(Die d1, Die d2) {

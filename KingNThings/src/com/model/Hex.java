@@ -2,11 +2,7 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import com.model.Board.NumberOfHexes;
-import com.model.Player.PlayerId;
-
 import java.util.Map;
 
 import javafx.scene.image.Image;

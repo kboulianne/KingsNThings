@@ -122,4 +122,36 @@ public class KNTAppFactory {
 		return mainPresenter;
     }
 
+	public static ThingDetailsPresenter getThingdetailspresenter() {
+		return thingDetailsPresenter;
+	}
+
+	public static GamePresenter getMainpresenter() {
+		return mainPresenter;
+	}
+
+	public static DicePresenter getDicepresenter() {
+		return dicePresenter;
+	}
+
+	public static SidePanePresenter getSidepanepresenter() {
+		return sidePanePresenter;
+	}
+
+	public static BoardPresenter getBoardpresenter() {
+		return boardPresenter;
+	}
+
+	public static HexDetailsPresenter getHexdetailspresenter() {
+		return hexDetailsPresenter;
+	}
+
+	public static PlayerInfoPresenter getPlayerinfopresenter() {
+		return playerInfoPresenter;
+	}
+
+	public static PopupPresenter getPopuppresenter() {
+		return popupPresenter;
+	}
+
 }

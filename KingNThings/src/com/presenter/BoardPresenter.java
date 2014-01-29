@@ -73,26 +73,20 @@ public class BoardPresenter {
 		//	detailsPresenter.showHex(b.getHexes().get(selected));
 	}
 
-	public void handleMoveButtonClick(Button moveButton) {
+	public void handleMoveButtonClick() {
 		// TODO Auto-generated method stub
 
-		//final int selectedIndex = this.gSceen.getLastHexSelected();
-		moveButton.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				Util.log("SeletectIndex-->" + lastHexSelected);
-				ArrayList<Integer> moveableHexIdList = new ArrayList<>();
-				calculateMovementWeight(lastHexSelected, moveableHexIdList);
+		Util.log("SeletectIndex-->" + lastHexSelected);
+		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
+		calculateMovementWeight(lastHexSelected, moveableHexIdList);
 
-				//repaint moveableHexIdList
-				for (int i : moveableHexIdList) {
-					Util.log("moveable ids:" + i);
-					view.paintHex(svc.getGame().getBoard().getHexes().get(i));
-				}
-			}
-		});
+		//repaint moveableHexIdList
+		for (int i : moveableHexIdList) {
+			Util.log("moveable ids:" + i);
+			view.paintHex(svc.getGame().getBoard().getHexes().get(i));
+		}
+
 		//
 
 		//Util.log("SeletectIndex"+ selectedIndex);
@@ -160,5 +154,9 @@ public class BoardPresenter {
 		for (int k : uncheckedList) { // recurse
 			calculateMovementWeight(k, calculated);
 		}
+	}
+
+	public int getLastHexSelected() {
+		return lastHexSelected;
 	}
 }
