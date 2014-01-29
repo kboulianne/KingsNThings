@@ -11,7 +11,6 @@ package com.model.game.phase;
  * @author kurtis
  */
 public interface IPhaseStrategy<T> {
-    
     void phaseStart();
     void turnStart();
     void turnEnd();

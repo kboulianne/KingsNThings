@@ -74,7 +74,7 @@ public class Hex extends GamePiece {
 	public Hex(int id, HexType type){
 	    this.type = type;
 	    this.id= id;
-	    typeAsString = type.typeName;
+	    setTypeAsString(type.typeName);
 	    color = Color.DARKGRAY;
 	    startPosition =  false;
 	    selected = false;
@@ -83,7 +83,7 @@ public class Hex extends GamePiece {
 	    armies = new HashMap<Player, ArrayList<Creature>>();
 	    miscItems = new ArrayList<GamePiece>();
 
-	    movementWeight = -1;
+	    setMovementWeight(-1);
 	}
 
 	
@@ -154,14 +154,24 @@ public class Hex extends GamePiece {
     }
     public ArrayList<Creature> getArmies(Player p)	{
     	return armies.get(p);
-    }
-    
+    }  
     public ArrayList<GamePiece> getMiscItems() {
 		return miscItems;
 	}
-
 	public void setMiscItems(ArrayList<GamePiece> miscItems) {
 		this.miscItems = miscItems;
+	}
+	public String getTypeAsString() {
+		return typeAsString;
+	}
+	public void setTypeAsString(String typeAsString) {
+		this.typeAsString = typeAsString;
+	}
+	public int getMovementWeight() {
+		return movementWeight;
+	}
+	public void setMovementWeight(int movementWeight) {
+		this.movementWeight = movementWeight;
 	}
     
     public void addCreatToArmy(Creature creature, Player p)	{

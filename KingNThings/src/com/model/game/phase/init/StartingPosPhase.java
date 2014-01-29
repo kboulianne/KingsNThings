@@ -25,6 +25,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Hex> /*implements He
 	 *
 	 * @param input The hex tile selected as the start position.
 	 */
+	/*
 	@Override
 	public void executePhase(final Hex input) {
 //	Game game = service.getGame();
@@ -42,16 +43,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Hex> /*implements He
 //    public void executePhase(final Hex hex) {
 //	
 //    }
-	@Override
-	public void preExecutePhase(Hex input) {
-
-	}
-
-	@Override
-	public void postExecutePhase(Hex input) {
-
-	}
-
+	*/
 	@Override
 	public void phaseStart() {
 		System.out.println("Start of Starting Positions Phase");
@@ -60,6 +52,30 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Hex> /*implements He
 	@Override
 	public void phaseEnd() {
 		System.out.println("End of Starting Positions Phase");
+	}
+
+	@Override
+	public void turnStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turnEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addHandlers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeHandlers() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

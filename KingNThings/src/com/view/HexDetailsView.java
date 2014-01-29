@@ -93,12 +93,6 @@ public class HexDetailsView extends StackPane {
 		content.getStyleClass().add("block");
 	}
 
-    // TODO Put in ArmyOrMiscView?
-//    private HBox createArmyOrMisc() {
-//	// TODO should we put armies in player?
-//	
-////	return armyBox;
-//    }
 	public void setPresenter(final HexDetailsPresenter presenter) {
 		if (presenter == null) {
 			throw new NullPointerException("Presenter cannot be null");
@@ -132,19 +126,6 @@ public class HexDetailsView extends StackPane {
 				test += i + ", ";
 			}
 			testLbl.setText("removeLater: id=" + hex.getId() + " joins with:" + test);
-	    // TODO Hardcoded stuff!
-			// Update the armies
-
-//	    Map<Player, List<Thing>> armies = hex.getArmies();
-			// TESTING: SERVICE SHOULD NOT BE HERE
-			Game game = GameService.getInstance().getGame();
-			opp1Army.setArmy(game.getOpponent1(), hex.getOpponent1Army());
-//	    opp1Army.setArmy(game.getOpponent1(), armies.get(game.getOpponent1()));
-			opp2Army.setArmy(game.getOpponent2(), hex.getOpponent2Army());
-			opp3Army.setArmy(game.getOpponent3(), hex.getOpponent3Army());
-			currentPlayerArmy.setArmy(game.getCurrentPlayer(), hex.getCurrentPlayerArmy());
-
-	    //TODO Misc things
 		}
 	}
 }

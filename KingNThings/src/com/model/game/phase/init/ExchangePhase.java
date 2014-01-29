@@ -24,23 +24,39 @@ public class ExchangePhase extends AbstractPhaseStrategy<Object> {
 		System.out.println("Init Phase: Start of Exchange Things Phase");
 	}
 
-	@Override
-	public void preExecutePhase(Object input) {
-
-	}
-
+	/*
 	@Override
 	public void executePhase(Object input) {
 		System.out.println("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 	}
-
-	@Override
-	public void postExecutePhase(Object input) {
-
-	}
-
+*/
+	
 	@Override
 	public void phaseEnd() {
 		System.out.println("Init Phase: End of Exchange Things Phase");
+	}
+
+	@Override
+	public void turnStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turnEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addHandlers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeHandlers() {
+		// TODO Auto-generated method stub
+		
 	}
 }
