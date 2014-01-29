@@ -17,34 +17,4 @@ public abstract class AbstractPhaseStrategy<T> implements IPhaseStrategy<T> {
 	protected AbstractPhaseStrategy(final GamePlay context) {
 		this.context = context;
 	}
-
-//    @Override
-//    public void preExecutePhase(T input) {
-//	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void executePhase(T input) {
-//	preExecutePhase(input);
-//    }
-//
-//    @Override
-//    public void postExecutePhase(T input) {
-//	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-	public final void execute(final T input) {
-		preExecutePhase(input);
-		
-		// TESTING FOR NOW
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				executePhase(input);
-			}
-		}).start();
-		
-		postExecutePhase(input);
-	}
-
 }

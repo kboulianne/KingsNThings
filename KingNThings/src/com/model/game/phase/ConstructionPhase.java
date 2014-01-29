@@ -22,23 +22,37 @@ public class ConstructionPhase extends AbstractPhaseStrategy<Object> {
 		System.out.println("Game Phase: Start of Construction Phase");
 	}
 
-	@Override
-	public void preExecutePhase(Object input) {
-
-	}
-
-	@Override
+	/*@Override
 	public void executePhase(Object input) {
 		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-	}
-
-	@Override
-	public void postExecutePhase(Object input) {
-
-	}
+	}*/
 
 	@Override
 	public void phaseEnd() {
 		System.out.println("Game Phase: End of Construction Phase");
+	}
+
+	@Override
+	public void turnStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turnEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addHandlers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeHandlers() {
+		// TODO Auto-generated method stub
+		
 	}
 }

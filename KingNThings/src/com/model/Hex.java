@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.model.Board.NumberOfHexes;
@@ -51,15 +52,8 @@ public class Hex extends GamePiece {
 	static final Image START_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
 	// list of armies for all players
 	// list of misc Things
-	private Map<Player, ArrayList<Creature>> armies;
+	private HashMap<Player, ArrayList<Creature>> armies;
 	private ArrayList<GamePiece> miscItems;
-
-	// Kept for now
-	private List<Thing> player1Army; // can be maps
-	private List<Thing> player2Army;
-	private List<Thing> player3Army;
-	private List<Thing> currentPlayerArmy;
-	private List<Thing> miscThings; 
 
 	
 	public enum HexType {
@@ -86,22 +80,10 @@ public class Hex extends GamePiece {
 	    selected = false;
 	    selectable = true; // may have to change for startup
 	    //setJoiningHexes();
-	    player1Army = new ArrayList<>(); 
-	    player2Army = new ArrayList<>(); 
-	    player3Army = new ArrayList<>(); 
-	    currentPlayerArmy = new ArrayList<>();
-	    miscThings = new ArrayList<>();
+	    armies = new HashMap<Player, ArrayList<Creature>>();
+	    miscItems = new ArrayList<GamePiece>();
 
 	    movementWeight = -1;
-	    
-	    // TODO put the army in player and link here?
-//	    armies = new HashMap<>();
-	    // TESTING for now
-//	    Game game = GameService.getInstance().getGame();
-//	    armies.put(game.getOpponent1(), player1Army);
-//	    armies.put(game.getOpponent1(), player2Army);
-//	    armies.put(game.getOpponent1(), player3Army);
-//	    armies.put(game.getCurrentPlayer(), currentPlayerArmy);
 	}
 
 	
@@ -181,22 +163,6 @@ public class Hex extends GamePiece {
 	public void setMiscItems(ArrayList<GamePiece> miscItems) {
 		this.miscItems = miscItems;
 	}
-
-    public void addCreatToArmy(Creature creature, PlayerId key){
-	    if(key.equals(PlayerId.ONE)){
-		    if(player1Army.size()<11)
-			    player1Army.add(creature);
-	    }else if(key.equals(PlayerId.TWO)){
-		    if(player2Army.size()<11)
-			    player2Army.add(creature);
-	    }else if(key.equals(PlayerId.THREE)){
-		    if(player3Army.size()<11)
-			    player3Army.add(creature);
-	    }else if(key.equals(PlayerId.FOUR)){
-		    if(currentPlayerArmy.size()<11)
-			    currentPlayerArmy.add(creature);
-	    }
-    }
     
     public void addCreatToArmy(Creature creature, Player p)	{
     	if(armies.get(p).size() < 10)	{
@@ -207,156 +173,4 @@ public class Hex extends GamePiece {
     public void addItemToHex(GamePiece item)	{
     	miscItems.add(item);
     }
-    
-    public void addThingToHex(Thing t){
-	    miscThings.add(t);
-    }
-
-    // For now
-    public List<Thing> getOpponent1Army() {
-        return player1Army;
-    }
-    
-    public List<Thing> getOpponent2Army() {
-        return player2Army;
-    }
-    
-    public List<Thing> getOpponent3Army() {
-        return player3Army;
-    }
-    
-    public List<Thing> getCurrentPlayerArmy() {
-        return currentPlayerArmy;
-    }
-    
-/*
-	public void paint(Pane pane) {
-		
-		//pane not needed we need a canvas object
-		
-		// TODO Auto-generated method stub
-		GraphicsContext gc =GameScreen.playingArea.getGraphicsContext2D();
-		double height = GameScreen.getHexHeight();//HEX_HEIGHT;
-		double HEX_WIDTH = GameScreen.getHexWidth();
-		double choosenMapping[][] = GameScreen.getChoosenMapping();
-		
-		double xOffset = choosenMapping[id][0]*0.75*HEX_WIDTH-40.0; //40 move whole grid
-		double yOffset = choosenMapping[id][1]*0.5*height-30.0; //30 moves whole grid
-		//gc.fillOval(xOffset, yOffset, xOffset+200, yOffset+200);
-		
-		//outer polygon
-		gc.setFill(Color.BLACK);
-		gc.fillPolygon(new double[]{(xOffset+(HEX_WIDTH*0.25)), (xOffset+(HEX_WIDTH*0.75)), (xOffset+HEX_WIDTH), 	
-									 xOffset+(HEX_WIDTH*0.75), xOffset+(HEX_WIDTH*0.25), xOffset},
-					   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
-									yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
-		//inner polygon
-		double gap=HEX_WIDTH*0.05;
-		double temp_width = HEX_WIDTH;
-		xOffset+=gap;
-		yOffset+=gap;
-		height-=(gap*2);//
-		temp_width-=(gap*2);
-		if(highlighted){
-			gc.setFill(Color.LIGHTBLUE);
-		}else if(selected){
-			gc.setFill(Color.WHITESMOKE);
-		}else{
-			gc.setFill(color);
-		}
-		gc.fillPolygon(new double[]{(xOffset+(temp_width*0.25)), (xOffset+(temp_width*0.75)), (xOffset+temp_width), 	
-				 					xOffset+(temp_width*0.75), xOffset+(temp_width*0.25), xOffset},
-				 	   new double[]{yOffset, yOffset, yOffset+(height*0.5), 		
-									yOffset+height, yOffset+height, yOffset+(height*0.5)}, 6);
-		//image
-		gap=temp_width*0.05;
-		double imageAdjust=4.0;
-		if(startPosition)
-			gc.drawImage(START_IMAGE, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
-		else
-			gc.drawImage(image, xOffset+gap+(imageAdjust/2), yOffset+gap, temp_width-(gap*2.0)-imageAdjust, height-(gap*2.0));
-	}*/
-
-
-	public String getTypeAsString() {
-		return typeAsString;
-	}
-
-	public int getMovementWeight() {
-		return movementWeight;
-	}
-
-	public void setMovementWeight(int movementWeight) {
-		this.movementWeight = movementWeight;
-	}
-	
-	/*
-	public void paintHexInDetails(Pane detailsBox){
-		detailsBox.getChildren().clear();
-		
-		ImageView img = new ImageView(image);
-		img.setFitWidth(300); 
-	    img.setPreserveRatio(true);
-	    img.setSmooth(true);
-	    img.setCache(true);
-
-	    VBox contentBox = new VBox();
-	    contentBox.getStyleClass().add("block");
-	    contentBox.setAlignment(Pos.CENTER);
-        
-		Label nameLbl = new Label("Type: "+ type.typeName);
-		String test = "";
-		for (int i: joiningHexes){
-			test+=i+", "; 
-		}
-		Label testLbl = new Label("removeLater: id:"+id+" joins with:"+test);
-		Label ownerLbl = new Label("Owner: Not owned");
-		if (owner != null){
-			ownerLbl.setText("Owner:"+ owner.getName());
-		}
-		
-		contentBox.getChildren().addAll(img, nameLbl, ownerLbl, testLbl);
-		
-		paintArmyORMisc(player1Army, Color.BLUE, contentBox, detailsBox);
-		paintArmyORMisc(player2Army, Color.GREEN, contentBox, detailsBox);
-		paintArmyORMisc(player3Army, Color.RED, contentBox, detailsBox);
-		paintArmyORMisc(currentPlayerArmy, Color.YELLOW, contentBox, detailsBox);
-		paintArmyORMisc(miscThings, Color.GRAY, contentBox, detailsBox);
-		
-		StackPane sp = new StackPane();
-		
-		sp.getChildren().addAll(img, contentBox);
-		detailsBox.getChildren().add(sp);
-		
-	}*/
-	
-	/*
-	private void paintArmyORMisc(List<Thing> army, Color c, Pane contentBox, final Pane detailsBox){
-		if(!army.isEmpty()){
-			HBox armyBox = new HBox();
-			armyBox.getStyleClass().add("army");
-			
-			StackPane circleStackPane = new StackPane();
-			Circle circle = new Circle();
-			circle.setRadius(22);
-			circle.setFill(c);//color of player 
-			Label armySizeLbl = new Label(Integer.toString(army.size()));
-			circleStackPane.getChildren().addAll(circle,armySizeLbl);
-			armyBox.getChildren().add(circleStackPane);
-			armyBox.setAlignment(Pos.CENTER);
-			for(final Thing t:army){
-				ImageView thingImg = t.paintThingRectangle(50, armyBox);
-				//t.paintThingInDetails(detailsBox);
-				thingImg.setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event arg0) {
-						detailsBox.getChildren().clear();
-						t.paintThingInDetails(detailsBox);	
-					}
-				});
-			}	
-			
-			contentBox.getChildren().add(armyBox);
-		}	
-	}*/
 }

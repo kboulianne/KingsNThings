@@ -1,7 +1,6 @@
 package com.view;
 
 import com.presenter.ConnectionScreenCntrl;
-import com.presenter.Main;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -94,9 +93,9 @@ public class ConnectionScreen {
 		scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
 		scene.getStylesheets().add("view/com/assets/docs/connectionScreen.css");
 
-		Stage stage = Main.getStage();
-		stage.setScene(scene);
-		stage.show();
+		//Stage stage = Main.getStage();
+		//stage.setScene(scene);
+		//stage.show();
 
 		ConnectionScreenCntrl cSC = new ConnectionScreenCntrl(player1, circle1, player2, circle2, player3, circle3, player4, circle4, beginButton);
 		//test

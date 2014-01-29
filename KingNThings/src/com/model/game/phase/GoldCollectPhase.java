@@ -40,11 +40,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		System.out.println("Game Phase: Start of Gold Collection Phase");
 	}
 
-	@Override
-	public void preExecutePhase(Object input) {
-	}
-
-	@Override
+	/*@Override
 	public void executePhase(Object input) {
 		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 		
@@ -116,15 +112,35 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		
 		player.addGold(totalGold);
 	}
-
-	@Override
-	public void postExecutePhase(Object input) {
-
-	}
-
+	*/
+	
 	@Override
 	public void phaseEnd() {
 		System.out.println("Game Phase: End of Gold Collection Phase");
+	}
+
+	@Override
+	public void turnStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turnEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addHandlers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeHandlers() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
