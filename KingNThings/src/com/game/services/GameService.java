@@ -60,17 +60,18 @@ public class GameService {
 
 	// Test methods
 	private void test_CreatePlayers() {
-		game.setCurrentPlayer(new Player(Player.PlayerId.ONE, "Bob"));
-		game.setOpponent1(new Player(Player.PlayerId.TWO, "Frank"));
-		game.setOpponent2(new Player(Player.PlayerId.THREE, "Joe"));
-		game.setOpponent3(new Player(Player.PlayerId.FOUR, "Roxanne"));
+		game.setCurrentPlayer(new Player(Player.PlayerId.ONE, "Player 1"));
+		game.setOpponent1(new Player(Player.PlayerId.TWO, "Player 2"));
+		game.setOpponent2(new Player(Player.PlayerId.THREE, "Player 3"));
+		game.setOpponent3(new Player(Player.PlayerId.FOUR, "Player 4"));
 
 		// Initial PlayerOrder.
 		List<Player> players = new ArrayList<>();
-		players.add(game.getOpponent2());
 		players.add(game.getCurrentPlayer());
-		players.add(game.getOpponent3());
 		players.add(game.getOpponent1());
+		players.add(game.getOpponent2());
+		players.add(game.getOpponent3());
+		
 
 		game.setPlayerOrder(players);
 //	game.setCurrent(game.getPlayer());
