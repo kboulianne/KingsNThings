@@ -23,7 +23,6 @@ import com.model.IncomeCounter;
 import com.model.Player;
 import com.model.Hex;
 import com.model.SpecialCharacter;
-import com.view.GameScreen;
 
 /**
  *

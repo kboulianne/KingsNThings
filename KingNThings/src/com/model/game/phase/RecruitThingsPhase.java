@@ -25,11 +25,7 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy<Object> {
 		System.out.println("Game Phase: Start of Recruiting Things Phase");
 	}
 
-	@Override
-	public void preExecutePhase(Object input) {
-
-	}
-
+	/*
 	@Override
 	public void executePhase(Object input) {
 		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
@@ -44,15 +40,35 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy<Object> {
 			}
 		}
 	}
-
-	@Override
-	public void postExecutePhase(Object input) {
-
-	}
+	*/
 
 	@Override
 	public void phaseEnd() {
 		System.out.println("Game Logic: End of Recruiting Things Phase");
+	}
+
+	@Override
+	public void turnStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turnEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addHandlers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeHandlers() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

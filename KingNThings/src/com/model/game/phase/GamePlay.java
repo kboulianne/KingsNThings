@@ -16,7 +16,6 @@ import java.util.TreeMap;
 
 import com.model.Player;
 import com.model.game.Game;
-import com.model.game.GameAction;
 import com.model.game.phase.init.ExchangePhase;
 import com.model.game.phase.init.PlayerOrderPhase;
 import com.model.game.phase.init.StartingForcesPhase;
@@ -58,9 +57,6 @@ public class GamePlay {
     // TODO Add a model?
 	// Maps dice total to the player that made the roll.
 	private final SortedMap<Integer, Player> rolls;
-
-	// public for now
-	public final BlockingQueue<GameAction> actions;
 	
 	/**
 	 * Inner class responsible for holding singleton instance. Initialized once.
@@ -78,7 +74,6 @@ public class GamePlay {
 		initPhases = new LinkedHashSet<>();
 		gamePhases = new LinkedHashSet<>();
 		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
-		actions = new ArrayBlockingQueue<>(1);
 
 		createInitPhases();
 		createGamePhases();
@@ -151,13 +146,12 @@ public class GamePlay {
 	/**
 	 * Goes to the next player, and switches phases if needed.
 	 */
-	@SuppressWarnings("unchecked")
 	public final void next() {
 		// TODO make sure to no mismatch Game "state" stuff and game "logic" stuff in here. State stuff goes in Game.
 		Game game = GameService.getInstance().getGame();
 
 		// Execute logic then go to next player / phase
-		phaseLogic.execute(null);
+		phaseLogic.turnStart();
 
 		// Signal end of phase
 		if (game.isLastPlayer()) {
