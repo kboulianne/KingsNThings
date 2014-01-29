@@ -83,7 +83,7 @@ public final class Game {
 		// TODO: Factory for 2 or 4 player.
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 
-		// for iteration 1
+		// added for iteration 1 hard-coded
 		
 		board.addHex(new HexFrozenWaste(0));
 		board.addHex(new HexForest(1));
@@ -122,6 +122,10 @@ public final class Game {
 		board.addHex(new HexForest(34));
 		board.addHex(new HexFrozenWaste(35));
 		board.addHex(new HexDesert(36));
+		
+		for (int i = 0 ; i < board.getHexNum() ; i ++) {
+		    board.getHexes().get(i).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
+		}
 
 		
 		/*//Removed for iteration 1

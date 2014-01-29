@@ -50,6 +50,10 @@ public class ArmyOrMisc extends HBox {
 		circle.setRadius(22);
 		sizeLbl = new Label(/*Integer.toString(army.size())*/);
 		circleStackPane.getChildren().addAll(circle, sizeLbl);
+		
+		circleStackPane.setVisible(false);
+		sizeLbl.setVisible(false);
+		circle.setVisible(false);
 
 		thingHolder = new HBox();
 		thingHolder.getStyleClass().add("army");
@@ -113,6 +117,7 @@ public class ArmyOrMisc extends HBox {
 			sizeLbl.setVisible(true);
 			circle.setVisible(true);
 			thingHolder.setVisible(true);
+			circleStackPane.setVisible(true);
 
 			sizeLbl.setText(String.valueOf(army.size()));
 			circle.setFill(armyOwner.getColor());
@@ -125,6 +130,7 @@ public class ArmyOrMisc extends HBox {
 			}
 		} else {
 			// Make invisible
+			circleStackPane.setVisible(false);
 			sizeLbl.setVisible(false);
 			circle.setVisible(false);
 			thingHolder.setVisible(false);
