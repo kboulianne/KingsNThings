@@ -95,7 +95,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Init Phase: Player Order Phase - turnEnd()");
 	}
 
 	@Override

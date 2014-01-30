@@ -47,6 +47,8 @@ public final class GamePlay {
     // TODO Add a model?
 	// Maps dice total to the player that made the roll.
 	private final SortedMap<Integer, Player> rolls;
+
+
 	
 	/**
 	 * Inner class responsible for holding singleton instance. Initialized once.
@@ -168,6 +170,12 @@ public final class GamePlay {
 	public void start() {
 		// Initial phase start
 		phaseLogic.phaseStart();
+		next();
+	}
+	
+	public void endTurn() {
+		phaseLogic.turnEnd();
+		//TODO make turnEnd() return boolean so we can check pre-conditions before next()
 		next();
 	}
 }

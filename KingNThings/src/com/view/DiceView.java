@@ -65,8 +65,16 @@ public class DiceView extends HBox {
 			}
 		});
 		
+		//TODO Would be better in GameView
 		Button finishTurnBtn = new Button("Finished Turn");
+		finishTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
 
+			@Override
+			public void handle(ActionEvent t) {
+				presenter.endTurn();
+			}
+		});
+		
 		// Add all controls
 		getChildren().addAll(die1Iv, die2Iv, roll, finishTurnBtn);
 	}

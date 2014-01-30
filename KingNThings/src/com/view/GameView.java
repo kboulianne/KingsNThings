@@ -24,8 +24,6 @@ import javafx.scene.layout.VBox;
 public class GameView extends StackPane {
 
 	private GamePresenter presenter;
-//    // Sub-presenters
-//    private DicePresenter dicePresenter;
 
 	public VBox rootVBox;
 	private AnchorPane gameStatus;
@@ -79,6 +77,7 @@ public class GameView extends StackPane {
 		// Contains sidepaneview and PlayArea
 		centerBox = new HBox();
 
+//		Button finishTurnBtn = new Button("Finished Turn");
 		//Button test = new Button("Test");
 		//AnchorPane.setLeftAnchor(test, 500.0);
 		//AnchorPane.setTopAnchor(test, 0.0);
