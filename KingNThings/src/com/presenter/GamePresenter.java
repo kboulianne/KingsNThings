@@ -119,8 +119,7 @@ public class GamePresenter {
 
 	public void startGame() {
 		// Triggers the First phase
-		//TODO make a start game in GamePlay.
-		GamePlay.getInstance().next();
+		GamePlay.getInstance().start();
 	}
 
 }

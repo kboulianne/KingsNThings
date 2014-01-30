@@ -5,8 +5,6 @@
  */
 package com.main;
 
-import com.main.KNTAppFactory;
-import com.model.game.phase.GamePlay;
 import com.presenter.GamePresenter;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -46,7 +44,6 @@ public class MVPApplication extends Application {
         stage.setFullScreen(false);
         stage.getIcons().add(new Image("view/com/assets/pics/icon.png"));
 		stage.setOnShown(new EventHandler<WindowEvent>() {
-
 			@Override
 			public void handle(WindowEvent t) {
 				main.startGame();
