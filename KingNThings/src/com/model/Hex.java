@@ -71,7 +71,7 @@ public class Hex extends GamePiece {
 	    this.type = type;
 	    this.id= id;
 	    setTypeAsString(type.typeName);
-	    color = Color.DARKGRAY;
+	    color = Color.LIGHTGRAY;
 	    startPosition =  false;
 	    selected = false;
 	    selectable = true; // may have to change for startup

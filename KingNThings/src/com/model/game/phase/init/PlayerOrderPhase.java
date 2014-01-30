@@ -6,11 +6,16 @@
 package com.model.game.phase.init;
 
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
+import com.presenter.Util;
+import com.view.GameView;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  *
@@ -27,6 +32,26 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	public void phaseStart() {
 		System.out.println("Init Phase: Start of Player Order Phase");
 		context.clearRolls();
+		
+		
+		Game game =  GameService.getInstance().getGame();
+		GameView gv = KNTAppFactory.getGamePresenter().getView();
+		
+		//top label
+		gv.getCurrentActionLbl().setText("Init Phase");
+		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName());
+		
+		
+		//detail pane
+		
+		//on clicks
+		
+		
+		
+		
+		
+		Util.log("We are skipping this Phase for now");
+		phaseEnd();
 	}
 
 	/*@Override
@@ -77,8 +102,8 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseEnd() {
 		// Updates the player order.
-		Game game = GameService.getInstance().getGame();
-		game.setPlayerOrder(context.getPlayersHighToLow());
+		//Game game = GameService.getInstance().getGame();
+		//game.setPlayerOrder(context.getPlayersHighToLow());
 
 		System.out.println("Init Phase: End of Player Order Phase");
 	}

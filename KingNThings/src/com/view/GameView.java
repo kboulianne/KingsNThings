@@ -143,6 +143,14 @@ public class GameView extends StackPane {
 	
 		}
 	}
+
+	public Label getCurrentPlayerLbl() {
+		return currentPlayerLbl;
+	}
+
+	public Label getCurrentActionLbl() {
+		return currentActionLbl;
+	}
 	
 	/*
 	public void setAction(GameAction action) {

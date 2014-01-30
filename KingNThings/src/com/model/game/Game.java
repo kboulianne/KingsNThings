@@ -19,7 +19,9 @@ import com.model.HexPlains;
 import com.model.HexSea;
 import com.model.HexSwamp;
 import com.model.Player;
+import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
+import com.model.game.phase.init.StartingPosPhase;
 import com.model.Thing;
 import com.presenter.HexFactory;
 import com.presenter.Util;
@@ -363,7 +365,11 @@ public final class Game {
 //    }
 	//TODO startGame() -> signals start of phase?
 	public void start() {
-
+		Util.log("Start Game 1");
+		GamePlay.getInstance();
+		
+		//AbstractPhaseStrategy aps = new StartingPosPhase();
+		//aps.phaseStart();
 	}
 
 	/**

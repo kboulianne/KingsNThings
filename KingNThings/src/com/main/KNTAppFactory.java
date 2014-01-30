@@ -29,7 +29,7 @@ import com.view.ThingDetailsView;
  */
 public class KNTAppFactory {
 
-    private static final GamePresenter mainPresenter;
+    private static final GamePresenter gamePresenter;
     private static final DicePresenter dicePresenter;
     private static final SidePanePresenter sidePanePresenter;
     private static final BoardPresenter boardPresenter;
@@ -40,7 +40,7 @@ public class KNTAppFactory {
     
     static {
     	// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
-    	mainPresenter = createMainPresenter();
+    	gamePresenter = createMainPresenter();
 		dicePresenter = createDicePresenter();
 		sidePanePresenter = createSidePanePresenter();
 		boardPresenter = createBoardPresenter();
@@ -50,12 +50,12 @@ public class KNTAppFactory {
 		popupPresenter = createPopupPresenter();
 		
 		// Set dependencies
-		mainPresenter.setDependencies(dicePresenter, sidePanePresenter, boardPresenter, playerInfoPresenter, popupPresenter);
-		dicePresenter.setDependencies(mainPresenter);
-		sidePanePresenter.setDependencies(hexDetailsPresenter, thingDetailsPresenter, mainPresenter);
+		gamePresenter.setDependencies(dicePresenter, sidePanePresenter, boardPresenter, playerInfoPresenter, popupPresenter);
+		dicePresenter.setDependencies(gamePresenter);
+		sidePanePresenter.setDependencies(hexDetailsPresenter, thingDetailsPresenter, gamePresenter);
 		boardPresenter.setDependencies(sidePanePresenter);
 		hexDetailsPresenter.setDependencies(sidePanePresenter);
-		playerInfoPresenter.setDependencies(sidePanePresenter, mainPresenter);
+		playerInfoPresenter.setDependencies(sidePanePresenter, gamePresenter);
     		
     }
 		
@@ -117,17 +117,13 @@ public class KNTAppFactory {
 		
 		return presenter;
 	}
-	
-    public static GamePresenter getMainPresenter() {
-		return mainPresenter;
-    }
 
 	public static ThingDetailsPresenter getThingdetailspresenter() {
 		return thingDetailsPresenter;
 	}
 
-	public static GamePresenter getMainpresenter() {
-		return mainPresenter;
+	public static GamePresenter getGamePresenter() {
+		return gamePresenter;
 	}
 
 	public static DicePresenter getDicepresenter() {

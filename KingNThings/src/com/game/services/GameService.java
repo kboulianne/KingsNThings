@@ -74,6 +74,8 @@ public class GameService {
 		
 
 		game.setPlayerOrder(players);
+		
+		game.start();
 //	game.setCurrent(game.getPlayer());
 	}
 
