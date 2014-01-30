@@ -34,12 +34,12 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		context.clearRolls();
 		
 		
-		Game game =  GameService.getInstance().getGame();
-		GameView gv = KNTAppFactory.getGamePresenter().getView();
+		//Game game =  GameService.getInstance().getGame();
+		//GameView gv = KNTAppFactory.getGamePresenter().getView();
 		
 		//top label
-		gv.getCurrentActionLbl().setText("Init Phase");
-		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName());
+		//gv.getCurrentActionLbl().setText("Init Phase");
+		//gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName());
 		
 		
 		//detail pane
