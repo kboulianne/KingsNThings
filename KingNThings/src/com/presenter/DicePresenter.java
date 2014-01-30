@@ -54,7 +54,7 @@ public class DicePresenter {
 		// Update GameView
 		mainPresenter.updateView();
 	}
-
+	
 	public void endTurn() {
 		GamePlay.getInstance().endTurn();
 	}

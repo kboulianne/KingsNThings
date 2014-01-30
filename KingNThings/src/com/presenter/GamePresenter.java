@@ -121,5 +121,4 @@ public class GamePresenter {
 		// Triggers the First phase
 		GamePlay.getInstance().start();
 	}
-
 }

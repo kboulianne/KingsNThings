@@ -7,6 +7,9 @@ package com.view;
 
 import com.model.game.Game;
 import com.presenter.GamePresenter;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -76,19 +79,7 @@ public class GameView extends StackPane {
 		
 		// Contains sidepaneview and PlayArea
 		centerBox = new HBox();
-
-//		Button finishTurnBtn = new Button("Finished Turn");
-		//Button test = new Button("Test");
-		//AnchorPane.setLeftAnchor(test, 500.0);
-		//AnchorPane.setTopAnchor(test, 0.0);
-		//test.setOnAction(new EventHandler<ActionEvent>() {
-
-			//@Override
-			//public void handle(ActionEvent t) {
-				//presenter.test();
-			//}
-		//});
-		//gameStatus.getChildren().add(test);
+		
 		rootVBox.getChildren().addAll(gameStatus, centerBox);
 		getChildren().add(rootVBox);
 	}
