@@ -84,46 +84,6 @@ public class GamePresenter {
 
 
 	// UI Logic stuff is done here. Access service for model.
-	public void test() {
-		// So we don't block the ui thread.
-//		final Task<Void> task = new Task<Void>() {
-//
-//			@Override
-//			protected Void call() throws Exception {
-//				
-//				// Everything is loaded, start game
-//				GameService.getInstance().startGame();
-//
-//				// FOR NOW
-//				synchronized(GamePlay.getInstance().actions) {
-//					try {
-//						System.out.println("LOCKED: GamePresenter");
-//						// Wait for GameAction to be set.
-//						GamePlay.getInstance().actions.wait();
-//						
-//						System.out.println("UNLOCKED: GamePresenter");
-//					} catch (InterruptedException ex) {
-//						Logger.getLogger(GamePresenter.class.getName()).log(Level.SEVERE, null, ex);
-//					}
-//
-//					
-//					// Needs to execute on FX Thread.
-//					Platform.runLater(new Runnable() {
-//
-//						@Override
-//						public void run() {
-//							view.setAction(GamePlay.getInstance().actions.peek());
-//						}
-//					});
-//					
-//				}
-//				
-//				return null;
-//			}
-//		};
-//		new Thread(task).start();
-
-	}
 
 	public void updateView() {
 		view.setGame(GameService.getInstance().getGame());
@@ -155,6 +115,12 @@ public class GamePresenter {
 	public void dismissPopup() {
 
 		popupPresenter.dismissPopup();
+	}
+
+	public void startGame() {
+		// Triggers the First phase
+		//TODO make a start game in GamePlay.
+		GamePlay.getInstance().next();
 	}
 
 }

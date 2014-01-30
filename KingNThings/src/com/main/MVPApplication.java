@@ -6,12 +6,15 @@
 package com.main;
 
 import com.main.KNTAppFactory;
+import com.model.game.phase.GamePlay;
 import com.presenter.GamePresenter;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -29,7 +32,7 @@ public class MVPApplication extends Application {
 	
     @Override
     public void start(Stage stage) throws Exception {
-    	GamePresenter main = KNTAppFactory.getGamePresenter();
+    	final GamePresenter main = KNTAppFactory.getGamePresenter();
 	
 		// GameView view = new GameView(GameService.getInstance().getGame());
 		// GamePresenter presenter = new GamePresenter(view);
@@ -42,12 +45,20 @@ public class MVPApplication extends Application {
         stage.setResizable(false);
         stage.setFullScreen(false);
         stage.getIcons().add(new Image("view/com/assets/pics/icon.png"));
-	
+		stage.setOnShown(new EventHandler<WindowEvent>() {
+
+			@Override
+			public void handle(WindowEvent t) {
+				main.startGame();
+			}
+		});
+		
         Scene scene = new Scene(main.getView(), WIDTH, HEIGHT);
         scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
         scene.getStylesheets().add("view/com/assets/docs/gameScreen.css");
 	
         stage.setScene(scene);
         stage.show();
+		
     }
 }

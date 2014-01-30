@@ -37,7 +37,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		
 		// Hey Kurtis want to get the game variable and associated Game Views but they are null
 		/// i believe i started the game wrong, also we need to connect the button I added labeled 'Finished Turn'
-		
+		KNTAppFactory.getGamePresenter().getView();
 		//Game game =  GameService.getInstance().getGame();
 		//GameView gv = KNTAppFactory.getGamePresenter().getView();
 		
@@ -54,31 +54,13 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		
 		
 		
-		Util.log("We are skipping this Phase for now");
-		phaseEnd();
+//		Util.log("We are skipping this Phase for now");
+//		phaseEnd();
 	}
 
 	/*@Override
 	public void executePhase(Object input) {
 		Game game = GameService.getInstance().getGame();
-
-		// Request action from the user
-		// Suspend this execution until notified by ui.
-		
-//		synchronized (context.actions) {
-//			
-//			try {
-//
-//				context.actions.offer(GameAction.ROLL);
-//				System.out.println("LOCKED: PlayerOrderPhase");
-//				context.actions.notifyAll();
-//				// Wait here until action is triggered.
-//				context.actions.wait();
-//				System.out.println("UNLOCKED: PlayerOrderPhase");
-//			} catch (InterruptedException ex) {
-//				Logger.getLogger(PlayerOrderPhase.class.getName()).log(Level.SEVERE, null, ex);
-//			}
-//		}
 		
 
 		// Add the rolled dice total to the context for later use.
@@ -93,14 +75,6 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		// Move to postExecute in AbstractPhaseImpl?
 //	game.nextPlayer();
 	}
-
-	// TODO phaseEnd()?
-	// TODO postExecute()?
-//    public List<Player> getPlayerOrder() {
-//	return new ArrayList<>(rolls.values());
-//    }
- * (non-Javadoc)
- * @see com.model.game.phase.IPhaseStrategy#phaseEnd()
  */
 
 	@Override

@@ -77,18 +77,6 @@ public class GamePlay {
 
 		createInitPhases();
 		createGamePhases();
-		
-
-		// TESTING
-		// TODO call run on demand?
-//		new Thread(GameEvents.getProducer()).start();
-//		new Thread(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				gameEvents.produce();
-//			}
-//		}).start();
 	}
 
 	private void createInitPhases() {

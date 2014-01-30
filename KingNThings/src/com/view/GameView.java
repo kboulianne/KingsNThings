@@ -7,9 +7,6 @@ package com.view;
 
 import com.model.game.Game;
 import com.presenter.GamePresenter;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -151,10 +148,4 @@ public class GameView extends StackPane {
 	public Label getCurrentActionLbl() {
 		return currentActionLbl;
 	}
-	
-	/*
-	public void setAction(GameAction action) {
-		System.out.println("GameView: " + action.getActionString());
-		currentActionLbl.setText(action.getActionString());
-	}*/
 }
