@@ -78,7 +78,6 @@ public class GamePlay {
 		createInitPhases();
 		createGamePhases();
 		
-		startGame();
 
 		// TESTING
 		// TODO call run on demand?
@@ -120,10 +119,6 @@ public class GamePlay {
 		gamePhases.add(new ChangePlayOrderPhase(this));
 	}
 	
-	public void startGame(){
-		Util.log("Start Game 2");
-	}
-
 	public void addPlayerRoll(int total, Player p) {
 		// TODO Handle case where two players have the same dice total.
 		rolls.put(total, p);

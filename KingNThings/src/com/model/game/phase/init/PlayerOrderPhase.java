@@ -33,6 +33,10 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		System.out.println("Init Phase: Start of Player Order Phase");
 		context.clearRolls();
 		
+		Util.log("Kurtis See player order phase --> phase start");
+		
+		// Hey Kurtis want to get the game variable and associated Game Views but they are null
+		/// i believe i started the game wrong, also we need to connect the button I added labeled 'Finished Turn'
 		
 		//Game game =  GameService.getInstance().getGame();
 		//GameView gv = KNTAppFactory.getGamePresenter().getView();
