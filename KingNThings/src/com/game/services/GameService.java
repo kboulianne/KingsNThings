@@ -109,30 +109,25 @@ public class GameService {
 	}
 
 	public void endTurn(AbstractPhaseStrategy<Object> phase) {
-		// TODO remove this from game class.
-		//game.endTurn();
 		
-		/// TODO FixMe
+		//fornow
+		List<Player> playerList = new ArrayList<Player>();
+		playerList.add(game.getCurrentPlayer());
+		playerList.add(game.getOpponent1());
+		playerList.add(game.getOpponent2());
+		playerList.add(game.getOpponent3());
+		
+		
+		game.nextPlayer();
+		playerList.remove(game.getCurrentPlayer());
+		game.setOpponent1(playerList.get(0));
+		game.setOpponent2(playerList.get(1));
+		game.setOpponent3(playerList.get(2));
+		
 		
 		if(game.isLastPlayer()){
-			
-			
-			//game.setCurrentPlayer(game.getCurrentPlayer());
-			
-			/*List<Player> players = new ArrayList<>();
-			players.add(game.getCurrentPlayer());
-			players.add(game.getOpponent1());
-			players.add(game.getOpponent2());
-			players.add(game.getOpponent3());
-			
-			Iterator<Player> nextPlayerIt = players.iterator();
-			game.setNextPlayerIt(nextPlayerIt);*/
-			//game.setPlayerOrder(players);
-			game.nextPlayer();
 			phase.phaseEnd();
 		}else{
-			game.nextPlayer();
-			//game.setCurrentPlayer(game.getCurrentPlayer());
 			phase.turnStart();		
 		}
 

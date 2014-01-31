@@ -44,6 +44,8 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 				turnEnd();
 			}
 		});
+		
+		turnStart();
 	}
 
 	/*

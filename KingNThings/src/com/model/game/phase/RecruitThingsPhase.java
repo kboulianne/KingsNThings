@@ -45,6 +45,7 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy<Object> {
 				turnEnd();
 			}
 		});
+		turnStart();
 	}
 
 	/*

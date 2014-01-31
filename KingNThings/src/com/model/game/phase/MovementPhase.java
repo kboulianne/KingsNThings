@@ -59,7 +59,7 @@ public class MovementPhase extends AbstractPhaseStrategy<Object> {
 			}
 		});
 		
-		
+		turnStart();
 	
 		
 	}

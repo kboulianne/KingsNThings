@@ -46,6 +46,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy<Object> {
 				turnEnd();
 			}
 		});
+		turnStart();
 	}
 /*
 	@Override

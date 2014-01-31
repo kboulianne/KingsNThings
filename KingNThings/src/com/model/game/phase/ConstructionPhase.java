@@ -44,6 +44,8 @@ public class ConstructionPhase extends AbstractPhaseStrategy<Object> {
 			}
 		});
 		
+		turnStart();
+		
 	}
 
 	/*@Override

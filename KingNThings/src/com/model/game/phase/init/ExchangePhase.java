@@ -47,7 +47,7 @@ public class ExchangePhase extends AbstractPhaseStrategy<Object> {
 				turnEnd();
 			}
 		});
-		
+		turnStart();
 	}
 
 	/*

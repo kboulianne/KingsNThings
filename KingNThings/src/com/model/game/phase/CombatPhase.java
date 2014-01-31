@@ -45,6 +45,8 @@ public class CombatPhase extends AbstractPhaseStrategy<Object> {
 			}
 		});
 		
+		turnStart();
+		
 	}
 /*
 	@Override

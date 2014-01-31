@@ -47,6 +47,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy<Object> {
 				turnEnd();
 			}
 		});
+		turnStart();
 	}
 
 	/*

@@ -57,6 +57,8 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 				turnEnd();
 			}
 		});
+		
+		turnStart();
 	}
 
 	/*@Override

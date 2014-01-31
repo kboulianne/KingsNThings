@@ -15,6 +15,7 @@ import com.model.Hex;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
+import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -75,6 +76,8 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 				turnEnd();
 			}
 		});
+		
+		turnStart();
 	}
 
 	@Override
@@ -89,7 +92,6 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 		
 		//top label
 		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
-		
 		
 	}
 
