@@ -125,10 +125,10 @@ public class GameView extends StackPane {
 		//TODO Could actually do most updating here since this presenter has all
 		// other presenters as a dependency.
 		// As a precaution.
-		if (game != null) {
+		/*if (game != null) {
 			currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: ");
 	
-		}
+		}*/
 	}
 
 	public Label getCurrentPlayerLbl() {

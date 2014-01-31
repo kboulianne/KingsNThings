@@ -38,12 +38,11 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		// Hey Kurtis want to get the game variable and associated Game Views but they are null
 		/// i believe i started the game wrong, also we need to connect the button I added labeled 'Finished Turn'
 		KNTAppFactory.getGamePresenter().getView();
-		//Game game =  GameService.getInstance().getGame();
-		//GameView gv = KNTAppFactory.getGamePresenter().getView();
+		Game game =  GameService.getInstance().getGame();
+		GameView gv = KNTAppFactory.getGamePresenter().getView();
 		
 		//top label
-		//gv.getCurrentActionLbl().setText("Init Phase");
-		//gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName());
+		gv.getCurrentActionLbl().setText("Player Order Phase");
 		
 		
 		//detail pane
@@ -88,8 +87,11 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
-		
+		Game game =  GameService.getInstance().getGame();
+		GameView gv = KNTAppFactory.getGamePresenter().getView();
+			
+		//top label
+		gv.getCurrentPlayerLbl().setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: ");		
 	}
 
 	@Override
