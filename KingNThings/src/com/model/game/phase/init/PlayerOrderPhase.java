@@ -16,6 +16,10 @@ import com.view.GameView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+
 
 /**
  *
@@ -23,9 +27,15 @@ import java.util.logging.Logger;
  */
 //TODO needs a different strategy implementation one with simply executePhase()
 public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
+	
+	Game game;
+	GameView gv;
+	
+	GamePlay context;
 
-	public PlayerOrderPhase(GamePlay context) {
-		super(context);
+	public PlayerOrderPhase(GamePlay contxt) {
+		super(contxt);
+		context = contxt;
 	}
 
 	@Override
@@ -33,29 +43,28 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		System.out.println("Init Phase: Start of Player Order Phase");
 		context.clearRolls();
 		
-		Util.log("Kurtis See player order phase --> phase start");
-		
-		// Hey Kurtis want to get the game variable and associated Game Views but they are null
-		/// i believe i started the game wrong, also we need to connect the button I added labeled 'Finished Turn'
-		KNTAppFactory.getGamePresenter().getView();
-		//Game game =  GameService.getInstance().getGame();
-		//GameView gv = KNTAppFactory.getGamePresenter().getView();
+
+		game =  GameService.getInstance().getGame();
+		gv = KNTAppFactory.getGamePresenter().getView();
 		
 		//top label
-		//gv.getCurrentActionLbl().setText("Init Phase");
-		//gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName());
-		
+		gv.getCurrentActionLbl().setText("Roll the Dice");
 		
 		//detail pane
 		
 		//on clicks
+		//GameService.getInstance().endTurn();
+		//game.nextPlayer();
 		
-		
-		
-		
-		
-//		Util.log("We are skipping this Phase for now");
-//		phaseEnd();
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				turnEnd();
+			}
+		});		
 	}
 
 	/*@Override
@@ -80,22 +89,28 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseEnd() {
 		// Updates the player order.
-		//Game game = GameService.getInstance().getGame();
+		
 		//game.setPlayerOrder(context.getPlayersHighToLow());
-
-		System.out.println("Init Phase: End of Player Order Phase");
+		
+		Util.log("Init Phase: End of Player Order Phase");
+		new StartingPosPhase(context).phaseStart();
 	}
 
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
+		Game game =  GameService.getInstance().getGame();
+		GameView gv = KNTAppFactory.getGamePresenter().getView();
+		
+		//top label
+		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 		
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		
+		GameService.getInstance().endTurn(this);
 	}
 
 	@Override

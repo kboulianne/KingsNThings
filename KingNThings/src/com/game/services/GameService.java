@@ -7,8 +7,10 @@ package com.game.services;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.model.Player;
 import com.model.game.Game;
+import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 
 /**
@@ -105,9 +107,19 @@ public class GameService {
 //		}
 	}
 
-	public void endTurn() {
+	public void endTurn(AbstractPhaseStrategy<Object> phase) {
 		// TODO remove this from game class.
 		//game.endTurn();
+		
+		if(game.isLastPlayer()){
+			//game.setCurrentPlayer(game.getCurrentPlayer());
+			game.nextPlayer();
+			phase.phaseEnd();
+		}else{
+			game.nextPlayer();
+			game.setCurrentPlayer(game.getCurrentPlayer());
+			phase.turnStart();		
+		}
 
 	}
 

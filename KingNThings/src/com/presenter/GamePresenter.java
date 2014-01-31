@@ -35,6 +35,8 @@ public class GamePresenter {
 //    private GameService gameService;
 	private SidePanePresenter sidePanePresenter;
 	private PopupPresenter popupPresenter;
+	
+	private DicePresenter dicePresenter;
 
 	
 	public GamePresenter( final GameView view) {
@@ -56,6 +58,7 @@ public class GamePresenter {
 			final PopupPresenter popupPresenter) {
 		
 		// DicePresenter
+		this.dicePresenter = dicePresenter;
 		this.view.addDiceView(dicePresenter.getView());
 		
 		// SidePanePresenter
@@ -121,6 +124,10 @@ public class GamePresenter {
 		// Triggers the First phase
 		//TODO make a start game in GamePlay.
 		GamePlay.getInstance().next();
+	}
+
+	public DicePresenter getDicePresenter() {
+		return dicePresenter;
 	}
 
 }

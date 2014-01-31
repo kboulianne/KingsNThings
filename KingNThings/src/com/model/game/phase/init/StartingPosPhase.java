@@ -6,18 +6,29 @@
 package com.model.game.phase.init;
 
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.model.Hex;
+import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
+import com.view.GameView;
 
 /**
  *
  * @author kurtis
  */
-public class StartingPosPhase extends AbstractPhaseStrategy<Hex> /*implements HexInput*/ {
+public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements HexInput*/ {
 
+	
+	Game game;
+	GameView gv;
+	
+	GamePlay context;
+	
 	public StartingPosPhase(GamePlay context) {
 		super(context);
+		
+		this.context = context;
 	}
 
 	/**
@@ -47,23 +58,34 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Hex> /*implements He
 	@Override
 	public void phaseStart() {
 		System.out.println("Start of Starting Positions Phase");
+		
+		game =  GameService.getInstance().getGame();
+		gv = KNTAppFactory.getGamePresenter().getView();
+		gv.getCurrentActionLbl().setText("Choose Starting Postion");
 	}
 
 	@Override
 	public void phaseEnd() {
 		System.out.println("End of Starting Positions Phase");
+		new StartingForcesPhase(context).phaseStart();
 	}
 
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
+		game =  GameService.getInstance().getGame();
+		gv = KNTAppFactory.getGamePresenter().getView();
+		
+		//top label
+		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
+		
 		
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		
+		GameService.getInstance().endTurn(this);
 	}
 
 	@Override

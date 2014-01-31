@@ -24,6 +24,9 @@ public class DiceView extends HBox {
 
 	private ImageView die1Iv;
 	private ImageView die2Iv;
+	
+	Button finishTurnBtn;
+	Button roll;
 
 	public DiceView() {
 		buildView();
@@ -56,7 +59,7 @@ public class DiceView extends HBox {
 		die2Iv.setPreserveRatio(true);
 
 		// Roll button
-		Button roll = new Button("Roll");
+		roll = new Button("Roll");
 		roll.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -65,7 +68,7 @@ public class DiceView extends HBox {
 			}
 		});
 		
-		Button finishTurnBtn = new Button("Finished Turn");
+		finishTurnBtn = new Button("Finished Turn");
 
 		// Add all controls
 		getChildren().addAll(die1Iv, die2Iv, roll, finishTurnBtn);
@@ -74,5 +77,13 @@ public class DiceView extends HBox {
 	public void setDice(Die d1, Die d2) {
 		die1Iv.imageProperty().set(d1.getImage());
 		die2Iv.imageProperty().set(d2.getImage());
+	}
+
+	public Button getFinishTurnBtn() {
+		return finishTurnBtn;
+	}
+
+	public Button getRollBtn() {
+		return roll;
 	}
 }
