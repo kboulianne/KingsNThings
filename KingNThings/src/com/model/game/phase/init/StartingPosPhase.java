@@ -15,6 +15,7 @@ import com.model.Hex;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
+import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -50,7 +51,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 //	// Next player
 //	game.nextPlayer();
 
-		System.out.println("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		Util.log("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 	}
 
 //    @Override
@@ -60,13 +61,17 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 	*/
 	@Override
 	public void phaseStart() {
-		System.out.println("Start of Starting Positions Phase");
+		Util.log("Start of Starting Positions Phase");
 		
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Choose Starting Position");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		
+		KNTAppFactory.getGamePresenter().getDicePresenter().getView().getDie1().setVisible(false);
+		KNTAppFactory.getGamePresenter().getDicePresenter().getView().getDie2().setVisible(false);
+		finishBtn.setText("End Turn");
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -81,7 +86,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 
 	@Override
 	public void phaseEnd() {
-		System.out.println("End of Starting Positions Phase");
+		Util.log("End of Starting Positions Phase");
 		game.getBoard().setFaceDown(false);
 		for(Hex h: game.getBoard().getHexes())
 			KNTAppFactory.getBoardpresenter().getView().paintHex(h);

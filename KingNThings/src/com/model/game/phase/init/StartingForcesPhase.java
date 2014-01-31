@@ -14,6 +14,7 @@ import com.main.KNTAppFactory;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
+import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -32,7 +33,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void phaseStart() {
-		System.out.println("Init Phase: Start of Starting Forces Phase");
+		Util.log("Init Phase: Start of Starting Forces Phase");
 		
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
@@ -53,13 +54,13 @@ public class StartingForcesPhase extends AbstractPhaseStrategy<Object> {
 	/*
 	@Override
 	public void executePhase(Object input) {
-		System.out.println("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		Util.log("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 	}
 	*/
 	
 	@Override
 	public void phaseEnd() {
-		System.out.println("Init Phase: End of Starting Forces Phase");
+		Util.log("Init Phase: End of Starting Forces Phase");
 		new ExchangePhase(context).phaseStart();
 	}
 

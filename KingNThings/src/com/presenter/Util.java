@@ -7,8 +7,10 @@ import java.util.Random;
 // misc. global static functions
 public class Util {
 
+	final static boolean DEBUG = true;
 	public static void log(String message) {
-		System.out.println(message);
+		if(DEBUG)
+			System.out.println(message);
 	}
 
 	public static double distanceBtwTwoPts(double x1, double y1, double x2, double y2) {

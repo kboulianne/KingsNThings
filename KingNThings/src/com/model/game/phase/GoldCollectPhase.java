@@ -43,22 +43,23 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void phaseStart() {
-		System.out.println("Game Phase: Start of Gold Collection Phase");
+		Util.log("Game Phase: Start of Gold Collection Phase");
 		
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Gold Collection");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setOnAction(null);
+		finishBtn.setVisible(false);
 		
 		turnStart();
 	}
 	
 	@Override
 	public void phaseEnd() {
-		System.out.println("Game Phase: End of Gold Collection Phase");
-		new RecruitCharPhase(context).phaseStart();
+		Util.log("Game Phase: End of Gold Collection Phase");
+		KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn().setVisible(true);
+		
 		
 		KNTAppFactory.getPopuppresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -68,6 +69,8 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 				KNTAppFactory.getPopuppresenter().getView().dismiss();
 			}
 		});
+		
+		new RecruitCharPhase(context).phaseStart();
 	}
 
 	@Override

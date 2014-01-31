@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.game.Game;
+import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -29,7 +30,7 @@ public class RecruitCharPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void phaseStart() {
-		System.out.println("Game Phase: Start of Recruiting Characters Phase");
+		Util.log("Game Phase: Start of Recruiting Characters Phase");
 		
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
@@ -51,13 +52,13 @@ public class RecruitCharPhase extends AbstractPhaseStrategy<Object> {
 	/*
 	@Override
 	public void executePhase(Object input) {
-		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 	}
 	*/
 	
 	@Override
 	public void phaseEnd() {
-		System.out.println("Game Phase: End of Recruiting Characters Phase");
+		Util.log("Game Phase: End of Recruiting Characters Phase");
 		
 		new RecruitThingsPhase(context).phaseStart();
 	}

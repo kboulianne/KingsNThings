@@ -37,7 +37,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void phaseStart() {
-		System.out.println("Init Phase: Start of Player Order Phase");
+		Util.log("Init Phase: Start of Player Order Phase");
 		context.clearRolls();
 		
 
@@ -61,8 +61,9 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		
 		KNTAppFactory.getBoardpresenter().getView().setOnMouseClicked(null);
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+		Button rollBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		rollBtn.setText("Roll");
+		rollBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -82,7 +83,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 //	//TODO handle case where dice totals are equal.
 //	phase.getRolls().put(game.diceTotal(), game.getCurrentPlayer());
 //	
-		System.out.println("Added roll total " + game.diceTotal()
+		Util.log("Added roll total " + game.diceTotal()
 				+ " for " + game.getCurrentPlayer().getName());
 //	
 //	
@@ -115,7 +116,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	public void turnEnd() {
 		// TODO Auto-generated method stub
 		GameService.getInstance().endTurn(this);
-		System.out.println("Init Phase: Player Order Phase - turnEnd()");
+		Util.log("Init Phase: Player Order Phase - turnEnd()");
 	}
 
 	@Override

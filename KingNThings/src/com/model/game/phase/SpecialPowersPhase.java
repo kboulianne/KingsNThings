@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.game.Game;
+import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -30,7 +31,7 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void phaseStart() {
-		System.out.println("Game Phase: Start of Special Powers Phase");
+		Util.log("Game Phase: Start of Special Powers Phase");
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Deploy Special Powers");
@@ -51,13 +52,13 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 	/*
 	@Override
 	public void executePhase(Object input) {
-		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 	}
 	*/
 
 	@Override
 	public void phaseEnd() {
-		System.out.println("Game Phase: End of Special Powers Phase");
+		Util.log("Game Phase: End of Special Powers Phase");
 		//TODO include other phases 
 		new GoldCollectPhase(context).phaseStart();
 	}

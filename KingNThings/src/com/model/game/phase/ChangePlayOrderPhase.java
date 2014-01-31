@@ -5,6 +5,8 @@
  */
 package com.model.game.phase;
 
+import com.presenter.Util;
+
 /**
  *
  * @author kurtis
@@ -17,17 +19,17 @@ public class ChangePlayOrderPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void phaseStart() {
-		System.out.println("Game Phase: Start of Changing Player Order Phase");
+		Util.log("Game Phase: Start of Changing Player Order Phase");
 	}
 /*
 	@Override
 	public void executePhase(Object input) {
-		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 	}
 */
 	@Override
 	public void phaseEnd() {
-		System.out.println("Game Phase: End of Changing Player Order Phase");
+		Util.log("Game Phase: End of Changing Player Order Phase");
 	}
 
 	@Override

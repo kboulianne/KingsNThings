@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.game.Game;
+import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -29,7 +30,7 @@ public class MovementPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void phaseStart() {
-		System.out.println("Game Phase: Start of Movement Phase");
+		Util.log("Game Phase: Start of Movement Phase");
 		
 		game =  GameService.getInstance().getGame();
 		
@@ -67,13 +68,13 @@ public class MovementPhase extends AbstractPhaseStrategy<Object> {
 	/*
 	@Override
 	public void executePhase(Object input) {
-		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 	}
 	*/
 
 	@Override
 	public void phaseEnd() {
-		System.out.println("Game Phase: End of Movement Phase");
+		Util.log("Game Phase: End of Movement Phase");
 		new CombatPhase(context).phaseStart();
 	}
 

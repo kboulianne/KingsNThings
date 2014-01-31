@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.game.Game;
+import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -29,7 +30,7 @@ public class ConstructionPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void phaseStart() {
-		System.out.println("Game Phase: Start of Construction Phase");
+		Util.log("Game Phase: Start of Construction Phase");
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Construction Phase");
@@ -50,12 +51,12 @@ public class ConstructionPhase extends AbstractPhaseStrategy<Object> {
 
 	/*@Override
 	public void executePhase(Object input) {
-		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 	}*/
 
 	@Override
 	public void phaseEnd() {
-		System.out.println("Game Phase: End of Construction Phase");
+		Util.log("Game Phase: End of Construction Phase");
 		
 		new SpecialPowersPhase(context).phaseStart();
 	}

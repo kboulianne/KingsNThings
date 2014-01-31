@@ -8,8 +8,6 @@ package com.view;
 import com.model.game.Game;
 import com.presenter.GamePresenter;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
