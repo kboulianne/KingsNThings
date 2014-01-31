@@ -40,26 +40,14 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		System.out.println("Init Phase: Start of Player Order Phase");
 		context.clearRolls();
 		
-<<<<<<< HEAD
+
 
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
 		
 		//top label
 		gv.getCurrentActionLbl().setText("Roll the Dice");
-=======
-		Util.log("Kurtis See player order phase --> phase start");
-		
-		// Hey Kurtis want to get the game variable and associated Game Views but they are null
-		/// i believe i started the game wrong, also we need to connect the button I added labeled 'Finished Turn'
-		KNTAppFactory.getGamePresenter().getView();
-		Game game =  GameService.getInstance().getGame();
-		GameView gv = KNTAppFactory.getGamePresenter().getView();
-		
-		//top label
-		gv.getCurrentActionLbl().setText("Player Order Phase");
-		
->>>>>>> 39bce22bd6e6d09d62e764b04157b10d88bdbc6f
+
 		
 		//detail pane
 		
@@ -73,7 +61,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		
 		KNTAppFactory.getBoardpresenter().getView().setOnMouseClicked(null);
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -116,29 +104,18 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 
 	@Override
 	public void turnStart() {
-<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		//top label
 		
 		super.turnStart();
 		
-=======
-		Game game =  GameService.getInstance().getGame();
-		GameView gv = KNTAppFactory.getGamePresenter().getView();
-			
-		//top label
-		gv.getCurrentPlayerLbl().setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: ");		
->>>>>>> 39bce22bd6e6d09d62e764b04157b10d88bdbc6f
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
 		GameService.getInstance().endTurn(this);
-=======
 		System.out.println("Init Phase: Player Order Phase - turnEnd()");
->>>>>>> 39bce22bd6e6d09d62e764b04157b10d88bdbc6f
 	}
 
 	@Override

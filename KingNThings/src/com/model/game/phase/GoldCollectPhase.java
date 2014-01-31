@@ -24,6 +24,7 @@ import com.model.IncomeCounter;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.game.Game;
+import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -48,7 +49,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Gold Collection");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(null);
 		
 		turnStart();
@@ -74,7 +75,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		// TODO Auto-generated method stub
 		super.turnStart();
 		
-		.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 		
 		int hexGold = 0;
 		int fortGold = 0;

@@ -66,7 +66,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Choose Starting Position");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override

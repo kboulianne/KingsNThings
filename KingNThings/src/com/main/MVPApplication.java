@@ -5,10 +5,7 @@
  */
 package com.main;
 
-<<<<<<< HEAD
-import com.main.KNTAppFactory;
-=======
->>>>>>> 39bce22bd6e6d09d62e764b04157b10d88bdbc6f
+
 import com.presenter.GamePresenter;
 import javafx.application.Application;
 import javafx.event.EventHandler;

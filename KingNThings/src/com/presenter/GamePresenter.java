@@ -116,12 +116,11 @@ public class GamePresenter {
 		// Triggers the First phase
 		GamePlay.getInstance().start();
 	}
-<<<<<<< HEAD
+
 
 	public DicePresenter getDicePresenter() {
 		return dicePresenter;
 	}
 
-=======
->>>>>>> 39bce22bd6e6d09d62e764b04157b10d88bdbc6f
+
 }
