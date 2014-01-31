@@ -69,6 +69,8 @@ public class ExchangePhase extends AbstractPhaseStrategy<Object> {
 	public void turnStart() {
 		// TODO Auto-generated method stub
 		super.turnStart();
+		Util.log("Skipping Step for Itertion 1");
+		turnEnd();
 		
 	}
 

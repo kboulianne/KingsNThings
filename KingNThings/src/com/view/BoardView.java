@@ -5,11 +5,16 @@
  */
 package com.view;
 
+import com.game.services.GameService;
 import com.model.Board;
 import com.model.Hex;
+import com.model.game.phase.AbstractPhaseStrategy;
 import com.presenter.BoardPresenter;
 import com.presenter.Util;
+
 import java.util.List;
+import java.util.Set;
+
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -99,6 +104,29 @@ public class BoardView extends Canvas {
 		});
 	}
 	
+	public void addStartPosHandler(final AbstractPhaseStrategy<Object> phase){
+		
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				double clickPtX = event.getX();
+				double clickPtY = event.getY();
+				
+				Set<Integer> startPositions = GameService.getInstance().getGame().getBoard().getStartpositions();
+				for (int i = 0; i < hexCenterPoints.length; i++) {
+					if (Util.distanceBtwTwoPts(
+							clickPtX, clickPtY,
+							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
+						
+						if(startPositions.contains(i))
+						presenter.handleStartPositionSelectedHexClick(i, phase);
+						break;
+					}
+				}
+			}
+		});
+	}
 
 	/**
 	 * Paints the Background Image on the canvas.

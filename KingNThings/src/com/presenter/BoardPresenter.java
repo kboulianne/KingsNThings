@@ -11,6 +11,7 @@ import com.game.services.GameService;
 import com.model.Board;
 import com.model.Hex;
 import com.model.game.Game;
+import com.model.game.phase.AbstractPhaseStrategy;
 import com.view.BoardView;
 
 /**
@@ -67,6 +68,19 @@ public class BoardPresenter {
 		// Show the HexDetails in sidepane
 		sidePanePresenter.showHexDetailsFor(b.getHexes().get(selected));
 		//	detailsPresenter.showHex(b.getHexes().get(selected));
+	}
+	
+	public void handleStartPositionSelectedHexClick(int selected, AbstractPhaseStrategy<Object> phase) {
+		
+		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
+		if(hex.getOwner() == null){
+			hex.setOwner(GameService.getInstance().getGame().getCurrentPlayer());
+			hex.setColor(GameService.getInstance().getGame().getCurrentPlayer().getId().getColor());
+			view.paintHex(hex);
+			phase.turnEnd();
+		}else{
+			//TODO display msg
+		}
 	}
 
 	public void handleMoveButtonClick() {

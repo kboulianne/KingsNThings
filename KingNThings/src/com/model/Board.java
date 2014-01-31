@@ -58,5 +58,9 @@ public class Board {
 	public final boolean isFaceDown() {
 	    return faceDown;
 	}
+
+	public Set<Integer> getStartpositions() {
+		return startPositions;
+	}
 	
 }

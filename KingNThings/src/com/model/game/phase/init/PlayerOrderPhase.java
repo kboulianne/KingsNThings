@@ -31,8 +31,8 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	
 
 
-	public PlayerOrderPhase(GamePlay contxt) {
-		super(contxt);
+	public PlayerOrderPhase(GamePlay context) {
+		super(context);
 	}
 
 	@Override
@@ -67,10 +67,13 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				// TODO Add roll dice function
+				// .rollDice()
 				turnEnd();
 			}
-		});		
+		});	
+		
+		//turnStart();
 	}
 
 	/*@Override
@@ -110,13 +113,16 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		
 		super.turnStart();
 		
+		Util.log("Skipping Step for Itertion 1");
+		turnEnd();
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
 		GameService.getInstance().endTurn(this);
-		Util.log("Init Phase: Player Order Phase - turnEnd()");
+		//Util.log("Init Phase: Player Order Phase - turnEnd()");
+		
 	}
 
 	@Override

@@ -17,12 +17,8 @@ import javafx.scene.layout.VBox;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.Fort;
-import com.model.GamePiece;
 import com.model.Hex;
-import com.model.IncomeCounter;
 import com.model.Player;
-import com.model.SpecialCharacter;
 import com.model.game.Game;
 import com.presenter.Util;
 import com.view.GameView;
@@ -91,11 +87,12 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		for (Hex h : game.getBoard().getHexes()) {
 			if ((h != null) && (h.getOwner() == player)) {
 				hexGold++;
-				for (GamePiece g : h.getArmies(player)) {
+				//FIXME NULL
+				/*for (GamePiece g : h.getArmies(player)) {
 					if(g instanceof Fort)	fortGold ++; //= g.fortValue;
 					else if(g instanceof IncomeCounter)	counterGold += ((IncomeCounter)g).getValue();
 					else if(g instanceof SpecialCharacter)	specCharGold ++;
-				}
+				}*/
 			}
 		}
 
@@ -103,10 +100,6 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		
 		AnchorPane ap = new AnchorPane();
 		ap.setPrefSize(500, 500);
-
-
-
-
 		ImageView im = new ImageView("view/com/assets/pics/gold.png");
 		im.setFitWidth(500);
 		im.setPreserveRatio(true);

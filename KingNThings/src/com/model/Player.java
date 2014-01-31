@@ -9,10 +9,13 @@ public class Player 	{
 	private int gold;
 	private String name;
 	
-	public enum PlayerId { ONE(Color.YELLOW),TWO(Color.GRAY),THREE(Color.GREEN),FOUR(Color.RED); 
+	public enum PlayerId { ONE(Color.YELLOW),TWO(Color.valueOf("555555")),THREE(Color.GREEN),FOUR(Color.RED); 
 		private final Color color;
 		PlayerId(Color c) {
 			color = c;
+		}
+		public Color getColor() {
+			return color;
 		}
 	}
 	

@@ -74,7 +74,6 @@ public class PopupView extends VBox {
 	 */
 	public void show(Pane content, String title) {
 		this.getChildren().clear();
-
 		// Title
 		titleLbl = new Label(title);
 		titleLbl.getStyleClass().add("title");

@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Player.PlayerId;
 import com.model.game.Game;
 import com.presenter.Util;
 import com.view.GameView;
@@ -75,6 +76,12 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy<Object> {
 		// TODO Auto-generated method stub
 		super.turnStart();
 		
+		if(game.getCurrentPlayer().getId().equals(PlayerId.ONE)){
+			Util.log("TODO: Adding three creatures to Players 1 stack for Itertion 1");
+		}else{
+			Util.log("Skipping Step for Player "+game.getCurrentPlayer().getName()+" for Itertion 1");
+			turnEnd();
+		}
 	}
 
 	@Override

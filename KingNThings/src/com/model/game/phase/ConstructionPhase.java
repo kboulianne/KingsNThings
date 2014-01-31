@@ -66,7 +66,8 @@ public class ConstructionPhase extends AbstractPhaseStrategy<Object> {
 		// TODO Auto-generated method stub
 		
 		super.turnStart();
-		
+		Util.log("Skipping Step for Itertion 1");
+		turnEnd();
 	}
 
 	@Override

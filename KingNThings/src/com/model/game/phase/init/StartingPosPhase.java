@@ -5,13 +5,12 @@
  */
 package com.model.game.phase.init;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Hex;
+import com.model.Player;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
@@ -27,6 +26,8 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 	
 	Game game;
 	GameView gv;
+	
+	Button finishBtn;
 	
 	
 	public StartingPosPhase(GamePlay context) {
@@ -67,19 +68,14 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Choose Starting Position");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 		
 		KNTAppFactory.getGamePresenter().getDicePresenter().getView().getDie1().setVisible(false);
 		KNTAppFactory.getGamePresenter().getDicePresenter().getView().getDie2().setVisible(false);
 		finishBtn.setText("End Turn");
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				turnEnd();
-			}
-		});
+		
+		finishBtn.setVisible(false);
+		KNTAppFactory.getBoardpresenter().getView().addStartPosHandler(this);
 		
 		turnStart();
 	}
@@ -92,6 +88,8 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 			KNTAppFactory.getBoardpresenter().getView().paintHex(h);
 		KNTAppFactory.getBoardpresenter().getView().addDefaultHandler();
 		
+		
+		finishBtn.setVisible(true);
 		new StartingKingdomPhase(context).phaseStart();
 		
 	}
@@ -101,6 +99,16 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 		// TODO Auto-generated method stub
 		super.turnStart();
 		
+		// Hardcoded for iteration 1
+		Util.log("Selection hardcoded for iteration 1");
+		if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE))
+			KNTAppFactory.getBoardpresenter().handleStartPositionSelectedHexClick(23, this);
+		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO))
+			KNTAppFactory.getBoardpresenter().handleStartPositionSelectedHexClick(28, this);
+		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE))
+			KNTAppFactory.getBoardpresenter().handleStartPositionSelectedHexClick(32, this);
+		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR))
+			KNTAppFactory.getBoardpresenter().handleStartPositionSelectedHexClick(19, this);
 	}
 
 	@Override
