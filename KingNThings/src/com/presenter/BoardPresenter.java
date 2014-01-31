@@ -7,10 +7,6 @@ package com.presenter;
 
 import java.util.ArrayList;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-
 import com.game.services.GameService;
 import com.model.Board;
 import com.model.Hex;

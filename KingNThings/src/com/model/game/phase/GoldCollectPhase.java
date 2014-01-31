@@ -7,23 +7,23 @@ package com.model.game.phase;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.geometry.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.game.Game;
 import com.model.Fort;
 import com.model.GamePiece;
+import com.model.Hex;
 import com.model.IncomeCounter;
 import com.model.Player;
-import com.model.Hex;
 import com.model.SpecialCharacter;
+import com.model.game.Game;
 import com.view.GameView;
 
 /**
@@ -49,20 +49,31 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		gv.getCurrentActionLbl().setText("Gold Collection");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+		finishBtn.setOnAction(null);
+		
+		turnStart();
+	}
+	
+	@Override
+	public void phaseEnd() {
+		System.out.println("Game Phase: End of Gold Collection Phase");
+		new RecruitCharPhase(context).phaseStart();
+		
+		KNTAppFactory.getPopuppresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				turnEnd();
+				KNTAppFactory.getPopuppresenter().getView().dismiss();
 			}
 		});
-		
-		turnStart();
 	}
 
-	/*@Override
-	public void executePhase(Object input) {
+	@Override
+	public void turnStart() {
+		// TODO Auto-generated method stub
+		super.turnStart();
+		
 		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 		
 		int hexGold = 0;
@@ -89,14 +100,8 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		AnchorPane ap = new AnchorPane();
 		ap.setPrefSize(500, 500);
 
-		Label label = new Label("Gold Income");
-		label.getStyleClass().add("title");
-		ap.getChildren().add(label);
-		AnchorPane.setLeftAnchor(label, 0.0);
 
-		Button button = new Button("  X  ");
-		ap.getChildren().add(button);
-		AnchorPane.setRightAnchor(button, 0.0);
+
 
 		ImageView im = new ImageView("view/com/assets/pics/gold.png");
 		im.setFitWidth(500);
@@ -117,34 +122,26 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		AnchorPane.setTopAnchor(labels, 420.0);
 
 		VBox popupVbox = new VBox();
-		popupVbox.getStyleClass().add("popup");
 		popupVbox.getChildren().addAll(ap);
 		popupVbox.setAlignment(Pos.CENTER);
 		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
 
-		button.setOnAction(new EventHandler<ActionEvent>() {
+
+		KNTAppFactory.getPopuppresenter().getView().show(popupVbox, "Gold Income:");
+		//GameScreen.popup(popupVbox);
+		
+		KNTAppFactory.getPopuppresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
+			
 			@Override
 			public void handle(ActionEvent arg0) {
-				GameScreen.dismissPopup();
+				// TODO Auto-generated method stub
+				
+				KNTAppFactory.getPopuppresenter().getView().dismiss();
+				turnEnd();
 			}
 		});
-
-		GameScreen.popup(popupVbox);
 		
 		player.addGold(totalGold);
-	}
-	*/
-	
-	@Override
-	public void phaseEnd() {
-		System.out.println("Game Phase: End of Gold Collection Phase");
-		new RecruitCharPhase(context).phaseStart();
-	}
-
-	@Override
-	public void turnStart() {
-		// TODO Auto-generated method stub
-		super.turnStart();
 		
 	}
 

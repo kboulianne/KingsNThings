@@ -21,13 +21,6 @@ import com.model.game.phase.init.PlayerOrderPhase;
 import com.model.game.phase.init.StartingForcesPhase;
 import com.model.game.phase.init.StartingKingdomPhase;
 import com.model.game.phase.init.StartingPosPhase;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
 
 /**
  * The Context class in the Strategy Pattern. This is the Game's "Behaviour" or logic and does not need to be coupled

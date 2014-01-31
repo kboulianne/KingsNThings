@@ -49,7 +49,11 @@ public class Board {
 	    return hexes;
 	}
 	public final void setFaceDown(final boolean b) {
+		
 	    faceDown = b;
+	    for (Hex h:hexes)
+	    	h.setFaceDown(b);
+	    
 	}
 	public final boolean isFaceDown() {
 	    return faceDown;

@@ -15,7 +15,6 @@ import com.model.Hex;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
-import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -83,7 +82,13 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 	@Override
 	public void phaseEnd() {
 		System.out.println("End of Starting Positions Phase");
+		game.getBoard().setFaceDown(false);
+		for(Hex h: game.getBoard().getHexes())
+			KNTAppFactory.getBoardpresenter().getView().paintHex(h);
+		KNTAppFactory.getBoardpresenter().getView().addDefaultHandler();
+		
 		new StartingKingdomPhase(context).phaseStart();
+		
 	}
 
 	@Override

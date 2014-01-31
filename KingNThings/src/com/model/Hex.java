@@ -18,6 +18,7 @@ public class Hex extends GamePiece {
 	private boolean selected;
 	private boolean selectable;
 	private boolean highlighted;
+	private boolean faceDown;
 	//boolean facedUp; // is right side up?
 	private HexType type;
 	private String typeAsString; 
@@ -179,4 +180,14 @@ public class Hex extends GamePiece {
     public void addItemToHex(GamePiece item)	{
     	miscItems.add(item);
     }
+
+
+	public boolean isFaceDown() {
+		return faceDown;
+	}
+
+
+	public void setFaceDown(boolean faceDown) {
+		this.faceDown = faceDown;
+	}
 }

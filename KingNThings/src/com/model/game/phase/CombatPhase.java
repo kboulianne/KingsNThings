@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.game.Game;
-import com.presenter.BoardPresenter;
 import com.view.GameView;
 
 /**

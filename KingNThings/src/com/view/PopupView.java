@@ -117,4 +117,8 @@ public class PopupView extends VBox {
 		setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
 		setVisible(false);
 	}
+
+	public Button getCloseBtn() {
+		return closeBtn;
+	}
 }

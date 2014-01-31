@@ -42,12 +42,13 @@ public class BoardView extends Canvas {
 	{5.0, 5.0}, {5.0, 7.0}, {4.0, 8.0}, {3.0, 9.0}, {2.0, 8.0}, {1.0, 7.0}, {1.0, 5.0}, {1.0, 3.0}
 	};
 	static final Image START_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
+	static final Image FACE_DOWN_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
 
 	public BoardView() {
 		// FIXME Hardcoded stuff. is it needed?
 		super(1280 * 0.5 - 10, HEX_HEIGHT * 7.2);
 		buildView();
-		addHandlers();
+		addDefaultHandler();
 	}
 
 	public void setPresenter(final BoardPresenter presenter) {
@@ -78,7 +79,7 @@ public class BoardView extends Canvas {
 		}
 	}
 
-	private void addHandlers() {
+	public void addDefaultHandler() {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -89,7 +90,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-						presenter.handleHexClick(i);
+							presenter.handleHexClick(i);
 						break;
 					}
 				}
@@ -97,6 +98,7 @@ public class BoardView extends Canvas {
 			}
 		});
 	}
+	
 
 	/**
 	 * Paints the Background Image on the canvas.
@@ -149,9 +151,13 @@ public class BoardView extends Canvas {
 		//image
 		gap = temp_width * 0.05;
 		double imageAdjust = 4.0;
-		if (hex.isStartPosition()) {
-			gc.drawImage(START_IMAGE, xOffset + gap + (imageAdjust / 2), yOffset + gap, temp_width - (gap * 2.0) - imageAdjust, height - (gap * 2.0));
-		} else {
+		if(hex.isFaceDown()){	
+			if (hex.isStartPosition()) {
+				gc.drawImage(START_IMAGE, xOffset + gap + (imageAdjust / 2), yOffset + gap, temp_width - (gap * 2.0) - imageAdjust, height - (gap * 2.0));
+			} else {
+				gc.drawImage(FACE_DOWN_IMAGE, xOffset + gap + (imageAdjust / 2), yOffset + gap, temp_width - (gap * 2.0) - imageAdjust, height - (gap * 2.0));	
+			}
+		} else{
 			gc.drawImage(hex.getImage(), xOffset + gap + (imageAdjust / 2), yOffset + gap, temp_width - (gap * 2.0) - imageAdjust, height - (gap * 2.0));
 		}
 	}

@@ -8,7 +8,6 @@ package com.view;
 import com.model.game.Game;
 import com.presenter.GamePresenter;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;

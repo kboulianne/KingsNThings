@@ -7,14 +7,12 @@ package com.model.game.phase.init;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Hex;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
 import com.view.GameView;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -55,6 +53,12 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		//GameService.getInstance().endTurn();
 		//game.nextPlayer();
 		
+		game.getBoard().setFaceDown(true);
+		for(Hex h: game.getBoard().getHexes())
+			KNTAppFactory.getBoardpresenter().getView().paintHex(h);
+		
+		KNTAppFactory.getBoardpresenter().getView().setOnMouseClicked(null);
+		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -93,6 +97,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		
 		Util.log("Init Phase: End of Player Order Phase");
 		new StartingPosPhase(context).phaseStart();
+		
 	}
 
 	@Override

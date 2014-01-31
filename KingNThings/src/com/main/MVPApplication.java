@@ -6,7 +6,6 @@
 package com.main;
 
 import com.main.KNTAppFactory;
-import com.model.game.phase.GamePlay;
 import com.presenter.GamePresenter;
 import javafx.application.Application;
 import javafx.event.EventHandler;

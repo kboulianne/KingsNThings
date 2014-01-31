@@ -6,9 +6,7 @@
 package com.view;
 
 import com.view.customcontrols.ArmyOrMisc;
-import com.game.services.GameService;
 import com.model.Hex;
-import com.model.game.Game;
 import com.presenter.HexDetailsPresenter;
 
 import javafx.event.EventHandler;

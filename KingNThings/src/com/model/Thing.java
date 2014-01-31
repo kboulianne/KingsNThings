@@ -9,6 +9,7 @@ public abstract class Thing extends GamePiece	{
 	
 	private Color color;
 	private String owner;
+	// private boolean facedDown
 	
 	Thing(String name)	{
 		super(name);

@@ -11,14 +11,6 @@ import com.model.game.Game;
 import com.model.game.phase.GamePlay;
 import com.view.GameView;
 import com.view.ThingEvent;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.locks.Lock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 
 /**

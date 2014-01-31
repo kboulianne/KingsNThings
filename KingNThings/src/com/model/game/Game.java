@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
-
 import com.model.Board;
 import com.model.Cup;
 import com.model.Die;
-import com.model.Hex;
 import com.model.HexDesert;
 import com.model.HexForest;
 import com.model.HexFrozenWaste;
@@ -19,11 +16,7 @@ import com.model.HexPlains;
 import com.model.HexSea;
 import com.model.HexSwamp;
 import com.model.Player;
-import com.model.game.phase.AbstractPhaseStrategy;
-import com.model.game.phase.GamePlay;
-import com.model.game.phase.init.StartingPosPhase;
 import com.model.Thing;
-import com.presenter.HexFactory;
 import com.presenter.Util;
 
 /**
@@ -56,7 +49,7 @@ public final class Game {
     public static final int 
     	MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
-    private GamePlay gamePlay;
+    //private GamePlay gamePlay;
 
     private Iterator<Player> nextPlayerIt;
     private List<Player> playerOrder;
