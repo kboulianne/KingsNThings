@@ -5,9 +5,16 @@
  */
 package com.model.game.phase.init;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
+import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
+import com.view.GameView;
 
 /**
  *
@@ -15,6 +22,10 @@ import com.model.game.phase.GamePlay;
  */
 public class StartingForcesPhase extends AbstractPhaseStrategy<Object> {
 
+	Game game;
+	GameView gv;
+	
+	
 	public StartingForcesPhase(GamePlay context) {
 		super(context);
 	}
@@ -22,6 +33,20 @@ public class StartingForcesPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseStart() {
 		System.out.println("Init Phase: Start of Starting Forces Phase");
+		
+		game =  GameService.getInstance().getGame();
+		gv = KNTAppFactory.getGamePresenter().getView();
+		gv.getCurrentActionLbl().setText("Place Forces");
+		
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				turnEnd();
+			}
+		});
 	}
 
 	/*
@@ -34,17 +59,20 @@ public class StartingForcesPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseEnd() {
 		System.out.println("Init Phase: End of Starting Forces Phase");
+		new ExchangePhase(context).phaseStart();
 	}
 
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
+		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 		
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
+		GameService.getInstance().endTurn(this);
 		
 	}
 

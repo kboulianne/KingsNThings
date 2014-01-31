@@ -398,4 +398,8 @@ public final class Game {
 			currentPlayer = nextPlayerIt.next();
 		}
 	}
+
+	public void setNextPlayerIt(Iterator<Player> nextPlayerIt) {
+		this.nextPlayerIt = nextPlayerIt;
+	}
 }

@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.model.game.Game;
 import com.model.Fort;
 import com.model.GamePiece;
@@ -23,6 +24,7 @@ import com.model.IncomeCounter;
 import com.model.Player;
 import com.model.Hex;
 import com.model.SpecialCharacter;
+import com.view.GameView;
 
 /**
  *
@@ -30,6 +32,10 @@ import com.model.SpecialCharacter;
  */
 public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 
+	Game game;
+	GameView gv;
+	
+	
 	public GoldCollectPhase(GamePlay context) {
 		super(context);
 	}
@@ -37,6 +43,20 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseStart() {
 		System.out.println("Game Phase: Start of Gold Collection Phase");
+		
+		game =  GameService.getInstance().getGame();
+		gv = KNTAppFactory.getGamePresenter().getView();
+		gv.getCurrentActionLbl().setText("Gold Collection");
+		
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				turnEnd();
+			}
+		});
 	}
 
 	/*@Override
@@ -116,18 +136,20 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseEnd() {
 		System.out.println("Game Phase: End of Gold Collection Phase");
+		new RecruitCharPhase(context).phaseStart();
 	}
 
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
+		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 		
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		
+		GameService.getInstance().endTurn(this);
 	}
 
 	@Override

@@ -6,6 +6,7 @@
 package com.game.services;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.model.Player;
@@ -111,13 +112,27 @@ public class GameService {
 		// TODO remove this from game class.
 		//game.endTurn();
 		
+		/// TODO FixMe
+		
 		if(game.isLastPlayer()){
+			
+			
 			//game.setCurrentPlayer(game.getCurrentPlayer());
+			
+			/*List<Player> players = new ArrayList<>();
+			players.add(game.getCurrentPlayer());
+			players.add(game.getOpponent1());
+			players.add(game.getOpponent2());
+			players.add(game.getOpponent3());
+			
+			Iterator<Player> nextPlayerIt = players.iterator();
+			game.setNextPlayerIt(nextPlayerIt);*/
+			//game.setPlayerOrder(players);
 			game.nextPlayer();
 			phase.phaseEnd();
 		}else{
 			game.nextPlayer();
-			game.setCurrentPlayer(game.getCurrentPlayer());
+			//game.setCurrentPlayer(game.getCurrentPlayer());
 			phase.turnStart();		
 		}
 

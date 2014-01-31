@@ -31,11 +31,10 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	Game game;
 	GameView gv;
 	
-	GamePlay context;
+
 
 	public PlayerOrderPhase(GamePlay contxt) {
 		super(contxt);
-		context = contxt;
 	}
 
 	@Override
@@ -99,9 +98,6 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
-		Game game =  GameService.getInstance().getGame();
-		GameView gv = KNTAppFactory.getGamePresenter().getView();
-		
 		//top label
 		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 		

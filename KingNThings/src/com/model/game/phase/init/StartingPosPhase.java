@@ -5,6 +5,10 @@
  */
 package com.model.game.phase.init;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Hex;
@@ -23,12 +27,11 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 	Game game;
 	GameView gv;
 	
-	GamePlay context;
 	
 	public StartingPosPhase(GamePlay context) {
 		super(context);
 		
-		this.context = context;
+
 	}
 
 	/**
@@ -61,20 +64,28 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 		
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
-		gv.getCurrentActionLbl().setText("Choose Starting Postion");
+		gv.getCurrentActionLbl().setText("Choose Starting Position");
+		
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				turnEnd();
+			}
+		});
 	}
 
 	@Override
 	public void phaseEnd() {
 		System.out.println("End of Starting Positions Phase");
-		new StartingForcesPhase(context).phaseStart();
+		new StartingKingdomPhase(context).phaseStart();
 	}
 
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
-		game =  GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
 		
 		//top label
 		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");

@@ -5,7 +5,14 @@
  */
 package com.model.game.phase;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
+import com.model.game.Game;
+import com.view.GameView;
 
 /**
  *
@@ -13,6 +20,10 @@ import com.game.services.GameService;
  */
 public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 
+	
+	Game game;
+	GameView gv;
+	
 	public SpecialPowersPhase(GamePlay context) {
 		super(context);
 	}
@@ -20,6 +31,19 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseStart() {
 		System.out.println("Game Phase: Start of Special Powers Phase");
+		game =  GameService.getInstance().getGame();
+		gv = KNTAppFactory.getGamePresenter().getView();
+		gv.getCurrentActionLbl().setText("Deploy Special Powers");
+		
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getFinishTurnBtn();
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				turnEnd();
+			}
+		});
 	}
 
 	/*
@@ -32,17 +56,21 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseEnd() {
 		System.out.println("Game Phase: End of Special Powers Phase");
+		//TODO include other phases 
+		new GoldCollectPhase(context).phaseStart();
 	}
 
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
+		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 		
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
+		GameService.getInstance().endTurn(this);
 		
 	}
 
