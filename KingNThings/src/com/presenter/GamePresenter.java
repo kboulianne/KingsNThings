@@ -114,12 +114,14 @@ public class GamePresenter {
 
 	public void startGame() {
 		// Triggers the First phase
-		//TODO make a start game in GamePlay.
-		GamePlay.getInstance().next();
+		GamePlay.getInstance().start();
 	}
+<<<<<<< HEAD
 
 	public DicePresenter getDicePresenter() {
 		return dicePresenter;
 	}
 
+=======
+>>>>>>> 39bce22bd6e6d09d62e764b04157b10d88bdbc6f
 }

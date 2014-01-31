@@ -7,10 +7,12 @@ package com.view;
 
 import com.model.Die;
 import com.presenter.DicePresenter;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 /**
@@ -24,9 +26,13 @@ public class DiceView extends HBox {
 
 	private ImageView die1Iv;
 	private ImageView die2Iv;
+<<<<<<< HEAD
 	
 	Button finishTurnBtn;
 	Button roll;
+=======
+	private Button endTurnBtn;
+>>>>>>> 39bce22bd6e6d09d62e764b04157b10d88bdbc6f
 
 	public DiceView() {
 		buildView();
@@ -68,16 +74,28 @@ public class DiceView extends HBox {
 			}
 		});
 		
+<<<<<<< HEAD
 		finishTurnBtn = new Button("Finished Turn");
+=======
+		endTurnBtn = new Button("End Turn");
+		endTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
+>>>>>>> 39bce22bd6e6d09d62e764b04157b10d88bdbc6f
 
+			@Override
+			public void handle(ActionEvent t) {
+				presenter.endTurn();
+			}
+		});
+		
 		// Add all controls
-		getChildren().addAll(die1Iv, die2Iv, roll, finishTurnBtn);
+		getChildren().addAll(die1Iv, die2Iv, roll, endTurnBtn);
 	}
 
 	public void setDice(Die d1, Die d2) {
 		die1Iv.imageProperty().set(d1.getImage());
 		die2Iv.imageProperty().set(d2.getImage());
 	}
+<<<<<<< HEAD
 
 	public Button getFinishTurnBtn() {
 		return finishTurnBtn;
@@ -86,4 +104,13 @@ public class DiceView extends HBox {
 	public Button getRollBtn() {
 		return roll;
 	}
+=======
+	
+	public ImageView getDie1()	{	return die1Iv;	}
+	public ImageView getDie2()	{	return die2Iv;	}
+	public Button getEndTurnBtn()	{	return endTurnBtn;	}
+	public void setDie1(ImageView die)	{	die1Iv = die;	}
+	public void setDie2(ImageView die)	{	die2Iv = die;	}
+	public void setEndTurnBtn(Button but)	{	endTurnBtn = but;	}
+>>>>>>> 39bce22bd6e6d09d62e764b04157b10d88bdbc6f
 }

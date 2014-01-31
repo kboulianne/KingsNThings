@@ -28,21 +28,18 @@ import com.model.game.phase.init.StartingPosPhase;
  *
  * @author kurtis
  */
-//TODO make final
 @SuppressWarnings("rawtypes")
-public class GamePlay {
+public final class GamePlay {
 
 	/**
 	 * Current gameplay logic to execute.
 	 */
 	private AbstractPhaseStrategy phaseLogic;
-    // Shared Model this strategy acts upon
 
 	/**
 	 * Initial phases
 	 */
 	private final LinkedHashSet<AbstractPhaseStrategy> initPhases;
-
 	private final LinkedHashSet<AbstractPhaseStrategy> gamePhases;
 	// Current phase being played by the players.
 	private Iterator<AbstractPhaseStrategy> phaseIt;
@@ -50,6 +47,8 @@ public class GamePlay {
     // TODO Add a model?
 	// Maps dice total to the player that made the roll.
 	private final SortedMap<Integer, Player> rolls;
+
+
 	
 	/**
 	 * Inner class responsible for holding singleton instance. Initialized once.
@@ -63,6 +62,9 @@ public class GamePlay {
 		return SingletonHolder.INSTANCE;
 	}
 
+	/**
+	 * Creates a new, default instance of the game logic.
+	 */
 	private GamePlay() {
 		initPhases = new LinkedHashSet<>();
 		gamePhases = new LinkedHashSet<>();
@@ -72,6 +74,9 @@ public class GamePlay {
 		createGamePhases();
 	}
 
+	/**
+	 * Creates phases responsible for setting up the game.
+	 */
 	private void createInitPhases() {
 		initPhases.add(new PlayerOrderPhase(this));
 		initPhases.add(new StartingPosPhase(this));
@@ -82,12 +87,11 @@ public class GamePlay {
 		// Set current phase logic/strategy
 		phaseIt = initPhases.iterator();
 		phaseLogic = phaseIt.next();
-
-	// TODO move me elsewhere.
-		// Signal start of phase
-		phaseLogic.phaseStart();
 	}
 
+	/**
+	 * Creates the phases responsible for normal gameplay.
+	 */
 	private void createGamePhases() {
 		gamePhases.add(new GoldCollectPhase(this));
 		gamePhases.add(new RecruitCharPhase(this));
@@ -100,19 +104,34 @@ public class GamePlay {
 		gamePhases.add(new ChangePlayOrderPhase(this));
 	}
 	
+	/**
+	 * Adds the specified dice total for the player.
+	 * @param total The total to add
+	 * @param p The player that rolled this total.
+	 */
 	public void addPlayerRoll(int total, Player p) {
 		// TODO Handle case where two players have the same dice total.
 		rolls.put(total, p);
 	}
 
+	/**
+	 * Clears the rolls previously added to the map.
+	 */
 	public void clearRolls() {
 		rolls.clear();
 	}
 
+	/**
+	 * Gets the the players ordered by their dice totals in descending order.
+	 * @return The collection of players, in descending order.
+	 */
 	public final Collection<Player> getPlayersHighToLow() {
 		return rolls.values();
 	}
 
+	/**
+	 * Called when the last player in turn order has executed his turn. Switches to the next phase.
+	 */
 	private void nextPhase() {
 
 		if (!phaseIt.hasNext()) {
@@ -144,9 +163,19 @@ public class GamePlay {
 		// State modification. Call method in game
 		game.nextPlayer();
 	}
-
-//	public GameEvents getGameEvents() {
-//		return gameEvents;
-//	}
-
+	
+	/**
+	 * Signals the start of game.
+	 */
+	public void start() {
+		// Initial phase start
+		phaseLogic.phaseStart();
+		next();
+	}
+	
+	public void endTurn() {
+		phaseLogic.turnEnd();
+		//TODO make turnEnd() return boolean so we can check pre-conditions before next()
+		next();
+	}
 }

@@ -2,6 +2,7 @@ package com.presenter;
 
 import com.game.services.GameService;
 import com.model.game.Game;
+import com.model.game.phase.GamePlay;
 import com.view.DiceView;
 
 /**
@@ -52,5 +53,9 @@ public class DicePresenter {
 		
 		// Update GameView
 		mainPresenter.updateView();
+	}
+	
+	public void endTurn() {
+		GamePlay.getInstance().endTurn();
 	}
 }

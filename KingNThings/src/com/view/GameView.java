@@ -7,6 +7,9 @@ package com.view;
 
 import com.model.game.Game;
 import com.presenter.GamePresenter;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -23,8 +26,6 @@ import javafx.scene.layout.VBox;
 public class GameView extends StackPane {
 
 	private GamePresenter presenter;
-//    // Sub-presenters
-//    private DicePresenter dicePresenter;
 
 	public VBox rootVBox;
 	private AnchorPane gameStatus;
@@ -77,18 +78,7 @@ public class GameView extends StackPane {
 		
 		// Contains sidepaneview and PlayArea
 		centerBox = new HBox();
-
-		//Button test = new Button("Test");
-		//AnchorPane.setLeftAnchor(test, 500.0);
-		//AnchorPane.setTopAnchor(test, 0.0);
-		//test.setOnAction(new EventHandler<ActionEvent>() {
-
-			//@Override
-			//public void handle(ActionEvent t) {
-				//presenter.test();
-			//}
-		//});
-		//gameStatus.getChildren().add(test);
+		
 		rootVBox.getChildren().addAll(gameStatus, centerBox);
 		getChildren().add(rootVBox);
 	}
@@ -134,10 +124,10 @@ public class GameView extends StackPane {
 		//TODO Could actually do most updating here since this presenter has all
 		// other presenters as a dependency.
 		// As a precaution.
-		if (game != null) {
+		/*if (game != null) {
 			currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: ");
 	
-		}
+		}*/
 	}
 
 	public Label getCurrentPlayerLbl() {
