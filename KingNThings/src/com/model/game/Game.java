@@ -380,6 +380,10 @@ public final class Game {
 	public final boolean isLastPlayer() {
 		return !nextPlayerIt.hasNext();
 	}
+	
+	public boolean hasNextPlayer(){
+		return nextPlayerIt.hasNext();
+	}
 
 	/**
 	 * Sets the turn order for the players of the Game.

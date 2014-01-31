@@ -65,7 +65,7 @@ public class CombatPhase extends AbstractPhaseStrategy<Object> {
 	public void turnStart() {
 		// TODO Auto-generated method stub
 		
-		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
+		super.turnStart();
 		
 	}
 	

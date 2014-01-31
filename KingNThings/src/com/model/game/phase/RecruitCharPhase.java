@@ -65,7 +65,7 @@ public class RecruitCharPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
-		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
+		super.turnStart();
 		
 	}
 

@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.model.Player;
+import com.model.Player.PlayerId;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
@@ -110,7 +111,7 @@ public class GameService {
 
 	public void endTurn(AbstractPhaseStrategy<Object> phase) {
 		
-		//fornow
+		//fornow this is all inncorrect 
 		List<Player> playerList = new ArrayList<Player>();
 		playerList.add(game.getCurrentPlayer());
 		playerList.add(game.getOpponent1());
@@ -124,8 +125,8 @@ public class GameService {
 		game.setOpponent2(playerList.get(1));
 		game.setOpponent3(playerList.get(2));
 		
-		
-		if(game.isLastPlayer()){
+		 
+		if(game.getCurrentPlayer().getId().equals(PlayerId.ONE)){
 			phase.phaseEnd();
 		}else{
 			phase.turnStart();		

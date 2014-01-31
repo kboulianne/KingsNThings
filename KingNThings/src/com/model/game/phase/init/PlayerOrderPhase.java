@@ -99,7 +99,8 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	public void turnStart() {
 		// TODO Auto-generated method stub
 		//top label
-		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
+		
+		super.turnStart();
 		
 	}
 

@@ -89,9 +89,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
-		
-		//top label
-		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
+		super.turnStart();
 		
 	}
 
