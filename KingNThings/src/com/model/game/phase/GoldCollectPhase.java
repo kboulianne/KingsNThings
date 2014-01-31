@@ -74,7 +74,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
 		// TODO Auto-generated method stub
 		super.turnStart();
 		
-		System.out.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		.println("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 		
 		int hexGold = 0;
 		int fortGold = 0;
