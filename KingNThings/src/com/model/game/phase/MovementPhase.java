@@ -19,7 +19,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public class MovementPhase extends AbstractPhaseStrategy<Object> {
+public class MovementPhase extends AbstractPhaseStrategy {
 
 	Game game;
 	GameView gv;
@@ -60,7 +60,7 @@ public class MovementPhase extends AbstractPhaseStrategy<Object> {
 			}
 		});
 		
-		turnStart();
+//		turnStart();
 	
 		
 	}
@@ -75,7 +75,7 @@ public class MovementPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Movement Phase");
-		new CombatPhase(context).phaseStart();
+//		new CombatPhase(context).phaseStart();
 	}
 
 	@Override

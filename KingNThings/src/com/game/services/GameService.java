@@ -93,7 +93,7 @@ public class GameService {
 		game.rollDice();
 	}
 
-	public void endTurn(AbstractPhaseStrategy<Object> phase) {
+	public void endTurn(AbstractPhaseStrategy phase) {
 		
 //		//fornow this is all inncorrect 
 //		List<Player> playerList = new ArrayList<Player>();

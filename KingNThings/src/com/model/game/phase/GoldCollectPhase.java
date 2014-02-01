@@ -27,7 +27,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public class GoldCollectPhase extends AbstractPhaseStrategy<Object> {
+public class GoldCollectPhase extends AbstractPhaseStrategy {
 
 	Game game;
 	GameView gv;

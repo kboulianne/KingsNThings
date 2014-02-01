@@ -11,7 +11,7 @@ import com.presenter.Util;
  *
  * @author kurtis
  */
-public class ChangePlayOrderPhase extends AbstractPhaseStrategy<Object> {
+public class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 
 	public ChangePlayOrderPhase(GamePlay context) {
 		super(context);

@@ -19,7 +19,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
+public class SpecialPowersPhase extends AbstractPhaseStrategy {
 
 	
 	Game game;
@@ -60,7 +60,8 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Special Powers Phase");
 		//TODO include other phases 
-		new GoldCollectPhase(context).phaseStart();
+		// Done in gameplay
+//		new GoldCollectPhase(context).phaseStart();
 	}
 
 	@Override
@@ -75,7 +76,8 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		GameService.getInstance().endTurn(this);
+		// Done in gameplay
+//		GameService.getInstance().endTurn(this);
 		
 	}
 

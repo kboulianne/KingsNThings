@@ -19,7 +19,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public class CombatPhase extends AbstractPhaseStrategy<Object> {
+public class CombatPhase extends AbstractPhaseStrategy {
 
 	Game game;
 	GameView gv;

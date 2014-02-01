@@ -22,7 +22,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public class ExchangePhase extends AbstractPhaseStrategy<Object> {
+public class ExchangePhase extends AbstractPhaseStrategy {
 	
 	Game game;
 	GameView gv;

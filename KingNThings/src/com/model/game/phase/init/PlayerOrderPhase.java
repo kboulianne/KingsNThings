@@ -24,7 +24,7 @@ import javafx.scene.control.Button;
  * @author kurtis
  */
 //TODO needs a different strategy implementation one with simply executePhase()
-public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
+public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	
 	Game game;
 	GameView gv;

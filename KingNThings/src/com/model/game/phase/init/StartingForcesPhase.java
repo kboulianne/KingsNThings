@@ -21,7 +21,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public class StartingForcesPhase extends AbstractPhaseStrategy<Object> {
+public class StartingForcesPhase extends AbstractPhaseStrategy {
 
 	Game game;
 	GameView gv;

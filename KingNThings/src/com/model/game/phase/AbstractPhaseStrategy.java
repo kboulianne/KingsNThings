@@ -14,7 +14,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public abstract class AbstractPhaseStrategy<T> implements IPhaseStrategy<T> {
+public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 
 	protected final GamePlay context;
 

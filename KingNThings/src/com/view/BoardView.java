@@ -104,7 +104,7 @@ public class BoardView extends Canvas {
 		});
 	}
 	
-	public void addStartPosHandler(final AbstractPhaseStrategy<Object> phase){
+	public void addStartPosHandler(final AbstractPhaseStrategy phase){
 		
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 

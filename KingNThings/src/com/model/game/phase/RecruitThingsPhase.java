@@ -20,7 +20,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public class RecruitThingsPhase extends AbstractPhaseStrategy<Object> {
+public class RecruitThingsPhase extends AbstractPhaseStrategy {
 
 	Game game;
 	GameView gv;
@@ -68,7 +68,8 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Logic: End of Recruiting Things Phase");
-		new MovementPhase(context).phaseStart();
+		// in gameplay
+//		new MovementPhase(context).phaseStart();
 	}
 
 	@Override
@@ -87,7 +88,7 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		GameService.getInstance().endTurn(this);
+//		GameService.getInstance().endTurn(this);
 	}
 
 	@Override

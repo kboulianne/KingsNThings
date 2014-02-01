@@ -21,7 +21,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public class StartingKingdomPhase extends AbstractPhaseStrategy<Object> {
+public class StartingKingdomPhase extends AbstractPhaseStrategy {
 
 	Game game;
 	GameView gv;
@@ -70,7 +70,8 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy<Object> {
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		GameService.getInstance().endTurn(this);
+		// Done automatically in GamePlay#next() or on Finish Turn (GamePlay#endTurn())
+//		GameService.getInstance().endTurn(this);
 		
 	}
 

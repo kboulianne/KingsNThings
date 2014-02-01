@@ -70,7 +70,7 @@ public class BoardPresenter {
 		//	detailsPresenter.showHex(b.getHexes().get(selected));
 	}
 	
-	public void handleStartPositionSelectedHexClick(int selected, AbstractPhaseStrategy<Object> phase) {
+	public void handleStartPositionSelectedHexClick(int selected, AbstractPhaseStrategy phase) {
 		
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		if(hex.getOwner() == null){

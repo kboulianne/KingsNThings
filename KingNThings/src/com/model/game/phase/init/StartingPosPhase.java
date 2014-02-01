@@ -21,7 +21,7 @@ import com.view.GameView;
  *
  * @author kurtis
  */
-public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements HexInput*/ {
+public class StartingPosPhase extends AbstractPhaseStrategy /*implements HexInput*/ {
 
 	
 	Game game;
@@ -90,6 +90,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 		
 		
 		finishBtn.setVisible(true);
+		// done automatically on call to GamePlay#next()
 //		new StartingKingdomPhase(context).phaseStart();
 		
 	}
