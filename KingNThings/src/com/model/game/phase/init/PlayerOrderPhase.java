@@ -40,8 +40,6 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		Util.log("Init Phase: Start of Player Order Phase");
 		context.clearRolls();
 		
-
-
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
 		
@@ -56,24 +54,23 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		//game.nextPlayer();
 		
 		game.getBoard().setFaceDown(true);
-		for(Hex h: game.getBoard().getHexes())
-			KNTAppFactory.getBoardpresenter().getView().paintHex(h);
-		
+		// Update the view
+		KNTAppFactory.getBoardpresenter().getView().setBoard(game.getBoard());
 		KNTAppFactory.getBoardpresenter().getView().setOnMouseClicked(null);
 		
-		Button rollBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		Button rollBtn = KNTAppFactory.getDicepresenter().getView().getEndTurnBtn();
 		rollBtn.setText("Roll");
 		rollBtn.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Add roll dice function
-				// .rollDice()
-				turnEnd();
+				// Roll
+				KNTAppFactory.getDicepresenter().roll();
+				// End turn
+				KNTAppFactory.getDicepresenter().endTurn();
+				
 			}
 		});	
-		
-		//turnStart();
 	}
 
 	/*@Override
@@ -102,7 +99,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 		//game.setPlayerOrder(context.getPlayersHighToLow());
 		
 		Util.log("Init Phase: End of Player Order Phase");
-		new StartingPosPhase(context).phaseStart();
+//		new StartingPosPhase(context).phaseStart();
 		
 	}
 
@@ -110,31 +107,23 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy<Object> {
 	public void turnStart() {
 		// TODO Auto-generated method stub
 		//top label
-		
 		super.turnStart();
 		
 		Util.log("Skipping Step for Itertion 1");
-		turnEnd();
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		GameService.getInstance().endTurn(this);
-		//Util.log("Init Phase: Player Order Phase - turnEnd()");
-		
+//		GameService.getInstance().endTurn(this);
+		Util.log("Init Phase: Player Order Phase - turnEnd()");
+//		context.next();
 	}
 
 	@Override
-	public void addHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void addHandlers() {}
 
 	@Override
-	public void removeHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void removeHandlers() {}
 
 }

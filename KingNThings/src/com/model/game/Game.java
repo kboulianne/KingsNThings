@@ -350,21 +350,6 @@ public final class Game {
 		currentPlayer = nextPlayerIt.next();
 	}
 
-	// TODO use Phase class to pass data to GamePlay and next?
-//    public void endTurn() {
-//	// Execute the phase logic
-//	//TODO Rename, ambiguous since it modifies this instance.
-//	gamePlay.next();
-//    }
-	//TODO startGame() -> signals start of phase?
-//	public void start() {
-//		Util.log("Start Game 1");
-////		GamePlay.getInstance();
-//		
-//		//AbstractPhaseStrategy aps = new StartingPosPhase();
-//		//aps.phaseStart();
-//	}
-
 	/**
 	 * Returns true if the current player is the last player in the turn order.
 	 *

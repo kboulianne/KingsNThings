@@ -70,14 +70,14 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 		
 		finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 		
-		KNTAppFactory.getGamePresenter().getDicePresenter().getView().getDie1().setVisible(false);
-		KNTAppFactory.getGamePresenter().getDicePresenter().getView().getDie2().setVisible(false);
+		KNTAppFactory.getDicepresenter().getView().getDie1().setVisible(false);
+		KNTAppFactory.getDicepresenter().getView().getDie2().setVisible(false);
 		finishBtn.setText("End Turn");
 		
 		finishBtn.setVisible(false);
 		KNTAppFactory.getBoardpresenter().getView().addStartPosHandler(this);
 		
-		turnStart();
+//		turnStart();
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 		
 		
 		finishBtn.setVisible(true);
-		new StartingKingdomPhase(context).phaseStart();
+//		new StartingKingdomPhase(context).phaseStart();
 		
 	}
 
@@ -114,7 +114,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy<Object> /*implements
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		GameService.getInstance().endTurn(this);
+//		GameService.getInstance().endTurn(this);
 	}
 
 	@Override

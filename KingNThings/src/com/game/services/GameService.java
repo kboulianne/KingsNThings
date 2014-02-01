@@ -91,45 +91,30 @@ public class GameService {
 
 	public void roll() {
 		game.rollDice();
-		// Check the required action in gameplay, then roll
-		// TODO Abstract this
-		// TESTING FOR NOW
-//		synchronized (GamePlay.getInstance().actions) {
-//			try {
-//				if (GamePlay.getInstance().actions.take() == GameAction.ROLL) {
-//					// Roll and unlock
-//					game.rollDice();
-//
-//					GamePlay.getInstance().actions.notifyAll();
-//				}
-//			} catch (InterruptedException ex) {
-//				Logger.getLogger(GameService.class.getName()).log(Level.SEVERE, null, ex);
-//			}
-//		}
 	}
 
 	public void endTurn(AbstractPhaseStrategy<Object> phase) {
 		
-		//fornow this is all inncorrect 
-		List<Player> playerList = new ArrayList<Player>();
-		playerList.add(game.getCurrentPlayer());
-		playerList.add(game.getOpponent1());
-		playerList.add(game.getOpponent2());
-		playerList.add(game.getOpponent3());
-		
-		
-		game.nextPlayer();
-		playerList.remove(game.getCurrentPlayer());
-		game.setOpponent1(playerList.get(0));
-		game.setOpponent2(playerList.get(1));
-		game.setOpponent3(playerList.get(2));
-		
-		 
-		if(game.getCurrentPlayer().getId().equals(PlayerId.ONE)){
-			phase.phaseEnd();
-		}else{
-			phase.turnStart();		
-		}
+//		//fornow this is all inncorrect 
+//		List<Player> playerList = new ArrayList<Player>();
+//		playerList.add(game.getCurrentPlayer());
+//		playerList.add(game.getOpponent1());
+//		playerList.add(game.getOpponent2());
+//		playerList.add(game.getOpponent3());
+//		
+//		
+//		game.nextPlayer();
+//		playerList.remove(game.getCurrentPlayer());
+//		game.setOpponent1(playerList.get(0));
+//		game.setOpponent2(playerList.get(1));
+//		game.setOpponent3(playerList.get(2));
+//		
+//		 
+//		if(game.getCurrentPlayer().getId().equals(PlayerId.ONE)){
+//			phase.phaseEnd();
+//		}else{
+//			phase.turnStart();		
+//		}
 
 	}
 

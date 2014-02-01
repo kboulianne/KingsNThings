@@ -148,6 +148,9 @@ public final class GamePlay {
 	 * Goes to the next player, and switches phases if needed.
 	 */
 	public final void next() {
+		// End the turn for the current player before switching.
+//		phaseLogic.turnEnd();
+		
 		// TODO make sure to no mismatch Game "state" stuff and game "logic" stuff in here. State stuff goes in Game.
 		Game game = GameService.getInstance().getGame();
 
@@ -160,8 +163,15 @@ public final class GamePlay {
 			nextPhase();    // Next call to execute, does new phase logic.
 		}
 
+		
+		
 		// State modification. Call method in game
 		game.nextPlayer();
+		
+		// FOR NOW! Automatic phase skipping!
+		if (phaseLogic instanceof PlayerOrderPhase
+				|| phaseLogic instanceof StartingPosPhase)
+			endTurn();
 	}
 	
 	/**
