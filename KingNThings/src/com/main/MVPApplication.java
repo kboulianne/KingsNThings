@@ -28,7 +28,6 @@ public class MVPApplication extends Application {
         launch(args);
     }
 	
-	
     @Override
     public void start(Stage stage) throws Exception {
     	final GamePresenter main = KNTAppFactory.getGamePresenter();
