@@ -101,6 +101,10 @@ public final class GamePlay {
 		gamePhases.add(new ConstructionPhase(this));
 		gamePhases.add(new SpecialPowersPhase(this));
 		gamePhases.add(new ChangePlayOrderPhase(this));
+		
+		// FOR TESTING: The one in initPhases is correct.
+//		phaseIt = gamePhases.iterator();
+//		phaseLogic = phaseIt.next();
 	}
 	
 	/**
@@ -182,7 +186,7 @@ public final class GamePlay {
 			// Signal end of phase
 		if (game.isLastPlayer()) {
 			phaseLogic.phaseEnd();
-			nextPhase();    // Next call to execute, does new phase logic.
+			nextPhase();
 		}
 		
 		// Switch to the next player and start the turn.

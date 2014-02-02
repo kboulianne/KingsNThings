@@ -5,7 +5,11 @@
  */
 package com.model.game.phase;
 
+import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.presenter.Util;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 /**
  *
@@ -19,40 +23,43 @@ public class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 
 	@Override
 	public void phaseStart() {
-		Util.log("Game Phase: Start of Changing Player Order Phase");
+		// Nothing to be done here
+		Util.log("Change Player Order.");
+		
+		// TESTING
+		// TODO Make method in presenter instead? Would be cleaner.
+		// .getDicePresenter().setEndTurnHandler(...)
+		KNTAppFactory.getDicepresenter().getView().getEndTurnBtn().
+				setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent t) {
+				context.endTurn();
+			}
+		});;
 	}
-/*
-	@Override
-	public void executePhase(Object input) {
-		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-	}
-*/
+
 	@Override
 	public void phaseEnd() {
-		Util.log("Game Phase: End of Changing Player Order Phase");
+		// Rotate the player order and display
+		game.rotatePlayerOrder();
+		KNTAppFactory.getGamePresenter().getView().setGame(game);
+		Util.log("Changed Player Order.");
 	}
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
-		
+		super.turnStart();
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-		
+		// Nothing to be done here.
 	}
 
 	@Override
-	public void addHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void addHandlers() { }
 
 	@Override
-	public void removeHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void removeHandlers() { }
 }

@@ -373,15 +373,18 @@ public final class Game {
 		this.playerOrder = new ArrayList<>(playersHighToLow);
 		// Reset Iterator to the new playerOrder
 		nextPlayerIt = playerOrder.iterator();
-
-		// TODO change the player ID's? That way GamePlay can check if it is player 4's turn and move to the next phase.
-		// Set current to the first player in the list if needed
-//		if (currentPlayer == null) {
+		// Set new current player
 		currentPlayer = nextPlayerIt.next();
-//		}
 	}
-
-	public void setNextPlayerIt(Iterator<Player> nextPlayerIt) {
-		this.nextPlayerIt = nextPlayerIt;
+	
+	
+	/**
+	 * Change Player order Phase requires Player 2 to execute his turn first,
+	 * Player 3 to go second... 
+	 */
+	public final void rotatePlayerOrder() {
+		// Add the first player in the list to the tail.
+		Player p = playerOrder.remove(0);
+		playerOrder.add(p);
 	}
 }

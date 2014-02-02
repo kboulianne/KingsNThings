@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.model.game.phase.init;
 
 import com.game.services.GameService;
@@ -67,13 +62,9 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 				KNTAppFactory.getDicepresenter().roll();
 				// End turn
 				context.endTurn();
-//				KNTAppFactory.getDicepresenter().endTurn();
-				
 			}
 		});	
 	}
-
-
 
 	@Override
 	public void turnStart() {
@@ -90,11 +81,10 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	public void turnEnd() {
 		// DEACTIVATED =======================================
 		//context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());
+		//		
+		//Util.log("Added roll total " + game.diceTotal()
+		//		+ " for " + game.getCurrentPlayer().getName());
 		// ===================================================
-		
-		Util.log("Added roll total " + game.diceTotal()
-				+ " for " + game.getCurrentPlayer().getName());
-		
 		// Notify UI
 		KNTAppFactory.getGamePresenter().getView().setGame(game);
 	}
