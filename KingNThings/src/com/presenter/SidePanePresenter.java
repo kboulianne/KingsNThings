@@ -86,6 +86,7 @@ public class SidePanePresenter {
 
 		// make the presenter update the view
 		hexDetailsPresenter.showHex(h);
+		
 	}
 
 	void showThingDetailsFor(Thing t) {

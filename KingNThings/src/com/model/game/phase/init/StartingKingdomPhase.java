@@ -71,7 +71,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	public void turnEnd() {
 		// TODO Auto-generated method stub
 		// Done automatically in GamePlay#next() or on Finish Turn (GamePlay#endTurn())
-//		GameService.getInstance().endTurn(this);
+//	GameService.getInstance().endTurn(this);
 		
 	}
 

@@ -6,9 +6,10 @@
 package com.view;
 
 import com.view.customcontrols.ArmyOrMisc;
+import com.game.services.GameService;
 import com.model.Hex;
+import com.model.game.Game;
 import com.presenter.HexDetailsPresenter;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -105,7 +106,7 @@ public class HexDetailsView extends StackPane {
 
 	public void setHex(Hex hex) {
 	// update ui here.
-
+		setArmies(hex.getId());
 		if (hex != null) {
 			// Set the Hex Name
 			nameLbl.setText("Type: " + hex.getTypeAsString());
@@ -125,5 +126,15 @@ public class HexDetailsView extends StackPane {
 			}
 			testLbl.setText("removeLater: id=" + hex.getId() + " joins with:" + test);
 		}
+	}
+	
+	protected void setArmies(int hexId){
+		Game game = GameService.getInstance().getGame();
+		Hex hex = game.getBoard().getHexes().get(hexId);
+		opp1Army.setArmy(game.getOpponent1(), hex.getArmies(game.getOpponent1()));
+		opp2Army.setArmy(game.getOpponent2(), hex.getArmies(game.getOpponent2()));
+		opp3Army.setArmy(game.getOpponent3(), hex.getArmies(game.getOpponent3()));
+		currentPlayerArmy.setArmy(game.getCurrentPlayer(), hex.getArmies(game.getCurrentPlayer()));
+		
 	}
 }

@@ -7,7 +7,6 @@ package com.model.game.phase.init;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.Hex;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;

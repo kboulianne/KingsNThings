@@ -28,7 +28,6 @@ import com.model.game.phase.init.StartingPosPhase;
  *
  * @author kurtis
  */
-@SuppressWarnings("rawtypes")
 public final class GamePlay {
 
 	/**
