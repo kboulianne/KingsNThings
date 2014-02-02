@@ -376,9 +376,9 @@ public final class Game {
 
 		// TODO change the player ID's? That way GamePlay can check if it is player 4's turn and move to the next phase.
 		// Set current to the first player in the list if needed
-		if (currentPlayer == null) {
-			currentPlayer = nextPlayerIt.next();
-		}
+//		if (currentPlayer == null) {
+		currentPlayer = nextPlayerIt.next();
+//		}
 	}
 
 	public void setNextPlayerIt(Iterator<Player> nextPlayerIt) {

@@ -37,14 +37,14 @@ public class MVPApplication extends Application {
 		// GamePresenter presenter = new GamePresenter(view);
 		// view.setPresenter(presenter);
 		
-		System.out.println("========================================");
-		System.out.println("Phase navigation is done using GamePlay#next()");
-		System.out.println();
-		System.out.println("phaseStart() - once per phase");
-		System.out.println("turnStart() - once per next()");
-		System.out.println("turnEnd() - see temporary IF at bottom of next() for auto phase skip");
-		System.out.println("phaseEnd() - called once in next() for every phase.");
-		System.out.println("========================================");
+//		System.out.println("========================================");
+//		System.out.println("Phase navigation is done u");
+//		System.out.println();
+//		System.out.println("phaseStart() - once per phase");
+//		System.out.println("turnStart() - once per next()");
+//		System.out.println("turnEnd() - see temporary IF at bottom of next() for auto phase skip");
+//		System.out.println("phaseEnd() - called once in next() for every phase.");
+//		System.out.println("========================================");
 		
         stage.setTitle("Kings & Things");
         stage.setMinWidth(1000);

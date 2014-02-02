@@ -130,7 +130,7 @@ public final class GamePlay {
 	}
 
 	/**
-	 * Called when the last player in turn order has executed his turn. Switches to the next phase.
+	 * Called when the last player in turn order has executed his turn. Switches to the startTurn phase.
 	 */
 	private void nextPhase() {
 
@@ -145,28 +145,23 @@ public final class GamePlay {
 	}
 
 	/**
-	 * Goes to the next player, and switches phases if needed.
+	 * Signals the start of game.
 	 */
-	public final void next() {
-		// End the turn for the current player before switching.
-//		phaseLogic.turnEnd();
-		
-		// TODO make sure to no mismatch Game "state" stuff and game "logic" stuff in here. State stuff goes in Game.
+	public void start() {
+		// Initial phase start
+		phaseLogic.phaseStart();
+		// First player's turn.
+		startTurn();
+	}
+	
+	/**
+	 * Exectues turnStart logic for the current player.
+	 */
+	public final void startTurn() {
 		Game game = GameService.getInstance().getGame();
 
-		// Execute logic then go to next player / phase
+		// Execute logic then go to startTurn player / phase
 		phaseLogic.turnStart();
-
-		// Signal end of phase
-		if (game.isLastPlayer()) {
-			phaseLogic.phaseEnd();
-			nextPhase();    // Next call to execute, does new phase logic.
-		}
-
-		
-		
-		// State modification. Call method in game
-		game.nextPlayer();
 		
 		// FOR NOW! Automatic phase skipping!
 		if (phaseLogic instanceof PlayerOrderPhase
@@ -175,17 +170,24 @@ public final class GamePlay {
 	}
 	
 	/**
-	 * Signals the start of game.
+	 * Called when a player has pressed Finished Turn. Executes
+	 * turnEnd() logic, switches to the next phase if it is the last player
+	 * in turn order, switches to the next player and starts their turn.
 	 */
-	public void start() {
-		// Initial phase start
-		phaseLogic.phaseStart();
-		next();
-	}
-	
 	public void endTurn() {
+		// End the player's turn and go to startTurn player.
 		phaseLogic.turnEnd();
-		//TODO make turnEnd() return boolean so we can check pre-conditions before next()
-		next();
+		// State modification. Call method in game
+		Game game = GameService.getInstance().getGame();
+		
+			// Signal end of phase
+		if (game.isLastPlayer()) {
+			phaseLogic.phaseEnd();
+			nextPhase();    // Next call to execute, does new phase logic.
+		}
+		
+		// Switch to the next player and start the turn.
+		game.nextPlayer();
+		startTurn();
 	}
 }

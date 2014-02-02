@@ -86,7 +86,7 @@ public class GameService {
 
 	public void startGame() {
 		// Start executing first phase.
-		GamePlay.getInstance().next();
+		GamePlay.getInstance().startTurn();
 	}
 
 	public void roll() {
