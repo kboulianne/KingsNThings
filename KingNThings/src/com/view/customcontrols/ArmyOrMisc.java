@@ -5,6 +5,7 @@
  */
 package com.view.customcontrols;
 
+import com.model.Creature;
 import com.model.Player;
 import com.model.Thing;
 import com.view.ThingEvent;
@@ -52,8 +53,6 @@ public class ArmyOrMisc extends HBox {
 		circleStackPane.getChildren().addAll(circle, sizeLbl);
 		
 		circleStackPane.setVisible(false);
-		sizeLbl.setVisible(false);
-		circle.setVisible(false);
 
 		thingHolder = new HBox();
 		thingHolder.getStyleClass().add("army");
@@ -110,13 +109,13 @@ public class ArmyOrMisc extends HBox {
 		thingHolder.getChildren().add(pane);
 	}
 
-	public void setArmy(Player armyOwner, List<Thing> army) {
+	public void setArmy(Player armyOwner, List<Creature> army) {
+		
 		thingHolder.getChildren().clear();
-
+		circleStackPane.setVisible(false);
+		if(army == null)
+			return;
 		if (!army.isEmpty()) {
-			sizeLbl.setVisible(true);
-			circle.setVisible(true);
-			thingHolder.setVisible(true);
 			circleStackPane.setVisible(true);
 
 			sizeLbl.setText(String.valueOf(army.size()));
@@ -128,12 +127,6 @@ public class ArmyOrMisc extends HBox {
 				// FIXME, only drawing 1
 				createArmyImageView(t);
 			}
-		} else {
-			// Make invisible
-			circleStackPane.setVisible(false);
-			sizeLbl.setVisible(false);
-			circle.setVisible(false);
-			thingHolder.setVisible(false);
-		}
+		} 
 	}
 }

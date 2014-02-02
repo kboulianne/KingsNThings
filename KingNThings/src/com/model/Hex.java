@@ -172,6 +172,9 @@ public class Hex extends GamePiece {
 	}
     
     public void addCreatToArmy(Creature creature, Player p)	{
+    	if(armies.get(p)==null)	
+    		armies.put(p, new ArrayList<Creature>());
+    	
     	if(armies.get(p).size() < 10)	{
     		armies.get(p).add(creature);
     	}

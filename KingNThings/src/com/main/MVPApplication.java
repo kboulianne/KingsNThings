@@ -28,7 +28,6 @@ public class MVPApplication extends Application {
         launch(args);
     }
 	
-	
     @Override
     public void start(Stage stage) throws Exception {
     	final GamePresenter main = KNTAppFactory.getGamePresenter();
@@ -65,7 +64,6 @@ public class MVPApplication extends Application {
         scene.getStylesheets().add("view/com/assets/docs/gameScreen.css");
 	
         stage.setScene(scene);
-        stage.show();
-		
+        stage.show();	
     }
 }
