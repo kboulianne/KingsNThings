@@ -64,7 +64,6 @@ public class MVPApplication extends Application {
         scene.getStylesheets().add("view/com/assets/docs/gameScreen.css");
 	
         stage.setScene(scene);
-        stage.show();
-		
+        stage.show();	
     }
 }
