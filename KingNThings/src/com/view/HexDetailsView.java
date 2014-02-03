@@ -38,6 +38,7 @@ public class HexDetailsView extends StackPane {
 	private ArmyOrMisc opp2Army;
 	private ArmyOrMisc opp3Army;
 	private ArmyOrMisc currentPlayerArmy;
+	
     //private ArmyOrMisc misc;
 
 	public HexDetailsView() {
@@ -136,5 +137,21 @@ public class HexDetailsView extends StackPane {
 		opp3Army.setArmy(game.getOpponent3(), hex.getArmies(game.getOpponent3()));
 		currentPlayerArmy.setArmy(game.getCurrentPlayer(), hex.getArmies(game.getCurrentPlayer()));
 		
+	}
+
+	public ArmyOrMisc getCurrentPlayerArmy() {
+		return currentPlayerArmy;
+	}
+
+	public ArmyOrMisc getOpp1Army() {
+		return opp1Army;
+	}
+
+	public ArmyOrMisc getOpp2Army() {
+		return opp2Army;
+	}
+
+	public ArmyOrMisc getOpp3Army() {
+		return opp3Army;
 	}
 }

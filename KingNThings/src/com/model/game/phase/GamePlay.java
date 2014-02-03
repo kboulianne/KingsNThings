@@ -161,7 +161,7 @@ public final class GamePlay {
 	 * Exectues turnStart logic for the current player.
 	 */
 	public final void startTurn() {
-		Game game = GameService.getInstance().getGame();
+		//Game game = GameService.getInstance().getGame();
 
 		// Execute logic then go to startTurn player / phase
 		phaseLogic.turnStart();

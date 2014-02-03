@@ -5,7 +5,6 @@
  */
 package com.model.game.phase;
 
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.presenter.Util;
 import javafx.event.ActionEvent;

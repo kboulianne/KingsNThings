@@ -8,8 +8,11 @@ package com.presenter;
 import java.util.ArrayList;
 
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.model.Board;
+import com.model.Creature;
 import com.model.Hex;
+import com.model.Player;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.view.BoardView;
@@ -81,6 +84,25 @@ public class BoardPresenter {
 		}else{
 			//TODO display msg
 		}
+	}
+	
+	public void handleMovementSelectedHexClick(int selected) {
+		
+		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
+		
+		Util.log("selected hex id "+selected+" isHighlighted="+hex.isHighlighted());
+		if(hex.isHighlighted()){	
+
+			Player currentPlayer = GameService.getInstance().getGame().getCurrentPlayer();
+			Creature creature = KNTAppFactory.getHexdetailspresenter().getView().getCurrentPlayerArmy().getLastSelectedCreature();
+			svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(creature, currentPlayer);
+			hex.addCreatToArmy(creature, currentPlayer);
+			
+		}
+		for(Hex h: svc.getGame().getBoard().getHexes()){
+			h.setHighlighted(false);
+		}
+		handleHexClick(selected);
 	}
 
 	public void handleMoveButtonClick() {

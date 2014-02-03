@@ -179,6 +179,10 @@ public class Hex extends GamePiece {
     		armies.get(p).add(creature);
     	}
     }
+    
+    public void removeCreatureFromArmy(Creature creature, Player p){    		
+    	armies.get(p).remove(creature);
+    }
 
     public void addItemToHex(GamePiece item)	{
     	miscItems.add(item);

@@ -14,6 +14,7 @@ import com.main.KNTAppFactory;
 import com.model.DesertCreature;
 import com.model.JungleCreature;
 import com.model.MountainCreature;
+import com.model.Player;
 import com.model.game.Game;
 import com.presenter.Util;
 import com.view.GameView;
@@ -35,8 +36,8 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Movement Phase");
 		
-		game =  GameService.getInstance().getGame();
 		
+		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Movement Phase");
 		
@@ -51,36 +52,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 		});
 		
 		
-		
-		KNTAppFactory.getThingdetailspresenter().getcView().getMoveButton().setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-				KNTAppFactory.getBoardpresenter().handleMoveButtonClick();
-				
-			}
-		});
-		
-		// for testing
-		//Player 1
-		//Stack 1
-		game.getBoard().getHexes().get(2).addCreatToArmy(new DesertCreature("olddragon"), game.getCurrentPlayer());
-		game.getBoard().getHexes().get(2).addCreatToArmy(new DesertCreature("giantspider"), game.getCurrentPlayer());
-		game.getBoard().getHexes().get(2).addCreatToArmy(new JungleCreature("elephant"), game.getCurrentPlayer());
-		game.getBoard().getHexes().get(2).addCreatToArmy(new MountainCreature("brownknight"), game.getCurrentPlayer());
-		game.getBoard().getHexes().get(2).addCreatToArmy(new MountainCreature("giant"), game.getCurrentPlayer());
-		game.getBoard().getHexes().get(2).addCreatToArmy(new MountainCreature("dwarves"), game.getCurrentPlayer());
-		//Stack 2
-		game.getBoard().getHexes().get(9).addCreatToArmy(new DesertCreature("skeletons"), game.getCurrentPlayer());
-		game.getBoard().getHexes().get(9).addCreatToArmy(new JungleCreature("watusi"), game.getCurrentPlayer());
-		game.getBoard().getHexes().get(9).addCreatToArmy(new MountainCreature("goblins"), game.getCurrentPlayer());
-		game.getBoard().getHexes().get(9).addCreatToArmy(new MountainCreature("ogre"), game.getCurrentPlayer());
-		
-
-	
-		
+		KNTAppFactory.getBoardpresenter().getView().addMovementHandler();
 	}
 
 	/*
@@ -92,6 +64,11 @@ public class MovementPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void phaseEnd() {
+		KNTAppFactory.getBoardpresenter().getView().addDefaultHandler();
+		KNTAppFactory.getHexdetailspresenter().getView().getCurrentPlayerArmy().setMovementPhase(false);
+		KNTAppFactory.getHexdetailspresenter().getView().getOpp1Army().setMovementPhase(false);
+		KNTAppFactory.getHexdetailspresenter().getView().getOpp2Army().setMovementPhase(false);
+		KNTAppFactory.getHexdetailspresenter().getView().getOpp3Army().setMovementPhase(false);
 		Util.log("Game Phase: End of Movement Phase");
 //		new CombatPhase(context).phaseStart();
 	}
@@ -101,6 +78,30 @@ public class MovementPhase extends AbstractPhaseStrategy {
 		// TODO Auto-generated method stub
 		
 		super.turnStart();
+		
+		
+		KNTAppFactory.getHexdetailspresenter().getView().getCurrentPlayerArmy().setMovementPhase(true);
+		KNTAppFactory.getHexdetailspresenter().getView().getOpp1Army().setMovementPhase(false);
+		KNTAppFactory.getHexdetailspresenter().getView().getOpp2Army().setMovementPhase(false);
+		KNTAppFactory.getHexdetailspresenter().getView().getOpp3Army().setMovementPhase(false);
+		// for testing
+		//Player 1
+		//Stack 1
+		
+		Player currentPlayer = game.getCurrentPlayer();
+		Util.log("curr"+ currentPlayer.getName());
+		game.getBoard().getHexes().get(2).addCreatToArmy(new DesertCreature("olddragon"), currentPlayer);
+		game.getBoard().getHexes().get(2).addCreatToArmy(new DesertCreature("giantspider"), currentPlayer);
+		game.getBoard().getHexes().get(2).addCreatToArmy(new JungleCreature("elephant"), currentPlayer);
+		game.getBoard().getHexes().get(2).addCreatToArmy(new MountainCreature("brownknight"), currentPlayer);
+		game.getBoard().getHexes().get(2).addCreatToArmy(new MountainCreature("giant"), currentPlayer);
+		game.getBoard().getHexes().get(2).addCreatToArmy(new MountainCreature("dwarves"), currentPlayer);
+		//Stack 2
+		game.getBoard().getHexes().get(9).addCreatToArmy(new DesertCreature("skeletons"), currentPlayer);
+		game.getBoard().getHexes().get(9).addCreatToArmy(new JungleCreature("watusi"), currentPlayer);
+		game.getBoard().getHexes().get(9).addCreatToArmy(new MountainCreature("goblins"), currentPlayer);
+		game.getBoard().getHexes().get(9).addCreatToArmy(new MountainCreature("ogre"), currentPlayer);
+		
 		
 	}
 

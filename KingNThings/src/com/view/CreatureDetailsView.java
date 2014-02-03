@@ -7,7 +7,6 @@ package com.view;
 
 import com.model.Creature;
 import com.model.Thing;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 /**
@@ -21,9 +20,7 @@ public class CreatureDetailsView extends ThingDetailsView {
     private Label combatLbl;
     private Label specialAbilitiesLbl;
     private Label testLbl;
-    private Button moveButton;
     
-
 	@Override
 	protected void buildView() {
 		// Build Controls in super
@@ -34,9 +31,7 @@ public class CreatureDetailsView extends ThingDetailsView {
 
 		testLbl = new Label();
 		
-		moveButton = new Button("Move");
-		
-		getChildren().addAll(combatLbl, specialAbilitiesLbl, testLbl, moveButton);
+		getChildren().addAll(combatLbl, specialAbilitiesLbl, testLbl);
     
 	}
 
@@ -73,10 +68,6 @@ public class CreatureDetailsView extends ThingDetailsView {
 		//boardPresenter.handleMoveButtonClick(moveButton);
 		super.setThing(thing);
 
-	}
-
-	public Button getMoveButton() {
-		return moveButton;
 	}
 
 }

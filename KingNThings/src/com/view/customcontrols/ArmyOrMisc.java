@@ -5,6 +5,7 @@
  */
 package com.view.customcontrols;
 
+import com.main.KNTAppFactory;
 import com.model.Creature;
 import com.model.Player;
 import com.model.Thing;
@@ -33,7 +34,11 @@ public class ArmyOrMisc extends HBox {
 	private Circle circle;
 	private Label sizeLbl;
 	private HBox thingHolder;
-	StackPane circleStackPane;
+	private StackPane circleStackPane;
+	private ImageView img;
+	private boolean movementPhase;
+	
+	private Creature lastSelectedCreature;
 
 	private final EventHandler<ThingEvent> thingHandler;
 
@@ -45,6 +50,7 @@ public class ArmyOrMisc extends HBox {
 	protected void buildComponent() {
 		getStyleClass().add("block");
 		setAlignment(Pos.CENTER);
+		movementPhase = false;
 
 		circleStackPane = new StackPane();
 		circle = new Circle();
@@ -62,6 +68,7 @@ public class ArmyOrMisc extends HBox {
 	}
 
 	private void createArmyImageView(final Thing t) {
+
 		int size = 50;
 
 		Rectangle borderRect = new Rectangle();
@@ -83,23 +90,17 @@ public class ArmyOrMisc extends HBox {
 		coloredRect.setArcHeight(20);
 		coloredRect.setFill(t.getColor());
 
-		final ImageView img = new ImageView(t.getImage());
+		img = new ImageView(t.getImage());
 		img.setFitWidth(size - 7);
 		img.setFitHeight(size - 7);
 		img.setPreserveRatio(false);
 		img.setSmooth(true);
 		img.setCache(true);
 		img.getStyleClass().add("thing");
-
-		// TODO Clean me up
-		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent me) {
-				// Fire custom event on mouse clicked
-				img.fireEvent(new ThingEvent(t));
-			}
-		});
+		if(movementPhase)
+			handleThingClickForMovement(t);
+		else
+			handleThingClicked(t);
 
 		// Add custom handler
 		img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
@@ -109,6 +110,31 @@ public class ArmyOrMisc extends HBox {
 		thingHolder.getChildren().add(pane);
 	}
 
+	
+	public void handleThingClicked(final Thing t){
+		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			
+			@Override
+			public void handle(MouseEvent me) {
+				// Fire custom event on mouse clicked
+				lastSelectedCreature = (Creature)t;
+				img.fireEvent(new ThingEvent(t));
+			}
+		});
+	}
+	
+	public void handleThingClickForMovement(final Thing t){
+		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			
+			@Override
+			public void handle(MouseEvent me) {
+				lastSelectedCreature = (Creature)t;
+				KNTAppFactory.getBoardpresenter().handleMoveButtonClick();
+				img.fireEvent(new ThingEvent(t));
+			}
+		});
+	}
+	
 	public void setArmy(Player armyOwner, List<Creature> army) {
 		
 		thingHolder.getChildren().clear();
@@ -129,4 +155,14 @@ public class ArmyOrMisc extends HBox {
 			}
 		} 
 	}
+
+	public void setMovementPhase(boolean movementPhase) {
+		this.movementPhase = movementPhase;
+	}
+
+	public Creature getLastSelectedCreature() {
+		return lastSelectedCreature;
+	}
+
+
 }
