@@ -11,6 +11,13 @@ import javafx.scene.control.Button;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Creature;
+import com.model.DesertCreature;
+import com.model.ForestCreature;
+import com.model.JungleCreature;
+import com.model.MountainCreature;
+import com.model.PlainsCreature;
+import com.model.Player.PlayerId;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
@@ -39,7 +46,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				turnEnd();
+				context.endTurn();
 			}
 		});
 	}
@@ -47,20 +54,64 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseEnd() {
 		Util.log("Init Phase: End of Starting Forces Phase");
-		new ExchangePhase(context).phaseStart();
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setOnAction(null);
 	}
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
 		super.turnStart();
 		
+		if(game.getCurrentPlayer().getId() == PlayerId.ONE)	{
+			Creature oldragon = new DesertCreature("olddragon");
+			Creature giantspider = new DesertCreature("giantspider");
+			Creature elephant = new JungleCreature("elephant");
+			Creature brownknight = new MountainCreature("brownknight");
+			Creature giant = new MountainCreature("giant");
+			Creature dwarves = new MountainCreature("dwarves1");
+			Creature skeletons = new DesertCreature("skeletons");
+			Creature watusi = new JungleCreature("watusi");
+			Creature goblins = new MountainCreature("goblins");
+			Creature ogre = new MountainCreature("ogre");
+		} else if(game.getCurrentPlayer().getId() == PlayerId.TWO)	{
+			Creature pterodactlywarriors = new JungleCreature("pterodactylwarriors");
+			Creature sandworm = new DesertCreature("sandworm");
+			Creature greenknight = new ForestCreature("sandworm");
+			Creature dervish = new DesertCreature("dervish");
+			Creature crocodiles = new JungleCreature("crocodilesjungle");
+			Creature nomads = new DesertCreature("nomads");
+			Creature druid = new ForestCreature("druid");
+			Creature walkingtree = new ForestCreature("walkingtree");
+			Creature crawlingvines = new JungleCreature("crawlingvines");
+			Creature bandits = new ForestCreature("bandits");
+		} else if(game.getCurrentPlayer().getId() == PlayerId.THREE)	{
+			Creature centaur = new PlainsCreature("centaur");
+			Creature camelcorps = new DesertCreature("camelcorps");
+			Creature farmers1 = new PlainsCreature("farmers");
+			Creature farmers2 = new PlainsCreature("farmers");
+			Creature genie = new DesertCreature("genie");
+			Creature skeletons=  new DesertCreature("skeletons");
+			Creature pygmies = new JungleCreature("pygmies");
+			Creature greathunter = new PlainsCreature("greathunter");
+			Creature nomads = new DesertCreature("nomads");
+			Creature witchdoctor = new JungleCreature("witchdoctor");
+		} else	{
+			Creature 
+			Creature
+			Creature
+			Creature
+			Creature
+			Creature
+			Creature
+			Creature
+			Creature
+			Creature
+		}
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-		GameService.getInstance().endTurn(this);
+		//GameService.getInstance().endTurn(this);
 		
 	}
 }
