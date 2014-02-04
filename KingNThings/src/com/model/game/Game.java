@@ -368,16 +368,15 @@ public final class Game {
 	 *
 	 * @param playersHighToLow The new collection containing the player order.
 	 */
-	public final void setPlayerOrder(final Collection<Player> playersHighToLow,
-			boolean init) {
+	public final void setPlayerOrder(final Collection<Player> playersHighToLow) {
 		// Contains all four players.
 		this.playerOrder = new ArrayList<>(playersHighToLow);
 		// Reset Iterator to the new playerOrder
 		nextPlayerIt = playerOrder.iterator();
 		
 		// Set new current player
-		if (init)
-			currentPlayer = nextPlayerIt.next();
+//		if (init)
+//			currentPlayer = nextPlayerIt.next();
 	}
 	
 	
