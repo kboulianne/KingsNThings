@@ -23,9 +23,6 @@ import com.view.GameView;
  */
 public class StartingKingdomPhase extends AbstractPhaseStrategy {
 
-	Game game;
-	GameView gv;
-	
 	public StartingKingdomPhase(GamePlay context) {
 		super(context);
 	}
@@ -34,8 +31,6 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Starting Kingdoms Phase");
 		
-		game =  GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Choose Starting Kingdom");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();

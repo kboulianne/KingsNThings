@@ -50,8 +50,6 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		game.getBoard().setFaceDown(false);
 		KNTAppFactory.getBoardPresenter().getView().setBoard(game.getBoard());
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
-		
-		
 		finishBtn.setVisible(true);
 	}
 

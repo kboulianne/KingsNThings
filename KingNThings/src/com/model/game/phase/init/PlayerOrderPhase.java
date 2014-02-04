@@ -20,9 +20,6 @@ import javafx.scene.control.Button;
 //TODO needs a different strategy implementation one with simply executePhase()
 public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	
-//	Game game;
-//	GameView gv;
-	
 	public PlayerOrderPhase(GamePlay context) {
 		super(context);
 	}
@@ -31,9 +28,6 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Player Order Phase");
 		context.clearRolls();
-		
-//		game =  GameService.getInstance().getGame();
-//		gv = KNTAppFactory.getGamePresenter().getView();
 		
 		//top label
 		gv.getCurrentActionLbl().setText("Roll the Dice");

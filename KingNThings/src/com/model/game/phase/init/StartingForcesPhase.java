@@ -23,10 +23,6 @@ import com.view.GameView;
  */
 public class StartingForcesPhase extends AbstractPhaseStrategy {
 
-	Game game;
-	GameView gv;
-	
-	
 	public StartingForcesPhase(GamePlay context) {
 		super(context);
 	}
@@ -34,9 +30,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Starting Forces Phase");
-		
-		game =  GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
+
 		gv.getCurrentActionLbl().setText("Place Forces");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
@@ -48,15 +42,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 				turnEnd();
 			}
 		});
-		turnStart();
 	}
-
-	/*
-	@Override
-	public void executePhase(Object input) {
-		Util.log("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-	}
-	*/
 	
 	@Override
 	public void phaseEnd() {

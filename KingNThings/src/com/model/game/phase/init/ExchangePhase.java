@@ -23,10 +23,7 @@ import com.view.GameView;
  * @author kurtis
  */
 public class ExchangePhase extends AbstractPhaseStrategy {
-	
-	Game game;
-	GameView gv;
-	
+
 	public ExchangePhase(GamePlay context) {
 		super(context);
 	}
@@ -34,9 +31,7 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Exchange Things Phase");
-		
-		game =  GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
+
 		gv.getCurrentActionLbl().setText("Exchange Things");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
