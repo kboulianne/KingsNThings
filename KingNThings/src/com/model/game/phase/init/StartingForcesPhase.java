@@ -18,6 +18,7 @@ import com.model.JungleCreature;
 import com.model.MountainCreature;
 import com.model.PlainsCreature;
 import com.model.Player.PlayerId;
+import com.model.SwampCreature;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
@@ -96,16 +97,16 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			Creature nomads = new DesertCreature("nomads");
 			Creature witchdoctor = new JungleCreature("witchdoctor");
 		} else	{
-			Creature 
-			Creature
-			Creature
-			Creature
-			Creature
-			Creature
-			Creature
-			Creature
-			Creature
-			Creature
+			Creature tribesmen1 = new PlainsCreature("tribesmen");
+			Creature giantlizard = new SwampCreature("giantlizard");
+			Creature villains = new PlainsCreature("villains");
+			Creature tigers = new JungleCreature("tigers");
+			Creature vampirebat = new SwampCreature("vampirebat");
+			Creature tribesmen2 = new PlainsCreature("tribesmen");
+			Creature darkwizard = new SwampCreature("darkwizard");
+			Creature blackknight = new SwampCreature("blackknight");
+ 			Creature giantape = new JungleCreature("giantape");
+			Creature buffaloherd = new PlainsCreature("buffaloherd");
 		}
 	}
 
