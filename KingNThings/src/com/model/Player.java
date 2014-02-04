@@ -66,4 +66,8 @@ public class Player 	{
 	public void removeGold(int g)	{
 		gold -= g;
 	}
+	
+	public void addCreature(Creature creat)	{
+		block.addThing(creat, getName());
+	}
 }
