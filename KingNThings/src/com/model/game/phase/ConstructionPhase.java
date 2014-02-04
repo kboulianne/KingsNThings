@@ -21,9 +21,6 @@ import com.view.GameView;
  */
 public class ConstructionPhase extends AbstractPhaseStrategy {
 
-	Game game;
-	GameView gv;
-	
 	public ConstructionPhase(GamePlay context) {
 		super(context);
 	}
@@ -31,10 +28,7 @@ public class ConstructionPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Construction Phase");
-		
-		game = GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
-		
+
 		gv.getCurrentActionLbl().setText("Construction Phase");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();

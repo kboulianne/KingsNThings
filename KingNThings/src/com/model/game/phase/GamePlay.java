@@ -79,9 +79,9 @@ public final class GamePlay {
 	private void createInitPhases() {
 		initPhases.add(new PlayerOrderPhase(this));
 		initPhases.add(new StartingPosPhase(this));
-		//initPhases.add(new StartingKingdomPhase(this));
-		//initPhases.add(new StartingForcesPhase(this));
-		//initPhases.add(new ExchangePhase(this));
+		initPhases.add(new StartingKingdomPhase(this));
+		initPhases.add(new StartingForcesPhase(this));
+		initPhases.add(new ExchangePhase(this));
 
 		// Set current phase logic/strategy
 		phaseIt = initPhases.iterator();
@@ -103,8 +103,8 @@ public final class GamePlay {
 		gamePhases.add(new ChangePlayOrderPhase(this));
 		
 		// FOR TESTING: The one in initPhases is correct.
-//		phaseIt = gamePhases.iterator();
-//		phaseLogic = phaseIt.next();
+		//		phaseIt = gamePhases.iterator();
+		//		phaseLogic = phaseIt.next();
 	}
 	
 	/**
@@ -167,9 +167,9 @@ public final class GamePlay {
 		phaseLogic.turnStart();
 		
 		// FOR NOW! Automatic phase skipping!
-//		if (phaseLogic instanceof PlayerOrderPhase
-//				|| phaseLogic instanceof StartingPosPhase)
-//			endTurn();
+		if (phaseLogic instanceof PlayerOrderPhase
+				|| phaseLogic instanceof StartingPosPhase)
+			endTurn();
 	}
 	
 	/**
@@ -183,7 +183,7 @@ public final class GamePlay {
 		// State modification. Call method in game
 		Game game = GameService.getInstance().getGame();
 		
-		// Signal end of phase
+			// Signal end of phase
 		if (game.isLastPlayer()) {
 			phaseLogic.phaseEnd();
 			nextPhase();
@@ -194,3 +194,4 @@ public final class GamePlay {
 		startTurn();
 	}
 }
+

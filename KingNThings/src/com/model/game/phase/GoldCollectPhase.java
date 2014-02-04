@@ -33,9 +33,6 @@ import com.view.GameView;
  */
 public class GoldCollectPhase extends AbstractPhaseStrategy {
 
-	Game game;
-	GameView gv;
-		
 	public GoldCollectPhase(GamePlay context) {
 		super(context);
 	}
@@ -43,10 +40,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Gold Collection Phase");
-		
-		game = GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
-		
+
 		gv.getCurrentActionLbl().setText("Gold Collection");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
@@ -101,7 +95,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 			}
 		}
 		
-		hexGold = (int) Math.ceil(hexGold/2);
+		hexGold = (int) Math.ceil(hexGold/2.0);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 		
 		AnchorPane ap = new AnchorPane();
@@ -141,6 +135,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		});
 		
 		player.addGold(totalGold);
+		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 	}
 
 	@Override
