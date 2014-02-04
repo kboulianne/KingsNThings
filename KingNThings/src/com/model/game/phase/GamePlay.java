@@ -47,7 +47,8 @@ public final class GamePlay {
 	// Maps dice total to the player that made the roll.
 	private final SortedMap<Integer, Player> rolls;
 
-
+	// Used by Starting Kingdoms Phase to cycle player order before ending phase.
+	private int cycles = 0;
 	
 	/**
 	 * Inner class responsible for holding singleton instance. Initialized once.
@@ -105,6 +106,10 @@ public final class GamePlay {
 		// FOR TESTING: The one in initPhases is correct.
 		//		phaseIt = gamePhases.iterator();
 		//		phaseLogic = phaseIt.next();
+	}
+	
+	public void setCycleCount(int cycle) {
+		this.cycles = cycle;
 	}
 	
 	/**
@@ -191,10 +196,17 @@ public final class GamePlay {
 		// State modification. Call method in game
 		Game game = GameService.getInstance().getGame();
 		
-			// Signal end of phase
-		if (game.isLastPlayer()) {
-			phaseLogic.phaseEnd();
-			nextPhase();
+		// Signal end of phase if last player or when no more cycles are left
+		if (game.isLastPlayer() ) {
+			if (cycles == 0) {
+				phaseLogic.phaseEnd();
+				nextPhase();
+			}
+			else {
+				// Decrement cycle count
+				cycles --;
+				System.out.println("Cycles: " + cycles);
+			}
 		}
 		
 		// Switch to the next player and start the turn.

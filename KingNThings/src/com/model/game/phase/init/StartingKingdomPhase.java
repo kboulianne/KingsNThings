@@ -29,15 +29,8 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 		
 		gv.getCurrentActionLbl().setText("Choose Starting Kingdom");
 
-		// Already added in the view. This Button has only one function anyway.
-//		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-//			
-//			@Override
-//			public void handle(ActionEvent arg0) {
-//				turnEnd();
-//			}
-//		});
+		// This phase cycles, so set context to execute turns 2 times (normal cycle + secondary cycle)
+		context.setCycleCount(1);
 	}
 
 	@Override
@@ -52,6 +45,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	
 	@Override
 	public void phaseEnd() {
-
+		// Make sure to remove cycles, as a precaution
+		context.setCycleCount(0);
 	}
 }

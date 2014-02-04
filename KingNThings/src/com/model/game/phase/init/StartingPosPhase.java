@@ -59,15 +59,15 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		super.turnStart();
 		
 		// Hardcoded for iteration 1
-//		Util.log("Selection hardcoded for iteration 1");
-//		if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE))
-//			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(23);
-//		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO))
-//			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(28);
-//		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE))
-//			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(32);
-//		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR))
-//			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(19);
+		Util.log("Selection hardcoded for iteration 1");
+		if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE))
+			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(23);
+		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO))
+			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(28);
+		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE))
+			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(32);
+		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR))
+			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(19);
 	}
 
 	@Override

@@ -43,14 +43,14 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		gv.getCurrentActionLbl().setText("Place Forces");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				context.endTurn();
-			}
-		});
+//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+//			
+//			@Override
+//			public void handle(ActionEvent arg0) {
+//				// TODO Auto-generated method stub
+//				context.endTurn();
+//			}
+//		});
 	}
 	
 	@Override
