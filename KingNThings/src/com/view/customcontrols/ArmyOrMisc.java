@@ -129,7 +129,7 @@ public class ArmyOrMisc extends HBox {
 			@Override
 			public void handle(MouseEvent me) {
 				lastSelectedCreature = (Creature)t;
-				KNTAppFactory.getBoardpresenter().handleMoveButtonClick();
+				KNTAppFactory.getBoardPresenter().handleMoveButtonClick();
 				img.fireEvent(new ThingEvent(t));
 			}
 		});

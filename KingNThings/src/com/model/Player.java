@@ -24,7 +24,7 @@ public class Player 	{
 	    color = i.color;
 	    id = i;
 	    block = new Block();
-	    gold = 0;
+	    gold = 10;
 	}
 	
 	/**
@@ -61,5 +61,9 @@ public class Player 	{
 	
 	public void addGold(int g)	{
 		gold += g;
+	}
+	
+	public void removeGold(int g)	{
+		gold -= g;
 	}
 }

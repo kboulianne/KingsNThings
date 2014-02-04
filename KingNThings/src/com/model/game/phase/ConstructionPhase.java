@@ -31,8 +31,10 @@ public class ConstructionPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Construction Phase");
-		game =  GameService.getInstance().getGame();
+		
+		game = GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
+		
 		gv.getCurrentActionLbl().setText("Construction Phase");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
@@ -40,52 +42,26 @@ public class ConstructionPhase extends AbstractPhaseStrategy {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				turnEnd();
+				context.endTurn();
 			}
-		});
-		
-		turnStart();
-		
+		});		
 	}
-
-	/*@Override
-	public void executePhase(Object input) {
-		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-	}*/
 
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Construction Phase");
-		
-		new SpecialPowersPhase(context).phaseStart();
 	}
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
-		
 		super.turnStart();
-		Util.log("Skipping Step for Itertion 1");
-		turnEnd();
+		Util.log("Skipping Step for Iteration 1");
+		context.endTurn();
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		GameService.getInstance().endTurn(this);
-		
-	}
-
-	@Override
-	public void addHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeHandlers() {
-		// TODO Auto-generated method stub
-		
+		//GameService.getInstance().endTurn(this);
 	}
 }

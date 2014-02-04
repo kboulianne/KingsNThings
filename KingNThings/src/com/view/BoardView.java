@@ -113,14 +113,14 @@ public class BoardView extends Canvas {
 				double clickPtX = event.getX();
 				double clickPtY = event.getY();
 				
-				Set<Integer> startPositions = GameService.getInstance().getGame().getBoard().getStartpositions();
+				Set<Integer> startPositions = GameService.getInstance().getGame().getBoard().getStartPositions();
 				for (int i = 0; i < hexCenterPoints.length; i++) {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
 						
 						if(startPositions.contains(i))
-						presenter.handleStartPositionSelectedHexClick(i, phase);
+							presenter.handleStartPositionSelectedHexClick(i);
 						break;
 					}
 				}
@@ -164,7 +164,7 @@ public class BoardView extends Canvas {
 	 *
 	 * @param hex The hex to paint.
 	 */
-	public void paintHex(final Hex hex) {
+	private void paintHex(final Hex hex) {
 		GraphicsContext gc = getGraphicsContext2D();
 		double height = HEX_HEIGHT;
 	//		double choosenMapping[][] = GameScreen.getChoosenMapping();

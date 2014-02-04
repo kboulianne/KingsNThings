@@ -17,8 +17,12 @@ import javafx.scene.layout.VBox;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Fort;
+import com.model.GamePiece;
 import com.model.Hex;
+import com.model.IncomeCounter;
 import com.model.Player;
+import com.model.SpecialCharacter;
 import com.model.game.Game;
 import com.presenter.Util;
 import com.view.GameView;
@@ -31,8 +35,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 
 	Game game;
 	GameView gv;
-	
-	
+		
 	public GoldCollectPhase(GamePlay context) {
 		super(context);
 	}
@@ -41,32 +44,33 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Gold Collection Phase");
 		
-		game =  GameService.getInstance().getGame();
+		game = GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
+		
 		gv.getCurrentActionLbl().setText("Gold Collection");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setVisible(false);
-		
-		turnStart();
+		finishBtn.setDisable(true);
+		Button rollBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getRollBtn();
+		rollBtn.setDisable(true);
 	}
 	
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Gold Collection Phase");
-		KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn().setVisible(true);
+		
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setDisable(true);
+		Button rollBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getRollBtn();
+		rollBtn.setDisable(true);
 		
 		
-		KNTAppFactory.getPopuppresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
-			
+		KNTAppFactory.getPopupPresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				KNTAppFactory.getPopuppresenter().getView().dismiss();
+				KNTAppFactory.getPopupPresenter().getView().dismiss();
 			}
 		});
-		
-		new RecruitCharPhase(context).phaseStart();
 	}
 
 	@Override
@@ -87,15 +91,17 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		for (Hex h : game.getBoard().getHexes()) {
 			if ((h != null) && (h.getOwner() == player)) {
 				hexGold++;
-				//FIXME NULL
-				/*for (GamePiece g : h.getArmies(player)) {
-					if(g instanceof Fort)	fortGold ++; //= g.fortValue;
-					else if(g instanceof IncomeCounter)	counterGold += ((IncomeCounter)g).getValue();
-					else if(g instanceof SpecialCharacter)	specCharGold ++;
-				}*/
+				if(h.getMiscItems() != null)	{
+					for (GamePiece g : h.getMiscItems()) {
+						if(g instanceof Fort)	fortGold ++; //= g.fortValue;
+						else if(g instanceof IncomeCounter)	counterGold += ((IncomeCounter)g).getValue();
+						else if(g instanceof SpecialCharacter)	specCharGold ++;
+					}
+				}
 			}
 		}
-
+		
+		hexGold = (int) Math.ceil(hexGold/2);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 		
 		AnchorPane ap = new AnchorPane();
@@ -124,39 +130,21 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
 
 
-		KNTAppFactory.getPopuppresenter().getView().show(popupVbox, "Gold Income:");
-		//GameScreen.popup(popupVbox);
-		
-		KNTAppFactory.getPopuppresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
+		KNTAppFactory.getPopupPresenter().getView().show(popupVbox, "Gold Income:");
+		KNTAppFactory.getPopupPresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-				KNTAppFactory.getPopuppresenter().getView().dismiss();
-				turnEnd();
+				KNTAppFactory.getPopupPresenter().getView().dismiss();
+				context.endTurn();
 			}
 		});
 		
 		player.addGold(totalGold);
-		
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-		GameService.getInstance().endTurn(this);
-	}
-
-	@Override
-	public void addHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeHandlers() {
-		// TODO Auto-generated method stub
 		
 	}
 

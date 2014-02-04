@@ -5,7 +5,11 @@
  */
 package com.model.game.phase;
 
+import com.game.services.GameService;
+import com.main.KNTAppFactory;
+import com.model.game.Game;
 import com.presenter.Util;
+import com.view.GameView;
 
 /**
  *
@@ -13,6 +17,9 @@ import com.presenter.Util;
  */
 public class RandomEventPhase extends AbstractPhaseStrategy {
 
+	Game game;
+	GameView gv;
+	
 	public RandomEventPhase(GamePlay context) {
 		super(context);
 	}
@@ -20,14 +27,12 @@ public class RandomEventPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Random Events Phase");
+		
+		game = GameService.getInstance().getGame();
+		gv = KNTAppFactory.getGamePresenter().getView();
+		
+		gv.getCurrentActionLbl().setText("Random Events");
 	}
-
-	/*
-	@Override
-	public void executePhase(Object input) {
-		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-	}
-	*/
 
 	@Override
 	public void phaseEnd() {
@@ -36,25 +41,12 @@ public class RandomEventPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
-		
+		Util.log("Skipping Step for Iteration 1");
+		context.endTurn();
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeHandlers() {
-		// TODO Auto-generated method stub
-		
+				
 	}
 }

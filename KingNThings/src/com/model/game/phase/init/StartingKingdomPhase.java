@@ -74,17 +74,4 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 //	GameService.getInstance().endTurn(this);
 		
 	}
-
-	@Override
-	public void addHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

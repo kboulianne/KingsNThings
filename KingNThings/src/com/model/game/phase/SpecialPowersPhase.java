@@ -32,8 +32,10 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Special Powers Phase");
+		
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
+		
 		gv.getCurrentActionLbl().setText("Deploy Special Powers");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
@@ -45,32 +47,18 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy {
 				turnEnd();
 			}
 		});
-		
-		turnStart();
 	}
-
-	/*
-	@Override
-	public void executePhase(Object input) {
-		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-	}
-	*/
 
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Special Powers Phase");
-		//TODO include other phases 
-		// Done in gameplay
-//		new GoldCollectPhase(context).phaseStart();
 	}
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
 		super.turnStart();
-		Util.log("Skipping Step for Itertion 1");
-		turnEnd();
-		
+		Util.log("Skipping Step for Iteration 1");
+		context.endTurn();
 	}
 
 	@Override
@@ -78,19 +66,5 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy {
 		// TODO Auto-generated method stub
 		// Done in gameplay
 //		GameService.getInstance().endTurn(this);
-		
 	}
-
-	@Override
-	public void addHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -13,8 +13,6 @@ package com.model.game.phase;
 public interface IPhaseStrategy {
     void phaseStart();
     void turnStart();
-    void turnEnd();
-    void addHandlers();
-    void removeHandlers();    
+    void turnEnd(); 
     void phaseEnd();
 }
