@@ -51,7 +51,8 @@ public class Hex extends GamePiece {
 	// list of misc Things
 	private HashMap<Player, ArrayList<Creature>> armies;
 	private ArrayList<GamePiece> miscItems;
-
+	// Only one fort per tile.
+	private Fort fort;
 	
 	public enum HexType {
 		JUNGLE_HEX("Jungle"),
@@ -201,4 +202,7 @@ public class Hex extends GamePiece {
 	public void setFaceDown(boolean faceDown) {
 		this.faceDown = faceDown;
 	}
+	
+	public final Fort getFort() { return fort; }
+	public final void setFort(final Fort fort) { this.fort = fort; }
 }

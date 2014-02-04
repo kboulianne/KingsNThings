@@ -40,9 +40,13 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Starting Forces Phase");
 
-		gv.getCurrentActionLbl().setText("Place Forces");
+//		gv.getCurrentActionLbl().setText("Place Forces");
+		// For demo
+		gv.getCurrentActionLbl().setText("Place Tower");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		
+		KNTAppFactory.getBoardPresenter().getView().addStartForcesHandler();
 //		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 //			
 //			@Override

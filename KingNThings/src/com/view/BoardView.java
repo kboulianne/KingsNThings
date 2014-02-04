@@ -241,4 +241,24 @@ public class BoardView extends Canvas {
 			paintHex(h);
 		}
 	}
+
+	public void addStartForcesHandler() {
+		// TODO This code is duplicated several times in this class. Create HexEvent?
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+								double clickPtX = event.getX();
+				double clickPtY = event.getY();
+				for (int i = 0; i < hexCenterPoints.length; i++) {
+					if (Util.distanceBtwTwoPts(
+							clickPtX, clickPtY,
+							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
+							presenter.handleStartingForcesHexClick(i);
+						break;
+					}
+				}
+			}
+		});
+	}
 }

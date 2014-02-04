@@ -178,7 +178,7 @@ public final class GamePlay {
 		if (phaseLogic instanceof PlayerOrderPhase
 				|| phaseLogic instanceof StartingPosPhase
 //				|| phaseLogic instanceof StartingKingdomPhase
-				|| phaseLogic instanceof StartingForcesPhase
+//				|| phaseLogic instanceof StartingForcesPhase
 				|| phaseLogic instanceof ExchangePhase
 				|| phaseLogic instanceof RecruitCharPhase
 				|| phaseLogic instanceof RecruitThingsPhase

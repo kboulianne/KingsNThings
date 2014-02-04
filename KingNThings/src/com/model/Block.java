@@ -6,10 +6,10 @@ import com.presenter.Util;
 
 public class Block extends GamePiece {
 	
-	private List<Thing> listOfThings;
+	private final List<Thing> listOfThings;
 	
 	public Block(){
-		listOfThings = new ArrayList<Thing>();
+		listOfThings = new ArrayList<>();
 	}
 	
 	public boolean addThing(Thing thing, String owner){	

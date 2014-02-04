@@ -11,6 +11,7 @@ import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Board;
 import com.model.Creature;
+import com.model.Fort;
 import com.model.Hex;
 import com.model.Player;
 import com.model.game.Game;
@@ -73,6 +74,21 @@ public class BoardPresenter {
 		// Show the HexDetails in sidepane
 		sidePanePresenter.showHexDetailsFor(b.getHexes().get(selected));
 		//	detailsPresenter.showHex(b.getHexes().get(selected));
+	}
+	
+	public void handleStartingForcesHexClick(int selected) {
+		Board b = svc.getGame().getBoard();
+		Hex hex = b.getHexes().get(selected);
+		Player current = svc.getGame().getCurrentPlayer();
+		
+		// Make sure the selected hex's own is the current player
+		if (hex.getOwner() != null && hex.getOwner().equals(current)) {
+			System.out.println("Inserted Fort into hex " + selected);
+
+			hex.setFort(Fort.create());
+			
+			GamePlay.getInstance().endTurn();
+		}
 	}
 	
 	public void handleStartingKingdomsHexClick(int selected) {
