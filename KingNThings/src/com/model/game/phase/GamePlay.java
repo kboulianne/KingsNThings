@@ -103,8 +103,8 @@ public final class GamePlay {
 		gamePhases.add(new ChangePlayOrderPhase(this));
 		
 		// FOR TESTING: The one in initPhases is correct.
-//		phaseIt = gamePhases.iterator();
-//		phaseLogic = phaseIt.next();
+		//		phaseIt = gamePhases.iterator();
+		//		phaseLogic = phaseIt.next();
 	}
 	
 	/**
