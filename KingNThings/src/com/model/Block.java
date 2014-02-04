@@ -14,7 +14,7 @@ public class Block extends GamePiece {
 	
 	public boolean addThing(Thing thing, String owner){	
 		// cannot add special characters, gold counters and forts
-		if(thing instanceof Fort || thing instanceof SpecialCharacter ||
+		if(thing instanceof SpecialCharacter ||
 				thing instanceof IncomeCounter){
 			Util.log("Error: Unable to add special characters, gold counters or forts to block");
 			return false;
