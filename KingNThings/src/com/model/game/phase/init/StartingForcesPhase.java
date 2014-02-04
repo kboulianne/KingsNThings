@@ -17,6 +17,7 @@ import com.model.ForestCreature;
 import com.model.JungleCreature;
 import com.model.MountainCreature;
 import com.model.PlainsCreature;
+import com.model.Player;
 import com.model.Player.PlayerId;
 import com.model.SwampCreature;
 import com.model.game.Game;
@@ -63,8 +64,10 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		
-		if(game.getCurrentPlayer().getId() == PlayerId.ONE)	{
-			Creature oldragon = new DesertCreature("olddragon");
+		Player player = game.getCurrentPlayer();
+		
+		if(player.getId() == PlayerId.ONE)	{
+			Creature olddragon = new DesertCreature("olddragon");
 			Creature giantspider = new DesertCreature("giantspider");
 			Creature elephant = new JungleCreature("elephant");
 			Creature brownknight = new MountainCreature("brownknight");
@@ -74,7 +77,19 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			Creature watusi = new JungleCreature("watusi");
 			Creature goblins = new MountainCreature("goblins");
 			Creature ogre = new MountainCreature("ogre");
-		} else if(game.getCurrentPlayer().getId() == PlayerId.TWO)	{
+			
+			player.addCreature(olddragon);
+			player.addCreature(giantspider);
+			player.addCreature(elephant);
+			player.addCreature(brownknight);
+			player.addCreature(giant);
+			player.addCreature(dwarves);
+			player.addCreature(skeletons);
+			player.addCreature(watusi);
+			player.addCreature(goblins);
+			player.addCreature(ogre);
+			
+		} else if(player.getId() == PlayerId.TWO)	{
 			Creature pterodactlywarriors = new JungleCreature("pterodactylwarriors");
 			Creature sandworm = new DesertCreature("sandworm");
 			Creature greenknight = new ForestCreature("sandworm");
@@ -85,7 +100,19 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			Creature walkingtree = new ForestCreature("walkingtree");
 			Creature crawlingvines = new JungleCreature("crawlingvines");
 			Creature bandits = new ForestCreature("bandits");
-		} else if(game.getCurrentPlayer().getId() == PlayerId.THREE)	{
+			
+			player.addCreature(pterodactlywarriors);
+			player.addCreature(sandworm);
+			player.addCreature(greenknight);
+			player.addCreature(dervish);
+			player.addCreature(crocodiles);
+			player.addCreature(nomads);
+			player.addCreature(druid);
+			player.addCreature(walkingtree);
+			player.addCreature(crawlingvines);
+			player.addCreature(bandits);
+			
+		} else if(player.getId() == PlayerId.THREE)	{
 			Creature centaur = new PlainsCreature("centaur");
 			Creature camelcorps = new DesertCreature("camelcorps");
 			Creature farmers1 = new PlainsCreature("farmers");
@@ -96,6 +123,18 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			Creature greathunter = new PlainsCreature("greathunter");
 			Creature nomads = new DesertCreature("nomads");
 			Creature witchdoctor = new JungleCreature("witchdoctor");
+			
+			player.addCreature(centaur);
+			player.addCreature(camelcorps);
+			player.addCreature(farmers1);
+			player.addCreature(farmers2);
+			player.addCreature(genie);
+			player.addCreature(skeletons);
+			player.addCreature(pygmies);
+			player.addCreature(greathunter);
+			player.addCreature(nomads);
+			player.addCreature(witchdoctor);
+			
 		} else	{
 			Creature tribesmen1 = new PlainsCreature("tribesmen");
 			Creature giantlizard = new SwampCreature("giantlizard");
@@ -107,7 +146,21 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			Creature blackknight = new SwampCreature("blackknight");
  			Creature giantape = new JungleCreature("giantape");
 			Creature buffaloherd = new PlainsCreature("buffaloherd");
+			
+			player.addCreature(tribesmen1);
+			player.addCreature(giantlizard);
+			player.addCreature(villains);
+			player.addCreature(tigers);
+			player.addCreature(vampirebat);
+			player.addCreature(tribesmen2);
+			player.addCreature(darkwizard);
+			player.addCreature(blackknight);
+			player.addCreature(giantape);
+			player.addCreature(buffaloherd);
+			
 		}
+		
+		
 	}
 
 	@Override
