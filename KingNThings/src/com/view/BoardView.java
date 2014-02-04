@@ -104,7 +104,7 @@ public class BoardView extends Canvas {
 		});
 	}
 	
-	public void addStartPosHandler(final AbstractPhaseStrategy phase){
+	public void addStartPosHandler(final Set<Integer> startPositions){
 		
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -113,7 +113,7 @@ public class BoardView extends Canvas {
 				double clickPtX = event.getX();
 				double clickPtY = event.getY();
 				
-				Set<Integer> startPositions = GameService.getInstance().getGame().getBoard().getStartPositions();
+//				Set<Integer> startPositions = GameService.getInstance().getGame().getBoard().getStartPositions();
 				for (int i = 0; i < hexCenterPoints.length; i++) {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,

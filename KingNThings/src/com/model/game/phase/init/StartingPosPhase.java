@@ -30,46 +30,18 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		super(context);
 	}
 
-	/**
-	 * Execute this phase's logic.
-	 *
-	 * @param input The hex tile selected as the start position.
-	 */
-	/*
-	@Override
-	public void executePhase(final Hex input) {
-//	Game game = service.getGame();
-//	
-//	// Set the starting position for the current player.  Just need to take ownership of the hex.	
-//	input.setOwner(game.getCurrentPlayer());
-//	
-//	// Next player
-//	game.nextPlayer();
-
-		Util.log("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-	}
-
-//    @Override
-//    public void executePhase(final Hex hex) {
-//	
-//    }
-	*/
 	@Override
 	public void phaseStart() {
 		Util.log("Start of Starting Positions Phase");
 		
-//		game = GameService.getInstance().getGame();
-//		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Choose Starting Position");
 		
 		finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		
+		KNTAppFactory.getDicePresenter().getView().getRollBtn().setVisible(false);
 		KNTAppFactory.getDicePresenter().getView().getDie1().setVisible(false);
 		KNTAppFactory.getDicePresenter().getView().getDie2().setVisible(false);		
-		finishBtn.setVisible(false);
-		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(this);
-		
-//		turnStart();
+		finishBtn.setVisible(true);
+		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
 	}
 
 	@Override

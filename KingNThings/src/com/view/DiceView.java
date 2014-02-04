@@ -7,6 +7,8 @@ package com.view;
 
 import com.model.Die;
 import com.presenter.DicePresenter;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -60,6 +62,13 @@ public class DiceView extends HBox {
 		rollBtn = new Button("Roll");
 			
 		endTurnBtn = new Button("End Turn");
+		// Permanent handler
+		endTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent t) {
+				presenter.endTurn();
+			}
+		});
 		
 		// Add all controls
 		getChildren().addAll(die1Iv, die2Iv, rollBtn, endTurnBtn);

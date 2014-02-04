@@ -75,7 +75,7 @@ public class GameService {
 		players.add(game.getOpponent3());
 		
 
-		game.setPlayerOrder(players);
+		game.setPlayerOrder(players, true);
 	}
 
 	// TODO remove me and handle/ return stuff from service.
