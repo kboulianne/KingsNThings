@@ -11,6 +11,9 @@ import javafx.scene.control.Button;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Creature;
+import com.model.MountainCreature;
+import com.model.Player;
 import com.model.Player.PlayerId;
 import com.model.game.Game;
 import com.presenter.Util;
@@ -32,74 +35,55 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Recruiting Things Phase");
+		
 		game =  GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
+		
 		gv.getCurrentActionLbl().setText("Recruit Things");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				turnEnd();
+				context.endTurn();
 			}
 		});
-		turnStart();
+		finishBtn.setDisable(false);
 	}
-
-	/*
-	@Override
-	public void executePhase(Object input) {
-		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-		
-		int hexCount = 0;
-		Game game = GameService.getInstance().getGame();
-		Player player = game.getCurrentPlayer();
-		
-		for (Hex h : game.getBoard().getHexes()) {
-			if ((h != null) && (h.getOwner() == player)) {
-				hexCount++;
-			}
-		}
-	}
-	*/
 
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Logic: End of Recruiting Things Phase");
-		// in gameplay
-//		new MovementPhase(context).phaseStart();
+		
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setOnAction(null);
+		finishBtn.setDisable(true);
 	}
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
 		super.turnStart();
 		
-		if(game.getCurrentPlayer().getId().equals(PlayerId.ONE)){
-			Util.log("TODO: Adding three creatures to Players 1 stack for Itertion 1");
-		}else{
-			Util.log("Skipping Step for Player "+game.getCurrentPlayer().getName()+" for Itertion 1");
-			turnEnd();
+		if(game.getCurrentPlayer().getId().equals(PlayerId.ONE))	{
+			Util.log("Adding three creatures to Players 1 stack for Iteration 1");
+			
+			Player player = game.getCurrentPlayer();
+			Creature cyclops = new MountainCreature("cyclops");
+			Creature mountainmen = new MountainCreature("mountainmen");
+			Creature goblins = new MountainCreature("goblins");
+			
+			player.removeGold(5);
+			game.getBoard().getHexes().get(9).addCreatToArmy(cyclops, player);
+			game.getBoard().getHexes().get(9).addCreatToArmy(mountainmen, player);
+			game.getBoard().getHexes().get(9).addCreatToArmy(goblins, player);
+		} else {
+			Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");
+			context.endTurn();
 		}
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-//		GameService.getInstance().endTurn(this);
-	}
-
-	@Override
-	public void addHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeHandlers() {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -113,7 +113,7 @@ public class BoardView extends Canvas {
 				double clickPtX = event.getX();
 				double clickPtY = event.getY();
 				
-				Set<Integer> startPositions = GameService.getInstance().getGame().getBoard().getStartpositions();
+				Set<Integer> startPositions = GameService.getInstance().getGame().getBoard().getStartPositions();
 				for (int i = 0; i < hexCenterPoints.length; i++) {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,

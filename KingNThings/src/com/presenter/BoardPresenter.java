@@ -94,7 +94,7 @@ public class BoardPresenter {
 		if(hex.isHighlighted()){	
 
 			Player currentPlayer = GameService.getInstance().getGame().getCurrentPlayer();
-			Creature creature = KNTAppFactory.getHexdetailspresenter().getView().getCurrentPlayerArmy().getLastSelectedCreature();
+			Creature creature = KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().getLastSelectedCreature();
 			svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(creature, currentPlayer);
 			hex.addCreatToArmy(creature, currentPlayer);
 			

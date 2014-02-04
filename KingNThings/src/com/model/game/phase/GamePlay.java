@@ -79,9 +79,9 @@ public final class GamePlay {
 	private void createInitPhases() {
 		initPhases.add(new PlayerOrderPhase(this));
 		initPhases.add(new StartingPosPhase(this));
-		initPhases.add(new StartingKingdomPhase(this));
-		initPhases.add(new StartingForcesPhase(this));
-		initPhases.add(new ExchangePhase(this));
+		//initPhases.add(new StartingKingdomPhase(this));
+		//initPhases.add(new StartingForcesPhase(this));
+		//initPhases.add(new ExchangePhase(this));
 
 		// Set current phase logic/strategy
 		phaseIt = initPhases.iterator();
@@ -183,7 +183,7 @@ public final class GamePlay {
 		// State modification. Call method in game
 		Game game = GameService.getInstance().getGame();
 		
-			// Signal end of phase
+		// Signal end of phase
 		if (game.isLastPlayer()) {
 			phaseLogic.phaseEnd();
 			nextPhase();

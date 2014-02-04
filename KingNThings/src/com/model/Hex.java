@@ -172,9 +172,10 @@ public class Hex extends GamePiece {
 	}
     
     public void addCreatToArmy(Creature creature, Player p)	{
-    	if(armies.get(p)==null)	
+    	if(armies.get(p) == null)	
     		armies.put(p, new ArrayList<Creature>());
     	
+    	creature.setOwner(p.getName());
     	if(armies.get(p).size() < 10)	{
     		armies.get(p).add(creature);
     	}
@@ -182,6 +183,7 @@ public class Hex extends GamePiece {
     
     public void removeCreatureFromArmy(Creature creature, Player p){    		
     	armies.get(p).remove(creature);
+    	creature.setOwner("Cup");
     }
 
     public void addItemToHex(GamePiece item)	{

@@ -59,7 +59,7 @@ public class Board {
 	    return faceDown;
 	}
 
-	public Set<Integer> getStartpositions() {
+	public Set<Integer> getStartPositions() {
 		return startPositions;
 	}
 	

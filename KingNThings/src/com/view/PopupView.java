@@ -80,7 +80,7 @@ public class PopupView extends VBox {
 		AnchorPane.setLeftAnchor(titleLbl, 0.0);
 
 		// Close button
-		closeBtn = new Button("Close");
+		closeBtn = new Button("  X  ");
 		closeBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override

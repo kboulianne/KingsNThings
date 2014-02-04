@@ -32,8 +32,6 @@ public class StartingPosPhase extends AbstractPhaseStrategy /*implements HexInpu
 	
 	public StartingPosPhase(GamePlay context) {
 		super(context);
-		
-
 	}
 
 	/**
@@ -64,18 +62,16 @@ public class StartingPosPhase extends AbstractPhaseStrategy /*implements HexInpu
 	public void phaseStart() {
 		Util.log("Start of Starting Positions Phase");
 		
-		game =  GameService.getInstance().getGame();
+		game = GameService.getInstance().getGame();
 		gv = KNTAppFactory.getGamePresenter().getView();
 		gv.getCurrentActionLbl().setText("Choose Starting Position");
 		
 		finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 		
-		KNTAppFactory.getDicepresenter().getView().getDie1().setVisible(false);
-		KNTAppFactory.getDicepresenter().getView().getDie2().setVisible(false);
-		finishBtn.setText("End Turn");
-		
+		KNTAppFactory.getDicePresenter().getView().getDie1().setVisible(false);
+		KNTAppFactory.getDicePresenter().getView().getDie2().setVisible(false);		
 		finishBtn.setVisible(false);
-		KNTAppFactory.getBoardpresenter().getView().addStartPosHandler(this);
+		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(this);
 		
 //		turnStart();
 	}
@@ -85,8 +81,8 @@ public class StartingPosPhase extends AbstractPhaseStrategy /*implements HexInpu
 		Util.log("End of Starting Positions Phase");
 		game.getBoard().setFaceDown(false);
 		for(Hex h: game.getBoard().getHexes())
-			KNTAppFactory.getBoardpresenter().getView().paintHex(h);
-		KNTAppFactory.getBoardpresenter().getView().addDefaultHandler();
+			KNTAppFactory.getBoardPresenter().getView().paintHex(h);
+		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		
 		
 		finishBtn.setVisible(true);
@@ -103,13 +99,13 @@ public class StartingPosPhase extends AbstractPhaseStrategy /*implements HexInpu
 		// Hardcoded for iteration 1
 		Util.log("Selection hardcoded for iteration 1");
 		if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE))
-			KNTAppFactory.getBoardpresenter().handleStartPositionSelectedHexClick(23, this);
+			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(23, this);
 		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO))
-			KNTAppFactory.getBoardpresenter().handleStartPositionSelectedHexClick(28, this);
+			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(28, this);
 		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE))
-			KNTAppFactory.getBoardpresenter().handleStartPositionSelectedHexClick(32, this);
+			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(32, this);
 		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR))
-			KNTAppFactory.getBoardpresenter().handleStartPositionSelectedHexClick(19, this);
+			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(19, this);
 	}
 
 	@Override
@@ -117,17 +113,4 @@ public class StartingPosPhase extends AbstractPhaseStrategy /*implements HexInpu
 		// TODO Auto-generated method stub
 //		GameService.getInstance().endTurn(this);
 	}
-
-	@Override
-	public void addHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeHandlers() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

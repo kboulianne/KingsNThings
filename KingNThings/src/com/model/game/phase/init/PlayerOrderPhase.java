@@ -23,8 +23,6 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	Game game;
 	GameView gv;
 	
-
-
 	public PlayerOrderPhase(GamePlay context) {
 		super(context);
 	}
@@ -49,21 +47,19 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		
 		game.getBoard().setFaceDown(true);
 		// Update the view
-		KNTAppFactory.getBoardpresenter().getView().setBoard(game.getBoard());
-		KNTAppFactory.getBoardpresenter().getView().setOnMouseClicked(null);
+		KNTAppFactory.getBoardPresenter().getView().setBoard(game.getBoard());
+		KNTAppFactory.getBoardPresenter().getView().setOnMouseClicked(null);
 		
-		Button rollBtn = KNTAppFactory.getDicepresenter().getView().getEndTurnBtn();
-		rollBtn.setText("Roll");
-		rollBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setDisable(true);
+		
+		Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
+		rollBtn.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent arg0) {
-				// Roll
-				KNTAppFactory.getDicepresenter().roll();
-				// End turn
+				KNTAppFactory.getDicePresenter().roll();
 				context.endTurn();
 			}
-		});	
+		});
 	}
 
 	@Override
@@ -97,12 +93,9 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		// ===================================================
 		
 //		Util.log("Init Phase: End of Player Order Phase");
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setDisable(false);
+		Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
+		rollBtn.setOnAction(null);
 	}
-	
-	@Override
-	public void addHandlers() {}
-
-	@Override
-	public void removeHandlers() {}
-
 }

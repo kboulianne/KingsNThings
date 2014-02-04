@@ -35,8 +35,8 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 		//top label
 		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 		
-		KNTAppFactory.getPlayerinfopresenter().getView().setPlayer(game.getCurrentPlayer());
-		KNTAppFactory.getSidepanepresenter().getView().setOpponents(game.getOpponent1(), game.getOpponent2(), game.getOpponent3());
+		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(game.getCurrentPlayer());
+		KNTAppFactory.getSidePanePresenter().getView().setOpponents(game.getOpponent1(), game.getOpponent2(), game.getOpponent3());
 		
 	}
 }
