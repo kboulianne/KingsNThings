@@ -15,6 +15,7 @@ import com.model.Hex;
 import com.model.Player;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
+import com.model.game.phase.GamePlay;
 import com.view.BoardView;
 
 /**
@@ -85,6 +86,8 @@ public class BoardPresenter {
 		
 		// Update the view
 		view.setBoard(svc.getGame().getBoard());
+		
+		GamePlay.getInstance().endTurn();
 	}
 	
 	public void handleMovementSelectedHexClick(int selected) {

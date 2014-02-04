@@ -40,7 +40,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		KNTAppFactory.getDicePresenter().getView().getRollBtn().setVisible(false);
 		KNTAppFactory.getDicePresenter().getView().getDie1().setVisible(false);
 		KNTAppFactory.getDicePresenter().getView().getDie2().setVisible(false);		
-		finishBtn.setVisible(true);
+		finishBtn.setVisible(false);
 		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
 	}
 
