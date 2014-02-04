@@ -32,22 +32,21 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		Util.log("Init Phase: Start of Starting Forces Phase");
 
 		gv.getCurrentActionLbl().setText("Place Forces");
-		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				turnEnd();
-			}
-		});
+//		
+//		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+//			
+//			@Override
+//			public void handle(ActionEvent arg0) {
+//				// TODO Auto-generated method stub
+//				turnEnd();
+//			}
+//		});
 	}
 	
 	@Override
 	public void phaseEnd() {
 		Util.log("Init Phase: End of Starting Forces Phase");
-		new ExchangePhase(context).phaseStart();
 	}
 
 	@Override
@@ -60,7 +59,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		GameService.getInstance().endTurn(this);
+//		GameService.getInstance().endTurn(this);
 		
 	}
 }

@@ -8,14 +8,10 @@ package com.model.game.phase.init;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
-import com.view.GameView;
 
 /**
  *
@@ -32,41 +28,30 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 		Util.log("Init Phase: Start of Starting Kingdoms Phase");
 		
 		gv.getCurrentActionLbl().setText("Choose Starting Kingdom");
-		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				turnEnd();
-			}
-		});
-		turnStart();
-	}
-/*
-	@Override
-	public void executePhase(Object input) {
-		Util.log("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-	}
-*/
-	@Override
-	public void phaseEnd() {
-		Util.log("Init Phase: End of Starting Kingdoms Phase");
-		new StartingForcesPhase(context).phaseStart();
+
+		// Already added in the view. This Button has only one function anyway.
+//		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+//			
+//			@Override
+//			public void handle(ActionEvent arg0) {
+//				turnEnd();
+//			}
+//		});
 	}
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
 		super.turnStart();
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-		// Done automatically in GamePlay#next() or on Finish Turn (GamePlay#endTurn())
-//	GameService.getInstance().endTurn(this);
 		
+	}
+	
+	@Override
+	public void phaseEnd() {
+
 	}
 }

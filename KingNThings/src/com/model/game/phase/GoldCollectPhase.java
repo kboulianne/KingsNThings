@@ -58,13 +58,14 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		Button rollBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getRollBtn();
 		rollBtn.setDisable(true);
 		
-		
-		KNTAppFactory.getPopupPresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				KNTAppFactory.getPopupPresenter().getView().dismiss();
-			}
-		});
+		// Code below is equivalent to
+//		KNTAppFactory.getPopupPresenter().dismissPopup();
+//		KNTAppFactory.getPopupPresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent arg0) {
+//				KNTAppFactory.getPopupPresenter().getView().dismiss();
+//			}
+//		});
 	}
 
 	@Override
@@ -98,6 +99,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		hexGold = (int) Math.ceil(hexGold/2.0);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 		
+		// TOOD Either create view in com.view.popups or create view/presenter like HexDetailsView
 		AnchorPane ap = new AnchorPane();
 		ap.setPrefSize(500, 500);
 		ImageView im = new ImageView("view/com/assets/pics/gold.png");
@@ -129,7 +131,8 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				KNTAppFactory.getPopupPresenter().getView().dismiss();
+//				KNTAppFactory.getPopupPresenter().getView().dismiss();
+				KNTAppFactory.getPopupPresenter().dismissPopup();
 				context.endTurn();
 			}
 		});

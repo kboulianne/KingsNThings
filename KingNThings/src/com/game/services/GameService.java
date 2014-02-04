@@ -91,30 +91,4 @@ public class GameService {
 	public void roll() {
 		game.rollDice();
 	}
-
-	public void endTurn(AbstractPhaseStrategy phase) {
-		
-//		//fornow this is all inncorrect 
-//		List<Player> playerList = new ArrayList<Player>();
-//		playerList.add(game.getCurrentPlayer());
-//		playerList.add(game.getOpponent1());
-//		playerList.add(game.getOpponent2());
-//		playerList.add(game.getOpponent3());
-//		
-//		
-//		game.nextPlayer();
-//		playerList.remove(game.getCurrentPlayer());
-//		game.setOpponent1(playerList.get(0));
-//		game.setOpponent2(playerList.get(1));
-//		game.setOpponent3(playerList.get(2));
-//		
-//		 
-//		if(game.getCurrentPlayer().getId().equals(PlayerId.ONE)){
-//			phase.phaseEnd();
-//		}else{
-//			phase.turnStart();		
-//		}
-
-	}
-
 }

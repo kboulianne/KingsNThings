@@ -32,13 +32,13 @@ public class ConstructionPhase extends AbstractPhaseStrategy {
 		gv.getCurrentActionLbl().setText("Construction Phase");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				context.endTurn();
-			}
-		});		
+//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+//			
+//			@Override
+//			public void handle(ActionEvent arg0) {
+//				context.endTurn();
+//			}
+//		});		
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class ConstructionPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		Util.log("Skipping Step for Iteration 1");
-		context.endTurn();
+//		context.endTurn();
 	}
 
 	@Override

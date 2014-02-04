@@ -38,7 +38,7 @@ public class RecruitCharPhase extends AbstractPhaseStrategy {
 		super.turnStart();
 		
 		Util.log("Skipping Step for Iteration 1");
-		context.endTurn();	
+//		context.endTurn();	
 	}
 
 	@Override

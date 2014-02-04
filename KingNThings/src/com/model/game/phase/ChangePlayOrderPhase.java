@@ -28,12 +28,12 @@ public class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 		// TESTING
 		// TODO Make method in presenter instead? Would be cleaner.
 		// .getDicePresenter().setEndTurnHandler(...)
-		KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent t) {
-				context.endTurn();
-			}
-		});;
+//		KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent t) {
+//				context.endTurn();
+//			}
+//		});;
 	}
 
 	@Override

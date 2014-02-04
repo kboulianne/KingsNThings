@@ -36,12 +36,13 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 		gv.getCurrentActionLbl().setText("Recruit Things");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				context.endTurn();
-			}
-		});
+		// Already handled since this button has 1 function only
+//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent arg0) {
+//				context.endTurn();
+//			}
+//		});
 		finishBtn.setDisable(false);
 	}
 
@@ -74,7 +75,7 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 		} else {
 			Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");
-			context.endTurn();
+//			context.endTurn();
 		}
 	}
 
