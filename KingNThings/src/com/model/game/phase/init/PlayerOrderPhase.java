@@ -20,8 +20,8 @@ import javafx.scene.control.Button;
 //TODO needs a different strategy implementation one with simply executePhase()
 public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	
-	Game game;
-	GameView gv;
+//	Game game;
+//	GameView gv;
 	
 	public PlayerOrderPhase(GamePlay context) {
 		super(context);
@@ -32,8 +32,8 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		Util.log("Init Phase: Start of Player Order Phase");
 		context.clearRolls();
 		
-		game =  GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
+//		game =  GameService.getInstance().getGame();
+//		gv = KNTAppFactory.getGamePresenter().getView();
 		
 		//top label
 		gv.getCurrentActionLbl().setText("Roll the Dice");
@@ -55,11 +55,13 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		
 		Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
 		rollBtn.setOnAction(new EventHandler<ActionEvent>()	{
+			@Override
 			public void handle(ActionEvent arg0) {
 				KNTAppFactory.getDicePresenter().roll();
 				context.endTurn();
 			}
 		});
+		rollBtn.setVisible(true);
 	}
 
 	@Override
@@ -76,10 +78,10 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnEnd() {
 		// DEACTIVATED =======================================
-		//context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());
-		//		
-		//Util.log("Added roll total " + game.diceTotal()
-		//		+ " for " + game.getCurrentPlayer().getName());
+		context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());
+				
+		Util.log("Added roll total " + game.diceTotal()
+				+ " for " + game.getCurrentPlayer().getName());
 		// ===================================================
 		// Notify UI
 		KNTAppFactory.getGamePresenter().getView().setGame(game);
@@ -89,7 +91,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	public void phaseEnd() {
 		// Updates the player order.
 		// DEACTIVATED =======================================
-//		game.setPlayerOrder(context.getPlayersHighToLow());
+		game.setPlayerOrder(context.getPlayersHighToLow());
 		// ===================================================
 		
 //		Util.log("Init Phase: End of Player Order Phase");

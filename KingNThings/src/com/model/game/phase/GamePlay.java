@@ -167,9 +167,9 @@ public final class GamePlay {
 		phaseLogic.turnStart();
 		
 		// FOR NOW! Automatic phase skipping!
-		if (phaseLogic instanceof PlayerOrderPhase
-				|| phaseLogic instanceof StartingPosPhase)
-			endTurn();
+//		if (phaseLogic instanceof PlayerOrderPhase
+//				|| phaseLogic instanceof StartingPosPhase)
+//			endTurn();
 	}
 	
 	/**

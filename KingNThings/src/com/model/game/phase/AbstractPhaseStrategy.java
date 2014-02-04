@@ -18,8 +18,8 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 
 	protected final GamePlay context;
 
-	Game game;
-	GameView gv;
+	protected Game game;
+	protected GameView gv;
 	
 	// TODO Avoid calling this in subclases. Don't remember if it is possible.
 	protected AbstractPhaseStrategy(final GamePlay context) {

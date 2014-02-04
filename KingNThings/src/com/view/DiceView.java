@@ -62,7 +62,7 @@ public class DiceView extends HBox {
 		endTurnBtn = new Button("End Turn");
 		
 		// Add all controls
-		getChildren().addAll(die1Iv, die2Iv, endTurnBtn);
+		getChildren().addAll(die1Iv, die2Iv, rollBtn, endTurnBtn);
 	}
 
 	public void setDice(Die d1, Die d2) {
