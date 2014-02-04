@@ -105,7 +105,7 @@ public class BoardView extends Canvas {
 	}
 	
 	public void addStartPosHandler(final Set<Integer> startPositions){
-		
+		// TODO Create a HexEvent (like ThingEvent)
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -121,6 +121,25 @@ public class BoardView extends Canvas {
 						
 						if(startPositions.contains(i))
 							presenter.handleStartPositionSelectedHexClick(i);
+						break;
+					}
+				}
+			}
+		});
+	}
+	
+	public void addStartKingdomsHandler() {
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+								double clickPtX = event.getX();
+				double clickPtY = event.getY();
+				for (int i = 0; i < hexCenterPoints.length; i++) {
+					if (Util.distanceBtwTwoPts(
+							clickPtX, clickPtY,
+							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
+							presenter.handleStartingKingdomsHexClick(i);
 						break;
 					}
 				}

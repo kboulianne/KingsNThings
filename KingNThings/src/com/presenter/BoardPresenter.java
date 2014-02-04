@@ -17,6 +17,7 @@ import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.view.BoardView;
+import java.util.Set;
 
 /**
  *
@@ -74,12 +75,67 @@ public class BoardPresenter {
 		//	detailsPresenter.showHex(b.getHexes().get(selected));
 	}
 	
+	public void handleStartingKingdomsHexClick(int selected) {
+		Board b = svc.getGame().getBoard();
+		Hex hex = b.getHexes().get(selected);
+		Player current = svc.getGame().getCurrentPlayer();
+		
+		// Make sure the selected hex is unowned, adjacent to the current player's starting position
+		// and not adjacent to an opponent's tile.
+		
+		// Do nothing if selected hex is owned
+		if (hex.getOwner() == null) {
+//			// Get the start positions set so we can make sure there is a path from current
+//			// player's starting hex and the selected tile.
+//			Set<Integer> start = b.getStartPositions();
+			
+			// Get the adjacent hexes.
+			// Make sure current player owns one of the hexes. That is, there is a path from
+			// current's start position to the selected hex.
+			int[] adjacent = hex.getJoiningHexes();
+			
+			boolean hasPath = false, adjOpponent = false;
+			Hex adjHex = null;
+			for (int i : adjacent) {
+				// -1 is invalid move
+				if (i < 0) continue;
+				
+				adjHex = b.getHexes().get(i);
+				if (adjHex.getOwner() != null) {
+					if (adjHex.getOwner().equals(current)) {
+						System.out.println("owned by current");
+						hasPath = true;
+					}
+					else {
+						// Hex is owned (getOwner() != null above) but by an opponent.
+						adjOpponent = true;
+						break;
+					}
+				}
+			}
+			
+			// Selected hex is next to a tile owned by the player and selected hex is not 
+			// adjacent to an opponent's hex
+			if (hasPath && !adjOpponent) {
+				// Take ownership of the hex
+				hex.setOwner(current);
+				
+				view.setBoard(b);
+				
+				GamePlay.getInstance().endTurn();
+			}
+		}
+		
+		
+		
+	}
+	
 	public void handleStartPositionSelectedHexClick(int selected) {
 		
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		if(hex.getOwner() == null){
 			hex.setOwner(GameService.getInstance().getGame().getCurrentPlayer());
-			hex.setColor(GameService.getInstance().getGame().getCurrentPlayer().getId().getColor());
+//			hex.setColor(GameService.getInstance().getGame().getCurrentPlayer().getId().getColor());
 		}else{
 			//TODO display msg
 		}

@@ -29,6 +29,10 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 		
 		gv.getCurrentActionLbl().setText("Choose Starting Kingdom");
 
+		KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setVisible(false);
+		
+		KNTAppFactory.getBoardPresenter().getView().addStartKingdomsHandler();
+		
 		// This phase cycles, so set context to execute turns 2 times (normal cycle + secondary cycle)
 		context.setCycleCount(1);
 	}
@@ -47,5 +51,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	public void phaseEnd() {
 		// Make sure to remove cycles, as a precaution
 		context.setCycleCount(0);
+		
+		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 	}
 }

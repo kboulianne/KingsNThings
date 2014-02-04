@@ -77,8 +77,8 @@ public class Hex extends GamePiece {
 	    selected = false;
 	    selectable = true; // may have to change for startup
 	    //setJoiningHexes();
-	    armies = new HashMap<Player, ArrayList<Creature>>();
-	    miscItems = new ArrayList<GamePiece>();
+	    armies = new HashMap<>();
+	    miscItems = new ArrayList<>();
 
 	    setMovementWeight(-1);
 	}
@@ -90,6 +90,8 @@ public class Hex extends GamePiece {
     }
     public final void setOwner(final Player player) {
     	this.owner = player;
+		
+		this.color = player.getColor();
     }
     public Color getColor() {
 	    return color;

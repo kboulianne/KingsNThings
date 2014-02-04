@@ -177,6 +177,7 @@ public final class GamePlay {
 		// FOR NOW! Automatic phase skipping!
 		if (phaseLogic instanceof PlayerOrderPhase
 				|| phaseLogic instanceof StartingPosPhase
+//				|| phaseLogic instanceof StartingKingdomPhase
 				|| phaseLogic instanceof StartingForcesPhase
 				|| phaseLogic instanceof ExchangePhase
 				|| phaseLogic instanceof RecruitCharPhase
