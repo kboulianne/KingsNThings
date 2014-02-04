@@ -33,9 +33,6 @@ import com.view.GameView;
  */
 public class GoldCollectPhase extends AbstractPhaseStrategy {
 
-	Game game;
-	GameView gv;
-		
 	public GoldCollectPhase(GamePlay context) {
 		super(context);
 	}
@@ -43,10 +40,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Gold Collection Phase");
-		
-		game = GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
-		
+
 		gv.getCurrentActionLbl().setText("Gold Collection");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();

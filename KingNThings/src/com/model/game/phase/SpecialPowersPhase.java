@@ -21,10 +21,6 @@ import com.view.GameView;
  */
 public class SpecialPowersPhase extends AbstractPhaseStrategy {
 
-	
-	Game game;
-	GameView gv;
-	
 	public SpecialPowersPhase(GamePlay context) {
 		super(context);
 	}
@@ -32,9 +28,6 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Special Powers Phase");
-		
-		game =  GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
 		
 		gv.getCurrentActionLbl().setText("Deploy Special Powers");
 		

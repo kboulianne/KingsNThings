@@ -21,9 +21,6 @@ import com.view.GameView;
  */
 public class CombatPhase extends AbstractPhaseStrategy {
 
-	Game game;
-	GameView gv;
-	
 	public CombatPhase(GamePlay context) {
 		super(context);
 	}
@@ -31,10 +28,7 @@ public class CombatPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Combat Phase");
-		
-		game = GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
-		
+
 		gv.getCurrentActionLbl().setText("Combat Phase");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();

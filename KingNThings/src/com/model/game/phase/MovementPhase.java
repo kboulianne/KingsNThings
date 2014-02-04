@@ -25,9 +25,6 @@ import com.view.GameView;
  */
 public class MovementPhase extends AbstractPhaseStrategy {
 
-	Game game;
-	GameView gv;
-	
 	public MovementPhase(GamePlay context) {
 		super(context);
 	}
@@ -35,10 +32,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Movement Phase");
-		
-		game = GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
-		
+
 		gv.getCurrentActionLbl().setText("Movement Phase");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();

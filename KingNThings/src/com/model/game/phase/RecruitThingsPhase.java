@@ -25,9 +25,6 @@ import com.view.GameView;
  */
 public class RecruitThingsPhase extends AbstractPhaseStrategy {
 
-	Game game;
-	GameView gv;
-	
 	public RecruitThingsPhase(GamePlay context) {
 		super(context);
 	}
@@ -35,9 +32,6 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Recruiting Things Phase");
-		
-		game =  GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
 		
 		gv.getCurrentActionLbl().setText("Recruit Things");
 		

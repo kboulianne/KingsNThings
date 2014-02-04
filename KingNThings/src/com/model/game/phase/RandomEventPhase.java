@@ -17,9 +17,6 @@ import com.view.GameView;
  */
 public class RandomEventPhase extends AbstractPhaseStrategy {
 
-	Game game;
-	GameView gv;
-	
 	public RandomEventPhase(GamePlay context) {
 		super(context);
 	}
@@ -27,10 +24,7 @@ public class RandomEventPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Random Events Phase");
-		
-		game = GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
-		
+
 		gv.getCurrentActionLbl().setText("Random Events");
 	}
 
