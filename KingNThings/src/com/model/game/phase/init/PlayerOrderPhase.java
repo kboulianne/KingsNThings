@@ -85,7 +85,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	public void phaseEnd() {
 		// Updates the player order.
 		// DEACTIVATED =======================================
-		game.setPlayerOrder(context.getPlayersHighToLow(), false);
+		game.setPlayerOrder(context.getPlayersHighToLow());
 		// ===================================================
 		
 //		Util.log("Init Phase: End of Player Order Phase");
