@@ -95,7 +95,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 			}
 		}
 		
-		hexGold = (int) Math.ceil(hexGold/2);
+		hexGold = (int) Math.ceil(hexGold/2.0);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 		
 		AnchorPane ap = new AnchorPane();
@@ -135,6 +135,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		});
 		
 		player.addGold(totalGold);
+		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 	}
 
 	@Override

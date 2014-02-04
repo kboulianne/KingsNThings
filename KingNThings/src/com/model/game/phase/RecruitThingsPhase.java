@@ -70,6 +70,8 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 			game.getBoard().getHexes().get(9).addCreatToArmy(cyclops, player);
 			game.getBoard().getHexes().get(9).addCreatToArmy(mountainmen, player);
 			game.getBoard().getHexes().get(9).addCreatToArmy(goblins, player);
+			
+			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 		} else {
 			Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");
 			context.endTurn();
