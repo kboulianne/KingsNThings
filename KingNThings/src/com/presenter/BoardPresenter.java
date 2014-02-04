@@ -86,6 +86,8 @@ public class BoardPresenter {
 			System.out.println("Inserted Fort into hex " + selected);
 
 			hex.setFort(Fort.create());
+			// Update view
+			view.setBoard(b);
 			
 			GamePlay.getInstance().endTurn();
 		}

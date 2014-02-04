@@ -228,6 +228,22 @@ public class BoardView extends Canvas {
 		} else{
 			gc.drawImage(hex.getImage(), xOffset + gap + (imageAdjust / 2), yOffset + gap, temp_width - (gap * 2.0) - imageAdjust, height - (gap * 2.0));
 		}
+		
+		// FOR DEMO =========================================================
+		// Draw the fort if face up and not null
+//		temp_width = 15;
+//		height = 15;
+		final double fortSize = 30.0;
+		if (!hex.isFaceDown() && hex.getFort() != null) {
+//			gc.drawImage(hex.getFort().getImage(), xOffset + gap + (imageAdjust / 2), yOffset + gap, temp_width - (gap * 2.0) - imageAdjust, height - (gap * 2.0));
+			gc.drawImage(
+					hex.getFort().getImage(),
+					xOffset + (HEX_WIDTH / 2.0) - gap - (fortSize / 2.0),
+					yOffset + HEX_HEIGHT - fortSize - (gap * 2.0),
+					fortSize,
+					fortSize
+			);
+		}
 	}
 
 	/**
