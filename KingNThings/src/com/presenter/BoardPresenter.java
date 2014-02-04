@@ -73,17 +73,18 @@ public class BoardPresenter {
 		//	detailsPresenter.showHex(b.getHexes().get(selected));
 	}
 	
-	public void handleStartPositionSelectedHexClick(int selected, AbstractPhaseStrategy phase) {
+	public void handleStartPositionSelectedHexClick(int selected) {
 		
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		if(hex.getOwner() == null){
 			hex.setOwner(GameService.getInstance().getGame().getCurrentPlayer());
 			hex.setColor(GameService.getInstance().getGame().getCurrentPlayer().getId().getColor());
-			view.paintHex(hex);
-			phase.turnEnd();
 		}else{
 			//TODO display msg
 		}
+		
+		// Update the view
+		view.setBoard(svc.getGame().getBoard());
 	}
 	
 	public void handleMovementSelectedHexClick(int selected) {
@@ -116,9 +117,12 @@ public class BoardPresenter {
 		//repaint moveableHexIdList
 		for (int i : moveableHexIdList) {
 			Util.log("moveable ids:" + i);
-			view.paintHex(svc.getGame().getBoard().getHexes().get(i));
+//			view.paintHex(svc.getGame().getBoard().getHexes().get(i));
 		}
 
+		// Update view
+		view.setBoard(svc.getGame().getBoard());
+		
 		//
 
 		//Util.log("SeletectIndex"+ selectedIndex);
