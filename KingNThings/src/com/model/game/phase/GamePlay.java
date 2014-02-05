@@ -175,14 +175,17 @@ public final class GamePlay {
 		phaseLogic.turnStart();
 		
 		// FOR NOW! Automatic phase skipping!
-		if (phaseLogic instanceof PlayerOrderPhase
+		if (
+				false 	// For testing, easier to comment out
+				|| phaseLogic instanceof PlayerOrderPhase
 				|| phaseLogic instanceof StartingPosPhase
 //				|| phaseLogic instanceof StartingKingdomPhase
 //				|| phaseLogic instanceof StartingForcesPhase
-				|| phaseLogic instanceof ExchangePhase
+//				|| phaseLogic instanceof ExchangePhase
 				|| phaseLogic instanceof RecruitCharPhase
 				|| phaseLogic instanceof RecruitThingsPhase
-				|| phaseLogic instanceof RandomEventPhase)
+				|| phaseLogic instanceof RandomEventPhase
+				)
 			endTurn();
 	}
 	
