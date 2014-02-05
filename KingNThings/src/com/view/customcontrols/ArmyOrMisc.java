@@ -36,7 +36,7 @@ public class ArmyOrMisc extends HBox {
 	private HBox thingHolder;
 	private StackPane circleStackPane;
 	private ImageView img;
-	private boolean movementPhase;
+	private String phase;
 	
 	private Creature lastSelectedCreature;
 
@@ -50,7 +50,7 @@ public class ArmyOrMisc extends HBox {
 	protected void buildComponent() {
 		getStyleClass().add("block");
 		setAlignment(Pos.CENTER);
-		movementPhase = false;
+		phase = "other";
 
 		circleStackPane = new StackPane();
 		circle = new Circle();
@@ -97,10 +97,12 @@ public class ArmyOrMisc extends HBox {
 		img.setSmooth(true);
 		img.setCache(true);
 		img.getStyleClass().add("thing");
-		if(movementPhase)
+		if(phase.equals("movement"))
 			handleThingClickForMovement(t);
+		else if(phase.equals("placement"))
+			img.setOnMouseClicked(null);
 		else
-			handleThingClicked(t);
+			handleThingClicked(t);			
 
 		// Add custom handler
 		img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
@@ -156,8 +158,8 @@ public class ArmyOrMisc extends HBox {
 		} 
 	}
 
-	public void setMovementPhase(boolean movementPhase) {
-		this.movementPhase = movementPhase;
+	public void setPhase(String phase) {
+		this.phase = phase;
 	}
 
 	public Creature getLastSelectedCreature() {

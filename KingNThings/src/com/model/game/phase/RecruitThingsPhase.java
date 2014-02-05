@@ -42,6 +42,8 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 				context.endTurn();
 			}
 		});
+		finishBtn.setDisable(false);
+		finishBtn.setVisible(true);
 		
 		KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
 	}
@@ -52,6 +54,7 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 		
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setDisable(true);
 		finishBtn.setOnAction(null);
 	}
 

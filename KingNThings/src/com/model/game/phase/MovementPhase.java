@@ -50,10 +50,10 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseEnd() {
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
-		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMovementPhase(false);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setMovementPhase(false);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setMovementPhase(false);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setMovementPhase(false);
+		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setPhase("other");
+		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("other");
+		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setPhase("other");
+		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setPhase("other");
 		Util.log("Game Phase: End of Movement Phase");
 	}
 
@@ -61,10 +61,10 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 				
-		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMovementPhase(true);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setMovementPhase(false);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setMovementPhase(false);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setMovementPhase(false);
+		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setPhase("movement");
+		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("movement");
+		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setPhase("movement");
+		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setPhase("movement");
 		// for testing
 		//Player 1
 		//Stack 1
