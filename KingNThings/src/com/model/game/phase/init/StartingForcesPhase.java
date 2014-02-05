@@ -20,6 +20,7 @@ import com.model.PlainsCreature;
 import com.model.Player;
 import com.model.Player.PlayerId;
 import com.model.SwampCreature;
+import com.model.Thing;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
@@ -40,26 +41,23 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Starting Forces Phase");
 
-//		gv.getCurrentActionLbl().setText("Place Forces");
-		// For demo
-		gv.getCurrentActionLbl().setText("Place Tower");
+		gv.getCurrentActionLbl().setText("Place Forces");		
 		
 		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
-		
-		KNTAppFactory.getBoardPresenter().getView().addStartForcesHandler();
-//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-//			
-//			@Override
-//			public void handle(ActionEvent arg0) {
-//				// TODO Auto-generated method stub
-//				context.endTurn();
-//			}
-//		});
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				context.endTurn();
+			}
+		});
+		finishBtn.setVisible(true);
+		KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
 	}
 	
 	@Override
 	public void phaseEnd() {
 		Util.log("Init Phase: End of Starting Forces Phase");
+		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(null);
 	}
@@ -69,6 +67,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		super.turnStart();
 		
 		Player player = game.getCurrentPlayer();
+		player.addGold(10);
 		
 		if(player.getId() == PlayerId.ONE)	{
 			Creature olddragon = new DesertCreature("olddragon");
@@ -82,16 +81,16 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			Creature goblins = new MountainCreature("goblins");
 			Creature ogre = new MountainCreature("ogre");
 			
-			player.addCreature(olddragon);
-			player.addCreature(giantspider);
-			player.addCreature(elephant);
-			player.addCreature(brownknight);
-			player.addCreature(giant);
-			player.addCreature(dwarves);
-			player.addCreature(skeletons);
-			player.addCreature(watusi);
-			player.addCreature(goblins);
-			player.addCreature(ogre);
+			player.addThing(olddragon);
+			player.addThing(giantspider);
+			player.addThing(elephant);
+			player.addThing(brownknight);
+			player.addThing(giant);
+			player.addThing(dwarves);
+			player.addThing(skeletons);
+			player.addThing(watusi);
+			player.addThing(goblins);
+			player.addThing(ogre);
 			
 		} else if(player.getId() == PlayerId.TWO)	{
 			Creature pterodactlywarriors = new JungleCreature("pterodactylwarriors");
@@ -105,16 +104,16 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			Creature crawlingvines = new JungleCreature("crawlingvines");
 			Creature bandits = new ForestCreature("bandits");
 			
-			player.addCreature(pterodactlywarriors);
-			player.addCreature(sandworm);
-			player.addCreature(greenknight);
-			player.addCreature(dervish);
-			player.addCreature(crocodiles);
-			player.addCreature(nomads);
-			player.addCreature(druid);
-			player.addCreature(walkingtree);
-			player.addCreature(crawlingvines);
-			player.addCreature(bandits);
+			player.addThing(pterodactlywarriors);
+			player.addThing(sandworm);
+			player.addThing(greenknight);
+			player.addThing(dervish);
+			player.addThing(crocodiles);
+			player.addThing(nomads);
+			player.addThing(druid);
+			player.addThing(walkingtree);
+			player.addThing(crawlingvines);
+			player.addThing(bandits);
 			
 		} else if(player.getId() == PlayerId.THREE)	{
 			Creature centaur = new PlainsCreature("centaur");
@@ -128,16 +127,16 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			Creature nomads = new DesertCreature("nomads");
 			Creature witchdoctor = new JungleCreature("witchdoctor");
 			
-			player.addCreature(centaur);
-			player.addCreature(camelcorps);
-			player.addCreature(farmers1);
-			player.addCreature(farmers2);
-			player.addCreature(genie);
-			player.addCreature(skeletons);
-			player.addCreature(pygmies);
-			player.addCreature(greathunter);
-			player.addCreature(nomads);
-			player.addCreature(witchdoctor);
+			player.addThing(centaur);
+			player.addThing(camelcorps);
+			player.addThing(farmers1);
+			player.addThing(farmers2);
+			player.addThing(genie);
+			player.addThing(skeletons);
+			player.addThing(pygmies);
+			player.addThing(greathunter);
+			player.addThing(nomads);
+			player.addThing(witchdoctor);
 			
 		} else	{
 			Creature tribesmen1 = new PlainsCreature("tribesmen");
@@ -148,23 +147,23 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			Creature tribesmen2 = new PlainsCreature("tribesmen");
 			Creature darkwizard = new SwampCreature("darkwizard");
 			Creature blackknight = new SwampCreature("blackknight");
- 			Creature giantape = new JungleCreature("giantape");
+			Creature giantape = new JungleCreature("giantape");
 			Creature buffaloherd = new PlainsCreature("buffaloherd");
 			
-			player.addCreature(tribesmen1);
-			player.addCreature(giantlizard);
-			player.addCreature(villains);
-			player.addCreature(tigers);
-			player.addCreature(vampirebat);
-			player.addCreature(tribesmen2);
-			player.addCreature(darkwizard);
-			player.addCreature(blackknight);
-			player.addCreature(giantape);
-			player.addCreature(buffaloherd);
+			player.addThing(tribesmen1);
+			player.addThing(giantlizard);
+			player.addThing(villains);
+			player.addThing(tigers);
+			player.addThing(vampirebat);
+			player.addThing(tribesmen2);
+			player.addThing(darkwizard);
+			player.addThing(blackknight);
+			player.addThing(giantape);
+			player.addThing(buffaloherd);
 			
 		}
 		
-		
+		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);	
 	}
 
 	@Override

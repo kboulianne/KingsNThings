@@ -11,4 +11,8 @@ public class Cup extends GamePiece {
 	public void setListOfThings(ArrayList<Thing> listOfThings) {
 		this.listOfThings = listOfThings;
 	}
+	public void addThing(Thing t)	{
+		t.setOwner("Cup");
+		listOfThings.add(t);
+	}
 }

@@ -76,7 +76,7 @@ public class BoardPresenter {
 		//	detailsPresenter.showHex(b.getHexes().get(selected));
 	}
 	
-	public void handleStartingForcesHexClick(int selected) {
+	public void handleStartingTowerHexClick(int selected) {
 		Board b = svc.getGame().getBoard();
 		Hex hex = b.getHexes().get(selected);
 		Player current = svc.getGame().getCurrentPlayer();
@@ -174,19 +174,34 @@ public class BoardPresenter {
 			Player currentPlayer = GameService.getInstance().getGame().getCurrentPlayer();
 			Creature creature = KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().getLastSelectedCreature();
 			svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(creature, currentPlayer);
-			hex.addCreatToArmy(creature, currentPlayer);
-			
+			hex.addCreatToArmy(creature, currentPlayer);			
 		}
 		for(Hex h: svc.getGame().getBoard().getHexes()){
 			h.setHighlighted(false);
 		}
 		handleHexClick(selected);
 	}
+	
+	public void handlePlacementSelectedHexClick(int selected) {
+		
+		Hex h = svc.getGame().getBoard().getHexes().get(selected);
+		Player player = svc.getGame().getCurrentPlayer();
+		Creature c = KNTAppFactory.getSidePanePresenter().getThingDetailsPresenter().getcView().getLastSelectedCreature();
+		
+		if(h.getOwner() == player)	{
+			if(c != null)	{
+				player.removeThing(c);
+				h.addCreatToArmy(c, player);
+				view.setBoard(svc.getGame().getBoard());
+				KNTAppFactory.getSidePanePresenter().getThingDetailsPresenter().getcView().setLastSelectedCreature(null);
+				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+				KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
+			}
+		}
+	}
 
 	public void handleMoveButtonClick() {
-		// TODO Auto-generated method stub
-
-
+		
 		Util.log("SeletectIndex-->" + lastHexSelected);
 		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
 		calculateMovementWeight(lastHexSelected, moveableHexIdList);

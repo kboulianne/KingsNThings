@@ -21,6 +21,7 @@ import com.model.game.phase.init.PlayerOrderPhase;
 import com.model.game.phase.init.StartingForcesPhase;
 import com.model.game.phase.init.StartingKingdomPhase;
 import com.model.game.phase.init.StartingPosPhase;
+import com.model.game.phase.init.StartingTowerPhase;
 
 /**
  * The Context class in the Strategy Pattern. This is the Game's "Behaviour" or logic and does not need to be coupled
@@ -81,6 +82,7 @@ public final class GamePlay {
 		initPhases.add(new PlayerOrderPhase(this));
 		initPhases.add(new StartingPosPhase(this));
 		initPhases.add(new StartingKingdomPhase(this));
+		initPhases.add(new StartingTowerPhase(this));
 		initPhases.add(new StartingForcesPhase(this));
 		initPhases.add(new ExchangePhase(this));
 

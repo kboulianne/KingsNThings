@@ -35,24 +35,24 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 		
 		gv.getCurrentActionLbl().setText("Recruit Things");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-		// Already handled since this button has 1 function only
-//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent arg0) {
-//				context.endTurn();
-//			}
-//		});
-		finishBtn.setDisable(false);
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				context.endTurn();
+			}
+		});
+		
+		KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
 	}
 
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Logic: End of Recruiting Things Phase");
 		
+		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(null);
-		finishBtn.setDisable(true);
 	}
 
 	@Override
@@ -60,28 +60,28 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 		super.turnStart();
 		
 		if(game.getCurrentPlayer().getId().equals(PlayerId.ONE))	{
-			Util.log("Adding three creatures to Players 1 stack for Iteration 1");
+			Util.log("Adding three creatures to Players 1 block for Iteration 1");
 			
 			Player player = game.getCurrentPlayer();
 			Creature cyclops = new MountainCreature("cyclops");
 			Creature mountainmen = new MountainCreature("mountainmen");
 			Creature goblins = new MountainCreature("goblins");
 			
-			player.removeGold(5);
-			game.getBoard().getHexes().get(9).addCreatToArmy(cyclops, player);
-			game.getBoard().getHexes().get(9).addCreatToArmy(mountainmen, player);
-			game.getBoard().getHexes().get(9).addCreatToArmy(goblins, player);
+			player.addThing(cyclops);
+			player.addThing(mountainmen);
+			player.addThing(goblins);
+			player.removeGold(5);			
 			
 			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 		} else {
 			Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");
-//			context.endTurn();
+			context.endTurn();
 		}
 	}
 
 	@Override
 	public void turnEnd() {
-		
+		game.getCurrentPlayer().trimBlock();
 	}
 
 }

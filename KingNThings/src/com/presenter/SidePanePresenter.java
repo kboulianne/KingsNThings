@@ -79,14 +79,17 @@ public class SidePanePresenter {
 //
 //		mainPresenter = presenter;
 //	}
+	
+	public ThingDetailsPresenter getThingDetailsPresenter() {
+		return thingDetailsPresenter;
+	}
 
 	// Handlers go here.
 	public void showHexDetailsFor(Hex h) {
 		view.showHexDetailsView(hexDetailsPresenter.getView());
 
 		// make the presenter update the view
-		hexDetailsPresenter.showHex(h);
-		
+		hexDetailsPresenter.showHex(h);	
 	}
 
 	void showThingDetailsFor(Thing t) {

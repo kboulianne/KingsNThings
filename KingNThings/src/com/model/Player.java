@@ -24,7 +24,7 @@ public class Player 	{
 	    color = i.color;
 	    id = i;
 	    block = new Block();
-	    gold = 10;
+	    gold = 0;
 	}
 	
 	/**
@@ -67,7 +67,15 @@ public class Player 	{
 		gold -= g;
 	}
 	
-	public void addCreature(Creature creat)	{
-		block.addThing(creat, getName());
+	public void addThing(Thing t)	{
+		block.addThing(t, getName());
+	}
+	
+	public void removeThing(Thing t)	{
+		block.removeThing(t);
+	}
+
+	public void trimBlock() {
+		block.trimBlock();
 	}
 }

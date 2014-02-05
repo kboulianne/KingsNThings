@@ -193,7 +193,6 @@ public class Hex extends GamePiece {
     	miscItems.add(item);
     }
 
-
 	public boolean isFaceDown() {
 		return faceDown;
 	}

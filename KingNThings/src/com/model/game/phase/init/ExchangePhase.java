@@ -33,24 +33,8 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 		Util.log("Init Phase: Start of Exchange Things Phase");
 
 		gv.getCurrentActionLbl().setText("Exchange Things");
-		
-//		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-//			
-//			@Override
-//			public void handle(ActionEvent arg0) {
-//				// TODO Auto-generated method stub
-//				turnEnd();
-//			}
-//		});
-	}
 
-	/*
-	@Override
-	public void executePhase(Object input) {
-		Util.log("Init Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 	}
-*/
 	
 	@Override
 	public void phaseEnd() {
@@ -59,11 +43,9 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
 		super.turnStart();
 		Util.log("Skipping Step for Itertion 1");
-//		turnEnd();
-		
+		context.endTurn();		
 	}
 
 	@Override

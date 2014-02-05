@@ -16,10 +16,10 @@ import javafx.scene.control.Label;
 // ThingDetailsView is a VBox
 public class CreatureDetailsView extends ThingDetailsView {
 
-
     private Label combatLbl;
     private Label specialAbilitiesLbl;
     private Label testLbl;
+    private Creature lastSelectedCreature;
     
 	@Override
 	protected void buildView() {
@@ -32,7 +32,6 @@ public class CreatureDetailsView extends ThingDetailsView {
 		testLbl = new Label();
 		
 		getChildren().addAll(combatLbl, specialAbilitiesLbl, testLbl);
-    
 	}
 
 	@Override
@@ -60,14 +59,15 @@ public class CreatureDetailsView extends ThingDetailsView {
 		    testLbl.setText("Avail Moves: "+ c.getNumberOfMovesAvailable());
 		    combatLbl.setText("Combat Value: " + c.getCombatVal());
 		    specialAbilitiesLbl.setText("Abilities: " + abilities);
-		    
+		    lastSelectedCreature = c;   
 		}
 		// TODO Don't know how to do this, presenter should be boardPresenter for moveButton
 		// but boardPresenter is null
 
 		//boardPresenter.handleMoveButtonClick(moveButton);
 		super.setThing(thing);
-
 	}
-
+	
+	public Creature getLastSelectedCreature()	{	return lastSelectedCreature;	}
+	public void setLastSelectedCreature(Creature c)	{	this.lastSelectedCreature = c;	}
 }

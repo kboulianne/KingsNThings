@@ -2,13 +2,16 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import com.game.services.GameService;
 import com.presenter.Util;
 
 public class Block extends GamePiece {
 	
 	private final List<Thing> listOfThings;
 	
-	public Block(){
+	public Block()	{
 		listOfThings = new ArrayList<>();
 	}
 	
@@ -31,5 +34,17 @@ public class Block extends GamePiece {
 
 	public List<Thing> getListOfThings() {
 		return listOfThings;
+	}
+	
+	public void trimBlock()	{
+		int index = 0;
+		Random r = new Random();
+		Cup cup = GameService.getInstance().getGame().getCup();
+		
+		while(listOfThings.size() > 10)	{
+			index = r.nextInt(listOfThings.size());
+			cup.addThing(listOfThings.get(index));
+			listOfThings.remove(index);
+		}
 	}
 }

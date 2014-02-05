@@ -133,13 +133,33 @@ public class BoardView extends Canvas {
 
 			@Override
 			public void handle(MouseEvent event) {
-								double clickPtX = event.getX();
+				double clickPtX = event.getX();
 				double clickPtY = event.getY();
 				for (int i = 0; i < hexCenterPoints.length; i++) {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
 							presenter.handleStartingKingdomsHexClick(i);
+						break;
+					}
+				}
+			}
+		});
+	}
+	
+	public void addStartTowerHandler() {
+		// TODO This code is duplicated several times in this class. Create HexEvent?
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+								double clickPtX = event.getX();
+				double clickPtY = event.getY();
+				for (int i = 0; i < hexCenterPoints.length; i++) {
+					if (Util.distanceBtwTwoPts(
+							clickPtX, clickPtY,
+							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
+							presenter.handleStartingTowerHexClick(i);
 						break;
 					}
 				}
@@ -161,6 +181,27 @@ public class BoardView extends Canvas {
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
 						presenter.handleMovementSelectedHexClick(i);
+						break;
+					}
+				}
+			}
+		});
+	}
+	
+	public void addPlacementHandler(){
+		
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				double clickPtX = event.getX();
+				double clickPtY = event.getY();
+				
+				for (int i = 0; i < hexCenterPoints.length; i++) {
+					if (Util.distanceBtwTwoPts(
+							clickPtX, clickPtY,
+							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
+						presenter.handlePlacementSelectedHexClick(i);
 						break;
 					}
 				}
@@ -256,25 +297,5 @@ public class BoardView extends Canvas {
 		for (Hex h : hexes) {
 			paintHex(h);
 		}
-	}
-
-	public void addStartForcesHandler() {
-		// TODO This code is duplicated several times in this class. Create HexEvent?
-		setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-								double clickPtX = event.getX();
-				double clickPtY = event.getY();
-				for (int i = 0; i < hexCenterPoints.length; i++) {
-					if (Util.distanceBtwTwoPts(
-							clickPtX, clickPtY,
-							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-							presenter.handleStartingForcesHexClick(i);
-						break;
-					}
-				}
-			}
-		});
 	}
 }
