@@ -63,6 +63,7 @@ public class HexDetailsView extends StackPane {
 
 		// Name Label
 		nameLbl = new Label();
+		nameLbl.getStyleClass().add("title");
 		// Test
 		testLbl = new Label();
 		// owner
@@ -110,7 +111,7 @@ public class HexDetailsView extends StackPane {
 		setArmies(hex.getId());
 		if (hex != null) {
 			// Set the Hex Name
-			nameLbl.setText("Type: " + hex.getTypeAsString());
+			nameLbl.setText(hex.getTypeAsString());
 			// Set the new image.
 			hexImage.setImage(hex.getImage());
 			// Set the owner if it exists

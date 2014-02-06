@@ -87,12 +87,13 @@ public class ThingDetailsView extends VBox {
 		img.setCache(true);
 
 		thingNameLbl = new Label();
+		thingNameLbl.getStyleClass().add("title");
 		typeLbl = new Label();
 		ownerLbl = new Label();
 
 		stack.getChildren().addAll(borderRect, coloredRect, img);
 
-		getChildren().addAll(stack, thingNameLbl, typeLbl, ownerLbl);
+		getChildren().addAll(thingNameLbl, stack, typeLbl, ownerLbl);
 	}
 
 	public void setThing(final Thing thing) {

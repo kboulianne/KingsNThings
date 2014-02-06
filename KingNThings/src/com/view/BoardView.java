@@ -5,10 +5,8 @@
  */
 package com.view;
 
-import com.game.services.GameService;
 import com.model.Board;
 import com.model.Hex;
-import com.model.game.phase.AbstractPhaseStrategy;
 import com.presenter.BoardPresenter;
 import com.presenter.Util;
 

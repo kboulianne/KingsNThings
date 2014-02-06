@@ -7,8 +7,6 @@ package com.model.game.phase;
 
 import com.main.KNTAppFactory;
 import com.presenter.Util;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 /**
  *

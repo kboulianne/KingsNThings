@@ -5,15 +5,7 @@
  */
 package com.model.game.phase;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-
-import com.game.services.GameService;
-import com.main.KNTAppFactory;
-import com.model.game.Game;
 import com.presenter.Util;
-import com.view.GameView;
 
 /**
  *

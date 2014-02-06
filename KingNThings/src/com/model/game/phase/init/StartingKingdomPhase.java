@@ -5,9 +5,6 @@
  */
 package com.model.game.phase.init;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import com.main.KNTAppFactory;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;

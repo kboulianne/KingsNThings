@@ -5,19 +5,12 @@
  */
 package com.model.game.phase;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.DesertCreature;
 import com.model.JungleCreature;
 import com.model.MountainCreature;
 import com.model.Player;
-import com.model.game.Game;
 import com.presenter.Util;
-import com.view.GameView;
 
 /**
  *
@@ -35,7 +28,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 
 		gv.getCurrentActionLbl().setText("Movement Phase");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		//Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 //		finishBtn.setOnAction(new EventHandler<ActionEvent>() {		
 //			@Override
 //			public void handle(ActionEvent arg0) {

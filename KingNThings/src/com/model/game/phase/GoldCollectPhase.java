@@ -25,7 +25,6 @@ import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.game.Game;
 import com.presenter.Util;
-import com.view.GameView;
 
 /**
  *

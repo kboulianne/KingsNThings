@@ -23,6 +23,12 @@
 .thing{
 	-fx-cursor: hand;
 }
+.hand{
+	-fx-cursor: hand;
+}
+.largeSpacing{
+	-fx-spacing: 20;
+}
 .block{
 	-fx-spacing: 5;
 }

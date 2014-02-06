@@ -13,6 +13,7 @@ import com.view.ThingEvent;
 
 import java.util.List;
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -67,7 +68,7 @@ public class ArmyOrMisc extends HBox {
 
 	}
 
-	private void createArmyImageView(final Thing t) {
+	private StackPane createArmyImageView(final Thing t) {
 
 		int size = 50;
 
@@ -109,9 +110,14 @@ public class ArmyOrMisc extends HBox {
 
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(borderRect, coloredRect, img);
-		thingHolder.getChildren().add(pane);
+		return pane;
+		//thingHolder.getChildren().add(pane);
 	}
 
+	public void handleArmyClick(Player armyOwner, List<Creature> army){
+		KNTAppFactory.getArmydetailspresenter().showArmy(armyOwner, army);
+	}
+	
 	
 	public void handleThingClicked(final Thing t){
 		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -137,7 +143,7 @@ public class ArmyOrMisc extends HBox {
 		});
 	}
 	
-	public void setArmy(Player armyOwner, List<Creature> army) {
+	public void setArmy(final Player armyOwner, final List<Creature> army) {
 		
 		thingHolder.getChildren().clear();
 		circleStackPane.setVisible(false);
@@ -145,6 +151,13 @@ public class ArmyOrMisc extends HBox {
 			return;
 		if (!army.isEmpty()) {
 			circleStackPane.setVisible(true);
+			circleStackPane.getStyleClass().add("hand");
+			circleStackPane.setOnMouseClicked(new EventHandler<Event>() {
+				@Override
+				public void handle(Event arg0) {
+					handleArmyClick(armyOwner, army);
+				}
+			});
 
 			sizeLbl.setText(String.valueOf(army.size()));
 			circle.setFill(armyOwner.getColor());
@@ -153,7 +166,8 @@ public class ArmyOrMisc extends HBox {
             	// TODO create object pool to avoid recreating image views.
 				// create and add image views
 				// FIXME, only drawing 1
-				createArmyImageView(t);
+				StackPane pane = createArmyImageView(t);
+				thingHolder.getChildren().add(pane);
 			}
 		} 
 	}

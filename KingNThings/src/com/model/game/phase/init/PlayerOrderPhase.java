@@ -1,13 +1,9 @@
 package com.model.game.phase.init;
 
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
-import com.view.GameView;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

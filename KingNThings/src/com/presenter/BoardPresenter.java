@@ -15,10 +15,8 @@ import com.model.Fort;
 import com.model.Hex;
 import com.model.Player;
 import com.model.game.Game;
-import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.view.BoardView;
-import java.util.Set;
 
 /**
  *
