@@ -36,7 +36,8 @@ public class CreatureDetailsView extends ThingDetailsView {
 
 	@Override
 	public void setThing(Thing thing) {
-
+		super.setThing(thing);
+		
 		if (thing != null && thing instanceof Creature) {
 		    Creature c = (Creature)thing;
 		    String abilities = "";
@@ -65,9 +66,10 @@ public class CreatureDetailsView extends ThingDetailsView {
 		// but boardPresenter is null
 
 		//boardPresenter.handleMoveButtonClick(moveButton);
-		super.setThing(thing);
+		
 	}
 	
+	// TODO Put this in presenter.
 	public Creature getLastSelectedCreature()	{	return lastSelectedCreature;	}
 	public void setLastSelectedCreature(Creature c)	{	this.lastSelectedCreature = c;	}
 }

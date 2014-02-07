@@ -175,7 +175,7 @@ public class Hex extends GamePiece {
 	}
     
     public void addCreatToArmy(Creature creature, Player p)	{
-    	if(armies.get(p) == null)	
+    	if(!armies.containsKey(p))	
     		armies.put(p, new ArrayList<Creature>());
     	
     	creature.setOwner(p.getName());

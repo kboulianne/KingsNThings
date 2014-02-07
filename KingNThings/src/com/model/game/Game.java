@@ -26,7 +26,6 @@ import com.presenter.Util;
  */
 public final class Game {
 
-	// Simplifies databinding.
 	private Player opponent1;
 	private Player opponent2;
 	private Player opponent3;
@@ -363,6 +362,14 @@ public final class Game {
 		return nextPlayerIt.hasNext();
 	}
 
+	public final List<Player> getOpponentsForCurrent() {
+		List<Player> opponents = new ArrayList<>(playerOrder);
+		// Remove the current player
+		opponents.remove(currentPlayer);
+		
+		return opponents;
+	}
+	
 	/**
 	 * Sets the turn order for the players of the Game.
 	 *

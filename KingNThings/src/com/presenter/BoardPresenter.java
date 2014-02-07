@@ -191,7 +191,8 @@ public class BoardPresenter {
 				player.removeThing(c);
 				h.addCreatToArmy(c, player);
 				view.setBoard(svc.getGame().getBoard());
-				KNTAppFactory.getSidePanePresenter().getThingDetailsPresenter().getcView().setLastSelectedCreature(null);
+				// TODO put last selected in presenter
+				KNTAppFactory.getThingDetailsPresenter().getcView().setLastSelectedCreature(null);
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 				KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 			}

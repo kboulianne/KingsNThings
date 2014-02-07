@@ -38,7 +38,7 @@ public class ThingDetailsPresenter {
 		// Need to swap views according to Thing Type
 		getViewFor(t).setThing(t);
 	}
-
+	
 	public CreatureDetailsView getcView() {
 		return cView;
 	}
