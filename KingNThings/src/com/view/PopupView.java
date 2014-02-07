@@ -25,14 +25,15 @@ public class PopupView extends VBox {
 	//private GameView parent;
 	private PopupPresenter presenter;
 
-	private AnchorPane rootAnchorPane;
+	//private AnchorPane rootAnchorPane;
     // Content to display
 	//private Pane content;
 
 	private Label titleLbl;
 	private Button closeBtn;
+	private AnchorPane rootAnchorPane;
 
-//    private boolean showing = false;
+	// private boolean showing = false;
 	// Parent will always be GameView
 	public PopupView() {
 		buildPopup();
@@ -57,10 +58,15 @@ public class PopupView extends VBox {
 	}
 
 	public void show(Pane content) {
-		this.getChildren().clear();
+		//this.getChildren().clear();
 
 		if (!isVisible()) {
 			// Set the view to display
+			//getChildren().add(content);
+			rootAnchorPane.setVisible(false);
+			rootAnchorPane.setManaged(false);
+			
+			getChildren().remove(1);
 			getChildren().add(content);
 			setVisible(true);
 		}
@@ -73,48 +79,51 @@ public class PopupView extends VBox {
 	 * @param title
 	 */
 	public void show(Pane content, String title) {
-		this.getChildren().clear();
-		// Title
-		titleLbl = new Label(title);
-		titleLbl.getStyleClass().add("title");
-		AnchorPane.setLeftAnchor(titleLbl, 0.0);
-
-		// Close button
-		closeBtn = new Button("  X  ");
-		closeBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent t) {
-				dismiss();
-			}
-		});
-		rootAnchorPane.getChildren().addAll(titleLbl, closeBtn);
-		AnchorPane.setRightAnchor(closeBtn, 0.0);
-
-		//titleLbl.setVisible(true);
-		//closeBtn.setVisible(true);
-		// Only execute if not visible
 		if (!isVisible()) {
-			// Set the view to display.
-			getChildren().addAll(rootAnchorPane, content);
+			// Title
+			titleLbl.setText(title);
+
+			// Close button
+			closeBtn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent t) {
+					dismiss();
+				}
+			});
+			
+			rootAnchorPane.setVisible(true);
+			rootAnchorPane.setManaged(true);
+			
+			getChildren().remove(1);
+			getChildren().add(content);
 			setVisible(true);
 		}
 	}
 
 	public void dismiss() {
 		if (isVisible()) {
-			// Remove and null the content
-			getChildren().clear();
 			setVisible(false);
 		}
 	}
 
 	protected void buildPopup() {
-		rootAnchorPane = new AnchorPane();
 		getStyleClass().add("popup");
-		getChildren().addAll(rootAnchorPane);
 		setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
 		setVisible(false);
+		
+		titleLbl = new Label();
+		titleLbl.getStyleClass().add("title");
+		closeBtn = new Button("  X  ");
+		
+		rootAnchorPane = new AnchorPane();
+		AnchorPane.setLeftAnchor(titleLbl, 0.0);
+		AnchorPane.setRightAnchor(closeBtn, 0.0);
+		
+		Pane content = new Pane();
+		rootAnchorPane.getChildren().addAll(titleLbl, closeBtn);
+		
+		
+		getChildren().addAll(rootAnchorPane, content);
 	}
 
 	public Button getCloseBtn() {

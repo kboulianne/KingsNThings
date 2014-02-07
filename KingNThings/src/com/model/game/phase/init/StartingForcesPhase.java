@@ -10,15 +10,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
-import com.model.Creature;
-import com.model.DesertCreature;
-import com.model.ForestCreature;
-import com.model.JungleCreature;
-import com.model.MountainCreature;
-import com.model.PlainsCreature;
 import com.model.Player;
 import com.model.Player.PlayerId;
-import com.model.SwampCreature;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
