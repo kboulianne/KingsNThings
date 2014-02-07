@@ -77,97 +77,55 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		player.addGold(10);
 		
 		if(player.getId() == PlayerId.ONE)	{
-			Creature olddragon = new DesertCreature("olddragon");
-			Creature giantspider = new DesertCreature("giantspider");
-			Creature elephant = new JungleCreature("elephant");
-			Creature brownknight = new MountainCreature("brownknight");
-			Creature giant = new MountainCreature("giant");
-			Creature dwarves = new MountainCreature("dwarves1");
-			Creature skeletons = new DesertCreature("skeletons");
-			Creature watusi = new JungleCreature("watusi");
-			Creature goblins = new MountainCreature("goblins");
-			Creature ogre = new MountainCreature("ogre");
 			
-			player.addThing(olddragon);
-			player.addThing(giantspider);
-			player.addThing(elephant);
-			player.addThing(brownknight);
-			player.addThing(giant);
-			player.addThing(dwarves);
-			player.addThing(skeletons);
-			player.addThing(watusi);
-			player.addThing(goblins);
-			player.addThing(ogre);
-			
+			game.moveThingFromCupToPlayer("olddragon", player);
+			game.moveThingFromCupToPlayer("giantspider", player);
+			game.moveThingFromCupToPlayer("elephant", player);
+			game.moveThingFromCupToPlayer("brownknight", player);
+			game.moveThingFromCupToPlayer("giant", player);
+			game.moveThingFromCupToPlayer("dwarves1", player);
+			game.moveThingFromCupToPlayer("skeletons", player);
+			game.moveThingFromCupToPlayer("watusi", player);
+			game.moveThingFromCupToPlayer("goblins", player);
+			game.moveThingFromCupToPlayer("ogre", player);
+
 		} else if(player.getId() == PlayerId.TWO)	{
-			Creature pterodactlywarriors = new JungleCreature("pterodactylwarriors");
-			Creature sandworm = new DesertCreature("sandworm");
-			Creature greenknight = new ForestCreature("sandworm");
-			Creature dervish = new DesertCreature("dervish");
-			Creature crocodiles = new JungleCreature("crocodilesjungle");
-			Creature nomads = new DesertCreature("nomads");
-			Creature druid = new ForestCreature("druid");
-			Creature walkingtree = new ForestCreature("walkingtree");
-			Creature crawlingvines = new JungleCreature("crawlingvines");
-			Creature bandits = new ForestCreature("bandits");
 			
-			player.addThing(pterodactlywarriors);
-			player.addThing(sandworm);
-			player.addThing(greenknight);
-			player.addThing(dervish);
-			player.addThing(crocodiles);
-			player.addThing(nomads);
-			player.addThing(druid);
-			player.addThing(walkingtree);
-			player.addThing(crawlingvines);
-			player.addThing(bandits);
+			game.moveThingFromCupToPlayer("pterodactylwarriors", player);
+			game.moveThingFromCupToPlayer("sandworm", player);
+			game.moveThingFromCupToPlayer("greenknight", player);
+			game.moveThingFromCupToPlayer("dervish", player);
+			game.moveThingFromCupToPlayer("crocodilesjungle", player);
+			game.moveThingFromCupToPlayer("nomads", player);
+			game.moveThingFromCupToPlayer("druid", player);
+			game.moveThingFromCupToPlayer("walkingtree", player);
+			game.moveThingFromCupToPlayer("crawlingvines", player);
+			game.moveThingFromCupToPlayer("bandits", player);
 			
 		} else if(player.getId() == PlayerId.THREE)	{
-			Creature centaur = new PlainsCreature("centaur");
-			Creature camelcorps = new DesertCreature("camelcorps");
-			Creature farmers1 = new PlainsCreature("farmers");
-			Creature farmers2 = new PlainsCreature("farmers");
-			Creature genie = new DesertCreature("genie");
-			Creature skeletons=  new DesertCreature("skeletons");
-			Creature pygmies = new JungleCreature("pygmies");
-			Creature greathunter = new PlainsCreature("greathunter");
-			Creature nomads = new DesertCreature("nomads");
-			Creature witchdoctor = new JungleCreature("witchdoctor");
 			
-			player.addThing(centaur);
-			player.addThing(camelcorps);
-			player.addThing(farmers1);
-			player.addThing(farmers2);
-			player.addThing(genie);
-			player.addThing(skeletons);
-			player.addThing(pygmies);
-			player.addThing(greathunter);
-			player.addThing(nomads);
-			player.addThing(witchdoctor);
+			game.moveThingFromCupToPlayer("centaur", player);
+			game.moveThingFromCupToPlayer("camelcorps", player);
+			game.moveThingFromCupToPlayer("farmers", player);
+			game.moveThingFromCupToPlayer("farmers", player);
+			game.moveThingFromCupToPlayer("genie", player);
+			game.moveThingFromCupToPlayer("skeletons", player);
+			game.moveThingFromCupToPlayer("pygmies", player);
+			game.moveThingFromCupToPlayer("greathunter", player);
+			game.moveThingFromCupToPlayer("nomads", player);
+			game.moveThingFromCupToPlayer("witchdoctor", player);
 			
 		} else	{
-			Creature tribesmen1 = new PlainsCreature("tribesmen");
-			Creature giantlizard = new SwampCreature("giantlizard");
-			Creature villains = new PlainsCreature("villains");
-			Creature tigers = new JungleCreature("tigers");
-			Creature vampirebat = new SwampCreature("vampirebat");
-			Creature tribesmen2 = new PlainsCreature("tribesmen");
-			Creature darkwizard = new SwampCreature("darkwizard");
-			Creature blackknight = new SwampCreature("blackknight");
-			Creature giantape = new JungleCreature("giantape");
-			Creature buffaloherd = new PlainsCreature("buffaloherd");
-			
-			player.addThing(tribesmen1);
-			player.addThing(giantlizard);
-			player.addThing(villains);
-			player.addThing(tigers);
-			player.addThing(vampirebat);
-			player.addThing(tribesmen2);
-			player.addThing(darkwizard);
-			player.addThing(blackknight);
-			player.addThing(giantape);
-			player.addThing(buffaloherd);
-			
+			game.moveThingFromCupToPlayer("tribesmen", player);
+			game.moveThingFromCupToPlayer("giantlizard", player);
+			game.moveThingFromCupToPlayer("villains", player);
+			game.moveThingFromCupToPlayer("tigers", player);
+			game.moveThingFromCupToPlayer("vampirebat", player);
+			game.moveThingFromCupToPlayer("tribesmen", player);
+			game.moveThingFromCupToPlayer("darkwizard", player);
+			game.moveThingFromCupToPlayer("blackknight", player);
+			game.moveThingFromCupToPlayer("giantape", player);
+			game.moveThingFromCupToPlayer("buffaloherd", player);
 		}
 		
 		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);	

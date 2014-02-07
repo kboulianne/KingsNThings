@@ -396,4 +396,9 @@ public final class Game {
 		Player p = playerOrder.remove(0);
 		playerOrder.add(p);
 	}
+	
+	
+	public void moveThingFromCupToPlayer(String thingName, Player p){
+		p.addThing(cup.removeThingWithName(thingName));
+	}
 }
