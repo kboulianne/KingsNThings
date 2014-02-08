@@ -40,7 +40,6 @@ public class MovementPhase extends AbstractPhaseStrategy {
 			}
 		});
 		
-		
 		KNTAppFactory.getBoardPresenter().getView().addMovementHandler();
 	}
 

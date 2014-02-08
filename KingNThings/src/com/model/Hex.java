@@ -197,7 +197,6 @@ public class Hex extends GamePiece {
 		return faceDown;
 	}
 
-
 	public void setFaceDown(boolean faceDown) {
 		this.faceDown = faceDown;
 	}

@@ -5,6 +5,7 @@
  */
 package com.view.customcontrols;
 
+import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Creature;
 import com.model.Player;
@@ -137,7 +138,9 @@ public class ArmyOrMisc extends HBox {
 			@Override
 			public void handle(MouseEvent me) {
 				lastSelectedCreature = (Creature)t;
-				KNTAppFactory.getBoardPresenter().handleMoveButtonClick();
+				if(t.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
+					KNTAppFactory.getBoardPresenter().handleMoveButtonClick();
+				}
 				img.fireEvent(new ThingEvent(t));
 			}
 		});
