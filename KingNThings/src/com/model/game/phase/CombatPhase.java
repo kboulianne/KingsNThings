@@ -8,6 +8,8 @@ package com.model.game.phase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 import com.main.KNTAppFactory;
 import com.presenter.Util;
@@ -46,6 +48,13 @@ public class CombatPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		Util.log("Game Phase: Logic for " + game.getCurrentPlayer().getName());
+		
+		VBox vbox = new VBox();
+		Label title = new Label("Battle:");
+		
+		vbox.getChildren().addAll(title);
+		
+		KNTAppFactory.getPopupPresenter().getView().show(vbox);
 		//context.endTurn();
 	}
 	
