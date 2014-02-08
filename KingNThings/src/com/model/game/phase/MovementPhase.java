@@ -10,10 +10,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
-import com.model.DesertCreature;
-import com.model.JungleCreature;
-import com.model.MountainCreature;
-import com.model.Player;
 import com.presenter.Util;
 
 /**
@@ -33,6 +29,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 		gv.getCurrentActionLbl().setText("Movement Phase");
 		
 		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setDisable(false);
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {		
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -40,12 +37,12 @@ public class MovementPhase extends AbstractPhaseStrategy {
 			}
 		});
 		
-		
 		KNTAppFactory.getBoardPresenter().getView().addMovementHandler();
 	}
 
 	@Override
 	public void phaseEnd() {
+		KNTAppFactory.getArmyDetailspresenter().getView().setDefaultHandler();
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setPhase("other");
 		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("other");
@@ -57,35 +54,33 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-				
+		KNTAppFactory.getArmyDetailspresenter().getView().setMovementHandler();	
 		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setPhase("movement");
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("movement");
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setPhase("movement");
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setPhase("movement");
+		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("other");
+		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setPhase("other");
+		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setPhase("other");
+		
+		
 		// for testing
-		//Player 1
-		//Stack 1
-		
-		Player currentPlayer = game.getCurrentPlayer();
-		Util.log("curr"+ currentPlayer.getName());
-		game.getBoard().getHexes().get(2).addCreatToArmy(new DesertCreature("olddragon"), currentPlayer);
-		game.getBoard().getHexes().get(2).addCreatToArmy(new DesertCreature("giantspider"), currentPlayer);
-		game.getBoard().getHexes().get(2).addCreatToArmy(new JungleCreature("elephant"), currentPlayer);
-		game.getBoard().getHexes().get(2).addCreatToArmy(new MountainCreature("brownknight"), currentPlayer);
-		game.getBoard().getHexes().get(2).addCreatToArmy(new MountainCreature("giant"), currentPlayer);
-		game.getBoard().getHexes().get(2).addCreatToArmy(new MountainCreature("dwarves"), currentPlayer);
-		//Stack 2
-		game.getBoard().getHexes().get(9).addCreatToArmy(new DesertCreature("skeletons"), currentPlayer);
-		game.getBoard().getHexes().get(9).addCreatToArmy(new JungleCreature("watusi"), currentPlayer);
-		game.getBoard().getHexes().get(9).addCreatToArmy(new MountainCreature("goblins"), currentPlayer);
-		game.getBoard().getHexes().get(9).addCreatToArmy(new MountainCreature("ogre"), currentPlayer);
-		
+		/*Player currentPlayer = game.getCurrentPlayer();
+		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("olddragon"), currentPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("giantspider"), currentPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("elephant"), currentPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("brownknight"), currentPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("giant"), currentPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("dwarves"), currentPlayer);
+		Player oppPlayer = game.getOpponent2();
+		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("skeletons"), oppPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("watusi"), oppPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("goblins"), game.getOpponent3());
+		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("ogre"), game.getOpponent1());
+		*/
 		
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
+		// TODO Clear hex Details refresh board in super
 		//GameService.getInstance().endTurn(this);
 		
 	}

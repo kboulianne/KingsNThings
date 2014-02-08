@@ -5,8 +5,10 @@
  */
 package com.view.customcontrols;
 
+import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Creature;
+import com.model.Hex;
 import com.model.Player;
 import com.model.Thing;
 import com.view.ThingEvent;
@@ -41,7 +43,7 @@ public class ArmyOrMisc extends HBox {
 	
 	private Creature lastSelectedCreature;
 
-	private final EventHandler<ThingEvent> thingHandler;
+	private EventHandler<ThingEvent> thingHandler;
 
 	public ArmyOrMisc(EventHandler<ThingEvent> click) {
 		this.thingHandler = click;
@@ -98,8 +100,9 @@ public class ArmyOrMisc extends HBox {
 		img.setSmooth(true);
 		img.setCache(true);
 		img.getStyleClass().add("thing");
+		
 		if(phase.equals("movement"))
-			handleThingClickForMovement(t);
+			handleThingClickForMovement(GameService.getInstance().getGame().getCurrentPlayer(), t);
 		else if(phase.equals("placement"))
 			img.setOnMouseClicked(null);
 		else
@@ -111,15 +114,16 @@ public class ArmyOrMisc extends HBox {
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(borderRect, coloredRect, img);
 		return pane;
-		//thingHolder.getChildren().add(pane);
 	}
 
-	public void handleArmyClick(Player armyOwner, List<Creature> army){
-		KNTAppFactory.getArmydetailspresenter().showArmy(armyOwner, army);
+	public void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
+		KNTAppFactory.getArmyDetailspresenter().showArmy(hex, armyOwner, army);
+		if(phase.equals("movement"))
+			KNTAppFactory.getBoardPresenter().handleMoveSetupForArmy();;
 	}
 	
 	
-	public void handleThingClicked(final Thing t){
+	private void handleThingClicked(final Thing t){
 		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			
 			@Override
@@ -131,19 +135,19 @@ public class ArmyOrMisc extends HBox {
 		});
 	}
 	
-	public void handleThingClickForMovement(final Thing t){
+	private void handleThingClickForMovement(Player p, final Thing t){
 		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			
 			@Override
 			public void handle(MouseEvent me) {
 				lastSelectedCreature = (Creature)t;
-				KNTAppFactory.getBoardPresenter().handleMoveButtonClick();
+				KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(t);
 				img.fireEvent(new ThingEvent(t));
 			}
 		});
 	}
 	
-	public void setArmy(final Player armyOwner, final List<Creature> army) {
+	public void setArmy(final Hex hex, final Player armyOwner, final List<Creature> army) {
 		
 		thingHolder.getChildren().clear();
 		circleStackPane.setVisible(false);
@@ -155,7 +159,7 @@ public class ArmyOrMisc extends HBox {
 			circleStackPane.setOnMouseClicked(new EventHandler<Event>() {
 				@Override
 				public void handle(Event arg0) {
-					handleArmyClick(armyOwner, army);
+					handleArmyClick(hex, armyOwner, army);
 				}
 			});
 
@@ -178,6 +182,14 @@ public class ArmyOrMisc extends HBox {
 
 	public Creature getLastSelectedCreature() {
 		return lastSelectedCreature;
+	}
+	
+	public void setThingHandler(EventHandler<ThingEvent> event){
+		thingHandler = event;
+	}
+
+	public void setLastSelectedCreature(Creature lastSelectedCreature) {
+		this.lastSelectedCreature = lastSelectedCreature;
 	}
 
 

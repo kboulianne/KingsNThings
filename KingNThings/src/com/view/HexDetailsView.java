@@ -11,8 +11,6 @@ import com.model.Hex;
 import com.model.Player;
 import com.model.game.Game;
 import com.presenter.HexDetailsPresenter;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -88,11 +86,15 @@ public class HexDetailsView extends StackPane {
 		//misc = new ArmyOrMisc(handler);
 		//TODO shouldn't add these if empty
 		opp1Army = new ArmyOrMisc(handler);
+		opp1Army.setManaged(true);
 		opp2Army = new ArmyOrMisc(handler);
+		opp2Army.setManaged(true);
 		opp3Army = new ArmyOrMisc(handler);
+		opp3Army.setManaged(true);
 		currentPlayerArmy = new ArmyOrMisc(handler);
+		currentPlayerArmy.setManaged(true);
 
-		content.getChildren().addAll(contentBox, opp1Army, opp2Army, opp3Army, currentPlayerArmy);
+		content.getChildren().addAll(contentBox, currentPlayerArmy, opp1Army, opp2Army, opp3Army);
 		getChildren().addAll(hexImage, content);
 		content.setAlignment(Pos.CENTER);
 		content.getStyleClass().add("block");
@@ -146,10 +148,10 @@ public class HexDetailsView extends StackPane {
 		// Use player order to determine opponents.
 		List<Player> opponents = game.getOpponentsForCurrent();
 		
-		opp1Army.setArmy(opponents.get(0), hex.getArmies(opponents.get(0)));
-		opp2Army.setArmy(opponents.get(1), hex.getArmies(opponents.get(1)));
-		opp3Army.setArmy(opponents.get(2), hex.getArmies(opponents.get(2)));
-		currentPlayerArmy.setArmy(game.getCurrentPlayer(), hex.getArmies(game.getCurrentPlayer()));
+		opp1Army.setArmy(hex, opponents.get(0), hex.getArmies(opponents.get(0)));
+		opp2Army.setArmy(hex, opponents.get(1), hex.getArmies(opponents.get(1)));
+		opp3Army.setArmy(hex, opponents.get(2), hex.getArmies(opponents.get(2)));
+		currentPlayerArmy.setArmy(hex, game.getCurrentPlayer(), hex.getArmies(game.getCurrentPlayer()));
 		
 	}
 

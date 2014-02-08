@@ -5,12 +5,16 @@
  */
 package com.presenter;
 
+import java.util.ArrayList;
+
 import com.game.services.GameService;
 import com.model.Player;
+import com.model.Thing;
 import com.model.game.Game;
 import com.model.game.phase.GamePlay;
 import com.view.GameView;
 import com.view.ThingEvent;
+
 import javafx.event.EventHandler;
 
 /**
@@ -99,8 +103,8 @@ public class GamePresenter {
 				popupPresenter.dismissPopup();
 			}
 		};
-
-		popupPresenter.showCupPopup(game.getCup().getListOfThings(), "Cup", handler);
+		ArrayList<Thing> cupThings = game.getCup().getListOfThings();
+		popupPresenter.showCupPopup(cupThings, "Cup : "+cupThings.size()+" items", handler);
 	}
 
 	public void showPlayerInfoPopup(Player p) {

@@ -6,6 +6,7 @@
 package com.presenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
@@ -14,6 +15,7 @@ import com.model.Creature;
 import com.model.Fort;
 import com.model.Hex;
 import com.model.Player;
+import com.model.Thing;
 import com.model.game.Game;
 import com.model.game.phase.GamePlay;
 import com.view.BoardView;
@@ -31,12 +33,15 @@ public class BoardPresenter {
 
 	// Usually BoardService, but ok for our purposes. We will see in IT2
 	private GameService svc;
+	
+	private boolean movingArmy;
 
 	private int lastHexSelected = -1; //FIXME this variable also exists in GameScreen
 
 	public BoardPresenter(BoardView view) {
 		this.view = view;
 		this.view.setPresenter(this);
+		movingArmy = false;
 
 		// Set initial model (usually uses a service.
 		svc = GameService.getInstance();
@@ -137,7 +142,6 @@ public class BoardPresenter {
 				hex.setOwner(current);
 				
 				view.setBoard(b);
-				
 				GamePlay.getInstance().endTurn();
 			}
 		}
@@ -163,16 +167,27 @@ public class BoardPresenter {
 	}
 	
 	public void handleMovementSelectedHexClick(int selected) {
-		
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
-		
-		Util.log("selected hex id "+selected+" isHighlighted="+hex.isHighlighted());
 		if(hex.isHighlighted()){	
 
 			Player currentPlayer = GameService.getInstance().getGame().getCurrentPlayer();
-			Creature creature = KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().getLastSelectedCreature();
-			svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(creature, currentPlayer);
-			hex.addCreatToArmy(creature, currentPlayer);			
+			if(movingArmy){ // move whole army
+				List<Creature> army = KNTAppFactory.getArmyDetailspresenter().getView().getLastSelectedArmy();
+				Hex lastSelected = svc.getGame().getBoard().getHexes().get(lastHexSelected);
+				for(Creature c: army){ // for same order
+					hex.addCreatToArmy(c, currentPlayer);
+				}
+				for(int i=army.size()-1;i>=0;i--){
+					lastSelected.removeCreatureFromArmy(army.get(i), currentPlayer);
+				}
+			}else{ // moving single thing
+				Creature creature = KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().getLastSelectedCreature();
+				if(creature==null){
+					creature = KNTAppFactory.getArmyDetailspresenter().getView().getArmy().getLastSelectedCreature();
+				}
+				svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(creature, currentPlayer);
+				hex.addCreatToArmy(creature, currentPlayer);
+			}
 		}
 		for(Hex h: svc.getGame().getBoard().getHexes()){
 			h.setHighlighted(false);
@@ -199,17 +214,19 @@ public class BoardPresenter {
 		}
 	}
 
-	public void handleMoveButtonClick() {
+	public void handleMoveSetupForThing(Thing t) {
 		
 		Util.log("SeletectIndex-->" + lastHexSelected);
 		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
 		calculateMovementWeight(lastHexSelected, moveableHexIdList);
 
+		
+		///setLastSelectedCreature((Creature)t);
 		//repaint moveableHexIdList
-		for (int i : moveableHexIdList) {
-			Util.log("moveable ids:" + i);
+		//for (int i : moveableHexIdList) {
+			//Util.log("moveable ids:" + i);
 //			view.paintHex(svc.getGame().getBoard().getHexes().get(i));
-		}
+		//}
 
 		// Update view
 		view.setBoard(svc.getGame().getBoard());
@@ -218,9 +235,17 @@ public class BoardPresenter {
 
 		//Util.log("SeletectIndex"+ selectedIndex);
 		//moveButton
+		movingArmy = false;
+	}
+	
+	public void handleMoveSetupForArmy() {
+		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
+		calculateMovementWeight(lastHexSelected, moveableHexIdList);
+		view.setBoard(svc.getGame().getBoard());
+		movingArmy = true;
 	}
 
-	public void calculateMovementWeight(int hexId, ArrayList<Integer> calculated) {
+	protected void calculateMovementWeight(int hexId, ArrayList<Integer> calculated) {
 		Hex hex = svc.getGame().getBoard().getHexes().get(hexId);
 
 		ArrayList<Integer> checkedList = new ArrayList<>();
@@ -267,11 +292,11 @@ public class BoardPresenter {
 		//|| (hex.getType().equals(Hex.HexType.SEA  )&& weight ==availableMovesForSelectedThing)
 	    // || friendly army ==10 at hex(<-- exception citadel)){
 			
-			Util.log("    id:"+hexId+"-->not selectable");
+			//Util.log("    id:"+hexId+"-->not selectable");
 			return;
 		}
 
-		Util.log("    id:" + hexId + "-->weight:" + weight);
+		//Util.log("    id:" + hexId + "-->weight:" + weight);
 
 		///otherwise
 		hex.setHighlighted(true);

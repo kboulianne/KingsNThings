@@ -5,7 +5,7 @@
  */
 package com.main;
 
-import com.presenter.ArmyDetailPresenter;
+import com.presenter.ArmyDetailsPresenter;
 import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
 import com.presenter.BoardPresenter;
@@ -38,7 +38,7 @@ public class KNTAppFactory {
 	private static final BoardPresenter boardPresenter;
 	private static final HexDetailsPresenter hexDetailsPresenter;
 	private static final ThingDetailsPresenter thingDetailsPresenter;
-	private static final ArmyDetailPresenter armyDetailsPresenter;
+	private static final ArmyDetailsPresenter armyDetailsPresenter;
 	private static final PlayerInfoPresenter playerInfoPresenter;
 	private static final PopupPresenter popupPresenter;
 
@@ -110,9 +110,9 @@ public class KNTAppFactory {
 		return presenter;
 	}
 	
-	private static ArmyDetailPresenter createArmyDetailsPresenter() {
+	private static ArmyDetailsPresenter createArmyDetailsPresenter() {
 		ArmyDetailsView view = new ArmyDetailsView();
-		ArmyDetailPresenter presenter = new ArmyDetailPresenter(view);
+		ArmyDetailsPresenter presenter = new ArmyDetailsPresenter(view);
 
 		return presenter;
 	}
@@ -163,7 +163,7 @@ public class KNTAppFactory {
 		return popupPresenter;
 	}
 
-	public static ArmyDetailPresenter getArmydetailspresenter() {
+	public static ArmyDetailsPresenter getArmyDetailspresenter() {
 		return armyDetailsPresenter;
 	}
 

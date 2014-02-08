@@ -1,5 +1,6 @@
 package com.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.event.EventHandler;
@@ -9,22 +10,28 @@ import javafx.scene.layout.VBox;
 
 import com.main.KNTAppFactory;
 import com.model.Creature;
+import com.model.Hex;
 import com.model.Player;
-import com.presenter.ArmyDetailPresenter;
+import com.presenter.ArmyDetailsPresenter;
 import com.view.customcontrols.ArmyOrMisc;
 
 public class ArmyDetailsView extends VBox{
 
-	protected ArmyDetailPresenter presenter;
+	protected ArmyDetailsPresenter presenter;
 	private Label lbl;
 	private Label sublbl;
 	private ArmyOrMisc army;
+	
+	private Hex fromHex;
+	private List<Creature> lastSelectedArmy;
+	
+	EventHandler<ThingEvent> handler;
 	
 	public ArmyDetailsView(){
 		buildView();
 	}
 	
-	public void setPresenter(ArmyDetailPresenter presenter){
+	public void setPresenter(ArmyDetailsPresenter presenter){
 		if (presenter == null)
             throw new NullPointerException("Presenter cannot be null");
         
@@ -35,12 +42,13 @@ public class ArmyDetailsView extends VBox{
 	}
 	
 	protected void buildView(){
+		lastSelectedArmy = new ArrayList<Creature>();
 		setAlignment(Pos.CENTER);
 		getStyleClass().add("largeSpacing");
 		lbl = new Label();
 		lbl.getStyleClass().add("title");
 		sublbl = new Label();
-		EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
+		handler = new EventHandler<ThingEvent>() {
 			@Override
 			public void handle(ThingEvent t) {
 				KNTAppFactory.getHexDetailsPresenter().handleThingClick(t.getThing());
@@ -53,9 +61,33 @@ public class ArmyDetailsView extends VBox{
 		getChildren().addAll(lbl, sublbl, army);
 	}
 
-	public void setArmy(Player armyOwner, List<Creature> armyList) {
+	public void setArmy(Hex hex, Player armyOwner, List<Creature> armyList) {
+		lastSelectedArmy = armyList;
+		setFromHex(hex);
 		lbl.setText(armyOwner.getName()+"'s Army");
 		sublbl.setText("Army Size: "+armyList.size());
-		army.setArmy(armyOwner, armyList);
+		army.setArmy(hex, armyOwner, armyList);
+	}
+	
+	public void setMovementHandler(){
+		army.setPhase("movement");
+	}
+	public void setDefaultHandler(){
+		army.setPhase("other");
+	}
+	public ArmyOrMisc getArmy() {
+		return army;
+	}
+
+	public List<Creature> getLastSelectedArmy() {
+		return lastSelectedArmy;
+	}
+
+	public Hex getFromHex() {
+		return fromHex;
+	}
+
+	public void setFromHex(Hex fromHex) {
+		this.fromHex = fromHex;
 	}
 }
