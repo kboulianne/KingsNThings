@@ -140,7 +140,7 @@ public class ArmyOrMisc extends HBox {
 			
 			@Override
 			public void handle(MouseEvent me) {
-				lastSelectedCreature = (Creature)t;
+				lastSelectedCreature = (Creature) t;
 				if(t.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
 					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(t);
 				}

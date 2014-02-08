@@ -218,7 +218,12 @@ public class BoardPresenter {
 		
 		Util.log("SeletectIndex-->" + lastHexSelected);
 		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
-		calculateMovementWeight(lastHexSelected, moveableHexIdList);
+		
+		int availableMovesForSelectedThing = 4;
+		if(t instanceof Creature)
+			availableMovesForSelectedThing = ((Creature) t).getNumberOfMovesAvailable();
+		
+		calculateMovementWeight(lastHexSelected, availableMovesForSelectedThing, moveableHexIdList);
 
 		
 		///setLastSelectedCreature((Creature)t);
@@ -240,12 +245,13 @@ public class BoardPresenter {
 	
 	public void handleMoveSetupForArmy() {
 		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
-		calculateMovementWeight(lastHexSelected, moveableHexIdList);
+		//set to 4 for now
+		calculateMovementWeight(lastHexSelected, 4, moveableHexIdList);
 		view.setBoard(svc.getGame().getBoard());
 		movingArmy = true;
 	}
 
-	protected void calculateMovementWeight(int hexId, ArrayList<Integer> calculated) {
+	protected void calculateMovementWeight(int hexId, int availableMovesForSelectedThing, ArrayList<Integer> calculated) {
 		Hex hex = svc.getGame().getBoard().getHexes().get(hexId);
 
 		ArrayList<Integer> checkedList = new ArrayList<>();
@@ -285,9 +291,9 @@ public class BoardPresenter {
 		// hex.getType().equals(Hex.HexType.FOREST||
 		// hex.getType().equals(Hex.HexType.JUNGLE)))?2:1);
 		
-		int availableMovesForSelectedThing; //=
+		//int availableMovesForSelectedThing; //=
 		//for now
-		availableMovesForSelectedThing = 4;
+		//availableMovesForSelectedThing = 1;
 		if(weight>availableMovesForSelectedThing+1){
 		//|| (hex.getType().equals(Hex.HexType.SEA  )&& weight ==availableMovesForSelectedThing)
 	    // || friendly army ==10 at hex(<-- exception citadel)){
@@ -304,7 +310,7 @@ public class BoardPresenter {
 		hex.setSelectable(true);
 		calculated.add(hexId);
 		for (int k : uncheckedList) { // recurse
-			calculateMovementWeight(k, calculated);
+			calculateMovementWeight(k, availableMovesForSelectedThing, calculated);
 		}
 	}
 

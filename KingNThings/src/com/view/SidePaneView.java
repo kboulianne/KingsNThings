@@ -126,4 +126,8 @@ public class SidePaneView extends VBox {
 		content.getChildren().clear();
 		content.getChildren().add(view);
 	}
+	
+	public void clearDetailsView(){
+		content.getChildren().clear();
+	}
 }

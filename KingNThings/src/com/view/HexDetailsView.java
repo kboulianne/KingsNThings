@@ -34,7 +34,6 @@ public class HexDetailsView extends StackPane {
 
 	private ImageView hexImage;
 	private Label nameLbl;
-	private Label testLbl;
 	private Label ownerLbl;
 	private ArmyOrMisc opp1Army;
 	private ArmyOrMisc opp2Army;
@@ -66,12 +65,10 @@ public class HexDetailsView extends StackPane {
 		// Name Label
 		nameLbl = new Label();
 		nameLbl.getStyleClass().add("title");
-		// Test
-		testLbl = new Label();
 		// owner
 		ownerLbl = new Label();
 
-		contentBox.getChildren().addAll(nameLbl, ownerLbl, testLbl);
+		contentBox.getChildren().addAll(nameLbl, ownerLbl);
 
 		// Create the mouse handler for the things and hook it up to the presenter.
 		EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
@@ -133,7 +130,6 @@ public class HexDetailsView extends StackPane {
 			for (int i : hex.getJoiningHexes()) {
 				test += i + ", ";
 			}
-			testLbl.setText("removeLater: id=" + hex.getId() + " joins with:" + test);
 		}
 	}
 	

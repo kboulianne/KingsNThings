@@ -5,11 +5,18 @@
  */
 package com.model.game.phase;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
+import com.model.Board;
+import com.model.DesertCreature;
+import com.model.JungleCreature;
+import com.model.MountainCreature;
+import com.model.Player;
 import com.presenter.Util;
 
 /**
@@ -62,7 +69,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 		
 		
 		// for testing
-		/*Player currentPlayer = game.getCurrentPlayer();
+		Player currentPlayer = game.getCurrentPlayer();
 		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("olddragon"), currentPlayer);
 		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("giantspider"), currentPlayer);
 		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("elephant"), currentPlayer);
@@ -74,14 +81,12 @@ public class MovementPhase extends AbstractPhaseStrategy {
 		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("watusi"), oppPlayer);
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("goblins"), game.getOpponent3());
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("ogre"), game.getOpponent1());
-		*/
+		
 		
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Clear hex Details refresh board in super
-		//GameService.getInstance().endTurn(this);
-		
+		super.turnEnd();
 	}
 }

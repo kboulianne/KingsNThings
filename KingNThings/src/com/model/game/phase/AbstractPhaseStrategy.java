@@ -7,6 +7,7 @@ package com.model.game.phase;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Board;
 import com.model.game.Game;
 import com.view.GameView;
 
@@ -34,9 +35,17 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 		// TODO Auto-generated method stub
 		//top label
 		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
-		
 		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(game.getCurrentPlayer());
 		KNTAppFactory.getSidePanePresenter().getView().setOpponents(game.getOpponent1(), game.getOpponent2(), game.getOpponent3());
 		
+	}
+	
+	@Override
+	public void turnEnd() {
+		Board b = game.getBoard();
+		b.reset();	
+		KNTAppFactory.getBoardPresenter().getView().setBoard(b);
+		KNTAppFactory.getSidePanePresenter().getView().clearDetailsView();
+		KNTAppFactory.getPopupPresenter().dismissPopup();
 	}
 }

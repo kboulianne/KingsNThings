@@ -237,20 +237,34 @@ public class BoardView extends Canvas {
 			xOffset + (HEX_WIDTH * 0.75), xOffset + (HEX_WIDTH * 0.25), xOffset},
 				new double[]{yOffset, yOffset, yOffset + (height * 0.5),
 					yOffset + height, yOffset + height, yOffset + (height * 0.5)}, 6);
-		//inner polygon
-		double gap = HEX_WIDTH * 0.05;
+		//middle polygon
+		if (hex.isHighlighted()) {
+			gc.setFill(Color.LIGHTBLUE);
+		} else if (hex.isSelected()) {
+			gc.setFill(hex.getColor().darker());
+		} else {
+			gc.setFill(Color.BLACK);
+		}
+		double gap = HEX_WIDTH * 0.01;
 		double temp_width = HEX_WIDTH;
 		xOffset += gap;
 		yOffset += gap;
 		height -= (gap * 2);//
 		temp_width -= (gap * 2);
-		if (hex.isHighlighted()) {
-			gc.setFill(Color.LIGHTBLUE);
-		} else if (hex.isSelected()) {
-			gc.setFill(Color.WHITESMOKE);
-		} else {
-			gc.setFill(hex.getColor());
-		}
+		gc.fillPolygon(new double[]{(xOffset + (temp_width * 0.25)), (xOffset + (temp_width * 0.75)), (xOffset + temp_width),
+				xOffset + (temp_width * 0.75), xOffset + (temp_width * 0.25), xOffset},
+					new double[]{yOffset, yOffset, yOffset + (height * 0.5),
+						yOffset + height, yOffset + height, yOffset + (height * 0.5)}, 6);
+		//inner polygon
+		//double 
+		gap = HEX_WIDTH * 0.03;
+		//double 
+		//temp_width = HEX_WIDTH;
+		xOffset += gap;
+		yOffset += gap;
+		height -= (gap * 2);//
+		temp_width -= (gap * 2);
+		gc.setFill(hex.getColor());
 		gc.fillPolygon(new double[]{(xOffset + (temp_width * 0.25)), (xOffset + (temp_width * 0.75)), (xOffset + temp_width),
 			xOffset + (temp_width * 0.75), xOffset + (temp_width * 0.25), xOffset},
 				new double[]{yOffset, yOffset, yOffset + (height * 0.5),
@@ -277,8 +291,8 @@ public class BoardView extends Canvas {
 //			gc.drawImage(hex.getFort().getImage(), xOffset + gap + (imageAdjust / 2), yOffset + gap, temp_width - (gap * 2.0) - imageAdjust, height - (gap * 2.0));
 			gc.drawImage(
 					hex.getFort().getImage(),
-					xOffset + (HEX_WIDTH / 2.0) - gap - (fortSize / 2.0),
-					yOffset + HEX_HEIGHT - fortSize - (gap * 2.0),
+					xOffset + HEX_WIDTH*0.5 - fortSize*0.5 -gap,// +gap + (fortSize/2.0),//(HEX_WIDTH / 2.0) - gap - (fortSize / 2.0),
+					yOffset + HEX_HEIGHT - (fortSize*2.0),// - (gap * 2.0),
 					fortSize,
 					fortSize
 			);

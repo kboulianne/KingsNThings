@@ -63,4 +63,11 @@ public class Board {
 		return startPositions;
 	}
 	
+	public void reset(){
+		for (Hex h:hexes){
+	    	h.setHighlighted(false);
+			h.setSelected(false);
+		}
+	}
+	
 }

@@ -5,6 +5,11 @@
  */
 package com.model.game.phase;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+
+import com.main.KNTAppFactory;
 import com.presenter.Util;
 
 /**
@@ -23,13 +28,13 @@ public class CombatPhase extends AbstractPhaseStrategy {
 
 		gv.getCurrentActionLbl().setText("Combat Phase");
 		
-		//Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {	
-//			@Override
-//			public void handle(ActionEvent arg0) {
-//				context.endTurn();
-//			}
-//		});
+		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {	
+			@Override
+			public void handle(ActionEvent arg0) {
+				context.endTurn();
+			}
+		});
 	}
 
 	@Override
@@ -41,7 +46,7 @@ public class CombatPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		Util.log("Game Phase: Logic for " + game.getCurrentPlayer().getName());
-		context.endTurn();
+		//context.endTurn();
 	}
 	
 	@Override
