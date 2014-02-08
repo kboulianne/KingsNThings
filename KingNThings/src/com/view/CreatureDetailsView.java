@@ -62,14 +62,9 @@ public class CreatureDetailsView extends ThingDetailsView {
 		    specialAbilitiesLbl.setText("Abilities: " + abilities);
 		    lastSelectedCreature = c;   
 		}
-		// TODO Don't know how to do this, presenter should be boardPresenter for moveButton
-		// but boardPresenter is null
-
-		//boardPresenter.handleMoveButtonClick(moveButton);
 		
 	}
 	
-	// TODO Put this in presenter.
 	public Creature getLastSelectedCreature()	{	return lastSelectedCreature;	}
 	public void setLastSelectedCreature(Creature c)	{	this.lastSelectedCreature = c;	}
 }

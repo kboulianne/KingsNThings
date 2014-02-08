@@ -141,7 +141,13 @@ public class ArmyOrMisc extends HBox {
 			@Override
 			public void handle(MouseEvent me) {
 				lastSelectedCreature = (Creature)t;
+<<<<<<< HEAD
 				KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(t);
+=======
+				if(t.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
+					KNTAppFactory.getBoardPresenter().handleMoveButtonClick();
+				}
+>>>>>>> d3fc4dce7acf459b9facbb5e8530636e16b2a77e
 				img.fireEvent(new ThingEvent(t));
 			}
 		});

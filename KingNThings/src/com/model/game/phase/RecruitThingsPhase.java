@@ -10,8 +10,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
-import com.model.Creature;
-import com.model.MountainCreature;
 import com.model.Player;
 import com.model.Player.PlayerId;
 import com.presenter.Util;
@@ -63,14 +61,10 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 			Util.log("Adding three creatures to Players 1 block for Iteration 1");
 			
 			Player player = game.getCurrentPlayer();
-			Creature cyclops = new MountainCreature("cyclops");
-			Creature mountainmen = new MountainCreature("mountainmen");
-			Creature goblins = new MountainCreature("goblins");
 			
-			player.addThing(cyclops);
-			player.addThing(mountainmen);
-			player.addThing(goblins);
-			player.removeGold(5);			
+			game.moveThingFromCupToPlayer("cyclops", player);
+			game.moveThingFromCupToPlayer("mountainmen", player);
+			game.moveThingFromCupToPlayer("goblins", player);
 			
 			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 		} else {
