@@ -80,8 +80,8 @@ public class ThingDetailsView extends VBox {
 		coloredRect.setArcHeight(20);
 
 		img = new ImageView();
-		img.setFitWidth(260 - 7);
-		img.setFitHeight(260 - 7);
+		img.setFitWidth(size - 7);
+		img.setFitHeight(size - 7);
 		img.setPreserveRatio(true);
 		img.setSmooth(true);
 		img.setCache(true);

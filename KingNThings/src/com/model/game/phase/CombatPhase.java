@@ -5,15 +5,26 @@
  */
 package com.model.game.phase;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import com.main.KNTAppFactory;
 import com.model.Battle;
+import com.model.Creature;
 import com.model.DesertCreature;
 import com.model.Fort;
 import com.model.JungleCreature;
@@ -21,6 +32,7 @@ import com.model.MountainCreature;
 import com.model.Player;
 import com.presenter.Util;
 import com.view.DiceView;
+import com.view.popups.BattlePopup;
 
 /**
  *
@@ -64,6 +76,10 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("brownknight"), currentPlayer);
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("giant"), currentPlayer);
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("dwarves"), currentPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("elephant"), currentPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("brownknight"), currentPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("giant"), currentPlayer);
+		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("dwarves"), currentPlayer);
 		Player oppPlayer = game.getOpponent2();
 		game.getBoard().getHexes().get(0).addItemToHex(new Fort(Fort.FortType.CITADEL));
 		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("skeletons"), oppPlayer);
@@ -74,36 +90,10 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		/////////
 		Battle battle = new Battle(game.getCurrentPlayer(), game.getBoard().getHexes().get(0));
 		
-		VBox rootBox = new VBox();
-		Label titleLbl = new Label("Battle: <Instructions>");
-		titleLbl.getStyleClass().add("title");
-		Label roundNumLbl = new Label("Round Number: "+battle.getRoundNumber());
-		Label battleRoundLbl = new Label("Phase: "+battle.getBattleRound().battleRoundName);
-		Label HexLbl = new Label("Terrain: "+battle.getAssociatedHex().getTypeAsString());
+		BattlePopup bp = new BattlePopup();
+		bp.setPopup(battle);
 		
-		
-		VBox offenderBox = new VBox();
-		Label offenderLbl = new Label("Offender: "+battle.getOffender().getName());
-		offenderLbl.getStyleClass().add("title");
-		DiceView offDice = new DiceView();
-		offDice.setDice(battle.getOffenderDie1(), battle.getOffenderDie2());
-		offDice.setEndTurnButtonLbl("Retreat");
-		offenderBox.getChildren().addAll(offenderLbl, offDice);
-		
-		VBox defenderBox = new VBox();
-		Label defenderLbl = new Label("Defender: "+battle.getDefenderName());
-		defenderLbl.getStyleClass().add("title");
-		DiceView defDice = new DiceView();
-		defDice.setDice(battle.getDefenderDie1(), battle.getDefenderDie2());
-		defDice.setEndTurnButtonLbl("Retreat");
-		defenderBox.getChildren().addAll(defenderLbl, defDice);
-		
-		HBox offenderDefenderBox = new HBox();
-		offenderDefenderBox.getChildren().addAll(offenderBox, defenderBox);
-		
-		rootBox.getChildren().addAll(titleLbl, roundNumLbl, battleRoundLbl, HexLbl, offenderDefenderBox);
-		
-		KNTAppFactory.getPopupPresenter().getView().show(rootBox);
+		KNTAppFactory.getPopupPresenter().getView().show(bp);
 		//context.endTurn();
 	}
 	
