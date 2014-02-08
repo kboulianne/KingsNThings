@@ -68,6 +68,7 @@ public class Player 	{
 	}
 	
 	public void addThing(Thing t)	{
+		t.setOwner(name);
 		block.addThing(t, getName());
 	}
 	

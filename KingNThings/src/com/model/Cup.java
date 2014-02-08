@@ -23,7 +23,7 @@ public class Cup extends GamePiece {
 		return null;
 	}
 	public Thing removeThingWithName(String name){
-		Thing t = getThing(name);		
+		Thing t = getThing(name);	
 		listOfThings.remove(t);
 		return t;
 	}
