@@ -79,6 +79,7 @@ public class DiceView extends HBox {
 		die2Iv.imageProperty().set(d2.getImage());
 	}
 	
+	public void setEndTurnButtonLbl(String labelTxt){ endTurnBtn.setText(labelTxt);}
 	public ImageView getDie1()	{	return die1Iv;	}
 	public ImageView getDie2()	{	return die2Iv;	}
 	public Button getEndTurnBtn()	{	return endTurnBtn;	}

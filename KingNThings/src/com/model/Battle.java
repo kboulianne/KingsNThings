@@ -19,7 +19,12 @@ public class Battle {
 	private Die offenderDie2;
 	 
 	private BattleRound battleRound;
-	public enum BattleRound { MAGIC, RANGED, MELEE, RETREAT, POSTCOMBAT }
+	public enum BattleRound { MAGIC("Magic"), RANGED("Ranged"), 
+		MELEE("Melee"), RETREAT("Retreat"), POSTCOMBAT("Post Combat") ;
+		public final String battleRoundName;
+		BattleRound(String n) { battleRoundName = n; }
+		
+	}
 	
 	
 	public Battle(Player offender, Hex hex){
@@ -59,6 +64,55 @@ public class Battle {
 			nextRound();
 		else
 			battleRound = BattleRound.values()[battleRound.ordinal()+1];
+	}
+
+	
+	//setters and getters
+	
+	public int getRoundNumber() {
+		return roundNumber;
+	}
+
+	public String getDefenderName() {
+		if (defender == null)
+			return "Creatures and Things";
+		return defender.getName();
+	}
+
+	public ArrayList<GamePiece> getDefenderItems() {
+		return defenderItems;
+	}
+
+	public Player getOffender() {
+		return offender;
+	}
+
+	public ArrayList<Creature> getOffenderCreatures() {
+		return offenderCreatures;
+	}
+
+	public BattleRound getBattleRound() {
+		return battleRound;
+	}
+
+	public Hex getAssociatedHex() {
+		return associatedHex;
+	}
+
+	public Die getDefenderDie1() {
+		return defenderDie1;
+	}
+
+	public Die getDefenderDie2() {
+		return defenderDie2;
+	}
+
+	public Die getOffenderDie1() {
+		return offenderDie1;
+	}
+
+	public Die getOffenderDie2() {
+		return offenderDie2;
 	}
 	
 

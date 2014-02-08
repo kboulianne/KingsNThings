@@ -34,7 +34,7 @@ public class Fort extends GamePiece	{
 	private static final String IMAGE_DIR = "view/com/assets/pics/gamepieces/forts/";
 	
 	
-	protected Fort(FortType type) {
+	public Fort(FortType type) {
 		super(type.type);
 		
 		fortType = type;
