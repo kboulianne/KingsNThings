@@ -2,8 +2,11 @@ package com.model;
 
 import java.util.ArrayList;
 
+import com.main.KNTAppFactory;
+import com.presenter.BattlePresenter;
+import com.view.BattleView;
+
 public class Battle {
-	
 	private int roundNumber;
 	private boolean unExploredHex;
 	private Hex associatedHex;
@@ -55,61 +58,7 @@ public class Battle {
 				defenderItems.add(c);
 		}
 	}
-	public void startPhase(){
-		
-		
-		if(!playerRetreated||!playerHasWon){ //
-			switch (battlePhase){ 
-				case MAGIC:
-					magicPhase();
-					break;
-				case RANGED:
-					rangedPhase();
-					break;  
-				case MELEE:
-					meleePhase();
-					break;
-				case RETREAT:
-					retreatPhase();
-					break;
-				case POSTCOMBAT:
-					postCombatPhase();
-					break;
-			}
-			
-			//nextBattleRound();
-		}	
-	}
 	
-	private void magicPhase(){
-		
-	}
-	private void rangedPhase(){
-		
-	}
-	private void meleePhase(){
-		
-	}
-	private void retreatPhase(){
-		
-	}
-	private void postCombatPhase(){
-		
-	}
-	
-	protected void nextRound(){
-		//TODO
-		roundNumber++;
-		battlePhase = BattlePhase.MAGIC;
-	}
-	
-	public void nextBattleRound(){
-		//TODO
-		if(battlePhase.ordinal()+1 == BattlePhase.values().length )
-			nextRound();
-		else
-			battlePhase = BattlePhase.values()[battlePhase.ordinal()+1];
-	}
 
 	
 	//setters and getters
@@ -166,6 +115,48 @@ public class Battle {
 
 	public void setUnExploredHex(boolean unExploredHex) {
 		this.unExploredHex = unExploredHex;
+	}
+
+
+
+	public boolean isPlayerRetreated() {
+		return playerRetreated;
+	}
+
+
+
+	public void setPlayerRetreated(boolean playerRetreated) {
+		this.playerRetreated = playerRetreated;
+	}
+
+
+
+	public boolean isPlayerHasWon() {
+		return playerHasWon;
+	}
+
+
+
+	public void setPlayerHasWon(boolean playerHasWon) {
+		this.playerHasWon = playerHasWon;
+	}
+
+
+
+	public BattlePhase getBattlePhase() {
+		return battlePhase;
+	}
+
+
+
+	public void setBattlePhase(BattlePhase battlePhase) {
+		this.battlePhase = battlePhase;
+	}
+
+
+
+	public void setRoundNumber(int roundNumber) {
+		this.roundNumber = roundNumber;
 	}
 	
 

@@ -21,19 +21,20 @@ import com.presenter.BattlePresenter;
 public class BattleView extends VBox{
 	
 	BattlePresenter battlePresenter;
+	private Battle battle;
 	
-	Label titleLbl;
-	Label roundNumLbl;
-	Label battleRoundLbl;
-	Label hexLbl;
+	private Label titleLbl;
+	private Label roundNumLbl;
+	private Label battleRoundLbl;
+	private Label hexLbl;
 	
-	Label offenderLbl;
-	DiceView offDice;
-	GridPane offGrid;
+	private Label offenderLbl;
+	private DiceView offDice;
+	private GridPane offGrid;
 	
-	Label defenderLbl;
-	DiceView defDice;
-	GridPane defGrid;
+	private Label defenderLbl;
+	private DiceView defDice;
+	private GridPane defGrid;
 	
 	public BattleView(){
 		buildPopup();
@@ -92,9 +93,10 @@ public class BattleView extends VBox{
 	}
 	
 	public void setPopup(Battle battle){
-		titleLbl.setText("Battle: <Instructions>");
-		roundNumLbl.setText("Round Number: "+battle.getRoundNumber());
-		battleRoundLbl.setText("Phase: "+battle.getBattleRound().battleRoundName);
+		this.battle = battle;
+		setTitleLblText("<Instructions>");
+		setRoundNumLbl(battle.getRoundNumber());
+		setBattleRoundLbl(battle.getBattleRound().battleRoundName);
 		hexLbl.setText("Terrain: "+battle.getAssociatedHex().getTypeAsString());
 		
 		offenderLbl.setText("Offender: "+battle.getOffender().getName());
@@ -169,9 +171,46 @@ public class BattleView extends VBox{
 			}
 		}
 	}
-
+	
+	// getter dones and setter dones
 	public void setPresenter(BattlePresenter bp) {
 		battlePresenter = bp;
+	}
+
+	public Label getTitleLbl() {
+		return titleLbl;
+	}
+
+	public void setTitleLblText(String instructions) {
+		this.titleLbl.setText("Battle: "+instructions);
+	}
+
+	public void setRoundNumLbl(int round) {
+		this.roundNumLbl.setText("Round Number: "+round);
+	}
+
+	public void setBattleRoundLbl(String text) {
+		this.battleRoundLbl.setText("Phase: "+text);
+	}
+
+	public GridPane getOffGrid() {
+		return offGrid;
+	}
+
+	public void setOffGrid(GridPane offGrid) {
+		this.offGrid = offGrid;
+	}
+
+	public GridPane getDefGrid() {
+		return defGrid;
+	}
+
+	public void setDefGrid(GridPane defGrid) {
+		this.defGrid = defGrid;
+	}
+
+	public Battle getBattle() {
+		return battle;
 	}
 
 }
