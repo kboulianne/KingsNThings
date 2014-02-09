@@ -7,6 +7,8 @@ public class Battle {
 	private int roundNumber;
 	private boolean unExploredHex;
 	private Hex associatedHex;
+	private boolean playerRetreated;
+	private boolean playerHasWon;
 	
 	private Player defender;//  can be Player or is null if hex is unexplored/has no oner
 	private ArrayList<GamePiece> defenderItems; 
@@ -18,7 +20,7 @@ public class Battle {
 	private Die offenderDie1;
 	private Die offenderDie2;
 	 
-	private BattlePhase battleRound;
+	private BattlePhase battlePhase;
 	public enum BattlePhase { MAGIC("Magic"), RANGED("Ranged"), 
 		MELEE("Melee"), RETREAT("Retreat"), POSTCOMBAT("Post Combat") ;
 		public final String battleRoundName;
@@ -30,9 +32,11 @@ public class Battle {
 	public Battle(Player offender, Hex hex){
 		associatedHex = hex;
 		roundNumber = 1;
-		battleRound = BattlePhase.MAGIC;
+		battlePhase = BattlePhase.MAGIC;
 		this.offender = offender;
 		offenderCreatures = hex.getArmies(offender);
+		playerHasWon = false;
+		playerRetreated = false;
 		
 		defenderDie1 = new Die();
 		defenderDie2 = new Die();
@@ -51,19 +55,60 @@ public class Battle {
 				defenderItems.add(c);
 		}
 	}
+	public void startPhase(){
+		
+		
+		if(!playerRetreated||!playerHasWon){ //
+			switch (battlePhase){ 
+				case MAGIC:
+					magicPhase();
+					break;
+				case RANGED:
+					rangedPhase();
+					break;  
+				case MELEE:
+					meleePhase();
+					break;
+				case RETREAT:
+					retreatPhase();
+					break;
+				case POSTCOMBAT:
+					postCombatPhase();
+					break;
+			}
+			
+			//nextBattleRound();
+		}	
+	}
+	
+	private void magicPhase(){
+		
+	}
+	private void rangedPhase(){
+		
+	}
+	private void meleePhase(){
+		
+	}
+	private void retreatPhase(){
+		
+	}
+	private void postCombatPhase(){
+		
+	}
 	
 	protected void nextRound(){
 		//TODO
 		roundNumber++;
-		battleRound = BattlePhase.MAGIC;
+		battlePhase = BattlePhase.MAGIC;
 	}
 	
 	public void nextBattleRound(){
 		//TODO
-		if(battleRound.ordinal()+1 == BattlePhase.values().length )
+		if(battlePhase.ordinal()+1 == BattlePhase.values().length )
 			nextRound();
 		else
-			battleRound = BattlePhase.values()[battleRound.ordinal()+1];
+			battlePhase = BattlePhase.values()[battlePhase.ordinal()+1];
 	}
 
 	
@@ -92,7 +137,7 @@ public class Battle {
 	}
 
 	public BattlePhase getBattleRound() {
-		return battleRound;
+		return battlePhase;
 	}
 
 	public Hex getAssociatedHex() {

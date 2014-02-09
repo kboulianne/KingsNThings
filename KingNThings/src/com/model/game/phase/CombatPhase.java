@@ -8,6 +8,7 @@ package com.model.game.phase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+
 import com.main.KNTAppFactory;
 import com.model.Battle;
 import com.model.DesertCreature;
@@ -16,7 +17,7 @@ import com.model.JungleCreature;
 import com.model.MountainCreature;
 import com.model.Player;
 import com.presenter.Util;
-import com.view.popups.BattlePopup;
+import com.view.BattleView;
 
 /**
  *
@@ -73,7 +74,7 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		
 		/////////
 		Battle battle = new Battle(game.getCurrentPlayer(), game.getBoard().getHexes().get(0));
-		BattlePopup bp = new BattlePopup();
+		BattleView bp = KNTAppFactory.getBattlepresenter().getView();
 		bp.setPopup(battle);
 		KNTAppFactory.getPopupPresenter().getView().show(bp);
 		//context.endTurn();

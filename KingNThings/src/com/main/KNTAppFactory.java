@@ -1,6 +1,7 @@
 package com.main;
 
 import com.presenter.ArmyDetailsPresenter;
+import com.presenter.BattlePresenter;
 import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
 import com.presenter.BoardPresenter;
@@ -10,6 +11,7 @@ import com.presenter.PopupPresenter;
 import com.presenter.SidePanePresenter;
 import com.presenter.ThingDetailsPresenter;
 import com.view.ArmyDetailsView;
+import com.view.BattleView;
 import com.view.BoardView;
 import com.view.CreatureDetailsView;
 import com.view.HexDetailsView;
@@ -36,6 +38,7 @@ public class KNTAppFactory {
 	private static final ArmyDetailsPresenter armyDetailsPresenter;
 	private static final PlayerInfoPresenter playerInfoPresenter;
 	private static final PopupPresenter popupPresenter;
+	private static final BattlePresenter battlePresenter;
 
 	static {
 		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
@@ -48,7 +51,8 @@ public class KNTAppFactory {
 		armyDetailsPresenter = createArmyDetailsPresenter();
 		playerInfoPresenter = createPlayerInfoPresenter();
 		popupPresenter = createPopupPresenter();
-
+		battlePresenter = createBattlePresenter();
+		
 		// Done initializing
 		gamePresenter.setupSubViews();
 	}
@@ -113,6 +117,13 @@ public class KNTAppFactory {
 		return presenter;
 	}
 
+	private static BattlePresenter createBattlePresenter() {
+		BattleView view = new BattleView();
+		BattlePresenter presenter = new BattlePresenter(view);
+
+		return presenter;
+	}
+	
 	private static PopupPresenter createPopupPresenter() {
 		PopupView view = new PopupView();
 		PopupPresenter presenter = new PopupPresenter(view);
@@ -154,6 +165,10 @@ public class KNTAppFactory {
 
 	public static ArmyDetailsPresenter getArmyDetailspresenter() {
 		return armyDetailsPresenter;
+	}
+
+	public static BattlePresenter getBattlepresenter() {
+		return battlePresenter;
 	}
 
 }

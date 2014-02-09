@@ -1,4 +1,4 @@
-package com.view.popups;
+package com.view;
 
 import java.util.ArrayList;
 
@@ -14,10 +14,13 @@ import javafx.scene.shape.Rectangle;
 
 import com.model.Battle;
 import com.model.Creature;
+import com.model.Fort;
 import com.model.GamePiece;
-import com.view.DiceView;
+import com.presenter.BattlePresenter;
 
-public class BattlePopup extends VBox{
+public class BattleView extends VBox{
+	
+	BattlePresenter battlePresenter;
 	
 	Label titleLbl;
 	Label roundNumLbl;
@@ -32,7 +35,7 @@ public class BattlePopup extends VBox{
 	DiceView defDice;
 	GridPane defGrid;
 	
-	public BattlePopup(){
+	public BattleView(){
 		buildPopup();
 	}
 	
@@ -156,15 +159,19 @@ public class BattlePopup extends VBox{
 				thingLblBox.getChildren().addAll(nameLbl, domainLbl, comValLbl);
 			}
 			//TODO instance of fort and others
-			else{
+			else if (offCreatures.get(i) instanceof Fort){
 				
-				GamePiece gp = offCreatures.get(i);
+				Fort gp = (Fort)offCreatures.get(i);
 				img.setImage(gp.getImage());
 				Label nameLbl = new Label(gp.getName().toUpperCase());
-				coloredRect.setFill(Color.BLACK);
+				coloredRect.setFill(gp.getColor());
 				thingLblBox.getChildren().addAll(nameLbl);
 			}
 		}
+	}
+
+	public void setPresenter(BattlePresenter bp) {
+		battlePresenter = bp;
 	}
 
 }
