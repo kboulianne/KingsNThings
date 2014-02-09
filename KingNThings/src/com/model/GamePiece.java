@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 public abstract class GamePiece {
 	private Image image;
 	private String name;
+	private String owner;
 	
 	public GamePiece()	{	}
 	
@@ -24,5 +25,13 @@ public abstract class GamePiece {
 	}
 	public Image getImage() {
 	    return image;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 }

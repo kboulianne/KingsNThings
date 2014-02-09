@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 public class Hex extends GamePiece {
 	
     private int id; // location on grid
-	private Player owner;
+	private Player hexOwner;
 	private Color color;
 	private boolean startPosition; // Is the owner's start position
 	private boolean selected;
@@ -86,11 +86,11 @@ public class Hex extends GamePiece {
 
 	
     // setters and getters
-    public final Player getOwner() {
-    	return owner;
+    public final Player getHexOwner() {
+    	return hexOwner;
     }
     public final void setOwner(final Player player) {
-    	this.owner = player;
+    	this.hexOwner = player;
 		
 		this.color = player.getColor();
     }
@@ -190,6 +190,7 @@ public class Hex extends GamePiece {
     }
 
     public void addItemToHex(GamePiece item)	{
+    	item.setOwner(typeAsString+" Hex");
     	miscItems.add(item);
     }
 

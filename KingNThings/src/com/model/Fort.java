@@ -1,11 +1,13 @@
 package com.model;
 
+import javafx.scene.paint.Color;
+
 /**
  * Forts are created on the fly in the construction phase.
  * 
  * A fort is not a thing but a game piece.
  */
-public class Fort extends GamePiece	{
+public class Fort extends Thing	{
 
 	public enum FortType {
 		TOWER("tower"),
@@ -13,10 +15,10 @@ public class Fort extends GamePiece	{
 		CASTLE("castle"),
 		CITADEL("citadel");
 
-		private final String type;
+		public final String typeAsString;
 		
 		private FortType(String s) {
-			this.type = s;
+			typeAsString = s;
 		}
 		
 //		public final String getType() {
@@ -35,10 +37,10 @@ public class Fort extends GamePiece	{
 	
 	
 	public Fort(FortType type) {
-		super(type.type);
-		
+		super(type.typeAsString);
+		setColor(Color.LIGHTGREY);
 		fortType = type;
-		setImage(IMAGE_DIR + type.type + ".jpeg");
+		setImage(IMAGE_DIR + type.typeAsString + ".jpeg");
 	}
 	
 	public void upgrade() {
@@ -57,11 +59,15 @@ public class Fort extends GamePiece	{
 				break;
 		}
 		
-		setImage(IMAGE_DIR + fortType.type + ".jpeg");
+		setImage(IMAGE_DIR + fortType.typeAsString + ".jpeg");
 	}
 	
 	// Can only create FortType.TOWER. They get upgraded in game.
 	public static final Fort create() {
 		return new Fort(FortType.TOWER);
+	}
+
+	public FortType getFortType() {
+		return fortType;
 	}
 }

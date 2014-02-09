@@ -201,7 +201,7 @@ public class BoardPresenter {
 		Player player = svc.getGame().getCurrentPlayer();
 		Creature c = KNTAppFactory.getSidePanePresenter().getThingDetailsPresenter().getcView().getLastSelectedCreature();
 		
-		if(h.getOwner() == player)	{
+		if(h.getHexOwner() == player)	{
 			if(c != null)	{
 				player.removeThing(c);
 				h.addCreatToArmy(c, player);

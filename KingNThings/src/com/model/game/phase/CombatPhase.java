@@ -5,33 +5,17 @@
  */
 package com.model.game.phase;
 
-import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
 import com.main.KNTAppFactory;
 import com.model.Battle;
-import com.model.Creature;
 import com.model.DesertCreature;
 import com.model.Fort;
 import com.model.JungleCreature;
 import com.model.MountainCreature;
 import com.model.Player;
 import com.presenter.Util;
-import com.view.DiceView;
 import com.view.popups.BattlePopup;
 
 /**

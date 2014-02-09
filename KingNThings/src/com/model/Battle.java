@@ -18,11 +18,11 @@ public class Battle {
 	private Die offenderDie1;
 	private Die offenderDie2;
 	 
-	private BattleRound battleRound;
-	public enum BattleRound { MAGIC("Magic"), RANGED("Ranged"), 
+	private BattlePhase battleRound;
+	public enum BattlePhase { MAGIC("Magic"), RANGED("Ranged"), 
 		MELEE("Melee"), RETREAT("Retreat"), POSTCOMBAT("Post Combat") ;
 		public final String battleRoundName;
-		BattleRound(String n) { battleRoundName = n; }
+		BattlePhase(String n) { battleRoundName = n; }
 		
 	}
 	
@@ -30,7 +30,7 @@ public class Battle {
 	public Battle(Player offender, Hex hex){
 		associatedHex = hex;
 		roundNumber = 1;
-		battleRound = BattleRound.MAGIC;
+		battleRound = BattlePhase.MAGIC;
 		this.offender = offender;
 		offenderCreatures = hex.getArmies(offender);
 		
@@ -40,14 +40,14 @@ public class Battle {
 		offenderDie1 = new Die();
 		offenderDie2 = new Die();
 		if(hex.getOwner()==null){
-			unExploredHex = true;
+			setUnExploredHex(true);
 			defender = null;
 			defenderItems = hex.getMiscItems();
 		}else{
-			unExploredHex = false;
-			defender = hex.getOwner();
+			setUnExploredHex(false);
+			defender = hex.getHexOwner();
 			defenderItems = new ArrayList<GamePiece>();
-			for (Creature c: hex.getArmies(hex.getOwner()))
+			for (Creature c: hex.getArmies(hex.getHexOwner()))
 				defenderItems.add(c);
 		}
 	}
@@ -55,15 +55,15 @@ public class Battle {
 	protected void nextRound(){
 		//TODO
 		roundNumber++;
-		battleRound = BattleRound.MAGIC;
+		battleRound = BattlePhase.MAGIC;
 	}
 	
 	public void nextBattleRound(){
 		//TODO
-		if(battleRound.ordinal()+1 == BattleRound.values().length )
+		if(battleRound.ordinal()+1 == BattlePhase.values().length )
 			nextRound();
 		else
-			battleRound = BattleRound.values()[battleRound.ordinal()+1];
+			battleRound = BattlePhase.values()[battleRound.ordinal()+1];
 	}
 
 	
@@ -91,7 +91,7 @@ public class Battle {
 		return offenderCreatures;
 	}
 
-	public BattleRound getBattleRound() {
+	public BattlePhase getBattleRound() {
 		return battleRound;
 	}
 
@@ -113,6 +113,14 @@ public class Battle {
 
 	public Die getOffenderDie2() {
 		return offenderDie2;
+	}
+
+	public boolean isUnExploredHex() {
+		return unExploredHex;
+	}
+
+	public void setUnExploredHex(boolean unExploredHex) {
+		this.unExploredHex = unExploredHex;
 	}
 	
 

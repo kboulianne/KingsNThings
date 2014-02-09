@@ -6,6 +6,7 @@
 package com.view;
 
 import com.model.Creature;
+import com.model.Fort;
 import com.model.IncomeCounter;
 import com.model.Thing;
 import com.presenter.ThingDetailsPresenter;
@@ -108,6 +109,9 @@ public class ThingDetailsView extends VBox {
 			}
 			if (thing instanceof IncomeCounter) {
 				type = "Income Counter";
+			}
+			if (thing instanceof Fort){
+				type = "Fort";
 			}
 
 			thingNameLbl.setText(thing.getName().toUpperCase());

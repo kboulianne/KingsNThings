@@ -8,6 +8,7 @@ package com.view.customcontrols;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Creature;
+import com.model.GamePiece;
 import com.model.Hex;
 import com.model.Player;
 import com.model.Thing;
@@ -94,12 +95,13 @@ public class ArmyOrMisc extends HBox {
 		coloredRect.setFill(t.getColor());
 
 		img = new ImageView(t.getImage());
+		img.getStyleClass().add("hand");
 		img.setFitWidth(size - 7);
 		img.setFitHeight(size - 7);
 		img.setPreserveRatio(false);
 		img.setSmooth(true);
 		img.setCache(true);
-		img.getStyleClass().add("thing");
+		
 		
 		if(phase.equals("movement"))
 			handleThingClickForMovement(GameService.getInstance().getGame().getCurrentPlayer(), t);
@@ -129,7 +131,8 @@ public class ArmyOrMisc extends HBox {
 			@Override
 			public void handle(MouseEvent me) {
 				// Fire custom event on mouse clicked
-				lastSelectedCreature = (Creature)t;
+				if(t instanceof Creature)
+					lastSelectedCreature = (Creature)t;
 				img.fireEvent(new ThingEvent(t));
 			}
 		});
@@ -165,16 +168,45 @@ public class ArmyOrMisc extends HBox {
 					handleArmyClick(hex, armyOwner, army);
 				}
 			});
-
+			
 			sizeLbl.setText(String.valueOf(army.size()));
 			circle.setFill(armyOwner.getColor());
-
+			
 			for (Thing t : army) {
+				
             	// TODO create object pool to avoid recreating image views.
 				// create and add image views
 				// FIXME, only drawing 1
 				StackPane pane = createArmyImageView(t);
 				thingHolder.getChildren().add(pane);
+			}
+		} 
+	}
+	
+	public void setMisc(final Hex hex, final List<GamePiece> gamePieces){
+		thingHolder.getChildren().clear();
+		circleStackPane.setVisible(false);
+		if(gamePieces == null)
+			return;
+		if (!gamePieces.isEmpty()) {
+			circleStackPane.setVisible(true);
+			//circleStackPane.getStyleClass().add("hand");
+			/*circleStackPane.setOnMouseClicked(new EventHandler<Event>() {
+				@Override
+				public void handle(Event arg0) {
+					handleArmyClick(hex, armyOwner, gamePieces);
+				}
+			});*/
+
+			sizeLbl.setText("M");
+			circle.setFill(Color.DARKGRAY);
+
+			for (GamePiece gp : gamePieces) {
+            	// TODO create object pool to avoid recreating image views.
+				// create and add image views
+				// FIXME, only drawing 1
+					StackPane pane = createArmyImageView((Thing) gp);
+					thingHolder.getChildren().add(pane);
 			}
 		} 
 	}

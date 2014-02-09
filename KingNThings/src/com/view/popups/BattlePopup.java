@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import com.main.KNTAppFactory;
 import com.model.Battle;
 import com.model.Creature;
 import com.model.GamePiece;
@@ -44,6 +43,7 @@ public class BattlePopup extends VBox{
 		HBox subTitleLbls = new HBox();
 		subTitleLbls.getStyleClass().add("largeSpacing");
 		subTitleLbls.setAlignment(Pos.CENTER);
+		subTitleLbls.setMinHeight(40);
 		roundNumLbl = new Label();
 		battleRoundLbl = new Label();
 		hexLbl = new Label();
@@ -59,6 +59,7 @@ public class BattlePopup extends VBox{
 		offGrid = new GridPane();
 	    offGrid.setHgap(5);
 	    offGrid.setVgap(5);
+	    offGrid.setMinHeight(400);
 	    offenderBox.getChildren().add(offGrid);
 		offDice = new DiceView();
 		offDice.setEndTurnButtonLbl("Retreat");
@@ -74,6 +75,7 @@ public class BattlePopup extends VBox{
 		defGrid = new GridPane();
 	    defGrid.setHgap(5);
 	    defGrid.setVgap(5);
+	    defGrid.setMinHeight(400);
 	    defenderBox.getChildren().add(defGrid);
 		defDice = new DiceView();
 		defDice.setEndTurnButtonLbl("Retreat");
@@ -83,11 +85,7 @@ public class BattlePopup extends VBox{
 		offenderDefenderBox.getStyleClass().add("block");
 		offenderDefenderBox.getChildren().addAll(offenderBox, defenderBox);
 		
-		getChildren().addAll(titleLbl, subTitleLbls, offenderDefenderBox);
-		
-		
-		
-		
+		getChildren().addAll(titleLbl, subTitleLbls, offenderDefenderBox);	
 	}
 	
 	public void setPopup(Battle battle){

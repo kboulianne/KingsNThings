@@ -7,6 +7,6 @@ public class ForestCreature extends Creature {
 	public ForestCreature(String name) {
 		super(name);
 		setDomain("Forest");
-		setColor(Color.DARKGREEN);
+		setColor(Color.rgb(100, 165, 95));//DARKGREEN.brighter());
 	}
 }

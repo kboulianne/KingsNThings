@@ -6,8 +6,6 @@
 package com.view;
 
 import com.presenter.PopupPresenter;
-import com.view.popups.BattlePopup;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

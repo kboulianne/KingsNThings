@@ -5,15 +5,13 @@
  */
 package com.model.game.phase;
 
-import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
-import com.model.Board;
 import com.model.DesertCreature;
+import com.model.Fort;
 import com.model.JungleCreature;
 import com.model.MountainCreature;
 import com.model.Player;
@@ -77,7 +75,8 @@ public class MovementPhase extends AbstractPhaseStrategy {
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("giant"), currentPlayer);
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("dwarves"), currentPlayer);
 		Player oppPlayer = game.getOpponent2();
-		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("skeletons"), oppPlayer);
+		game.getBoard().getHexes().get(0).addItemToHex(new Fort(Fort.FortType.CITADEL));
+		game.getBoard().getHexes().get(0).addItemToHex(new MountainCreature("goblins"));
 		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("watusi"), oppPlayer);
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("goblins"), game.getOpponent3());
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("ogre"), game.getOpponent1());

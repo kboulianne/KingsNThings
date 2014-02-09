@@ -238,10 +238,10 @@ public class BoardView extends Canvas {
 				new double[]{yOffset, yOffset, yOffset + (height * 0.5),
 					yOffset + height, yOffset + height, yOffset + (height * 0.5)}, 6);
 		//middle polygon
-		if (hex.isHighlighted()) {
-			gc.setFill(Color.LIGHTBLUE);
-		} else if (hex.isSelected()) {
+		if (hex.isSelected()) {
 			gc.setFill(hex.getColor().darker());
+		} else if (hex.isHighlighted()) {
+			gc.setFill(Color.LIGHTBLUE);
 		} else {
 			gc.setFill(Color.BLACK);
 		}

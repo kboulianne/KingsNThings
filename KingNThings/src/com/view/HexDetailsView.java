@@ -40,7 +40,7 @@ public class HexDetailsView extends StackPane {
 	private ArmyOrMisc opp3Army;
 	private ArmyOrMisc currentPlayerArmy;
 	
-    //private ArmyOrMisc misc;
+    private ArmyOrMisc misc;
 
 	public HexDetailsView() {
 		buildView();
@@ -83,15 +83,12 @@ public class HexDetailsView extends StackPane {
 		//misc = new ArmyOrMisc(handler);
 		//TODO shouldn't add these if empty
 		opp1Army = new ArmyOrMisc(handler);
-		opp1Army.setManaged(true);
 		opp2Army = new ArmyOrMisc(handler);
-		opp2Army.setManaged(true);
 		opp3Army = new ArmyOrMisc(handler);
-		opp3Army.setManaged(true);
 		currentPlayerArmy = new ArmyOrMisc(handler);
-		currentPlayerArmy.setManaged(true);
+		misc = new ArmyOrMisc(handler);
 
-		content.getChildren().addAll(contentBox, currentPlayerArmy, opp1Army, opp2Army, opp3Army);
+		content.getChildren().addAll(contentBox, currentPlayerArmy, opp1Army, opp2Army, opp3Army, misc);
 		getChildren().addAll(hexImage, content);
 		content.setAlignment(Pos.CENTER);
 		content.getStyleClass().add("block");
@@ -119,16 +116,10 @@ public class HexDetailsView extends StackPane {
 			// Set the new image.
 			hexImage.setImage(hex.getImage());
 			// Set the owner if it exists
-			if (hex.getOwner() != null) {
-				ownerLbl.setText("Owner: " + hex.getOwner().getName());
+			if (hex.getHexOwner() != null) {
+				ownerLbl.setText("Owner: " + hex.getHexOwner().getName());
 			} else {
-				ownerLbl.setText("Owner: Not Owned");
-			}
-
-			// Test label
-			String test = "";
-			for (int i : hex.getJoiningHexes()) {
-				test += i + ", ";
+				ownerLbl.setText("Un-Explored");
 			}
 		}
 	}
@@ -148,6 +139,9 @@ public class HexDetailsView extends StackPane {
 		opp2Army.setArmy(hex, opponents.get(1), hex.getArmies(opponents.get(1)));
 		opp3Army.setArmy(hex, opponents.get(2), hex.getArmies(opponents.get(2)));
 		currentPlayerArmy.setArmy(hex, game.getCurrentPlayer(), hex.getArmies(game.getCurrentPlayer()));
+		
+		
+		misc.setMisc(hex, hex.getMiscItems());
 		
 	}
 

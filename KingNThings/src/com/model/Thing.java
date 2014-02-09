@@ -8,12 +8,12 @@ import javafx.scene.paint.Color;
 public abstract class Thing extends GamePiece	{
 	
 	private Color color;
-	private String owner;
+	
 	// private boolean facedDown
 	
 	Thing(String name)	{
 		super(name);
-		owner = "Cup";
+		setOwner("Cup");
 		color = Color.BLACK;
 	}
 	
@@ -213,13 +213,5 @@ public abstract class Thing extends GamePiece	{
 
 	public void setColor(Color color) {
 		this.color = color;
-	}
-
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
 	}
 }
