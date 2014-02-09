@@ -45,6 +45,8 @@ public class BattlePresenter {
 	
 	private void magicPhase(){
 		battle.setBattlePhase(BattlePhase.MAGIC);
+		
+		view.refreshView("Roll ...");
 	}
 	private void rangedPhase(){
 		

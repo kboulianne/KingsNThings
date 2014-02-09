@@ -95,8 +95,8 @@ public class BattleView extends VBox{
 	public void setPopup(Battle battle){
 		this.battle = battle;
 		setTitleLblText("<Instructions>");
-		setRoundNumLbl(battle.getRoundNumber());
-		setBattleRoundLbl(battle.getBattleRound().battleRoundName);
+		setRoundNumLbl();
+		setBattleRoundLbl();
 		hexLbl.setText("Terrain: "+battle.getAssociatedHex().getTypeAsString());
 		
 		offenderLbl.setText("Offender: "+battle.getOffender().getName());
@@ -172,6 +172,12 @@ public class BattleView extends VBox{
 		}
 	}
 	
+	public void refreshView(String instructions){
+		setTitleLblText(instructions);
+		setRoundNumLbl();
+		setBattleRoundLbl();
+	}
+	
 	// getter dones and setter dones
 	public void setPresenter(BattlePresenter bp) {
 		battlePresenter = bp;
@@ -185,12 +191,12 @@ public class BattleView extends VBox{
 		this.titleLbl.setText("Battle: "+instructions);
 	}
 
-	public void setRoundNumLbl(int round) {
-		this.roundNumLbl.setText("Round Number: "+round);
+	public void setRoundNumLbl() {
+		this.roundNumLbl.setText("Round Number: "+battle.getRoundNumber());
 	}
 
-	public void setBattleRoundLbl(String text) {
-		this.battleRoundLbl.setText("Phase: "+text);
+	public void setBattleRoundLbl() {
+		this.battleRoundLbl.setText("Phase: "+battle.getBattlePhase());
 	}
 
 	public GridPane getOffGrid() {
