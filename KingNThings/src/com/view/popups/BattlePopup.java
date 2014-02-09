@@ -51,6 +51,7 @@ public class BattlePopup extends VBox{
 		
 		// offender
 		VBox offenderBox = new VBox();
+		offenderBox.setMinWidth(600);
 		offenderBox.getStyleClass().add("block");
 		offenderLbl = new Label();
 		offenderLbl.getStyleClass().add("title");
@@ -65,6 +66,7 @@ public class BattlePopup extends VBox{
 		
 		// defender
 		VBox defenderBox = new VBox();
+		defenderBox.setMinWidth(600);
 		defenderBox.getStyleClass().add("block");
 		defenderLbl = new Label();
 		defenderLbl.getStyleClass().add("title");
@@ -78,6 +80,7 @@ public class BattlePopup extends VBox{
 		defenderBox.getChildren().add(defDice);
 		
 		HBox offenderDefenderBox = new HBox();
+		offenderDefenderBox.getStyleClass().add("block");
 		offenderDefenderBox.getChildren().addAll(offenderBox, defenderBox);
 		
 		getChildren().addAll(titleLbl, subTitleLbls, offenderDefenderBox);
