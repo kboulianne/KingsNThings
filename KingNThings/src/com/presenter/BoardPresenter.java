@@ -203,13 +203,9 @@ public class BoardPresenter {
 		Player player = svc.getGame().getCurrentPlayer();
 		Creature c = KNTAppFactory.getThingDetailsPresenter().getLastSelectedCreature();
 		
-<<<<<<< HEAD
 		if(h.getHexOwner() == player)	{
 			if(c != null)	{
-=======
-		if(h.getOwner() == player)	{
-			if(c != null) {
->>>>>>> 36ee0baf5e58cb1ccb36c4cc8e70570f4beb28a2
+
 				player.removeThing(c);
 				h.addCreatToArmy(c, player);
 				view.setBoard(svc.getGame().getBoard());
