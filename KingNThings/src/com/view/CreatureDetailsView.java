@@ -19,7 +19,6 @@ public class CreatureDetailsView extends ThingDetailsView {
     private Label combatLbl;
     private Label specialAbilitiesLbl;
     private Label testLbl;
-    private Creature lastSelectedCreature;
     
 	@Override
 	protected void buildView() {
@@ -60,11 +59,8 @@ public class CreatureDetailsView extends ThingDetailsView {
 		    testLbl.setText("Avail Moves: "+ c.getNumberOfMovesAvailable());
 		    combatLbl.setText("Combat Value: " + c.getCombatVal());
 		    specialAbilitiesLbl.setText("Abilities: " + abilities);
-		    lastSelectedCreature = c;   
+			presenter.setLastSelectedCreature(c);
 		}
 		
 	}
-	
-	public Creature getLastSelectedCreature()	{	return lastSelectedCreature;	}
-	public void setLastSelectedCreature(Creature c)	{	this.lastSelectedCreature = c;	}
 }

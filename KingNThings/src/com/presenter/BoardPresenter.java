@@ -201,19 +201,21 @@ public class BoardPresenter {
 	public void handlePlacementSelectedHexClick(int selected) {
 		Hex h = svc.getGame().getBoard().getHexes().get(selected);
 		Player player = svc.getGame().getCurrentPlayer();
-		Creature c = KNTAppFactory.getSidePanePresenter().getThingDetailsPresenter().getcView().getLastSelectedCreature();
+		Creature c = KNTAppFactory.getThingDetailsPresenter().getLastSelectedCreature();
 		
 		if(h.getOwner() == player)	{
-			if(c != null)	{
+			if(c != null) {
 				player.removeThing(c);
 				h.addCreatToArmy(c, player);
 				view.setBoard(svc.getGame().getBoard());
-				// TODO put last selected in presenter
-				KNTAppFactory.getThingDetailsPresenter().getcView().setLastSelectedCreature(null);
+
+				KNTAppFactory.getThingDetailsPresenter().setLastSelectedCreature(null);
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 				KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 			}
 		}
+		
+//		KNTAppFactory.getThingDetailsPresenter().setLastSelectedCreature(c);
 	}
 
 	public void handleMoveSetupForThing(Thing t) {

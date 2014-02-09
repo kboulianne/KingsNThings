@@ -1,73 +1,69 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.presenter;
 
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.model.Player;
+import com.model.Thing;
 import com.model.game.Game;
 import com.view.PlayerInfoView;
 import com.view.ThingEvent;
 
 /**
- *
+ * Handles logic related to the player's name and rack.
+ * 
  * @author kurtis
  */
 public class PlayerInfoPresenter {
 
-	private PlayerInfoView view;
-	private SidePanePresenter sidePanePresenter;
-	private GamePresenter mainPresenter;
+	/** The view managed by this presenter. */
+	private final PlayerInfoView view;
 
 	public PlayerInfoPresenter(PlayerInfoView view) {
 		this.view = view;
 		this.view.setPresenter(this);
 
+		// Update the ui.
 		Game game = GameService.getInstance().getGame();
 		view.setPlayer(game.getCurrentPlayer());
 	}
 
+	/**
+	 * Gets the view managed by this presenter.
+	 * @return The view.
+	 */
 	public PlayerInfoView getView() {
 		return view;
 	}
 
-	public void setDependencies(SidePanePresenter sidePanePresenter, GamePresenter mainPresenter) {
-		this.sidePanePresenter = sidePanePresenter;
-		this.mainPresenter = mainPresenter;
-	}
-	
-//	// Avoids infinite recursion in Factory. To be fixed later.
-//	public void setGamePresenter(final GamePresenter presenter) {
-//		if (presenter == null) {
-//			throw new NullPointerException("Presenter cannot be null.");
-//		}
-//		if (mainPresenter != null) {
-//			throw new IllegalStateException("Presenter has already been set.");
-//		}
-//
-//		mainPresenter = presenter;
-//	}
-
-    //TODO ViewCup should be managed by GamePresenter
-	public void handleRackClick(ThingEvent t) {
-
+	/**
+	 * A Thing was clicked in the player's rack.
+	 * @param t The Thing instance that was clicked.
+	 */
+	public void handleRackClick(Thing t) {
 		// Show thing in detailsview
-		sidePanePresenter.showThingDetailsFor(t.getThing());
+		KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
 	}
 
+	/**
+	 *	The view cup button was clicked. Displays the contents of the cup.
+	 */
 	public void handleCupClick() {
 		// Delegate to the GamePresenter
-		mainPresenter.showCup();
+		KNTAppFactory.getGamePresenter().showCup();
 	}
 
+	/**
+	 * Pops up the information for the current player.
+	 */
 	public void showCurrentPlayerInfo() {
 		Player p = GameService.getInstance().getGame().getCurrentPlayer();
-		mainPresenter.showPlayerInfoPopup(p);
+		KNTAppFactory.getGamePresenter().showPlayerInfoPopup(p);
 	}
 
+	/**
+	 * Dismisses the PlayerInfo Pop up.
+	 */
 	public void dismissCurrentPlayerInfo() {
-		mainPresenter.dismissPopup();
+		KNTAppFactory.getGamePresenter().dismissPopup();
 	}
 }
