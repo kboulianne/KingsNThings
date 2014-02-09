@@ -58,7 +58,7 @@ public class KNTAppFactory {
 		gamePresenter.setDependencies(dicePresenter, sidePanePresenter, boardPresenter, playerInfoPresenter, popupPresenter);
 		dicePresenter.setDependencies(gamePresenter);
 		sidePanePresenter.setDependencies(hexDetailsPresenter, thingDetailsPresenter, gamePresenter);
-		boardPresenter.setDependencies(sidePanePresenter);
+//		boardPresenter.setDependencies(sidePanePresenter);
 		hexDetailsPresenter.setDependencies(sidePanePresenter);
 		playerInfoPresenter.setDependencies(sidePanePresenter, gamePresenter);
 
