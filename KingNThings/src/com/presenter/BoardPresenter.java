@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.presenter;
 
 import java.util.ArrayList;
@@ -27,16 +22,12 @@ import com.view.BoardView;
 public class BoardPresenter {
 
 	private final BoardView view;
-    // Required Presenters
-	//private HexDetailsPresenter detailsPresenter;
-	private SidePanePresenter sidePanePresenter;
 
 	// Usually BoardService, but ok for our purposes. We will see in IT2
-	private GameService svc;
-	
+	private final GameService svc;
+	// Ui Models
 	private boolean movingArmy;
-
-	private int lastHexSelected = -1; //FIXME this variable also exists in GameScreen
+	private int lastHexSelected = -1;
 
 	public BoardPresenter(BoardView view) {
 		this.view = view;
@@ -54,11 +45,11 @@ public class BoardPresenter {
 		return view;
 	}
 
-	public final void setDependencies(SidePanePresenter sidePanePresenter) {
-		this.sidePanePresenter = sidePanePresenter;
-	}
 	
-    // UI Logic here.
+	/**
+	 * Default logic to execute when clicking a Hex tile.
+	 * @param selected  The index of the hex in the list.
+	 */
 	public void handleHexClick(int selected) {
 		// Only need service to fetch board.
 		// TODO create GameService#selectHex(...)?
@@ -75,10 +66,13 @@ public class BoardPresenter {
 		view.setBoard(b);
 
 		// Show the HexDetails in sidepane
-		sidePanePresenter.showHexDetailsFor(b.getHexes().get(selected));
-		//	detailsPresenter.showHex(b.getHexes().get(selected));
+		KNTAppFactory.getSidePanePresenter().showHexDetailsFor(b.getHexes().get(selected));
 	}
 	
+	/**
+	 * Logic to execute during the Starting Forces phase.  This method tells the player to place a tower on one of their three initial kingdoms.
+	 * @param selected The index of the selected hex in the list.
+	 */
 	public void handleStartingTowerHexClick(int selected) {
 		Board b = svc.getGame().getBoard();
 		Hex hex = b.getHexes().get(selected);
@@ -96,6 +90,11 @@ public class BoardPresenter {
 		}
 	}
 	
+	/**
+	 * Allows the player to select one of three starting kingdoms. The selected hex must be unowned, adjacent to a tile owned by the current player, and
+	 * not adjacent to a tile owned by an opponent.
+	 * @param selected The index of the selected hex in the list.
+	 */
 	public void handleStartingKingdomsHexClick(int selected) {
 		Board b = svc.getGame().getBoard();
 		Hex hex = b.getHexes().get(selected);
@@ -103,13 +102,8 @@ public class BoardPresenter {
 		
 		// Make sure the selected hex is unowned, adjacent to the current player's starting position
 		// and not adjacent to an opponent's tile.
-		
 		// Do nothing if selected hex is owned
 		if (hex.getOwner() == null) {
-//			// Get the start positions set so we can make sure there is a path from current
-//			// player's starting hex and the selected tile.
-//			Set<Integer> start = b.getStartPositions();
-			
 			// Get the adjacent hexes.
 			// Make sure current player owns one of the hexes. That is, there is a path from
 			// current's start position to the selected hex.
@@ -145,27 +139,30 @@ public class BoardPresenter {
 				GamePlay.getInstance().endTurn();
 			}
 		}
-		
-		
-		
 	}
 	
+	/** 
+	 * Allows the player to select one of four starting positions during the starting position phase.
+	 * @param selected The index of the selected hex in the list.
+	 */
 	public void handleStartPositionSelectedHexClick(int selected) {
 		
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		if(hex.getOwner() == null){
 			hex.setOwner(GameService.getInstance().getGame().getCurrentPlayer());
-//			hex.setColor(GameService.getInstance().getGame().getCurrentPlayer().getId().getColor());
 		}else{
 			//TODO display msg
 		}
 		
-		// Update the view
+		// Update the view and end turn
 		view.setBoard(svc.getGame().getBoard());
-		
 		GamePlay.getInstance().endTurn();
 	}
 	
+	/**
+	 * Allows the current player to move a thing or army from the selected hex, to another hex.
+	 * @param selected The index of the selected hex in the list.
+	 */
 	public void handleMovementSelectedHexClick(int selected) {
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		if(hex.isHighlighted()){	
@@ -189,29 +186,41 @@ public class BoardPresenter {
 				hex.addCreatToArmy(creature, currentPlayer);
 			}
 		}
+		
+		// TOOD add setAllHighlighted(boolean)
 		for(Hex h: svc.getGame().getBoard().getHexes()){
 			h.setHighlighted(false);
 		}
 		handleHexClick(selected);
 	}
 	
+	/**
+	 * Allows the player to add things from the player rack to any tile they own.
+	 * @param selected The index of the selected hex in the list.
+	 */
 	public void handlePlacementSelectedHexClick(int selected) {
-		
 		Hex h = svc.getGame().getBoard().getHexes().get(selected);
 		Player player = svc.getGame().getCurrentPlayer();
-		Creature c = KNTAppFactory.getSidePanePresenter().getThingDetailsPresenter().getcView().getLastSelectedCreature();
+		Creature c = KNTAppFactory.getThingDetailsPresenter().getLastSelectedCreature();
 		
+<<<<<<< HEAD
 		if(h.getHexOwner() == player)	{
 			if(c != null)	{
+=======
+		if(h.getOwner() == player)	{
+			if(c != null) {
+>>>>>>> 36ee0baf5e58cb1ccb36c4cc8e70570f4beb28a2
 				player.removeThing(c);
 				h.addCreatToArmy(c, player);
 				view.setBoard(svc.getGame().getBoard());
-				// TODO put last selected in presenter
-				KNTAppFactory.getThingDetailsPresenter().getcView().setLastSelectedCreature(null);
+
+				KNTAppFactory.getThingDetailsPresenter().setLastSelectedCreature(null);
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 				KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 			}
 		}
+		
+//		KNTAppFactory.getThingDetailsPresenter().setLastSelectedCreature(c);
 	}
 
 	public void handleMoveSetupForThing(Thing t) {
@@ -314,6 +323,10 @@ public class BoardPresenter {
 		}
 	}
 
+	/**
+	 * Gets the index of the last Hex tile that was selected.
+	 * @return The last selected index.
+	 */
 	public int getLastHexSelected() {
 		return lastHexSelected;
 	}

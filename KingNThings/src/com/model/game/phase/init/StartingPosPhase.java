@@ -32,7 +32,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		
 		gv.getCurrentActionLbl().setText("Choose Starting Position");
 		
-		finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
 		KNTAppFactory.getDicePresenter().getView().getRollBtn().setVisible(false);
 		KNTAppFactory.getDicePresenter().getView().getDie1().setVisible(false);
 		KNTAppFactory.getDicePresenter().getView().getDie2().setVisible(false);		

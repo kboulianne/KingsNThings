@@ -34,7 +34,7 @@ public class CombatPhase extends AbstractPhaseStrategy {
 
 		gv.getCurrentActionLbl().setText("Combat Phase");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {

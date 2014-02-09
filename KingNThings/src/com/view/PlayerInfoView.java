@@ -73,7 +73,7 @@ public class PlayerInfoView extends AnchorPane {
 
 			@Override
 			public void handle(ThingEvent t) {
-				presenter.handleRackClick(t);
+				presenter.handleRackClick(t.getThing());
 			}
 		};
 

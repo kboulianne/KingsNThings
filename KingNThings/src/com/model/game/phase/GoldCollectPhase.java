@@ -42,9 +42,9 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 
 		gv.getCurrentActionLbl().setText("Gold Collection");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(true);
-		Button rollBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getRollBtn();
+		Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
 		rollBtn.setDisable(true);
 	}
 	
@@ -52,9 +52,9 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Gold Collection Phase");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(true);
-		Button rollBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getRollBtn();
+		Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
 		rollBtn.setDisable(true);
 		
 		// Code below is equivalent to

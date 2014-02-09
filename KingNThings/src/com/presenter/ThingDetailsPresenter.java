@@ -16,9 +16,13 @@ import com.view.ThingDetailsView;
  */
 public class ThingDetailsPresenter {
 
+	/** The General Thing View that this Presenter manages. */
 	private ThingDetailsView view;
+	/** The Creature Thing View that displays information specific to creatures. */
 	private CreatureDetailsView cView;
-
+	/** The last creature selected from the rack. */
+	private Creature lastSelectedCreature;
+	
 	public ThingDetailsPresenter(ThingDetailsView view, CreatureDetailsView cView) {
 		this.view = view;
 		this.view.setPresenter(this);
@@ -26,6 +30,11 @@ public class ThingDetailsPresenter {
 		this.cView.setPresenter(this);
 	}
 
+	/**
+	 * Gets the appropriate view for the specified Thing instance.
+	 * @param t The thing for which the view should be returned.
+	 * @return The ThingDetailsView to to be used for the specified Thing.
+	 */
 	public ThingDetailsView getViewFor(Thing t) {
 		if (t instanceof Creature) {
 			return cView;
@@ -34,13 +43,28 @@ public class ThingDetailsPresenter {
 		}
 	}
 
+	/** 
+	 * Shows the specified Thing in the Details View of the SidePane.
+	 * @param t  The Thing instance to display.
+	 */
 	public void showThing(Thing t) {
 		// Need to swap views according to Thing Type
 		getViewFor(t).setThing(t);
 	}
 	
-	public CreatureDetailsView getcView() {
-		return cView;
+	/**
+	 * UI Model. Gets the last creature that was selected from the rack.
+	 * @return The selected creature.
+	 */
+	public Creature getLastSelectedCreature() {	
+		return lastSelectedCreature;	
 	}
-
+	
+	/**
+	 * UI Model. Sets the last creature that was selected from the rack.
+	 * @param c The creature to set.
+	 */
+	public void setLastSelectedCreature(Creature c) {	
+		this.lastSelectedCreature = c;	
+	}
 }

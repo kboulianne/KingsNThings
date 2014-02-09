@@ -52,7 +52,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("other");
 		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setPhase("other");
 		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setPhase("other");
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(true);
 		finishBtn.setOnAction(null);
 	}

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.presenter;
 
 import com.model.Player;
@@ -15,33 +10,49 @@ import java.util.List;
 import javafx.event.EventHandler;
 
 /**
- *
+ * Handles popup views displayed in the GamePresenter.
  * @author kurtis
  */
 public class PopupPresenter {
 
-	private PopupView view;
+	/** The view managed by this presenter. */
+	private final PopupView view;
 
-    // All the views (Pane classes) this popup can display.
-	//private PlayerPopup playerPopup;
-	// private CupPopup cupPopup;
+	// All the views (Pane classes) this popup can display.
 	public PopupPresenter(PopupView view) {
 		this.view = view;
 		this.view.setPresenter(this);
 	}
 
+	/**
+	 * Gets the view managed by this presenter.
+	 * @return The View
+	 */
 	public PopupView getView() {
 		return view;
 	}
 
+	/**
+	 * Dismisses the popup currently being displayed by the view.
+	 */
 	public void dismissPopup() {
 		view.dismiss();
 	}
 
+	/**
+	 * Shows a popup for the specified player.
+	 * @param p The player to display in the popup.
+	 */
 	public void showPlayerPopup(Player p) {
 		view.show(new PlayerPopup(p));
 	}
 
+	/**
+	 * Shows the cup popup with the specified list of Things.
+	 * @param things The list of things to display
+	 * @param title The popup title
+	 * @param event The EventHandler linked to the tile click.
+	 */
 	public void showCupPopup(List<Thing> things, String title, EventHandler<ThingEvent> event) {
 		view.show(new CupPopup(things, event), title);
 	}

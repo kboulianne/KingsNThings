@@ -33,7 +33,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 
 		gv.getCurrentActionLbl().setText("Movement Phase");
 		
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(false);
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {		
 			@Override
