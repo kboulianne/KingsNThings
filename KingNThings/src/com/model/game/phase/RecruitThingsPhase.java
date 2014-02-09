@@ -48,7 +48,7 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 		Util.log("Game Logic: End of Recruiting Things Phase");
 		
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
-		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(true);
 		finishBtn.setOnAction(null);
 	}

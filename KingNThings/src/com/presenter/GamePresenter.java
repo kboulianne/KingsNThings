@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.presenter;
 
 import java.util.ArrayList;
 
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.model.Player;
 import com.model.Thing;
 import com.model.game.Game;
@@ -27,49 +23,35 @@ import javafx.event.EventHandler;
 public class GamePresenter {
 
 	private final GameView view;
-	// Singleton for now, not needed here
-//    private GameService gameService;
-	private SidePanePresenter sidePanePresenter;
-	private PopupPresenter popupPresenter;
-	
-	private DicePresenter dicePresenter;
-
 	
 	public GamePresenter( final GameView view) {
 		this.view = view;
 		this.view.setPresenter(this);
-
+		
 		// Update view
 		updateView();
-//		Game model = GameService.getInstance().getGame();
-//		view.setGame(model);
 
 	}
 
-	public void setDependencies(
-			final DicePresenter dicePresenter,
-			final SidePanePresenter sidePanePresenter,
-			final BoardPresenter boardPresenter,
-			final PlayerInfoPresenter playerInfoPresenter,
-			final PopupPresenter popupPresenter) {
+	/**
+	 * Initial setup for this presenter. Adds all necessary sub-views to the GameView.
+	 */
+	public void setupSubViews() {
 		
-		// DicePresenter
-		this.dicePresenter = dicePresenter;
-		this.view.addDiceView(dicePresenter.getView());
+		// DiceView
+		this.view.addDiceView(KNTAppFactory.getDicePresenter().getView());
 		
-		// SidePanePresenter
-		this.sidePanePresenter = sidePanePresenter;
-		this.view.addSidePaneView(sidePanePresenter.getView());
+		// SidePaneView
+		this.view.addSidePaneView(KNTAppFactory.getSidePanePresenter().getView());
 		
-		// BoardPresenter
-		this.view.addBoardView(boardPresenter.getView());
+		// BoardView
+		this.view.addBoardView(KNTAppFactory.getBoardPresenter().getView());
 		
 		// PlayerInfoView
-		this.view.addPlayerInfoView(playerInfoPresenter.getView());
+		this.view.addPlayerInfoView(KNTAppFactory.getPlayerInfoPresenter().getView());
 		
-		// PopupPresenter
-		this.popupPresenter = popupPresenter;
-		this.popupPresenter.getView().setParent(view);
+		// PopupView
+		KNTAppFactory.getPopupPresenter().getView().setParent(view);
 	}
 	
 	/**
@@ -84,10 +66,16 @@ public class GamePresenter {
 
 	// UI Logic stuff is done here. Access service for model.
 
+	/**
+	 * Refreshes the view so that it displays current game state.
+	 */
 	public void updateView() {
 		view.setGame(GameService.getInstance().getGame());
 	}
 	
+	/**
+	 * Shows the contents of the cup as a popup.
+	 */
 	public void showCup() {
 
 		// Get the cup content
@@ -99,32 +87,35 @@ public class GamePresenter {
 			@Override
 			public void handle(ThingEvent t) {
 				// Dispatch to ThingDetailsView
-				sidePanePresenter.showThingDetailsFor(t.getThing());
-				popupPresenter.dismissPopup();
+				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t.getThing());
+				KNTAppFactory.getPopupPresenter().dismissPopup();
 			}
 		};
 		ArrayList<Thing> cupThings = game.getCup().getListOfThings();
-		popupPresenter.showCupPopup(cupThings, "Cup : "+cupThings.size()+" items", handler);
+		KNTAppFactory.getPopupPresenter().showCupPopup(cupThings, "Cup : "+cupThings.size()+" items", handler);
 	}
 
+	/**
+	 * Shows player information when the mouse is hovered over a player name.
+	 * @param p 
+	 */
 	public void showPlayerInfoPopup(Player p) {
-		popupPresenter.showPlayerPopup(p);
+		KNTAppFactory.getPopupPresenter().showPlayerPopup(p);
 	}
 
+	/**
+	 * Dismisses the popup currently displayed by the PopupPresenter.
+	 */
 	public void dismissPopup() {
-
-		popupPresenter.dismissPopup();
+		KNTAppFactory.getPopupPresenter().dismissPopup();
 	}
 
+	/**
+	 * Signals start of phase. Should only be called once.
+	 */
 	public void startGame() {
+		// TODO Keep track of whether this was called?
 		// Triggers the First phase
 		GamePlay.getInstance().start();
 	}
-
-
-	public DicePresenter getDicePresenter() {
-		return dicePresenter;
-	}
-
-
 }

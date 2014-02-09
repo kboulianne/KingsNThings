@@ -1,6 +1,7 @@
 package com.presenter;
 
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.model.game.Game;
 import com.model.game.phase.GamePlay;
 import com.view.DiceView;
@@ -13,8 +14,6 @@ import com.view.DiceView;
 public class DicePresenter {
 
 	private final DiceView view;
-    // In case we need to do something else in the main screen.
-	private GamePresenter mainPresenter;
 
 	public DicePresenter(DiceView view) {
 		this.view = view;
@@ -34,10 +33,6 @@ public class DicePresenter {
 	public DiceView getView() {
 		return view;
 	}
-
-	public void setDependencies(GamePresenter gp) {
-		this.mainPresenter = gp;
-	}
 	
 	/**
 	 * The logic to execute when the players presses the roll button.
@@ -52,9 +47,12 @@ public class DicePresenter {
 		view.setDice(game.getDie1(), game.getDie2());
 		
 		// Update GameView
-		mainPresenter.updateView();
+		KNTAppFactory.getGamePresenter().updateView();
 	}
 	
+	/**
+	 * For now, ends the player's turn.
+	 */
 	public void endTurn() {
 		GamePlay.getInstance().endTurn();
 	}
