@@ -3,8 +3,10 @@ package com.view;
 import java.util.ArrayList;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -31,16 +33,24 @@ public class BattleView extends VBox{
 	private Label offenderLbl;
 	private DiceView offDice;
 	private GridPane offGrid;
+	private HBox offButtonBox;
+	private Button offRetreatBtn;
+	private Button offContinueBtn;
 	
 	private Label defenderLbl;
 	private DiceView defDice;
 	private GridPane defGrid;
+	private HBox defButtonBox;
+	private Button defContinueBtn;
+	private Button defRetreatBtn;
 	
 	public BattleView(){
 		buildPopup();
 	}
 	
 	private void buildPopup(){
+		getChildren().clear();
+		
 		setAlignment(Pos.CENTER);
 		titleLbl = new Label("Battle:");
 		titleLbl.getStyleClass().add("title");
@@ -66,8 +76,16 @@ public class BattleView extends VBox{
 	    offGrid.setMinHeight(400);
 	    offenderBox.getChildren().add(offGrid);
 		offDice = new DiceView();
-		offDice.setEndTurnButtonLbl("Retreat");
-		offenderBox.getChildren().add(offDice);
+		offDice.getEndTurnBtn().setVisible(false);
+		offButtonBox = new HBox();
+		offButtonBox.getStyleClass().add("block");
+		offRetreatBtn = new Button("Retreat");
+		offContinueBtn = new Button("Continue");
+		offButtonBox.getChildren().addAll(offRetreatBtn, offContinueBtn);
+		AnchorPane offAp = new AnchorPane();
+		offAp.getChildren().addAll(offDice, offButtonBox);
+		AnchorPane.setRightAnchor(offButtonBox, 55.0);
+		offenderBox.getChildren().addAll(offAp);
 		
 		// defender
 		VBox defenderBox = new VBox();
@@ -82,8 +100,16 @@ public class BattleView extends VBox{
 	    defGrid.setMinHeight(400);
 	    defenderBox.getChildren().add(defGrid);
 		defDice = new DiceView();
-		defDice.setEndTurnButtonLbl("Retreat");
-		defenderBox.getChildren().add(defDice);
+		defDice.getEndTurnBtn().setVisible(false);
+		defButtonBox = new HBox();
+		defButtonBox.getStyleClass().add("block");
+		defRetreatBtn = new Button("Retreat");
+		defContinueBtn = new Button("Continue");
+		defButtonBox.getChildren().addAll(defRetreatBtn, defContinueBtn);
+		AnchorPane defAp = new AnchorPane();
+		defAp.getChildren().addAll(defDice, defButtonBox);
+		AnchorPane.setRightAnchor(defButtonBox, 55.0);
+		defenderBox.getChildren().addAll(defAp);
 		
 		HBox offenderDefenderBox = new HBox();
 		offenderDefenderBox.getStyleClass().add("block");
@@ -93,6 +119,7 @@ public class BattleView extends VBox{
 	}
 	
 	public void setPopup(Battle battle){
+		
 		this.battle = battle;
 		setTitleLblText("<Instructions>");
 		setRoundNumLbl();
@@ -112,6 +139,7 @@ public class BattleView extends VBox{
 	}
 	
 	public void setBattlePieces(ArrayList<GamePiece> offCreatures, GridPane grid){
+		grid.getChildren().clear();
 		for (int i = 0; i<offCreatures.size();i++){
 			HBox thingBox = new HBox();
 			StackPane stack = new StackPane();
@@ -196,7 +224,7 @@ public class BattleView extends VBox{
 	}
 
 	public void setBattleRoundLbl() {
-		this.battleRoundLbl.setText("Phase: "+battle.getBattlePhase());
+		this.battleRoundLbl.setText("Phase: "+battle.getBattlePhase().phaseAsString);
 	}
 
 	public GridPane getOffGrid() {
@@ -217,6 +245,38 @@ public class BattleView extends VBox{
 
 	public Battle getBattle() {
 		return battle;
+	}
+
+	public DiceView getOffDice() {
+		return offDice;
+	}
+
+	public HBox getOffButtonBox() {
+		return offButtonBox;
+	}
+
+	public Button getOffRetreatBtn() {
+		return offRetreatBtn;
+	}
+
+	public Button getOffContinueBtn() {
+		return offContinueBtn;
+	}
+
+	public HBox getDefButtonBox() {
+		return defButtonBox;
+	}
+
+	public Button getDefContinueBtn() {
+		return defContinueBtn;
+	}
+
+	public Button getDefRetreatBtn() {
+		return defRetreatBtn;
+	}
+
+	public DiceView getDefDice() {
+		return defDice;
 	}
 
 }
