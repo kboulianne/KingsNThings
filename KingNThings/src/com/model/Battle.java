@@ -2,10 +2,6 @@ package com.model;
 
 import java.util.ArrayList;
 
-import com.main.KNTAppFactory;
-import com.presenter.BattlePresenter;
-import com.view.BattleView;
-
 public class Battle {
 	
 	private Player currentPlayer; // if null Creature and Things
@@ -82,6 +78,15 @@ public class Battle {
 		return defenderItems;
 	}
 
+	public ArrayList<Creature> getDefenderItemsThatAreCreatures() {
+		ArrayList<Creature> creatures = new ArrayList<Creature>();
+		for(GamePiece gp: defenderItems){
+			if (gp instanceof Creature)
+				creatures.add((Creature) gp);
+		}
+		return creatures;
+	}
+	
 	public Player getOffender() {
 		return offender;
 	}
@@ -172,6 +177,12 @@ public class Battle {
 
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+	}
+
+
+
+	public Player getDefender() {
+		return defender;
 	}
 	
 

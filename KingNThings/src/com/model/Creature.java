@@ -267,6 +267,27 @@ public abstract class Creature extends Thing	{
 	}
 	
 	//get and set methods
+	public String getAbilitiesString(){
+		String abilities = "";
+	    
+	    if (getFly()) {
+	    	abilities += " Flying";
+	    }
+	    if (getRanged()) {
+	    	abilities += " Ranged";
+	    }
+	    if (getCharge()) {
+	    	abilities += " Charging";
+	    }
+	    if(getMagic()){
+	    	abilities += " Magic";
+	    }
+	    if(abilities.isEmpty()){
+	    	abilities = " None";
+	    }
+	    return abilities;
+	}
+	
 	public int getCombatVal()	{
 		return combatVal;
 	}

@@ -89,4 +89,8 @@ public class DiceView extends HBox {
 	public void setEndTurnBtn(Button but)	{	endTurnBtn = but;	}
 	public void setRollBtn(Button rollBtn) {	this.rollBtn = rollBtn;		}
 
+	public DicePresenter getPresenter() {
+		return presenter;
+	}
+
 }

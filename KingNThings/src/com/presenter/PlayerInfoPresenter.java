@@ -6,7 +6,6 @@ import com.model.Player;
 import com.model.Thing;
 import com.model.game.Game;
 import com.view.PlayerInfoView;
-import com.view.ThingEvent;
 
 /**
  * Handles logic related to the player's name and rack.

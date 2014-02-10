@@ -39,26 +39,9 @@ public class CreatureDetailsView extends ThingDetailsView {
 		
 		if (thing != null && thing instanceof Creature) {
 		    Creature c = (Creature)thing;
-		    String abilities = "";
-		    
-		    if (c.getFly()) {
-			abilities += " Flying";
-		    }
-		    if (c.getRanged()) {
-			abilities += " Ranged";
-		    }
-		    if (c.getCharge()) {
-			abilities += " Charging";
-		    }
-		    if(c.getMagic()){
-			abilities += " Magic";
-		    }
-		    if(abilities.isEmpty()){
-		    	abilities = " None";
-		    }
 		    testLbl.setText("Avail Moves: "+ c.getNumberOfMovesAvailable());
 		    combatLbl.setText("Combat Value: " + c.getCombatVal());
-		    specialAbilitiesLbl.setText("Abilities: " + abilities);
+		    specialAbilitiesLbl.setText("Abilities: " + c.getAbilitiesString());
 			presenter.setLastSelectedCreature(c);
 		}
 		

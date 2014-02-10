@@ -37,10 +37,11 @@ public class DicePresenter {
 	/**
 	 * The logic to execute when the players presses the roll button.
 	 */
-	public void roll() {
+	public int roll() {
 		//TODO Currently possible to do game.rollDice(), bypassing the service.
 		GameService.getInstance().roll();
 
+		
 		Game game = GameService.getInstance().getGame();
 
 		// Update the view
@@ -48,6 +49,8 @@ public class DicePresenter {
 		
 		// Update GameView
 		KNTAppFactory.getGamePresenter().updateView();
+		
+		return game.getDie1().getValue() + game.getDie2().getValue();
 	}
 	
 	/**
