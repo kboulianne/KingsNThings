@@ -140,7 +140,6 @@ public class HexDetailsView extends StackPane {
 		opp3Army.setArmy(hex, opponents.get(2), hex.getArmies(opponents.get(2)));
 		currentPlayerArmy.setArmy(hex, game.getCurrentPlayer(), hex.getArmies(game.getCurrentPlayer()));
 		
-		
 		misc.setMisc(hex, hex.getMiscItems());
 		
 	}

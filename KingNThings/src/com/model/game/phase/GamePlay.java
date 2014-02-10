@@ -97,9 +97,9 @@ public final class GamePlay {
 	private void createGamePhases() {
 		//gamePhases.add(new GoldCollectPhase(this));
 		//gamePhases.add(new RecruitCharPhase(this));
-		//gamePhases.add(new RecruitThingsPhase(this));
+		gamePhases.add(new RecruitThingsPhase(this));
 		//gamePhases.add(new RandomEventPhase(this));
-		//gamePhases.add(new MovementPhase(this));
+		gamePhases.add(new MovementPhase(this));
 		gamePhases.add(new CombatPhase(this));
 		gamePhases.add(new ConstructionPhase(this));
 		gamePhases.add(new SpecialPowersPhase(this));
@@ -185,7 +185,7 @@ public final class GamePlay {
 //				|| phaseLogic instanceof StartingForcesPhase
 //				|| phaseLogic instanceof ExchangePhase
 				|| phaseLogic instanceof RecruitCharPhase
-				|| phaseLogic instanceof RecruitThingsPhase
+//				|| phaseLogic instanceof RecruitThingsPhase
 				|| phaseLogic instanceof RandomEventPhase
 				)
 			endTurn();

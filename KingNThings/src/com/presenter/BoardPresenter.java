@@ -166,10 +166,10 @@ public class BoardPresenter {
 	public void handleMovementSelectedHexClick(int selected) {
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		if(hex.isHighlighted()){	
-
+			
 			Player currentPlayer = GameService.getInstance().getGame().getCurrentPlayer();
-			if(movingArmy){ // move whole army
-				List<Creature> army = KNTAppFactory.getArmyDetailspresenter().getView().getLastSelectedArmy();
+			if(movingArmy)	{ // move whole army
+				List<Creature> army = KNTAppFactory.getArmyDetailsPresenter().getView().getLastSelectedArmy();
 				Hex lastSelected = svc.getGame().getBoard().getHexes().get(lastHexSelected);
 				for(Creature c: army){ // for same order
 					hex.addCreatToArmy(c, currentPlayer);
@@ -177,11 +177,9 @@ public class BoardPresenter {
 				for(int i=army.size()-1;i>=0;i--){
 					lastSelected.removeCreatureFromArmy(army.get(i), currentPlayer);
 				}
-			}else{ // moving single thing
+				movingArmy = false;
+			} else { // moving single thing
 				Creature creature = KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().getLastSelectedCreature();
-				if(creature==null){
-					creature = KNTAppFactory.getArmyDetailspresenter().getView().getArmy().getLastSelectedCreature();
-				}
 				svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(creature, currentPlayer);
 				hex.addCreatToArmy(creature, currentPlayer);
 			}

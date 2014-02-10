@@ -47,7 +47,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void phaseEnd() {
-		KNTAppFactory.getArmyDetailspresenter().getView().setDefaultHandler();
+		KNTAppFactory.getArmyDetailsPresenter().getView().setDefaultHandler();
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setPhase("other");
 		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("other");
@@ -59,7 +59,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		KNTAppFactory.getArmyDetailspresenter().getView().setMovementHandler();	
+		KNTAppFactory.getArmyDetailsPresenter().getView().setMovementHandler();	
 		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setPhase("movement");
 		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("other");
 		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setPhase("other");

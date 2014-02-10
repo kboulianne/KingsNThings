@@ -163,11 +163,11 @@ public class KNTAppFactory {
 		return popupPresenter;
 	}
 
-	public static ArmyDetailsPresenter getArmyDetailspresenter() {
+	public static ArmyDetailsPresenter getArmyDetailsPresenter() {
 		return armyDetailsPresenter;
 	}
 
-	public static BattlePresenter getBattlepresenter() {
+	public static BattlePresenter getBattlePresenter() {
 		return battlePresenter;
 	}
 

@@ -103,12 +103,15 @@ public class ArmyOrMisc extends HBox {
 		img.setCache(true);
 		
 		
-		if(phase.equals("movement"))
-			handleThingClickForMovement(GameService.getInstance().getGame().getCurrentPlayer(), t);
-		else if(phase.equals("placement"))
+		if(phase.equals("movement"))	{
+			handleThingClickForMovement(t);
+		}
+		else if(phase.equals("placement"))	{
 			img.setOnMouseClicked(null);
-		else
-			handleThingClicked(t);			
+		}
+		else	{
+			handleThingClicked(t);
+		}
 
 		// Add custom handler
 		img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
@@ -119,9 +122,9 @@ public class ArmyOrMisc extends HBox {
 	}
 
 	public void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
-		KNTAppFactory.getArmyDetailspresenter().showArmy(hex, armyOwner, army);
+		KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
 		if(phase.equals("movement"))
-			KNTAppFactory.getBoardPresenter().handleMoveSetupForArmy();;
+			KNTAppFactory.getBoardPresenter().handleMoveSetupForArmy();
 	}
 	
 	
@@ -131,23 +134,21 @@ public class ArmyOrMisc extends HBox {
 			@Override
 			public void handle(MouseEvent me) {
 				// Fire custom event on mouse clicked
-				if(t instanceof Creature)
-					lastSelectedCreature = (Creature)t;
+				if(t instanceof Creature)	lastSelectedCreature = (Creature)t;
 				img.fireEvent(new ThingEvent(t));
 			}
 		});
 	}
 	
-	private void handleThingClickForMovement(Player p, final Thing t){
+	private void handleThingClickForMovement(final Thing t){
 		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			
 			@Override
 			public void handle(MouseEvent me) {
-				lastSelectedCreature = (Creature) t;
+				if(t instanceof Creature)	lastSelectedCreature = (Creature) t;
 				if(t.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
 					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(t);
 				}
-
 				img.fireEvent(new ThingEvent(t));
 			}
 		});

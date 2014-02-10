@@ -74,11 +74,11 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		
 		/////////
 		Battle battle = new Battle(game.getCurrentPlayer(), game.getBoard().getHexes().get(0));
-		BattleView bp = KNTAppFactory.getBattlepresenter().getView();
+		BattleView bp = KNTAppFactory.getBattlePresenter().getView();
 		bp.setPopup(battle);
 		KNTAppFactory.getPopupPresenter().getView().show(bp);
 		
-		KNTAppFactory.getBattlepresenter().startPhase();
+		KNTAppFactory.getBattlePresenter().startPhase();
 		//context.endTurn();
 	}
 	
