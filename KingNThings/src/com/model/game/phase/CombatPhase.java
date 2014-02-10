@@ -72,7 +72,15 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("goblins"), game.getOpponent3());
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("ogre"), game.getOpponent1());
 		
-		/////////
+		
+		// search hexes find available battles
+		
+		// if no available battles end turn
+		
+		// highlight hexes with available battles
+		
+		
+		///////// this will go in the handler for the hex click
 		Battle battle = new Battle(game.getCurrentPlayer(), game.getBoard().getHexes().get(0));
 		BattleView bp = KNTAppFactory.getBattlepresenter().getView();
 		bp.setPopup(battle);

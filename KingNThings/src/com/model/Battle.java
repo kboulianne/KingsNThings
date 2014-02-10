@@ -7,6 +7,9 @@ import com.presenter.BattlePresenter;
 import com.view.BattleView;
 
 public class Battle {
+	
+	private Player currentPlayer; // if null Creature and Things
+	
 	private int roundNumber;
 	private boolean unExploredHex;
 	private Hex associatedHex;
@@ -26,13 +29,15 @@ public class Battle {
 	private BattlePhase battlePhase;
 	public enum BattlePhase { MAGIC("Magic"), RANGED("Ranged"), 
 		MELEE("Melee"), RETREAT("Retreat"), POSTCOMBAT("Post Combat") ;
-		public final String battleRoundName;
-		BattlePhase(String n) { battleRoundName = n; }
+		public final String phaseAsString;
+		BattlePhase(String n) { phaseAsString = n; }
 		
 	}
 	
 	
 	public Battle(Player offender, Hex hex){
+		currentPlayer = offender;
+		
 		associatedHex = hex;
 		roundNumber = 1;
 		battlePhase = BattlePhase.MAGIC;
@@ -157,6 +162,16 @@ public class Battle {
 
 	public void setRoundNumber(int roundNumber) {
 		this.roundNumber = roundNumber;
+	}
+
+
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
 	
 
