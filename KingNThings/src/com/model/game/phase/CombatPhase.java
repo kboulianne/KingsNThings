@@ -68,6 +68,8 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		Player oppPlayer = game.getOpponent2();
 		game.getBoard().getHexes().get(0).addItemToHex(new Fort(Fort.FortType.CITADEL));
 		game.getBoard().getHexes().get(0).addItemToHex(new DesertCreature("skeletons"));
+		game.getBoard().getHexes().get(0).addItemToHex(new DesertCreature("olddragon"));
+		game.getBoard().getHexes().get(0).addItemToHex(new DesertCreature("olddragon"));
 		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("watusi"), oppPlayer);
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("goblins"), game.getOpponent3());
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("ogre"), game.getOpponent1());
@@ -86,7 +88,7 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		bp.setPopup(battle);
 		KNTAppFactory.getPopupPresenter().getView().show(bp);
 		
-		KNTAppFactory.getBattlePresenter().startPhase();
+		KNTAppFactory.getBattlePresenter().startBattle();
 		//context.endTurn();
 	}
 	

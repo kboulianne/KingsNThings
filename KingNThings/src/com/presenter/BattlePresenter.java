@@ -1,16 +1,16 @@
 package com.presenter;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 
 import com.main.KNTAppFactory;
 import com.model.Battle;
 import com.model.Battle.BattlePhase;
 import com.model.Creature;
-import com.model.Player;
 import com.view.BattleView;
 import com.view.DiceView;
 
@@ -18,12 +18,12 @@ public class BattlePresenter {
 	private BattleView view;
 	
 	Battle battle;
-	Creature offSelectedCreature;
+	Creature selectedCreature;
+
+	ArrayList<Creature> offCreatures;
+	ArrayList<Creature> defCreatures;
 	
-	Iterator<Creature> offIt;
-	Iterator<Creature> defIt;
-	
-	boolean isDefender = false;
+	boolean isDefender;
 	
 	public BattlePresenter(BattleView v){
 		view = v;
@@ -33,105 +33,137 @@ public class BattlePresenter {
 	public BattleView getView() {
 		return view;
 	}
-	
-	public void startPhase(){	
-	
+	// use this to start battle
+	public void startBattle(){
 		battle = view.getBattle(); // called more than once
-		offIt = battle.getOffenderCreatures().iterator();
-		defIt = battle.getDefenderItemsThatAreCreatures().iterator();
 		
-		//if(!battle.isPlayerRetreated()||!battle.isPlayerHasWon()){ //
-			switch (battle.getBattlePhase()){ 
-				case MAGIC:
-					magicPhase(battle.getCurrentPlayer());
-					break;
-				case RANGED:
-					rangedPhase();
-					break;  
-				case MELEE:
-					meleePhase();
-					break;
-				case RETREAT:
-					retreatPhase();
-					break;
-				case POSTCOMBAT:
-					postCombatPhase();
-					break;
+		// set handlers
+		view.getOffRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent t) {
+				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
+				nextBattlePhase();
 			}
-		//}	
+		});
+		view.getOffContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent t) {
+				nextBattlePhase();
+			}
+		});
+		view.getDefRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent t) {
+				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
+				nextBattlePhase();
+			}
+		});
+		view.getDefContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent t) {
+				nextBattlePhase();
+			}
+		});
+		
+		startPhase();
+	}
+	
+	
+	private void startPhase(){	
+	
+		
+		
+		// reset lists used in magic melee and ranged - move later
+		if(isDefender){
+			defCreatures = new ArrayList<Creature>();
+			defCreatures.addAll(battle.getDefenderItemsThatAreCreatures());
+		}else{
+			offCreatures = new ArrayList<Creature>();
+			offCreatures.addAll(battle.getOffenderCreatures());
+		}
+		
+		switch (battle.getBattlePhase()){ 
+			case MAGIC:
+				rollPhase();
+				break;
+			case RANGED:
+				rollPhase();
+				break;  
+			case MELEE:
+				rollPhase();
+				break;
+			case RETREAT:
+				retreatPhase();
+				break;
+			case POSTCOMBAT:
+				postCombatPhase();
+				break;
+		}
 	}
 	
 	// Roll Phases
-	private void magicPhase(Player currentPlayer){	
+	private void rollPhase(){	
 		if(isDefender){
-			rollPhaseHelper("Defender", BattlePhase.MAGIC, defIt);
+			rollPhaseHelper("Defender", defCreatures, view.getDefDice(), view.getDefButtonBox(), view.getOffDice(), view.getOffButtonBox());
 		}else{ 
-			rollPhaseHelper("Offender", BattlePhase.MAGIC, offIt);
+			rollPhaseHelper("Offender", offCreatures, view.getOffDice(), view.getOffButtonBox(), view.getDefDice(), view.getDefButtonBox());
 		}
 	}
-	private void rangedPhase(){
-		//update model
-		//TODO
-		final String player ="Offender";
-		rollPhaseHelper(player, BattlePhase.RANGED, battle.getOffenderCreatures().iterator());
+
+	private void rollPhaseHelper(String player, ArrayList<Creature> creatureList, DiceView currentPlayerDV, HBox currentPlayersHBox, DiceView otherPlayerDV, HBox otherPlayersHBox){
+
+		selectedCreature = null;
+		selectedCreature = findNextCreature(creatureList, battle.getBattlePhase());
 		
-	}
-	private void meleePhase(){
-		//TODO
-		final String player ="Offender";
-		rollPhaseHelper(player, BattlePhase.MELEE, battle.getOffenderCreatures().iterator());
-	}
-	private void rollPhaseHelper(String player, BattlePhase phase, Iterator<Creature> it){
-		
-		battle.setBattlePhase(phase);
-		//final Iterator<Creature> offIt = battle.getOffenderCreatures().iterator();
-		offSelectedCreature = null;
-		offSelectedCreature = findNextCreature(it, battle.getBattlePhase());
-		
-		if(offSelectedCreature==null){
+		if(selectedCreature==null){
 			nextBattlePhase();
 			return;
 		}
 		//update view
-		view.getOffDice().setVisible(true);
-		view.getOffButtonBox().setVisible(false);
-		view.refreshView(player+" must roll for "+battle.getBattlePhase().phaseAsString+" Creature: "+offSelectedCreature.getName());
-		handleRollBtn(player, view.getOffDice().getRollBtn(), it, view.getOffDice());
+		currentPlayerDV.setVisible(true);
+		currentPlayersHBox.setVisible(false);
+		
+		otherPlayerDV.setVisible(false);
+		otherPlayersHBox.setVisible(false);
+		view.refreshView(player+" must roll for "+battle.getBattlePhase().phaseAsString+" Creature: "+selectedCreature.getName());
+		handleRollBtn(player, currentPlayerDV.getRollBtn(), creatureList, currentPlayerDV);
 	}
 	
-	private void handleRollBtn(final String player, Button button, final Iterator<Creature> it, final DiceView dv){
+	private void handleRollBtn(final String player, Button button, final ArrayList<Creature> creatureList, final DiceView dv){
 		button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
 				int rolledValue = dv.getPresenter().roll(); 
-				rollForCreature(offSelectedCreature, rolledValue);
-				offSelectedCreature = findNextCreature(it, battle.getBattlePhase());
-				if(offSelectedCreature==null){
+				rollForCreature(selectedCreature, rolledValue);
+				selectedCreature = findNextCreature(creatureList, battle.getBattlePhase());
+				if(selectedCreature==null){
 					nextBattlePhase();
 				}else{
-					view.refreshView(player+" must roll for "+battle.getBattlePhase().phaseAsString+" Creature  "+offSelectedCreature.getName());
+					view.refreshView(player+" must roll for "+battle.getBattlePhase().phaseAsString+" Creature: "+selectedCreature.getName());
 				}
 			}
 		});
 	}
 
-	private Creature findNextCreature(Iterator<Creature> it, BattlePhase phase){
+	private Creature findNextCreature(ArrayList<Creature> creatureList, BattlePhase phase){
 		Creature creature = null;
-		while(it.hasNext()){
-			Creature c = it.next();
+		for(Creature c: creatureList){
 			if(phase==BattlePhase.MAGIC){
 				if(c.getMagic()){
 					creature = c;
+					creatureList.remove(c);
 					break;
 				}
 			}else if(phase==BattlePhase.RANGED){
 				if(c.getRanged() && !c.getMagic()){
 					creature = c;
+					creatureList.remove(c);
 					break;
 				}
 			}else if(phase==BattlePhase.MELEE){
 				if(!(c.getRanged() || c.getMagic())){
 					creature = c;
+					creatureList.remove(c);
 					break;
 				}
 			}
@@ -148,54 +180,58 @@ public class BattlePresenter {
 			Util.log("TODO roll for melee creature "+rolledValue);
 		}		
 	}
-	
-	
-	
+
 	private void retreatPhase(){
 		//update model
-		battle.setBattlePhase(BattlePhase.RETREAT);
+		//battle.setBattlePhase(BattlePhase.RETREAT);
 		
 		//update view
 		view.getOffDice().setVisible(false);
 		view.getDefDice().setVisible(false);
-		view.getOffButtonBox().setVisible(true);
-		view.getDefButtonBox().setVisible(true);
+		if(isDefender){
+			view.getOffButtonBox().setVisible(false);
+			view.getDefButtonBox().setVisible(true);
+		}else{
+			view.getOffButtonBox().setVisible(true);
+			view.getDefButtonBox().setVisible(false);	
+		}
 		
-		view.getOffRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent t) {
-				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-				nextBattlePhase();
-			}
-		});
-		view.getOffContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent t) {
-				nextBattlePhase();
-			}
-		});
 
-		view.refreshView("Retreat or Continue");
+		view.refreshView((isDefender?"Defender":"Offender")+" must choose to retreat or to continue with battle");
 	}
 	private void postCombatPhase(){
 		//update model
-		battle.setBattlePhase(BattlePhase.POSTCOMBAT);
+		//battle.setBattlePhase(BattlePhase.POSTCOMBAT);
 				
-		//update view
+		if(isDefender){
+			view.getDefButtonBox().setVisible(true);		
+			view.getOffContinueBtn().setVisible(false);
+			view.getDefContinueBtn().setVisible(true);
+			view.getDefContinueBtn().setText("Finish Battle");
+			view.getDefContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent t) {
+					KNTAppFactory.getPopupPresenter().dismissPopup();
+				}
+			});
+		}else{
+			view.getOffButtonBox().setVisible(true);
+			view.getDefContinueBtn().setVisible(false);
+			view.getOffContinueBtn().setVisible(true);
+			view.getOffContinueBtn().setText("Finish Battle");
+			view.getOffContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent t) {
+					KNTAppFactory.getPopupPresenter().dismissPopup();
+				}
+			});
+		}	
 		view.getOffRetreatBtn().setVisible(false);
 		view.getDefRetreatBtn().setVisible(false);
-		view.refreshView("Post Combat");
-		view.getOffContinueBtn().setText("Finish Battle");
-		view.getOffContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent t) {
-				KNTAppFactory.getPopupPresenter().dismissPopup();
-			}
-		});
+		view.refreshView("Post Combat - " + (isDefender?"Offender":"Defender") + " retreated from battle");
 	}
 	
 	protected void nextRound(){
-		//TODO
 		battle.setRoundNumber(battle.getRoundNumber()+1);
 		battle.setBattlePhase(BattlePhase.MAGIC);
 	}
@@ -209,18 +245,14 @@ public class BattlePresenter {
 			battle.setBattlePhase(BattlePhase.values()[battle.getBattlePhase().ordinal()+1]);
 	}
 	
-	public void nextBattlePhase(){
-		//TODO
+	private void nextBattlePhase(){
 		if(battle.getCurrentPlayer() == null){
-			Util.log("1");
 			isDefender = false;
 			switchToNextPhase();
-		}if(battle.getCurrentPlayer().equals( battle.getOffender() )){
-			Util.log("2");
+		}else if(battle.getCurrentPlayer().equals( battle.getOffender() )){
 			isDefender = true;
 			battle.setCurrentPlayer(battle.getDefender());
 		}else{
-			Util.log("1.");
 			isDefender = false;
 			switchToNextPhase();
 		}

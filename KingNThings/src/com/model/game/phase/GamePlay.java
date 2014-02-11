@@ -95,17 +95,10 @@ public final class GamePlay {
 	 * Creates the phases responsible for normal gameplay.
 	 */
 	private void createGamePhases() {
-<<<<<<< HEAD
-		//gamePhases.add(new GoldCollectPhase(this));
-		//gamePhases.add(new RecruitCharPhase(this));
-		gamePhases.add(new RecruitThingsPhase(this));
-		//gamePhases.add(new RandomEventPhase(this));
-=======
 		gamePhases.add(new GoldCollectPhase(this));
 		gamePhases.add(new RecruitCharPhase(this));
 		gamePhases.add(new RecruitThingsPhase(this));
 		gamePhases.add(new RandomEventPhase(this));
->>>>>>> de1063d4bd8211cd44b7c2d949a84058baafdbec
 		gamePhases.add(new MovementPhase(this));
 		gamePhases.add(new CombatPhase(this));
 		gamePhases.add(new ConstructionPhase(this));

@@ -9,8 +9,6 @@ public class Battle {
 	private int roundNumber;
 	private boolean unExploredHex;
 	private Hex associatedHex;
-	private boolean playerRetreated;
-	private boolean playerHasWon;
 	
 	private Player defender;//  can be Player or is null if hex is unexplored/has no oner
 	private ArrayList<GamePiece> defenderItems; 
@@ -39,8 +37,6 @@ public class Battle {
 		battlePhase = BattlePhase.MAGIC;
 		this.offender = offender;
 		offenderCreatures = hex.getArmies(offender);
-		playerHasWon = false;
-		playerRetreated = false;
 		
 		defenderDie1 = new Die();
 		defenderDie2 = new Die();
@@ -126,33 +122,6 @@ public class Battle {
 	public void setUnExploredHex(boolean unExploredHex) {
 		this.unExploredHex = unExploredHex;
 	}
-
-
-
-	public boolean isPlayerRetreated() {
-		return playerRetreated;
-	}
-
-
-
-	public void setPlayerRetreated(boolean playerRetreated) {
-		this.playerRetreated = playerRetreated;
-	}
-
-
-
-	public boolean isPlayerHasWon() {
-		return playerHasWon;
-	}
-
-
-
-	public void setPlayerHasWon(boolean playerHasWon) {
-		this.playerHasWon = playerHasWon;
-	}
-
-
-
 	public BattlePhase getBattlePhase() {
 		return battlePhase;
 	}
