@@ -79,7 +79,7 @@ public class BoardPresenter {
 		Player current = svc.getGame().getCurrentPlayer();
 		
 		// Make sure the selected hex's own is the current player
-		if (hex.getOwner() != null && hex.getOwner().equals(current)) {
+		if (hex.getHexOwner() != null && hex.getHexOwner().equals(current)) {
 			System.out.println("Inserted Fort into hex " + selected);
 
 			hex.setFort(Fort.create());
@@ -116,8 +116,8 @@ public class BoardPresenter {
 				if (i < 0) continue;
 				
 				adjHex = b.getHexes().get(i);
-				if (adjHex.getOwner() != null) {
-					if (adjHex.getOwner().equals(current)) {
+				if (adjHex.getHexOwner() != null) {
+					if (adjHex.getHexOwner().equals(current)) {
 						System.out.println("owned by current");
 						hasPath = true;
 					}
@@ -134,6 +134,7 @@ public class BoardPresenter {
 			if (hasPath && !adjOpponent) {
 				// Take ownership of the hex
 				hex.setOwner(current);
+				
 				
 				view.setBoard(b);
 				GamePlay.getInstance().endTurn();
