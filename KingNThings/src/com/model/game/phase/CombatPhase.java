@@ -80,15 +80,15 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		// if no available battles end turn
 		
 		// highlight hexes with available battles
-		
+		KNTAppFactory.getBoardPresenter().highlightHexesInConflict();
 		
 		///////// this will go in the handler for the hex click
-		Battle battle = new Battle(game.getCurrentPlayer(), game.getBoard().getHexes().get(0));
-		BattleView bp = KNTAppFactory.getBattlePresenter().getView();
-		bp.setPopup(battle);
-		KNTAppFactory.getPopupPresenter().getView().show(bp);
-		
-		KNTAppFactory.getBattlePresenter().startBattle();
+//		Battle battle = new Battle(game.getCurrentPlayer(), game.getBoard().getHexes().get(0));
+//		BattleView bp = KNTAppFactory.getBattlePresenter().getView();
+//		bp.setPopup(battle);
+//		KNTAppFactory.getPopupPresenter().getView().show(bp);
+//		
+//		KNTAppFactory.getBattlePresenter().startBattle();
 		//context.endTurn();
 	}
 	

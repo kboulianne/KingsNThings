@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Board {
@@ -68,6 +69,36 @@ public class Board {
 	    	h.setHighlighted(false);
 			h.setSelected(false);
 		}
+	}
+	
+	/**
+	 * Finds hexes where an opponent has armies on a hex controlled by
+	 * Player p. The player must have armies on the hex as well.
+	 * @param p
+	 * @return 
+	 */
+	public List<Hex> findConflictsFor(Player p) {
+		List<Hex> conflicts = new ArrayList<>();
+		
+		Map<Player, ArrayList<Creature>> armies = null;
+		
+		for (Hex hex : hexes) {
+			// Get the armies and check size of key set to know if an
+			// opponent is in the tile. size of 1 means no other armies
+			armies = hex.getArmies();
+			
+			if (armies.size() >= 2) {
+				// We have at least two armies, make sure Player p has
+				// an army in the hex
+				if (armies.containsKey(p)) {
+					// Player has an army, mark as conflict
+					conflicts.add(hex);
+				}
+			}
+		}
+		
+		
+		return conflicts;
 	}
 	
 }

@@ -318,6 +318,20 @@ public class BoardPresenter {
 		}
 	}
 
+	public void highlightHexesInConflict() {
+		Board board = svc.getGame().getBoard();
+		Player current = svc.getGame().getCurrentPlayer();
+		
+		List<Hex> conflicts = board.findConflictsFor(current);
+		
+		for (Hex h : conflicts) {
+			h.setConflict(true);
+		}		
+		
+		// Update view
+		view.setBoard(board);
+	}
+	
 	/**
 	 * Gets the index of the last Hex tile that was selected.
 	 * @return The last selected index.

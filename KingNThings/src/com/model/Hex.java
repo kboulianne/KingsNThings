@@ -18,6 +18,7 @@ public class Hex extends GamePiece {
 	private boolean selected;
 	private boolean selectable;
 	private boolean highlighted;
+	private boolean conflict;
 	private boolean faceDown;
 	//boolean facedUp; // is right side up?
 	private HexType type;
@@ -201,6 +202,14 @@ public class Hex extends GamePiece {
 	public void setFaceDown(boolean faceDown) {
 		this.faceDown = faceDown;
 	}
+	
+	public void setConflict(boolean c) {
+		conflict = c;
+	}
+	public boolean hasConflict() {
+		return conflict;
+	}
+	
 	
 	public final Fort getFort() { return fort; }
 	public final void setFort(final Fort fort) { this.fort = fort; }
