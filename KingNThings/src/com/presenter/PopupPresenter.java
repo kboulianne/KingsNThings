@@ -1,5 +1,7 @@
 package com.presenter;
 
+import com.main.KNTAppFactory;
+import com.model.Battle;
 import com.model.Player;
 import com.model.Thing;
 import com.view.popups.PlayerPopup;
@@ -55,5 +57,9 @@ public class PopupPresenter {
 	 */
 	public void showCupPopup(List<Thing> things, String title, EventHandler<ThingEvent> event) {
 		view.show(new CupPopup(things, event), title);
+	}
+	
+	public void showBattlePopup() {
+		view.show(KNTAppFactory.getBattlePresenter().getView());
 	}
 }

@@ -207,6 +207,28 @@ public class BoardView extends Canvas {
 		});
 	}
 
+	// TODO These are duplicated everywhere with only one difference. Use pattern.
+	public void addBattleSelectionHandler() {
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				double clickPtX = event.getX();
+				double clickPtY = event.getY();
+				
+				for (int i = 0; i < hexCenterPoints.length; i++) {
+					if (Util.distanceBtwTwoPts(
+							clickPtX, clickPtY,
+							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
+//						presenter.handlePlacementSelectedHexClick(i);
+						presenter.handleBattleSelectionHex(i);
+						break;
+					}
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Paints the Background Image on the canvas.
 	 */

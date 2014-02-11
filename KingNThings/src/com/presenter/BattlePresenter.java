@@ -34,8 +34,11 @@ public class BattlePresenter {
 		return view;
 	}
 	// use this to start battle
-	public void startBattle(){
-		battle = view.getBattle(); // called more than once
+	public void startBattle(Battle b){
+//		battle = view.getBattle(); // called more than once
+		// Display the battle in the view
+		battle = b;
+		view.setBattle(battle);
 		
 		// set handlers
 		view.getOffRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {

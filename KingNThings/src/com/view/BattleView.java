@@ -114,7 +114,7 @@ public class BattleView extends VBox{
 		return playerBox;
 	}
 	
-	public void setPopup(Battle battle){
+	public void setBattle(Battle battle){
 		
 		this.battle = battle;
 		setTitleLblText("<Instructions>");

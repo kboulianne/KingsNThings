@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Battle;
 import com.model.Board;
 import com.model.Creature;
 import com.model.Fort;
@@ -318,7 +319,11 @@ public class BoardPresenter {
 		}
 	}
 
-	public void highlightHexesInConflict() {
+	// TODO find better name
+	/**
+	 * Highlights and sets hexes in conflict. 
+	 */
+	public void findAndHighlightConflicts() {
 		Board board = svc.getGame().getBoard();
 		Player current = svc.getGame().getCurrentPlayer();
 		
@@ -330,6 +335,26 @@ public class BoardPresenter {
 		
 		// Update view
 		view.setBoard(board);
+	}
+	
+	public void handleBattleSelectionHex(int selected) {
+		Board b = svc.getGame().getBoard();
+		Player current = svc.getGame().getCurrentPlayer();
+		Hex hex = b.getHexes().get(selected);
+		
+		if (hex.hasConflict()) {
+			System.out.println("Selected hex " + selected + " for battle");
+			// Create battle
+			Battle battle = new Battle(current, b.getHexes().get(selected));
+			// SHow the popup
+			KNTAppFactory.getPopupPresenter().showBattlePopup();
+			
+			// Start the battle
+			KNTAppFactory.getBattlePresenter().startBattle(battle);
+			
+		}
+		
+		view.setBoard(b);
 	}
 	
 	/**

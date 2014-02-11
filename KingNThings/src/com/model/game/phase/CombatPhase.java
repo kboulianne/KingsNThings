@@ -42,6 +42,8 @@ public class CombatPhase extends AbstractPhaseStrategy {
 				context.endTurn();
 			}
 		});
+		
+		KNTAppFactory.getBoardPresenter().getView().addBattleSelectionHandler();
 	}
 
 	@Override
@@ -80,7 +82,9 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		// if no available battles end turn
 		
 		// highlight hexes with available battles
-		KNTAppFactory.getBoardPresenter().highlightHexesInConflict();
+		KNTAppFactory.getBoardPresenter().findAndHighlightConflicts();
+		
+		
 		
 		///////// this will go in the handler for the hex click
 //		Battle battle = new Battle(game.getCurrentPlayer(), game.getBoard().getHexes().get(0));
