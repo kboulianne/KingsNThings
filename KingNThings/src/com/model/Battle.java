@@ -231,4 +231,12 @@ public class Battle {
 	public List<Creature> getDefenderCreaturesForPhase() {
 		return defendingForces.get(battlePhase);
 	}
+	
+	public void killAttackerCreature(Creature c) {
+		associatedHex.getArmies(offender).remove(c);
+	}
+	
+	public void killDefenderCreature(Creature c) {
+		associatedHex.getArmies(defender).remove(c);
+	}
 }
