@@ -185,7 +185,15 @@ public class BoardPresenter {
 				svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(creature, currentPlayer);
 				hex.addCreatToArmy(creature, currentPlayer);
 			}
+			
+			// Hex is unexplored, skip explore logic and claim it for DEMO
+			if (hex.getHexOwner() == null) {
+				hex.setOwner(svc.getGame().getCurrentPlayer());
+				System.out.println("Player claimed tile after exploring.");
+			}
 		}
+		
+		
 		
 		// TOOD add setAllHighlighted(boolean)
 		for(Hex h: svc.getGame().getBoard().getHexes()){
@@ -359,8 +367,7 @@ public class BoardPresenter {
 			KNTAppFactory.getPopupPresenter().showBattlePopup();
 			
 			// Start the battle
-			KNTAppFactory.getBattlePresenter().startBattle(battle);
-			
+			KNTAppFactory.getBattlePresenter().startBattle(battle);	
 		}
 		
 		view.setBoard(b);
