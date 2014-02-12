@@ -87,11 +87,7 @@ public class BattlePresenter {
 		
 		switch (battle.getBattlePhase()){ 
 			case MAGIC:
-				rollPhase();
-				break;
 			case RANGED:
-				rollPhase();
-				break;  
 			case MELEE:
 				rollPhase();
 				break;

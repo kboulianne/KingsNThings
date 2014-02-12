@@ -13,6 +13,7 @@ public class Battle {
 	
 	private Player defender;//  can be Player or is null if hex is unexplored/has no oner
 	private List<Creature> defenderCreatures;
+	private Fort defenderFort;
 	private ArrayList<GamePiece> defenderItems; 
 	private Die defenderDie1;
 	private Die defenderDie2;
@@ -48,17 +49,18 @@ public class Battle {
 		
 		offenderDie1 = new Die();
 		offenderDie2 = new Die();
-//		if(hex.getHexOwner()==null){
-//			setUnExploredHex(true);
-//			defender = null;
-//			defenderItems = hex.getMiscItems();
-//		}else{
-//			setUnExploredHex(false);
-			
-//			defenderItems = new ArrayList<GamePiece>();
-//			for (Creature c: hex.getArmies(hex.getHexOwner()))
-//				defenderItems.add(c);
-//		}
+
+//		defenderItems = hex.getMiscItems();
+		// Only one per tile
+		defenderFort = hex.getFort();
+		
+
+		setUnExploredHex(false);
+
+//		defenderItems = new ArrayList<>();
+//		for (Creature c: hex.getArmies(hex.getHexOwner()))
+//			defenderItems.add(c);
+		
 	}
 	
 	/** For exploration. */
@@ -153,6 +155,10 @@ public class Battle {
 		return offenderDie2;
 	}
 
+	public Fort getDefenderFort() {
+		return defenderFort;
+	}
+	
 	public boolean isUnExploredHex() {
 		return unExploredHex;
 	}

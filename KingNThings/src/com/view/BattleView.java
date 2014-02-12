@@ -130,74 +130,129 @@ public class BattleView extends VBox{
 		offDice.setDice(battle.getOffenderDie1(), battle.getOffenderDie2());
 		
 		defenderLbl.setText("Defender: "+battle.getDefenderName());
-		setBattlePieces(battle.getDefenderCreatures(), defGrid);
+		setBattlePieces(battle.getDefenderCreatures(), battle.getDefenderFort(), defGrid);
 		defDice.setDice(battle.getDefenderDie1(), battle.getDefenderDie2());
 		
 	}
 	
-	public void setBattlePieces(List<Creature> offCreatures, GridPane grid){
+	public void setBattlePieces(List<Creature> offCreatures, GridPane grid) {
+		setBattlePieces(offCreatures, null, grid);
+	}
+	
+	
+	public void setBattlePieces(List<Creature> offCreatures, Fort def, GridPane grid){
 		grid.getChildren().clear();
+		// Adds creature pieces
 		for (int i = 0; i<offCreatures.size();i++){
-			HBox thingBox = new HBox();
-			StackPane stack = new StackPane();
+			HBox thingBox = createCreaturePiece(offCreatures.get(i));
 
-			int size = 90;
-
-			Rectangle borderRect = new Rectangle();
-			borderRect.setX(0);
-			borderRect.setY(0);
-			borderRect.setWidth(size);
-			borderRect.setHeight(size);
-			borderRect.setArcWidth(20);
-			borderRect.setArcHeight(20);
-			borderRect.setFill(Color.WHITE);
-
-			Rectangle coloredRect = new Rectangle();
-			coloredRect.setX(0);
-			coloredRect.setY(0);
-			coloredRect.setWidth(size - 1);
-			coloredRect.setHeight(size - 1);
-			coloredRect.setArcWidth(20);
-			coloredRect.setArcHeight(20);
-			
-
-			ImageView img = new ImageView();
-			img.setFitWidth(size - 7);
-			img.setFitHeight(size - 7);
-			img.setPreserveRatio(true);
-			img.setSmooth(true);
-			img.setCache(true);
-			stack.getChildren().addAll(borderRect, coloredRect, img);
-			
-			VBox thingLblBox = new VBox();
-			
-			thingBox.getChildren().addAll(stack, thingLblBox);
-			thingBox.getStyleClass().add("army");
-			
 			grid.add(thingBox,i%2, i/2);
+		}
+		
+		// Hack
+		if (def != null) {
+			int i = offCreatures.size();
+			HBox box = createFort(def);
 			
-			if (offCreatures.get(i) instanceof Creature){
-				Creature c = (Creature) offCreatures.get(i);
-				img.setImage(c.getImage());
-				Label nameLbl = new Label(c.getName().toUpperCase());
-				coloredRect.setFill(c.getColor());
-				Label domainLbl = new Label("Domain: "+c.getDomain());
-				Label comValLbl = new Label("Combat Value: "+c.getCombatVal());
-				Label abilityLbl = new Label("Abilites: "+c.getAbilitiesString());
-				thingLblBox.getChildren().addAll(nameLbl, domainLbl, comValLbl, abilityLbl);
-			}
-			// NOT INCLUDED IN TEST PLAN YET?
-			//TODO instance of fort and others
-//			else if (offCreatures.get(i) instanceof Fort){
-//				
-//				Fort gp = (Fort)offCreatures.get(i);
-//				img.setImage(gp.getImage());
-//				Label nameLbl = new Label(gp.getName().toUpperCase());
-//				coloredRect.setFill(gp.getColor());
-//				thingLblBox.getChildren().addAll(nameLbl);
-//			}
+			grid.add(box, i % 2, i / 2);
 		}
 	}
+	
+	//FIXME: Duplicated code
+	private HBox createCreaturePiece(Creature c) {
+		HBox thingBox = new HBox();
+		StackPane stack = new StackPane();
+
+		int size = 90;
+
+		Rectangle borderRect = new Rectangle();
+		borderRect.setX(0);
+		borderRect.setY(0);
+		borderRect.setWidth(size);
+		borderRect.setHeight(size);
+		borderRect.setArcWidth(20);
+		borderRect.setArcHeight(20);
+		borderRect.setFill(Color.WHITE);
+
+		Rectangle coloredRect = new Rectangle();
+		coloredRect.setX(0);
+		coloredRect.setY(0);
+		coloredRect.setWidth(size - 1);
+		coloredRect.setHeight(size - 1);
+		coloredRect.setArcWidth(20);
+		coloredRect.setArcHeight(20);
+
+
+		ImageView img = new ImageView();
+		img.setFitWidth(size - 7);
+		img.setFitHeight(size - 7);
+		img.setPreserveRatio(true);
+		img.setSmooth(true);
+		img.setCache(true);
+		stack.getChildren().addAll(borderRect, coloredRect, img);
+
+		VBox thingLblBox = new VBox();
+
+		thingBox.getChildren().addAll(stack, thingLblBox);
+		thingBox.getStyleClass().add("army");
+		
+		img.setImage(c.getImage());
+		Label nameLbl = new Label(c.getName().toUpperCase());
+		coloredRect.setFill(c.getColor());
+		Label domainLbl = new Label("Domain: "+c.getDomain());
+		Label comValLbl = new Label("Combat Value: "+c.getCombatVal());
+		Label abilityLbl = new Label("Abilites: "+c.getAbilitiesString());
+		thingLblBox.getChildren().addAll(nameLbl, domainLbl, comValLbl, abilityLbl);
+		
+		
+		return thingBox;
+	}
+	
+	private HBox createFort(Fort f) {
+		HBox thingBox = new HBox();
+		StackPane stack = new StackPane();
+
+		int size = 90;
+
+		Rectangle borderRect = new Rectangle();
+		borderRect.setX(0);
+		borderRect.setY(0);
+		borderRect.setWidth(size);
+		borderRect.setHeight(size);
+		borderRect.setArcWidth(20);
+		borderRect.setArcHeight(20);
+		borderRect.setFill(Color.WHITE);
+
+		Rectangle coloredRect = new Rectangle();
+		coloredRect.setX(0);
+		coloredRect.setY(0);
+		coloredRect.setWidth(size - 1);
+		coloredRect.setHeight(size - 1);
+		coloredRect.setArcWidth(20);
+		coloredRect.setArcHeight(20);
+
+
+		ImageView img = new ImageView();
+		img.setFitWidth(size - 7);
+		img.setFitHeight(size - 7);
+		img.setPreserveRatio(true);
+		img.setSmooth(true);
+		img.setCache(true);
+		stack.getChildren().addAll(borderRect, coloredRect, img);
+
+		VBox thingLblBox = new VBox();
+
+		thingBox.getChildren().addAll(stack, thingLblBox);
+		thingBox.getStyleClass().add("army");
+
+		img.setImage(f.getImage());
+		Label nameLbl = new Label(f.getName().toUpperCase());
+		coloredRect.setFill(f.getColor());
+		thingLblBox.getChildren().addAll(nameLbl);
+		
+		return thingBox;
+	}
+	
 	
 	public void refreshView(String instructions){
 		setTitleLblText(instructions);

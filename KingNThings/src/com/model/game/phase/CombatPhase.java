@@ -76,6 +76,9 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("goblins"), game.getOpponent3());
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("ogre"), game.getOpponent1());
 		
+		// Test fort
+		game.getBoard().getHexes().get(0).setFort(Fort.create());
+		
 		
 		// search hexes find available battles
 		

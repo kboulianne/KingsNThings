@@ -352,6 +352,8 @@ public class BoardPresenter {
 				}
 			}
 			
+			//FOR DEMO -- Exploration is skipped
+			// Starts battle between Players
 			Battle battle = new Battle(current, defender, hex);
 			// SHow the popup
 			KNTAppFactory.getPopupPresenter().showBattlePopup();
