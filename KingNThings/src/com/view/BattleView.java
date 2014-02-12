@@ -47,7 +47,9 @@ public class BattleView extends VBox{
 	private Button defContinueBtn;
 	private Button defRetreatBtn;
 	
-	public BattleView(){
+	public BattleView(DiceView dv1, DiceView dv2){
+		offDice = dv1;
+		defDice = dv2;
 		buildPopup();
 	}
 	
@@ -70,8 +72,6 @@ public class BattleView extends VBox{
 		// setup offender
 		offenderLbl = new Label();
 		offGrid = new GridPane();
-		offDice = new DiceView();
-		new DicePresenter(offDice);
 		offButtonBox = new HBox();
 		offRetreatBtn = new Button("Retreat");
 		offContinueBtn = new Button("Continue");
@@ -80,8 +80,6 @@ public class BattleView extends VBox{
 		// setup defender
 		defenderLbl = new Label();
 		defGrid = new GridPane();
-		defDice = new DiceView();
-		new DicePresenter(defDice);
 		defButtonBox = new HBox();
 		defRetreatBtn = new Button("Retreat");
 		defContinueBtn = new Button("Continue");

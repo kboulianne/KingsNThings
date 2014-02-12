@@ -11,6 +11,7 @@ import com.main.KNTAppFactory;
 import com.model.Battle;
 import com.model.Battle.BattlePhase;
 import com.model.Creature;
+import com.model.Die;
 import com.view.BattleView;
 import com.view.DiceView;
 
@@ -20,14 +21,20 @@ public class BattlePresenter {
 	Battle battle;
 	Creature selectedCreature;
 
+	private DicePresenter attackerDice;
+	private DicePresenter defenderDice;
+	
 	ArrayList<Creature> offCreatures;
 	ArrayList<Creature> defCreatures;
 	
 	boolean isDefender;
 	
-	public BattlePresenter(BattleView v){
+	public BattlePresenter(BattleView v, DicePresenter dp1, DicePresenter dp2){
 		view = v;
 		view.setPresenter(this);
+		
+		attackerDice = dp1;
+		defenderDice = dp2;
 	}
 
 	public BattleView getView() {

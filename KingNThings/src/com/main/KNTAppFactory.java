@@ -1,5 +1,6 @@
 package com.main;
 
+import com.model.Die;
 import com.presenter.ArmyDetailsPresenter;
 import com.presenter.BattlePresenter;
 import com.presenter.DicePresenter;
@@ -118,8 +119,15 @@ public class KNTAppFactory {
 	}
 
 	private static BattlePresenter createBattlePresenter() {
-		BattleView view = new BattleView();
-		BattlePresenter presenter = new BattlePresenter(view);
+		// Independent DiceViews 
+		DiceView dv1 = new DiceView();
+		DiceView dv2 = new DiceView();
+		DicePresenter dp1 = new DicePresenter(dv1, new Die(), new Die());
+		DicePresenter dp2 = new DicePresenter(dv2, new Die(), new Die());
+		
+		
+		BattleView view = new BattleView(dv1, dv2);
+		BattlePresenter presenter = new BattlePresenter(view, dp1, dp2);
 
 		return presenter;
 	}
