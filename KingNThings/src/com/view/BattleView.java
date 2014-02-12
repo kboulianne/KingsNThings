@@ -125,11 +125,11 @@ public class BattleView extends VBox{
 		List<Creature> offGamePieces = new ArrayList<>();
 		offGamePieces.addAll(battle.getOffenderCreatures());
 		setBattlePieces(offGamePieces, offGrid);
-		offDice.setDice(battle.getOffenderDie1(), battle.getOffenderDie2());
+//		offDice.setDice(battle.getOffenderDie1(), battle.getOffenderDie2());
 		
 		defenderLbl.setText("Defender: "+battle.getDefenderName());
 		setBattlePieces(battle.getDefenderCreatures(), battle.getDefenderFort(), defGrid);
-		defDice.setDice(battle.getDefenderDie1(), battle.getDefenderDie2());
+//		defDice.setDice(battle.getDefenderDie1(), battle.getDefenderDie2());
 		
 	}
 	
@@ -307,9 +307,9 @@ public class BattleView extends VBox{
 		return battle;
 	}
 
-	public DiceView getOffDice() {
-		return offDice;
-	}
+//	public DiceView getOffDice() {
+//		return offDice;
+//	}
 
 	public HBox getOffButtonBox() {
 		return offButtonBox;
@@ -335,8 +335,8 @@ public class BattleView extends VBox{
 		return defRetreatBtn;
 	}
 
-	public DiceView getDefDice() {
-		return defDice;
-	}
+//	public DiceView getDefDice() {
+//		return defDice;
+//	}
 
 }
