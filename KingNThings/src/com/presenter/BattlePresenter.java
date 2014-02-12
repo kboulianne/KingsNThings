@@ -44,6 +44,10 @@ public class BattlePresenter {
 
 		attackerDice = dp1;
 		defenderDice = dp2;
+		
+		// Disable second die
+		attackerDice.getView().hideDie2(true);
+		defenderDice.getView().hideDie2(true);
 	}
 
 	public BattleView getView() {
@@ -148,11 +152,11 @@ public class BattlePresenter {
 				isDefender = false;
 				// applyHits()
 				nextBattlePhase();
-				creatureIt = battle.getAttackerCreatures().iterator();
+				creatureIt = battle.getAttackerCreaturesForPhase().iterator();
 			}
 		}
 		
-		
+		enableControlsForRoll();
 		
 
 		
@@ -160,6 +164,20 @@ public class BattlePresenter {
 //		if ()
 		
 		
+	}
+	
+	/**
+	 * Determines which controls to display according to attacker/defender turn.
+	 */
+	private void enableControlsForRoll() {
+		if (!isDefender) {
+			attackerDice.getView().getRollBtn().setVisible(true);
+			defenderDice.getView().getRollBtn().setVisible(false);
+		}
+		else {
+			attackerDice.getView().getRollBtn().setVisible(false);
+			defenderDice.getView().getRollBtn().setVisible(true);
+		}
 	}
 	
 	// Roll Phases
@@ -180,26 +198,8 @@ public class BattlePresenter {
 		
 		// Initialize the iterator
 		creatureIt = battle.getAttackerCreaturesForPhase().iterator();
-//		defenderIt = battle.getDefenderCreaturesForPhase().iterator();
-		
-		// Determine which dicepresenter to choose
-//		DicePresenter current = attackerDice;
-//		DicePresenter other = defenderDice;
-//		List<Creature> creatures = offCreatures;
-		
-		
 
-//		// Current player is defender
-//		if (isDefender) {
-//			current = defenderDice;
-//			other = attackerDice;
-//			creatures = defCreatures;
-//		}
-
-//		rollPhaseHelper("Defender", creatures, current, view.getDefButtonBox(), other, view.getOffButtonBox());
-
-		// Set roll handlers
-		
+		enableControlsForRoll();
 	}
 
 //	private void rollPhaseHelper(

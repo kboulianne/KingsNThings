@@ -75,17 +75,17 @@ public class Battle {
 		forces.put(BattlePhase.RANGED, new ArrayList<Creature>());
 		
 		BattlePhase phase;
-		List<Creature> list;
+		List<Creature> list = null;
 		for (Creature c: creatures) {
 			if (c.isMagic()) {
 				phase = BattlePhase.MAGIC;
 				list = forces.get(phase);
 			} 
-			else if (c.isRanged()) {
+			else if (c.isRanged() && !c.isMagic()) {
 				phase = BattlePhase.RANGED;
 				list = forces.get(phase);
 			}
-			else  { // MELEE
+			else if (!c.isRanged() && !c.isMagic()) { // MELEE
 				phase = BattlePhase.MELEE;
 				list = forces.get(phase);
 			}
