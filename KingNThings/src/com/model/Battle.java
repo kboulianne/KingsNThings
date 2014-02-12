@@ -1,7 +1,9 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Battle {
 	
@@ -12,17 +14,19 @@ public class Battle {
 	private Hex associatedHex;
 	
 	private Player defender;//  can be Player or is null if hex is unexplored/has no oner
-	private List<Creature> defenderCreatures;
+//	private List<Creature> defenderCreatures;
 	private Fort defenderFort;
-	private ArrayList<GamePiece> defenderItems; 
-	private Die defenderDie1;
-	private Die defenderDie2;
+//	private List<GamePiece> defenderItems; 
 	
 	private Player offender;
-	private ArrayList<Creature> offenderCreatures;
-	private Die offenderDie1;
-	private Die offenderDie2;
+//	private List<Creature> offenderCreatures;
 	 
+	// Splits creatues according to phases
+	private Map<BattlePhase, List<Creature>> attackingForces;
+	private Map<BattlePhase, List<Creature>> defendingForces;
+	
+	
+	
 	private BattlePhase battlePhase;
 	public enum BattlePhase { MAGIC("Magic"), RANGED("Ranged"), 
 		MELEE("Melee"), RETREAT("Retreat"), POSTCOMBAT("Post Combat") ;
@@ -31,30 +35,30 @@ public class Battle {
 		
 	}
 	
-	/** For PvP. */
+	/** For PvP.
+	 * 
+	 * @param offender
+	 * @param defender
+	 * @param hex 
+	 */
 	public Battle(Player offender, Player defender, Hex hex) {
 		currentPlayer = offender;
-		this.defender = defender;
-		
+		this.defender = defender;		
 		associatedHex = hex;
 		roundNumber = 1;
 		battlePhase = BattlePhase.MAGIC;
 		this.offender = offender;
-		offenderCreatures = hex.getArmies(offender);
-		// Defender creatures
-		defenderCreatures = hex.getArmies(defender);
-		
-		defenderDie1 = new Die();
-		defenderDie2 = new Die();
-		
-		offenderDie1 = new Die();
-		offenderDie2 = new Die();
+//		offenderCreatures = hex.getArmies(offender);
+//		// Defender creatures
+//		defenderCreatures = hex.getArmies(defender);
 
 //		defenderItems = hex.getMiscItems();
 		// Only one per tile
 		defenderFort = hex.getFort();
 		
-
+		attackingForces = splitCreatures(hex.getArmies(offender));
+		defendingForces = splitCreatures(hex.getArmies(defender));
+		
 		setUnExploredHex(false);
 
 //		defenderItems = new ArrayList<>();
@@ -63,33 +67,57 @@ public class Battle {
 		
 	}
 	
-	/** For exploration. */
-	public Battle(Player offender,  Hex hex){
-		currentPlayer = offender;
+	private Map<BattlePhase, List<Creature>> splitCreatures(List<Creature> creatures) {
+		Map<BattlePhase, List<Creature>> forces = new HashMap<>();
+		// Init the map
+		forces.put(BattlePhase.MAGIC, new ArrayList<Creature>());
+		forces.put(BattlePhase.MELEE, new ArrayList<Creature>());
+		forces.put(BattlePhase.RANGED, new ArrayList<Creature>());
 		
-		associatedHex = hex;
-		roundNumber = 1;
-		battlePhase = BattlePhase.MAGIC;
-		this.offender = offender;
-		offenderCreatures = hex.getArmies(offender);
-		
-		defenderDie1 = new Die();
-		defenderDie2 = new Die();
-		
-		offenderDie1 = new Die();
-		offenderDie2 = new Die();
-		if(hex.getHexOwner()==null){
-			setUnExploredHex(true);
-			defender = null;
-			defenderItems = hex.getMiscItems();
-		}else{
-			setUnExploredHex(false);
-			defender = hex.getHexOwner();
-			defenderItems = new ArrayList<GamePiece>();
-			for (Creature c: hex.getArmies(hex.getHexOwner()))
-				defenderItems.add(c);
+		BattlePhase phase;
+		List<Creature> list;
+		for (Creature c: creatures) {
+			if (c.isMagic()) {
+				phase = BattlePhase.MAGIC;
+				list = forces.get(phase);
+			} 
+			else if (c.isRanged()) {
+				phase = BattlePhase.RANGED;
+				list = forces.get(phase);
+			}
+			else  { // MELEE
+				phase = BattlePhase.MELEE;
+				list = forces.get(phase);
+			}
+			
+			list.add(c);
 		}
+		
+		return forces;
 	}
+	
+	/** For exploration. */
+//	public Battle(Player offender,  Hex hex){
+//		currentPlayer = offender;
+//		
+//		associatedHex = hex;
+//		roundNumber = 1;
+//		battlePhase = BattlePhase.MAGIC;
+//		this.offender = offender;
+//		offenderCreatures = hex.getArmies(offender);
+//		
+//		if(hex.getHexOwner()==null){
+//			setUnExploredHex(true);
+//			defender = null;
+//			defenderItems = hex.getMiscItems();
+//		}else{
+//			setUnExploredHex(false);
+//			defender = hex.getHexOwner();
+//			defenderItems = new ArrayList<GamePiece>();
+//			for (Creature c: hex.getArmies(hex.getHexOwner()))
+//				defenderItems.add(c);
+//		}
+//	}
 	
 
 	
@@ -105,31 +133,31 @@ public class Battle {
 		return defender.getName();
 	}
 
-	public ArrayList<GamePiece> getDefenderItems() {
-		return defenderItems;
-	}
-
-	public ArrayList<Creature> getDefenderItemsThatAreCreatures() {
-		// FOR DEMO. 
-		ArrayList<Creature> creatures = new ArrayList<>();
-		for(GamePiece gp: defenderItems){
-			if (gp instanceof Creature)
-				creatures.add((Creature) gp);
-		}
-		return creatures;
-	}
-	
+//	public List<GamePiece> getDefenderItems() {
+//		return defenderItems;
+//	}
+//
+//	public ArrayList<Creature> getDefenderItemsThatAreCreatures() {
+//		// FOR DEMO. 
+//		ArrayList<Creature> creatures = new ArrayList<>();
+//		for(GamePiece gp: defenderItems){
+//			if (gp instanceof Creature)
+//				creatures.add((Creature) gp);
+//		}
+//		return creatures;
+//	}
+//	
 	public Player getOffender() {
 		return offender;
 	}
-
-	public ArrayList<Creature> getOffenderCreatures() {
-		return offenderCreatures;
-	}
-
-	public List<Creature> getDefenderCreatures() {
-		return defenderCreatures;
-	}
+//
+//	public List<Creature> getOffenderCreatures() {
+//		return offenderCreatures;
+//	}
+//
+//	public List<Creature> getDefenderCreaturesForPhase() {
+//		return defenderCreatures;
+//	}
 	
 	public BattlePhase getBattleRound() {
 		return battlePhase;
@@ -137,22 +165,6 @@ public class Battle {
 
 	public Hex getAssociatedHex() {
 		return associatedHex;
-	}
-
-	public Die getDefenderDie1() {
-		return defenderDie1;
-	}
-
-	public Die getDefenderDie2() {
-		return defenderDie2;
-	}
-
-	public Die getOffenderDie1() {
-		return offenderDie1;
-	}
-
-	public Die getOffenderDie2() {
-		return offenderDie2;
 	}
 
 	public Fort getDefenderFort() {
@@ -182,8 +194,6 @@ public class Battle {
 		this.roundNumber = roundNumber;
 	}
 
-
-
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
@@ -198,5 +208,27 @@ public class Battle {
 		return defender;
 	}
 	
-
+	public List<Creature> getAttackerCreatures() {
+		return associatedHex.getArmies(offender);
+	}
+	
+	public List<Creature> getDefenderCreatures() {
+		return associatedHex.getArmies(defender);
+	}
+	
+	/**
+	 * Gets the attacker's creatures for the specified phase.
+	 * @return The list of creatures.
+	 */
+	public List<Creature> getAttackerCreaturesForPhase() {
+		return attackingForces.get(battlePhase);
+	}
+	
+	/**
+	 * Gets the defender's creatures for the specified phase.
+	 * @return 
+	 */
+	public List<Creature> getDefenderCreaturesForPhase() {
+		return defendingForces.get(battlePhase);
+	}
 }

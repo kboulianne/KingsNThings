@@ -50,6 +50,16 @@ public class DicePresenter {
 		return view;
 	}
 	
+	public int rollOne() {
+		die1.roll();
+		
+		view.setDice(die1, die2);
+		
+		KNTAppFactory.getGamePresenter().updateView();
+		
+		return die1.getValue();
+	}
+	
 	/**
 	 * The logic to execute when the players presses the roll button.
 	 */

@@ -273,13 +273,13 @@ public abstract class Creature extends Thing	{
 	    if (getFly()) {
 	    	abilities += " Flying";
 	    }
-	    if (getRanged()) {
+	    if (isRanged()) {
 	    	abilities += " Ranged";
 	    }
 	    if (getCharge()) {
 	    	abilities += " Charging";
 	    }
-	    if(getMagic()){
+	    if(isMagic()){
 	    	abilities += " Magic";
 	    }
 	    if(abilities.isEmpty()){
@@ -306,7 +306,7 @@ public abstract class Creature extends Thing	{
 	public void setFly(boolean bool){
 		fly = bool;
 	}
-	public boolean getRanged()	{
+	public boolean isRanged()	{
 		return ranged;
 	}
 	public void setRanged(boolean bool){
@@ -318,7 +318,7 @@ public abstract class Creature extends Thing	{
 	public void setCharge(boolean bool){
 		charge = bool;
 	}
-	public boolean getMagic()	{
+	public boolean isMagic()	{
 		return magic;
 	}
 	public void setMagic(boolean bool){
