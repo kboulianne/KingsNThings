@@ -9,4 +9,11 @@ public class SwampCreature extends Creature {
 		setDomain("Swamp");
 		setColor(Color.rgb(15, 150, 130));
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj); 
+	}
+	
+	
 }

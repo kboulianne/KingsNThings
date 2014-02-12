@@ -128,14 +128,18 @@ public class BattlePresenter {
 		}
 	}
 	
-	
+	// TODO: Split this up.
 	private void handleRoll() {
 		// Fetch the next creature and store roll. Assume 1-to-1 mapping for now,
 		// att. c1 -> def. c1, att. c2 -> def.c2 ...
 		int roll;
-		Creature c = creatureIt.next();
-		// TODO put turn logic elsewhere.
 		
+		// Make sure there are more creatures, otherwise, just skip
+		if (!creatureIt.hasNext()) {
+			// Assume both skip. Need to check rules.
+			nextBattlePhase();
+		}
+		Creature c = creatureIt.next();
 		
 		if (!isDefender) {			
 			// Attacker's turn to roll.
@@ -347,6 +351,7 @@ public class BattlePresenter {
 	}
 
 	private void postCombatPhase() {
+		System.out.println("POST");
 		//update model
 		//battle.setBattlePhase(BattlePhase.POSTCOMBAT);
 
@@ -399,7 +404,8 @@ public class BattlePresenter {
 			}
 		} 
 //		else if (battle.getBattlePhase() == BattlePhase.POSTCOMBAT) { 
-//			/*do nothing*/ 
+//			// Do finalizations.
+//			System.out.println("POST");
 //		}	
 		else {
 			// Cool trick didn't know that! :-)
@@ -408,20 +414,9 @@ public class BattlePresenter {
 	}
 
 	private void nextBattlePhase() {
-		System.out.println("Next battle phase - attacker's turn.");
-//		if (battle.getCurrentPlayer() == null) {
-//			isDefender = false;
-//			switchToNextPhase();
-//		} else if (battle.getCurrentPlayer().equals(battle.getOffender())) {
-//			isDefender = true;
-//			battle.setCurrentPlayer(battle.getDefender());
-//		} else {
-//			isDefender = false;
-//			switchToNextPhase();
-//		}
+		System.out.println("Next Phase");
 		switchToNextPhase();
-		
-		
+
 		startPhase();
 	}
 }

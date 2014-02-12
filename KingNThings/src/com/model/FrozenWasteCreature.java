@@ -9,4 +9,11 @@ public class FrozenWasteCreature extends Creature {
 		setDomain("Frozen Waste");
 		setColor(Color.SILVER);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+	
+	
 }

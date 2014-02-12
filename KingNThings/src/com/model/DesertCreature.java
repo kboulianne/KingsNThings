@@ -9,4 +9,11 @@ public class DesertCreature extends Creature	{
 		setDomain("Desert");
 		setColor(Color.KHAKI);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+	
+	
 }

@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javafx.scene.paint.Color;
 
@@ -214,4 +215,25 @@ public abstract class Thing extends GamePiece	{
 	public void setColor(Color color) {
 		this.color = color;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Thing) {
+			Thing t = (Thing)obj;
+			
+			return super.equals(obj)
+					&& color.equals(t.color);
+		}
+		
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 17 * hash + Objects.hashCode(this.color);
+		return hash;
+	}
+	
+	
 }

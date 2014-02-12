@@ -233,10 +233,14 @@ public class Battle {
 	}
 	
 	public void killAttackerCreature(Creature c) {
+		// remove from hex, and from map
 		associatedHex.getArmies(offender).remove(c);
+		attackingForces.get(battlePhase).remove(c);
 	}
 	
 	public void killDefenderCreature(Creature c) {
+		// remove from hex, and from map
 		associatedHex.getArmies(defender).remove(c);
+		defendingForces.get(battlePhase).remove(c);
 	}
 }

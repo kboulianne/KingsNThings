@@ -15,7 +15,7 @@ public abstract class Creature extends Thing	{
 	private static final Map<String, Integer> combatVals;
 	
 	static	{
-		combatVals = new HashMap<String, Integer>();
+		combatVals = new HashMap<>();
 		//Insert desert creatures
 		combatVals.put("babydragon", 3);
 		combatVals.put("dervish", 2);
@@ -149,7 +149,7 @@ public abstract class Creature extends Thing	{
 	}
 	private static final Set<String> flyingCreat;
 	static	{
-		flyingCreat = new HashSet<String>();
+		flyingCreat = new HashSet<>();
 		flyingCreat.add("wyvern");
 		flyingCreat.add("wingedpirhana");
 		flyingCreat.add("vultures");
@@ -336,4 +336,40 @@ public abstract class Creature extends Thing	{
 	public void setNumberOfMovesAvailable(int numberOfMovesAvailable) {
 		this.numberOfMovesAvailable = numberOfMovesAvailable;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Creature) {
+			Creature c = (Creature)obj;
+			
+			return super.equals(obj)
+					&& domain.equals(c.domain)
+					&& fly == c.fly
+					&& ranged == c.ranged
+					&& charge == c.charge
+					&& magic == c.magic
+					&& combatVal == c.combatVal
+					&& hexLocation == c.hexLocation
+					&&  numberOfMovesAvailable == c.numberOfMovesAvailable
+					&& combatVals == c.combatVals;
+		}
+		
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 5;
+		hash = 59 * hash + Objects.hashCode(this.domain);
+		hash = 59 * hash + (this.fly ? 1 : 0);
+		hash = 59 * hash + (this.ranged ? 1 : 0);
+		hash = 59 * hash + (this.charge ? 1 : 0);
+		hash = 59 * hash + (this.magic ? 1 : 0);
+		hash = 59 * hash + this.combatVal;
+		hash = 59 * hash + this.hexLocation;
+		hash = 59 * hash + this.numberOfMovesAvailable;
+		return hash;
+	}
+	
+	
 }

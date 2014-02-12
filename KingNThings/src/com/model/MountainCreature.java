@@ -9,4 +9,9 @@ public class MountainCreature extends Creature {
 		setDomain("Mountain");
 		setColor(Color.BROWN);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 }
