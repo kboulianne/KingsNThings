@@ -235,12 +235,50 @@ public class Battle {
 	public void killAttackerCreature(Creature c) {
 		// remove from hex, and from map
 		associatedHex.getArmies(offender).remove(c);
-		attackingForces.get(battlePhase).remove(c);
+		boolean test = attackingForces.get(battlePhase).remove(c);
+		if (!test) {
+			System.out.println("BUG");
+		}
 	}
 	
 	public void killDefenderCreature(Creature c) {
 		// remove from hex, and from map
 		associatedHex.getArmies(defender).remove(c);
-		defendingForces.get(battlePhase).remove(c);
+		boolean test = defendingForces.get(battlePhase).remove(c);
+		if (!test) {
+			System.out.println("BUG");
+		}
 	}
+	
+	public boolean canSkipPhase() {
+		// Skip magic, ranged, or melee if attacker or defender has no troops to roll for
+		return attackingForces.get(battlePhase).isEmpty()
+				|| defendingForces.get(battlePhase).isEmpty();
+	}
+	
+	public boolean isBattleResolved() {
+		// Resovled when one or both sides can no longer roll.
+		boolean att, def;
+		
+		// Forced to retreat
+		if (attackingForces.get(BattlePhase.MAGIC).isEmpty()
+				&& attackingForces.get(BattlePhase.RANGED).isEmpty()
+				&& attackingForces.get(BattlePhase.MELEE).isEmpty())
+			return true;
+		
+		return false;
+	}
+	
+	public boolean isAttackerEliminated() {
+		// Eliminated if no troops left in the hex.
+		return associatedHex.getArmies(offender).isEmpty();
+	}
+	
+	public boolean isDefenderEliminated() {
+		return associatedHex.getArmies(defender).isEmpty();
+	}
+	
+//	public boolean isAttackerForcedRetreat() {
+//		// Has troops remaining, but opponent can roll in the phase(s)
+//	}
 }

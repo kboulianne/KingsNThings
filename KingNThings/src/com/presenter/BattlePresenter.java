@@ -1,5 +1,6 @@
 package com.presenter;
 
+import com.game.services.GameService;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import com.model.Battle;
 import com.model.Battle.BattlePhase;
 import com.model.Creature;
 import com.model.Die;
+import com.model.Player;
 import com.view.BattleView;
 import com.view.DiceView;
 import java.util.HashMap;
@@ -35,6 +37,8 @@ public class BattlePresenter {
 	
 	private Map<Creature, Integer> attackerRolls;
 	private Map<Creature, Integer> defenderRolls;
+	
+	private Player retreated;
 	
 	/** Determines whether the attacker or defender is rolling. */
 	boolean isDefender;
@@ -70,7 +74,11 @@ public class BattlePresenter {
 			@Override
 			public void handle(ActionEvent t) {
 				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
+				retreated = battle.getOffender();
 				nextBattlePhase();
+				
+				// Dismiss the popup
+				KNTAppFactory.getPopupPresenter().dismissPopup();
 			}
 		});
 		view.getOffContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -83,7 +91,9 @@ public class BattlePresenter {
 			@Override
 			public void handle(ActionEvent t) {
 				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
+				retreated = battle.getDefender();
 				nextBattlePhase();
+				KNTAppFactory.getPopupPresenter().dismissPopup();
 			}
 		});
 		view.getDefContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -98,24 +108,11 @@ public class BattlePresenter {
 		startPhase();
 	}
 
-	private void startPhase() {
-
-		// reset lists used in magic melee and ranged - move later
-//		if (isDefender) {
-//			defCreatures = new ArrayList<>();
-//			defCreatures.addAll(battle.getDefenderCreaturesForPhase());
-//		} else {
-//			offCreatures = new ArrayList<>();
-//			offCreatures.addAll(battle.getOffenderCreatures());
-//		}
-
-		
-		
+	private void startPhase() {		
 		switch (battle.getBattlePhase()) {
 			case MAGIC:
 			case RANGED:
 			case MELEE:
-//				addRollHandlers();
 				creatureIt = battle.getAttackerCreaturesForPhase().iterator();
 				rollPhase();
 				break;
@@ -134,11 +131,6 @@ public class BattlePresenter {
 		// att. c1 -> def. c1, att. c2 -> def.c2 ...
 		int roll;
 		
-		// Make sure there are more creatures, otherwise, just skip
-		if (!creatureIt.hasNext()) {
-			// Assume both skip. Need to check rules.
-			nextBattlePhase();
-		}
 		Creature c = creatureIt.next();
 		
 		if (!isDefender) {			
@@ -229,6 +221,11 @@ public class BattlePresenter {
 	
 	// Roll Phases
 	private void rollPhase() {
+		if (battle.canSkipPhase()) {
+			nextBattlePhase();
+			System.out.println("SKIPPING");
+		}
+		
 		attackerDice.getView().getRollBtn().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
@@ -352,6 +349,20 @@ public class BattlePresenter {
 
 	private void postCombatPhase() {
 		System.out.println("POST");
+		// For demo, eliminate his armies, set hex ownership to opponent
+		battle.getAssociatedHex().getArmies(retreated).clear();
+		if (retreated.equals(battle.getOffender())) {
+			battle.getAssociatedHex().setOwner(battle.getDefender());
+		} 
+		else {
+			battle.getAssociatedHex().setOwner(battle.getOffender());
+		}
+		
+		battle.getAssociatedHex().setConflict(false);
+		// FOR DEMO
+		KNTAppFactory.getBoardPresenter().getView().setBoard(
+				GameService.getInstance().getGame().getBoard()
+		);
 		//update model
 		//battle.setBattlePhase(BattlePhase.POSTCOMBAT);
 
@@ -403,13 +414,13 @@ public class BattlePresenter {
 				retreatPhase();
 			}
 		} 
-//		else if (battle.getBattlePhase() == BattlePhase.POSTCOMBAT) { 
-//			// Do finalizations.
-//			System.out.println("POST");
-//		}	
+		else if (battle.getBattlePhase() == BattlePhase.POSTCOMBAT) { 
+			
+		}	
 		else {
 			// Cool trick didn't know that! :-)
 			battle.setBattlePhase(BattlePhase.values()[battle.getBattlePhase().ordinal() + 1]);
+			
 		}
 	}
 

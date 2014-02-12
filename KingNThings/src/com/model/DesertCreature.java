@@ -14,6 +14,7 @@ public class DesertCreature extends Creature	{
 	public boolean equals(Object obj) {
 		return super.equals(obj);
 	}
-	
+
+
 	
 }
