@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Battle {
 	
@@ -11,6 +12,7 @@ public class Battle {
 	private Hex associatedHex;
 	
 	private Player defender;//  can be Player or is null if hex is unexplored/has no oner
+	private List<Creature> defenderCreatures;
 	private ArrayList<GamePiece> defenderItems; 
 	private Die defenderDie1;
 	private Die defenderDie2;
@@ -28,8 +30,39 @@ public class Battle {
 		
 	}
 	
+	/** For PvP. */
+	public Battle(Player offender, Player defender, Hex hex) {
+		currentPlayer = offender;
+		this.defender = defender;
+		
+		associatedHex = hex;
+		roundNumber = 1;
+		battlePhase = BattlePhase.MAGIC;
+		this.offender = offender;
+		offenderCreatures = hex.getArmies(offender);
+		// Defender creatures
+		defenderCreatures = hex.getArmies(defender);
+		
+		defenderDie1 = new Die();
+		defenderDie2 = new Die();
+		
+		offenderDie1 = new Die();
+		offenderDie2 = new Die();
+//		if(hex.getHexOwner()==null){
+//			setUnExploredHex(true);
+//			defender = null;
+//			defenderItems = hex.getMiscItems();
+//		}else{
+//			setUnExploredHex(false);
+			
+//			defenderItems = new ArrayList<GamePiece>();
+//			for (Creature c: hex.getArmies(hex.getHexOwner()))
+//				defenderItems.add(c);
+//		}
+	}
 	
-	public Battle(Player offender, Hex hex){
+	/** For exploration. */
+	public Battle(Player offender,  Hex hex){
 		currentPlayer = offender;
 		
 		associatedHex = hex;
@@ -43,7 +76,7 @@ public class Battle {
 		
 		offenderDie1 = new Die();
 		offenderDie2 = new Die();
-		if(hex.getOwner()==null){
+		if(hex.getHexOwner()==null){
 			setUnExploredHex(true);
 			defender = null;
 			defenderItems = hex.getMiscItems();
@@ -75,7 +108,8 @@ public class Battle {
 	}
 
 	public ArrayList<Creature> getDefenderItemsThatAreCreatures() {
-		ArrayList<Creature> creatures = new ArrayList<Creature>();
+		// FOR DEMO. 
+		ArrayList<Creature> creatures = new ArrayList<>();
 		for(GamePiece gp: defenderItems){
 			if (gp instanceof Creature)
 				creatures.add((Creature) gp);
@@ -91,6 +125,10 @@ public class Battle {
 		return offenderCreatures;
 	}
 
+	public List<Creature> getDefenderCreatures() {
+		return defenderCreatures;
+	}
+	
 	public BattlePhase getBattleRound() {
 		return battlePhase;
 	}

@@ -340,12 +340,19 @@ public class BoardPresenter {
 	public void handleBattleSelectionHex(int selected) {
 		Board b = svc.getGame().getBoard();
 		Player current = svc.getGame().getCurrentPlayer();
+		Player defender = null;
 		Hex hex = b.getHexes().get(selected);
 		
 		if (hex.hasConflict()) {
-			System.out.println("Selected hex " + selected + " for battle");
-			// Create battle
-			Battle battle = new Battle(current, b.getHexes().get(selected));
+			// Create battle. Assume first opposing player returned from valueSet.
+			for (Player p : hex.getArmies().keySet()) {
+				if (!p.equals(current)) {
+					defender = p;
+					break;
+				}
+			}
+			
+			Battle battle = new Battle(current, defender, hex);
 			// SHow the popup
 			KNTAppFactory.getPopupPresenter().showBattlePopup();
 			

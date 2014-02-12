@@ -20,6 +20,7 @@ import com.model.Fort;
 import com.model.GamePiece;
 import com.presenter.BattlePresenter;
 import com.presenter.DicePresenter;
+import java.util.List;
 
 public class BattleView extends VBox{
 	
@@ -123,18 +124,18 @@ public class BattleView extends VBox{
 		hexLbl.setText("Terrain: "+battle.getAssociatedHex().getTypeAsString());
 		
 		offenderLbl.setText("Offender: "+battle.getOffender().getName());
-		ArrayList<GamePiece> offGamePieces = new ArrayList<GamePiece>();
+		List<Creature> offGamePieces = new ArrayList<>();
 		offGamePieces.addAll(battle.getOffenderCreatures());
 		setBattlePieces(offGamePieces, offGrid);
 		offDice.setDice(battle.getOffenderDie1(), battle.getOffenderDie2());
 		
 		defenderLbl.setText("Defender: "+battle.getDefenderName());
-		setBattlePieces(battle.getDefenderItems(), defGrid);
+		setBattlePieces(battle.getDefenderCreatures(), defGrid);
 		defDice.setDice(battle.getDefenderDie1(), battle.getDefenderDie2());
 		
 	}
 	
-	public void setBattlePieces(ArrayList<GamePiece> offCreatures, GridPane grid){
+	public void setBattlePieces(List<Creature> offCreatures, GridPane grid){
 		grid.getChildren().clear();
 		for (int i = 0; i<offCreatures.size();i++){
 			HBox thingBox = new HBox();
@@ -185,15 +186,16 @@ public class BattleView extends VBox{
 				Label abilityLbl = new Label("Abilites: "+c.getAbilitiesString());
 				thingLblBox.getChildren().addAll(nameLbl, domainLbl, comValLbl, abilityLbl);
 			}
+			// NOT INCLUDED IN TEST PLAN YET?
 			//TODO instance of fort and others
-			else if (offCreatures.get(i) instanceof Fort){
-				
-				Fort gp = (Fort)offCreatures.get(i);
-				img.setImage(gp.getImage());
-				Label nameLbl = new Label(gp.getName().toUpperCase());
-				coloredRect.setFill(gp.getColor());
-				thingLblBox.getChildren().addAll(nameLbl);
-			}
+//			else if (offCreatures.get(i) instanceof Fort){
+//				
+//				Fort gp = (Fort)offCreatures.get(i);
+//				img.setImage(gp.getImage());
+//				Label nameLbl = new Label(gp.getName().toUpperCase());
+//				coloredRect.setFill(gp.getColor());
+//				thingLblBox.getChildren().addAll(nameLbl);
+//			}
 		}
 	}
 	

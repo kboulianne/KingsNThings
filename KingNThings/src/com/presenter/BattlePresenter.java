@@ -79,7 +79,7 @@ public class BattlePresenter {
 		// reset lists used in magic melee and ranged - move later
 		if(isDefender){
 			defCreatures = new ArrayList<>();
-			defCreatures.addAll(battle.getDefenderItemsThatAreCreatures());
+			defCreatures.addAll(battle.getDefenderCreatures());
 		}else{
 			offCreatures = new ArrayList<>();
 			offCreatures.addAll(battle.getOffenderCreatures());
