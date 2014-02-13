@@ -32,6 +32,7 @@ public class Fort extends Thing	{
 		2: Castle
 		3: Citadel
 	*/
+	private int value;
 	private FortType fortType;
 	private static final String IMAGE_DIR = "view/com/assets/pics/gamepieces/forts/";
 	
@@ -39,6 +40,7 @@ public class Fort extends Thing	{
 	public Fort(FortType type) {
 		super(type.typeAsString);
 		setColor(Color.LIGHTGREY);
+		setValue(0);
 		fortType = type;
 		setImage(IMAGE_DIR + type.typeAsString + ".jpeg");
 	}
@@ -47,13 +49,16 @@ public class Fort extends Thing	{
 //		if (level <= 3) level ++;
 		switch (fortType) {
 			case TOWER: 
-				fortType = FortType.KEEP; 
+				fortType = FortType.KEEP;
+				setValue(getValue() + 1);
 				break;
 			case KEEP:
 				fortType = FortType.CASTLE;
+				setValue(getValue() + 1);
 				break;
 			case CASTLE:
 				fortType = FortType.CITADEL;
+				setValue(getValue() + 1);
 				break;
 			default:
 				break;
@@ -69,5 +74,13 @@ public class Fort extends Thing	{
 
 	public FortType getFortType() {
 		return fortType;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 }

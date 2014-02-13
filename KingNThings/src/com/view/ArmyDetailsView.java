@@ -70,10 +70,10 @@ public class ArmyDetailsView extends VBox{
 	}
 	
 	public void setMovementHandler(){
-		army.setPhase("movement");
+		army.setMoving(true);
 	}
 	public void setDefaultHandler(){
-		army.setPhase("other");
+		army.setMoving(false);
 	}
 	public ArmyOrMisc getArmy() {
 		return army;

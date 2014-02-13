@@ -213,18 +213,17 @@ public class BoardPresenter {
 		
 		if(h.getHexOwner() == player)	{
 			if(c != null)	{
+				if(c.getHexLocation() == -1)	{
+					player.removeThing(c);
+					h.addCreatToArmy(c, player);
+					c.setHexLocation(selected);
+					view.setBoard(svc.getGame().getBoard());
+				}
 
-				player.removeThing(c);
-				h.addCreatToArmy(c, player);
-				view.setBoard(svc.getGame().getBoard());
-
-				KNTAppFactory.getThingDetailsPresenter().setLastSelectedCreature(null);
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 				KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 			}
 		}
-		
-//		KNTAppFactory.getThingDetailsPresenter().setLastSelectedCreature(c);
 	}
 
 	public void handleMoveSetupForThing(Thing t) {

@@ -40,7 +40,7 @@ public class ArmyOrMisc extends HBox {
 	private HBox thingHolder;
 	private StackPane circleStackPane;
 	private ImageView img;
-	private String phase;
+	private boolean moving;
 	
 	private Creature lastSelectedCreature;
 
@@ -54,7 +54,7 @@ public class ArmyOrMisc extends HBox {
 	protected void buildComponent() {
 		getStyleClass().add("block");
 		setAlignment(Pos.CENTER);
-		phase = "other";
+		moving = false;
 
 		circleStackPane = new StackPane();
 		circle = new Circle();
@@ -103,13 +103,9 @@ public class ArmyOrMisc extends HBox {
 		img.setCache(true);
 		
 		
-		if(phase.equals("movement"))	{
+		if(moving)	{
 			handleThingClickForMovement(t);
-		}
-		else if(phase.equals("placement"))	{
-			img.setOnMouseClicked(null);
-		}
-		else	{
+		} else {
 			handleThingClicked(t);
 		}
 
@@ -123,7 +119,7 @@ public class ArmyOrMisc extends HBox {
 
 	public void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
 		KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
-		if(phase.equals("movement"))
+		if(moving)
 			KNTAppFactory.getBoardPresenter().handleMoveSetupForArmy();
 	}
 	
@@ -212,8 +208,8 @@ public class ArmyOrMisc extends HBox {
 		} 
 	}
 
-	public void setPhase(String phase) {
-		this.phase = phase;
+	public void setMoving(boolean b) {
+		this.moving = moving;
 	}
 
 	public Creature getLastSelectedCreature() {

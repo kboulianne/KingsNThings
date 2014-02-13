@@ -47,11 +47,6 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseEnd() {
 		Util.log("Init Phase: End of Starting Forces Phase");
-		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
-		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setPhase("other");
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("other");
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setPhase("other");
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setPhase("other");
 		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(true);
 		finishBtn.setOnAction(null);
@@ -60,11 +55,6 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		
-		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setPhase("placement");
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setPhase("placement");
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setPhase("placement");
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setPhase("placement");
 		
 		Player player = game.getCurrentPlayer();
 		player.addGold(10);
