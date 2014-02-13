@@ -181,15 +181,18 @@ public final class GamePlay {
 				false 	// For testing, easier to comment out
 				|| phaseLogic instanceof PlayerOrderPhase
 				|| phaseLogic instanceof StartingPosPhase
-				|| phaseLogic instanceof StartingKingdomPhase
-				|| phaseLogic instanceof StartingTowerPhase
-				|| phaseLogic instanceof StartingForcesPhase
+//				|| phaseLogic instanceof StartingKingdomPhase
+//				|| phaseLogic instanceof StartingTowerPhase
+//				|| phaseLogic instanceof StartingForcesPhase
 				|| phaseLogic instanceof ExchangePhase
-				|| phaseLogic instanceof GoldCollectPhase
+//				|| phaseLogic instanceof GoldCollectPhase
 				|| phaseLogic instanceof RecruitCharPhase
 				|| phaseLogic instanceof RecruitThingsPhase
 				|| phaseLogic instanceof RandomEventPhase
-				|| phaseLogic instanceof MovementPhase
+//				|| phaseLogic instanceof MovementPhase
+				|| phaseLogic instanceof ConstructionPhase
+				|| phaseLogic instanceof SpecialPowersPhase
+				|| phaseLogic instanceof ChangePlayOrderPhase
 				)
 			endTurn();
 	}
