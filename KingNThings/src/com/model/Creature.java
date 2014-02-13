@@ -10,7 +10,6 @@ public abstract class Creature extends Thing	{
 	private boolean charge;
 	private boolean magic;
 	private int combatVal;
-	private int hexLocation; // -1 if not on board
 	private int numberOfMovesAvailable;
 	private static final Map<String, Integer> combatVals;
 	
@@ -245,7 +244,6 @@ public abstract class Creature extends Thing	{
 	public Creature(String name)	{
 		super(name);
 		setNumberOfMovesAvailable(4);
-		setHexLocation(-1);
 		
 		//Set combat value to value from map associating creatures with their combat values
 		setCombatVal(combatVals.get(name));
@@ -324,12 +322,6 @@ public abstract class Creature extends Thing	{
 	public void setMagic(boolean bool){
 		magic = bool;
 	}
-	public int getHexLocation() {
-		return hexLocation;
-	}
-	public void setHexLocation(int hexLocation) {
-		this.hexLocation = hexLocation;
-	}
 	public int getNumberOfMovesAvailable() {
 		return numberOfMovesAvailable;
 	}
@@ -349,7 +341,6 @@ public abstract class Creature extends Thing	{
 					&& charge == c.charge
 					&& magic == c.magic
 					&& combatVal == c.combatVal
-					&& hexLocation == c.hexLocation
 					&&  numberOfMovesAvailable == c.numberOfMovesAvailable;
 		}
 		
@@ -365,10 +356,7 @@ public abstract class Creature extends Thing	{
 		hash = 59 * hash + (this.charge ? 1 : 0);
 		hash = 59 * hash + (this.magic ? 1 : 0);
 		hash = 59 * hash + this.combatVal;
-		hash = 59 * hash + this.hexLocation;
 		hash = 59 * hash + this.numberOfMovesAvailable;
 		return hash;
 	}
-	
-	
 }
