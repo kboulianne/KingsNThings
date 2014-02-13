@@ -55,6 +55,7 @@ public class CombatPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		Util.log("Game Phase: Logic for " + game.getCurrentPlayer().getName());
+
 //		// for testing
 //		Player currentPlayer = game.getCurrentPlayer();
 //		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("olddragon"), currentPlayer);

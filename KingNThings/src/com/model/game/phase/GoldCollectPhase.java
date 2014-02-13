@@ -85,10 +85,10 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		for (Hex h : game.getBoard().getHexes()) {
 			if ((h != null) && (h.getHexOwner() == player)) {
 				hexGold++;
+				if(h.getFort() != null)	fortGold += h.getFort().getValue();
 				if(h.getMiscItems() != null)	{
 					for (GamePiece g : h.getMiscItems()) {
-						if(g instanceof Fort)	fortGold += ((Fort)g).getValue();
-						else if(g instanceof IncomeCounter)	counterGold += ((IncomeCounter)g).getValue();
+						if(g instanceof IncomeCounter)	counterGold += ((IncomeCounter)g).getValue();
 						else if(g instanceof SpecialCharacter)	specCharGold ++;
 					}
 				}

@@ -20,8 +20,6 @@ public class ThingDetailsPresenter {
 	private ThingDetailsView view;
 	/** The Creature Thing View that displays information specific to creatures. */
 	private CreatureDetailsView cView;
-	/** The last creature selected from the rack. */
-	private Creature lastSelectedCreature;
 	
 	public ThingDetailsPresenter(ThingDetailsView view, CreatureDetailsView cView) {
 		this.view = view;
@@ -42,6 +40,9 @@ public class ThingDetailsPresenter {
 			return view;
 		}
 	}
+	
+	public ThingDetailsView getThingView()	{	return view;	}
+	public CreatureDetailsView getCreatureView()	{	return cView;	}
 
 	/** 
 	 * Shows the specified Thing in the Details View of the SidePane.
@@ -50,21 +51,5 @@ public class ThingDetailsPresenter {
 	public void showThing(Thing t) {
 		// Need to swap views according to Thing Type
 		getViewFor(t).setThing(t);
-	}
-	
-	/**
-	 * UI Model. Gets the last creature that was selected from the rack.
-	 * @return The selected creature.
-	 */
-	public Creature getLastSelectedCreature() {	
-		return lastSelectedCreature;	
-	}
-	
-	/**
-	 * UI Model. Sets the last creature that was selected from the rack.
-	 * @param c The creature to set.
-	 */
-	public void setLastSelectedCreature(Creature c) {	
-		this.lastSelectedCreature = c;	
 	}
 }

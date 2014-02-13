@@ -40,7 +40,7 @@ public class Fort extends Thing	{
 	public Fort(FortType type) {
 		super(type.typeAsString);
 		setColor(Color.LIGHTGREY);
-		setValue(0);
+		setValue(1);
 		fortType = type;
 		setImage(IMAGE_DIR + type.typeAsString + ".jpeg");
 	}

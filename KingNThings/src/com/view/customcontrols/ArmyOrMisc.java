@@ -41,8 +41,6 @@ public class ArmyOrMisc extends HBox {
 	private StackPane circleStackPane;
 	private ImageView img;
 	private boolean moving;
-	
-	private Creature lastSelectedCreature;
 
 	private EventHandler<ThingEvent> thingHandler;
 
@@ -119,8 +117,7 @@ public class ArmyOrMisc extends HBox {
 
 	public void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
 		KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
-		if(moving)
-			KNTAppFactory.getBoardPresenter().handleMoveSetupForArmy();
+		if(moving)	KNTAppFactory.getBoardPresenter().handleMoveSetupForArmy();
 	}
 	
 	
@@ -130,7 +127,6 @@ public class ArmyOrMisc extends HBox {
 			@Override
 			public void handle(MouseEvent me) {
 				// Fire custom event on mouse clicked
-				if(t instanceof Creature)	lastSelectedCreature = (Creature)t;
 				img.fireEvent(new ThingEvent(t));
 			}
 		});
@@ -141,7 +137,6 @@ public class ArmyOrMisc extends HBox {
 			
 			@Override
 			public void handle(MouseEvent me) {
-				if(t instanceof Creature)	lastSelectedCreature = (Creature) t;
 				if(t.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
 					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(t);
 				}
@@ -170,10 +165,6 @@ public class ArmyOrMisc extends HBox {
 			circle.setFill(armyOwner.getColor());
 			
 			for (Thing t : army) {
-				
-            	// TODO create object pool to avoid recreating image views.
-				// create and add image views
-				// FIXME, only drawing 1
 				StackPane pane = createArmyImageView(t);
 				thingHolder.getChildren().add(pane);
 			}
@@ -209,20 +200,10 @@ public class ArmyOrMisc extends HBox {
 	}
 
 	public void setMoving(boolean b) {
-		this.moving = moving;
+		this.moving = b;
 	}
 
-	public Creature getLastSelectedCreature() {
-		return lastSelectedCreature;
-	}
-	
 	public void setThingHandler(EventHandler<ThingEvent> event){
 		thingHandler = event;
 	}
-
-	public void setLastSelectedCreature(Creature lastSelectedCreature) {
-		this.lastSelectedCreature = lastSelectedCreature;
-	}
-
-
 }

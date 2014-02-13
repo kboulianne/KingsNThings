@@ -81,7 +81,6 @@ public class BoardPresenter {
 		
 		// Make sure the selected hex's own is the current player
 		if (hex.getHexOwner() != null && hex.getHexOwner().equals(current)) {
-			System.out.println("Inserted Fort into hex " + selected);
 
 			hex.setFort(Fort.create());
 			// Update view
@@ -119,7 +118,6 @@ public class BoardPresenter {
 				adjHex = b.getHexes().get(i);
 				if (adjHex.getHexOwner() != null) {
 					if (adjHex.getHexOwner().equals(current)) {
-						System.out.println("owned by current");
 						hasPath = true;
 					}
 					else {
@@ -152,7 +150,7 @@ public class BoardPresenter {
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		if(hex.getOwner() == null){
 			hex.setOwner(GameService.getInstance().getGame().getCurrentPlayer());
-		}else{
+		} else {
 			//TODO display msg
 		}
 		
@@ -167,23 +165,27 @@ public class BoardPresenter {
 	 */
 	public void handleMovementSelectedHexClick(int selected) {
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
-		if(hex.isHighlighted()){	
-			
+		if(hex.isHighlighted())	{			
 			Player currentPlayer = GameService.getInstance().getGame().getCurrentPlayer();
 			if(movingArmy)	{ // move whole army
 				List<Creature> army = KNTAppFactory.getArmyDetailsPresenter().getView().getLastSelectedArmy();
 				Hex lastSelected = svc.getGame().getBoard().getHexes().get(lastHexSelected);
-				for(Creature c: army){ // for same order
-					hex.addCreatToArmy(c, currentPlayer);
+				if(selected != lastHexSelected)	{
+					for(Creature c: army) { // for same order
+						hex.addCreatToArmy(c, currentPlayer);
+						c.setHexLocation(selected);
+					}
+					for(int i = army.size()-1; i>=0; i--) {
+						lastSelected.removeCreatureFromArmy(army.get(i), currentPlayer);
+					}
 				}
-				for(int i=army.size()-1;i>=0;i--){
-					lastSelected.removeCreatureFromArmy(army.get(i), currentPlayer);
-				}
-				movingArmy = false;
 			} else { // moving single thing
-				Creature creature = KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().getLastSelectedCreature();
-				svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(creature, currentPlayer);
-				hex.addCreatToArmy(creature, currentPlayer);
+				Creature c = KNTAppFactory.getThingDetailsPresenter().getCreatureView().getLastSelectedCreature();
+				if(selected != lastHexSelected)	{
+					svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(c, currentPlayer);
+					hex.addCreatToArmy(c, currentPlayer);
+					c.setHexLocation(selected);
+				}
 			}
 			
 			// Hex is unexplored, skip explore logic and claim it for DEMO
@@ -191,6 +193,8 @@ public class BoardPresenter {
 				hex.setOwner(svc.getGame().getCurrentPlayer());
 				System.out.println("Player claimed tile after exploring.");
 			}
+			
+			view.setBoard(svc.getGame().getBoard());
 		}
 		
 		
@@ -209,7 +213,7 @@ public class BoardPresenter {
 	public void handlePlacementSelectedHexClick(int selected) {
 		Hex h = svc.getGame().getBoard().getHexes().get(selected);
 		Player player = svc.getGame().getCurrentPlayer();
-		Creature c = KNTAppFactory.getThingDetailsPresenter().getLastSelectedCreature();
+		Creature c = KNTAppFactory.getThingDetailsPresenter().getCreatureView().getLastSelectedCreature();
 		
 		if(h.getHexOwner() == player)	{
 			if(c != null)	{
@@ -228,30 +232,14 @@ public class BoardPresenter {
 
 	public void handleMoveSetupForThing(Thing t) {
 		
-		Util.log("SeletectIndex-->" + lastHexSelected);
 		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
 		
 		int availableMovesForSelectedThing = 4;
-		if(t instanceof Creature)
-			availableMovesForSelectedThing = ((Creature) t).getNumberOfMovesAvailable();
+		if(t instanceof Creature)	availableMovesForSelectedThing = ((Creature)t).getNumberOfMovesAvailable();
 		
 		calculateMovementWeight(lastHexSelected, availableMovesForSelectedThing, moveableHexIdList);
 
-		
-		///setLastSelectedCreature((Creature)t);
-		//repaint moveableHexIdList
-		//for (int i : moveableHexIdList) {
-			//Util.log("moveable ids:" + i);
-//			view.paintHex(svc.getGame().getBoard().getHexes().get(i));
-		//}
-
-		// Update view
 		view.setBoard(svc.getGame().getBoard());
-		
-		//
-
-		//Util.log("SeletectIndex"+ selectedIndex);
-		//moveButton
 		movingArmy = false;
 	}
 	
@@ -326,7 +314,6 @@ public class BoardPresenter {
 		}
 	}
 
-	// TODO find better name
 	/**
 	 * Highlights and sets hexes in conflict. 
 	 */

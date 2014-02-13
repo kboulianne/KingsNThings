@@ -50,9 +50,6 @@ public class MovementPhase extends AbstractPhaseStrategy {
 		KNTAppFactory.getArmyDetailsPresenter().getView().setDefaultHandler();
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(false);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setMoving(false);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setMoving(false);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setMoving(false);
 		Util.log("Game Phase: End of Movement Phase");
 	}
 
@@ -60,11 +57,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		KNTAppFactory.getArmyDetailsPresenter().getView().setMovementHandler();	
-		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(true);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp1Army().setMoving(true);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp2Army().setMoving(true);
-		KNTAppFactory.getHexDetailsPresenter().getView().getOpp3Army().setMoving(true);
-		
+		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(true);		
 		
 		// for testing
 		Player currentPlayer = game.getCurrentPlayer();
@@ -80,7 +73,6 @@ public class MovementPhase extends AbstractPhaseStrategy {
 		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("watusi"), oppPlayer);
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("goblins"), game.getOpponent3());
 		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("ogre"), game.getOpponent1());
-		
 		
 	}
 
