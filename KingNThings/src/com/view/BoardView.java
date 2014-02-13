@@ -333,7 +333,7 @@ public class BoardView extends Canvas {
 		height = HEX_HEIGHT;
 		xOffset = choosenMapping[hex.getId()][0] * 0.75 * HEX_WIDTH - 40.0; //40 move whole grid
 		yOffset = choosenMapping[hex.getId()][1] * 0.5 * height - 30.0; //30 moves whole grid
-		if (hex.hasConflict()) {
+		if (hex.hasConflict()) {;
 			gc.setFill(new Color(1.0, 0.0, 0.0, .5));
 			gc.fillPolygon(new double[]{(xOffset + (HEX_WIDTH * 0.25)), (xOffset + (HEX_WIDTH * 0.75)), (xOffset + HEX_WIDTH),
 				xOffset + (HEX_WIDTH * 0.75), xOffset + (HEX_WIDTH * 0.25), xOffset},

@@ -140,7 +140,6 @@ public class BattlePresenter {
 			
 			// Attacker is done, now defender's turn
 			if (!creatureIt.hasNext()) {
-				System.out.println("Defender's turn");
 				isDefender = true;
 				// Swap iterator to defender's creatures.
 				creatureIt = battle.getDefenderCreaturesForPhase().iterator();
@@ -223,7 +222,6 @@ public class BattlePresenter {
 	private void rollPhase() {
 		if (battle.canSkipPhase()) {
 			nextBattlePhase();
-			System.out.println("SKIPPING");
 		}
 		
 		attackerDice.getView().getRollBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -348,7 +346,6 @@ public class BattlePresenter {
 	}
 
 	private void postCombatPhase() {
-		System.out.println("POST");
 		// For demo, eliminate his armies, set hex ownership to opponent
 //		battle.getAssociatedHex().getArmies(retreated);
 		battle.getAssociatedHex().getArmies().remove(retreated);
@@ -426,7 +423,6 @@ public class BattlePresenter {
 	}
 
 	private void nextBattlePhase() {
-		System.out.println("Next Phase");
 		switchToNextPhase();
 
 		startPhase();

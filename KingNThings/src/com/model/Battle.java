@@ -235,19 +235,13 @@ public class Battle {
 	public void killAttackerCreature(Creature c) {
 		// remove from hex, and from map
 		associatedHex.getArmies(offender).remove(c);
-		boolean test = attackingForces.get(battlePhase).remove(c);
-		if (!test) {
-			System.out.println("BUG");
-		}
+		attackingForces.get(battlePhase).remove(c);
 	}
 	
 	public void killDefenderCreature(Creature c) {
 		// remove from hex, and from map
 		associatedHex.getArmies(defender).remove(c);
-		boolean test = defendingForces.get(battlePhase).remove(c);
-		if (!test) {
-			System.out.println("BUG");
-		}
+		defendingForces.get(battlePhase).remove(c);
 	}
 	
 	public boolean canSkipPhase() {

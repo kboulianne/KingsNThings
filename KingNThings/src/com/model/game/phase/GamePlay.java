@@ -217,7 +217,6 @@ public final class GamePlay {
 			else {
 				// Decrement cycle count
 				cycles --;
-				System.out.println("Cycles: " + cycles);
 			}
 		}
 		
