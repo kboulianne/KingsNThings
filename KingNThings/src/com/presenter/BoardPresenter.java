@@ -313,7 +313,7 @@ public class BoardPresenter {
 			calculateMovementWeight(k, availableMovesForSelectedThing, calculated);
 		}
 	}
-
+	
 	/**
 	 * Highlights and sets hexes in conflict. 
 	 */
