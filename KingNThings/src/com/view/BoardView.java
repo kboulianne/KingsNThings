@@ -253,12 +253,12 @@ public class BoardView extends Canvas {
 		double yOffset = choosenMapping[hex.getId()][1] * 0.5 * height - 30.0; //30 moves whole grid
 		//gc.fillOval(xOffset, yOffset, xOffset+200, yOffset+200);
 
-		if (hex.hasConflict()) {
-			gc.setFill(Color.ORANGE);
-		}
-		else {
+//		if (hex.hasConflict()) {
+//			gc.setFill(Color.ORANGE);
+//		}
+//		else {
 			gc.setFill(Color.BLACK);
-		}
+//		}
 		
 		//outer polygon		
 		gc.fillPolygon(new double[]{(xOffset + (HEX_WIDTH * 0.25)), (xOffset + (HEX_WIDTH * 0.75)), (xOffset + HEX_WIDTH),
@@ -327,6 +327,18 @@ public class BoardView extends Canvas {
 					fortSize,
 					fortSize
 			);
+		}
+		
+		// Draw mask over the hex when there is conflict
+		height = HEX_HEIGHT;
+		xOffset = choosenMapping[hex.getId()][0] * 0.75 * HEX_WIDTH - 40.0; //40 move whole grid
+		yOffset = choosenMapping[hex.getId()][1] * 0.5 * height - 30.0; //30 moves whole grid
+		if (hex.hasConflict()) {
+			gc.setFill(new Color(1.0, 0.0, 0.0, .5));
+			gc.fillPolygon(new double[]{(xOffset + (HEX_WIDTH * 0.25)), (xOffset + (HEX_WIDTH * 0.75)), (xOffset + HEX_WIDTH),
+				xOffset + (HEX_WIDTH * 0.75), xOffset + (HEX_WIDTH * 0.25), xOffset},
+					new double[]{yOffset, yOffset, yOffset + (height * 0.5),
+						yOffset + height, yOffset + height, yOffset + (height * 0.5)}, 6);
 		}
 	}
 

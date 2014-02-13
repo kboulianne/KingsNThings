@@ -350,7 +350,8 @@ public class BattlePresenter {
 	private void postCombatPhase() {
 		System.out.println("POST");
 		// For demo, eliminate his armies, set hex ownership to opponent
-		battle.getAssociatedHex().getArmies(retreated).clear();
+//		battle.getAssociatedHex().getArmies(retreated);
+		battle.getAssociatedHex().getArmies().remove(retreated);
 		if (retreated.equals(battle.getOffender())) {
 			battle.getAssociatedHex().setOwner(battle.getDefender());
 		} 
