@@ -13,6 +13,7 @@ public class Cup extends GamePiece {
 	}
 	public void addThing(Thing t)	{
 		t.setOwner("Cup");
+		t.setHexLocation(-1);
 		listOfThings.add(t);
 	}
 	public Thing getThing(String name){

@@ -66,6 +66,8 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 			game.moveThingFromCupToPlayer("mountainmen", player);
 			game.moveThingFromCupToPlayer("goblins", player);
 			
+			player.removeGold(5);
+			
 			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 		} else {
 			Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");

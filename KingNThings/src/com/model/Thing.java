@@ -9,12 +9,13 @@ import javafx.scene.paint.Color;
 public abstract class Thing extends GamePiece	{
 	
 	private Color color;
-	
+	private int hexLocation;
 	// private boolean facedDown
 	
 	Thing(String name)	{
 		super(name);
 		setOwner("Cup");
+		setHexLocation(-1);
 		color = Color.BLACK;
 	}
 	
@@ -215,6 +216,14 @@ public abstract class Thing extends GamePiece	{
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	public int getHexLocation() {
+		return hexLocation;
+	}
+
+	public void setHexLocation(int hexLocation) {
+		this.hexLocation = hexLocation;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -233,7 +242,5 @@ public abstract class Thing extends GamePiece	{
 		int hash = 7;
 		hash = 17 * hash + Objects.hashCode(this.color);
 		return hash;
-	}
-	
-	
+	}	
 }
