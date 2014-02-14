@@ -4,13 +4,14 @@ KingsNThings
 Group Project
 COMP3004
 
+Type of Game:	Server Client Game
 
-GameService.java
-Networking will go here.
+Language/Resources:	Java language
+			Java FX 
 
-Game.java
-Game state goes here.
-
-GamePlay.java
-Game Behaviour is defined here.
+Obtaining Executable:	-compile all source files
+			-run KNTAppFactory
+	
+			-open project in Eclipse(Kepler)
+			-run KNTAppFactory
 
