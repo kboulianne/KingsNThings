@@ -6,8 +6,12 @@
 package com.model.game.phase.init;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 import com.main.KNTAppFactory;
+import com.model.Hex;
 import com.model.Player;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
@@ -38,6 +42,8 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		KNTAppFactory.getDicePresenter().getView().getDie2().setVisible(false);		
 		finishBtn.setVisible(false);
 		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
+		
+		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose a starting position", Hex.START_IMAGE);
 	}
 
 	@Override
@@ -47,15 +53,17 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		KNTAppFactory.getBoardPresenter().getView().setBoard(game.getBoard());
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		finishBtn.setVisible(true);
+		
+		KNTAppFactory.getSidePanePresenter().getView().clearDetailsView();
 	}
 
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
 		super.turnStart();
-		
+
 		// Hardcoded for iteration 1
-		Util.log("Selection hardcoded for iteration 1");
+		/*Util.log("Selection hardcoded for iteration 1");
 		if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE))
 			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(23);
 		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO))
@@ -63,7 +71,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE))
 			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(32);
 		else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR))
-			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(19);
+			KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(19);*/
 	}
 
 	@Override

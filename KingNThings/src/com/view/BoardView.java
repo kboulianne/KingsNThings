@@ -116,7 +116,6 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-						
 						if(startPositions.contains(i))
 							presenter.handleStartPositionSelectedHexClick(i);
 						break;

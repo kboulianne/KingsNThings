@@ -6,13 +6,20 @@
 package com.view;
 
 import com.view.customcontrols.PlayerLabel;
+import com.main.KNTAppFactory;
+import com.model.Hex;
 import com.model.Player;
 import com.presenter.SidePanePresenter;
+
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -109,6 +116,23 @@ public class SidePaneView extends VBox {
 		opp1Lbl.setPlayer(o1);
 		opp2Lbl.setPlayer(o2);
 		opp3Lbl.setPlayer(o3);
+	}
+	
+	public void showArbituaryView(String title, Image img){
+		
+		VBox display = new VBox();
+		ImageView iv = new ImageView(img);
+
+		iv.setFitHeight(200.0);
+		iv.setPreserveRatio(true);
+
+		Label lbl = new Label(title);
+		display.getChildren().addAll(iv, lbl);
+		
+		display.getStyleClass().add("block");
+		display.setAlignment(Pos.CENTER);
+		content.getChildren().clear();
+		content.getChildren().add(display);
 	}
 
 	public void showHexDetailsView(HexDetailsView view) {

@@ -7,6 +7,7 @@ package com.model.game.phase;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -99,28 +100,23 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 		
 		// TOOD Either create view in com.view.popups or create view/presenter like HexDetailsView
-		AnchorPane ap = new AnchorPane();
-		ap.setPrefSize(500, 500);
 		ImageView im = new ImageView("view/com/assets/pics/gold.png");
 		im.setFitWidth(500);
 		im.setPreserveRatio(true);
-		ap.getChildren().add(im);
-		AnchorPane.setTopAnchor(im, 60.0);
 		Label hexes = new Label("Hex Income:  " + hexGold);
 		Label forts = new Label("Fort Income:  " + fortGold);
 		Label counters = new Label("Counter Income:  " + counterGold);
 		Label specChars = new Label("Character Income:  " + specCharGold);
-		Label divider = new Label("------------------------");
+		Label divider = new Label(" ");
 		Label total = new Label("Total Income:  " + totalGold);
 		VBox labels = new VBox();
 		labels.setAlignment(Pos.BASELINE_RIGHT);
 		labels.getChildren().addAll(hexes, forts, counters, specChars, divider, total);
-		ap.getChildren().add(labels);
-		AnchorPane.setLeftAnchor(labels, 120.0);
-		AnchorPane.setTopAnchor(labels, 420.0);
 
 		VBox popupVbox = new VBox();
-		popupVbox.getChildren().addAll(ap);
+		popupVbox.setPadding(new Insets(15));
+		popupVbox.getStyleClass().add("block");
+		popupVbox.getChildren().addAll(im, labels);
 		popupVbox.setAlignment(Pos.CENTER);
 		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
 

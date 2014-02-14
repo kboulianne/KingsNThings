@@ -148,15 +148,16 @@ public class BoardPresenter {
 	public void handleStartPositionSelectedHexClick(int selected) {
 		
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
-		if(hex.getOwner() == null){
+		if(hex.getHexOwner() == null){
 			hex.setOwner(GameService.getInstance().getGame().getCurrentPlayer());
+			// Update the view and end turn
+			view.setBoard(svc.getGame().getBoard());
+			GamePlay.getInstance().endTurn();
 		} else {
 			//TODO display msg
 		}
 		
-		// Update the view and end turn
-		view.setBoard(svc.getGame().getBoard());
-		GamePlay.getInstance().endTurn();
+		
 	}
 	
 	/**
