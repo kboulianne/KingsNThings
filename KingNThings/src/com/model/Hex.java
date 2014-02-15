@@ -5,7 +5,6 @@ import java.util.HashMap;
 import com.model.Board.NumberOfHexes;
 import java.util.Map;
 
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 //TODO Use Factory Pattern?
@@ -47,7 +46,6 @@ public class Hex extends GamePiece {
 	//TODO init
 	static final int joiningHexes19Mapping[][] = {};
 	
-	static public final Image START_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
 	// list of armies for all players
 	// list of misc Things
 	private HashMap<Player, ArrayList<Creature>> armies;

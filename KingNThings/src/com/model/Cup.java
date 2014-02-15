@@ -4,16 +4,22 @@ import java.util.ArrayList;
 
 public class Cup extends GamePiece {
 	private ArrayList<Thing> listOfThings;
+	
+	public Cup(){
+		listOfThings = new ArrayList<Thing>();
+	}
 
 	public ArrayList<Thing> getListOfThings() {
 		return listOfThings;
 	}
 	public void setListOfThings(ArrayList<Thing> listOfThings) {
-		this.listOfThings = listOfThings;
+		for(Thing t: listOfThings)
+			addThing(t);
 	}
 	public void addThing(Thing t)	{
 		t.setOwner("Cup");
 		t.setHexLocation(-1);
+		t.setFacedDown(true);
 		listOfThings.add(t);
 	}
 	public Thing getThing(String name){

@@ -3,7 +3,6 @@ package com.model.game.phase.init;
 import javafx.scene.image.Image;
 
 import com.main.KNTAppFactory;
-import com.model.Hex;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;

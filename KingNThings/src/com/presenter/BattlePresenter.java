@@ -1,24 +1,16 @@
 package com.presenter;
 
 import com.game.services.GameService;
-import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-
 import com.main.KNTAppFactory;
 import com.model.Battle;
 import com.model.Battle.BattlePhase;
 import com.model.Creature;
-import com.model.Die;
 import com.model.Player;
 import com.view.BattleView;
-import com.view.DiceView;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class BattlePresenter {

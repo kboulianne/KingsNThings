@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import javafx.scene.image.Image;
+
 import com.model.Board;
 import com.model.Cup;
 import com.model.Die;
@@ -54,6 +57,10 @@ public final class Game {
     private List<Player> playerOrder;
     private Cup cup;
     
+    public final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
+	public final static Image START_HEX_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
+  	public final static Image FACE_DOWN_THING_IMAGE = new Image("view/com/assets/pics/icon-inverted.png");
+ 	public final static Image GOLD_IMAGE = new Image("view/com/assets/pics/gold.png");
     // Constructors & Initializer Methods ==============================================================================
     /**
      *	Creates a new Game instance defaulting to Four player mode.

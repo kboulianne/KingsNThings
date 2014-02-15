@@ -7,10 +7,14 @@
 package com.view.popups;
 
 import com.model.Thing;
+import com.model.game.Game;
 import com.view.ThingEvent;
+
 import java.util.List;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -36,7 +40,7 @@ public class CupPopup extends FlowPane {
 		setHgap(3);
 		setPadding(new Insets(10, 0, 0, 0));
 		//TODO Hardcoded
-		setPrefWrapLength(1180);
+		setPrefWrapLength(1160);
 		
 		for (Thing t : things) {
 		    createTileImageView(t);
@@ -53,10 +57,9 @@ public class CupPopup extends FlowPane {
         borderRect.setWidth(size);
         borderRect.setHeight(size);
         borderRect.setArcWidth(20);
-        borderRect.setArcHeight(20);
-		
+        borderRect.setArcHeight(20);		
         borderRect.setFill(Color.WHITE);
-		
+
 		final Rectangle coloredRect = new Rectangle();
 		coloredRect.setX(0);
 		coloredRect.setY(0);
@@ -64,9 +67,18 @@ public class CupPopup extends FlowPane {
 		coloredRect.setHeight(size-1);
 		coloredRect.setArcWidth(20);
 		coloredRect.setArcHeight(20);
-		coloredRect.setFill(t.getColor());
 		
-		final ImageView img = new ImageView(t.getImage());
+		Image im = null;
+		if(t.isFacedDown()){
+			coloredRect.setFill(Color.BLACK);
+			im= Game.FACE_DOWN_THING_IMAGE;
+		}else{
+			coloredRect.setFill(t.getColor());
+			im=t.getImage();
+		}
+		
+		
+		final ImageView img = new ImageView(im);
 		img.setFitWidth(size-7); 
 		img.setFitHeight(size-7);
         img.setPreserveRatio(false);

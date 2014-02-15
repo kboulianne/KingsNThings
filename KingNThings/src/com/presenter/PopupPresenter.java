@@ -1,7 +1,6 @@
 package com.presenter;
 
 import com.main.KNTAppFactory;
-import com.model.Battle;
 import com.model.Player;
 import com.model.Thing;
 import com.view.popups.PlayerPopup;

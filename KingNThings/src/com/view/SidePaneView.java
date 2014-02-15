@@ -6,15 +6,12 @@
 package com.view;
 
 import com.view.customcontrols.PlayerLabel;
-import com.main.KNTAppFactory;
-import com.model.Hex;
 import com.model.Player;
+import com.model.game.Game;
 import com.presenter.SidePanePresenter;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.event.EventHandler;
@@ -125,7 +122,7 @@ public class SidePaneView extends VBox {
 		Label title = new Label(playerName + "'s Gold:");
 		title.getStyleClass().add("title");
 		
-		ImageView im = new ImageView("view/com/assets/pics/gold.png");
+		ImageView im = new ImageView(Game.GOLD_IMAGE);
 		im.setFitWidth(300);
 		im.setPreserveRatio(true);
 		

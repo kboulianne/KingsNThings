@@ -10,13 +10,14 @@ public abstract class Thing extends GamePiece	{
 	
 	private Color color;
 	private int hexLocation;
-	// private boolean facedDown
+	private boolean facedDown;
 	
 	Thing(String name)	{
 		super(name);
 		setOwner("Cup");
 		setHexLocation(-1);
 		color = Color.BLACK;
+		facedDown = false;
 	}
 	
 	public static ArrayList<Thing> createThings()	{
@@ -242,5 +243,13 @@ public abstract class Thing extends GamePiece	{
 		int hash = 7;
 		hash = 17 * hash + Objects.hashCode(this.color);
 		return hash;
+	}
+
+	public boolean isFacedDown() {
+		return facedDown;
+	}
+
+	public void setFacedDown(boolean facedDown) {
+		this.facedDown = facedDown;
 	}	
 }

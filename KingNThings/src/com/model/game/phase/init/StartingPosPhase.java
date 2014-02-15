@@ -6,13 +6,9 @@
 package com.model.game.phase.init;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-
 import com.main.KNTAppFactory;
-import com.model.Hex;
 import com.model.Player;
+import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
@@ -43,7 +39,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		finishBtn.setVisible(false);
 		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
 		
-		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose a starting position", Hex.START_IMAGE);
+		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose a starting position", Game.START_HEX_IMAGE);
 	}
 
 	@Override

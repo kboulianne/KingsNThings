@@ -7,14 +7,6 @@ package com.model.game.phase;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.GamePiece;

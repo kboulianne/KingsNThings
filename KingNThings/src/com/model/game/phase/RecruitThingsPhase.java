@@ -10,8 +10,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
-import com.model.Player;
-import com.model.Player.PlayerId;
 import com.presenter.Util;
 
 /**
@@ -56,8 +54,8 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		
-		if(game.getCurrentPlayer().getId().equals(PlayerId.ONE))	{
+		Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");
+		/*if(game.getCurrentPlayer().getId().equals(PlayerId.ONE))	{
 			Util.log("Adding three creatures to Players 1 block for Iteration 1");
 			
 			Player player = game.getCurrentPlayer();
@@ -70,9 +68,9 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 			
 			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 		} else {
-			Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");
+			//Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");
 //			context.endTurn();
-		}
+		}*/
 	}
 
 	@Override
