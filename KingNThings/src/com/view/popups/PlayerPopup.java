@@ -10,6 +10,8 @@ import com.model.Player;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 /**
@@ -26,10 +28,14 @@ public class PlayerPopup extends VBox {
     	setAlignment(Pos.CENTER);
     	getStyleClass().add("block");
     	Label nameLbl = new Label("Name: Sir " + p.getName());
+    	ImageView iv = new ImageView(new Image("view/com/assets/pics/warrior"+p.getId().ordinal()+".jpg"));
+    	iv.setFitHeight(450.0);
+		iv.setPreserveRatio(true);
+    	
     	Label goldLbl = new Label("Gold: " + p.getGold());
 	
     	// Not supposed to see their rack instance. 
 	
-    	getChildren().addAll(nameLbl, goldLbl);
+    	getChildren().addAll(nameLbl,iv,goldLbl);
     }
 }

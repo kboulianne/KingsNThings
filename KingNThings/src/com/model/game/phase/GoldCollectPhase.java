@@ -13,12 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.Fort;
 import com.model.GamePiece;
 import com.model.Hex;
 import com.model.IncomeCounter;
@@ -43,20 +41,20 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 
 		gv.getCurrentActionLbl().setText("Gold Collection");
 		
-		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setDisable(true);
-		Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
-		rollBtn.setDisable(true);
+		//Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		//finishBtn.setDisable(true);
+		//Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
+		//rollBtn.setDisable(true);
 	}
 	
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Gold Collection Phase");
-		
-		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setDisable(true);
-		Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
-		rollBtn.setDisable(true);
+		KNTAppFactory.getSidePanePresenter().getView().clearDetailsView();
+		//Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		//finishBtn.setDisable(true);
+		//Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
+		//rollBtn.setDisable(true);
 		
 		// Code below is equivalent to
 //		KNTAppFactory.getPopupPresenter().dismissPopup();
@@ -100,7 +98,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 		
 		// TOOD Either create view in com.view.popups or create view/presenter like HexDetailsView
-		ImageView im = new ImageView("view/com/assets/pics/gold.png");
+		/*ImageView im = new ImageView("view/com/assets/pics/gold.png");
 		im.setFitWidth(500);
 		im.setPreserveRatio(true);
 		Label hexes = new Label("Hex Income:  " + hexGold);
@@ -118,10 +116,11 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		popupVbox.getStyleClass().add("block");
 		popupVbox.getChildren().addAll(im, labels);
 		popupVbox.setAlignment(Pos.CENTER);
-		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
+		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);*/
 
-
-		KNTAppFactory.getPopupPresenter().getView().show(popupVbox, player.getName() + "'s Gold Income:");
+		KNTAppFactory.getSidePanePresenter().getView().showGoldCollection(player.getName(), hexGold, fortGold, counterGold, specCharGold);
+		
+		//KNTAppFactory.getPopupPresenter().getView().show(popupVbox, player.getName() + "'s Gold Income:");
 		KNTAppFactory.getPopupPresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override

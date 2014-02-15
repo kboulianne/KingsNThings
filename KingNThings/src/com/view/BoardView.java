@@ -7,9 +7,11 @@ package com.view;
 
 import com.model.Board;
 import com.model.Hex;
+import com.model.Player;
 import com.presenter.BoardPresenter;
 import com.presenter.Util;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -308,8 +310,24 @@ public class BoardView extends Canvas {
 			} else {
 				gc.drawImage(FACE_DOWN_IMAGE, xOffset + gap + (imageAdjust / 2), yOffset + gap, temp_width - (gap * 2.0) - imageAdjust, height - (gap * 2.0));	
 			}
-		} else{
+		} else{		
 			gc.drawImage(hex.getImage(), xOffset + gap + (imageAdjust / 2), yOffset + gap, temp_width - (gap * 2.0) - imageAdjust, height - (gap * 2.0));
+		}
+		
+		double radius = 7.0;
+		gc.setFill(Color.LIGHTGREY);
+		double ovalsXOffset = xOffset+27;
+		double ovalsYOffset = yOffset+55;
+		Iterator<Player> it = hex.getArmies().keySet().iterator();
+		double factor = 0.0;
+		while(it.hasNext()){
+			//Util.log("hex:"+hex.getId()+"  size"+hex.getArmies().keySet().size());
+			Player p = it.next();
+			if(hex.getArmies(p).size()>0){
+				gc.setFill(p.getColor());
+				gc.fillOval(ovalsXOffset+radius*factor, ovalsYOffset, radius, radius);
+				factor +=1.5;
+			}
 		}
 		
 		// FOR DEMO =========================================================

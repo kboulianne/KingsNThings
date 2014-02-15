@@ -10,11 +10,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
-import com.model.DesertCreature;
-import com.model.Fort;
-import com.model.JungleCreature;
-import com.model.MountainCreature;
-import com.model.Player;
 import com.presenter.Util;
 
 /**

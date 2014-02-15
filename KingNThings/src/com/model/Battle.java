@@ -252,7 +252,7 @@ public class Battle {
 	
 	public boolean isBattleResolved() {
 		// Resovled when one or both sides can no longer roll.
-		boolean att, def;
+		//boolean att, def;
 		
 		// Forced to retreat
 		if (attackingForces.get(BattlePhase.MAGIC).isEmpty()

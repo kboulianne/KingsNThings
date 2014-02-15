@@ -331,6 +331,14 @@ public class BoardPresenter {
 		// Update view
 		view.setBoard(board);
 	}
+	public void clearConflictHighlights() {
+		Board board = svc.getGame().getBoard();
+		for (Hex h : board.getHexes()) {
+			h.setConflict(false);
+		}		
+		// Update view
+		view.setBoard(board);
+	}
 	
 	public void handleBattleSelectionHex(int selected) {
 		Board b = svc.getGame().getBoard();

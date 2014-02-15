@@ -17,9 +17,7 @@ import javafx.scene.shape.Rectangle;
 import com.model.Battle;
 import com.model.Creature;
 import com.model.Fort;
-import com.model.GamePiece;
 import com.presenter.BattlePresenter;
-import com.presenter.DicePresenter;
 import java.util.List;
 
 public class BattleView extends VBox{

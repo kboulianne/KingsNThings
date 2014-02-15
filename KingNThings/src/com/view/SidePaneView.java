@@ -11,12 +11,14 @@ import com.model.Hex;
 import com.model.Player;
 import com.presenter.SidePanePresenter;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.event.EventHandler;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -118,17 +120,44 @@ public class SidePaneView extends VBox {
 		opp3Lbl.setPlayer(o3);
 	}
 	
-	public void showArbituaryView(String title, Image img){
+	public void showGoldCollection(String playerName, int hexGold, int fortGold, int counterGold, int specCharGold){
+		int totalGold = (hexGold + fortGold + counterGold + specCharGold);
+		Label title = new Label(playerName + "'s Gold:");
+		title.getStyleClass().add("title");
 		
+		ImageView im = new ImageView("view/com/assets/pics/gold.png");
+		im.setFitWidth(300);
+		im.setPreserveRatio(true);
+		
+		Label hexes = new Label("Hex Income:  " + hexGold);
+		Label forts = new Label("Fort Income:  " + fortGold);
+		Label counters = new Label("Counter Income:  " + counterGold);
+		Label specChars = new Label("Character Income:  " + specCharGold);
+		Label divider = new Label(" ");
+		Label total = new Label("Total Income:  " + totalGold);
+		VBox labels = new VBox();
+		
+		labels.setAlignment(Pos.CENTER);
+		labels.getChildren().addAll(hexes, forts, counters, specChars, divider, total);
+
+		VBox popupVbox = new VBox();
+		//popupVbox.setPadding(new Insets(15));
+		popupVbox.setSpacing(20);//getStyleClass().add("block");
+		popupVbox.getChildren().addAll(title, im, labels);
+		popupVbox.setAlignment(Pos.CENTER);
+		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
+		
+		content.getChildren().clear();
+		content.getChildren().add(popupVbox);
+	}
+	
+	public void showArbituaryView(String title, Image img){
 		VBox display = new VBox();
 		ImageView iv = new ImageView(img);
-
 		iv.setFitHeight(200.0);
 		iv.setPreserveRatio(true);
-
 		Label lbl = new Label(title);
 		display.getChildren().addAll(iv, lbl);
-		
 		display.getStyleClass().add("block");
 		display.setAlignment(Pos.CENTER);
 		content.getChildren().clear();

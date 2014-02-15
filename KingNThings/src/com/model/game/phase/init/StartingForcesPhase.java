@@ -47,9 +47,9 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseEnd() {
 		Util.log("Init Phase: End of Starting Forces Phase");
-		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setDisable(true);
-		finishBtn.setOnAction(null);
+		//Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		//finishBtn.setDisable(true);
+		//finishBtn.setOnAction(null);
 	}
 
 	@Override
