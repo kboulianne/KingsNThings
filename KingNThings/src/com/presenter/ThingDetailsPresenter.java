@@ -5,9 +5,9 @@
  */
 package com.presenter;
 
-import com.model.Creature;
+
 import com.model.Thing;
-import com.view.CreatureDetailsView;
+
 import com.view.ThingDetailsView;
 
 /**
@@ -19,13 +19,13 @@ public class ThingDetailsPresenter {
 	/** The General Thing View that this Presenter manages. */
 	private ThingDetailsView view;
 	/** The Creature Thing View that displays information specific to creatures. */
-	private CreatureDetailsView cView;
+	//private CreatureDetailsView cView;
 	
-	public ThingDetailsPresenter(ThingDetailsView view, CreatureDetailsView cView) {
+	public ThingDetailsPresenter(ThingDetailsView view){//, CreatureDetailsView cView) {
 		this.view = view;
 		this.view.setPresenter(this);
-		this.cView = cView;
-		this.cView.setPresenter(this);
+		//this.cView = cView;
+		//this.cView.setPresenter(this);
 	}
 
 	/**
@@ -34,15 +34,15 @@ public class ThingDetailsPresenter {
 	 * @return The ThingDetailsView to to be used for the specified Thing.
 	 */
 	public ThingDetailsView getViewFor(Thing t) {
-		if (t instanceof Creature) {
-			return cView;
-		} else {
+		//if (t instanceof Creature) {
+			//return cView;
+		//} else {
 			return view;
-		}
+		//}
 	}
 	
 	public ThingDetailsView getThingView()	{	return view;	}
-	public CreatureDetailsView getCreatureView()	{	return cView;	}
+	//public CreatureDetailsView getCreatureView()	{	return cView;	}
 
 	/** 
 	 * Shows the specified Thing in the Details View of the SidePane.

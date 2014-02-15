@@ -181,7 +181,7 @@ public class BoardPresenter {
 					}
 				}
 			} else { // moving single thing
-				Creature c = KNTAppFactory.getThingDetailsPresenter().getCreatureView().getLastSelectedCreature();
+				Creature c = KNTAppFactory.getThingDetailsPresenter().getThingView().getLastSelectedCreature();
 				if(selected != lastHexSelected)	{
 					svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(c, currentPlayer);
 					hex.addCreatToArmy(c, currentPlayer);
@@ -214,7 +214,7 @@ public class BoardPresenter {
 	public void handlePlacementSelectedHexClick(int selected) {
 		Hex h = svc.getGame().getBoard().getHexes().get(selected);
 		Player player = svc.getGame().getCurrentPlayer();
-		Creature c = KNTAppFactory.getThingDetailsPresenter().getCreatureView().getLastSelectedCreature();
+		Creature c = KNTAppFactory.getThingDetailsPresenter().getThingView().getLastSelectedCreature();
 		
 		if(h.getHexOwner() == player)	{
 			if(c != null)	{

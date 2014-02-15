@@ -14,7 +14,6 @@ import com.presenter.ThingDetailsPresenter;
 import com.view.ArmyDetailsView;
 import com.view.BattleView;
 import com.view.BoardView;
-import com.view.CreatureDetailsView;
 import com.view.HexDetailsView;
 import com.view.DiceView;
 import com.view.GameView;
@@ -98,8 +97,8 @@ public class KNTAppFactory {
 
 	private static ThingDetailsPresenter createThingDetailsPresenter() {
 		ThingDetailsView tView = new ThingDetailsView();
-		CreatureDetailsView cView = new CreatureDetailsView();
-		ThingDetailsPresenter presenter = new ThingDetailsPresenter(tView, cView);
+		//CreatureDetailsView cView = new CreatureDetailsView();
+		ThingDetailsPresenter presenter = new ThingDetailsPresenter(tView);//, cView);
 
 		return presenter;
 	}

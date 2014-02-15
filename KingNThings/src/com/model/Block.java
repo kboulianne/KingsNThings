@@ -22,6 +22,7 @@ public class Block extends GamePiece {
 			Util.log("Error: Unable to add special characters, gold counters or forts to block");
 			return false;
 		}
+		thing.setFacedDown(false);
 		thing.setOwner(owner);
 		listOfThings.add(thing);
 		return true;

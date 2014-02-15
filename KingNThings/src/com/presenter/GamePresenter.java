@@ -9,9 +9,8 @@ import com.model.Thing;
 import com.model.game.Game;
 import com.model.game.phase.GamePlay;
 import com.view.GameView;
-import com.view.ThingEvent;
 
-import javafx.event.EventHandler;
+//import javafx.event.EventHandler;
 
 /**
  * OPTION 1 of: http://www.zenjava.com/2011/12/11/javafx-and-mvp-a-smorgasbord-of-design-patterns/
@@ -82,7 +81,7 @@ public class GamePresenter {
 		Game game = GameService.getInstance().getGame();
 
 		// For now until can find a cleaner way.
-		EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
+		/*EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
 
 			@Override
 			public void handle(ThingEvent t) {
@@ -90,9 +89,9 @@ public class GamePresenter {
 				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t.getThing());
 				KNTAppFactory.getPopupPresenter().dismissPopup();
 			}
-		};
+		};*/
 		ArrayList<Thing> cupThings = game.getCup().getListOfThings();
-		KNTAppFactory.getPopupPresenter().showCupPopup(cupThings, "Cup : "+cupThings.size()+" items", handler);
+		KNTAppFactory.getPopupPresenter().showCupPopup(cupThings, "Cup : "+cupThings.size()+" items");
 	}
 
 	/**

@@ -41,6 +41,7 @@ public class HexDetailsPresenter {
 	 */
 	public void handleThingClick(Thing t) {
 		// Show ThingDetailView in SidePane.
+		t.setSelected(!t.isSelected());
 		KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
 	}
 }

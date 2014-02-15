@@ -12,7 +12,6 @@ import com.model.Player;
 import com.model.game.Game;
 import com.presenter.HexDetailsPresenter;
 import java.util.List;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -71,22 +70,22 @@ public class HexDetailsView extends StackPane {
 		contentBox.getChildren().addAll(nameLbl, ownerLbl);
 
 		// Create the mouse handler for the things and hook it up to the presenter.
-		EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
+		/*EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
 			@Override
 			public void handle(ThingEvent t) {
 				presenter.handleThingClick(t.getThing());
 			}
 
-		};
+		};*/
 
         // ArmyOrMisc components
 		//misc = new ArmyOrMisc(handler);
 		//TODO shouldn't add these if empty
-		opp1Army = new ArmyOrMisc(handler);
-		opp2Army = new ArmyOrMisc(handler);
-		opp3Army = new ArmyOrMisc(handler);
-		currentPlayerArmy = new ArmyOrMisc(handler);
-		misc = new ArmyOrMisc(handler);
+		opp1Army = new ArmyOrMisc();
+		opp2Army = new ArmyOrMisc();
+		opp3Army = new ArmyOrMisc();
+		currentPlayerArmy = new ArmyOrMisc();
+		misc = new ArmyOrMisc();
 
 		content.getChildren().addAll(contentBox, currentPlayerArmy, opp1Army, opp2Army, opp3Army, misc);
 		getChildren().addAll(hexImage, content);

@@ -5,14 +5,12 @@
  */
 package com.view.customcontrols;
 
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Creature;
 import com.model.GamePiece;
 import com.model.Hex;
 import com.model.Player;
 import com.model.Thing;
-import com.view.ThingEvent;
 
 import java.util.List;
 
@@ -20,13 +18,10 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 /**
  * A Control. Using DetailsView as a presenter.
@@ -39,13 +34,13 @@ public class ArmyOrMisc extends HBox {
 	private Label sizeLbl;
 	private HBox thingHolder;
 	private StackPane circleStackPane;
-	private ImageView img;
+	//private ImageView img;
 	private boolean moving;
 
-	private EventHandler<ThingEvent> thingHandler;
+	//private EventHandler<ThingEvent> thingHandler;
 
-	public ArmyOrMisc(EventHandler<ThingEvent> click) {
-		this.thingHandler = click;
+	public ArmyOrMisc(){//EventHandler<ThingEvent> click) {
+		//this.thingHandler = click;
 		buildComponent();
 	}
 
@@ -69,7 +64,7 @@ public class ArmyOrMisc extends HBox {
 
 	}
 
-	private StackPane createArmyImageView(final Thing t) {
+/*	private StackPane createArmyImageView(final Thing t) {
 
 		int size = 50;
 
@@ -100,7 +95,7 @@ public class ArmyOrMisc extends HBox {
 		img.setSmooth(true);
 		img.setCache(true);
 		
-		
+		//!!!!!!!!!!!!!!
 		if(moving)	{
 			handleThingClickForMovement(t);
 		} else {
@@ -113,7 +108,7 @@ public class ArmyOrMisc extends HBox {
 		StackPane pane = new StackPane();
 		pane.getChildren().addAll(borderRect, coloredRect, img);
 		return pane;
-	}
+	}*/
 
 	public void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
 		KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
@@ -121,7 +116,7 @@ public class ArmyOrMisc extends HBox {
 	}
 	
 	
-	private void handleThingClicked(final Thing t){
+	/*private void handleThingClicked(final Thing t){
 		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			
 			@Override
@@ -130,9 +125,9 @@ public class ArmyOrMisc extends HBox {
 				img.fireEvent(new ThingEvent(t));
 			}
 		});
-	}
+	}*/
 	
-	private void handleThingClickForMovement(final Thing t){
+	/*private void handleThingClickForMovement(final Thing t){
 		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			
 			@Override
@@ -143,7 +138,7 @@ public class ArmyOrMisc extends HBox {
 				img.fireEvent(new ThingEvent(t));
 			}
 		});
-	}
+	}*/
 	
 	public void setArmy(final Hex hex, final Player armyOwner, final List<Creature> army) {
 		
@@ -165,8 +160,11 @@ public class ArmyOrMisc extends HBox {
 			circle.setFill(armyOwner.getColor());
 			
 			for (Thing t : army) {
-				StackPane pane = createArmyImageView(t);
-				thingHolder.getChildren().add(pane);
+				
+				ThingView tv =new ThingView(50, t);
+				thingHolder.getChildren().add(tv);
+				tv.setDefaultHandler();
+
 			}
 		} 
 	}
@@ -178,23 +176,14 @@ public class ArmyOrMisc extends HBox {
 			return;
 		if (!gamePieces.isEmpty()) {
 			circleStackPane.setVisible(true);
-			//circleStackPane.getStyleClass().add("hand");
-			/*circleStackPane.setOnMouseClicked(new EventHandler<Event>() {
-				@Override
-				public void handle(Event arg0) {
-					handleArmyClick(hex, armyOwner, gamePieces);
-				}
-			});*/
 
 			sizeLbl.setText("M");
 			circle.setFill(Color.DARKGRAY);
 
 			for (GamePiece gp : gamePieces) {
-            	// TODO create object pool to avoid recreating image views.
-				// create and add image views
-				// FIXME, only drawing 1
-					StackPane pane = createArmyImageView((Thing) gp);
-					thingHolder.getChildren().add(pane);
+				ThingView tv =new ThingView(50, (Thing) gp);
+				thingHolder.getChildren().add(tv);
+				tv.setDefaultHandler();
 			}
 		} 
 	}
@@ -203,7 +192,7 @@ public class ArmyOrMisc extends HBox {
 		this.moving = b;
 	}
 
-	public void setThingHandler(EventHandler<ThingEvent> event){
+	/*public void setThingHandler(EventHandler<ThingEvent> event){
 		thingHandler = event;
-	}
+	}*/
 }

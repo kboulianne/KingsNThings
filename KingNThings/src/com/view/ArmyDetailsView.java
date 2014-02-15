@@ -3,12 +3,10 @@ package com.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-import com.main.KNTAppFactory;
 import com.model.Creature;
 import com.model.Hex;
 import com.model.Player;
@@ -25,7 +23,7 @@ public class ArmyDetailsView extends VBox{
 	private Hex fromHex;
 	private List<Creature> lastSelectedArmy;
 	
-	EventHandler<ThingEvent> handler;
+	//EventHandler<ThingEvent> handler;
 	
 	public ArmyDetailsView(){
 		buildView();
@@ -48,15 +46,15 @@ public class ArmyDetailsView extends VBox{
 		lbl = new Label();
 		lbl.getStyleClass().add("title");
 		sublbl = new Label();
-		handler = new EventHandler<ThingEvent>() {
+		/*handler = new EventHandler<ThingEvent>() {
 			@Override
 			public void handle(ThingEvent t) {
 				KNTAppFactory.getHexDetailsPresenter().handleThingClick(t.getThing());
 			}
 
-		};
+		};*/
 		
-		army = new ArmyOrMisc(handler);
+		army = new ArmyOrMisc();
 		
 		getChildren().addAll(lbl, sublbl, army);
 	}

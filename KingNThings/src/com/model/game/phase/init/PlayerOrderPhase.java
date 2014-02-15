@@ -68,12 +68,10 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnEnd() {
-		// DEACTIVATED =======================================
-		context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());
-//				
+		context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());				
 		Util.log("Added roll total " + game.diceTotal()
 				+ " for " + game.getCurrentPlayer().getName());
-		// ===================================================
+
 		// Notify UI
 		KNTAppFactory.getGamePresenter().getView().setGame(game);
 	}

@@ -10,6 +10,7 @@ public abstract class Thing extends GamePiece	{
 	
 	private Color color;
 	private int hexLocation;
+	private boolean selected;
 	private boolean facedDown;
 	
 	Thing(String name)	{
@@ -18,6 +19,7 @@ public abstract class Thing extends GamePiece	{
 		setHexLocation(-1);
 		color = Color.BLACK;
 		facedDown = false;
+		selected = false;
 	}
 	
 	public static ArrayList<Thing> createThings()	{
@@ -251,5 +253,13 @@ public abstract class Thing extends GamePiece	{
 
 	public void setFacedDown(boolean facedDown) {
 		this.facedDown = facedDown;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}	
 }

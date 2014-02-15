@@ -69,15 +69,15 @@ public class PlayerInfoView extends AnchorPane {
 		currentPlayerNameAndGold.getChildren().addAll(currentPlayerlbl, goldLbl);
 
 		// Rack
-		EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
+		/*EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
 
 			@Override
 			public void handle(ThingEvent t) {
 				presenter.handleRackClick(t.getThing());
 			}
-		};
+		};*/
 
-		rack = new Rack(handler);
+		rack = new Rack();
 		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
 
 		// For now Should be in GameView

@@ -10,38 +10,42 @@ import com.model.Fort;
 import com.model.IncomeCounter;
 import com.model.Thing;
 import com.presenter.ThingDetailsPresenter;
+import com.view.customcontrols.ThingView;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  * When a thing is clicked, display this in SidePaneView using SidePaneView#showThingDetailsView
  *
  * @author kurtis
  */
+
+
 public class ThingDetailsView extends VBox {
 
 	protected ThingDetailsPresenter presenter;
+	private Creature lastSelectedCreature;
 
     //TODO
     //needs to be set or shouldnt be here
    // private BoardPresenter boardPresenter;
 
-    private StackPane stack;
-    private Rectangle borderRect;
-    private ImageView img;
     private Label thingNameLbl;
     private Label typeLbl;
     private Label ownerLbl;
-    private Rectangle coloredRect;
+    
+    private Label combatLbl;
+    private Label specialAbilitiesLbl;
+    private Label testLbl;
+
+   // private Thing thing;
     
     public ThingDetailsView() {
-        buildView();
+     //   thing = t;
+    	buildView();
     }
     
     public void setPresenter(final ThingDetailsPresenter presenter) {
@@ -59,7 +63,7 @@ public class ThingDetailsView extends VBox {
 		setAlignment(Pos.CENTER);
 		getStyleClass().add("block");
 
-		stack = new StackPane();
+		/*stack = new StackPane();
 
 		int size = 260;
 
@@ -85,23 +89,29 @@ public class ThingDetailsView extends VBox {
 		img.setFitHeight(size - 7);
 		img.setPreserveRatio(true);
 		img.setSmooth(true);
-		img.setCache(true);
+		img.setCache(true);*/
 
 		thingNameLbl = new Label();
 		thingNameLbl.getStyleClass().add("title");
 		typeLbl = new Label();
 		ownerLbl = new Label();
+		
+		combatLbl = new Label();
+		specialAbilitiesLbl = new Label();
+		testLbl = new Label();
 
-		stack.getChildren().addAll(borderRect, coloredRect, img);
+		//stack.getChildren().addAll(borderRect, coloredRect, img);*/
+		
+		//thingHolder.getChildren().add(tv);
 
-		getChildren().addAll(thingNameLbl, stack, typeLbl, ownerLbl);
+		
 	}
 
 	public void setThing(final Thing thing) {
 		if (thing != null) {
 
-			img.setImage(thing.getImage());
-			coloredRect.setFill(thing.getColor());
+			//img.setImage(thing.getImage());
+			//coloredRect.setFill(thing.getColor());
 
 			String type = "error";
 			if (thing instanceof Creature) {
@@ -113,10 +123,36 @@ public class ThingDetailsView extends VBox {
 			if (thing instanceof Fort){
 				type = "Fort";
 			}
+			ThingView tv =new ThingView(260, thing);
+			
+			tv.setImg(new ImageView(thing.getImage()));
+			//tv.getImg().set;
+			//Util.log("qass");
 
 			thingNameLbl.setText(thing.getName().toUpperCase());
 			typeLbl.setText("Type: " + type);
 			ownerLbl.setText("Owner: " + thing.getOwner());
+			if (thing instanceof Creature) {
+				Creature c = (Creature)thing;
+			    testLbl.setText("Avail Moves: "+ c.getNumberOfMovesAvailable());
+			    combatLbl.setText("Combat Value: " + c.getCombatVal());
+			    specialAbilitiesLbl.setText("Abilities: " + c.getAbilitiesString());
+				setLastSelectedCreature(c);
+				getChildren().clear();
+				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl, testLbl);
+			}else{
+				getChildren().clear();
+				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl);
+			}
+			
 		}
+	}
+	
+	public Creature getLastSelectedCreature() {
+		return lastSelectedCreature;
+	}
+
+	public void setLastSelectedCreature(Creature lastSelectedCreature) {
+		this.lastSelectedCreature = lastSelectedCreature;
 	}
 }
