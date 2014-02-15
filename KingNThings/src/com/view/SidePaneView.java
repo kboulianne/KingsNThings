@@ -5,10 +5,14 @@
  */
 package com.view;
 
+import java.util.Iterator;
+import java.util.SortedMap;
+
 import com.view.customcontrols.PlayerLabel;
 import com.model.Player;
 import com.model.game.Game;
 import com.presenter.SidePanePresenter;
+import com.presenter.Util;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -146,6 +150,31 @@ public class SidePaneView extends VBox {
 		
 		content.getChildren().clear();
 		content.getChildren().add(popupVbox);
+	}
+	
+	public void showRolls(SortedMap<Integer, Player> rolls){
+		Iterator<Integer> it = rolls.keySet().iterator();
+		if(it.hasNext()){
+			VBox display = new VBox();
+			display.setMinHeight(500);
+			ImageView iv = new ImageView(Game.DICE_IMAGE);
+			iv.setFitHeight(200.0);
+			iv.setPreserveRatio(true);
+			display.getChildren().add(iv);
+			while(it.hasNext()){
+				int roll = it.next();
+				Player p = rolls.get(roll);
+				if(p==null)
+					Util.log("why is player null?");
+				Label lbl = new Label("Player has rolled a " + roll);
+				display.getChildren().add(lbl);
+			}
+			display.getStyleClass().add("block");
+			display.setAlignment(Pos.CENTER);
+			content.getChildren().clear();
+			content.getChildren().add(display);
+		}
+		
 	}
 	
 	public void showArbituaryView(String title, Image img){

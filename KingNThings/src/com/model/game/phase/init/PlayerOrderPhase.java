@@ -62,16 +62,17 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		
 		KNTAppFactory.getGamePresenter().getView().setGame(game);
 		
-		//Util.log("Skipping Step for Itertion 1");
+		Util.log("Skipping Step for Itertion 1");
+		KNTAppFactory.getSidePanePresenter().getView().showRolls(context.getRolls());
 	}
 
 	@Override
 	public void turnEnd() {
 		// DEACTIVATED =======================================
-//		context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());
+		context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());
 //				
-//		Util.log("Added roll total " + game.diceTotal()
-//				+ " for " + game.getCurrentPlayer().getName());
+		Util.log("Added roll total " + game.diceTotal()
+				+ " for " + game.getCurrentPlayer().getName());
 		// ===================================================
 		// Notify UI
 		KNTAppFactory.getGamePresenter().getView().setGame(game);

@@ -181,8 +181,8 @@ public final class GamePlay {
 				false 	// For testing, easier to comment out
 				|| phaseLogic instanceof PlayerOrderPhase
 				|| phaseLogic instanceof StartingPosPhase
-//				|| phaseLogic instanceof StartingKingdomPhase
-//				|| phaseLogic instanceof StartingTowerPhase
+				|| phaseLogic instanceof StartingKingdomPhase
+				|| phaseLogic instanceof StartingTowerPhase
 //				|| phaseLogic instanceof StartingForcesPhase
 				|| phaseLogic instanceof ExchangePhase
 //				|| phaseLogic instanceof GoldCollectPhase
@@ -223,6 +223,10 @@ public final class GamePlay {
 		// Switch to the next player and start the turn.
 		game.nextPlayer();
 		startTurn();
+	}
+
+	public SortedMap<Integer, Player> getRolls() {
+		return rolls;
 	}
 }
 
