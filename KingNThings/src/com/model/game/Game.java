@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.scene.image.Image;
 
 import com.model.Board;
+import com.model.Creature;
 import com.model.Cup;
 import com.model.Die;
 import com.model.HexDesert;
@@ -57,6 +58,9 @@ public final class Game {
     private List<Player> playerOrder;
     private Cup cup;
     
+  	private ArrayList<Creature> lastSelectedCreatures;
+ 
+    
     public final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
 	public final static Image START_HEX_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
   	public final static Image FACE_DOWN_THING_IMAGE = new Image("view/com/assets/pics/icon-inverted.png");
@@ -85,6 +89,8 @@ public final class Game {
 		// TODO: Factory for 2 or 4 player.
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 
+		lastSelectedCreatures = new ArrayList<Creature>();
+		
 		// added for iteration 1 hard-coded
 		
 		board.addHex(new HexFrozenWaste(0));
@@ -408,5 +414,17 @@ public final class Game {
 	
 	public void moveThingFromCupToPlayer(String thingName, Player p){
 		p.addThing(cup.removeThingWithName(thingName));
+	}
+
+
+	public void clearLastSelectedCreatures() {
+		for(Creature c: lastSelectedCreatures){
+			c.setSelected(false);
+		}
+		this.lastSelectedCreatures.clear(); 
+	}
+
+	public ArrayList<Creature> getLastSelectedCreatures() {
+		return lastSelectedCreatures;
 	}
 }

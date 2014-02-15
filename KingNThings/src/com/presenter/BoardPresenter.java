@@ -180,12 +180,17 @@ public class BoardPresenter {
 						lastSelected.removeCreatureFromArmy(army.get(i), currentPlayer);
 					}
 				}
-			} else { // moving single thing
-				Creature c = KNTAppFactory.getThingDetailsPresenter().getThingView().getLastSelectedCreature();
-				if(selected != lastHexSelected)	{
-					svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(c, currentPlayer);
-					hex.addCreatToArmy(c, currentPlayer);
-					c.setHexLocation(selected);
+			} else { 
+				ArrayList<Creature> creatures = GameService.getInstance().getGame().getLastSelectedCreatures();
+				if(creatures.isEmpty())
+					return;
+
+				for(Creature c: creatures){
+					if(selected != lastHexSelected)	{
+						svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(c, currentPlayer);
+						hex.addCreatToArmy(c, currentPlayer);
+						c.setHexLocation(selected);
+					}
 				}
 			}
 			
@@ -214,19 +219,21 @@ public class BoardPresenter {
 	public void handlePlacementSelectedHexClick(int selected) {
 		Hex h = svc.getGame().getBoard().getHexes().get(selected);
 		Player player = svc.getGame().getCurrentPlayer();
-		Creature c = KNTAppFactory.getThingDetailsPresenter().getThingView().getLastSelectedCreature();
+		ArrayList<Creature> listOfCreatures = GameService.getInstance().getGame().getLastSelectedCreatures();
 		
 		if(h.getHexOwner() == player)	{
-			if(c != null)	{
-				if(c.getHexLocation() == -1)	{
-					player.removeThing(c);
-					h.addCreatToArmy(c, player);
-					c.setHexLocation(selected);
-					view.setBoard(svc.getGame().getBoard());
+			for(Creature c: listOfCreatures){
+				if(c != null && c.isSelected())	{
+					if(c.getHexLocation() == -1)	{
+						player.removeThing(c);
+						h.addCreatToArmy(c, player);
+						c.setHexLocation(selected);
+						view.setBoard(svc.getGame().getBoard());
+					}
+	
+					KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+					KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 				}
-
-				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
-				KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 			}
 		}
 	}

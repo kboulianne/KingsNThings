@@ -20,7 +20,7 @@ import javafx.scene.shape.Rectangle;
 public class ThingView extends StackPane{
 	private int size;
 	private Thing thing;
-	private ImageView img;
+	private Rectangle selectRect;
 	
 	public ThingView(int frameSize, Thing t){
 		size=frameSize;
@@ -36,7 +36,6 @@ public class ThingView extends StackPane{
 		borderRect.setHeight(size);
 		borderRect.setArcWidth(20);
 		borderRect.setArcHeight(20);
-
 		borderRect.setFill(Color.WHITE);
 
 		final Rectangle coloredRect = new Rectangle();
@@ -46,7 +45,6 @@ public class ThingView extends StackPane{
 		coloredRect.setHeight(size - 1);
 		coloredRect.setArcWidth(20);
 		coloredRect.setArcHeight(20);
-		//coloredRect.setFill(thing.getColor());
 
 		Image im = null;
 		if(thing.isFacedDown()){
@@ -57,43 +55,50 @@ public class ThingView extends StackPane{
 			im=thing.getImage();
 		}
 		
-		img = new ImageView(im);
+		ImageView img = new ImageView(im);
 		img.setFitWidth(size - 7);
 		img.setFitHeight(size - 7);
 		img.setPreserveRatio(false);
 		img.setSmooth(true);
 		img.setCache(true);
-		img.getStyleClass().add("thing");
 
-		/*// TODO Clean me up
-		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent me) {
-				// Fire custom event on mouse clicked
-				img.fireEvent(new ThingEvent(thing));
-			}
-		});*/
-
-		getChildren().addAll(borderRect, coloredRect, img);
+		selectRect = new Rectangle();
+		selectRect.setX(0);
+		selectRect.setY(0);
+		selectRect.setWidth(size);
+		selectRect.setHeight(size);
+		selectRect.setArcWidth(20);
+		selectRect.setArcHeight(20);
+		selectRect.getStyleClass().add("thing");
+		if(thing.isSelected() ){
+			selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
+		}else{
+			selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
+		}
+		
+		getChildren().addAll(borderRect, coloredRect, img, selectRect);
 	}
 	
-	/*public void setThingHandler(EventHandler<ThingEvent> thingHandler){
-		img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
-	}*/
-	
 	public void setDefaultHandler(){
-		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
 				Util.log("thing default handler");
+				thing.setSelected(!thing.isSelected());
+				//refresh view
+				if(thing.isSelected()){
+					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
+				}else{
+					GameService.getInstance().getGame().getLastSelectedCreatures().remove(thing);
+					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
+				}
 				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
 			}
 		});
 	}
 	
 	public void setMovementHandler(){
-		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
 				
@@ -106,9 +111,10 @@ public class ThingView extends StackPane{
 	}
 	
 	public void setCupHandler(){
-		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
+				Util.log("thing cup handler");
 				//KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
 				//KNTAppFactory.getPlayerInfoPresenter().handleRackClick(thing);
 			}
@@ -119,19 +125,11 @@ public class ThingView extends StackPane{
 	//KNTAppFactory.getPopupPresenter().dismissPopup();
 	
 	public void setRackHandler(){
-		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {			
 				KNTAppFactory.getPlayerInfoPresenter().handleRackClick(thing);
 			}
 		});
-	}
-
-	public ImageView getImg() {
-		return img;
-	}
-
-	public void setImg(ImageView img) {
-		this.img = img;
 	}
 }
