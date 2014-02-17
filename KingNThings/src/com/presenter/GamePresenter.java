@@ -1,11 +1,8 @@
 package com.presenter;
 
-import java.util.ArrayList;
-
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Player;
-import com.model.Thing;
 import com.model.game.Game;
 import com.model.game.phase.GamePlay;
 import com.view.GameView;
@@ -90,8 +87,7 @@ public class GamePresenter {
 				KNTAppFactory.getPopupPresenter().dismissPopup();
 			}
 		};*/
-		ArrayList<Thing> cupThings = game.getCup().getListOfThings();
-		KNTAppFactory.getPopupPresenter().showCupPopup(cupThings, "Cup : "+cupThings.size()+" items");
+		KNTAppFactory.getPopupPresenter().showCupPopup(game.getCup(), "Cup and Bank Display:");
 	}
 
 	/**

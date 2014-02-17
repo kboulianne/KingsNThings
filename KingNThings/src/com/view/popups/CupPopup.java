@@ -6,38 +6,69 @@
 
 package com.view.popups;
 
+import com.model.Cup;
+import com.model.IncomeCounter;
+import com.model.SpecialCharacter;
 import com.model.Thing;
 import com.view.customcontrols.ThingView;
 
-import java.util.List;
-
-import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 
 /**
  *
  * @author kurtis
  */
-public class CupPopup extends FlowPane {
+public class CupPopup extends VBox {
     
   //  private EventHandler<ThingEvent> thingHandler;
 	    // Might not be the best way but works.
-	public CupPopup(List<Thing> things){//, EventHandler<ThingEvent> event) {
+	public CupPopup(Cup cup){//, EventHandler<ThingEvent> event) {
 		//this.thingHandler = event;
-		buildPopup(things);
+		buildPopup(cup);
     }
     
-    private void buildPopup(List<Thing> things) {
-		setVgap(3);
-		setHgap(3);
-		setPadding(new Insets(10, 0, 0, 0));
-		//TODO Hardcoded
-		setPrefWrapLength(1160);
+    private void buildPopup(Cup cup) {
 		
-		for (Thing t : things) {
+    	Label thingLbl = new Label("Things: "+cup.getListOfThings().size()+" items");
+    	//thingLbl.setPadding(new Insets(10, 0, 0, 0));
+    	
+    	FlowPane thingFP = new FlowPane();
+    	thingFP.setVgap(3);
+    	thingFP.setHgap(3);
+    	thingFP.setPrefWrapLength(1160);
+		
+		for (Thing t : cup.getListOfThings()) {
 			ThingView tv =new ThingView(55, t);
-			getChildren().add(tv);
+			thingFP.getChildren().add(tv);
 			tv.setCupHandler();
 		}
+		
+		Label incomeLbl = new Label("Income Counters: "+cup.getListOfIncomeCounters().size()+" items");
+		FlowPane icFP = new FlowPane();
+    	icFP.setVgap(3);
+    	icFP.setHgap(3);
+    	icFP.setPrefWrapLength(1160);
+		for (IncomeCounter ic : cup.getListOfIncomeCounters()) {
+			ThingView tv =new ThingView(55, ic);
+			icFP.getChildren().add(tv);
+			tv.setCupHandler();
+		}
+		
+		Label scLbl = new Label("Special Characters: "+cup.getListOfSpecialCharacters().size()+" items");
+		FlowPane scFP = new FlowPane();
+    	scFP.setVgap(3);
+    	scFP.setHgap(3);
+    	scFP.setPrefWrapLength(1160);
+		for (SpecialCharacter sc : cup.getListOfSpecialCharacters()) {
+			ThingView tv =new ThingView(55, sc);
+			scFP.getChildren().add(tv);
+			tv.setCupHandler();
+		}
+		
+		getStyleClass().add("block");
+		getChildren().addAll(thingLbl, thingFP, incomeLbl, icFP, scLbl, scFP);
+		
     }
 }

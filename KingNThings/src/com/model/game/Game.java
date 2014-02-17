@@ -8,7 +8,6 @@ import java.util.List;
 import javafx.scene.image.Image;
 
 import com.game.services.GameService;
-import com.main.KNTAppFactory;
 import com.model.Board;
 import com.model.Creature;
 import com.model.Cup;

@@ -6,9 +6,13 @@ import com.presenter.Util;
 
 public class Cup extends GamePiece {
 	private ArrayList<Thing> listOfThings;
+	private ArrayList<IncomeCounter> listOfIncomeCounters;
+	private ArrayList<SpecialCharacter> listOfSpecialCharacters;
 	
 	public Cup(){
 		listOfThings = new ArrayList<Thing>();
+		listOfIncomeCounters = new ArrayList<IncomeCounter>();
+		listOfSpecialCharacters = new ArrayList<SpecialCharacter>();
 	}
 
 	public ArrayList<Thing> getListOfThings() {
@@ -21,8 +25,14 @@ public class Cup extends GamePiece {
 	public void addThing(Thing t)	{
 		t.setOwner("Cup");
 		t.setHexLocation(-1);
-		t.setFacedDown(true);
-		listOfThings.add(t);
+		if (t instanceof IncomeCounter){
+			listOfIncomeCounters.add((IncomeCounter) t);
+			t.setFacedDown(false);
+		}
+		else{
+			listOfThings.add(t);
+			t.setFacedDown(true);
+		}
 	}
 	public Thing getThing(String name){
 		for(Thing t: listOfThings){
@@ -48,5 +58,13 @@ public class Cup extends GamePiece {
 	
 	protected void removeThing(Thing t){
 		listOfThings.remove(t);
+	}
+
+	public ArrayList<IncomeCounter> getListOfIncomeCounters() {
+		return listOfIncomeCounters;
+	}
+
+	public ArrayList<SpecialCharacter> getListOfSpecialCharacters() {
+		return listOfSpecialCharacters;
 	}
 }

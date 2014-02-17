@@ -1,12 +1,11 @@
 package com.presenter;
 
 import com.main.KNTAppFactory;
+import com.model.Cup;
 import com.model.Player;
-import com.model.Thing;
 import com.view.popups.PlayerPopup;
 import com.view.PopupView;
 import com.view.popups.CupPopup;
-import java.util.List;
 
 /**
  * Handles popup views displayed in the GamePresenter.
@@ -52,8 +51,8 @@ public class PopupPresenter {
 	 * @param title The popup title
 	 * @param event The EventHandler linked to the tile click.
 	 */
-	public void showCupPopup(List<Thing> things, String title) {
-		view.show(new CupPopup(things), title);
+	public void showCupPopup(Cup cup, String title) {
+		view.show(new CupPopup(cup), title);
 	}
 	
 	public void showBattlePopup() {
