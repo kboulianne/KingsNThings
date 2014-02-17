@@ -66,6 +66,7 @@ public final class Game {
   	public final static Image FACE_DOWN_THING_IMAGE = new Image("view/com/assets/pics/icon-inverted.png");
  	public final static Image GOLD_IMAGE = new Image("view/com/assets/pics/gold.png");
  	public final static Image DICE_IMAGE = new Image("view/com/assets/pics/dice.png");
+ 	public final static Image CROWN_IMAGE = new Image("view/com/assets/pics/crown.png");
     // Constructors & Initializer Methods ==============================================================================
     /**
      *	Creates a new Game instance defaulting to Four player mode.

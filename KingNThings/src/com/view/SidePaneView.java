@@ -184,7 +184,7 @@ public class SidePaneView extends VBox {
 		iv.setPreserveRatio(true);
 		Label lbl = new Label(title);
 		display.getChildren().addAll(iv, lbl);
-		display.getStyleClass().add("block");
+		display.getStyleClass().add("largeSpacing");
 		display.setAlignment(Pos.CENTER);
 		content.getChildren().clear();
 		content.getChildren().add(display);

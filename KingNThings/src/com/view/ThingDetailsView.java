@@ -5,8 +5,6 @@
  */
 package com.view;
 
-import java.util.ArrayList;
-
 import com.game.services.GameService;
 import com.model.Creature;
 import com.model.Fort;
@@ -29,10 +27,6 @@ import javafx.scene.layout.VBox;
 public class ThingDetailsView extends VBox {
 
 	protected ThingDetailsPresenter presenter;
-	
-	//TODO Move
-	private Creature lastSelectedCreature5;
-	private ArrayList<Creature> lastSelectedCreatures = new ArrayList<Creature>();
 
     //TODO
     //needs to be set or shouldnt be here
@@ -106,12 +100,4 @@ public class ThingDetailsView extends VBox {
 			}	
 		}
 	}
-	/*
-	public Creature getLastSelectedCreature() {
-		return lastSelectedCreature;
-	}
-
-	public void setLastSelectedCreature(Creature lastSelectedCreature) {
-		this.lastSelectedCreature = lastSelectedCreature;
-	}*/
 }

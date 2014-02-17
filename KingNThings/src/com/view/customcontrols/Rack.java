@@ -40,12 +40,24 @@ public class Rack extends HBox {
 		getStyleClass().add("block");
 	}
 
+	// sets things with default handler
 	public void setThings(List<Thing> things) {
 		getChildren().clear();
 		for (Thing t : things) {
+			t.setSelected(false);
 			ThingView tv =new ThingView(50, t);
 			getChildren().add(tv);
 			tv.setDefaultHandler();
+		}
+	}
+	
+	public void setExcahngeThingsHandler(List<Thing> things){
+		getChildren().clear();
+		for (Thing t : things) {
+			t.setSelected(false);
+			ThingView tv =new ThingView(50, t);
+			getChildren().add(tv);
+			tv.setExchangeThingHandler();
 		}
 	}
 }

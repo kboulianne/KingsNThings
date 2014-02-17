@@ -70,7 +70,7 @@ public class ThingView extends StackPane{
 		selectRect.setArcWidth(20);
 		selectRect.setArcHeight(20);
 		selectRect.getStyleClass().add("thing");
-		if(thing.isSelected() ){
+		if(thing.isSelected()){
 			selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
 		}else{
 			selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
@@ -131,5 +131,28 @@ public class ThingView extends StackPane{
 				KNTAppFactory.getPlayerInfoPresenter().handleRackClick(thing);
 			}
 		});
+	}
+
+	public void setExchangeThingHandler() {
+		// TODO Auto-generated method stub
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {			
+				if(thing.isSelected()){
+					Util.log("cannot exchange more than once");
+				}else{
+					thing.setSelected(true);
+					Util.log("thing exchanged");
+					
+					//GameService.getInstance().getGame().getCup().addThing(thing);
+					//GameService.getInstance().getGame().getCurrentPlayer().getBlock().removeThing(thing);
+					Thing t = GameService.getInstance().getGame().getCup().removeRandomThing();
+					//thing = t;
+					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
+					//KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
+				}
+			}
+		});
+		
 	}
 }

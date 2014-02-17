@@ -6,6 +6,7 @@
 package com.model.game.phase.init;
 
 import com.main.KNTAppFactory;
+import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
@@ -37,6 +38,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
+		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose an adjacent owned hex for your kingdom", Game.CROWN_IMAGE);
 	}
 
 	@Override

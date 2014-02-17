@@ -25,15 +25,15 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 	// TODO Avoid calling this in subclases. Don't remember if it is possible.
 	protected AbstractPhaseStrategy(final GamePlay context) {
 		this.context = context;
-		
 		game =  GameService.getInstance().getGame();
-		gv = KNTAppFactory.getGamePresenter().getView();
+		gv = KNTAppFactory.getGamePresenter().getView();	
 	}
 	
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
 		//top label
+		game.clearLastSelectedCreatures();
 		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(game.getCurrentPlayer());
 		KNTAppFactory.getSidePanePresenter().getView().setOpponents(game.getOpponent1(), game.getOpponent2(), game.getOpponent3());

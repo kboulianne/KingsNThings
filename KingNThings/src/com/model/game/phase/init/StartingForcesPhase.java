@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import com.main.KNTAppFactory;
 import com.model.Player;
 import com.model.Player.PlayerId;
+import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
@@ -55,6 +56,8 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
+		
+		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose things from rack and them place on the board", Game.CROWN_IMAGE);
 		
 		Player player = game.getCurrentPlayer();
 		player.addGold(10);

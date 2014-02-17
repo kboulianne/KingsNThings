@@ -5,6 +5,9 @@
  */
 package com.model.game.phase.init;
 
+import com.main.KNTAppFactory;
+import com.model.Block;
+import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
@@ -22,9 +25,7 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Exchange Things Phase");
-
 		gv.getCurrentActionLbl().setText("Exchange Things");
-
 	}
 	
 	@Override
@@ -34,9 +35,15 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnStart() {
-		super.turnStart();
-		Util.log("Skipping Step for Itertion 1");
-		context.endTurn();		
+		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Exchange things by clicking the rack\n"
+																	   + "     Exchange only once per thing", Game.CROWN_IMAGE);
+		Block currentPlayerBlock = game.getCurrentPlayer().getBlock();
+		if(currentPlayerBlock.getListOfThings().isEmpty()){
+			context.endTurn();	
+		}else{
+			super.turnStart();
+			KNTAppFactory.getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(game.getCurrentPlayer());		
+		}
 	}
 
 	@Override
