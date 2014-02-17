@@ -21,6 +21,8 @@ public class ThingView extends StackPane{
 	private int size;
 	private Thing thing;
 	private Rectangle selectRect;
+	private Rectangle coloredRect;
+	ImageView img;
 	
 	public ThingView(int frameSize, Thing t){
 		size=frameSize;
@@ -38,7 +40,7 @@ public class ThingView extends StackPane{
 		borderRect.setArcHeight(20);
 		borderRect.setFill(Color.WHITE);
 
-		final Rectangle coloredRect = new Rectangle();
+		coloredRect = new Rectangle();
 		coloredRect.setX(0);
 		coloredRect.setY(0);
 		coloredRect.setWidth(size - 1);
@@ -55,7 +57,7 @@ public class ThingView extends StackPane{
 			im=thing.getImage();
 		}
 		
-		ImageView img = new ImageView(im);
+		img = new ImageView(im);
 		img.setFitWidth(size - 7);
 		img.setFitHeight(size - 7);
 		img.setPreserveRatio(false);
@@ -77,6 +79,25 @@ public class ThingView extends StackPane{
 		}
 		
 		getChildren().addAll(borderRect, coloredRect, img, selectRect);
+	}
+	
+	public void refreshView(){
+		Image im = null;
+		if(thing.isFacedDown()){
+			coloredRect.setFill(Color.BLACK);
+			im= Game.FACE_DOWN_THING_IMAGE;
+		}else{
+			coloredRect.setFill(thing.getColor());
+			im=thing.getImage();
+		}
+			
+		if(thing.isSelected()){
+			selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
+		}else{
+			selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
+		}
+		img.setImage(im);
+		//this.
 	}
 	
 	public void setDefaultHandler(){
@@ -139,18 +160,23 @@ public class ThingView extends StackPane{
 			@Override
 			public void handle(MouseEvent me) {			
 				if(thing.isSelected()){
-					Util.log("cannot exchange more than once");
+					KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Exchange things by clicking the rack\n"
+							   + "     Exchange only once per thing", Game.CROWN_IMAGE);
 				}else{
-					thing.setSelected(true);
-					Util.log("thing exchanged");
+					Game game = GameService.getInstance().getGame();
 					
-					//GameService.getInstance().getGame().getCup().addThing(thing);
-					//GameService.getInstance().getGame().getCurrentPlayer().getBlock().removeThing(thing);
-					Thing t = GameService.getInstance().getGame().getCup().removeRandomThing();
-					//thing = t;
+					thing.setSelected(true);
+					Thing t = game.getCup().getRandomCreature();
+					t.setSelected(true);
+					game.moveThingFromCupToPlayer(t.getName(), game.getCurrentPlayer());
 					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
-					//KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
+					thing = t;
+					game.getCurrentPlayer().getBlock().removeThing(thing);
+					
+					refreshView();
 				}
+				
+				//TODO if all things selected next players turn
 			}
 		});
 		

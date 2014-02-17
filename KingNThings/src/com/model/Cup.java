@@ -37,10 +37,13 @@ public class Cup extends GamePiece {
 		return t;
 	}
 	
-	public Thing removeRandomThing(){
-		Thing t = listOfThings.get(Util.randomNumber(0, listOfThings.size()-1));	
-		listOfThings.remove(t);
-		return t;
+	public Creature getRandomCreature(){
+		if(listOfThings.isEmpty())
+			return null;
+		Thing t = listOfThings.get(Util.randomNumber(0, listOfThings.size()-1));
+		while(!(t instanceof Creature))
+			t = listOfThings.get(Util.randomNumber(0, listOfThings.size()-1));
+		return (Creature)t;
 	}
 	
 	protected void removeThing(Thing t){
