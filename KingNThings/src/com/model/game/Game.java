@@ -7,6 +7,8 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 
+import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.model.Board;
 import com.model.Creature;
 import com.model.Cup;
@@ -58,7 +60,7 @@ public final class Game {
     private List<Player> playerOrder;
     private Cup cup;
     
-  	private ArrayList<Creature> lastSelectedCreatures;
+  	//private ArrayList<Creature> lastSelectedCreatures;
  
     
     public final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
@@ -89,8 +91,6 @@ public final class Game {
 
 		// TODO: Factory for 2 or 4 player.
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
-
-		lastSelectedCreatures = new ArrayList<Creature>();
 		
 		// added for iteration 1 hard-coded
 		
@@ -418,14 +418,20 @@ public final class Game {
 	}
 
 
-	public void clearLastSelectedCreatures() {
-		for(Creature c: lastSelectedCreatures){
-			c.setSelected(false);
+	public void clearLastSelectedCreaturesOfCurrentPlayerBlock() {
+		List<Thing> blockList =GameService.getInstance().getGame().getCurrentPlayer().getBlock().getListOfThings();
+		for(Thing t: blockList){
+			t.setSelected(false);
 		}
-		this.lastSelectedCreatures.clear(); 
 	}
 
-	public ArrayList<Creature> getLastSelectedCreatures() {
-		return lastSelectedCreatures;
+	public ArrayList<Creature> getLastSelectedCreaturesOfCurrentPlayerBlock() {
+		ArrayList<Creature> list = new ArrayList<Creature>();
+		List<Thing> blockList =GameService.getInstance().getGame().getCurrentPlayer().getBlock().getListOfThings();
+		for(Thing t: blockList){
+			if(t instanceof Creature && t.isSelected())
+				list.add((Creature)t);
+		}
+		return list;
 	}
 }

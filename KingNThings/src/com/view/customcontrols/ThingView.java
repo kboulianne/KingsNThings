@@ -89,7 +89,7 @@ public class ThingView extends StackPane{
 				if(thing.isSelected()){
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
 				}else{
-					GameService.getInstance().getGame().getLastSelectedCreatures().remove(thing);
+					GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
 				}
 				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);

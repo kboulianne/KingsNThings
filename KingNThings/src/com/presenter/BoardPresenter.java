@@ -181,7 +181,7 @@ public class BoardPresenter {
 					}
 				}
 			} else { 
-				ArrayList<Creature> creatures = GameService.getInstance().getGame().getLastSelectedCreatures();
+				ArrayList<Creature> creatures = GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock();
 				if(creatures.isEmpty())
 					return;
 
@@ -219,7 +219,7 @@ public class BoardPresenter {
 	public void handlePlacementSelectedHexClick(int selected) {
 		Hex h = svc.getGame().getBoard().getHexes().get(selected);
 		Player player = svc.getGame().getCurrentPlayer();
-		ArrayList<Creature> listOfCreatures = GameService.getInstance().getGame().getLastSelectedCreatures();
+		ArrayList<Creature> listOfCreatures = GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock();
 		
 		if(h.getHexOwner() == player)	{
 			for(Creature c: listOfCreatures){
@@ -230,11 +230,10 @@ public class BoardPresenter {
 						c.setHexLocation(selected);
 						view.setBoard(svc.getGame().getBoard());
 					}
-	
-					KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
-					KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 				}
 			}
+			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+			KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 		}
 	}
 

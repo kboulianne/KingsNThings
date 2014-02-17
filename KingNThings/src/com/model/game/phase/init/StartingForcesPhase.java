@@ -57,7 +57,8 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		
-		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose things from rack and them place on the board", Game.CROWN_IMAGE);
+		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose things from rack and\n"
+																	   + "   them place on the board", Game.CROWN_IMAGE);
 		
 		Player player = game.getCurrentPlayer();
 		player.addGold(10);
