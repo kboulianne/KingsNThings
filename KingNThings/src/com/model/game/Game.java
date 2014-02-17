@@ -12,6 +12,7 @@ import com.model.Board;
 import com.model.Creature;
 import com.model.Cup;
 import com.model.Die;
+import com.model.Hex;
 import com.model.HexDesert;
 import com.model.HexForest;
 import com.model.HexFrozenWaste;
@@ -426,10 +427,24 @@ public final class Game {
 
 	public ArrayList<Creature> getLastSelectedCreaturesOfCurrentPlayerBlock() {
 		ArrayList<Creature> list = new ArrayList<Creature>();
-		List<Thing> blockList =GameService.getInstance().getGame().getCurrentPlayer().getBlock().getListOfThings();
+		List<Thing> blockList = getCurrentPlayer().getBlock().getListOfThings();
 		for(Thing t: blockList){
 			if(t instanceof Creature && t.isSelected())
 				list.add((Creature)t);
+		}
+		return list;
+	}
+	
+	public ArrayList<Creature> getLastSelectedCreaturesOfCurrentPlayerHex(Hex hex) {
+		ArrayList<Creature> list = new ArrayList<Creature>();
+		List<Thing> blockList = getCurrentPlayer().getBlock().getListOfThings();
+		for(Thing t: blockList){
+			if(t instanceof Creature && t.isSelected())
+				list.add((Creature)t);
+		}
+		for (Creature c: hex.getArmies(getCurrentPlayer())){
+			if(c.isSelected())
+				list.add(c);
 		}
 		return list;
 	}

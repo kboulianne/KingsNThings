@@ -47,7 +47,7 @@ public class Rack extends HBox {
 			t.setSelected(false);
 			ThingView tv =new ThingView(50, t);
 			getChildren().add(tv);
-			tv.setDefaultHandler();
+			//tv.setDefaultHandler();
 		}
 	}
 	

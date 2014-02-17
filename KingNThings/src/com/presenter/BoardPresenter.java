@@ -181,7 +181,7 @@ public class BoardPresenter {
 					}
 				}
 			} else { 
-				ArrayList<Creature> creatures = GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock();
+				ArrayList<Creature> creatures = GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerHex(hex);
 				if(creatures.isEmpty())
 					return;
 

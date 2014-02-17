@@ -110,7 +110,7 @@ public class ThingView extends StackPane{
 				if(thing.isSelected()){
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
 				}else{
-					GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
+					//GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
 				}
 				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
@@ -165,18 +165,20 @@ public class ThingView extends StackPane{
 				}else{
 					Game game = GameService.getInstance().getGame();
 					
-					thing.setSelected(true);
+					thing.setSelected(false);
 					Thing t = game.getCup().getRandomCreature();
 					t.setSelected(true);
+					
 					game.moveThingFromCupToPlayer(t.getName(), game.getCurrentPlayer());
 					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
-					thing = t;
-					game.getCurrentPlayer().getBlock().removeThing(thing);
 					
+					//t.setSelected(false);
+					game.getCurrentPlayer().getBlock().removeThing(thing);
+					thing = t;
 					refreshView();
 				}
-				
-				//TODO if all things selected next players turn
+				//TODO if exchanged start pos things
+
 			}
 		});
 		

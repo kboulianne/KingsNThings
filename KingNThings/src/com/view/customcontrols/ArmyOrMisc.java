@@ -163,7 +163,7 @@ public class ArmyOrMisc extends HBox {
 				
 				ThingView tv =new ThingView(50, t);
 				thingHolder.getChildren().add(tv);
-				tv.setDefaultHandler();
+				//tv.setDefaultHandler();
 
 			}
 		} 
@@ -183,7 +183,7 @@ public class ArmyOrMisc extends HBox {
 			for (GamePiece gp : gamePieces) {
 				ThingView tv =new ThingView(50, (Thing) gp);
 				thingHolder.getChildren().add(tv);
-				tv.setDefaultHandler();
+				//tv.setDefaultHandler();
 			}
 		} 
 	}
