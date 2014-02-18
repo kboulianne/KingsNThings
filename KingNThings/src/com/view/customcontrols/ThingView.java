@@ -171,6 +171,7 @@ public class ThingView extends StackPane{
 					game.moveThingFromCupToPlayer(t, game.getCurrentPlayer());
 					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
 					game.getCurrentPlayer().getBlock().removeThing(thing);
+					game.getCup().addThing(thing);
 					thing = t;
 					refreshView();
 				}

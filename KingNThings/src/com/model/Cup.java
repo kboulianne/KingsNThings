@@ -35,7 +35,7 @@ public class Cup extends GamePiece {
 		}
 		else{
 			listOfThings.add(t);
-			t.setFacedDown(false);//TODO true
+			t.setFacedDown(true);
 		}
 	}
 	public Thing getThing(String name){
