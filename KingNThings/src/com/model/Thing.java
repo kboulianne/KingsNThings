@@ -197,6 +197,18 @@ public abstract class Thing extends GamePiece	{
 		things.add(new IncomeCounter("diamondfield"));
 		things.add(new IncomeCounter("coppermine"));
 		
+		//Special Characters
+		things.add(new SpecialCharacter("elflord", "icelord"));
+		things.add(new SpecialCharacter("archcleric", "archmage"));
+		things.add(new SpecialCharacter("assassinprimus", "baronmunchausen"));
+		things.add(new SpecialCharacter("deerhunter", "desertmaster"));
+		things.add(new SpecialCharacter("dwarfking", "forestking"));
+		things.add(new SpecialCharacter("ghaogll", "grandduke"));
+		things.add(new SpecialCharacter("junglelord", "warlord"));
+		things.add(new SpecialCharacter("sirlancealot", "marksman"));
+		things.add(new SpecialCharacter("masterthief", "swordmaster"));
+		things.add(new SpecialCharacter("mountainking", "swampking"));
+		things.add(new SpecialCharacter("plainslord", "lordoftheeagles"));
 		/*
 		//Add treasure
 		things.add(new Treasure("treasurechest"));
