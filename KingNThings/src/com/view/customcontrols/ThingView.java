@@ -168,11 +168,8 @@ public class ThingView extends StackPane{
 					thing.setSelected(false);
 					Thing t = game.getCup().getRandomCreature();
 					t.setSelected(true);
-					
-					game.moveThingFromCupToPlayer(t.getName(), game.getCurrentPlayer());
+					game.moveThingFromCupToPlayer(t, game.getCurrentPlayer());
 					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
-					
-					//t.setSelected(false);
 					game.getCurrentPlayer().getBlock().removeThing(thing);
 					thing = t;
 					refreshView();

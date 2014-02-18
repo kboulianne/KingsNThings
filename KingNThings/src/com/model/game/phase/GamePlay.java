@@ -228,5 +228,9 @@ public final class GamePlay {
 	public SortedMap<Integer, Player> getRolls() {
 		return rolls;
 	}
+
+	public AbstractPhaseStrategy getPhaseLogic() {
+		return phaseLogic;
+	}
 }
 

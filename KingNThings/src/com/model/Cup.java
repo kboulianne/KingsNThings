@@ -29,9 +29,13 @@ public class Cup extends GamePiece {
 			listOfIncomeCounters.add((IncomeCounter) t);
 			t.setFacedDown(false);
 		}
+		else if (t instanceof SpecialCharacter){
+			listOfSpecialCharacters.add((SpecialCharacter) t);
+			t.setFacedDown(false);
+		}
 		else{
 			listOfThings.add(t);
-			t.setFacedDown(true);
+			t.setFacedDown(false);//TODO true
 		}
 	}
 	public Thing getThing(String name){
@@ -41,11 +45,11 @@ public class Cup extends GamePiece {
 		}	
 		return null;
 	}
-	public Thing removeThingWithName(String name){
+	/*public Thing removeThingWithName(String name){
 		Thing t = getThing(name);	
 		listOfThings.remove(t);
 		return t;
-	}
+	}*/
 	
 	public Creature getRandomCreature(){
 		if(listOfThings.isEmpty())
@@ -56,8 +60,9 @@ public class Cup extends GamePiece {
 		return (Creature)t;
 	}
 	
-	protected void removeThing(Thing t){
+	public Thing removeThing(Thing t){
 		listOfThings.remove(t);
+		return t;
 	}
 
 	public ArrayList<IncomeCounter> getListOfIncomeCounters() {

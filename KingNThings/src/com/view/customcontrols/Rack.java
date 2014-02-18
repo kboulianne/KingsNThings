@@ -6,7 +6,9 @@
 package com.view.customcontrols;
 
 import com.model.Thing;
+import java.util.ArrayList;
 import java.util.List;
+
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 
@@ -17,6 +19,8 @@ import javafx.scene.layout.HBox;
 public class Rack extends HBox {
 
 	public static final int CAPACITY = 8;
+	
+	ArrayList<ThingView> thingViews;
 
     // Maximum of 8 Tiles on Rack
 	// TODO Make Tile since ArmyOrMisc uses same logic.
@@ -47,7 +51,7 @@ public class Rack extends HBox {
 			t.setSelected(false);
 			ThingView tv =new ThingView(50, t);
 			getChildren().add(tv);
-			//tv.setDefaultHandler();
+			tv.setDefaultHandler();
 		}
 	}
 	

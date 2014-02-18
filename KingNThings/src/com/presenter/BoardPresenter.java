@@ -14,6 +14,7 @@ import com.model.Player;
 import com.model.Thing;
 import com.model.game.Game;
 import com.model.game.phase.GamePlay;
+import com.model.game.phase.init.ExchangePhase;
 import com.view.BoardView;
 
 /**
@@ -231,8 +232,14 @@ public class BoardPresenter {
 						view.setBoard(svc.getGame().getBoard());
 					}
 				}
+				else{
+					Util.log("Strange Behaviour");
+				}
 			}
-			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+			if(GamePlay.getInstance().getPhaseLogic() instanceof ExchangePhase)
+				KNTAppFactory.getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(player);
+			else
+				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 			KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 		}
 	}

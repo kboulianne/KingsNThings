@@ -413,8 +413,8 @@ public final class Game {
 	}
 	
 	
-	public void moveThingFromCupToPlayer(String thingName, Player p){
-		p.addThing(cup.removeThingWithName(thingName));
+	public void moveThingFromCupToPlayer(Thing t, Player p){
+		p.addThing(cup.removeThing(t));
 	}
 
 

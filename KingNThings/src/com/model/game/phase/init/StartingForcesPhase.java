@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
+import com.model.Cup;
 import com.model.Player;
 import com.model.Player.PlayerId;
 import com.model.game.Game;
@@ -62,57 +63,57 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		
 		Player player = game.getCurrentPlayer();
 		player.addGold(10);
-		
+		Cup cup = game.getCup();
 		if(player.getId() == PlayerId.ONE)	{
 			
-			game.moveThingFromCupToPlayer("olddragon", player);
-			game.moveThingFromCupToPlayer("giantspider", player);
-			game.moveThingFromCupToPlayer("elephant", player);
-			game.moveThingFromCupToPlayer("brownknight", player);
-			game.moveThingFromCupToPlayer("giant", player);
-			game.moveThingFromCupToPlayer("dwarves1", player);
-			game.moveThingFromCupToPlayer("skeletons", player);
-			game.moveThingFromCupToPlayer("watusi", player);
-			game.moveThingFromCupToPlayer("goblins", player);
-			game.moveThingFromCupToPlayer("ogre", player);
+			game.moveThingFromCupToPlayer(cup.getThing("olddragon"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("giantspider"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("elephant"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("brownknight"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("giant"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("dwarves1"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("skeletons"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("watusi"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("goblins"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("ogre"), player);
 
 		} else if(player.getId() == PlayerId.TWO)	{
 			
-			game.moveThingFromCupToPlayer("pterodactylwarriors", player);
-			game.moveThingFromCupToPlayer("sandworm", player);
-			game.moveThingFromCupToPlayer("greenknight", player);
-			game.moveThingFromCupToPlayer("dervish", player);
-			game.moveThingFromCupToPlayer("crocodilesjungle", player);
-			game.moveThingFromCupToPlayer("nomads", player);
-			game.moveThingFromCupToPlayer("druid", player);
-			game.moveThingFromCupToPlayer("walkingtree", player);
-			game.moveThingFromCupToPlayer("crawlingvines", player);
-			game.moveThingFromCupToPlayer("bandits", player);
+			game.moveThingFromCupToPlayer(cup.getThing("pterodactylwarriors"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("sandworm"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("greenknight"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("dervish"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("crocodilesjungle"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("nomads"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("druid"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("walkingtree"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("crawlingvines"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("bandits"), player);
 			
 		} else if(player.getId() == PlayerId.THREE)	{
 			
-			game.moveThingFromCupToPlayer("centaur", player);
-			game.moveThingFromCupToPlayer("camelcorps", player);
-			game.moveThingFromCupToPlayer("farmers", player);
-			game.moveThingFromCupToPlayer("farmers", player);
-			game.moveThingFromCupToPlayer("genie", player);
-			game.moveThingFromCupToPlayer("skeletons", player);
-			game.moveThingFromCupToPlayer("pygmies", player);
-			game.moveThingFromCupToPlayer("greathunter", player);
-			game.moveThingFromCupToPlayer("nomads", player);
-			game.moveThingFromCupToPlayer("witchdoctor", player);
+			game.moveThingFromCupToPlayer(cup.getThing("centaur"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("camelcorps"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("farmers"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("farmers"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("genie"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("skeletons"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("pygmies"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("greathunter"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("nomads"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("witchdoctor"), player);
 			
 		} else	{
-			game.moveThingFromCupToPlayer("tribesmen", player);
-			game.moveThingFromCupToPlayer("giantlizard", player);
-			game.moveThingFromCupToPlayer("villains", player);
-			game.moveThingFromCupToPlayer("tigers", player);
-			game.moveThingFromCupToPlayer("vampirebat", player);
-			game.moveThingFromCupToPlayer("tribesmen", player);
-			game.moveThingFromCupToPlayer("darkwizard", player);
-			game.moveThingFromCupToPlayer("blackknight", player);
-			game.moveThingFromCupToPlayer("giantape", player);
-			game.moveThingFromCupToPlayer("buffaloherd", player);
+			game.moveThingFromCupToPlayer(cup.getThing("tribesmen"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("giantlizard"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("villains"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("tigers"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("vampirebat"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("tribesmen"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("darkwizard"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("blackknight"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("giantape"), player);
+			game.moveThingFromCupToPlayer(cup.getThing("buffaloherd"), player);
 		}
 		
 		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);	
