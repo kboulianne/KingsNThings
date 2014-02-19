@@ -186,8 +186,8 @@ public final class GamePlay {
 //				|| phaseLogic instanceof StartingForcesPhase
 				|| phaseLogic instanceof ExchangePhase
 				|| phaseLogic instanceof GoldCollectPhase
-//				|| phaseLogic instanceof RecruitCharPhase
-				|| phaseLogic instanceof RecruitThingsPhase
+				|| phaseLogic instanceof RecruitCharPhase
+//				|| phaseLogic instanceof RecruitThingsPhase
 				|| phaseLogic instanceof RandomEventPhase
 				|| phaseLogic instanceof MovementPhase
 				|| phaseLogic instanceof ConstructionPhase

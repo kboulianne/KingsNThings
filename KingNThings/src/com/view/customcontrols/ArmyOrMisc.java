@@ -163,7 +163,7 @@ public class ArmyOrMisc extends HBox {
 			circle.setFill(armyOwner.getColor());
 			
 			for (Thing t : army) {
-				
+				if(t.getHexLocation() != -1)	t.setSelected(true);
 				ThingView tv = new ThingView(50, t);
 				thingHolder.getChildren().add(tv);
 				if(moving)
