@@ -49,13 +49,13 @@ public class Rack extends HBox {
 		getChildren().clear();
 		for (Thing t : things) {
 			t.setSelected(false);
-			ThingView tv =new ThingView(50, t);
+			ThingView tv = new ThingView(50, t);
 			getChildren().add(tv);
 			tv.setDefaultHandler();
 		}
 	}
 	
-	public void setExcahngeThingsHandler(List<Thing> things){
+	public void setExchangeThingsHandler(List<Thing> things){
 		getChildren().clear();
 		for (Thing t : things) {
 			t.setSelected(false);

@@ -164,7 +164,7 @@ public class ArmyOrMisc extends HBox {
 			
 			for (Thing t : army) {
 				
-				ThingView tv =new ThingView(50, t);
+				ThingView tv = new ThingView(50, t);
 				thingHolder.getChildren().add(tv);
 				if(moving)
 					tv.setMovementHandler();

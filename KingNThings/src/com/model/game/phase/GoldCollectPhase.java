@@ -110,7 +110,7 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		popupVbox.setAlignment(Pos.CENTER);
 		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);*/
 
-		KNTAppFactory.getSidePanePresenter().getView().showGoldCollection(player.getName(), hexGold, fortGold, counterGold, specCharGold);
+		KNTAppFactory.getSidePanePresenter().getView().showGoldCollection(hexGold, fortGold, counterGold, specCharGold);
 		
 		//KNTAppFactory.getPopupPresenter().getView().show(popupVbox, player.getName() + "'s Gold Income:");
 		KNTAppFactory.getPopupPresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {

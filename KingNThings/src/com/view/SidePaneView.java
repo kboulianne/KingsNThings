@@ -121,9 +121,9 @@ public class SidePaneView extends VBox {
 		opp3Lbl.setPlayer(o3);
 	}
 	
-	public void showGoldCollection(String playerName, int hexGold, int fortGold, int counterGold, int specCharGold){
+	public void showGoldCollection(int hexGold, int fortGold, int counterGold, int specCharGold){
 		int totalGold = (hexGold + fortGold + counterGold + specCharGold);
-		Label title = new Label(playerName + "'s Gold:");
+		Label title = new Label("Gold Income:");
 		title.getStyleClass().add("title");
 		
 		ImageView im = new ImageView(Game.GOLD_IMAGE);
