@@ -11,6 +11,7 @@ public class SpecialCharacter extends Creature	{
 	
 	private String alternateName;
 	private boolean specialAbility;
+	private boolean isTerrianLord;
 	
 	private static final Set<String> specialCreat;
 	static	{
@@ -30,6 +31,18 @@ public class SpecialCharacter extends Creature	{
 		specialCreat.add("swampking");
 		specialCreat.add("plainslord");
 	}
+	
+	private static final Set<String> terrainLordCreat;
+	static	{
+		terrainLordCreat = new HashSet<>();
+		terrainLordCreat.add("desertmaster");
+		terrainLordCreat.add("forestking");
+		terrainLordCreat.add("icelord");
+		terrainLordCreat.add("junglelord");
+		terrainLordCreat.add("mountainking");
+		terrainLordCreat.add("swampking");
+		terrainLordCreat.add("plainslord");
+	}
 
 	public SpecialCharacter(String name1, String name2) {
 		super((Util.randomNumber(1, 2) == 1?name1:name2));
@@ -43,6 +56,9 @@ public class SpecialCharacter extends Creature	{
 		
 		//Set special ability
 		setSpecialAbility(specialCreat.contains(getName()));
+		
+		//Set lord
+		setLord(terrainLordCreat.contains(getName()));
 		
 		setImage("view/com/assets/pics/gamepieces/specialcharacters/" + getName() + ".jpeg");
 	}
@@ -87,6 +103,14 @@ public class SpecialCharacter extends Creature	{
 
 	public void setSpecialAbility(boolean specialAbility) {
 		this.specialAbility = specialAbility;
+	}
+
+	public boolean isLord() {
+		return isTerrianLord;
+	}
+
+	public void setLord(boolean isLord) {
+		this.isTerrianLord = isLord;
 	}
 
 }

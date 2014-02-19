@@ -103,7 +103,8 @@ public class BoardPresenter {
 		// Make sure the selected hex is unowned, adjacent to the current player's starting position
 		// and not adjacent to an opponent's tile.
 		// Do nothing if selected hex is owned
-		if (hex.getOwner() == null) {
+		
+		if (hex.getHexOwner() == null) {
 			// Get the adjacent hexes.
 			// Make sure current player owns one of the hexes. That is, there is a path from
 			// current's start position to the selected hex.

@@ -2,6 +2,7 @@ package com.view.customcontrols;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.SpecialCharacter;
 import com.model.Thing;
 import com.model.game.Game;
 import com.presenter.Util;
@@ -190,5 +191,26 @@ public class ThingView extends StackPane{
 			}
 		});
 		
+	}
+
+	public void setChooseSpecialCharToRecruitHandler() {
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {
+				thing.setSelected(true);
+				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment2((SpecialCharacter) thing);
+				
+			}
+		});
+	}
+
+	public void setSendSpecialCharacterBackToCupHandler() {
+		// TODO Auto-generated method stub
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {
+				
+			}
+		});
 	}
 }

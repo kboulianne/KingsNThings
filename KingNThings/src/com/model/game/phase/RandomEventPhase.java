@@ -31,8 +31,7 @@ public class RandomEventPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnStart() {
-		Util.log("Skipping Step for Iteration 1");
-//		context.endTurn();
+
 	}
 
 	@Override

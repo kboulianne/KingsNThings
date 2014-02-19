@@ -1,5 +1,10 @@
 package com.model;
 
+import java.util.ArrayList;
+
+import com.game.services.GameService;
+import com.model.game.Game;
+
 import javafx.scene.paint.Color;
 
 public class Player 	{
@@ -78,5 +83,21 @@ public class Player 	{
 
 	public void trimBlock() {
 		block.trimBlock();
+	}
+
+	//TODO maybe move?
+	public ArrayList<SpecialCharacter> getAllOwnedSpecialChar() {
+		ArrayList<Hex> hexes = (ArrayList<Hex>) GameService.getInstance().getGame().getBoard().getHexes();
+		ArrayList<SpecialCharacter> specChars = new ArrayList<SpecialCharacter>();
+		for(Hex h:hexes){
+			ArrayList<Creature> creatures = h.getArmies(this);
+			if(creatures!=null){ //TODO fix
+				for(Creature c: creatures){
+					if(c instanceof SpecialCharacter)
+						specChars.add((SpecialCharacter) c);
+				}
+			}
+		}
+		return specChars;
 	}
 }

@@ -5,11 +5,17 @@
  */
 package com.view;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.SortedMap;
 
 import com.view.customcontrols.PlayerLabel;
+import com.view.customcontrols.ThingView;
+import com.game.services.GameService;
+import com.main.KNTAppFactory;
+import com.model.Die;
 import com.model.Player;
+import com.model.SpecialCharacter;
 import com.model.game.Game;
 import com.presenter.SidePanePresenter;
 import com.presenter.Util;
@@ -18,7 +24,9 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -141,15 +149,159 @@ public class SidePaneView extends VBox {
 		labels.setAlignment(Pos.CENTER);
 		labels.getChildren().addAll(hexes, forts, counters, specChars, divider, total);
 
-		VBox popupVbox = new VBox();
+		VBox vbox = new VBox();
 		//popupVbox.setPadding(new Insets(15));
-		popupVbox.setSpacing(20);//getStyleClass().add("block");
-		popupVbox.getChildren().addAll(title, im, labels);
-		popupVbox.setAlignment(Pos.CENTER);
-		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
+		vbox.setSpacing(20);//getStyleClass().add("block");
+		vbox.getChildren().addAll(title, im, labels);
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
 		
 		content.getChildren().clear();
-		content.getChildren().add(popupVbox);
+		content.getChildren().add(vbox);
+	}
+	
+	public void showSpecialCharRecruitment(String playerName, ArrayList<SpecialCharacter> playersSChars){
+		ArrayList<SpecialCharacter> specCfromCup = GameService.getInstance().getGame().getCup().getListOfSpecialCharacters();
+		boolean playerHasLord = false;
+		
+		VBox vbox = new VBox();
+		vbox.getStyleClass().add("largeSpacing");
+		vbox.setAlignment(Pos.CENTER);
+		
+		Label title = new Label("Special Characters:");
+		title.getStyleClass().add("title");
+		
+		if(!playersSChars.isEmpty()){
+			Label ownedSCharLbl = new Label(playerName+"'s special characters: "+playersSChars.size()+" items");
+			Label ownedSCharIntructionLbl = new Label("Click to place special character back in cup");
+			
+			HBox playersSCharBox = new HBox();
+			playersSCharBox.getStyleClass().add("army");
+			for(SpecialCharacter sC: playersSChars){
+				ThingView tv = new ThingView(50, sC);
+				tv.setSendSpecialCharacterBackToCupHandler();
+				playersSCharBox.getChildren().add(tv);
+				
+				if(sC.isLord())
+					playerHasLord = true;
+			}
+			vbox.getChildren().addAll(title, ownedSCharLbl, ownedSCharIntructionLbl, playersSCharBox);
+		}	
+		
+		Label cupSCharInstructionLbl = new Label("Choose a special characters to recruit");
+		
+		HBox availCupSCharBox = new HBox();
+		availCupSCharBox.getStyleClass().add("army");
+		for(SpecialCharacter sC: specCfromCup){
+			if(!(sC.isLord() && playerHasLord)){
+				sC.setSelected(false);
+				ThingView tv = new ThingView(50, sC);
+				tv.setChooseSpecialCharToRecruitHandler();
+				availCupSCharBox.getChildren().add(tv);
+			}
+		}
+		
+		Label cupSCharLbl = new Label("Available special characters from cup: "+availCupSCharBox.getChildren().size()+" items");
+		vbox.getChildren().addAll(title, cupSCharLbl, cupSCharInstructionLbl, availCupSCharBox);
+		
+		content.getChildren().clear();
+		content.getChildren().add(vbox);
+	}
+	
+	
+	int rolledValue = 0;
+	int cost = 5; // cost is 5 before roll and 10 after roll
+	public void showSpecialCharRecruitment2(SpecialCharacter sC){
+
+		final int valueNeeded = sC.getCombatVal()*2;
+		
+		VBox vbox = new VBox();
+		vbox.getStyleClass().add("largeSpacing");
+		vbox.setAlignment(Pos.CENTER);
+		Label title = new Label("Recruit Special Character:");
+		title.getStyleClass().add("title");
+		ThingView tv = new ThingView(200,sC);
+		
+		final Label rollValueLbl = new Label("Current rolled value: "+rolledValue);
+		Label valueNeededLbl = new Label("Value needed to recuit character: "+valueNeeded);
+		final DiceView dV = new DiceView();
+		final Die die1 = new Die();
+		final Die die2 = new Die();
+		dV.setDice(die1, die2);
+		dV.setAlignment(Pos.CENTER);
+		final Button recruitButton = dV.getEndTurnBtn();
+		recruitButton.setText("Recruit");
+		recruitButton.setDisable(true);
+		VBox rollBox = new VBox();
+		rollBox.setAlignment(Pos.CENTER);
+		rollBox.getStyleClass().add("block");
+		rollBox.getChildren().addAll(rollValueLbl,valueNeededLbl,  dV);
+		
+		final Label costLbl = new Label("Cost to add 1 to roll: "+cost+" Gold");
+		final Button addRollButton = new Button("Add to Roll");
+		if(GameService.getInstance().getGame().getCurrentPlayer().getGold()<5)
+			addRollButton.setDisable(true);
+		
+		VBox addRollBox = new VBox();
+		addRollBox.setAlignment(Pos.CENTER);
+		addRollBox.getStyleClass().add("block");
+		addRollBox.getChildren().addAll(costLbl, addRollButton);
+		
+		// handlers
+		addRollButton.setOnAction(new EventHandler<ActionEvent>() {		
+			@Override
+			public void handle(ActionEvent arg0) {
+				//get gold check
+				Player currPlayer = GameService.getInstance().getGame().getCurrentPlayer();
+				if(currPlayer.getGold()>=cost){
+					
+					currPlayer.setGold(currPlayer.getGold()-cost);
+					KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlayer);
+					
+					rolledValue += 1;
+					rollValueLbl.setText("Current rolled value: "+rolledValue);
+					
+					if(rolledValue >= valueNeeded)
+						recruitButton.setDisable(false);
+					
+					if(currPlayer.getGold()<cost)
+						addRollButton.setDisable(true);
+				}
+			}
+		});
+		
+		dV.getRollBtn().setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				
+				rolledValue += die1.roll() + die2.roll();
+				
+				rollValueLbl.setText("Current rolled value: "+rolledValue);
+				cost = 10;
+				costLbl.setText("Cost to add 1 to roll: "+cost+" Gold");
+				
+				
+				if(rolledValue >= valueNeeded)
+					recruitButton.setDisable(false);
+				
+				dV.getRollBtn().setVisible(false);
+				dV.getRollBtn().setManaged(false);
+			}
+		});
+		
+		recruitButton.setOnAction(new EventHandler<ActionEvent>() {	
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				// endturn
+			}
+		});
+		
+		vbox.getChildren().addAll(title,tv,  addRollBox, rollBox);
+		content.getChildren().clear();
+		content.getChildren().add(vbox);
 	}
 	
 	public void showRolls(SortedMap<Integer, Player> rolls){
