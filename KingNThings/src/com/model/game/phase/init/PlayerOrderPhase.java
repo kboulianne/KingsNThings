@@ -61,8 +61,6 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		super.turnStart();
 		
 		KNTAppFactory.getGamePresenter().getView().setGame(game);
-		
-		Util.log("Skipping Step for Itertion 1");
 		KNTAppFactory.getSidePanePresenter().getView().showRolls(context.getRolls());
 	}
 

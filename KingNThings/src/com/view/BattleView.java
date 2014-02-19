@@ -18,6 +18,8 @@ import com.model.Battle;
 import com.model.Creature;
 import com.model.Fort;
 import com.presenter.BattlePresenter;
+import com.view.customcontrols.ThingView;
+
 import java.util.List;
 
 public class BattleView extends VBox{
@@ -154,47 +156,16 @@ public class BattleView extends VBox{
 		}
 	}
 	
-	//FIXME: Duplicated code
 	private HBox createCreaturePiece(Creature c) {
 		HBox thingBox = new HBox();
-		StackPane stack = new StackPane();
-
-		int size = 90;
-
-		Rectangle borderRect = new Rectangle();
-		borderRect.setX(0);
-		borderRect.setY(0);
-		borderRect.setWidth(size);
-		borderRect.setHeight(size);
-		borderRect.setArcWidth(20);
-		borderRect.setArcHeight(20);
-		borderRect.setFill(Color.WHITE);
-
-		Rectangle coloredRect = new Rectangle();
-		coloredRect.setX(0);
-		coloredRect.setY(0);
-		coloredRect.setWidth(size - 1);
-		coloredRect.setHeight(size - 1);
-		coloredRect.setArcWidth(20);
-		coloredRect.setArcHeight(20);
-
-
-		ImageView img = new ImageView();
-		img.setFitWidth(size - 7);
-		img.setFitHeight(size - 7);
-		img.setPreserveRatio(true);
-		img.setSmooth(true);
-		img.setCache(true);
-		stack.getChildren().addAll(borderRect, coloredRect, img);
+		ThingView tv = new ThingView(90 , c);
 
 		VBox thingLblBox = new VBox();
 
-		thingBox.getChildren().addAll(stack, thingLblBox);
+		thingBox.getChildren().addAll(tv, thingLblBox);
 		thingBox.getStyleClass().add("army");
 		
-		img.setImage(c.getImage());
 		Label nameLbl = new Label(c.getName().toUpperCase());
-		coloredRect.setFill(c.getColor());
 		Label domainLbl = new Label("Domain: "+c.getDomain());
 		Label comValLbl = new Label("Combat Value: "+c.getCombatVal());
 		Label abilityLbl = new Label("Abilites: "+c.getAbilitiesString());

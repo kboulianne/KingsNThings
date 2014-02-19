@@ -54,7 +54,6 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");
 		/*if(game.getCurrentPlayer().getId().equals(PlayerId.ONE))	{
 			Util.log("Adding three creatures to Players 1 block for Iteration 1");
 			

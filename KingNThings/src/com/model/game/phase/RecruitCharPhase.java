@@ -5,6 +5,8 @@
  */
 package com.model.game.phase;
 
+import com.main.KNTAppFactory;
+import com.model.Player;
 import com.presenter.Util;
 
 /**
@@ -33,8 +35,8 @@ public class RecruitCharPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		
-		Util.log("Skipping Step for Iteration 1");
-//		context.endTurn();	
+		Player currPlay = game.getCurrentPlayer();
+		KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment(currPlay.getName(), currPlay.getAllOwnedSpecialChar());
 	}
 
 	@Override
