@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.model.Board.NumberOfHexes;
-import com.presenter.Util;
-
 import java.util.Map;
 
 import javafx.scene.paint.Color;
 
-//TODO Use Factory Pattern?
 public class Hex extends GamePiece {
 	
     private int id; // location on grid

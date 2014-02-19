@@ -145,6 +145,29 @@ public abstract class Creature extends Thing	{
 		combatVals.put("watersnake", 1);
 		combatVals.put("will-o-wisp", 2);
 		combatVals.put("wingedpirhana", 3);
+		//Insert Special Characters	
+		combatVals.put("elflord", 6);
+		combatVals.put("icelord", 4);
+		combatVals.put("archcleric", 5);
+		combatVals.put("archmage", 6);
+		combatVals.put("assassinprimus", 4);
+		combatVals.put("baronmunchausen", 4);
+		combatVals.put("deerhunter", 4);
+		combatVals.put("desertmaster", 4);
+		combatVals.put("dwarfking", 5);
+		combatVals.put("forestking", 4);
+		combatVals.put("ghaogll", 6);
+		combatVals.put("grandduke", 4);
+		combatVals.put("junglelord", 4);
+		combatVals.put("warlord", 5);
+		combatVals.put("sirlancealot", 5);
+		combatVals.put("marksman", 5);
+		combatVals.put("masterthief", 4);
+		combatVals.put("swordmaster", 4);
+		combatVals.put("mountainking", 4);
+		combatVals.put("swampking", 4);
+		combatVals.put("plainslord", 4);
+		combatVals.put("lordoftheeagles", 5);
 	}
 	private static final Set<String> flyingCreat;
 	static	{
@@ -188,6 +211,9 @@ public abstract class Creature extends Thing	{
 		flyingCreat.add("browndragon");
 		flyingCreat.add("birdofparadise");
 		flyingCreat.add("babydragon");
+		flyingCreat.add("ghaogll");
+		flyingCreat.add("lordoftheeagles");
+
 	}
 	private static final Set<String> rangedCreat;
 	static	{
@@ -205,6 +231,8 @@ public abstract class Creature extends Thing	{
 		rangedCreat.add("dwarves1");
 		rangedCreat.add("dwarves");
 		rangedCreat.add("dragonrider");
+		rangedCreat.add("elflord");
+		rangedCreat.add("marksman");
 	}
 	private static final Set<String> chargingCreat;
 	static	{
@@ -217,6 +245,7 @@ public abstract class Creature extends Thing	{
 		chargingCreat.add("dwarves2");
 		chargingCreat.add("brownknight");
 		chargingCreat.add("blackknight");
+		chargingCreat.add("sirlancealot");
 	}
 	private static final Set<String> magicCreat;
 	static	{
@@ -239,6 +268,8 @@ public abstract class Creature extends Thing	{
 		magicCreat.add("dervish");
 		magicCreat.add("darkwizard");
 		magicCreat.add("basilisk");
+		magicCreat.add("archcleric");
+		magicCreat.add("archmage");
 	}
 	
 	public Creature(String name)	{
@@ -248,8 +279,7 @@ public abstract class Creature extends Thing	{
 		//Set combat value to value from map associating creatures with their combat values
 		setCombatVal(combatVals.get(name));
 		
-		//Set image to matching image for creature name
-		setImage("view/com/assets/pics/gamepieces/things/creatures/" + name + ".jpeg");
+		
 		
 		//Set fly boolean
 		setFly(flyingCreat.contains(name));
@@ -261,7 +291,11 @@ public abstract class Creature extends Thing	{
 		setCharge(chargingCreat.contains(name));
 		
 		//Set magic boolean
-		setMagic(magicCreat.contains(name));		
+		setMagic(magicCreat.contains(name));	
+		
+		//Set image to matching image for creature name
+		if(!(this instanceof SpecialCharacter))
+			setImage("view/com/assets/pics/gamepieces/things/creatures/" + name + ".jpeg");
 	}
 	
 	//get and set methods

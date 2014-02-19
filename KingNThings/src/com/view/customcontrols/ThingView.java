@@ -111,11 +111,9 @@ public class ThingView extends StackPane{
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
 					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
 				}else{
-					//GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
-					
 				}
-				//KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
+				
 			}
 		});
 	}
@@ -146,8 +144,10 @@ public class ThingView extends StackPane{
 			@Override
 			public void handle(MouseEvent me) {
 				Util.log("thing cup handler");
-				//KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
-				//KNTAppFactory.getPlayerInfoPresenter().handleRackClick(thing);
+				
+				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
+
+				KNTAppFactory.getPopupPresenter().dismissPopup();
 			}
 		});
 		

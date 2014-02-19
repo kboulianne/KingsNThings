@@ -1,10 +1,7 @@
 package com.presenter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
-
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Battle;
