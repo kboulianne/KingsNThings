@@ -111,6 +111,9 @@ public class ArmyOrMisc extends HBox {
 	}*/
 
 	public void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
+		for(Creature c: army){
+			c.setSelected(true);
+		}
 		KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
 		if(moving)	KNTAppFactory.getBoardPresenter().handleMoveSetupForArmy();
 	}
@@ -163,7 +166,10 @@ public class ArmyOrMisc extends HBox {
 				
 				ThingView tv =new ThingView(50, t);
 				thingHolder.getChildren().add(tv);
-				//tv.setDefaultHandler();
+				if(moving)
+					tv.setMovementHandler();
+				else
+					tv.setDefaultHandler();
 
 			}
 		} 

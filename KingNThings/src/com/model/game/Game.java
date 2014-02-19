@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.scene.image.Image;
 
 import com.game.services.GameService;
+import com.main.KNTAppFactory;
 import com.model.Board;
 import com.model.Creature;
 import com.model.Cup;
@@ -435,16 +436,23 @@ public final class Game {
 		return list;
 	}
 	
-	public ArrayList<Creature> getLastSelectedCreaturesOfCurrentPlayerHex(Hex hex) {
+	public ArrayList<Creature> getLastSelectedCreaturesOfCurrentPlayerHex() {
 		ArrayList<Creature> list = new ArrayList<Creature>();
 		List<Thing> blockList = getCurrentPlayer().getBlock().getListOfThings();
 		for(Thing t: blockList){
 			if(t instanceof Creature && t.isSelected())
 				list.add((Creature)t);
 		}
-		for (Creature c: hex.getArmies(getCurrentPlayer())){
-			if(c.isSelected())
-				list.add(c);
+		Hex hex = getBoard().getHexes().get(KNTAppFactory.getBoardPresenter().getLastHexSelected());
+		ArrayList<Creature> army = hex.getArmies(getCurrentPlayer());
+		if(army == null){
+			
+			Util.log("nullified "+ hex.getId());
+		}else{
+			for (Creature c: hex.getArmies(getCurrentPlayer())){
+				if(c.isSelected())
+					list.add(c);
+			}
 		}
 		return list;
 	}

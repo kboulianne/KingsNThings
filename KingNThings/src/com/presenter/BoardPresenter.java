@@ -1,7 +1,9 @@
 package com.presenter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
@@ -167,6 +169,7 @@ public class BoardPresenter {
 	 */
 	public void handleMovementSelectedHexClick(int selected) {
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
+		
 		if(hex.isHighlighted())	{			
 			Player currentPlayer = GameService.getInstance().getGame().getCurrentPlayer();
 			if(movingArmy)	{ // move whole army
@@ -182,7 +185,7 @@ public class BoardPresenter {
 					}
 				}
 			} else { 
-				ArrayList<Creature> creatures = GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerHex(hex);
+				ArrayList<Creature> creatures = GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerHex();
 				if(creatures.isEmpty())
 					return;
 

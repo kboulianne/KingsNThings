@@ -2,7 +2,10 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import com.model.Board.NumberOfHexes;
+import com.presenter.Util;
+
 import java.util.Map;
 
 import javafx.scene.paint.Color;
@@ -174,6 +177,7 @@ public class Hex extends GamePiece {
 	}
     
     public void addCreatToArmy(Creature creature, Player p)	{
+    	creature.setSelected(false);
     	if(!armies.containsKey(p))	
     		armies.put(p, new ArrayList<Creature>());
     	
@@ -181,6 +185,8 @@ public class Hex extends GamePiece {
     	if(armies.get(p).size() < 10)	{
     		armies.get(p).add(creature);
     	}
+    	
+    	//Util.log("added army"+ armies.toString());
     }
     
     public void removeCreatureFromArmy(Creature creature, Player p){    		

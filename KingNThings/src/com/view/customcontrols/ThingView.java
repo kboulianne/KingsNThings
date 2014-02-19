@@ -109,11 +109,13 @@ public class ThingView extends StackPane{
 				//refresh view
 				if(thing.isSelected()){
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
+					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
 				}else{
 					//GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
+					
 				}
-				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
+				//KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
 			}
 		});
 	}
@@ -122,10 +124,18 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
+				thing.setSelected(!thing.isSelected());
+				if(thing.isSelected()){
+					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
+				}else{
+					//GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
+					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
+				}
 				
 				if(thing.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
 					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(thing);
 				}
+				
 				//img.fireEvent(new ThingEvent(thing));
 			}
 		});
