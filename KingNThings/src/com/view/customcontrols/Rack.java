@@ -47,7 +47,6 @@ public class Rack extends HBox {
 		}
 	}
 	
-<<<<<<< HEAD
 	public void setRecruitingThingsHandler(List<Thing> things)	{
 		getChildren().clear();
 		for (Thing t : things) {
@@ -55,7 +54,9 @@ public class Rack extends HBox {
 			ThingView tv = new ThingView(50, t);
 			getChildren().add(tv);
 			tv.setRecruitingThingsHandler();
-=======
+		}
+	}
+
 	public void setDoNothingHandler(List<Thing> things){
 		getChildren().clear();
 		for (Thing t : things) {
@@ -63,7 +64,6 @@ public class Rack extends HBox {
 			ThingView tv =new ThingView(50, t);
 			getChildren().add(tv);
 			tv.setDoNothingHandler();
->>>>>>> f22264f08b1ca3fd6782c635f0a499c304ba9e67
 		}
 	}
 }

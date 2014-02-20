@@ -166,13 +166,12 @@ public class ThingView extends StackPane{
 		});
 		
 	}
-	//
-	//KNTAppFactory.getPopupPresenter().dismissPopup();
+	
 	public void setDoNothingHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {			
-				//DoNothing
+				//Do nothing
 				Util.log("Do Nothing");
 			}
 		});
@@ -195,7 +194,7 @@ public class ThingView extends StackPane{
 				if(thing.isSelected()){
 					KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange things by clicking the rack\n"
 							   + "     Exchange only once per thing", Game.CROWN_IMAGE);
-				}else{
+				} else {
 					Game game = GameService.getInstance().getGame();
 					
 					thing.setSelected(false);
@@ -208,8 +207,6 @@ public class ThingView extends StackPane{
 					thing = t;
 					refreshView();
 				}
-				//TODO if exchanged start pos things
-
 			}
 		});
 		
@@ -220,12 +217,7 @@ public class ThingView extends StackPane{
 			@Override
 			public void handle(MouseEvent me) {
 				thing.setSelected(true);
-<<<<<<< HEAD
-				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment2((SpecialCharacter) thing);
-=======
 				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment((SpecialCharacter) thing);
-				
->>>>>>> f22264f08b1ca3fd6782c635f0a499c304ba9e67
 			}
 		});
 	}

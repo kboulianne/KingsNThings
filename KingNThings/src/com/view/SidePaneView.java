@@ -10,13 +10,11 @@ import java.util.Iterator;
 import java.util.SortedMap;
 
 import com.view.customcontrols.PlayerLabel;
+import com.game.services.GameService;
 import com.main.KNTAppFactory;
-<<<<<<< HEAD
 import com.model.Creature;
 import com.model.Cup;
 import com.model.Die;
-=======
->>>>>>> f22264f08b1ca3fd6782c635f0a499c304ba9e67
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.game.Game;
@@ -27,6 +25,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -160,55 +159,8 @@ public class SidePaneView extends VBox {
 		content.getChildren().clear();
 		content.getChildren().add(vbox);
 	}
-	
-<<<<<<< HEAD
-	public void showSpecialCharRecruitment(String playerName, ArrayList<SpecialCharacter> playersSChars){
-		ArrayList<SpecialCharacter> specCfromCup = GameService.getInstance().getGame().getCup().getListOfSpecialCharacters();
-		boolean playerHasLord = false;
 		
-		VBox vbox = new VBox();
-		vbox.getStyleClass().add("largeSpacing");
-		vbox.setAlignment(Pos.CENTER);
-		
-		Label title = new Label("Special Characters:");
-		title.getStyleClass().add("title");
-		
-		if(!playersSChars.isEmpty()){
-			Label ownedSCharLbl = new Label(playerName+"'s special characters: "+playersSChars.size()+" items");
-			Label ownedSCharIntructionLbl = new Label("Click to place special character back in cup");
-			
-			HBox playersSCharBox = new HBox();
-			playersSCharBox.getStyleClass().add("army");
-			for(SpecialCharacter sC: playersSChars){
-				ThingView tv = new ThingView(50, sC);
-				tv.setSendSpecialCharacterBackToCupHandler();
-				playersSCharBox.getChildren().add(tv);
-				
-				if(sC.isLord())
-					playerHasLord = true;
-			}
-			vbox.getChildren().addAll(title, ownedSCharLbl, ownedSCharIntructionLbl, playersSCharBox);
-		}	
-		
-		Label cupSCharInstructionLbl = new Label("Choose a special characters to recruit");
-		
-		HBox availCupSCharBox = new HBox();
-		availCupSCharBox.getStyleClass().add("army");
-		for(SpecialCharacter sC: specCfromCup){
-			if(!(sC.isLord() && playerHasLord)){
-				sC.setSelected(true);
-				ThingView tv = new ThingView(50, sC);
-				tv.setChooseSpecialCharToRecruitHandler();
-				availCupSCharBox.getChildren().add(tv);
-			}
-		}
-		
-		Label cupSCharLbl = new Label("Available special characters from cup: "+availCupSCharBox.getChildren().size()+" items");
-		vbox.getChildren().addAll(title, cupSCharLbl, cupSCharInstructionLbl, availCupSCharBox);
-		
-=======
 	public void showSpecialCharRecruitment(SpecialCharacter thing) {
->>>>>>> f22264f08b1ca3fd6782c635f0a499c304ba9e67
 		content.getChildren().clear();
 		KNTAppFactory.getSpecialCharacterPresenter().getView().showScreen2(thing);
 		content.getChildren().add(KNTAppFactory.getSpecialCharacterPresenter().getView().getScreen2());
