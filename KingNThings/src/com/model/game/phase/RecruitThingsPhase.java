@@ -10,6 +10,12 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
+import com.model.GamePiece;
+import com.model.Hex;
+import com.model.IncomeCounter;
+import com.model.Player;
+import com.model.SpecialCharacter;
+import com.model.game.Game;
 import com.presenter.Util;
 
 /**
@@ -35,10 +41,10 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 				context.endTurn();
 			}
 		});
-		finishBtn.setDisable(false);
+		finishBtn.setDisable(true);
 		finishBtn.setVisible(true);
 		
-		KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
+		//KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
 	}
 
 	@Override
@@ -54,22 +60,20 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		/*if(game.getCurrentPlayer().getId().equals(PlayerId.ONE))	{
-			Util.log("Adding three creatures to Players 1 block for Iteration 1");
-			
-			Player player = game.getCurrentPlayer();
-			
-			game.moveThingFromCupToPlayer("cyclops", player);
-			game.moveThingFromCupToPlayer("mountainmen", player);
-			game.moveThingFromCupToPlayer("goblins", player);
-			
-			player.removeGold(5);
-			
-			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
-		} else {
-			//Util.log("Skipping Step for " + game.getCurrentPlayer().getName() + " for Iteration 1");
-//			context.endTurn();
-		}*/
+		
+		int freeRecruits = 0;
+	
+		Player player = game.getCurrentPlayer();
+		
+		for (Hex h : game.getBoard().getHexes()) {
+			if ((h != null) && (h.getHexOwner() == player)) {
+				freeRecruits++;
+			}
+		}
+		
+		freeRecruits = (int) Math.ceil(freeRecruits/2.0);
+		
+		KNTAppFactory.getSidePanePresenter().getView().showThingRecruitment(freeRecruits);	
 	}
 
 	@Override

@@ -205,7 +205,6 @@ public class ThingView extends StackPane{
 	}
 
 	public void setSendSpecialCharacterBackToCupHandler() {
-		// TODO Auto-generated method stub
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {

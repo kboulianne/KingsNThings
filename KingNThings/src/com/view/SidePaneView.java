@@ -268,7 +268,7 @@ public class SidePaneView extends VBox {
 						addRollButton.setDisable(true);
 				}
 			}
-		});
+		});		
 		
 		dV.getRollBtn().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -302,6 +302,14 @@ public class SidePaneView extends VBox {
 		vbox.getChildren().addAll(title,tv,  addRollBox, rollBox);
 		content.getChildren().clear();
 		content.getChildren().add(vbox);
+	}
+	
+
+	public void showThingRecruitment(int freeRecruits) {
+		ThingRecruitmentView view = new ThingRecruitmentView(freeRecruits);	
+		
+		content.getChildren().clear();
+		content.getChildren().add(view);
 	}
 	
 	public void showRolls(SortedMap<Integer, Player> rolls){
@@ -343,7 +351,6 @@ public class SidePaneView extends VBox {
 	}
 
 	public void showHexDetailsView(HexDetailsView view) {
-		// Set the pane to the HexDetailsView
 		content.getChildren().clear();
 		content.getChildren().add(view);
 	}
