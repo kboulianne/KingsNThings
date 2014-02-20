@@ -5,23 +5,28 @@ import java.util.List;
 import java.util.Random;
 
 import com.game.services.GameService;
-import com.presenter.Util;
 
 public class Block extends GamePiece {
+	
+	// FIXME should this be called rack
+	// Note each player has two racks of capicity 10 items
+	int capacity;
 	
 	private final List<Thing> listOfThings;
 	
 	public Block()	{
 		listOfThings = new ArrayList<>();
+		capacity = 20; // block represents two racks???
 	}
 	
 	public boolean addThing(Thing thing, String owner){	
 		// cannot add special characters, gold counters and forts
-		if(thing instanceof SpecialCharacter ||
+		
+		/*if(thing instanceof SpecialCharacter ||
 				thing instanceof IncomeCounter){
 			Util.log("Error: Unable to add special characters, gold counters or forts to block");
 			return false;
-		}
+		}*/
 		thing.setFacedDown(false);
 		thing.setOwner(owner);
 		listOfThings.add(thing);

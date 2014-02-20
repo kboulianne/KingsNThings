@@ -6,7 +6,6 @@
 package com.view.customcontrols;
 
 import com.model.Thing;
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Pos;
@@ -18,24 +17,7 @@ import javafx.scene.layout.HBox;
  */
 public class Rack extends HBox {
 
-	public static final int CAPACITY = 8;
-	
-	ArrayList<ThingView> thingViews;
-
-    // Maximum of 8 Tiles on Rack
-	// TODO Make Tile since ArmyOrMisc uses same logic.
-	// Change to List<TileView/Component>
-	//TODO ObjectPool
-//    private List<StackPane> things;
-	//private EventHandler<ThingEvent> thingHandler;
-
-	public Rack(){//EventHandler<ThingEvent> thingHandler) {
-//	things = new ArrayList<>();
-		//this.thingHandler = thingHandler;
-
-//	for (int i = 0 ; i < CAPACITY ; i ++) {
-//	    thingsIv.add(new ImageView());
-//	}
+	public Rack(){
 		buildComponent();
 	}
 
@@ -65,6 +47,7 @@ public class Rack extends HBox {
 		}
 	}
 	
+<<<<<<< HEAD
 	public void setRecruitingThingsHandler(List<Thing> things)	{
 		getChildren().clear();
 		for (Thing t : things) {
@@ -72,6 +55,15 @@ public class Rack extends HBox {
 			ThingView tv = new ThingView(50, t);
 			getChildren().add(tv);
 			tv.setRecruitingThingsHandler();
+=======
+	public void setDoNothingHandler(List<Thing> things){
+		getChildren().clear();
+		for (Thing t : things) {
+			t.setSelected(false);
+			ThingView tv =new ThingView(50, t);
+			getChildren().add(tv);
+			tv.setDoNothingHandler();
+>>>>>>> f22264f08b1ca3fd6782c635f0a499c304ba9e67
 		}
 	}
 }

@@ -130,6 +130,7 @@ public class PlayerInfoView extends AnchorPane {
 			rack.setExchangeThingsHandler(current.getBlock().getListOfThings());
 		}
 	}
+<<<<<<< HEAD
 	
 	public void setRackRecruitingThingsHandler(Player current)	{
 		if(current != null)	{
@@ -138,8 +139,11 @@ public class PlayerInfoView extends AnchorPane {
 	}
 	
 	public void setRackDefaultHandler(Player current){
+=======
+	public void setRackDoNothingHandler(Player current){
+>>>>>>> f22264f08b1ca3fd6782c635f0a499c304ba9e67
 		if (current != null) {
-			rack.setThings(current.getBlock().getListOfThings());
+			rack.setDoNothingHandler(current.getBlock().getListOfThings());
 		}
 	}
 }

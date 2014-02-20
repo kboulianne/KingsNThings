@@ -168,6 +168,16 @@ public class ThingView extends StackPane{
 	}
 	//
 	//KNTAppFactory.getPopupPresenter().dismissPopup();
+	public void setDoNothingHandler(){
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {			
+				//DoNothing
+				Util.log("Do Nothing");
+			}
+		});
+	}
+	
 	
 	public void setRackHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -210,7 +220,12 @@ public class ThingView extends StackPane{
 			@Override
 			public void handle(MouseEvent me) {
 				thing.setSelected(true);
+<<<<<<< HEAD
 				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment2((SpecialCharacter) thing);
+=======
+				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment((SpecialCharacter) thing);
+				
+>>>>>>> f22264f08b1ca3fd6782c635f0a499c304ba9e67
 			}
 		});
 	}

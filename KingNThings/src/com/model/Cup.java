@@ -60,7 +60,15 @@ public class Cup extends GamePiece {
 	}
 	
 	public Thing removeThing(Thing t){
-		listOfThings.remove(t);
+		if (t instanceof IncomeCounter){
+			listOfIncomeCounters.remove(t);
+		}
+		else if (t instanceof SpecialCharacter){
+			listOfSpecialCharacters.remove(t);
+		}
+		else{
+			listOfThings.remove(t);
+		}
 		return t;
 	}
 

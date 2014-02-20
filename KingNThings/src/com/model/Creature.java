@@ -375,7 +375,7 @@ public abstract class Creature extends Thing	{
 					&& charge == c.charge
 					&& magic == c.magic
 					&& combatVal == c.combatVal
-					&&  numberOfMovesAvailable == c.numberOfMovesAvailable;
+					&& numberOfMovesAvailable == c.numberOfMovesAvailable;
 		}
 		
 		return super.equals(obj);
