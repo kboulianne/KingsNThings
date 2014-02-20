@@ -125,9 +125,9 @@ public class PlayerInfoView extends AnchorPane {
 			rack.setExcahngeThingsHandler(current.getBlock().getListOfThings());
 		}
 	}
-	/*public void setRackDefaultHandler(Player current){
+	public void setRackDoNothingHandler(Player current){
 		if (current != null) {
-			rack.setThings(current.getBlock().getListOfThings());
+			rack.setDoNothingHandler(current.getBlock().getListOfThings());
 		}
-	}*/
+	}
 }

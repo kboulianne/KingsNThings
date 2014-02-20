@@ -3,8 +3,6 @@ package com.model;
 import java.util.ArrayList;
 
 import com.game.services.GameService;
-import com.model.game.Game;
-
 import javafx.scene.paint.Color;
 
 public class Player 	{

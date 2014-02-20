@@ -36,11 +36,14 @@ public class RecruitCharPhase extends AbstractPhaseStrategy {
 		super.turnStart();
 		
 		Player currPlay = game.getCurrentPlayer();
+		//set cup thing to do nothing
+		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDoNothingHandler(currPlay);
 		KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment(currPlay.getName(), currPlay.getAllOwnedSpecialChar());
 	}
 
 	@Override
 	public void turnEnd() {
-		
+		Player currPlay = game.getCurrentPlayer();
+		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlay);
 	}
 }

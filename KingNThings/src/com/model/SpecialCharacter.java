@@ -54,6 +54,8 @@ public class SpecialCharacter extends Creature	{
 		}
 		setColor(Color.rgb(170,50,110));
 		
+		setDomain("None");
+		
 		//Set special ability
 		setSpecialAbility(specialCreat.contains(getName()));
 		
@@ -70,8 +72,6 @@ public class SpecialCharacter extends Creature	{
 	public void setAlternateName(String alternateName) {
 		this.alternateName = alternateName;
 	}
-	
-	
 	
 	public String getAbilitiesString(){
 		String abilities = "";
