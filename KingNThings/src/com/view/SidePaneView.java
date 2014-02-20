@@ -13,6 +13,8 @@ import com.view.customcontrols.PlayerLabel;
 import com.view.customcontrols.ThingView;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Creature;
+import com.model.Cup;
 import com.model.Die;
 import com.model.Player;
 import com.model.SpecialCharacter;
@@ -194,7 +196,7 @@ public class SidePaneView extends VBox {
 		availCupSCharBox.getStyleClass().add("army");
 		for(SpecialCharacter sC: specCfromCup){
 			if(!(sC.isLord() && playerHasLord)){
-				sC.setSelected(false);
+				sC.setSelected(true);
 				ThingView tv = new ThingView(50, sC);
 				tv.setChooseSpecialCharToRecruitHandler();
 				availCupSCharBox.getChildren().add(tv);
@@ -305,8 +307,55 @@ public class SidePaneView extends VBox {
 	}
 	
 
-	public void showThingRecruitment(int freeRecruits) {
-		ThingRecruitmentView view = new ThingRecruitmentView(freeRecruits);	
+	public void showThingRecruitment(final int freeRecruits, int paidRecruits) {
+		final ThingRecruitmentView view = new ThingRecruitmentView(freeRecruits, paidRecruits);
+		
+		view.getBuyRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
+			public void handle(ActionEvent arg)	{
+				Player player = GameService.getInstance().getGame().getCurrentPlayer();
+				
+				if((player.getGold() >= 5) && (view.getPaidRecruitsValue() < 5))	{
+					player.removeGold(5);
+					KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(player);
+					view.increasePaidRecruits();
+				}
+			}
+		});
+		
+		view.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
+			public void handle(ActionEvent arg)	{
+				int total = 0;
+				ArrayList<Creature> listOfCreatures = GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock();
+				Player player = GameService.getInstance().getGame().getCurrentPlayer();
+				Cup cup = GameService.getInstance().getGame().getCup();
+				
+				for(Creature c: listOfCreatures)	{
+					total++;
+					player.removeThing(c);
+					cup.addThing(c);
+				}
+				
+				total = (int)Math.ceil(total/2.0);
+				total += (freeRecruits + view.getPaidRecruitsValue());
+				
+				for(int i = 0; i < total; i++)	{
+					Creature c = cup.getRandomCreature();
+					cup.removeThing(c);
+					player.addThing(c);
+				}
+				
+				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+				
+				clearDetailsView();
+				showArbitraryView("Choose things from rack and\n"
+						   + "    place them on the board", Game.CROWN_IMAGE);
+				
+				KNTAppFactory.getBoardPresenter().getView().setDisable(false);
+				KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
+				KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setDisable(false);
+				KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(GameService.getInstance().getGame().getCurrentPlayer());
+			}
+		});
 		
 		content.getChildren().clear();
 		content.getChildren().add(view);
@@ -337,7 +386,7 @@ public class SidePaneView extends VBox {
 		
 	}
 	
-	public void showArbituaryView(String title, Image img){
+	public void showArbitraryView(String title, Image img){
 		VBox display = new VBox();
 		ImageView iv = new ImageView(img);
 		iv.setFitHeight(200.0);

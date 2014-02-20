@@ -113,8 +113,21 @@ public class ThingView extends StackPane{
 					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
 				}else{
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
-				}
+				}		
+			}
+		});
+	}
+	
+	public void setRecruitingThingsHandler()	{
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>()	{
+			public void handle(MouseEvent m)	{
+				if(thing.getHexLocation() == -1)	thing.setSelected(!thing.isSelected());
 				
+				if(thing.isSelected())	{
+					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
+				}else{
+					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
+				}
 			}
 		});
 	}
@@ -123,7 +136,7 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
-				thing.setSelected(!thing.isSelected());
+				if(thing.getHexLocation() == -1)	thing.setSelected(!thing.isSelected());
 				if(thing.isSelected()){
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
 				}else{
@@ -166,12 +179,11 @@ public class ThingView extends StackPane{
 	}
 
 	public void setExchangeThingHandler() {
-		// TODO Auto-generated method stub
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {			
 				if(thing.isSelected()){
-					KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Exchange things by clicking the rack\n"
+					KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange things by clicking the rack\n"
 							   + "     Exchange only once per thing", Game.CROWN_IMAGE);
 				}else{
 					Game game = GameService.getInstance().getGame();
@@ -199,7 +211,6 @@ public class ThingView extends StackPane{
 			public void handle(MouseEvent me) {
 				thing.setSelected(true);
 				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment2((SpecialCharacter) thing);
-				
 			}
 		});
 	}

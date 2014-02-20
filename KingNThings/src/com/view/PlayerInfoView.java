@@ -112,11 +112,16 @@ public class PlayerInfoView extends AnchorPane {
 
 	public void setPlayer(Player current) {
 		if (current != null) {
-			//TODO refactor to take Name and Color
 			currentPlayerlbl.setPlayer(current);
 			goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
 			
 			rack.setThings(current.getBlock().getListOfThings());
+		}
+	}
+	
+	public void updateGold(Player current)	{
+		if(current != null)	{
+			goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
 		}
 	}
 	
@@ -125,9 +130,16 @@ public class PlayerInfoView extends AnchorPane {
 			rack.setExchangeThingsHandler(current.getBlock().getListOfThings());
 		}
 	}
-	/*public void setRackDefaultHandler(Player current){
+	
+	public void setRackRecruitingThingsHandler(Player current)	{
+		if(current != null)	{
+			rack.setRecruitingThingsHandler(current.getBlock().getListOfThings());
+		}
+	}
+	
+	public void setRackDefaultHandler(Player current){
 		if (current != null) {
 			rack.setThings(current.getBlock().getListOfThings());
 		}
-	}*/
+	}
 }

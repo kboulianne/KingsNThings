@@ -49,6 +49,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseEnd() {
 		Util.log("Init Phase: End of Starting Forces Phase");
+		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		//Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
 		//finishBtn.setDisable(true);
 		//finishBtn.setOnAction(null);
@@ -58,8 +59,8 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		
-		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose things from rack and\n"
-																	   + "   them place on the board", Game.CROWN_IMAGE);
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Choose things from rack and\n"
+																	   + "   place them on the board", Game.CROWN_IMAGE);
 		
 		Player player = game.getCurrentPlayer();
 		player.addGold(10);

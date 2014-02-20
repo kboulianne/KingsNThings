@@ -39,7 +39,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		finishBtn.setVisible(false);
 		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
 		
-		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose a starting position", Game.START_HEX_IMAGE);
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Choose a starting position", Game.START_HEX_IMAGE);
 	}
 
 	@Override

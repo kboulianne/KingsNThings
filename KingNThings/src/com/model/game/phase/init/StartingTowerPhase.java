@@ -19,7 +19,7 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 		gv.getCurrentActionLbl().setText("Place Tower");	
 		KNTAppFactory.getBoardPresenter().getView().addStartTowerHandler();
 		
-		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Place a tower on an owned hex", 
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Place a tower on an owned hex", 
 				new Image("view/com/assets/pics/gamepieces/forts/tower.jpeg"));
 	}
 

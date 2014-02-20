@@ -10,12 +10,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
-import com.model.GamePiece;
 import com.model.Hex;
-import com.model.IncomeCounter;
 import com.model.Player;
-import com.model.SpecialCharacter;
-import com.model.game.Game;
 import com.presenter.Util;
 
 /**
@@ -41,10 +37,7 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 				context.endTurn();
 			}
 		});
-		finishBtn.setDisable(true);
 		finishBtn.setVisible(true);
-		
-		//KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
 	}
 
 	@Override
@@ -63,6 +56,7 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 		
 		int freeRecruits = 0;
 	
+		KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setDisable(true);
 		Player player = game.getCurrentPlayer();
 		
 		for (Hex h : game.getBoard().getHexes()) {
@@ -73,12 +67,15 @@ public class RecruitThingsPhase extends AbstractPhaseStrategy {
 		
 		freeRecruits = (int) Math.ceil(freeRecruits/2.0);
 		
-		KNTAppFactory.getSidePanePresenter().getView().showThingRecruitment(freeRecruits);	
+		KNTAppFactory.getSidePanePresenter().getView().showThingRecruitment(freeRecruits, 0);
+		KNTAppFactory.getBoardPresenter().getView().setDisable(true);
+		KNTAppFactory.getPlayerInfoPresenter().getView().setRackRecruitingThingsHandler(game.getCurrentPlayer());	
 	}
 
 	@Override
 	public void turnEnd() {
 		game.getCurrentPlayer().trimBlock();
+		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 	}
 
 }

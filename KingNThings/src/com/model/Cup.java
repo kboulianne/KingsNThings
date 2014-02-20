@@ -29,11 +29,10 @@ public class Cup extends GamePiece {
 			listOfIncomeCounters.add((IncomeCounter) t);
 			t.setFacedDown(false);
 		}
-		else if (t instanceof SpecialCharacter){
+		else if (t instanceof SpecialCharacter) {
 			listOfSpecialCharacters.add((SpecialCharacter) t);
 			t.setFacedDown(false);
-		}
-		else{
+		} else {
 			listOfThings.add(t);
 			t.setFacedDown(true);
 		}

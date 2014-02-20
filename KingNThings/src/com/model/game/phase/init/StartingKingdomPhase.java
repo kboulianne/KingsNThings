@@ -38,7 +38,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		KNTAppFactory.getSidePanePresenter().getView().showArbituaryView("Choose an adjacent owned hex for your kingdom", Game.CROWN_IMAGE);
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Choose an adjacent owned hex for your kingdom", Game.CROWN_IMAGE);
 	}
 
 	@Override
