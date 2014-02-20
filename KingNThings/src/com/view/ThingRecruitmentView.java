@@ -21,7 +21,7 @@ public class ThingRecruitmentView extends VBox {
 		getStyleClass().add("largeSpacing");
 		setAlignment(Pos.CENTER);
 		
-		Label title = new Label("Recruited Things");
+		Label title = new Label("Recruited Things\n");
 		title.getStyleClass().add("title");
 		
 		VBox FBox = new VBox();

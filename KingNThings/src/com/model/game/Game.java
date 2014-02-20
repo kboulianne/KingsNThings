@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javafx.scene.image.Image;
 
@@ -24,6 +25,7 @@ import com.model.HexSea;
 import com.model.HexSwamp;
 import com.model.Player;
 import com.model.Thing;
+import com.presenter.HexFactory;
 import com.presenter.Util;
 
 /**
@@ -71,10 +73,10 @@ public final class Game {
  	public final static Image DICE_IMAGE = new Image("view/com/assets/pics/dice.png");
  	public final static Image CROWN_IMAGE = new Image("view/com/assets/pics/crown.png");
     // Constructors & Initializer Methods ==============================================================================
-    /**
+    
+ 	/**
      *	Creates a new Game instance defaulting to Four player mode.
      */
-    //TODO not supposed to expose this (make protected?)
     public Game() {
 
 		mode = MODE_FOUR_PLAYER;
@@ -94,7 +96,7 @@ public final class Game {
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 		
 		// added for iteration 1 hard-coded
-		
+		/*
 		board.addHex(new HexFrozenWaste(0));
 		board.addHex(new HexForest(1));
 		board.addHex(new HexJungle(2));
@@ -136,11 +138,11 @@ public final class Game {
 		for (int i = 0 ; i < board.getHexNum() ; i ++) {
 		    board.getHexes().get(i).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
 		}
+		*/
 
 		
-		/*//Removed for iteration 1
-		 * 
-		 * HexFactory hexFactory = new HexFactory();
+		//Removed for iteration 1
+		HexFactory hexFactory = new HexFactory();
 
 		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
 
@@ -155,7 +157,7 @@ public final class Game {
 		    hexPool.get(rand).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
 		    hexPool.remove(rand);
 
-		}*/
+		}
 
 		//Cup created with all things required for gameplay
 		cup.setListOfThings(Util.getRandomList(Thing.createThings()));

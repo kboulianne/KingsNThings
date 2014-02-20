@@ -35,8 +35,8 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnStart() {
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange things by clicking the rack\n"
-																	   + "     Exchange only once per thing", Game.CROWN_IMAGE);
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("        Exchange things by clicking the rack\n"
+																	   + "   1 new recruit is given for every 1 returned", Game.CROWN_IMAGE);
 		Block currentPlayerBlock = game.getCurrentPlayer().getBlock();
 		if(currentPlayerBlock.getListOfThings().isEmpty()){
 			context.endTurn();	

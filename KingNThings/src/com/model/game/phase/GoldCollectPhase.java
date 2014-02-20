@@ -32,35 +32,20 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		Util.log("Game Phase: Start of Gold Collection Phase");
 
 		gv.getCurrentActionLbl().setText("Gold Collection");
-		
-		//Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
-		//finishBtn.setDisable(true);
-		//Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
-		//rollBtn.setDisable(true);
+		KNTAppFactory.getBoardPresenter().getView().setDisable(true);
+		KNTAppFactory.getPlayerInfoPresenter().getView().getRack().setDisable(true);
 	}
 	
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Gold Collection Phase");
 		KNTAppFactory.getSidePanePresenter().getView().clearDetailsView();
-		//Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
-		//finishBtn.setDisable(true);
-		//Button rollBtn = KNTAppFactory.getDicePresenter().getView().getRollBtn();
-		//rollBtn.setDisable(true);
-		
-		// Code below is equivalent to
-//		KNTAppFactory.getPopupPresenter().dismissPopup();
-//		KNTAppFactory.getPopupPresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent arg0) {
-//				KNTAppFactory.getPopupPresenter().getView().dismiss();
-//			}
-//		});
+		KNTAppFactory.getBoardPresenter().getView().setDisable(false);
+		KNTAppFactory.getPlayerInfoPresenter().getView().getRack().setDisable(false);
 	}
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
 		super.turnStart();
 		
 		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
@@ -89,30 +74,8 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 		hexGold = (int) Math.ceil(hexGold/2.0);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 		
-		// TOOD Either create view in com.view.popups or create view/presenter like HexDetailsView
-		/*ImageView im = new ImageView("view/com/assets/pics/gold.png");
-		im.setFitWidth(500);
-		im.setPreserveRatio(true);
-		Label hexes = new Label("Hex Income:  " + hexGold);
-		Label forts = new Label("Fort Income:  " + fortGold);
-		Label counters = new Label("Counter Income:  " + counterGold);
-		Label specChars = new Label("Character Income:  " + specCharGold);
-		Label divider = new Label(" ");
-		Label total = new Label("Total Income:  " + totalGold);
-		VBox labels = new VBox();
-		labels.setAlignment(Pos.BASELINE_RIGHT);
-		labels.getChildren().addAll(hexes, forts, counters, specChars, divider, total);
-
-		VBox popupVbox = new VBox();
-		popupVbox.setPadding(new Insets(15));
-		popupVbox.getStyleClass().add("block");
-		popupVbox.getChildren().addAll(im, labels);
-		popupVbox.setAlignment(Pos.CENTER);
-		popupVbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);*/
 
 		KNTAppFactory.getSidePanePresenter().getView().showGoldCollection(hexGold, fortGold, counterGold, specCharGold);
-		
-		//KNTAppFactory.getPopupPresenter().getView().show(popupVbox, player.getName() + "'s Gold Income:");
 		KNTAppFactory.getPopupPresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
