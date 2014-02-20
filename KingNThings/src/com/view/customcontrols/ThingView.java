@@ -106,7 +106,7 @@ public class ThingView extends StackPane{
 			@Override
 			public void handle(MouseEvent me) {
 				Util.log("thing default handler");
-				thing.setSelected(!thing.isSelected());
+				if(thing.getHexLocation() == -1)	thing.setSelected(!thing.isSelected());
 				//refresh view
 				if(thing.isSelected()){
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
@@ -215,7 +215,6 @@ public class ThingView extends StackPane{
 	}
 
 	public void setSendSpecialCharacterBackToCupHandler() {
-		// TODO Auto-generated method stub
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
