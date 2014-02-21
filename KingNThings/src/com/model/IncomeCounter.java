@@ -11,15 +11,17 @@ public class IncomeCounter extends Thing {
 	private static final HashMap<String, String> domains;
 	static	{
 		domains = new HashMap<String, String>();
-		domains.put("timberland", "forest");
-		domains.put("silvermine", "mountains");
-		domains.put("peatbog", "swamp");
-		domains.put("oilfield", "frozen waste");
-		domains.put("goldmine", "mountains");
-		domains.put("farmlands", "plains");
-		domains.put("elephantsgraveyard", "jungle");
-		domains.put("diamondfield", "desert");
-		domains.put("coppermine", "mountains");
+		domains.put("timberland", "Forest");
+		domains.put("silvermine", "Mountains");
+		domains.put("peatbog", "Swamp");
+		domains.put("oilfield", "Frozen Waste");
+		domains.put("goldmine", "Mountains");
+		domains.put("farmlands", "Plains");
+		domains.put("elephantsgraveyard", "Jungle");
+		domains.put("diamondfield", "Desert");
+		domains.put("coppermine", "Mountains");
+		domains.put("village", "none");
+		domains.put("city", "none");
 	}
 	private static final HashMap<String, Integer> goldInc;
 	static	{
@@ -33,6 +35,8 @@ public class IncomeCounter extends Thing {
 		goldInc.put("elephantsgraveyard", 3);
 		goldInc.put("diamondfield", 1);
 		goldInc.put("coppermine", 1);
+		goldInc.put("village", 1);
+		goldInc.put("city", 2);
 	}
 			
 	public IncomeCounter(String name) {
@@ -40,11 +44,14 @@ public class IncomeCounter extends Thing {
 		setImage("view/com/assets/pics/gamepieces/things/incomecounters/" + name + ".jpeg");
 		setDomain(domains.get(name));
 		setValue(goldInc.get(name));
-		setColor(Color.rgb(160,140,160));
+		if(name.equals("village") || name.equals("city"))
+			setColor(Color.KHAKI);
+		else
+			setColor(Color.rgb(160,140,160));
 	}
 	
 	//Get and set methods
-	public String getDomain(){
+	public String getDomain() {
 		return domain;
 	}
 	

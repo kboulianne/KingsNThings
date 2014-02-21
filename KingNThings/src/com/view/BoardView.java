@@ -151,7 +151,7 @@ public class BoardView extends Canvas {
 
 			@Override
 			public void handle(MouseEvent event) {
-								double clickPtX = event.getX();
+				double clickPtX = event.getX();
 				double clickPtY = event.getY();
 				for (int i = 0; i < hexCenterPoints.length; i++) {
 					if (Util.distanceBtwTwoPts(
@@ -319,13 +319,13 @@ public class BoardView extends Canvas {
 		double ovalsYOffset = yOffset+55;
 		Iterator<Player> it = hex.getArmies().keySet().iterator();
 		double factor = 0.0;
-		while(it.hasNext()){
+		while(it.hasNext()) {
 			//Util.log("hex:"+hex.getId()+"  size"+hex.getArmies().keySet().size());
 			Player p = it.next();
-			if(hex.getArmies(p).size()>0){
+			if(hex.getArmies(p).size() > 0 || ((p == hex.getHexOwner()) && (hex.getCounter() != null))) {
 				gc.setFill(p.getColor());
 				gc.fillOval(ovalsXOffset+radius*factor, ovalsYOffset, radius, radius);
-				factor +=1.5;
+				factor += 1.5;
 			}
 		}
 		

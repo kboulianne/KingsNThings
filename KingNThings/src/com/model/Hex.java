@@ -49,9 +49,10 @@ public class Hex extends GamePiece {
 	// list of armies for all players
 	// list of misc Things
 	private HashMap<Player, ArrayList<Creature>> armies;
-	private ArrayList<GamePiece> miscItems;
+	private ArrayList<SpecialCharacter> specChars;
 	// Only one fort per tile.
 	private Fort fort;
+	private IncomeCounter counter;
 	
 	public enum HexType {
 		JUNGLE_HEX("Jungle"),
@@ -59,7 +60,7 @@ public class Hex extends GamePiece {
 		FOREST("Forest"),
 		PLAINS("Plains"),
 		SWAMP("Swamp"),
-		MOUNTAIN("Mountain"),
+		MOUNTAIN("Mountains"),
 		DESERT("Desert"),
 		SEA("Sea"); 
 		private final String typeName;
@@ -78,7 +79,7 @@ public class Hex extends GamePiece {
 	    selectable = true; // may have to change for startup
 	    //setJoiningHexes();
 	    armies = new HashMap<>();
-	    miscItems = new ArrayList<>();
+	    specChars = new ArrayList<SpecialCharacter>();
 
 	    setMovementWeight(-1);
 	}
@@ -154,11 +155,11 @@ public class Hex extends GamePiece {
     public ArrayList<Creature> getArmies(Player p)	{
     	return armies.get(p);
     }  
-    public ArrayList<GamePiece> getMiscItems() {
-		return miscItems;
+    public ArrayList<SpecialCharacter> getSpecialCharacters() {
+		return specChars;
 	}
-	public void setMiscItems(ArrayList<GamePiece> miscItems) {
-		this.miscItems = miscItems;
+	public void setSpecialCharacters(ArrayList<SpecialCharacter> chars) {
+		this.specChars = chars;
 	}
 	public String getTypeAsString() {
 		return typeAsString;
@@ -191,9 +192,9 @@ public class Hex extends GamePiece {
     	creature.setOwner("Cup");
     }
 
-    public void addItemToHex(GamePiece item)	{
-    	item.setOwner(typeAsString+" Hex");
-    	miscItems.add(item);
+    public void addItemToHex(SpecialCharacter specChar)	{
+    	specChar.setOwner(hexOwner.getName());
+    	specChars.add(specChar);
     }
 
 	public boolean isFaceDown() {
@@ -207,11 +208,14 @@ public class Hex extends GamePiece {
 	public void setConflict(boolean c) {
 		conflict = c;
 	}
+
 	public boolean hasConflict() {
 		return conflict;
 	}
+
+	public Fort getFort() { return fort; }
+	public void setFort(final Fort fort) { this.fort = fort; }
 	
-	
-	public final Fort getFort() { return fort; }
-	public final void setFort(final Fort fort) { this.fort = fort; }
+	public IncomeCounter getCounter()	{	return counter;	}
+	public void setCounter(IncomeCounter counter)	{	this.counter = counter;	}
 }

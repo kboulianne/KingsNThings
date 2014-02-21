@@ -44,7 +44,6 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	public void phaseEnd() {
 		KNTAppFactory.getArmyDetailsPresenter().getView().setDefaultHandler();
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
-		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(false);
 		Util.log("Game Phase: End of Movement Phase");
 	}
 
@@ -52,7 +51,8 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		KNTAppFactory.getArmyDetailsPresenter().getView().setMovementHandler();	
-		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(true);		
+		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(true);
+		KNTAppFactory.getHexDetailsPresenter().getView().getCounter().setMoving(true);		
 		
 		/*// for testing
 		Player currentPlayer = game.getCurrentPlayer();
@@ -74,5 +74,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnEnd() {
 		super.turnEnd();
+		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(false);
+		KNTAppFactory.getHexDetailsPresenter().getView().getCounter().setMoving(false);
 	}
 }

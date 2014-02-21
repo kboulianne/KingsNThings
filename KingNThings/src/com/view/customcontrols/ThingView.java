@@ -136,7 +136,7 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
-				if(thing.getHexLocation() == -1)	thing.setSelected(!thing.isSelected());
+				thing.setSelected(!thing.isSelected());
 				if(thing.isSelected()){
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
 				}else{
@@ -198,7 +198,7 @@ public class ThingView extends StackPane{
 					Game game = GameService.getInstance().getGame();
 					
 					thing.setSelected(false);
-					Thing t = game.getCup().getRandomCreature();
+					Thing t = game.getCup().getRandomThing();
 					t.setSelected(true);
 					game.moveThingFromCupToPlayer(t, game.getCurrentPlayer());
 					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);

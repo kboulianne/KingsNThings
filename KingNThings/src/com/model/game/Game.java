@@ -15,14 +15,6 @@ import com.model.Creature;
 import com.model.Cup;
 import com.model.Die;
 import com.model.Hex;
-import com.model.HexDesert;
-import com.model.HexForest;
-import com.model.HexFrozenWaste;
-import com.model.HexJungle;
-import com.model.HexMountain;
-import com.model.HexPlains;
-import com.model.HexSea;
-import com.model.HexSwamp;
 import com.model.Player;
 import com.model.Thing;
 import com.presenter.HexFactory;
@@ -421,41 +413,38 @@ public final class Game {
 	}
 
 
-	public void clearLastSelectedCreaturesOfCurrentPlayerBlock() {
-		List<Thing> blockList =GameService.getInstance().getGame().getCurrentPlayer().getBlock().getListOfThings();
+	public void clearLastSelectedThingsOfCurrentPlayerBlock() {
+		List<Thing> blockList = GameService.getInstance().getGame().getCurrentPlayer().getBlock().getListOfThings();
 		for(Thing t: blockList){
 			t.setSelected(false);
 		}
 	}
 
-	public ArrayList<Creature> getLastSelectedCreaturesOfCurrentPlayerBlock() {
-		ArrayList<Creature> list = new ArrayList<Creature>();
+	public ArrayList<Thing> getLastSelectedThingsOfCurrentPlayerBlock() {
+		ArrayList<Thing> list = new ArrayList<Thing>();
 		List<Thing> blockList = getCurrentPlayer().getBlock().getListOfThings();
 		for(Thing t: blockList){
-			if(t instanceof Creature && t.isSelected())
-				list.add((Creature)t);
+			if(t.isSelected())
+				list.add(t);
 		}
 		return list;
 	}
 	
-	public ArrayList<Creature> getLastSelectedCreaturesOfCurrentPlayerHex() {
-		ArrayList<Creature> list = new ArrayList<Creature>();
-		List<Thing> blockList = getCurrentPlayer().getBlock().getListOfThings();
-		for(Thing t: blockList){
-			if(t instanceof Creature && t.isSelected())
-				list.add((Creature)t);
-		}
+	public ArrayList<Thing> getLastSelectedThingsOfCurrentPlayerHex() {
+		ArrayList<Thing> list = new ArrayList<Thing>();
+
 		Hex hex = getBoard().getHexes().get(KNTAppFactory.getBoardPresenter().getLastHexSelected());
 		ArrayList<Creature> army = hex.getArmies(getCurrentPlayer());
+		
 		if(army == null){
-			
 			Util.log("nullified "+ hex.getId());
-		}else{
+		} else {
 			for (Creature c: hex.getArmies(getCurrentPlayer())){
 				if(c.isSelected())
 					list.add(c);
 			}
 		}
+		
 		return list;
 	}
 }

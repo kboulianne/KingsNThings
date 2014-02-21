@@ -9,11 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.GamePiece;
 import com.model.Hex;
-import com.model.IncomeCounter;
 import com.model.Player;
-import com.model.SpecialCharacter;
 import com.model.game.Game;
 import com.presenter.Util;
 
@@ -62,12 +59,8 @@ public class GoldCollectPhase extends AbstractPhaseStrategy {
 			if ((h != null) && (h.getHexOwner() == player)) {
 				hexGold++;
 				if(h.getFort() != null)	fortGold += h.getFort().getValue();
-				if(h.getMiscItems() != null)	{
-					for (GamePiece g : h.getMiscItems()) {
-						if(g instanceof IncomeCounter)	counterGold += ((IncomeCounter)g).getValue();
-						else if(g instanceof SpecialCharacter)	specCharGold ++;
-					}
-				}
+				if(h.getSpecialCharacters() != null)	specCharGold += h.getSpecialCharacters().size();
+				if(h.getCounter() != null)	counterGold += h.getCounter().getValue();
 			}
 		}
 		

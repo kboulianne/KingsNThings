@@ -11,7 +11,7 @@ public class SpecialCharacter extends Creature	{
 	
 	private String alternateName;
 	private boolean specialAbility;
-	private boolean isTerrianLord;
+	private boolean isTerrainLord;
 	
 	private static final Set<String> specialCreat;
 	static	{
@@ -106,11 +106,11 @@ public class SpecialCharacter extends Creature	{
 	}
 
 	public boolean isLord() {
-		return isTerrianLord;
+		return isTerrainLord;
 	}
 
 	public void setLord(boolean isLord) {
-		this.isTerrianLord = isLord;
+		this.isTerrainLord = isLord;
 	}
 
 }

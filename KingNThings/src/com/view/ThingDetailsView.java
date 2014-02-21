@@ -105,7 +105,7 @@ public class ThingDetailsView extends VBox {
 			    testLbl.setText("Available Moves: "+ c.getNumberOfMovesAvailable());
 			    combatLbl.setText("Combat Value: " + c.getCombatVal());
 			    specialAbilitiesLbl.setText("Abilities: " + c.getAbilitiesString());
-				GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().add(c);
+				GameService.getInstance().getGame().getLastSelectedThingsOfCurrentPlayerBlock().add(c);
 				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl, testLbl);
 			}else{
 				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl);

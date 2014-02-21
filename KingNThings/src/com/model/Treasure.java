@@ -2,11 +2,13 @@ package com.model;
 
 import java.util.HashMap;
 
-public class Treasure extends Thing{
+import javafx.scene.paint.Color;
 
-	private static final HashMap<String, Integer> goldInc;
+public class Treasure extends Thing	{
+
 	private int goldVal;
 	
+	private static final HashMap<String, Integer> goldInc;
 	static	{
 		goldInc = new HashMap<String, Integer>();
 		goldInc.put("treasurechest", 20);
@@ -21,6 +23,7 @@ public class Treasure extends Thing{
 		super(name);
 		setImage("view/com/assets/pics/gamepieces/things/treasure/" + name + ".jpeg");
 		setValue(goldInc.get(name));
+		setColor(Color.rgb(160,140,160));
 	}
 
 	//Get and set methods

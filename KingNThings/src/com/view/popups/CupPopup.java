@@ -45,15 +45,24 @@ public class CupPopup extends VBox {
 			tv.setCupHandler();
 		}
 		
-		Label incomeLbl = new Label("Income Counters: "+cup.getListOfIncomeCounters().size()+" items");
+		int total = 0;
+		for (Thing t : cup.getListOfThings()) {
+			if(t instanceof IncomeCounter)	{
+				total++;
+			}
+		}
+		
+		Label incomeLbl = new Label("Income Counters: "+ total +" items");
 		FlowPane icFP = new FlowPane();
     	icFP.setVgap(3);
     	icFP.setHgap(3);
     	icFP.setPrefWrapLength(1160);
-		for (IncomeCounter ic : cup.getListOfIncomeCounters()) {
-			ThingView tv =new ThingView(55, ic);
-			icFP.getChildren().add(tv);
-			tv.setCupHandler();
+		for (Thing t : cup.getListOfThings()) {
+			if(t instanceof IncomeCounter)	{
+				ThingView tv = new ThingView(55, t);
+				icFP.getChildren().add(tv);
+				tv.setCupHandler();
+			}
 		}
 		
 		Label scLbl = new Label("Special Characters: "+cup.getListOfSpecialCharacters().size()+" items");

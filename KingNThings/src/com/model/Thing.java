@@ -196,6 +196,10 @@ public abstract class Thing extends GamePiece	{
 		things.add(new IncomeCounter("elephantsgraveyard"));
 		things.add(new IncomeCounter("diamondfield"));
 		things.add(new IncomeCounter("coppermine"));
+		for(int i = 0; i < 6; i++)	{
+			things.add(new IncomeCounter("village"));
+			things.add(new IncomeCounter("city"));
+		}
 		
 		//Special Characters
 		things.add(new SpecialCharacter("elflord", "icelord"));
@@ -209,14 +213,14 @@ public abstract class Thing extends GamePiece	{
 		things.add(new SpecialCharacter("masterthief", "swordmaster"));
 		things.add(new SpecialCharacter("mountainking", "swampking"));
 		things.add(new SpecialCharacter("plainslord", "lordoftheeagles"));
-		/*
+		
 		//Add treasure
 		things.add(new Treasure("treasurechest"));
 		things.add(new Treasure("sapphire"));
 		things.add(new Treasure("ruby"));
 		things.add(new Treasure("pearl"));
 		things.add(new Treasure("emerald"));
-		things.add(new Treasure("diamond"));*/
+		things.add(new Treasure("diamond"));
 		
 		//Add magic items
 		

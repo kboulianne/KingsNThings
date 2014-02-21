@@ -34,12 +34,13 @@ public class HexDetailsView extends StackPane {
 	private ImageView hexImage;
 	private Label nameLbl;
 	private Label ownerLbl;
+	private ArmyOrMisc counter;
 	private ArmyOrMisc opp1Army;
 	private ArmyOrMisc opp2Army;
 	private ArmyOrMisc opp3Army;
 	private ArmyOrMisc currentPlayerArmy;
 	
-    private ArmyOrMisc misc;
+    private ArmyOrMisc specChars;
 
 	public HexDetailsView() {
 		buildView();
@@ -81,13 +82,14 @@ public class HexDetailsView extends StackPane {
         // ArmyOrMisc components
 		//misc = new ArmyOrMisc(handler);
 		//TODO shouldn't add these if empty
+		counter = new ArmyOrMisc();
 		opp1Army = new ArmyOrMisc();
 		opp2Army = new ArmyOrMisc();
 		opp3Army = new ArmyOrMisc();
 		currentPlayerArmy = new ArmyOrMisc();
-		misc = new ArmyOrMisc();
+		specChars = new ArmyOrMisc();
 
-		content.getChildren().addAll(contentBox, currentPlayerArmy, opp1Army, opp2Army, opp3Army, misc);
+		content.getChildren().addAll(contentBox, counter, currentPlayerArmy, opp1Army, opp2Army, opp3Army, specChars);
 		getChildren().addAll(hexImage, content);
 		content.setAlignment(Pos.CENTER);
 		content.getStyleClass().add("block");
@@ -139,8 +141,9 @@ public class HexDetailsView extends StackPane {
 		opp3Army.setArmy(hex, opponents.get(2), hex.getArmies(opponents.get(2)));
 		currentPlayerArmy.setArmy(hex, game.getCurrentPlayer(), hex.getArmies(game.getCurrentPlayer()));
 		
-		misc.setMisc(hex, hex.getMiscItems());
+		specChars.setSpecialCharacters(hex, hex.getSpecialCharacters());
 		
+		counter.setIncomeCounter(hex, hex.getCounter());
 	}
 
 	public ArmyOrMisc getCurrentPlayerArmy() {
@@ -157,5 +160,9 @@ public class HexDetailsView extends StackPane {
 
 	public ArmyOrMisc getOpp3Army() {
 		return opp3Army;
+	}
+	
+	public ArmyOrMisc getCounter()	{
+		return counter;
 	}
 }

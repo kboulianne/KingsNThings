@@ -14,9 +14,9 @@ import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Creature;
 import com.model.Cup;
-import com.model.Die;
 import com.model.Player;
 import com.model.SpecialCharacter;
+import com.model.Thing;
 import com.model.game.Game;
 import com.presenter.SidePanePresenter;
 import com.presenter.Util;
@@ -191,21 +191,21 @@ public class SidePaneView extends VBox {
 		view.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent arg)	{
 				int total = 0;
-				ArrayList<Creature> listOfCreatures = GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock();
+				ArrayList<Thing> listOfThings = GameService.getInstance().getGame().getLastSelectedThingsOfCurrentPlayerBlock();
 				Player player = GameService.getInstance().getGame().getCurrentPlayer();
 				Cup cup = GameService.getInstance().getGame().getCup();
 				
-				for(Creature c: listOfCreatures)	{
+				for(Thing t: listOfThings)	{
 					total++;
-					player.removeThing(c);
-					cup.addThing(c);
+					player.removeThing(t);
+					cup.addThing(t);
 				}
 				
 				total = (int)Math.ceil(total/2.0);
 				total += (freeRecruits + view.getPaidRecruitsValue());
 				
 				for(int i = 0; i < total; i++)	{
-					Creature c = cup.getRandomCreature();
+					Thing c = cup.getRandomThing();
 					cup.removeThing(c);
 					player.addThing(c);
 				}

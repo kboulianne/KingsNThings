@@ -7,9 +7,10 @@ package com.view.customcontrols;
 
 import com.main.KNTAppFactory;
 import com.model.Creature;
-import com.model.GamePiece;
 import com.model.Hex;
+import com.model.IncomeCounter;
 import com.model.Player;
+import com.model.SpecialCharacter;
 import com.model.Thing;
 
 import java.util.List;
@@ -20,7 +21,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -144,7 +144,6 @@ public class ArmyOrMisc extends HBox {
 	}*/
 	
 	public void setArmy(final Hex hex, final Player armyOwner, final List<Creature> army) {
-		
 		thingHolder.getChildren().clear();
 		circleStackPane.setVisible(false);
 		if(army == null)
@@ -163,35 +162,54 @@ public class ArmyOrMisc extends HBox {
 			circle.setFill(armyOwner.getColor());
 			
 			for (Thing t : army) {
-				t.setSelected(true);
+				if(!moving)	t.setSelected(true);
+				else	t.setSelected(false);
 				ThingView tv = new ThingView(50, t);
 				thingHolder.getChildren().add(tv);
 				if(moving)
 					tv.setMovementHandler();
 				else
 					tv.setDefaultHandler();
-
 			}
 		} 
 	}
 	
-	public void setMisc(final Hex hex, final List<GamePiece> gamePieces){
+	public void setSpecialCharacters(final Hex hex, final List<SpecialCharacter> specChars){
 		thingHolder.getChildren().clear();
 		circleStackPane.setVisible(false);
-		if(gamePieces == null)
+		if(specChars == null)
 			return;
-		if (!gamePieces.isEmpty()) {
+		if (!specChars.isEmpty()) {
 			circleStackPane.setVisible(true);
 
-			sizeLbl.setText("M");
-			circle.setFill(Color.DARKGRAY);
+			sizeLbl.setText("SC");
+			circle.setFill(hex.getColor());
 
-			for (GamePiece gp : gamePieces) {
-				ThingView tv =new ThingView(50, (Thing) gp);
+			for (SpecialCharacter gp : specChars) {
+				ThingView tv = new ThingView(50, (Thing) gp);
 				thingHolder.getChildren().add(tv);
 				//tv.setDefaultHandler();
 			}
 		} 
+	}
+	
+	public void setIncomeCounter(Hex hex, IncomeCounter counter) {
+		thingHolder.getChildren().clear();
+		circleStackPane.setVisible(false);
+		if(counter == null)
+			return;
+		else {
+			circleStackPane.setVisible(true);
+
+			sizeLbl.setText("IC");
+			circle.setFill(hex.getColor());
+
+			counter.setSelected(true);
+			
+			ThingView tv = new ThingView(50, counter);
+			thingHolder.getChildren().add(tv);
+			tv.setDefaultHandler();
+		}
 	}
 
 	public void setMoving(boolean b) {

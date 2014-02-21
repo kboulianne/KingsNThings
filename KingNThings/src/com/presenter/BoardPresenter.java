@@ -2,6 +2,7 @@ package com.presenter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Battle;
@@ -9,8 +10,11 @@ import com.model.Board;
 import com.model.Creature;
 import com.model.Fort;
 import com.model.Hex;
+import com.model.IncomeCounter;
+import com.model.MagicItem;
 import com.model.Player;
 import com.model.Thing;
+import com.model.Treasure;
 import com.model.game.Game;
 import com.model.game.phase.GamePlay;
 import com.model.game.phase.init.ExchangePhase;
@@ -168,11 +172,12 @@ public class BoardPresenter {
 	public void handleMovementSelectedHexClick(int selected) {
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		
-		if(hex.isHighlighted())	{			
+		if(hex.isHighlighted())	{
+			Hex lastSelected = svc.getGame().getBoard().getHexes().get(lastHexSelected);
 			Player currentPlayer = svc.getGame().getCurrentPlayer();
 			if(movingArmy)	{ // move whole army
 				List<Creature> army = KNTAppFactory.getArmyDetailsPresenter().getView().getLastSelectedArmy();
-				Hex lastSelected = svc.getGame().getBoard().getHexes().get(lastHexSelected);
+
 				if(selected != lastHexSelected)	{
 					for(Creature c: army) { // for same order
 						hex.addCreatToArmy(c, currentPlayer);
@@ -182,16 +187,22 @@ public class BoardPresenter {
 						lastSelected.removeCreatureFromArmy(army.get(i), currentPlayer);
 					}
 				}
+				
+				movingArmy = false;
 			} else { 
-				ArrayList<Creature> creatures = svc.getGame().getLastSelectedCreaturesOfCurrentPlayerHex();
-				if(creatures.isEmpty())
+				ArrayList<Thing> things = svc.getGame().getLastSelectedThingsOfCurrentPlayerHex();
+				if(things.isEmpty())
 					return;
 
-				for(Creature c: creatures){
+				for(Thing t: things){
 					if(selected != lastHexSelected)	{
-						svc.getGame().getBoard().getHexes().get(lastHexSelected).removeCreatureFromArmy(c, currentPlayer);
-						hex.addCreatToArmy(c, currentPlayer);
-						c.setHexLocation(selected);
+						if(t instanceof IncomeCounter)	{
+							continue;
+						} else	{
+							lastSelected.removeCreatureFromArmy((Creature) t, currentPlayer);
+							hex.addCreatToArmy((Creature) t, currentPlayer);							
+						}
+						t.setHexLocation(selected);
 					}
 				}
 			}
@@ -221,21 +232,27 @@ public class BoardPresenter {
 	public void handlePlacementSelectedHexClick(int selected) {
 		Hex h = svc.getGame().getBoard().getHexes().get(selected);
 		Player player = svc.getGame().getCurrentPlayer();
-		ArrayList<Creature> listOfCreatures = svc.getGame().getLastSelectedCreaturesOfCurrentPlayerBlock();
+		ArrayList<Thing> listOfThings = svc.getGame().getLastSelectedThingsOfCurrentPlayerBlock();
 		
 		if(h.getHexOwner() == player)	{
-			for(Creature c: listOfCreatures){
-				if(c != null && c.isSelected())	{
-					if(c.getHexLocation() == -1)	{
-						player.removeThing(c);
-						h.addCreatToArmy(c, player);
-						c.setHexLocation(selected);
-						view.setBoard(svc.getGame().getBoard());
+			for(Thing t: listOfThings)	{
+				if(t.getHexLocation() == -1)	{
+					if(t instanceof IncomeCounter)	{
+						if((h.getCounter() != null))	continue;
+						if((!((IncomeCounter) t).getDomain().equals("none")) && (!h.getTypeAsString().equals(((IncomeCounter) t).getDomain())))	{
+							continue;
+						} else	{
+							h.setCounter((IncomeCounter) t);
+						}
+					} else if(t instanceof Treasure || t instanceof MagicItem)	{
+						continue;
+					} else	{
+						h.addCreatToArmy((Creature) t, player);							
 					}
 				}
-				else{
-					Util.log("Strange Behaviour");
-				}
+				player.removeThing(t);
+				t.setHexLocation(selected);
+				view.setBoard(svc.getGame().getBoard());
 			}
 			if(GamePlay.getInstance().getPhaseLogic() instanceof ExchangePhase)
 				KNTAppFactory.getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(player);
@@ -255,7 +272,6 @@ public class BoardPresenter {
 		calculateMovementWeight(lastHexSelected, availableMovesForSelectedThing, moveableHexIdList);
 
 		view.setBoard(svc.getGame().getBoard());
-		movingArmy = false;
 	}
 	
 	public void handleMoveSetupForArmy() {
