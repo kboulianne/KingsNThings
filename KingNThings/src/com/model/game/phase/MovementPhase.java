@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
+import com.model.game.Game;
 import com.presenter.Util;
 
 /**
@@ -53,6 +54,7 @@ public class MovementPhase extends AbstractPhaseStrategy {
 		KNTAppFactory.getArmyDetailsPresenter().getView().setMovementHandler();	
 		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(true);
 		KNTAppFactory.getHexDetailsPresenter().getView().getCounter().setMoving(true);		
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Move characters within hexes", Game.CROWN_IMAGE);
 		
 		/*// for testing
 		Player currentPlayer = game.getCurrentPlayer();

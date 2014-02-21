@@ -13,7 +13,7 @@ public class SpecialCharacterPresenter {
 
 	private SpecialCharacterView view;
 	
-	private int rolledValue;
+	private int rolledValue; // accumulated value
 	private int cost; // cost is 5 before roll and 10 after roll
 	private SpecialCharacter selectedSpecialCharacter;
 	

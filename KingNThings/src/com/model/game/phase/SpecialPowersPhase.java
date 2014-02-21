@@ -5,6 +5,8 @@
  */
 package com.model.game.phase;
 
+import com.main.KNTAppFactory;
+import com.model.game.Game;
 import com.presenter.Util;
 
 /**
@@ -23,15 +25,6 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy {
 		
 		gv.getCurrentActionLbl().setText("Deploy Special Powers");
 		
-//		Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-//			
-//			@Override
-//			public void handle(ActionEvent arg0) {
-//				// TODO Auto-generated method stub
-//				turnEnd();
-//			}
-//		});
 	}
 
 	@Override
@@ -42,14 +35,11 @@ public class SpecialPowersPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		Util.log("Skipping Step for Iteration 1");
-//		context.endTurn();
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Special Powers TODO", Game.CROWN_IMAGE);
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-		// Done in gameplay
-//		GameService.getInstance().endTurn(this);
+
 	}
 }

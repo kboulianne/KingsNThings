@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
+import com.model.game.Game;
 import com.presenter.Util;
 
 /**
@@ -49,6 +50,9 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		super.turnStart();
 		Util.log("Game Phase: Logic for " + game.getCurrentPlayer().getName());
 
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Available battles displayed as red hexes", Game.CROWN_IMAGE);
+
+		
 //		// for testing
 //		Player currentPlayer = game.getCurrentPlayer();
 //		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("olddragon"), currentPlayer);

@@ -6,6 +6,7 @@
 package com.model.game.phase.init;
 
 import com.main.KNTAppFactory;
+import com.model.Player;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
@@ -39,6 +40,26 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Choose an adjacent owned hex for your kingdom", Game.CROWN_IMAGE);
+		if(Util.AUTOMATE){
+			Util.log("Automated");
+			if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE)){
+				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(9);
+				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(10);
+			}
+			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO)){
+				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(13);
+				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(12);
+			}
+			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE)){
+				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(15);
+				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(16);
+			}
+			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR)){
+				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(7);
+				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(18);
+			}
+		}
+	
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.view.customcontrols;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
 import com.model.game.Game;
@@ -105,7 +106,7 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
-				Util.log("thing default handler");
+
 				if(thing.getHexLocation() == -1)	thing.setSelected(!thing.isSelected());
 				//refresh view
 				if(thing.isSelected()){
@@ -156,11 +157,8 @@ public class ThingView extends StackPane{
 	public void setCupHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
-			public void handle(MouseEvent me) {
-				Util.log("thing cup handler");
-				
+			public void handle(MouseEvent me) {				
 				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
-
 				KNTAppFactory.getPopupPresenter().dismissPopup();
 			}
 		});
@@ -226,7 +224,11 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
-				
+				Game game = GameService.getInstance().getGame();
+				Player currPlay = game.getCurrentPlayer();
+				game.getCup().addThing(currPlay.removeSpecialCharacter((SpecialCharacter)thing));
+				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlay);
+				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment(currPlay.getName(), currPlay.getAllOwnedSpecialChar());
 			}
 		});
 	}
