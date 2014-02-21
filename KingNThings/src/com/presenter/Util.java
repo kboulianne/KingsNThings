@@ -8,6 +8,8 @@ import java.util.Random;
 public class Util {
 
 	final static boolean DEBUG = true;
+	final public static boolean AUTOMATE = true;
+	
 	public static void log(String message) {
 		if(DEBUG)
 			System.out.println(message);

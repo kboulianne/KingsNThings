@@ -14,7 +14,6 @@ import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Creature;
 import com.model.Cup;
-import com.model.Die;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.game.Game;
@@ -162,14 +161,12 @@ public class SidePaneView extends VBox {
 		
 	public void showSpecialCharRecruitment(SpecialCharacter thing) {
 		content.getChildren().clear();
-		KNTAppFactory.getSpecialCharacterPresenter().getView().showScreen2(thing);
-		content.getChildren().add(KNTAppFactory.getSpecialCharacterPresenter().getView().getScreen2());
+		content.getChildren().add(KNTAppFactory.getSpecialCharacterPresenter().getView().setScreen2(thing));
 	}
 	
 	public void showSpecialCharRecruitment(String playerName, ArrayList<SpecialCharacter> playersSChars){
 		content.getChildren().clear();
-		KNTAppFactory.getSpecialCharacterPresenter().getView().showScreen1(playerName, playersSChars);
-		content.getChildren().add(KNTAppFactory.getSpecialCharacterPresenter().getView().getScreen1());
+		content.getChildren().add(KNTAppFactory.getSpecialCharacterPresenter().getView().setScreen1(playerName, playersSChars));
 	}
 	
 

@@ -5,6 +5,12 @@
  */
 package com.model.game.phase;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+
+import com.main.KNTAppFactory;
+import com.model.game.Game;
 import com.presenter.Util;
 
 /**
@@ -20,8 +26,17 @@ public class RandomEventPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Random Events Phase");
-
+		
 		gv.getCurrentActionLbl().setText("Random Events");
+		
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setDisable(false);
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {		
+			@Override
+			public void handle(ActionEvent arg0) {
+				context.endTurn();
+			}
+		});
 	}
 
 	@Override
@@ -31,7 +46,8 @@ public class RandomEventPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnStart() {
-
+		super.turnStart();
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Random Events: TODO", Game.CROWN_IMAGE);
 	}
 
 	@Override

@@ -105,7 +105,7 @@ public class SpecialCharacterView{
 	}
 	
 	
-	public void showScreen1(String playerName, ArrayList<SpecialCharacter> playersSChars){
+	public VBox setScreen1(String playerName, ArrayList<SpecialCharacter> playersSChars){
 
 		ArrayList<SpecialCharacter> specCfromCup = GameService.getInstance().getGame().getCup().getListOfSpecialCharacters();
 		boolean playerHasLord = false;
@@ -141,9 +141,10 @@ public class SpecialCharacterView{
 		}
 		
 		cupSCharLbl.setText("Available special characters from cup: "+availCupSCharBox.getChildren().size()+" items");
+		return screen1;
 	}
 	
-	public void showScreen2(final SpecialCharacter sC){
+	public VBox setScreen2(final SpecialCharacter sC){
 		
 		final int valueNeeded = sC.getCombatVal()*2;
 		presenter.setSelectedSpecialCharacter(sC);
@@ -173,6 +174,8 @@ public class SpecialCharacterView{
 		presenter.setOnRollButtonPressedHandler(valueNeeded);
 		presenter.setOnRecuitButtonPressHandler();
 		
+		return screen2;
+		
 	}
 
 	// setters and getters
@@ -198,13 +201,5 @@ public class SpecialCharacterView{
 
 	public Label getCostLbl() {
 		return costLbl;
-	}
-
-	public VBox getScreen1() {
-		return screen1;
-	}
-
-	public VBox getScreen2() {
-		return screen2;
 	}
 }

@@ -5,6 +5,8 @@
  */
 package com.model.game.phase;
 
+import com.main.KNTAppFactory;
+import com.model.game.Game;
 import com.presenter.Util;
 
 /**
@@ -22,6 +24,9 @@ public class ConstructionPhase extends AbstractPhaseStrategy {
 		Util.log("Game Phase: Start of Construction Phase");
 
 		gv.getCurrentActionLbl().setText("Construction Phase");
+		
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Construct defenses TODO", Game.CROWN_IMAGE);
+
 		
 		//Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
 //		finishBtn.setOnAction(new EventHandler<ActionEvent>() {

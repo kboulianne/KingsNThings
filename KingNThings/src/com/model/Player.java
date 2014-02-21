@@ -83,7 +83,8 @@ public class Player 	{
 		block.trimBlock();
 	}
 
-	//TODO maybe move?
+
+	// get special characters from hexes and players block
 	public ArrayList<SpecialCharacter> getAllOwnedSpecialChar() {
 		ArrayList<Hex> hexes = (ArrayList<Hex>) GameService.getInstance().getGame().getBoard().getHexes();
 		ArrayList<SpecialCharacter> specChars = new ArrayList<SpecialCharacter>();
@@ -96,6 +97,38 @@ public class Player 	{
 				}
 			}
 		}
+		
+		ArrayList<Thing> blockChars = block.getListOfThings();
+		for(Thing t: blockChars){
+			if (t instanceof SpecialCharacter)
+				specChars.add((SpecialCharacter) t);
+		}
 		return specChars;
+	}
+
+	// remove special characters from block or Hexes
+	public SpecialCharacter removeSpecialCharacter(SpecialCharacter sC) {
+		// TODO Auto-generated method stub
+		ArrayList<Thing> blockChars = block.getListOfThings();
+		for(Thing t: blockChars){
+			if (sC.equals(t)){
+				block.removeThing(t);
+				return (SpecialCharacter) t;
+			}		
+		}
+		
+		ArrayList<Hex> hexes = (ArrayList<Hex>) GameService.getInstance().getGame().getBoard().getHexes();
+		for(Hex h:hexes){
+			ArrayList<Creature> creatures = h.getArmies(this);
+			if(creatures!=null){ //TODO fix
+				for(Creature c: creatures){
+					if(sC.equals(c)){
+						block.removeThing(c);
+						return (SpecialCharacter) c;
+					}
+				}
+			}
+		}
+		return null;
 	}
 }
