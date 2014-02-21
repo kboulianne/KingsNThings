@@ -65,7 +65,7 @@ public class DicePresenter {
 	 */
 	public int roll() {
 //		GameService.getInstance().roll();
-
+		Util.playDiceRollSound();
 		
 //		Game game = GameService.getInstance().getGame();
 

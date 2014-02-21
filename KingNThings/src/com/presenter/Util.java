@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 // misc. global static functions
 public class Util {
 
@@ -60,5 +64,31 @@ public class Util {
 			list.remove(rand);
 		}
 		return newList;
+	}
+	
+	
+	// Sounds
+	
+	final static AudioClip clickSound = new AudioClip(Util.class.getResource("click.wav").toString());
+	public static void playClickSound(){
+		clickSound.play();
+	}
+	
+	final static AudioClip diceRoll = new AudioClip(Util.class.getResource("dice.wav").toString());
+	public static void playDiceRollSound(){
+		diceRoll.play();
+	}
+	
+	final static Media audioFile = new Media( Util.class.getResource("greensleeves.mp3").toString() );    
+	final static MediaPlayer player = new MediaPlayer(audioFile);
+	public static void playMusic(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				
+		        player.play();
+		        player.setCycleCount(MediaPlayer.INDEFINITE);
+			}
+		}).start();
 	}
 }

@@ -22,6 +22,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void phaseStart() {
+		Util.playMusic();
 		Util.log("Init Phase: Start of Player Order Phase");
 		context.clearRolls();
 		
