@@ -86,8 +86,8 @@ public class Util {
 			@Override
 			public void run() {
 				
-		        player.play();
-		        player.setCycleCount(MediaPlayer.INDEFINITE);
+		        //player.play();
+		        // player.setCycleCount(MediaPlayer.INDEFINITE);
 			}
 		}).start();
 	}

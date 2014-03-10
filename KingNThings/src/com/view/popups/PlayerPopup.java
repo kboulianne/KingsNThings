@@ -29,7 +29,7 @@ public class PlayerPopup extends VBox {
     	getStyleClass().add("block");
     	Label nameLbl = new Label("Name: Sir " + p.getName());
     	ImageView iv = new ImageView(new Image("view/com/assets/pics/warrior"+p.getId().ordinal()+".jpg"));
-    	iv.setFitHeight(450.0);
+    	iv.setFitHeight(450);
 		iv.setPreserveRatio(true);
     	
     	Label goldLbl = new Label("Gold: " + p.getGold());

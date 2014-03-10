@@ -154,17 +154,6 @@ public class ThingView extends StackPane{
 		});
 	}
 	
-	public void setCupHandler(){
-		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {				
-				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(thing);
-				KNTAppFactory.getPopupPresenter().dismissPopup();
-			}
-		});
-		
-	}
-	
 	public void setDoNothingHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override

@@ -9,11 +9,12 @@ import com.view.customcontrols.PlayerLabel;
 import com.model.Player;
 import com.presenter.PlayerInfoPresenter;
 import com.view.customcontrols.Rack;
-import javafx.event.ActionEvent;
+
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -31,7 +32,7 @@ public class PlayerInfoView extends AnchorPane {
 	private Label goldLbl;
 	private Rack rack;
 
-	private Button viewCupBtn;
+	private ImageView viewCupImg;
 
 	public PlayerInfoView() {
 		buildView();
@@ -61,7 +62,7 @@ public class PlayerInfoView extends AnchorPane {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.dismissCurrentPlayerInfo();
+				presenter.dismissPopup();
 			}
 		});
 
@@ -69,33 +70,34 @@ public class PlayerInfoView extends AnchorPane {
 		currentPlayerNameAndGold.getChildren().addAll(currentPlayerlbl, goldLbl);
 
 		// Rack
-		/*EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
-
-			@Override
-			public void handle(ThingEvent t) {
-				presenter.handleRackClick(t.getThing());
-			}
-		};*/
-
 		rack = new Rack();
 		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
 
 		// For now Should be in GameView
-		viewCupBtn = new Button("View Cup");
-		viewCupBtn.setOnAction(new EventHandler<ActionEvent>() {
+		viewCupImg = new ImageView(new Image("view/com/assets/pics/cup.png"));
+		viewCupImg.getStyleClass().add("hand");
+		viewCupImg.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(ActionEvent t) {
+			public void handle(MouseEvent t) {
 				presenter.handleCupClick();
 			}
 		});
+		viewCupImg.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent t) {
+				presenter.dismissPopup();
+			}
+		});
+		
 
 		AnchorPane.setLeftAnchor(currentPlayerInfoBox, 10.0);
 		AnchorPane.setTopAnchor(currentPlayerInfoBox, 5.0);
-		AnchorPane.setRightAnchor(viewCupBtn, 10.0);
-		AnchorPane.setTopAnchor(viewCupBtn, 8.0);
+		AnchorPane.setRightAnchor(viewCupImg, 10.0);
+		AnchorPane.setTopAnchor(viewCupImg, 8.0);
 
-		getChildren().addAll(viewCupBtn, currentPlayerInfoBox);
+		getChildren().addAll(viewCupImg, currentPlayerInfoBox);
 	}
 
 	public void setPresenter(final PlayerInfoPresenter presenter) {

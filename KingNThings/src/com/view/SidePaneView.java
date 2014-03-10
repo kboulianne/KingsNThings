@@ -12,7 +12,6 @@ import java.util.SortedMap;
 import com.view.customcontrols.PlayerLabel;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.Creature;
 import com.model.Cup;
 import com.model.Player;
 import com.model.SpecialCharacter;

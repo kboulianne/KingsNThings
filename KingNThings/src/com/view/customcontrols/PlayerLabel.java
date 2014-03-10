@@ -33,44 +33,7 @@ public class PlayerLabel extends HBox {
 		name.getStyleClass().add("playerName");
 		color = new Circle();
 		color.setRadius(6);
-//	circle.setFill(color);   
-//	HBox playerBox = new HBox();
 		getChildren().addAll(color, name);
-
-//		playerBox.setOnMouseEntered(new EventHandler<Event>() {
-//
-//			@Override
-//			public void handle(Event arg0) {
-//				VBox popupContentVbox = new VBox();	
-//				popupContentVbox.getStyleClass().add("block");
-//				popupContentVbox.setMinSize(700, 400);
-//				popupContentVbox.setAlignment(Pos.CENTER);
-//				//popupContentVbox.getStyleClass().add("border");
-//				
-//				Label playerNameLbl = new Label("Name: Sir "+name.getValue());
-//				//Label blockNameLbl = new Label(block.name);
-//				Label goldLbl = new Label("Gold: "+gold);
-//				HBox blockHBox = new HBox();
-//				blockHBox.setAlignment(Pos.CENTER);
-//				blockHBox.getStyleClass().add("block");
-//				List<Thing> listOfThings = block.listOfThings;
-//				for(Thing thing: listOfThings){
-//					thing.paint(blockHBox);
-//				}
-//				
-//				popupContentVbox.getChildren().addAll(playerNameLbl, blockHBox, goldLbl);
-//				GameScreen.popup(popupContentVbox);
-//			}
-//		});
-//		playerBox.setOnMouseExited(new EventHandler<Event>() {
-//
-//			@Override
-//			public void handle(Event arg0) {
-//				GameScreen.dismissPopup();
-//			}	
-//		});
-//		
-//	pane.getChildren().addAll(playerBox);
 	}
 
 	public Player getPlayer() {

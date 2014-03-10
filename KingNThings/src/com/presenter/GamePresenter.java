@@ -87,7 +87,7 @@ public class GamePresenter {
 				KNTAppFactory.getPopupPresenter().dismissPopup();
 			}
 		};*/
-		KNTAppFactory.getPopupPresenter().showCupPopup(game.getCup(), "Cup and Bank Display:");
+		KNTAppFactory.getPopupPresenter().showCupPopup(game.getCup());
 	}
 
 	/**
