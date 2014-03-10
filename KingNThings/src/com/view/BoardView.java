@@ -126,6 +126,25 @@ public class BoardView extends Canvas {
 		});
 	}
 	
+	public void addHexExchangeHandler(){
+		setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				double clickPtX = event.getX();
+				double clickPtY = event.getY();
+				for (int i = 0; i < hexCenterPoints.length; i++) {
+					if (Util.distanceBtwTwoPts(
+							clickPtX, clickPtY,
+							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
+							presenter.handleHexExchangeClick(i);
+						break;
+					}
+				}
+			}
+		});
+	}
+	
 	public void addStartKingdomsHandler() {
 		setOnMouseClicked(new EventHandler<MouseEvent>() {
 

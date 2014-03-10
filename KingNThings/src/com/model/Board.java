@@ -43,12 +43,18 @@ public class Board {
 	    hexes.add(hex);
 	}
 	
+	public void replaceHex(Hex h)	{
+		hexes.set(h.getId(), h);
+	}
+	
 	public int getHexNum() {
 	    return numOfHexes;
 	}
+	
 	public List<Hex> getHexes() {
 	    return hexes;
 	}
+	
 	public final void setFaceDown(final boolean b) {
 		
 	    faceDown = b;

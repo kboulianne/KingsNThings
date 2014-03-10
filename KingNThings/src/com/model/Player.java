@@ -11,6 +11,7 @@ public class Player 	{
 	private Block block;
 	private int gold;
 	private String name;
+	private Hex startPos;
 	
 	public enum PlayerId { ONE(Color.YELLOW),TWO(Color.valueOf("555555")),THREE(Color.GREEN),FOUR(Color.RED); 
 		private final Color color;
@@ -28,6 +29,7 @@ public class Player 	{
 	    id = i;
 	    block = new Block();
 	    gold = 0;
+	    setStartPos(null);
 	}
 	
 	/**
@@ -130,5 +132,13 @@ public class Player 	{
 			}
 		}
 		return null;
+	}
+
+	public Hex getStartPos() {
+		return startPos;
+	}
+
+	public void setStartPos(Hex startPos) {
+		this.startPos = startPos;
 	}
 }

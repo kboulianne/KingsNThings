@@ -15,6 +15,14 @@ import com.model.Creature;
 import com.model.Cup;
 import com.model.Die;
 import com.model.Hex;
+import com.model.HexDesert;
+import com.model.HexForest;
+import com.model.HexFrozenWaste;
+import com.model.HexJungle;
+import com.model.HexMountain;
+import com.model.HexPlains;
+import com.model.HexSea;
+import com.model.HexSwamp;
 import com.model.Player;
 import com.model.Thing;
 import com.presenter.HexFactory;
@@ -51,6 +59,7 @@ public final class Game {
 	    MODE_TWO_THREE_PLAYER = 2;
     //private GamePlay gamePlay;
 
+    private List<Hex> hexPool;
     private Iterator<Player> nextPlayerIt;
     private List<Player> playerOrder;
     private Cup cup;
@@ -88,56 +97,56 @@ public final class Game {
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 		
 		// added for iteration 1 hard-coded
-		/*
-		board.addHex(new HexFrozenWaste(0));
-		board.addHex(new HexForest(1));
-		board.addHex(new HexJungle(2));
-		board.addHex(new HexPlains(3));
+		
+		board.addHex(new HexSea(0));
+		board.addHex(new HexSea(1));
+		board.addHex(new HexSea(2));
+		board.addHex(new HexSea(3));
 		board.addHex(new HexSea(4));
-		board.addHex(new HexForest(5));
-		board.addHex(new HexSwamp(6));
-		board.addHex(new HexPlains(7));
-		board.addHex(new HexFrozenWaste(8));
-		board.addHex(new HexMountain(9));
-		board.addHex(new HexFrozenWaste(10));
-		board.addHex(new HexSwamp(11));
-		board.addHex(new HexDesert(12));
-		board.addHex(new HexSwamp(13));
-		board.addHex(new HexForest(14));
-		board.addHex(new HexDesert(15));
-		board.addHex(new HexPlains(16));
-		board.addHex(new HexMountain(17));
-		board.addHex(new HexJungle(18));
-		board.addHex(new HexSwamp(19));
-		board.addHex(new HexMountain(20));
-		board.addHex(new HexJungle(21));
-		board.addHex(new HexSwamp(22));
-		board.addHex(new HexDesert(23));
-		board.addHex(new HexForest(24));
-		board.addHex(new HexPlains(25));
-		board.addHex(new HexForest(26));
-		board.addHex(new HexFrozenWaste(27));
-		board.addHex(new HexJungle(28));
-		board.addHex(new HexMountain(29));
-		board.addHex(new HexDesert(30));
-		board.addHex(new HexPlains(31));
-		board.addHex(new HexJungle(32));
-		board.addHex(new HexMountain(33));
-		board.addHex(new HexForest(34));
-		board.addHex(new HexFrozenWaste(35));
-		board.addHex(new HexDesert(36));
+		board.addHex(new HexSea(5));
+		board.addHex(new HexSea(6));
+		board.addHex(new HexSea(7));
+		board.addHex(new HexSea(8));
+		board.addHex(new HexSea(9));
+		board.addHex(new HexSea(10));
+		board.addHex(new HexSea(11));
+		board.addHex(new HexSea(12));
+		board.addHex(new HexSea(13));
+		board.addHex(new HexSea(14));
+		board.addHex(new HexSea(15));
+		board.addHex(new HexSea(16));
+		board.addHex(new HexSea(17));
+		board.addHex(new HexSea(18));
+		board.addHex(new HexSea(19));
+		board.addHex(new HexSea(20));
+		board.addHex(new HexSea(21));
+		board.addHex(new HexSea(22));
+		board.addHex(new HexSea(23));
+		board.addHex(new HexSea(24));
+		board.addHex(new HexSea(25));
+		board.addHex(new HexSea(26));
+		board.addHex(new HexSea(27));
+		board.addHex(new HexSea(28));
+		board.addHex(new HexSea(29));
+		board.addHex(new HexSea(30));
+		board.addHex(new HexSea(31));
+		board.addHex(new HexSea(32));
+		board.addHex(new HexSea(33));
+		board.addHex(new HexSea(34));
+		board.addHex(new HexSea(35));
+		board.addHex(new HexSea(36));
 		
 		for (int i = 0 ; i < board.getHexNum() ; i ++) {
 		    board.getHexes().get(i).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
 		}
-		*/
+		
 
 		
 		//Removed for iteration 1
 		HexFactory hexFactory = new HexFactory();
 
-		List<Hex> hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
-
+		hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
+/*
 		// Choose Hexes at random from the pool and add to the board.
 		int rand = 0;
 		Random rnd = new Random();
@@ -148,8 +157,7 @@ public final class Game {
 		    board.addHex(hexPool.get(rand));
 		    hexPool.get(rand).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
 		    hexPool.remove(rand);
-
-		}
+		}*/
 
 		//Cup created with all things required for gameplay
 		cup.setListOfThings(Util.getRandomList(Thing.createThings()));
@@ -446,5 +454,13 @@ public final class Game {
 		}
 		
 		return list;
+	}
+
+	public List<Hex> getHexPool() {
+		return hexPool;
+	}
+
+	public void setHexPool(List<Hex> hexPool) {
+		this.hexPool = hexPool;
 	}
 }

@@ -89,11 +89,18 @@ public class Hex extends GamePiece {
     public final Player getHexOwner() {
     	return hexOwner;
     }
+    
+    public void removeOwner()	{
+    	this.hexOwner = null;
+    	this.color = null;
+    }
+    
     public final void setOwner(final Player player) {
     	this.hexOwner = player;
 		
 		this.color = player.getColor();
     }
+    
     public Color getColor() {
 	    return color;
     }

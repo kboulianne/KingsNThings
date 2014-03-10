@@ -2,8 +2,10 @@ package com.presenter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.model.Board.NumberOfHexes;
+import com.model.Board;
 import com.model.Hex;
 import com.model.HexDesert;
 import com.model.HexForest;
@@ -83,5 +85,4 @@ public class HexFactory {
 
 		return hexPool;
 	}
-
 }
