@@ -175,23 +175,24 @@ public class ThingView extends StackPane{
 	}
 
 	public void setExchangeThingHandler() {
+		
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
-			public void handle(MouseEvent me) {			
+			public void handle(MouseEvent me) {	
+
 				if(thing.isSelected()){
 					KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange things by clicking the rack\n"
 							   + "     Exchange only once per thing", Game.CROWN_IMAGE);
 				} else {
-					Game game = GameService.getInstance().getGame();
-					
-					thing.setSelected(false);
+					Game game = GameService.getInstance().getGame();	
 					Thing t = game.getCup().getRandomThing();
-					t.setSelected(true);
 					game.moveThingFromCupToPlayer(t, game.getCurrentPlayer());
 					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
 					game.getCurrentPlayer().getBlock().removeThing(thing);
 					game.getCup().addThing(thing);
 					thing = t;
+					thing.setSelected(true);
+					thing.setFacedDown(false);
 					refreshView();
 				}
 			}

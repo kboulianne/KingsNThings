@@ -26,6 +26,7 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Exchange Things Phase");
 		gv.getCurrentActionLbl().setText("Exchange Things");
+		KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
 	}
 	
 	@Override

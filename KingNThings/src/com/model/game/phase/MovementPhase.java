@@ -25,6 +25,8 @@ public class MovementPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void phaseStart() {
+		KNTAppFactory.getBoardPresenter().getView().setDisable(false);
+		
 		Util.log("Game Phase: Start of Movement Phase");
 
 		gv.getCurrentActionLbl().setText("Movement Phase");
