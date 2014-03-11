@@ -156,8 +156,12 @@ public class Player 	{
 			if ((h != null) && (h.getHexOwner() == this)) {
 				hexGold++;
 				if(h.getFort() != null)	fortGold += h.getFort().getValue();
-				if(h.getSpecialCharacters() != null)	specCharGold += h.getSpecialCharacters().size();
 				if(h.getCounter() != null)	counterGold += h.getCounter().getValue();
+				if(h.getArmies(this) != null)	{
+					for(Creature c: h.getArmies(this)) {
+						if(c instanceof SpecialCharacter)	specCharGold++;
+					}
+				}
 			}
 		}
 		
