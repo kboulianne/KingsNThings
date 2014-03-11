@@ -34,6 +34,7 @@ public class Fort extends Thing	{
 	*/
 	private int value;
 	private FortType fortType;
+	public boolean upgraded = false;
 	private static final String IMAGE_DIR = "view/com/assets/pics/gamepieces/forts/";
 	
 	
@@ -82,5 +83,17 @@ public class Fort extends Thing	{
 
 	public void setValue(int value) {
 		this.value = value;
+	}
+	
+	public void setUpgraded(boolean b)	{
+		upgraded = b;
+	}
+	
+	public boolean getUpgraded()	{
+		return upgraded;
+	}
+	
+	public boolean upgraded()	{
+		return upgraded;
 	}
 }

@@ -190,7 +190,7 @@ public final class GamePlay {
 //				|| phaseLogic instanceof RecruitThingsPhase
 				|| phaseLogic instanceof RandomEventPhase
 //				|| phaseLogic instanceof MovementPhase
-				|| phaseLogic instanceof ConstructionPhase
+//				|| phaseLogic instanceof ConstructionPhase
 				|| phaseLogic instanceof SpecialPowersPhase
 				|| phaseLogic instanceof ChangePlayOrderPhase
 				)

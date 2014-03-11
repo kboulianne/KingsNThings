@@ -225,4 +225,8 @@ public class Hex extends GamePiece {
 	
 	public IncomeCounter getCounter()	{	return counter;	}
 	public void setCounter(IncomeCounter counter)	{	this.counter = counter;	}
+
+	public void upgradeFort() {
+		getFort().upgrade();
+	}
 }

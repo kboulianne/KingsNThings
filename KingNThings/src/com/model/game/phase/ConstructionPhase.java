@@ -5,7 +5,14 @@
  */
 package com.model.game.phase;
 
+import java.util.List;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+
 import com.main.KNTAppFactory;
+import com.model.Hex;
 import com.model.game.Game;
 import com.presenter.Util;
 
@@ -25,34 +32,41 @@ public class ConstructionPhase extends AbstractPhaseStrategy {
 
 		gv.getCurrentActionLbl().setText("Construction Phase");
 		
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Construct defenses TODO", Game.CROWN_IMAGE);
-
+		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				context.endTurn();
+			}
+		});
 		
-		//Button finishBtn = KNTAppFactory.getGamePresenter().getDicePresenter().getView().getEndTurnBtn();
-//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-//			
-//			@Override
-//			public void handle(ActionEvent arg0) {
-//				context.endTurn();
-//			}
-//		});		
+		KNTAppFactory.getBoardPresenter().getView().addFortBuildingHandler();
+		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDoNothingHandler(game.getCurrentPlayer());
 	}
 
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Construction Phase");
+		
+		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
+		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
 	}
 
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		Util.log("Skipping Step for Iteration 1");
-//		context.endTurn();
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Build new forts or upgrade existing forts", Game.CROWN_IMAGE);		
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-		//GameService.getInstance().endTurn(this);
+		List<Hex> hexes = game.getBoard().getHexes();
+		
+		for(int i=0; i<hexes.size(); i++)	{
+			if(hexes.get(i).getHexOwner() == game.getCurrentPlayer() &&
+					hexes.get(i).getFort() != null)	{
+				hexes.get(i).getFort().setUpgraded(false);
+			}
+		}
 	}
 }

@@ -354,6 +354,15 @@ public class BoardPresenter {
 			KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 		}
 	}
+	
+	public void handleConstructionHexClick(int selected) {
+		Hex h = svc.getGame().getBoard().getHexes().get(selected);
+		Player player = svc.getGame().getCurrentPlayer();
+		
+		if(h.getHexOwner() != player)	return;
+		
+		KNTAppFactory.getSidePanePresenter().getView().showBuildMenu(h);
+	}
 
 	public void handleMoveSetupForThing(Thing t) {
 		

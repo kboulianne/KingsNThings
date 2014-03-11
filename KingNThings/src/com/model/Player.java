@@ -3,6 +3,8 @@ package com.model;
 import java.util.ArrayList;
 
 import com.game.services.GameService;
+import com.model.game.Game;
+
 import javafx.scene.paint.Color;
 
 public class Player 	{
@@ -140,5 +142,27 @@ public class Player 	{
 
 	public void setStartPos(Hex startPos) {
 		this.startPos = startPos;
+	}
+
+	public int calculateIncome() {
+		int hexGold = 0;
+		int fortGold = 0;
+		int counterGold = 0;
+		int specCharGold = 0;
+		int totalGold = 0;
+		Game game = GameService.getInstance().getGame();
+		
+		for (Hex h : game.getBoard().getHexes()) {
+			if ((h != null) && (h.getHexOwner() == this)) {
+				hexGold++;
+				if(h.getFort() != null)	fortGold += h.getFort().getValue();
+				if(h.getSpecialCharacters() != null)	specCharGold += h.getSpecialCharacters().size();
+				if(h.getCounter() != null)	counterGold += h.getCounter().getValue();
+			}
+		}
+		
+		hexGold = (int) Math.ceil(hexGold/2.0);
+		totalGold += (hexGold + fortGold + counterGold + specCharGold);
+		return totalGold;
 	}
 }
