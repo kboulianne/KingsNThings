@@ -2,9 +2,9 @@ package com.model;
 
 import javafx.scene.paint.Color;
 
-public class PlainsCreature extends Creature {
+class PlainsCreature extends Creature {
 
-	public PlainsCreature(String name) {
+	PlainsCreature(String name) {
 		super(name);
 		setDomain("Plains");
 		setColor(Color.CORAL);

@@ -15,7 +15,7 @@ import com.view.customcontrols.ArmyOrMisc;
 
 public class ArmyDetailsView extends VBox{
 
-	protected ArmyDetailsPresenter presenter;
+	private ArmyDetailsPresenter presenter;
 	private Label lbl;
 	private Label sublbl;
 	private ArmyOrMisc army;
@@ -39,7 +39,7 @@ public class ArmyDetailsView extends VBox{
         this.presenter = presenter;
 	}
 	
-	protected void buildView(){
+	private void buildView(){
 		lastSelectedArmy = new ArrayList<Creature>();
 		setAlignment(Pos.CENTER);
 		getStyleClass().add("largeSpacing");

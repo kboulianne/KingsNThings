@@ -18,9 +18,9 @@ import com.presenter.Util;
  *
  * @author kurtis
  */
-public class RecruitThingsPhase extends AbstractPhaseStrategy {
+class RecruitThingsPhase extends AbstractPhaseStrategy {
 
-	public RecruitThingsPhase(GamePlay context) {
+	RecruitThingsPhase(GamePlay context) {
 		super(context);
 	}
 

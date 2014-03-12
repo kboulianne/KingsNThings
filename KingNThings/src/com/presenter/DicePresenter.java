@@ -50,7 +50,8 @@ public class DicePresenter {
 		return view;
 	}
 	
-	public int rollOne() {
+	int rollOne() {
+		Util.playDiceRollSound();
 		die1.roll();
 		
 		view.setDice(die1, die2);

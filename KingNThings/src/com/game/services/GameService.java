@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.model.Player;
 import com.model.game.Game;
-import com.model.game.phase.GamePlay;
 
 /**
  *
@@ -82,12 +81,4 @@ public class GameService {
 		return game;
 	}
 
-	public void startGame() {
-		// Start executing first phase.
-		GamePlay.getInstance().startTurn();
-	}
-
-	public void roll() {
-		game.rollDice();
-	}
 }

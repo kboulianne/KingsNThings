@@ -34,11 +34,11 @@ public class Fort extends Thing	{
 	*/
 	private int value;
 	private FortType fortType;
-	public boolean upgraded = false;
+	private boolean upgraded = false;
 	private static final String IMAGE_DIR = "view/com/assets/pics/gamepieces/forts/";
 	
 	
-	public Fort(FortType type) {
+	private Fort(FortType type) {
 		super(type.typeAsString);
 		setColor(Color.LIGHTGREY);
 		setValue(1);
@@ -46,7 +46,7 @@ public class Fort extends Thing	{
 		setImage(IMAGE_DIR + type.typeAsString + ".jpeg");
 	}
 	
-	public void upgrade() {
+	void upgrade() {
 //		if (level <= 3) level ++;
 		switch (fortType) {
 			case TOWER: 

@@ -57,10 +57,8 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
 		//top label
 		super.turnStart();
-		
 		KNTAppFactory.getGamePresenter().getView().setGame(game);
 		KNTAppFactory.getSidePanePresenter().getView().showRolls(context.getRolls());
 	}

@@ -272,7 +272,7 @@ public abstract class Creature extends Thing	{
 		magicCreat.add("archmage");
 	}
 	
-	public Creature(String name)	{
+	Creature(String name)	{
 		super(name);
 		setNumberOfMovesAvailable(4);
 		
@@ -308,7 +308,7 @@ public abstract class Creature extends Thing	{
 	    if (isRanged()) {
 	    	abilities += " Ranged";
 	    }
-	    if (getCharge()) {
+	    if (isCharge()) {
 	    	abilities += " Charging";
 	    }
 	    if(isMagic()){
@@ -344,7 +344,7 @@ public abstract class Creature extends Thing	{
 	public void setRanged(boolean bool){
 		ranged = bool;
 	}
-	public boolean getCharge()	{
+	public boolean isCharge()	{
 		return charge;
 	}
 	public void setCharge(boolean bool){

@@ -105,7 +105,7 @@ public class SpecialCharacterView{
 	}
 	
 	
-	public VBox setScreen1(String playerName, ArrayList<SpecialCharacter> playersSChars){
+	VBox setScreen1(String playerName, ArrayList<SpecialCharacter> playersSChars){
 
 		ArrayList<SpecialCharacter> specCfromCup = GameService.getInstance().getGame().getCup().getListOfSpecialCharacters();
 		boolean playerHasLord = false;
@@ -144,7 +144,7 @@ public class SpecialCharacterView{
 		return screen1;
 	}
 	
-	public VBox setScreen2(final SpecialCharacter sC){
+	VBox setScreen2(final SpecialCharacter sC){
 		
 		final int valueNeeded = sC.getCombatVal()*2;
 		presenter.setSelectedSpecialCharacter(sC);

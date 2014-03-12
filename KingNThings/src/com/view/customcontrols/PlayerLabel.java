@@ -25,7 +25,7 @@ public class PlayerLabel extends HBox {
 		buildComponent();
 	}
 
-	protected void buildComponent() {
+	private void buildComponent() {
 		// Positioning
 		setAlignment(Pos.CENTER);
 

@@ -44,7 +44,7 @@ public class ArmyOrMisc extends HBox {
 		buildComponent();
 	}
 
-	protected void buildComponent() {
+	private void buildComponent() {
 		getStyleClass().add("block");
 		setAlignment(Pos.CENTER);
 		moving = false;
@@ -110,7 +110,7 @@ public class ArmyOrMisc extends HBox {
 		return pane;
 	}*/
 
-	public void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
+	private void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
 		for(Creature c: army){
 			c.setSelected(true);
 		}
@@ -174,6 +174,7 @@ public class ArmyOrMisc extends HBox {
 		} 
 	}
 	
+	/*
 	public void setSpecialCharacters(final Hex hex, final List<SpecialCharacter> specChars){
 		thingHolder.getChildren().clear();
 		circleStackPane.setVisible(false);
@@ -191,7 +192,7 @@ public class ArmyOrMisc extends HBox {
 				//tv.setDefaultHandler();
 			}
 		} 
-	}
+	}*/
 	
 	public void setIncomeCounter(Hex hex, IncomeCounter counter) {
 		thingHolder.getChildren().clear();
@@ -215,8 +216,4 @@ public class ArmyOrMisc extends HBox {
 	public void setMoving(boolean b) {
 		this.moving = b;
 	}
-
-	/*public void setThingHandler(EventHandler<ThingEvent> event){
-		thingHandler = event;
-	}*/
 }

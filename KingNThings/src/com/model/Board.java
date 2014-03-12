@@ -93,10 +93,12 @@ public class Board {
 			// opponent is in the tile. size of 1 means no other armies
 			armies = hex.getArmies();
 			
-			if (armies.size() >= 2) {
+			
 				// We have at least two armies, make sure Player p has
 				// an army in the hex
 				if (armies.containsKey(p)) {
+					
+					if (armies.size() >= 2) {
 					// Player has an army, mark as conflict
 					conflicts.add(hex);
 				}

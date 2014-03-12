@@ -9,41 +9,35 @@ import com.model.Battle.BattlePhase;
 import com.model.Creature;
 import com.model.Player;
 import com.view.BattleView;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 public class BattlePresenter {
 
 	private BattleView view;
-
 	private Battle battle;
-	// TODO assume 1st available creature for DEMO
-//	Creature selectedCreature;
-
+	
 	private DicePresenter attackerDice;
 	private DicePresenter defenderDice;
 
-//	private Map<Creature
 	private Iterator<Creature> creatureIt;
+	private Creature currentCreature;
 	
-	private Map<Creature, Integer> attackerRolls;
-	private Map<Creature, Integer> defenderRolls;
+	//private Map<Creature, Integer> attackerRolls;
+	//private Map<Creature, Integer> defenderRolls;
 	
 	private Player retreated;
 	
 	/** Determines whether the attacker or defender is rolling. */
-	boolean isDefender;
+	private boolean isDefender;
 
 	public BattlePresenter(BattleView v, DicePresenter dp1, DicePresenter dp2) {
 		view = v;
-		view.setPresenter(this);
 
 		attackerDice = dp1;
 		defenderDice = dp2;
 		
-		attackerRolls = new HashMap<>();
-		defenderRolls = new HashMap<>();
+		//attackerRolls = new HashMap<>();
+		//defenderRolls = new HashMap<>();
 		
 		// Disable second die
 		attackerDice.getView().hideDie2(true);
@@ -55,8 +49,7 @@ public class BattlePresenter {
 	}
 
 	// use this to start battle
-	public void startBattle(Battle b) {
-//		battle = view.getBattle(); // called more than once
+	void startBattle(Battle b) {
 		// Display the battle in the view
 		battle = b;
 		view.setBattle(battle);
@@ -94,9 +87,6 @@ public class BattlePresenter {
 				nextBattlePhase();
 			}
 		});
-
-		
-		
 		startPhase();
 	}
 
@@ -114,6 +104,13 @@ public class BattlePresenter {
 			case POSTCOMBAT:
 				postCombatPhase();
 				break;
+			case APPLYMAJHITS:
+			case APPLYMELHITS:
+			case APPLYRANHITS:
+				applyHits();
+				break;
+			default:
+				break;
 		}
 	}
 	
@@ -122,34 +119,65 @@ public class BattlePresenter {
 		// Fetch the next creature and store roll. Assume 1-to-1 mapping for now,
 		// att. c1 -> def. c1, att. c2 -> def.c2 ...
 		int roll;
+		String info ="";
 		
-		Creature c = creatureIt.next();
+		//Creature c = creatureIt.next();
+		if(currentCreature.isCharge()){
+			//TODO roll with two dice
+		}
+		
 		
 		if (!isDefender) {			
 			// Attacker's turn to roll.
 			roll = attackerDice.rollOne();
-			attackerRolls.put(c, roll);
+			
+			Util.log("	Offender rolled " +roll + " for "+ currentCreature.getName());
+			info = "Offender rolled " +roll + " for "+ currentCreature.getName();
+			if(roll<=currentCreature.getCombatVal()){
+				battle.setOffHits(battle.getOffHits()+1);
+				info += " and gained 1 hit point";
+			}else{
+				info += " and gained no hit points";
+			}
+				
+			//attackerRolls.put(currentCreature, roll );
 			
 			// Attacker is done, now defender's turn
 			if (!creatureIt.hasNext()) {
 				isDefender = true;
+				
 				// Swap iterator to defender's creatures.
 				creatureIt = battle.getDefenderCreaturesForPhase().iterator();
+				currentCreature = creatureIt.next();
+				battle.setCurrentPlayer(battle.getDefender());
+			}else{
+				currentCreature = creatureIt.next();
 			}
 		}
 		else {
 			// Defender's turn to roll.
 			roll = defenderDice.rollOne();
-			defenderRolls.put(c, roll);
+			//defenderRolls.put(currentCreature, roll);
+			Util.log("	Deffender rolled " +roll + " for "+ currentCreature.getName());
+			info = "Defender rolled " +roll + " for "+ currentCreature.getName();
+			if(roll<=currentCreature.getCombatVal()){
+				battle.setDefHits(battle.getDefHits()+1);
+				info += " and gained 1 hit point";
+			}else{
+				info += " and gained no hit points";
+			}
 			
 			// Defender is done, apply hits, switch phase and reset iterator.
 			if (!creatureIt.hasNext()) {
 				isDefender = false;
-				applyHits();
 				nextBattlePhase();
+				view.setInfoLbl(info);
+				return;
+			}else{
+				currentCreature = creatureIt.next();
 			}
 		}
-		
+		view.refreshView((isDefender ? "Defender" : "Offender") + " must roll for Creature "+ currentCreature.getName().toUpperCase(), info);
 		enableControlsForRoll();
 	}
 	
@@ -158,18 +186,29 @@ public class BattlePresenter {
 	 */
 	private void enableControlsForRoll() {
 		if (!isDefender) {
-			attackerDice.getView().getRollBtn().setVisible(true);
-			defenderDice.getView().getRollBtn().setVisible(false);
+			attackerDice.getView().getRollBtn().setDisable(false);
+			defenderDice.getView().getRollBtn().setDisable(true);//setVisible(false);
 		}
 		else {
-			attackerDice.getView().getRollBtn().setVisible(false);
-			defenderDice.getView().getRollBtn().setVisible(true);
+			attackerDice.getView().getRollBtn().setDisable(true);
+			defenderDice.getView().getRollBtn().setDisable(false);
 		}
 	}
 	
 	private void applyHits() {
 		// For the demo, assume a 1-to-1 hit ratio. Ignores Creature selection.
+		Util.log("apply hits");
+		attackerDice.getView().setDisable(true);
+		defenderDice.getView().setDisable(true);
 		
+		if(isDefender){
+			
+		}else{ // offender
+			
+		}
+		
+		view.refreshView((isDefender ? "Defender" : "Offender") + "must apply opponent's hits to creatures", "");
+		/*
 		Iterator<Map.Entry<Creature, Integer>> attacker = attackerRolls.entrySet().iterator();
 		Iterator<Map.Entry<Creature, Integer>> defender = defenderRolls.entrySet().iterator();
 		
@@ -189,12 +228,12 @@ public class BattlePresenter {
 				if (attRoll >= defRoll) {
 					// Attacker wins, kill defender's creature
 					battle.killDefenderCreature(defEntry.getKey());
-					System.out.println("Attacker killed: " + defEntry.getKey().getName());
+					System.out.println("	Offender killed: " + defEntry.getKey().getName());
 				}
 				else {
 					// Defender wins, kill attacker's creature.
 					battle.killAttackerCreature(attEntry.getKey());
-					System.out.println("Defender killed: " + attEntry.getKey().getName());
+					System.out.println("	Defender killed: " + attEntry.getKey().getName());
 				}
 			}
 			else {
@@ -207,12 +246,18 @@ public class BattlePresenter {
 		defenderRolls.clear();
 		
 		// Update view
-		view.setBattle(battle);
+		view.setBattle(battle);*/
 	}
 	
 	// Roll Phases
 	private void rollPhase() {
+		Util.log("roll phase "+battle.getBattlePhase());
 		if (battle.canSkipPhase()) {
+			nextBattlePhase();
+		}
+		// for now
+		if(battle.getAttackerCreaturesForPhase() ==  null){
+			Util.log("Iterator is NULL");
 			nextBattlePhase();
 		}
 		
@@ -230,114 +275,49 @@ public class BattlePresenter {
 			}
 		});
 		
+		battle.setDefHits(0);
+		battle.setOffHits(0);
+		
 		// Activate dice, hide retreat stuff
-		attackerDice.getView().setVisible(true);
-		defenderDice.getView().setVisible(true);
-		view.getOffButtonBox().setVisible(false);
-		view.getDefButtonBox().setVisible(false);
+		attackerDice.getView().setDisable(false);
+		defenderDice.getView().setDisable(false);
+		view.getOffContinueBtn().setDisable(true);
+		view.getOffRetreatBtn().setDisable(true);
+		view.getDefContinueBtn().setDisable(true);
+		view.getDefRetreatBtn().setDisable(true);
 		
 		
 		// Initialize the iterator
 		creatureIt = battle.getAttackerCreaturesForPhase().iterator();
-
+		currentCreature = creatureIt.next();
 		enableControlsForRoll();
+		
+		view.refreshView((isDefender ? "Defender" : "Offender") + " must roll for Creature "+ currentCreature.getName().toUpperCase(),"");
 	}
-
-//	private void rollPhaseHelper(
-//			String player, List<Creature> creatureList,
-//			DicePresenter currentPlayerDV, HBox currentPlayersHBox,
-//			DicePresenter otherPlayerDV, HBox otherPlayersHBox) {
-//
-//		selectedCreature = null;
-//		selectedCreature = findNextCreature(creatureList, battle.getBattlePhase());
-//
-//		if (selectedCreature == null) {
-//			nextBattlePhase();
-//			return;
-//		}
-//		//update view
-//		currentPlayerDV.getView().getRollBtn().setVisible(true);
-//		currentPlayersHBox.setVisible(false);
-////
-//		// To have a visual on the other rolls, just hide the button
-//		otherPlayerDV.getView().getRollBtn().setVisible(false);
-//		otherPlayersHBox.setVisible(false);
-//		view.refreshView(player + " must roll for " + battle.getBattlePhase().phaseAsString + " Creature: " + selectedCreature.getName());
-//
-//		rollButtonHandler(player, currentPlayerDV, creatureList);
-//	}
-
-//	private void rollButtonHandler(final String player, final DicePresenter dp, final List<Creature> creatureList) {
-//		dp.getView().getRollBtn().setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent t) {
-//				int rolledValue = dp.roll();
-//				rollForCreature(selectedCreature, rolledValue);
-//				selectedCreature = findNextCreature(creatureList, battle.getBattlePhase());
-//				if (selectedCreature == null) {
-//					nextBattlePhase();
-//				} else {
-//					view.refreshView(player + " must roll for " + battle.getBattlePhase().phaseAsString + " Creature: " + selectedCreature.getName());
-//				}
-//			}
-//		});
-//	}
-
-//	private Creature findNextCreature(List<Creature> creatureList, BattlePhase phase) {
-//		Creature creature = null;
-//		for (Creature c : creatureList) {
-//			if (phase == BattlePhase.MAGIC) {
-//				if (c.isMagic()) {
-//					creature = c;
-//					creatureList.remove(c);
-//					break;
-//				}
-//			} else if (phase == BattlePhase.RANGED) {
-//				if (c.isRanged() && !c.isMagic()) {
-//					creature = c;
-//					creatureList.remove(c);
-//					break;
-//				}
-//			} else if (phase == BattlePhase.MELEE) {
-//				if (!(c.isRanged() || c.isMagic())) {
-//					creature = c;
-//					creatureList.remove(c);
-//					break;
-//				}
-//			}
-//		}
-//		return creature;
-//	}
-
-//	private void rollForCreature(Creature c, int rolledValue) {
-//		if (c.isMagic()) {
-//			Util.log("TODO roll for magic creature " + rolledValue);
-//		} else if (c.isRanged() && !c.isMagic()) {
-//			Util.log("TODO roll for ranged creature " + rolledValue);
-//		} else if (!c.isRanged() || !c.isMagic()) { //melee
-//			Util.log("TODO roll for melee creature " + rolledValue);
-//		}
-//	}
-
 	private void retreatPhase() {
+		Util.log("retreat phase");
 		// Attacker can choose to retreat. If not then defender can choose to retreat.
-
+		
 		// Ask attacker if he wants to retreat.
-		attackerDice.getView().setVisible(false);
-		defenderDice.getView().setVisible(false);
+		attackerDice.getView().setDisable(true);
+		defenderDice.getView().setDisable(true);
 		if (!isDefender) {
-			view.getOffButtonBox().setVisible(true);
-			view.getDefButtonBox().setVisible(false);
+			view.getOffContinueBtn().setDisable(false);
+			view.getOffRetreatBtn().setDisable(false);
+			view.getDefContinueBtn().setDisable(true);
+			view.getDefRetreatBtn().setDisable(true);
 		}
 		else {
-			view.getOffButtonBox().setVisible(false);
-			view.getDefButtonBox().setVisible(true);
+			view.getOffContinueBtn().setDisable(true);
+			view.getOffRetreatBtn().setDisable(true);
+			view.getDefContinueBtn().setDisable(false);
+			view.getDefRetreatBtn().setDisable(false);
 		}
 
-//		view.refreshView((isDefender ? "Defender" : "Offender") + " must choose to retreat or to continue with battle");
+		view.refreshView((isDefender ? "Defender" : "Offender") + " must choose to retreat or to continue with battle", "");
 	}
-
 	private void postCombatPhase() {
+		Util.log("post combat phase");
 		// For demo, eliminate his armies, set hex ownership to opponent
 //		battle.getAssociatedHex().getArmies(retreated);
 		battle.getAssociatedHex().getArmies().remove(retreated);
@@ -353,51 +333,21 @@ public class BattlePresenter {
 		KNTAppFactory.getBoardPresenter().getView().setBoard(
 				GameService.getInstance().getGame().getBoard()
 		);
-		//update model
-		//battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-
-//		if (isDefender) {
-//			view.getDefButtonBox().setVisible(true);
-//			view.getOffContinueBtn().setVisible(false);
-//			view.getDefContinueBtn().setVisible(true);
-//			view.getDefContinueBtn().setText("Finish Battle");
-//			view.getDefContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
-//				@Override
-//				public void handle(ActionEvent t) {
-//					KNTAppFactory.getPopupPresenter().dismissPopup();
-//				}
-//			});
-//		} else {
-//			view.getOffButtonBox().setVisible(true);
-//			view.getDefContinueBtn().setVisible(false);
-//			view.getOffContinueBtn().setVisible(true);
-//			view.getOffContinueBtn().setText("Finish Battle");
-//			view.getOffContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
-//				@Override
-//				public void handle(ActionEvent t) {
-//					KNTAppFactory.getPopupPresenter().dismissPopup();
-//				}
-//			});
-//		}
-//		view.getOffRetreatBtn().setVisible(false);
-//		view.getDefRetreatBtn().setVisible(false);
-//		view.refreshView("Post Combat - " + (isDefender ? "Offender" : "Defender") + " retreated from battle");
-	}
-
-	protected void nextRound() {
-		battle.setRoundNumber(battle.getRoundNumber() + 1);
-		battle.setBattlePhase(BattlePhase.MAGIC);
-		isDefender = false;
-	}
-
-	protected void switchToNextPhase() {
-//		battle.setCurrentPlayer(battle.getOffender());
 		
+		view.refreshView("post combat","");
+	}
+
+	
+	
+	
+
+	private void switchToNextPhase() {
+		Util.log("switching from phase "+battle.getBattlePhase()+" to ...");
 		if (battle.getBattlePhase() == BattlePhase.RETREAT) {
 			if (isDefender) {
-				nextRound();
-//				battle.setBattlePhase(BattlePhase.MAGIC);
-//				nextBattlePhase();
+				battle.setRoundNumber(battle.getRoundNumber() + 1);
+				battle.setBattlePhase(BattlePhase.MAGIC);
+				isDefender = false;
 			}
 			else {
 				isDefender = true;
@@ -408,15 +358,16 @@ public class BattlePresenter {
 			
 		}	
 		else {
-			// Cool trick didn't know that! :-)
-			battle.setBattlePhase(BattlePhase.values()[battle.getBattlePhase().ordinal() + 1]);
-			
+			battle.setBattlePhase(BattlePhase.values()[battle.getBattlePhase().ordinal() + 1]);		
 		}
+		Util.log("	"+battle.getBattlePhase());
 	}
-
 	private void nextBattlePhase() {
 		switchToNextPhase();
-
 		startPhase();
+	}
+
+	public boolean isDefender() {
+		return isDefender;
 	}
 }

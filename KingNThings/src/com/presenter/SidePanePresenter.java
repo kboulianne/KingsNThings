@@ -39,7 +39,7 @@ public class SidePanePresenter {
 	 * Shows the details for the Hex selected in the BoardPresenter.
 	 * @param h  The hex to display.
 	 */
-	public void showHexDetailsFor(Hex h) {
+	void showHexDetailsFor(Hex h) {
 		view.showHexDetailsView(KNTAppFactory.getHexDetailsPresenter().getView());
 
 		// make the presenter update the view

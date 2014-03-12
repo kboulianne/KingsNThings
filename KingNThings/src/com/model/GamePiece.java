@@ -3,14 +3,14 @@ package com.model;
 import java.util.Objects;
 import javafx.scene.image.Image;
 
-public abstract class GamePiece {
+abstract class GamePiece {
 	private Image image;
 	private String name;
 	private String owner;
 	
 	public GamePiece()	{	}
 	
-	public GamePiece(String name)	{
+	GamePiece(String name)	{
 	    setName(name);
 	}
 	

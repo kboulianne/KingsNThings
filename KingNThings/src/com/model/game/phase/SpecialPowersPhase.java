@@ -13,9 +13,9 @@ import com.presenter.Util;
  *
  * @author kurtis
  */
-public class SpecialPowersPhase extends AbstractPhaseStrategy {
+class SpecialPowersPhase extends AbstractPhaseStrategy {
 
-	public SpecialPowersPhase(GamePlay context) {
+	SpecialPowersPhase(GamePlay context) {
 		super(context);
 	}
 

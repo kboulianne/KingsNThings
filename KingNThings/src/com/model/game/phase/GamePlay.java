@@ -188,11 +188,12 @@ public final class GamePlay {
 //				|| phaseLogic instanceof GoldCollectPhase
 //				|| phaseLogic instanceof RecruitCharPhase
 //				|| phaseLogic instanceof RecruitThingsPhase
-				|| phaseLogic instanceof RandomEventPhase
+//				|| phaseLogic instanceof RandomEventPhase
+//				|| phaseLogic instanceof CombatPhase
 //				|| phaseLogic instanceof MovementPhase
 //				|| phaseLogic instanceof ConstructionPhase
-				|| phaseLogic instanceof SpecialPowersPhase
-				|| phaseLogic instanceof ChangePlayOrderPhase
+///				|| phaseLogic instanceof SpecialPowersPhase
+//				|| phaseLogic instanceof ChangePlayOrderPhase
 				)
 			endTurn();
 	}

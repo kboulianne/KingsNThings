@@ -41,11 +41,6 @@ import javafx.scene.input.MouseEvent;
  */
 public class SidePaneView extends VBox {
 
-    // FIXME: Duplicate, put in global stuff? Put in GamePresenter?
-	// View specific stuff
-	static final double HEX_WIDTH = 100.0;
-	static final double HEX_HEIGHT = HEX_WIDTH * 0.8;
-
 	private SidePanePresenter presenter;
 
     // Current detailsview being displayed in the view
@@ -58,11 +53,10 @@ public class SidePaneView extends VBox {
 
 	public SidePaneView() {
 		buildView();
-
 		addHandlers();
 	}
 
-	protected void buildView() {
+	private void buildView() {
 		// Initial setup
 		setId("sidePane");
 		//FIXME: Hardcoded
@@ -80,14 +74,14 @@ public class SidePaneView extends VBox {
 		// TODO make Content take the background image.
 		content = new StackPane();
 		content.setId("detailsBox");
-		content.setMinHeight(HEX_HEIGHT * 7);
+		content.setMinHeight(560);
 
 		// Adds opponents and details container
 		getChildren().addAll(otherPlayerInfo, content);
 
 	}
 
-	public void addHandlers() {
+	private void addHandlers() {
 		EventHandler<MouseEvent> playerLabelHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent t) {

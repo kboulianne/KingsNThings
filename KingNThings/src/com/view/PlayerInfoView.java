@@ -38,7 +38,7 @@ public class PlayerInfoView extends AnchorPane {
 		buildView();
 	}
 
-	protected void buildView() {
+	private void buildView() {
 		setId("bottomSection");
 
 		// Current PlayerInfo Box. Wraps PlayerLabel and Gold VBox, and Rack.
@@ -121,7 +121,7 @@ public class PlayerInfoView extends AnchorPane {
 		}
 	}
 	
-	public void updateGold(Player current)	{
+	void updateGold(Player current)	{
 		if(current != null)	{
 			goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
 		}

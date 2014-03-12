@@ -15,7 +15,6 @@ import com.model.Creature;
 import com.model.Cup;
 import com.model.Die;
 import com.model.Hex;
-import com.model.HexSea;
 import com.model.Player;
 import com.model.Thing;
 import com.presenter.HexFactory;
@@ -47,7 +46,7 @@ public final class Game {
     private Die die1;
     private Die die2;
     private int mode;
-    public static final int 
+    private static final int 
     	MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
     //private GamePlay gamePlay;

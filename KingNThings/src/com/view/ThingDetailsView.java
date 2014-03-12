@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 
 public class ThingDetailsView extends VBox {
 
-	protected ThingDetailsPresenter presenter;
+	private ThingDetailsPresenter presenter;
 
     //TODO
     //needs to be set or shouldnt be here
@@ -55,7 +55,7 @@ public class ThingDetailsView extends VBox {
         this.presenter = presenter;
     }
     
-    protected void buildView() {
+    private void buildView() {
 
 		setAlignment(Pos.CENTER);
 		getStyleClass().add("block");

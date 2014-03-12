@@ -17,9 +17,9 @@ import com.presenter.Util;
  *
  * @author kurtis
  */
-public class CombatPhase extends AbstractPhaseStrategy {
+class CombatPhase extends AbstractPhaseStrategy {
 
-	public CombatPhase(GamePlay context) {
+	CombatPhase(GamePlay context) {
 		super(context);
 	}
 
@@ -51,46 +51,10 @@ public class CombatPhase extends AbstractPhaseStrategy {
 		Util.log("Game Phase: Logic for " + game.getCurrentPlayer().getName());
 
 		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Available battles displayed as red hexes", Game.CROWN_IMAGE);
-
 		
-//		// for testing
-//		Player currentPlayer = game.getCurrentPlayer();
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("olddragon"), currentPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new DesertCreature("giantspider"), currentPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("elephant"), currentPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("brownknight"), currentPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("giant"), currentPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("dwarves"), currentPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("elephant"), currentPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("brownknight"), currentPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("giant"), currentPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("dwarves"), currentPlayer);
-//		Player oppPlayer = game.getOpponent2();
-//		game.getBoard().getHexes().get(0).addItemToHex(new Fort(Fort.FortType.CITADEL));
-//		game.getBoard().getHexes().get(0).addItemToHex(new DesertCreature("skeletons"));
-//		game.getBoard().getHexes().get(0).addItemToHex(new DesertCreature("olddragon"));
-//		game.getBoard().getHexes().get(0).addItemToHex(new DesertCreature("olddragon"));
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new JungleCreature("watusi"), oppPlayer);
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("goblins"), game.getOpponent3());
-//		game.getBoard().getHexes().get(0).addCreatToArmy(new MountainCreature("ogre"), game.getOpponent1());
-//		
-//		// Test fort
-//		game.getBoard().getHexes().get(0).setFort(Fort.create());
-		
-
 		// highlight hexes with available battles
 		KNTAppFactory.getBoardPresenter().findAndHighlightConflicts();
 		
-		
-		
-		///////// this will go in the handler for the hex click
-//		Battle battle = new Battle(game.getCurrentPlayer(), game.getBoard().getHexes().get(0));
-//		BattleView bp = KNTAppFactory.getBattlePresenter().getView();
-//		bp.setPopup(battle);
-//		KNTAppFactory.getPopupPresenter().getView().show(bp);
-//		
-//		KNTAppFactory.getBattlePresenter().startBattle();
-		//context.endTurn();
 	}
 	
 	@Override

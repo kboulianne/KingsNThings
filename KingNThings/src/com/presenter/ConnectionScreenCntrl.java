@@ -10,19 +10,18 @@ import javafx.scene.shape.Circle;
 public class ConnectionScreenCntrl {
 
 	private int numOfConnectedPlayers;
-	Label player1;
-	Circle circle1;
-	Label player2;
-	Circle circle2;
-	Label player3;
-	Circle circle3;
-	Label player4;
-	Circle circle4;
-	Button beginButton;
+	private Label player1;
+	private Circle circle1;
+	private Label player2;
+	private Circle circle2;
+	private Label player3;
+	private Circle circle3;
+	private Label player4;
+	private Circle circle4;
+	private Button beginButton;
 
 	public ConnectionScreenCntrl(Label p1, Circle c1, Label p2, Circle c2, Label p3,
 			Circle c3, Label p4, Circle c4, Button bButton) {
-		// TODO Auto-generated constructor stub
 		setNumOfConnectedPlayers(0);
 		player1 = p1;
 		circle1 = c1;
@@ -85,7 +84,7 @@ public class ConnectionScreenCntrl {
 
 	}
 
-	public void addBeginButtonListener() {
+	private void addBeginButtonListener() {
 		beginButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {

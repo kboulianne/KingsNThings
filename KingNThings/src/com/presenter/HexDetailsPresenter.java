@@ -31,17 +31,8 @@ public class HexDetailsPresenter {
 	 * Shows the selected hex in the DetailsView.
 	 * @param h 
 	 */
-	public void showHex(Hex h) {
+	void showHex(Hex h) {
 		view.setHex(h);
 	}
 
-	/**
-	 * A thing was clicked in an ArmyOrMisc control.
-	 * @param t 
-	 */
-	public void handleThingClick(Thing t) {
-		// Show ThingDetailView in SidePane.
-		t.setSelected(!t.isSelected());
-		KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
-	}
 }

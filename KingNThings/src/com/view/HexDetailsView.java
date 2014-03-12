@@ -24,10 +24,6 @@ import javafx.scene.layout.VBox;
  */
 public class HexDetailsView extends StackPane {
 
-	// FIXME: Duplicate
-	static final double HEX_WIDTH = 100.0;
-	static final double HEX_HEIGHT = HEX_WIDTH * 0.8;
-
 	// Presenter managing this view.
 	private HexDetailsPresenter presenter;
 
@@ -45,13 +41,12 @@ public class HexDetailsView extends StackPane {
 		buildView();
 	}
 
-	protected void buildView() {
+	private void buildView() {
 
 		VBox content = new VBox();
 		// TODO Put in create Methods
 		// Define content. (FROM paintHexInDetails
 		hexImage = new ImageView();
-		// FIXME Hardcoded
 		hexImage.setFitWidth(300);
 		hexImage.setPreserveRatio(true);
 		hexImage.setSmooth(true);
@@ -69,18 +64,8 @@ public class HexDetailsView extends StackPane {
 
 		contentBox.getChildren().addAll(nameLbl, ownerLbl);
 
-		// Create the mouse handler for the things and hook it up to the presenter.
-		/*EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
-			@Override
-			public void handle(ThingEvent t) {
-				presenter.handleThingClick(t.getThing());
-			}
-
-		};*/
-
         // ArmyOrMisc components
 		//misc = new ArmyOrMisc(handler);
-		//TODO shouldn't add these if empty
 		counter = new ArmyOrMisc();
 		opp1Army = new ArmyOrMisc();
 		opp2Army = new ArmyOrMisc();
@@ -123,7 +108,7 @@ public class HexDetailsView extends StackPane {
 		}
 	}
 	
-	protected void setArmies(int hexId){
+	private void setArmies(int hexId){
 		Game game = GameService.getInstance().getGame();
 		Hex hex = game.getBoard().getHexes().get(hexId);
 		// Doing this is a glitch in our case since the game instance is shared amongst 4 players. This means that

@@ -17,14 +17,12 @@ import javafx.scene.shape.Rectangle;
 import com.model.Battle;
 import com.model.Creature;
 import com.model.Fort;
-import com.presenter.BattlePresenter;
 import com.view.customcontrols.ThingView;
 
 import java.util.List;
 
 public class BattleView extends VBox{
 	
-	BattlePresenter battlePresenter;
 	private Battle battle;
 	
 	private Label titleLbl;
@@ -32,11 +30,13 @@ public class BattleView extends VBox{
 	private Label roundNumLbl;
 	private Label battleRoundLbl;
 	private Label hexLbl;
+	private Label infoLbl;
 	
 	private Label offenderLbl;
 	private DiceView offDice;
 	private GridPane offGrid;
 	private HBox offButtonBox;
+	private Label offHitsLbl;
 	private Button offRetreatBtn;
 	private Button offContinueBtn;
 	
@@ -44,6 +44,7 @@ public class BattleView extends VBox{
 	private DiceView defDice;
 	private GridPane defGrid;
 	private HBox defButtonBox;
+	private Label defHitsLbl;
 	private Button defContinueBtn;
 	private Button defRetreatBtn;
 	
@@ -57,6 +58,8 @@ public class BattleView extends VBox{
 		getChildren().clear();
 		
 		setAlignment(Pos.CENTER);
+		setMinWidth(1240);
+		setMinHeight(720);
 		titleLbl = new Label("Battle:");
 		titleLbl.getStyleClass().add("title");
 		HBox subTitleLbls = new HBox();
@@ -68,31 +71,38 @@ public class BattleView extends VBox{
 		battleRoundLbl = new Label();
 		hexLbl = new Label();
 		subTitleLbls.getChildren().addAll(turnLbl, battleRoundLbl, hexLbl, roundNumLbl);
+		infoLbl = new Label();
 		
 		// setup offender
 		offenderLbl = new Label();
 		offGrid = new GridPane();
 		offButtonBox = new HBox();
+		offHitsLbl = new Label();
 		offRetreatBtn = new Button("Retreat");
+		offRetreatBtn.setDisable(true);
 		offContinueBtn = new Button("Continue");
-		VBox offenderBox = playerBox(offenderLbl, offGrid, offDice, offButtonBox, offRetreatBtn, offContinueBtn);
+		offContinueBtn.setDisable(true);
+		VBox offenderBox = playerBox(offenderLbl, offGrid, offDice, offButtonBox, offHitsLbl, offRetreatBtn, offContinueBtn);
 		
 		// setup defender
 		defenderLbl = new Label();
 		defGrid = new GridPane();
 		defButtonBox = new HBox();
+		defHitsLbl = new Label();
 		defRetreatBtn = new Button("Retreat");
+		defRetreatBtn.setDisable(true);
 		defContinueBtn = new Button("Continue");
-		VBox defenderBox = playerBox(defenderLbl, defGrid, defDice, defButtonBox, defRetreatBtn, defContinueBtn);
+		defContinueBtn.setDisable(true);
+		VBox defenderBox = playerBox(defenderLbl, defGrid, defDice, defButtonBox, defHitsLbl, defRetreatBtn, defContinueBtn);
 		
 		HBox offenderDefenderBox = new HBox();
 		offenderDefenderBox.getStyleClass().add("block");
 		offenderDefenderBox.getChildren().addAll(offenderBox, defenderBox);
 		
-		getChildren().addAll(titleLbl, subTitleLbls, offenderDefenderBox);	
+		getChildren().addAll(titleLbl, subTitleLbls, infoLbl, offenderDefenderBox);	
 	}
 	
-	private VBox playerBox(Label playerLbl, GridPane playerGrid, DiceView playerDice, HBox playerButtonBox,
+	private VBox playerBox(Label playerLbl, GridPane playerGrid, DiceView playerDice, HBox playerButtonBox, Label hitsLbl,
 											Button playerRetreatBtn, Button playerContinueBtn){
 		VBox playerBox = new VBox();
 		playerBox.setMinWidth(600);
@@ -103,11 +113,15 @@ public class BattleView extends VBox{
 	    playerGrid.setVgap(5);
 	    playerGrid.setMinHeight(520);
 	    playerBox.getChildren().add(playerGrid);
-		playerDice.getEndTurnBtn().setVisible(false);
+		playerDice.getEndTurnBtn().setVisible(false); // end turn button not used here
+		playerDice.getEndTurnBtn().setManaged(false);
 		playerButtonBox.getStyleClass().add("block");
 		playerButtonBox.getChildren().addAll(playerRetreatBtn, playerContinueBtn);
+		HBox diceAndHits = new HBox();
+		diceAndHits.getChildren().addAll(playerDice, hitsLbl);
+		diceAndHits.getStyleClass().add("block");
 		AnchorPane defAp = new AnchorPane();
-		defAp.getChildren().addAll(playerDice, playerButtonBox);
+		defAp.getChildren().addAll(diceAndHits, playerButtonBox);
 		AnchorPane.setRightAnchor(playerButtonBox, 55.0);
 		playerBox.getChildren().addAll(defAp);
 		return playerBox;
@@ -125,20 +139,19 @@ public class BattleView extends VBox{
 		List<Creature> offGamePieces = new ArrayList<>();
 		offGamePieces.addAll(battle.getAttackerCreatures());
 		setBattlePieces(offGamePieces, offGrid);
-//		offDice.setDice(battle.getOffenderDie1(), battle.getOffenderDie2());
-		
+
 		defenderLbl.setText("Defender: "+battle.getDefenderName());
 		setBattlePieces(battle.getDefenderCreatures(), battle.getDefenderFort(), defGrid);
-//		defDice.setDice(battle.getDefenderDie1(), battle.getDefenderDie2());
+
 		
 	}
 	
-	public void setBattlePieces(List<Creature> offCreatures, GridPane grid) {
+	private void setBattlePieces(List<Creature> offCreatures, GridPane grid) {
 		setBattlePieces(offCreatures, null, grid);
 	}
 	
 	
-	public void setBattlePieces(List<Creature> offCreatures, Fort def, GridPane grid){
+	private void setBattlePieces(List<Creature> offCreatures, Fort def, GridPane grid){
 		grid.getChildren().clear();
 		// Adds creature pieces
 		for (int i = 0; i<offCreatures.size();i++){
@@ -160,6 +173,7 @@ public class BattleView extends VBox{
 		HBox thingBox = new HBox();
 		ThingView tv = new ThingView(90 , c);
 
+		tv.setApplyHitsForBattleHandler();
 		VBox thingLblBox = new VBox();
 
 		thingBox.getChildren().addAll(tv, thingLblBox);
@@ -220,92 +234,73 @@ public class BattleView extends VBox{
 		return thingBox;
 	}
 	
-	
-	public void refreshView(String instructions){
+	public void refreshView(String instructions, String info){
 		setTitleLblText(instructions);
 		setTurnLblText();
 		setRoundNumLbl();
 		setBattleRoundLbl();
+		setInfoLbl(info);
+		setOffHitsLbl();
+		setDefHitsLbl();
 	}
 	
 	// getter dones and setter dones
-	public void setPresenter(BattlePresenter bp) {
-		battlePresenter = bp;
-	}
 
 	public Label getTitleLbl() {
 		return titleLbl;
 	}
-
-	public void setTurnLblText() {
-		if(battle.getCurrentPlayer() == null)
-			turnLbl.setText("Turn: Creature and Things");
-		else
-			turnLbl.setText("Turn: "+battle.getCurrentPlayer().getName());
+	private void setTurnLblText() {
+		turnLbl.setText("Turn: "+battle.getCurrentPlayer().getName());
 	}
-	
+	private void setOffHitsLbl() {
+		offHitsLbl.setText("Hits: "+battle.getOffHits());
+	}
+	private void setDefHitsLbl() {
+		defHitsLbl.setText("Hits: "+battle.getDefHits());
+	}
+	public void setInfoLbl(String info) {
+		infoLbl.setText(info);
+	}
 	public void setTitleLblText(String instructions) {
 		titleLbl.setText("Battle: "+instructions);
 	}
-
-	public void setRoundNumLbl() {
+	private void setRoundNumLbl() {
 		roundNumLbl.setText("Round Number: "+battle.getRoundNumber());
 	}
-
-	public void setBattleRoundLbl() {
+	private void setBattleRoundLbl() {
 		battleRoundLbl.setText("Phase: "+battle.getBattlePhase().phaseAsString);
 	}
-
 	public GridPane getOffGrid() {
 		return offGrid;
 	}
-
 	public void setOffGrid(GridPane offGrid) {
 		this.offGrid = offGrid;
 	}
-
 	public GridPane getDefGrid() {
 		return defGrid;
 	}
-
 	public void setDefGrid(GridPane defGrid) {
 		this.defGrid = defGrid;
 	}
-
 	public Battle getBattle() {
 		return battle;
 	}
-
-//	public DiceView getOffDice() {
-//		return offDice;
-//	}
-
 	public HBox getOffButtonBox() {
 		return offButtonBox;
 	}
-
 	public Button getOffRetreatBtn() {
 		return offRetreatBtn;
 	}
-
 	public Button getOffContinueBtn() {
 		return offContinueBtn;
 	}
-
 	public HBox getDefButtonBox() {
 		return defButtonBox;
 	}
-
 	public Button getDefContinueBtn() {
 		return defContinueBtn;
 	}
-
 	public Button getDefRetreatBtn() {
 		return defRetreatBtn;
 	}
-
-//	public DiceView getDefDice() {
-//		return defDice;
-//	}
-
 }

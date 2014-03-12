@@ -31,7 +31,7 @@ public class Hex extends GamePiece {
 	//    \       /
 	//   4 \_____/ 2
 	//        3	
-	static final int joiningHexes37Mapping[][] = {
+	private static final int joiningHexes37Mapping[][] = {
 		{1,2,3,4,5,6}, // 0, radius 0
 		{8,9,2,0,6,7},{9,10,11,3,0,1},{2,11,12,13,4,0},{0,3,13,14,15,5},
 		{6,0,4,15,16,17},{7,1,0,5,17,18}, // 1-6, radius 1,
@@ -44,7 +44,7 @@ public class Hex extends GamePiece {
 		{15,14,30,-1,-1,32},{16,15,31,-1,-1,33},{34,16,32,-1,-1,-1},{35,17,16,33,-1,-1},// 31-34
 		{36,18,17,34,-1,-1},{-1,19,18,35,-1,-1}};
 	//TODO init
-	static final int joiningHexes19Mapping[][] = {};
+	private static final int joiningHexes19Mapping[][] = {};
 	
 	// list of armies for all players
 	// list of misc Things
@@ -68,7 +68,7 @@ public class Hex extends GamePiece {
 		}
 	}
 	
-	public Hex(int id, HexType type){
+	Hex(int id, HexType type){
 	    this.type = type;
 	    this.id= id;
 	    setTypeAsString(type.typeName);
@@ -86,11 +86,6 @@ public class Hex extends GamePiece {
     // setters and getters
     public final Player getHexOwner() {
     	return hexOwner;
-    }
-    
-    public void removeOwner()	{
-    	this.hexOwner = null;
-    	this.color = null;
     }
     
     public final void setOwner(final Player player) {
@@ -130,7 +125,7 @@ public class Hex extends GamePiece {
     public int[] getJoiningHexes() {
 	    return joiningHexes;
     }
-    protected void setJoiningHexes(NumberOfHexes numOfHexes) {
+    private void setJoiningHexes(NumberOfHexes numOfHexes) {
 	    joiningHexes = new int[6];
 	    if(numOfHexes.equals(NumberOfHexes.THIRTY_SEVEN)){
 		    for(int i=0; i<6; i++){
