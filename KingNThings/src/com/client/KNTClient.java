@@ -9,8 +9,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.client.proxy.GameRoomServiceProxy;
-import com.model.Player;
-import com.model.Player.PlayerId;
 import com.server.services.IGameRoomService;
 
 /*
@@ -20,7 +18,7 @@ import com.server.services.IGameRoomService;
  */
 public class KNTClient {
 	private Socket socket;
-	private GameRoomServiceProxy proxy;
+	private IGameRoomService proxy;
 	
 	/**
 	 * Creates a new connection to the game server with specified host and port.

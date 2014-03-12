@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 
+import com.main.KNTAppFactory;
+import com.main.LobbyTestMain;
 import com.model.GameRoom;
 import com.model.Player;
 import com.model.Player.PlayerId;
@@ -15,6 +18,7 @@ import com.view.LobbyView;
 public class LobbyPresenter {
 	private final LobbyView view;
 	private final IGameRoomService gameRoomSvc;
+//	private Stage window;
 	
 	// Observable list that contains the gamerooms contained in the ui list.
 	private final ObservableList<GameRoom> rooms;
@@ -40,6 +44,10 @@ public class LobbyPresenter {
 		return view;
 	}
 	
+//	public final void setWindow(Stage s) {
+//		window = s;
+//	}
+	
 	public void handleRefreshButton() {
 		System.out.println("Refresh");
 	}
@@ -49,7 +57,10 @@ public class LobbyPresenter {
 		//TODO: Testing
 		Player host = new Player(PlayerId.ONE, "Tester 1");
 		try {
-			gameRoomSvc.createGameRoom("Tester 1 Game Room", host);
+			GameRoom room = gameRoomSvc.createGameRoom("Tester 1's Game Room", host);
+			
+			// Delegate to GameRoomPresenter
+			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,8 +68,24 @@ public class LobbyPresenter {
 		updateGameRoomsList();
 	}
 
-	public void handleJoinEvent() {
-		System.out.println("Join");		
+	public void handleJoinButton() {
+		//TODO: Testing
+		Player guest = new Player(PlayerId.ONE, "Tester 1");
+		
+		try {
+			// Join the selected game room.
+			GameRoom room = view.getGameRoomsList().getSelectionModel().getSelectedItem();
+			if (room == null) return;
+			
+			gameRoomSvc.joinGameRoom(room.getName(), guest);
+			// TODO: Delegate to GameRoomPresenter
+			LobbyTestMain.setView(KNTAppFactory.getGameRoomPresenter().getView());
+//			KNTAppFactory.getG
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void handleWindowShown() {

@@ -107,7 +107,7 @@ public class LobbyView extends BorderPane {
 	private final EventHandler<ActionEvent> JOIN_EVENT = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			KNTAppFactory.getLobbyPresenter().handleJoinEvent();
+			KNTAppFactory.getLobbyPresenter().handleJoinButton();
 		}
 	};
 	

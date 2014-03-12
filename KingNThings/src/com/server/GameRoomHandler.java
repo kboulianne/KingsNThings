@@ -8,6 +8,7 @@ import com.model.game.Game;
 import com.server.services.IGameRoomService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import static com.server.KNTServer.*;
+import static com.server.Errors.*;
 
 /**
  * RealSubject implementation of the proxy pattern.
@@ -37,7 +38,7 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 			}
 			else {
 				// Throw error
-				throw new JSONRPC2Error(1, "A game room with this name already exists.");
+				throw GAME_ROOM_ROOM_EXISTS;
 			}
 		}
 		
@@ -61,12 +62,12 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 				GameRoom gr = GAME_ROOMS.get(room);
 				
 				if (gr.isFull())
-					throw new JSONRPC2Error(3, "Game Room is full!");
+					throw GAME_ROOM_ROOM_FULL;
 				
 				gr.addPlayer(player);
 			}
 			else {
-				throw new JSONRPC2Error(2, "Room does not exist.");
+				throw GAME_ROOM_ROOM_INEXISTANT;
 			}
 		}
 	}
@@ -80,7 +81,7 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 				GameRoom gr = GAME_ROOMS.get(room);
 				
 				// Make sure the game was not already started.
-				if (gr.hasStarted()) throw new JSONRPC2Error(4, "Cannot start the game. It is already in progress");
+				if (gr.hasStarted()) throw GAME_ROOM_GAME_IN_PROGRESS;
 				
 				if (gr.isFull()) {
 					// Ok to start the game.
@@ -98,7 +99,7 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 				}
 			}
 			else {
-				throw new JSONRPC2Error(3, "Room does not exist.");
+				throw GAME_ROOM_ROOM_INEXISTANT;
 			}
 		}
 	}

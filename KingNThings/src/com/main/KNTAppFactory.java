@@ -7,6 +7,7 @@ import com.presenter.BattlePresenter;
 import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
 import com.presenter.BoardPresenter;
+import com.presenter.GameRoomPresenter;
 import com.presenter.HexDetailsPresenter;
 import com.presenter.LobbyPresenter;
 import com.presenter.PlayerInfoPresenter;
@@ -17,6 +18,7 @@ import com.presenter.ThingDetailsPresenter;
 import com.view.ArmyDetailsView;
 import com.view.BattleView;
 import com.view.BoardView;
+import com.view.GameRoomView;
 import com.view.HexDetailsView;
 import com.view.DiceView;
 import com.view.GameView;
@@ -35,6 +37,7 @@ import com.view.ThingDetailsView;
 public class KNTAppFactory {
 
 	private static final LobbyPresenter lobbyPresenter;
+	private static final GameRoomPresenter gameRoomPresenter;
 	private static final GamePresenter gamePresenter;
 	private static final DicePresenter dicePresenter;
 	private static final SidePanePresenter sidePanePresenter;
@@ -55,6 +58,7 @@ public class KNTAppFactory {
 		
     		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
 		lobbyPresenter = createLobbyPresenter();
+		gameRoomPresenter = createGameRoomPresenter();
 		gamePresenter = createMainPresenter();
 		dicePresenter = createDicePresenter();
 		sidePanePresenter = createSidePanePresenter();
@@ -76,6 +80,13 @@ public class KNTAppFactory {
 	private static LobbyPresenter createLobbyPresenter() {
 		LobbyView view = new LobbyView();
 		LobbyPresenter presenter = new LobbyPresenter(view, CLIENT.getGameRoomService());
+		
+		return presenter;
+	}
+	
+	private static GameRoomPresenter createGameRoomPresenter() {
+		GameRoomView view = new GameRoomView();
+		GameRoomPresenter presenter = new GameRoomPresenter(view, CLIENT.getGameRoomService());
 		
 		return presenter;
 	}
@@ -166,6 +177,10 @@ public class KNTAppFactory {
 
 	public static final LobbyPresenter getLobbyPresenter() {
 		return lobbyPresenter;
+	}
+	
+	public static final GameRoomPresenter getGameRoomPresenter() {
+		return gameRoomPresenter;
 	}
 	
 	public static ThingDetailsPresenter getThingDetailsPresenter() {
