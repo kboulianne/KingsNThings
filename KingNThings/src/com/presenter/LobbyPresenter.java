@@ -16,4 +16,20 @@ public class LobbyPresenter {
 	public final LobbyView getView() {
 		return view;
 	}
+	
+	public void handleRefreshButton() {
+		System.out.println("Refresh");
+	}
+
+	public void handleHostButton() {
+		System.out.println("Host");
+	}
+
+	public void handleJoinEvent() {
+		System.out.println("Join");		
+	}
+
+	public void handleWindowShown() {
+		System.out.println("Fetching GameRooms.");		
+	}
 }

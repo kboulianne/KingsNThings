@@ -22,7 +22,6 @@ public class GamePresenter {
 	
 	public GamePresenter( final GameView view) {
 		this.view = view;
-		this.view.setPresenter(this);
 		
 		// Update view
 		updateView();
