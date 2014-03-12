@@ -7,6 +7,7 @@ import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
 import com.presenter.BoardPresenter;
 import com.presenter.HexDetailsPresenter;
+import com.presenter.LobbyPresenter;
 import com.presenter.PlayerInfoPresenter;
 import com.presenter.PopupPresenter;
 import com.presenter.SidePanePresenter;
@@ -18,6 +19,7 @@ import com.view.BoardView;
 import com.view.HexDetailsView;
 import com.view.DiceView;
 import com.view.GameView;
+import com.view.LobbyView;
 import com.view.PlayerInfoView;
 import com.view.PopupView;
 import com.view.SidePaneView;
@@ -31,6 +33,7 @@ import com.view.ThingDetailsView;
  */
 public class KNTAppFactory {
 
+	private static final LobbyPresenter lobbyPresenter;
 	private static final GamePresenter gamePresenter;
 	private static final DicePresenter dicePresenter;
 	private static final SidePanePresenter sidePanePresenter;
@@ -45,6 +48,7 @@ public class KNTAppFactory {
 
 	static {
 		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
+		lobbyPresenter = createLobbyPresenter();
 		gamePresenter = createMainPresenter();
 		dicePresenter = createDicePresenter();
 		sidePanePresenter = createSidePanePresenter();
@@ -63,6 +67,13 @@ public class KNTAppFactory {
 	private KNTAppFactory() {
 	}
 
+	private static LobbyPresenter createLobbyPresenter() {
+		LobbyView view = new LobbyView();
+		LobbyPresenter presenter = new LobbyPresenter(view);
+		
+		return presenter;
+	}
+	
 	private static GamePresenter createMainPresenter() {
 		GameView view = new GameView();
 		GamePresenter presenter = new GamePresenter(view);
@@ -147,6 +158,10 @@ public class KNTAppFactory {
 		return presenter;
 	}
 
+	public static final LobbyPresenter getLobbyPresenter() {
+		return lobbyPresenter;
+	}
+	
 	public static ThingDetailsPresenter getThingDetailsPresenter() {
 		return thingDetailsPresenter;
 	}
