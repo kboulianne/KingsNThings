@@ -156,6 +156,15 @@ public final class Game {
 		cup.setListOfThings(Util.getRandomList(Thing.createThings()));
 	}
 
+    public Game(Player host, List<Player> guests) {
+    		this();
+    		
+    		currentPlayer = host;
+    		opponent1 = guests.get(0);
+    		opponent2 = guests.get(1);
+    		opponent3 = guests.get(2);
+    }
+    
 	// Getters and Setters =============================================================================================
 	/**
 	 * Gets the player owning this Game instance. (Player "playing" this game)
