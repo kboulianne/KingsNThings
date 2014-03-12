@@ -25,7 +25,7 @@ public class GameView extends StackPane {
 
 	private GamePresenter presenter;
 
-	public VBox rootVBox;
+	private VBox rootVBox;
 	private AnchorPane gameStatus;
 	private HBox centerBox;
 	private Label currentPlayerLbl;
@@ -49,7 +49,7 @@ public class GameView extends StackPane {
 		this.presenter = presenter;
 	}
 
-	protected void buildView() {
+	private void buildView() {
 		// Root Pane stuff
 		rootVBox = new VBox();
 		rootVBox.getStyleClass().add("border");

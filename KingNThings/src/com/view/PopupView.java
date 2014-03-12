@@ -6,8 +6,6 @@
 package com.view;
 
 import com.presenter.PopupPresenter;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -72,33 +70,34 @@ public class PopupView extends VBox {
 		}
 	}
 
-	/**
-	 * Shows the Popup with specified content and title.
-	 *
-	 * @param content
-	 * @param title
-	 */
-	public void show(Pane content, String title) {
-		if (!isVisible()) {
-			// Title
-			titleLbl.setText(title);
-
-			// Close button
-			closeBtn.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent t) {
-					dismiss();
-				}
-			});
-			
-			rootAnchorPane.setVisible(true);
-			rootAnchorPane.setManaged(true);
-			
-			getChildren().remove(1);
-			getChildren().add(content);
-			setVisible(true);
-		}
-	}
+// TODO Remove unused code found by UCDetector
+// 	/**
+// 	 * Shows the Popup with specified content and title.
+// 	 *
+// 	 * @param content
+// 	 * @param title
+// 	 */
+// 	public void show(Pane content, String title) {
+// 		if (!isVisible()) {
+// 			// Title
+// 			titleLbl.setText(title);
+// 
+// 			// Close button
+// 			closeBtn.setOnAction(new EventHandler<ActionEvent>() {
+// 				@Override
+// 				public void handle(ActionEvent t) {
+// 					dismiss();
+// 				}
+// 			});
+// 			
+// 			rootAnchorPane.setVisible(true);
+// 			rootAnchorPane.setManaged(true);
+// 			
+// 			getChildren().remove(1);
+// 			getChildren().add(content);
+// 			setVisible(true);
+// 		}
+// 	}
 
 	public void dismiss() {
 		if (isVisible()) {
@@ -106,7 +105,7 @@ public class PopupView extends VBox {
 		}
 	}
 
-	protected void buildPopup() {
+	private void buildPopup() {
 		getStyleClass().add("popup");
 		setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
 		setVisible(false);

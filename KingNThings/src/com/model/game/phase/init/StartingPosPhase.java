@@ -19,7 +19,7 @@ import com.presenter.Util;
  */
 public class StartingPosPhase extends AbstractPhaseStrategy {
 	
-	Button finishBtn;
+	private Button finishBtn;
 	
 	public StartingPosPhase(GamePlay context) {
 		super(context);

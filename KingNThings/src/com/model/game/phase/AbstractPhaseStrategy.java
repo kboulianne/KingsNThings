@@ -31,9 +31,7 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 	
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
 		//top label
-		//game.clearLastSelectedCreaturesOfCurrentPlayerBlock();
 		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(game.getCurrentPlayer());
 		KNTAppFactory.getSidePanePresenter().getView().setOpponents(game.getOpponent1(), game.getOpponent2(), game.getOpponent3());

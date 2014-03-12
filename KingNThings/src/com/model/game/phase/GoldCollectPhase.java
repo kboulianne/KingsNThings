@@ -21,9 +21,9 @@ import com.presenter.Util;
  *
  * @author kurtis
  */
-public class GoldCollectPhase extends AbstractPhaseStrategy {
+class GoldCollectPhase extends AbstractPhaseStrategy {
 
-	public GoldCollectPhase(GamePlay context) {
+	GoldCollectPhase(GamePlay context) {
 		super(context);
 	}
 

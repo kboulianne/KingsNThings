@@ -47,10 +47,4 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 		}
 	}
 
-	@Override
-	public void turnEnd() {
-		// TODO Auto-generated method stub
-//		GameService.getInstance().endTurn(this);
-		
-	}
 }

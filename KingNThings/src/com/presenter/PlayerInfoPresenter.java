@@ -3,7 +3,6 @@ package com.presenter;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Player;
-import com.model.Thing;
 import com.model.game.Game;
 import com.view.PlayerInfoView;
 
@@ -34,14 +33,15 @@ public class PlayerInfoPresenter {
 		return view;
 	}
 
-	/**
-	 * A Thing was clicked in the player's rack.
-	 * @param t The Thing instance that was clicked.
-	 */
-	public void handleRackClick(Thing t) {
-		// Show thing in detailsview
-		KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
-	}
+// TODO Remove unused code found by UCDetector
+// 	/**
+// 	 * A Thing was clicked in the player's rack.
+// 	 * @param t The Thing instance that was clicked.
+// 	 */
+// 	public void handleRackClick(Thing t) {
+// 		// Show thing in detailsview
+// 		KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
+// 	}
 
 	/**
 	 *	The view cup button was clicked. Displays the contents of the cup.

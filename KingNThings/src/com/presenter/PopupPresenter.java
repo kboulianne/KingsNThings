@@ -41,7 +41,7 @@ public class PopupPresenter {
 	 * Shows a popup for the specified player.
 	 * @param p The player to display in the popup.
 	 */
-	public void showPlayerPopup(Player p) {
+	void showPlayerPopup(Player p) {
 		view.show(new PlayerPopup(p));
 	}
 
@@ -51,11 +51,11 @@ public class PopupPresenter {
 	 * @param title The popup title
 	 * @param event The EventHandler linked to the tile click.
 	 */
-	public void showCupPopup(Cup cup) {
+	void showCupPopup(Cup cup) {
 		view.show(new CupPopup(cup));
 	}
 	
-	public void showBattlePopup() {
+	void showBattlePopup() {
 		view.show(KNTAppFactory.getBattlePresenter().getView());
 	}
 }

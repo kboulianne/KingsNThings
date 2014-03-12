@@ -32,21 +32,22 @@ public class BoardView extends Canvas {
 	private BoardPresenter presenter;
 
 	// TODO Duplicated in SidePane. Create HexView?
-	static final double HEX_WIDTH = 100.0;
-	static final double HEX_HEIGHT = HEX_WIDTH * 0.8;
-	double[][] hexCenterPoints;
-	static double[][] choosenMapping;
+	private static final double HEX_WIDTH = 100.0;
+	private static final double HEX_HEIGHT = HEX_WIDTH * 0.8;
+	private double[][] hexCenterPoints;
+	private static double[][] choosenMapping;
 	// OK Here this is UI stuff.
-	static final double[][] MAPPING_37_TILES = new double[][]{{4.0, 7.0}, {4.0, 5.0}, {5.0, 6.0}, {5.0, 8.0}, {4.0, 9.0},
+	private static final double[][] MAPPING_37_TILES = new double[][]{{4.0, 7.0}, {4.0, 5.0}, {5.0, 6.0}, {5.0, 8.0}, {4.0, 9.0},
 	{3.0, 8.0}, {3.0, 6.0}, {3.0, 4.0}, {4.0, 3.0}, {5.0, 4.0}, {6.0, 5.0}, {6.0, 7.0}, {6.0, 9.0},
 	{5.0, 10.0}, {4.0, 11.0}, {3.0, 10.0}, {2.0, 9.0}, {2.0, 7.0}, {2.0, 5.0}, {2.0, 3.0}, {3.0, 2.0},
 	{4.0, 1.0}, {5.0, 2.0}, {6.0, 3.0}, {7.0, 4.0}, {7.0, 6.0}, {7.0, 8.0}, {7.0, 10.0}, {6.0, 11.0},
 	{5.0, 12.0}, {4.0, 13.0}, {3.0, 12.0}, {2.0, 11.0}, {1.0, 10.0}, {1.0, 8.0}, {1.0, 6.0}, {1.0, 4.0}
 	};
-	static final double[][] MAPPING_19_TILES = new double[][]{{3.0, 5.0}, {3.0, 3.0}, {4.0, 4.0},
-	{4.0, 6.0}, {3.0, 7.0}, {2.0, 6.0}, {2.0, 4.0}, {2.0, 2.0}, {3.0, 1.0}, {4.0, 2.0}, {5.0, 3.0},
-	{5.0, 5.0}, {5.0, 7.0}, {4.0, 8.0}, {3.0, 9.0}, {2.0, 8.0}, {1.0, 7.0}, {1.0, 5.0}, {1.0, 3.0}
-	};
+// TODO ADD 19 tile game
+// 	static final double[][] MAPPING_19_TILES = new double[][]{{3.0, 5.0}, {3.0, 3.0}, {4.0, 4.0},
+// 	{4.0, 6.0}, {3.0, 7.0}, {2.0, 6.0}, {2.0, 4.0}, {2.0, 2.0}, {3.0, 1.0}, {4.0, 2.0}, {5.0, 3.0},
+// 	{5.0, 5.0}, {5.0, 7.0}, {4.0, 8.0}, {3.0, 9.0}, {2.0, 8.0}, {1.0, 7.0}, {1.0, 5.0}, {1.0, 3.0}
+// 	};
 
 	public BoardView() {
 		// FIXME Hardcoded stuff. is it needed?
@@ -67,7 +68,7 @@ public class BoardView extends Canvas {
 		this.presenter = presenter;
 	}
 
-	protected void buildView() {
+	private void buildView() {
 		setId("playingArea");
 		//getStyleClass().add("border");
 		paintBackgroundImage();

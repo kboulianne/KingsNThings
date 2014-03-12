@@ -2,9 +2,9 @@ package com.model;
 
 import javafx.scene.paint.Color;
 
-public class DesertCreature extends Creature	{
+class DesertCreature extends Creature	{
 
-	public DesertCreature(String name) {
+	DesertCreature(String name) {
 		super(name);
 		setDomain("Desert");
 		setColor(Color.KHAKI);

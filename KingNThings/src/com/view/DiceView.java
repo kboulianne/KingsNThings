@@ -44,7 +44,7 @@ public class DiceView extends HBox {
 		this.presenter = presenter;
 	}
 
-	protected void buildView() {
+	private void buildView() {
 		// View initializations
 		setId("topRBox");
 

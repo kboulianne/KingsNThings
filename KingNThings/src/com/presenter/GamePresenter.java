@@ -65,14 +65,14 @@ public class GamePresenter {
 	/**
 	 * Refreshes the view so that it displays current game state.
 	 */
-	public void updateView() {
+	void updateView() {
 		view.setGame(GameService.getInstance().getGame());
 	}
 	
 	/**
 	 * Shows the contents of the cup as a popup.
 	 */
-	public void showCup() {
+	void showCup() {
 
 		// Get the cup content
 		Game game = GameService.getInstance().getGame();
@@ -94,14 +94,14 @@ public class GamePresenter {
 	 * Shows player information when the mouse is hovered over a player name.
 	 * @param p 
 	 */
-	public void showPlayerInfoPopup(Player p) {
+	void showPlayerInfoPopup(Player p) {
 		KNTAppFactory.getPopupPresenter().showPlayerPopup(p);
 	}
 
 	/**
 	 * Dismisses the popup currently displayed by the PopupPresenter.
 	 */
-	public void dismissPopup() {
+	void dismissPopup() {
 		KNTAppFactory.getPopupPresenter().dismissPopup();
 	}
 

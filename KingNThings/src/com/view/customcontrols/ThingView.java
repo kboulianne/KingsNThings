@@ -2,6 +2,7 @@ package com.view.customcontrols;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Battle;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
@@ -24,7 +25,7 @@ public class ThingView extends StackPane{
 	private Thing thing;
 	private Rectangle selectRect;
 	private Rectangle coloredRect;
-	ImageView img;
+	private ImageView img;
 	
 	public ThingView(int frameSize, Thing t){
 		size=frameSize;
@@ -32,7 +33,7 @@ public class ThingView extends StackPane{
 		buildComponent();
 	}
 
-	protected void buildComponent() {
+	private void buildComponent() {
 		Rectangle borderRect = new Rectangle();
 		borderRect.setX(0);
 		borderRect.setY(0);
@@ -83,7 +84,7 @@ public class ThingView extends StackPane{
 		getChildren().addAll(borderRect, coloredRect, img, selectRect);
 	}
 	
-	public void refreshView(){
+	private void refreshView(){
 		Image im = null;
 		if(thing.isFacedDown()){
 			coloredRect.setFill(Color.BLACK);
@@ -102,7 +103,7 @@ public class ThingView extends StackPane{
 		//this.
 	}
 	
-	public void setDefaultHandler(){
+	void setDefaultHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
@@ -119,7 +120,7 @@ public class ThingView extends StackPane{
 		});
 	}
 	
-	public void setRecruitingThingsHandler()	{
+	void setRecruitingThingsHandler()	{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>()	{
 			public void handle(MouseEvent m)	{
 				if(thing.getHexLocation() == -1)	thing.setSelected(!thing.isSelected());
@@ -133,7 +134,7 @@ public class ThingView extends StackPane{
 		});
 	}
 	
-	public void setMovementHandler(){
+	void setMovementHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
@@ -154,7 +155,7 @@ public class ThingView extends StackPane{
 		});
 	}
 	
-	public void setDoNothingHandler(){
+	void setDoNothingHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {			
@@ -164,7 +165,7 @@ public class ThingView extends StackPane{
 		});
 	}
 	
-	
+	/*
 	public void setRackHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -172,9 +173,9 @@ public class ThingView extends StackPane{
 				KNTAppFactory.getPlayerInfoPresenter().handleRackClick(thing);
 			}
 		});
-	}
+	}*/
 
-	public void setExchangeThingHandler() {
+	void setExchangeThingHandler() {
 		
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
@@ -210,6 +211,30 @@ public class ThingView extends StackPane{
 		});
 	}
 
+	public void setApplyHitsForBattleHandler() {
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {
+				
+				Battle battle = KNTAppFactory.getBattlePresenter().getView().getBattle();
+				if(battle.getBattlePhase() == Battle.BattlePhase.APPLYMAJHITS ||
+						battle.getBattlePhase() == Battle.BattlePhase.APPLYMELHITS ||
+						battle.getBattlePhase() == Battle.BattlePhase.APPLYRANHITS ){
+					
+					if(KNTAppFactory.getBattlePresenter().isDefender()){
+						Util.log("apply hits defender");
+					}else{
+						Util.log("apply hits offender");
+					}
+
+				}else{
+					Util.log("cannot apply hits");
+				}
+			}
+		});
+	}
+	
+	
 	public void setSendSpecialCharacterBackToCupHandler() {
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override

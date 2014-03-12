@@ -17,9 +17,9 @@ import com.presenter.Util;
  *
  * @author kurtis
  */
-public class RandomEventPhase extends AbstractPhaseStrategy {
+class RandomEventPhase extends AbstractPhaseStrategy {
 
-	public RandomEventPhase(GamePlay context) {
+	RandomEventPhase(GamePlay context) {
 		super(context);
 	}
 

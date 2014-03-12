@@ -384,7 +384,7 @@ public class BoardPresenter {
 		movingArmy = true;
 	}
 
-	protected void calculateMovementWeight(int hexId, int availableMovesForSelectedThing, ArrayList<Integer> calculated) {
+	private void calculateMovementWeight(int hexId, int availableMovesForSelectedThing, ArrayList<Integer> calculated) {
 		Hex hex = svc.getGame().getBoard().getHexes().get(hexId);
 
 		ArrayList<Integer> checkedList = new ArrayList<>();

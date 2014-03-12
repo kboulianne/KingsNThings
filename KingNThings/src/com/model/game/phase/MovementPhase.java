@@ -17,9 +17,9 @@ import com.presenter.Util;
  *
  * @author kurtis
  */
-public class MovementPhase extends AbstractPhaseStrategy {
+class MovementPhase extends AbstractPhaseStrategy {
 
-	public MovementPhase(GamePlay context) {
+	MovementPhase(GamePlay context) {
 		super(context);
 	}
 

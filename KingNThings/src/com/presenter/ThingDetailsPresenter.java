@@ -33,7 +33,7 @@ public class ThingDetailsPresenter {
 	 * @param t The thing for which the view should be returned.
 	 * @return The ThingDetailsView to to be used for the specified Thing.
 	 */
-	public ThingDetailsView getViewFor(Thing t) {
+	ThingDetailsView getViewFor(Thing t) {
 		//if (t instanceof Creature) {
 			//return cView;
 		//} else {
@@ -48,7 +48,7 @@ public class ThingDetailsPresenter {
 	 * Shows the specified Thing in the Details View of the SidePane.
 	 * @param t  The Thing instance to display.
 	 */
-	public void showThing(Thing t) {
+	void showThing(Thing t) {
 		// Need to swap views according to Thing Type
 		getViewFor(t).setThing(t);
 	}

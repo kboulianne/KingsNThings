@@ -20,9 +20,9 @@ import com.presenter.Util;
  *
  * @author kurtis
  */
-public class ConstructionPhase extends AbstractPhaseStrategy {
+class ConstructionPhase extends AbstractPhaseStrategy {
 
-	public ConstructionPhase(GamePlay context) {
+	ConstructionPhase(GamePlay context) {
 		super(context);
 	}
 

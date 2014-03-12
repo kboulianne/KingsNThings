@@ -21,7 +21,7 @@ public class Rack extends HBox {
 		buildComponent();
 	}
 
-	protected void buildComponent() {
+	private void buildComponent() {
 		setAlignment(Pos.CENTER);
 		getStyleClass().add("block");
 	}

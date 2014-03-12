@@ -15,7 +15,7 @@ import javafx.scene.shape.Circle;
 public class ConnectionScreen {
 
 	private String player1Name;
-	static final String W_STR = "Waiting for Connection...";
+	private static final String W_STR = "Waiting for Connection...";
 
 	public ConnectionScreen(String player) {
 		player1Name = player;

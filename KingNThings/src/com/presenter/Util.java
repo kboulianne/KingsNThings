@@ -11,8 +11,8 @@ import javafx.scene.media.MediaPlayer;
 // misc. global static functions
 public class Util {
 
-	final static boolean DEBUG = true;
-	final public static boolean AUTOMATE = false;
+	private final static boolean DEBUG = true;
+	final public static boolean AUTOMATE = true;
 	
 	public static void log(String message) {
 		if(DEBUG)
@@ -68,18 +68,17 @@ public class Util {
 	
 	
 	// Sounds
-	
-	final static AudioClip clickSound = new AudioClip(Util.class.getResource("click.wav").toString());
+	private final static AudioClip clickSound = new AudioClip(Util.class.getResource("click.wav").toString());
 	public static void playClickSound(){
 		clickSound.play();
 	}
 	
-	final static AudioClip diceRoll = new AudioClip(Util.class.getResource("dice.wav").toString());
-	public static void playDiceRollSound(){
+	private final static AudioClip diceRoll = new AudioClip(Util.class.getResource("dice.wav").toString());
+	static void playDiceRollSound(){
 		diceRoll.play();
 	}
 	
-	final static Media audioFile = new Media( Util.class.getResource("greensleeves.mp3").toString() );    
+	private final static Media audioFile = new Media( Util.class.getResource("greensleeves.mp3").toString() );    
 	final static MediaPlayer player = new MediaPlayer(audioFile);
 	public static void playMusic(){
 		new Thread(new Runnable() {

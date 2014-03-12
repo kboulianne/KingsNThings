@@ -15,7 +15,7 @@ import com.model.HexSwamp;
 
 public class HexFactory {
 
-	public Hex createHex(int id, Hex.HexType type) {
+	Hex createHex(int id, Hex.HexType type) {
 
 		Hex hex = null;
 		switch (type) {

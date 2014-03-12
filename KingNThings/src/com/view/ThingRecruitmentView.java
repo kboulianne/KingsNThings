@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ThingRecruitmentView extends VBox {
+class ThingRecruitmentView extends VBox {
 	
 	private int paidRecValue = 0;
 	
@@ -14,7 +14,7 @@ public class ThingRecruitmentView extends VBox {
 	private Button buyRecBut;
 	private Button placeRecBut;
 	
-	public ThingRecruitmentView(int freeR, int paidR)	{
+	ThingRecruitmentView(int freeR, int paidR)	{
 		super();
 		paidRecValue = paidR;
 		
@@ -54,7 +54,7 @@ public class ThingRecruitmentView extends VBox {
 	public Label getPaidRecruitsLabel()	{	return paidRec;			}
 	public Button getBuyRecruitsButton()	{	return buyRecBut;	}
 	public Button getPlaceRecruitsButton()	{	return placeRecBut;	}
-	public void increasePaidRecruits()	{
+	void increasePaidRecruits()	{
 		paidRecValue++;
 		paidRec.setText("" + paidRecValue);
 	}

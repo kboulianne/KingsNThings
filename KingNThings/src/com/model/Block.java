@@ -7,18 +7,17 @@ import com.game.services.GameService;
 
 public class Block extends GamePiece {
 	
-	// FIXME should this be called rack
 	// Note each player has two racks of capicity 10 items
-	int capacity;
+	//int capacity;
 	
 	private final ArrayList<Thing> listOfThings;
 	
 	public Block()	{
 		listOfThings = new ArrayList<>();
-		capacity = 20; // block represents two racks???
+		//capacity = 20; // block represents two racks???
 	}
 	
-	public boolean addThing(Thing thing, String owner){	
+	boolean addThing(Thing thing, String owner){	
 		// cannot add special characters, gold counters and forts
 		
 		/*if(thing instanceof SpecialCharacter ||
@@ -41,7 +40,7 @@ public class Block extends GamePiece {
 		return listOfThings;
 	}
 	
-	public void trimBlock()	{
+	void trimBlock()	{
 		int index = 0;
 		Random r = new Random();
 		Cup cup = GameService.getInstance().getGame().getCup();

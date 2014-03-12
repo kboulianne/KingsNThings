@@ -112,7 +112,6 @@ public class Player 	{
 
 	// remove special characters from block or Hexes
 	public SpecialCharacter removeSpecialCharacter(SpecialCharacter sC) {
-		// TODO Auto-generated method stub
 		ArrayList<Thing> blockChars = block.getListOfThings();
 		for(Thing t: blockChars){
 			if (sC.equals(t)){

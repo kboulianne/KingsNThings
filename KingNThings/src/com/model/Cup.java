@@ -33,14 +33,6 @@ public class Cup extends GamePiece {
 		return t;
 	}
 	
-	public Thing getThing(String name){
-		for(Thing t: listOfThings){
-			if (t.getName().equals(name))
-				return t;
-		}	
-		return null;
-	}
-	
 	public void addThing(Thing t)	{
 		t.setOwner("Cup");
 		t.setSelected(true);

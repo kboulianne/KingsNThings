@@ -12,9 +12,9 @@ import com.presenter.Util;
  *
  * @author kurtis
  */
-public class ChangePlayOrderPhase extends AbstractPhaseStrategy{
+class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 
-	public ChangePlayOrderPhase(GamePlay context) {
+	ChangePlayOrderPhase(GamePlay context) {
 		super(context);
 	}
 
@@ -37,7 +37,7 @@ public class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 	@Override
 	public void phaseEnd() {
 		// Rotate the player order and display
-//		game.rotatePlayerOrder();
+		game.rotatePlayerOrder();
 		KNTAppFactory.getGamePresenter().getView().setGame(game);
 		Util.log("Changed Player Order.");
 	}
