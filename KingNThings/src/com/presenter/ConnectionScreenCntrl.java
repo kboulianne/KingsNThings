@@ -56,33 +56,34 @@ public class ConnectionScreenCntrl {
 		}
 	}
 
-	public void removePlayer(int playerId) { // player id {1 2 3 4}
-		setNumOfConnectedPlayers(getNumOfConnectedPlayers() - 1);
-		final String W_STR = "Waiting for Connection...";
-		if (playerId == 1) {
-			player1.setText(W_STR);
-			player1.getStyleClass().removeAll("playername");
-			player1.getStyleClass().add("disabled");
-			circle1.setFill(Paint.valueOf("999999"));
-		} else if (playerId == 2) {
-			player2.setText(W_STR);
-			player2.getStyleClass().removeAll("playername");
-			player2.getStyleClass().add("disabled");
-			circle2.setFill(Paint.valueOf("999999"));
-			addBeginButtonListener();
-		} else if (playerId == 3) {
-			player3.setText(W_STR);
-			player3.getStyleClass().removeAll("playername");
-			player3.getStyleClass().add("disabled");
-			circle3.setFill(Paint.valueOf("999999"));
-		} else if (playerId == 4) {
-			player4.setText(W_STR);
-			player4.getStyleClass().removeAll("playername");
-			player4.getStyleClass().add("disabled");
-			circle4.setFill(Paint.valueOf("999999"));
-		}
-
-	}
+// TODO Remove unused code found by UCDetector
+// 	public void removePlayer(int playerId) { // player id {1 2 3 4}
+// 		setNumOfConnectedPlayers(getNumOfConnectedPlayers() - 1);
+// 		final String W_STR = "Waiting for Connection...";
+// 		if (playerId == 1) {
+// 			player1.setText(W_STR);
+// 			player1.getStyleClass().removeAll("playername");
+// 			player1.getStyleClass().add("disabled");
+// 			circle1.setFill(Paint.valueOf("999999"));
+// 		} else if (playerId == 2) {
+// 			player2.setText(W_STR);
+// 			player2.getStyleClass().removeAll("playername");
+// 			player2.getStyleClass().add("disabled");
+// 			circle2.setFill(Paint.valueOf("999999"));
+// 			addBeginButtonListener();
+// 		} else if (playerId == 3) {
+// 			player3.setText(W_STR);
+// 			player3.getStyleClass().removeAll("playername");
+// 			player3.getStyleClass().add("disabled");
+// 			circle3.setFill(Paint.valueOf("999999"));
+// 		} else if (playerId == 4) {
+// 			player4.setText(W_STR);
+// 			player4.getStyleClass().removeAll("playername");
+// 			player4.getStyleClass().add("disabled");
+// 			circle4.setFill(Paint.valueOf("999999"));
+// 		}
+// 
+// 	}
 
 	private void addBeginButtonListener() {
 		beginButton.setOnAction(new EventHandler<ActionEvent>() {

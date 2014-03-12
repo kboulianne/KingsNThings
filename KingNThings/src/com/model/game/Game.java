@@ -8,7 +8,6 @@ import java.util.Random;
 
 import javafx.scene.image.Image;
 
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Board;
 import com.model.Creature;
@@ -342,13 +341,14 @@ public final class Game {
 	}
 
 	// Behaviour Methods ===============================================================================================
-	/**
-	 * Rolls the dice and notifies the server.
-	 */
-	public void rollDice() {
-		die1.roll();
-		die2.roll();
-	}
+// TODO Remove unused code found by UCDetector
+// 	/**
+// 	 * Rolls the dice and notifies the server.
+// 	 */
+// 	public void rollDice() {
+// 		die1.roll();
+// 		die2.roll();
+// 	}
 
 	public final void nextPlayer() {
 		// Get next in iterator
@@ -368,9 +368,10 @@ public final class Game {
 		return !nextPlayerIt.hasNext();
 	}
 	
-	public boolean hasNextPlayer(){
-		return nextPlayerIt.hasNext();
-	}
+// TODO Remove unused code found by UCDetector
+// 	public boolean hasNextPlayer(){
+// 		return nextPlayerIt.hasNext();
+// 	}
 
 	public final List<Player> getOpponentsForCurrent() {
 		List<Player> opponents = new ArrayList<>(playerOrder);
@@ -413,12 +414,13 @@ public final class Game {
 	}
 
 
-	public void clearLastSelectedThingsOfCurrentPlayerBlock() {
-		List<Thing> blockList = GameService.getInstance().getGame().getCurrentPlayer().getBlock().getListOfThings();
-		for(Thing t: blockList){
-			t.setSelected(false);
-		}
-	}
+// TODO Remove unused code found by UCDetector
+// 	public void clearLastSelectedThingsOfCurrentPlayerBlock() {
+// 		List<Thing> blockList = GameService.getInstance().getGame().getCurrentPlayer().getBlock().getListOfThings();
+// 		for(Thing t: blockList){
+// 			t.setSelected(false);
+// 		}
+// 	}
 
 	public ArrayList<Thing> getLastSelectedThingsOfCurrentPlayerBlock() {
 		ArrayList<Thing> list = new ArrayList<Thing>();

@@ -2,9 +2,6 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import com.model.game.Game;
 
 public class GameRoom {
 	/** The name of this game room. */

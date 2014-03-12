@@ -10,7 +10,6 @@ import com.model.Creature;
 import com.model.Hex;
 import com.model.IncomeCounter;
 import com.model.Player;
-import com.model.SpecialCharacter;
 import com.model.Thing;
 
 import java.util.List;

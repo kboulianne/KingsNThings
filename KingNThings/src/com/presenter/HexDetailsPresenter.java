@@ -1,8 +1,6 @@
 package com.presenter;
 
-import com.main.KNTAppFactory;
 import com.model.Hex;
-import com.model.Thing;
 import com.view.HexDetailsView;
 
 /**

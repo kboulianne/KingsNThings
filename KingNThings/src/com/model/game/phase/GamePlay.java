@@ -170,7 +170,7 @@ public final class GamePlay {
 	/**
 	 * Exectues turnStart logic for the current player.
 	 */
-	public final void startTurn() {
+	private final void startTurn() {
 		//Game game = GameService.getInstance().getGame();
 
 		// Execute logic then go to startTurn player / phase
@@ -193,7 +193,7 @@ public final class GamePlay {
 //				|| phaseLogic instanceof MovementPhase
 //				|| phaseLogic instanceof ConstructionPhase
 ///				|| phaseLogic instanceof SpecialPowersPhase
-//				|| phaseLogic instanceof ChangePlayOrderPhase
+				|| phaseLogic instanceof ChangePlayOrderPhase
 				)
 			endTurn();
 	}
