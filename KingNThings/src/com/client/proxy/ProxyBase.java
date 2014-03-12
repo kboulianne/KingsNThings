@@ -64,7 +64,13 @@ public abstract class ProxyBase {
 			List<Object> posParams = new LinkedList<>();
 			
 			for (Object o : params) {
-				posParams.add(GSON.toJson(o));
+				// Do not serialize string
+				if (o instanceof String) {
+					posParams.add(o);
+				}
+				else {
+					posParams.add(GSON.toJson(o));
+				}
 			}
 			
 			req.setPositionalParams(posParams);

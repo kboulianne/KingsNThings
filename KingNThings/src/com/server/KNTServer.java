@@ -22,6 +22,7 @@ public class KNTServer {
 	// Track game instances here.
 	static final Map<String, Game> GAMES;
 	
+	// TODO Need to handle client disconnections and thread pool cleanup
 	static {
 		THREAD_POOL = Executors.newFixedThreadPool(100);
 		ServerSocket server = null;
@@ -51,12 +52,14 @@ public class KNTServer {
 		while (true) {
 			Socket playerSocket = SERVER.accept();
 			
-			System.out.print("Client connected: " + playerSocket.getInetAddress().getHostAddress());
+			System.out.println("Client connected: " + playerSocket.getInetAddress().getHostAddress());
 			
 			PlayerRunnable playerThread = new PlayerRunnable(playerSocket);
 			THREAD_POOL.execute(playerThread);
 		}
 	}
+	
+	//TODO: KNTServer#shutdown()
 	
 	public static void main(String[] args) throws IOException {
 		KNTServer server = new KNTServer();

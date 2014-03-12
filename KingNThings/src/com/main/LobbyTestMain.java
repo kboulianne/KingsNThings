@@ -1,5 +1,6 @@
 package com.main;
 
+import com.client.KNTClient;
 import com.presenter.GamePresenter;
 import com.presenter.LobbyPresenter;
 

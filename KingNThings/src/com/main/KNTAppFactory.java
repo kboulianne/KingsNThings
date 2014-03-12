@@ -1,5 +1,6 @@
 package com.main;
 
+import com.client.KNTClient;
 import com.model.Die;
 import com.presenter.ArmyDetailsPresenter;
 import com.presenter.BattlePresenter;
@@ -46,8 +47,13 @@ public class KNTAppFactory {
 	private static final BattlePresenter battlePresenter;
 	private static final SpecialCharacterPresenter specialCharacterPresenter; 
 
+	// One per application? Maybe two in the future, one for Notifications and one For requests
+    private static final KNTClient CLIENT; 
+	
 	static {
-		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
+    		CLIENT = new KNTClient("localhost", 6868);
+		
+    		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
 		lobbyPresenter = createLobbyPresenter();
 		gamePresenter = createMainPresenter();
 		dicePresenter = createDicePresenter();
@@ -69,7 +75,7 @@ public class KNTAppFactory {
 
 	private static LobbyPresenter createLobbyPresenter() {
 		LobbyView view = new LobbyView();
-		LobbyPresenter presenter = new LobbyPresenter(view);
+		LobbyPresenter presenter = new LobbyPresenter(view, CLIENT.getGameRoomService());
 		
 		return presenter;
 	}
@@ -205,5 +211,4 @@ public class KNTAppFactory {
 	public static SpecialCharacterPresenter getSpecialCharacterPresenter() {
 		return specialCharacterPresenter;
 	}
-
 }

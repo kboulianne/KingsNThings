@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.server.KNTServer.GameHandler;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
@@ -21,11 +23,13 @@ public class PlayerRunnable implements Runnable {
 	// Dispatcher which delegates processing to handlers
 	private static final Dispatcher DISPATCHER;
 	
+	private static final Logger LOGGER = Logger.getLogger(PlayerRunnable.class.getName()); 
+	
 	static {
 		DISPATCHER = new Dispatcher();
 		
 		DISPATCHER.register(new GameRoomHandler());
-		DISPATCHER.register(new GameHandler());
+//		DISPATCHER.register(new GameHandler());
 	}
 	
 	public PlayerRunnable(Socket player) {
@@ -50,11 +54,16 @@ public class PlayerRunnable implements Runnable {
 				
 				// Happens when socket is closed, unexpected or otherwise.
 				if (jsonRpc == null) break;
+				// Log the request
+				LOGGER.info(jsonRpc);
 				
 				// Parse the request and have dispatcher call the required handler for the method name.
 				JSONRPC2Request req = JSONRPC2Request.parse(jsonRpc);
+				
+				String res = DISPATCHER.process(req, null).toJSONString();
+				LOGGER.info(res);
 				// Send the response.
-				writer.println(DISPATCHER.process(req, null).toJSONString());
+				writer.println(res);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

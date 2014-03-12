@@ -11,12 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBuilder;
 import javafx.scene.control.Label;
 import javafx.scene.control.LabelBuilder;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ListViewBuilder;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderPaneBuilder;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.FlowPaneBuilder;
+import javafx.util.Callback;
 
 public class LobbyView extends BorderPane {
 
@@ -29,6 +31,8 @@ public class LobbyView extends BorderPane {
 		buildView();
 	}
 	
+	
+	@SuppressWarnings("unchecked")
 	protected void buildView() {
 		// Top
 		refreshBtn = ButtonBuilder.create()
@@ -51,8 +55,14 @@ public class LobbyView extends BorderPane {
 		ListViewBuilder<GameRoom, ? extends ListViewBuilder> builder =
 				ListViewBuilder.create();
 		gameRoomList = builder
+			.cellFactory(new Callback<ListView<GameRoom>, ListCell<GameRoom>>() {
+				@Override
+				public ListCell<GameRoom> call(ListView<GameRoom> param) {
+					return new GameRoomListCell();
+				}
+			})
 		.build();
-		
+
 		// Bottom
 		hostBtn = ButtonBuilder.create()
 				.text("Host")
@@ -73,6 +83,10 @@ public class LobbyView extends BorderPane {
 		setTop(topPane);
 		setCenter(gameRoomList);
 		setBottom(bottomPane);
+	}
+	
+	public final ListView<GameRoom> getGameRoomsList() {
+		return gameRoomList;
 	}
 	
 	// Handlers
@@ -96,4 +110,21 @@ public class LobbyView extends BorderPane {
 			KNTAppFactory.getLobbyPresenter().handleJoinEvent();
 		}
 	};
+	
+	private static final class GameRoomListCell extends ListCell<GameRoom> {
+		@Override
+		protected void updateItem(GameRoom item, boolean empty) {
+			super.updateItem(item, empty);
+			
+			if (empty) {
+				setText(null);
+				setGraphic(null);
+			}
+			else {
+				// TODO: Add more info here. i.e. Number of players etc.
+				setText(item.getName());
+				setGraphic(null);
+			}
+		}
+	}
 }
