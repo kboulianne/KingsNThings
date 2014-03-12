@@ -22,27 +22,24 @@ import javafx.scene.layout.VBox;
  */
 public class CupPopup extends VBox {
     
-  //  private EventHandler<ThingEvent> thingHandler;
-	    // Might not be the best way but works.
-	public CupPopup(Cup cup){//, EventHandler<ThingEvent> event) {
-		//this.thingHandler = event;
+	public CupPopup(Cup cup){
 		buildPopup(cup);
     }
     
     private void buildPopup(Cup cup) {
 		
+    	int wrapLength = 1160;
+    	int thingSize =45;
     	Label thingLbl = new Label("Things: "+cup.getListOfThings().size()+" items");
-    	//thingLbl.setPadding(new Insets(10, 0, 0, 0));
     	
     	FlowPane thingFP = new FlowPane();
     	thingFP.setVgap(3);
     	thingFP.setHgap(3);
-    	thingFP.setPrefWrapLength(1160);
+    	thingFP.setPrefWrapLength(wrapLength);
 		
 		for (Thing t : cup.getListOfThings()) {
-			ThingView tv =new ThingView(55, t);
+			ThingView tv =new ThingView(thingSize, t);
 			thingFP.getChildren().add(tv);
-			tv.setCupHandler();
 		}
 		
 		int total = 0;
@@ -56,12 +53,11 @@ public class CupPopup extends VBox {
 		FlowPane icFP = new FlowPane();
     	icFP.setVgap(3);
     	icFP.setHgap(3);
-    	icFP.setPrefWrapLength(1160);
+    	icFP.setPrefWrapLength(wrapLength);
 		for (Thing t : cup.getListOfThings()) {
 			if(t instanceof IncomeCounter)	{
-				ThingView tv = new ThingView(55, t);
+				ThingView tv = new ThingView(thingSize, t);
 				icFP.getChildren().add(tv);
-				tv.setCupHandler();
 			}
 		}
 		
@@ -69,11 +65,11 @@ public class CupPopup extends VBox {
 		FlowPane scFP = new FlowPane();
     	scFP.setVgap(3);
     	scFP.setHgap(3);
-    	scFP.setPrefWrapLength(1160);
+    	scFP.setPrefWrapLength(wrapLength);
 		for (SpecialCharacter sc : cup.getListOfSpecialCharacters()) {
-			ThingView tv =new ThingView(55, sc);
+			ThingView tv =new ThingView(thingSize, sc);
 			scFP.getChildren().add(tv);
-			tv.setCupHandler();
+
 		}
 		
 		getStyleClass().add("block");

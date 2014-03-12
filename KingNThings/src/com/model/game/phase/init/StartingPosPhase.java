@@ -21,7 +21,6 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 	
 	Button finishBtn;
 	
-	
 	public StartingPosPhase(GamePlay context) {
 		super(context);
 	}
@@ -33,13 +32,10 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		gv.getCurrentActionLbl().setText("Choose Starting Position");
 		
 		finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
-		KNTAppFactory.getDicePresenter().getView().getRollBtn().setVisible(false);
+		finishBtn.setVisible(false);KNTAppFactory.getDicePresenter().getView().getRollBtn().setVisible(false);
+		
 		KNTAppFactory.getDicePresenter().getView().getDie1().setVisible(false);
 		KNTAppFactory.getDicePresenter().getView().getDie2().setVisible(false);		
-		finishBtn.setVisible(false);
-		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
-		
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Choose a starting position", Game.START_HEX_IMAGE);
 	}
 
 	@Override
@@ -55,11 +51,13 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
 		super.turnStart();
 
-		// Hardcoded for iteration 1
-		
+		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
+		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Choose a starting position", Game.START_HEX_IMAGE);
+		game.getBoard().setFaceDown(true);
+		KNTAppFactory.getBoardPresenter().getView().setBoard(game.getBoard());
+				
 		if(Util.AUTOMATE){
 			Util.log("Automated");
 			if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE))

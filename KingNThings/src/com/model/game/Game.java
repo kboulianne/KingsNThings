@@ -15,14 +15,7 @@ import com.model.Creature;
 import com.model.Cup;
 import com.model.Die;
 import com.model.Hex;
-import com.model.HexDesert;
-import com.model.HexForest;
-import com.model.HexFrozenWaste;
-import com.model.HexJungle;
-import com.model.HexMountain;
-import com.model.HexPlains;
 import com.model.HexSea;
-import com.model.HexSwamp;
 import com.model.Player;
 import com.model.Thing;
 import com.presenter.HexFactory;
@@ -35,7 +28,6 @@ import com.presenter.Util;
  */
 public final class Game {
 
-	//TODO: Remove this and just access directly from player order?
 	private Player opponent1;
 	private Player opponent2;
 	private Player opponent3;
@@ -99,7 +91,7 @@ public final class Game {
 		
 		// added for iteration 1 hard-coded
 		
-		board.addHex(new HexSea(0));
+		/*board.addHex(new HexSea(0));
 		board.addHex(new HexSea(1));
 		board.addHex(new HexSea(2));
 		board.addHex(new HexSea(3));
@@ -141,13 +133,13 @@ public final class Game {
 		    board.getHexes().get(i).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
 		}
 		
-
+*/
 		
 		//Removed for iteration 1
 		HexFactory hexFactory = new HexFactory();
 
 		hexPool = hexFactory.createHexPool(Board.NumberOfHexes.THIRTY_SEVEN);
-/*
+
 		// Choose Hexes at random from the pool and add to the board.
 		int rand = 0;
 		Random rnd = new Random();
@@ -158,21 +150,12 @@ public final class Game {
 		    board.addHex(hexPool.get(rand));
 		    hexPool.get(rand).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
 		    hexPool.remove(rand);
-		}*/
+		}
 
 		//Cup created with all things required for gameplay
 		cup.setListOfThings(Util.getRandomList(Thing.createThings()));
 	}
 
-    public Game(Player host, List<Player> players) {
-	    	this();
-	    	
-	    	currentPlayer = host;
-	    	opponent1 = players.get(0);
-	    	opponent2 = players.get(1);
-	    	opponent3 = players.get(2);
-    }
-    
 	// Getters and Setters =============================================================================================
 	/**
 	 * Gets the player owning this Game instance. (Player "playing" this game)

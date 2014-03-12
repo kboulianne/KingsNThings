@@ -51,8 +51,8 @@ public class PopupPresenter {
 	 * @param title The popup title
 	 * @param event The EventHandler linked to the tile click.
 	 */
-	public void showCupPopup(Cup cup, String title) {
-		view.show(new CupPopup(cup), title);
+	public void showCupPopup(Cup cup) {
+		view.show(new CupPopup(cup));
 	}
 	
 	public void showBattlePopup() {

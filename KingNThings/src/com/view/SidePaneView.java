@@ -12,8 +12,9 @@ import java.util.SortedMap;
 import com.view.customcontrols.PlayerLabel;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.Creature;
 import com.model.Cup;
+import com.model.Fort;
+import com.model.Hex;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
@@ -27,6 +28,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -225,6 +227,79 @@ public class SidePaneView extends VBox {
 		content.getChildren().add(view);
 	}
 	
+	public void showBuildMenu(final Hex h)	{
+		final Player player = GameService.getInstance().getGame().getCurrentPlayer();
+		
+		Label title = new Label("Build Options:");
+		title.getStyleClass().add("title");
+		
+		Button build = new Button("Build Fort (5 gold)");
+		Button upgrade = new Button("Upgrade Fort (5 gold)");
+		
+		Label counters = new Label("To upgrade to a citadel you must \n have a gold income of 20 or more");
+		VBox cont = new VBox();
+		
+		cont.setAlignment(Pos.CENTER);
+		cont.getStyleClass().add("largeSpacing");
+		cont.getChildren().addAll(build, upgrade, counters);
+
+		VBox vbox = new VBox();
+		vbox.getStyleClass().add("largeSpacing");
+		vbox.setAlignment(Pos.CENTER);
+		vbox.getChildren().addAll(title, cont);
+		vbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
+		
+		if((h.getFort() != null) && h.getFort().upgraded())	{
+			upgrade.setDisable(true);
+			build.setDisable(true);
+		}
+		
+		if(h.getFort()!= null && h.getFort().getFortType() == Fort.FortType.CITADEL)	{
+			upgrade.setDisable(true);
+			build.setDisable(true);
+		}
+		
+		if(h.getFort() == null || h.getHexOwner().getGold() < 5)	{
+			upgrade.setDisable(true);
+		}
+		
+		if(h.getFort() != null || h.getHexOwner().getGold() < 5)	{
+			build.setDisable(true);
+		}
+		
+		if(h.getFort() != null && h.getFort().getFortType() == Fort.FortType.CASTLE && 
+				player.calculateIncome() < 20)	{
+			upgrade.setDisable(true);
+		}
+		
+		
+		
+		upgrade.setOnAction(new EventHandler<ActionEvent>()	{
+			public void handle(ActionEvent e)	{
+				h.upgradeFort();
+				h.getHexOwner().removeGold(5);
+				h.getFort().setUpgraded(true);
+				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+				KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
+				showBuildMenu(h);
+			}
+		});
+		
+		build.setOnAction(new EventHandler<ActionEvent>()	{
+			public void handle(ActionEvent e)	{
+				h.setFort(Fort.create());
+				h.getHexOwner().removeGold(5);
+				h.getFort().setUpgraded(true);
+				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+				KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
+				showBuildMenu(h);
+			}
+		});
+		
+		content.getChildren().clear();
+		content.getChildren().add(vbox);
+	}	
+	
 	public void showRolls(SortedMap<Integer, Player> rolls){
 		Iterator<Integer> it = rolls.keySet().iterator();
 		if(it.hasNext()){
@@ -248,6 +323,8 @@ public class SidePaneView extends VBox {
 			content.getChildren().add(display);
 		}
 	}
+	
+
 	
 	public void showArbitraryView(String title, Image img){
 		VBox display = new VBox();

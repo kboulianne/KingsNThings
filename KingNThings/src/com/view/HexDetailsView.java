@@ -40,7 +40,6 @@ public class HexDetailsView extends StackPane {
 	private ArmyOrMisc opp3Army;
 	private ArmyOrMisc currentPlayerArmy;
 	
-    private ArmyOrMisc specChars;
 
 	public HexDetailsView() {
 		buildView();
@@ -87,9 +86,8 @@ public class HexDetailsView extends StackPane {
 		opp2Army = new ArmyOrMisc();
 		opp3Army = new ArmyOrMisc();
 		currentPlayerArmy = new ArmyOrMisc();
-		specChars = new ArmyOrMisc();
 
-		content.getChildren().addAll(contentBox, counter, currentPlayerArmy, opp1Army, opp2Army, opp3Army, specChars);
+		content.getChildren().addAll(contentBox, counter, currentPlayerArmy, opp1Army, opp2Army, opp3Army);
 		getChildren().addAll(hexImage, content);
 		content.setAlignment(Pos.CENTER);
 		content.getStyleClass().add("block");
@@ -140,8 +138,6 @@ public class HexDetailsView extends StackPane {
 		opp2Army.setArmy(hex, opponents.get(1), hex.getArmies(opponents.get(1)));
 		opp3Army.setArmy(hex, opponents.get(2), hex.getArmies(opponents.get(2)));
 		currentPlayerArmy.setArmy(hex, game.getCurrentPlayer(), hex.getArmies(game.getCurrentPlayer()));
-		
-		specChars.setSpecialCharacters(hex, hex.getSpecialCharacters());
 		
 		counter.setIncomeCounter(hex, hex.getCounter());
 	}

@@ -12,7 +12,7 @@ import javafx.scene.media.MediaPlayer;
 public class Util {
 
 	final static boolean DEBUG = true;
-	final public static boolean AUTOMATE = true;
+	final public static boolean AUTOMATE = false;
 	
 	public static void log(String message) {
 		if(DEBUG)
@@ -86,8 +86,8 @@ public class Util {
 			@Override
 			public void run() {
 				
-		        player.play();
-		        player.setCycleCount(MediaPlayer.INDEFINITE);
+		        //player.play();
+		        // player.setCycleCount(MediaPlayer.INDEFINITE);
 			}
 		}).start();
 	}

@@ -49,7 +49,6 @@ public class Hex extends GamePiece {
 	// list of armies for all players
 	// list of misc Things
 	private HashMap<Player, ArrayList<Creature>> armies;
-	private ArrayList<SpecialCharacter> specChars;
 	// Only one fort per tile.
 	private Fort fort;
 	private IncomeCounter counter;
@@ -79,7 +78,6 @@ public class Hex extends GamePiece {
 	    selectable = true; // may have to change for startup
 	    //setJoiningHexes();
 	    armies = new HashMap<>();
-	    specChars = new ArrayList<SpecialCharacter>();
 
 	    setMovementWeight(-1);
 	}
@@ -89,11 +87,18 @@ public class Hex extends GamePiece {
     public final Player getHexOwner() {
     	return hexOwner;
     }
+    
+    public void removeOwner()	{
+    	this.hexOwner = null;
+    	this.color = null;
+    }
+    
     public final void setOwner(final Player player) {
     	this.hexOwner = player;
 		
 		this.color = player.getColor();
     }
+    
     public Color getColor() {
 	    return color;
     }
@@ -155,12 +160,6 @@ public class Hex extends GamePiece {
     public ArrayList<Creature> getArmies(Player p)	{
     	return armies.get(p);
     }  
-    public ArrayList<SpecialCharacter> getSpecialCharacters() {
-		return specChars;
-	}
-	public void setSpecialCharacters(ArrayList<SpecialCharacter> chars) {
-		this.specChars = chars;
-	}
 	public String getTypeAsString() {
 		return typeAsString;
 	}
@@ -192,11 +191,6 @@ public class Hex extends GamePiece {
     	creature.setOwner("Cup");
     }
 
-    public void addItemToHex(SpecialCharacter specChar)	{
-    	specChar.setOwner(hexOwner.getName());
-    	specChars.add(specChar);
-    }
-
 	public boolean isFaceDown() {
 		return faceDown;
 	}
@@ -218,4 +212,8 @@ public class Hex extends GamePiece {
 	
 	public IncomeCounter getCounter()	{	return counter;	}
 	public void setCounter(IncomeCounter counter)	{	this.counter = counter;	}
+
+	public void upgradeFort() {
+		getFort().upgrade();
+	}
 }

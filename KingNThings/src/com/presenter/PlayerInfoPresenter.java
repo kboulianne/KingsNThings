@@ -62,7 +62,7 @@ public class PlayerInfoPresenter {
 	/**
 	 * Dismisses the PlayerInfo Pop up.
 	 */
-	public void dismissCurrentPlayerInfo() {
+	public void dismissPopup() {
 		KNTAppFactory.getGamePresenter().dismissPopup();
 	}
 }

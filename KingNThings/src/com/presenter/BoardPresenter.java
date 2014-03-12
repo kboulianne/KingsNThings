@@ -2,6 +2,7 @@ package com.presenter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
@@ -153,16 +154,108 @@ public class BoardPresenter {
 	public void handleStartPositionSelectedHexClick(int selected) {
 		
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
-		if(hex.getHexOwner() == null){
+		
+		if(hex.getHexOwner() == null)	{
+			if(hex.getType() == Hex.HexType.SEA)	{
+				List<Hex> hexes = svc.getGame().getHexPool();
+				HexFactory fact = new HexFactory();
+				Random rnd = new Random();
+				int rand = 0;
+			
+				while (hex.getType() == Hex.HexType.SEA) {
+				    rand = rnd.nextInt(hexes.size());
+				    
+				    hexes.add(fact.createHex(0, hex.getType()));
+				    hex = hexes.remove(rand);
+				    hex.setId(selected, Board.NumberOfHexes.THIRTY_SEVEN);
+				    svc.getGame().getBoard().replaceHex(hex);
+				    hex.setStartPosition(true);
+				    hex.setFaceDown(true);
+				}
+			}
+			
+			hex = svc.getGame().getBoard().getHexes().get(selected);
 			hex.setOwner(GameService.getInstance().getGame().getCurrentPlayer());
-			// Update the view and end turn
+			GameService.getInstance().getGame().getCurrentPlayer().setStartPos(hex);
+			
 			view.setBoard(svc.getGame().getBoard());
-			GamePlay.getInstance().endTurn();
-		} else {
-			//TODO display msg
+			
+			int count = 0;
+			for(int i=0; i<hex.getJoiningHexes().length; i++)	{
+				if(hex.getJoiningHexes()[i] == -1)	continue;
+				
+				Hex curr = svc.getGame().getBoard().getHexes().get(hex.getJoiningHexes()[i]);
+				if(curr.getType() != Hex.HexType.SEA)	count++;
+				if(count >= 2)	{
+					GamePlay.getInstance().endTurn();
+					break;
+				}
+			}
+			
+			if(count < 2)	{
+				hex.setFaceDown(false);
+				for(int i=0; i<hex.getJoiningHexes().length; i++)	{
+					if(hex.getJoiningHexes()[i] == -1)	continue;
+					
+					svc.getGame().getBoard().getHexes().get(hex.getJoiningHexes()[i]).setFaceDown(false);
+				}
+				
+				view.setBoard(svc.getGame().getBoard());
+				KNTAppFactory.getBoardPresenter().getView().addHexExchangeHandler();
+				KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange neighbouring sea tiles", Game.START_HEX_IMAGE);
+			}
+		}		
+	}
+	
+	public void handleHexExchangeClick(int selected)	{
+		
+		Player currPlayer = GameService.getInstance().getGame().getCurrentPlayer();
+		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
+		boolean neighbour = false;
+		
+		for(int i=0; i<currPlayer.getStartPos().getJoiningHexes().length; i++)	{
+			if(currPlayer.getStartPos().getJoiningHexes()[i] == -1)	continue;
+			
+			Hex curr = svc.getGame().getBoard().getHexes().get(currPlayer.getStartPos().getJoiningHexes()[i]);
+			if(curr == hex)	{
+				neighbour = true;
+				break;
+			}
 		}
 		
+		if(!neighbour)	return;
 		
+		if(hex.getType() == Hex.HexType.SEA)	{
+			List<Hex> hexes = svc.getGame().getHexPool();
+			HexFactory fact = new HexFactory();
+			Random rnd = new Random();
+			int rand = 0;			
+		
+			while (hex.getType() == Hex.HexType.SEA) {
+			    rand = rnd.nextInt(hexes.size());
+			   
+			    hexes.add(fact.createHex(0, hex.getType()));
+			    hex = hexes.remove(rand);
+			    hex.setId(selected, Board.NumberOfHexes.THIRTY_SEVEN);
+			    svc.getGame().getBoard().replaceHex(hex);
+			}
+		}
+		
+		view.setBoard(svc.getGame().getBoard());
+		
+		int count = 0;
+		Hex startPos = currPlayer.getStartPos();
+		
+		for(int i=0; i<startPos.getJoiningHexes().length; i++)	{
+			if(startPos.getJoiningHexes()[i] == -1)	continue;
+			
+			Hex curr = svc.getGame().getBoard().getHexes().get(startPos.getJoiningHexes()[i]);
+			if(curr.getType() != Hex.HexType.SEA)	count++;
+			if(count >= 2)	{
+				GamePlay.getInstance().endTurn();
+				return;
+			}
+		}
 	}
 	
 	/**
@@ -260,6 +353,15 @@ public class BoardPresenter {
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 			KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 		}
+	}
+	
+	public void handleConstructionHexClick(int selected) {
+		Hex h = svc.getGame().getBoard().getHexes().get(selected);
+		Player player = svc.getGame().getCurrentPlayer();
+		
+		if(h.getHexOwner() != player)	return;
+		
+		KNTAppFactory.getSidePanePresenter().getView().showBuildMenu(h);
 	}
 
 	public void handleMoveSetupForThing(Thing t) {

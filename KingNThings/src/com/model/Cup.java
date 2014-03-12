@@ -43,6 +43,7 @@ public class Cup extends GamePiece {
 	
 	public void addThing(Thing t)	{
 		t.setOwner("Cup");
+		t.setSelected(true);
 		t.setHexLocation(-1);
 		if (t instanceof SpecialCharacter) {
 			listOfSpecialCharacters.add((SpecialCharacter) t);
@@ -54,6 +55,7 @@ public class Cup extends GamePiece {
 	}
 	
 	public Thing removeThing(Thing t){
+		t.setSelected(false);
 		if (t instanceof SpecialCharacter){
 			listOfSpecialCharacters.remove(t);
 		} else {
