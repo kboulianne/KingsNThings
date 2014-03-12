@@ -29,10 +29,7 @@ public final class Game {
 	private Player opponent1;
 	private Player opponent2;
 	private Player opponent3;
-	/**
-	 * The player owning "this" Game instance.
-	 */
-//    private Player player;
+
 	/**
 	 * The player who's is currently playing his/her turn.
 	 */
@@ -164,18 +161,6 @@ public final class Game {
     }
     
 	// Getters and Setters =============================================================================================
-	/**
-	 * Gets the player owning this Game instance. (Player "playing" this game)
-	 *
-	 * @return The player
-	 */
-//    public final Player getPlayer() { return player; }
-	/**
-	 * Sets the player owning this instance of the Game.
-	 *
-	 * @param player The player to set.
-	 */
-//    public void setPlayer(final Player player) { this.player = player; }
 	/**
 	 * Gets the Player which is currently executing their turn.
 	 *

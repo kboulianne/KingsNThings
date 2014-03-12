@@ -8,12 +8,18 @@ Type of Game:	Server Client Game
 
 Language/Resources:	Java language
 			Java FX
-			(jfxrt.jar & jfxtras-labs-2.2-r5.jar)
 			Java Runtime Environment System Library
+			google-gson library
+
+Dependencies below can downloaded from: https://www.dropbox.com/sh/q7dfswqk21srx88/iURVekHUdH			
+			jsonrpc2-base
+			jsonrpc2-server
+			json-smart-1.2
+			
 
 Obtaining Executable:	-compile all source files
-			-run KNTAppFactory
+			-run MVPApplication
 	
 			-open project in Eclipse(Kepler)
-			-run KNTAppFactory
+			-run MVPApplication
 

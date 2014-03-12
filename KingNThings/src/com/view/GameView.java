@@ -6,7 +6,6 @@
 package com.view;
 
 import com.model.game.Game;
-import com.presenter.GamePresenter;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -23,7 +22,7 @@ import javafx.scene.layout.VBox;
  */
 public class GameView extends StackPane {
 
-	private GamePresenter presenter;
+//	private GamePresenter presenter;
 
 	private VBox rootVBox;
 	private AnchorPane gameStatus;
@@ -37,17 +36,17 @@ public class GameView extends StackPane {
 		buildView();
 	}
 
-	public void setPresenter(final GamePresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
-		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
-	}
+//	public void setPresenter(final GamePresenter presenter) {
+//		if (presenter == null) {
+//			throw new NullPointerException("Presenter cannot be null");
+//		}
+//
+//		if (this.presenter != null) {
+//			throw new IllegalStateException("The presenter was already set.");
+//		}
+//
+//		this.presenter = presenter;
+//	}
 
 	private void buildView() {
 		// Root Pane stuff
