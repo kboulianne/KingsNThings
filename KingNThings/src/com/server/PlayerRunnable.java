@@ -15,8 +15,6 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.server.Dispatcher;
 
 public class PlayerRunnable implements Runnable {
-	/** Server-side of the socket for this player. */
-	private final Socket socket;
 	private BufferedReader reader;
 	private PrintWriter writer;
 	
@@ -33,7 +31,6 @@ public class PlayerRunnable implements Runnable {
 	}
 	
 	public PlayerRunnable(Socket player) {
-		this.socket = player;
 		
 		try {
 			reader = new BufferedReader(new InputStreamReader(player.getInputStream()));
@@ -62,6 +59,7 @@ public class PlayerRunnable implements Runnable {
 				
 				String res = DISPATCHER.process(req, null).toJSONString();
 				LOGGER.info(res);
+				
 				// Send the response.
 				writer.println(res);
 			} catch (IOException e) {

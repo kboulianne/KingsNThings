@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.google.gson.Gson;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
@@ -45,8 +46,9 @@ public abstract class ProxyBase {
 	 * Helper method to to invoke remote procedures which have no return values (void).
 	 * @param methodName The name of the remote method to call.
 	 * @param params The optional parameter values to pass to the remote call.
+	 * @throws JSONRPC2Error 
 	 */
-	protected final void invokeOnServer(String methodName, Object... params) {
+	protected final void invokeOnServer(String methodName, Object... params) throws JSONRPC2Error {
 		invokeOnServer(methodName, Void.class, params);
 	}
 	
@@ -56,15 +58,16 @@ public abstract class ProxyBase {
 	 * @param expected The expected type of the return value 
 	 * @param params The optional parameter values to pass to the remote method call.
 	 * @return T - the return value of type "expected"
+	 * @throws JSONRPC2Error 
 	 */
-	protected final <T> T invokeOnServer(String methodName, Type expected, Object... params) {
+	protected final <T> T invokeOnServer(String methodName, Type expected, Object... params) throws JSONRPC2Error {
 		JSONRPC2Request req = new JSONRPC2Request(methodName, UUID.randomUUID().toString());
 		
 		if (params != null && params.length > 0) {
 			List<Object> posParams = new LinkedList<>();
 			
 			for (Object o : params) {
-				// Do not serialize string
+				// Do not serialize string. This is to bypass json-smart dependency in jsonrpc
 				if (o instanceof String) {
 					posParams.add(o);
 				}
@@ -93,6 +96,11 @@ public abstract class ProxyBase {
 		} catch (IOException | JSONRPC2ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		if (!res.indicatesSuccess()) {
+			// An error has occured.
+			throw res.getError();
 		}
 		
 		if (expected.equals(Void.TYPE)) return null;

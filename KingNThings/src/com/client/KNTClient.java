@@ -53,20 +53,4 @@ public class KNTClient {
 	public final IGameRoomService getGameRoomService() {
 		return proxy;
 	}
-	
-//	public static void main(String[] args) throws InterruptedException {
-//		KNTClient client = new KNTClient("localhost", 6868);
-//		
-//		client.proxy.createGameRoom("A test room", 
-//				new Player(PlayerId.ONE, "the hosting player"));
-//		System.out.println(client.proxy.getGameRooms());
-//				
-//		
-//		// Client can't terminate otherwise socket gets closed, readLine() on server goes crazy
-//		// by continuously returning null.
-//		//TODO For testing. Actual client will not close socket until the object is disposed.
-//		while (true) {
-//			Thread.sleep(1000);
-//		}
-//	}
 }

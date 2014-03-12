@@ -21,18 +21,18 @@ public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService 
 	
 	
 	@Override
-	public GameRoom createGameRoom(String name, Player p) {
+	public GameRoom createGameRoom(String name, Player p) throws JSONRPC2Error {
 		return invokeOnServer("createGameRoom", GameRoom.class, name, p);
 	}
 	
 	@Override
-	public Collection<GameRoom> getGameRooms() {
+	public Collection<GameRoom> getGameRooms() throws JSONRPC2Error {
 		Type t = new TypeToken<Collection<GameRoom>>() {}.getType();
 		return invokeOnServer("getGameRooms", t);
 	}
 	
 	@Override
-	public void joinGameRoom(String room, Player player) {
+	public void joinGameRoom(String room, Player player) throws JSONRPC2Error {
 		//TODO: find way to infer from this method.
 		invokeOnServer("joinGameRoom", room, player);
 	}
