@@ -6,7 +6,9 @@ import com.model.GameRoom;
 import com.model.Player;
 import com.model.game.Game;
 import com.server.services.IGameRoomService;
+import com.server.services.INotificationService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+
 import static com.server.KNTServer.*;
 import static com.server.Errors.*;
 
@@ -17,11 +19,12 @@ import static com.server.Errors.*;
  */
 //TODO: Separate implementation from handler?
 public class GameRoomHandler extends KNTRequestHandler implements IGameRoomService {
+	
 	@Override
 	public String[] handledRequests() {
 		// Report available methods
 		//TODO: Get method names from reflection
-		return new String[] { "getGameRooms", "joinGameRoom", "createGameRoom",
+		return new String[] { "getGameRooms", "refreshGameRoom", "joinGameRoom", "createGameRoom",
 				"startGame"};
 	}
 	
@@ -43,6 +46,18 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 		}
 		
 		return room;
+	}
+	
+	@Override
+	public GameRoom refreshGameRoom(String name) throws JSONRPC2Error {
+		synchronized (GAME_ROOMS) {
+			if (!GAME_ROOMS.containsKey(name)) {
+				throw GAME_ROOM_ROOM_INEXISTANT;
+			}
+			else {
+				return GAME_ROOMS.get(name);
+			}
+		}
 	}
 	
 	@Override

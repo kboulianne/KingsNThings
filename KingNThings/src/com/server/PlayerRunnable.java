@@ -13,10 +13,12 @@ import com.server.KNTServer.GameHandler;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.server.Dispatcher;
+import com.thetransactioncompany.jsonrpc2.server.MessageContext;
 
 public class PlayerRunnable implements Runnable {
 	private BufferedReader reader;
 	private PrintWriter writer;
+	private Socket socket;
 	
 	// Dispatcher which delegates processing to handlers
 	private static final Dispatcher DISPATCHER;
@@ -31,6 +33,7 @@ public class PlayerRunnable implements Runnable {
 	}
 	
 	public PlayerRunnable(Socket player) {
+		socket = player;
 		
 		try {
 			reader = new BufferedReader(new InputStreamReader(player.getInputStream()));
@@ -44,6 +47,7 @@ public class PlayerRunnable implements Runnable {
 	public void run() {
 		// Acknowledge connection
 		writer.println(0);
+		// TODO: Wait for UUID that identifies the player session uniquely?
 		
 		while (true) {
 			try {
@@ -58,7 +62,7 @@ public class PlayerRunnable implements Runnable {
 				JSONRPC2Request req = JSONRPC2Request.parse(jsonRpc);
 				
 				String res = DISPATCHER.process(req, null).toJSONString();
-				LOGGER.info(res);
+				LOGGER.info("Response: " + res);
 				
 				// Send the response.
 				writer.println(res);

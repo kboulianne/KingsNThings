@@ -26,8 +26,7 @@ public class LobbyTestMain extends Application {
     public void start(Stage stage) throws Exception {
 //    	final GamePresenter main = KNTAppFactory.getGamePresenter();
     		final LobbyPresenter lobby = KNTAppFactory.getLobbyPresenter();
-//    		lobby.setWindow(stage);
-    		
+
         stage.setTitle("Kings & Things");
         stage.setMinWidth(1000);
         stage.setMinHeight(600);

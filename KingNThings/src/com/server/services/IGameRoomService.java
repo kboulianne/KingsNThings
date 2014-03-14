@@ -22,6 +22,14 @@ public interface IGameRoomService {
 	GameRoom createGameRoom(String name, Player host) throws JSONRPC2Error;
 	
 	/**
+	 * Most likely temporary until publish/subscribe is implemented on the server.
+	 * @param name The unique room name.
+	 * @return The Game Room.
+	 * @throws JSONRPC2Error
+	 */
+	GameRoom refreshGameRoom(String name) throws JSONRPC2Error;
+	
+	/**
 	 * Gets all available  
 	 * @return
 	 * @throws JSONRPC2Error
@@ -36,7 +44,6 @@ public interface IGameRoomService {
 	 */
 	void joinGameRoom(String room, Player player) throws JSONRPC2Error;
 	
-	// Can be triggered automatically or decided by the host
 	/**
 	 * Tells the server to initialize the game for the specified game room
 	 * and starts the game with the GameRoom host as the first player.

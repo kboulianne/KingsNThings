@@ -49,7 +49,7 @@ public class LobbyPresenter {
 //	}
 	
 	public void handleRefreshButton() {
-		System.out.println("Refresh");
+		updateGameRoomsList();
 	}
 
 	public void handleHostButton() {
@@ -70,7 +70,7 @@ public class LobbyPresenter {
 
 	public void handleJoinButton() {
 		//TODO: Testing
-		Player guest = new Player(PlayerId.ONE, "Tester 1");
+		Player guest = new Player(PlayerId.ONE, "Tester 2");
 		
 		try {
 			// Join the selected game room.
@@ -80,7 +80,8 @@ public class LobbyPresenter {
 			gameRoomSvc.joinGameRoom(room.getName(), guest);
 			// TODO: Delegate to GameRoomPresenter
 			LobbyTestMain.setView(KNTAppFactory.getGameRoomPresenter().getView());
-//			KNTAppFactory.getG
+			// Delegate to GameRoomPresenter
+			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

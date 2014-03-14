@@ -5,13 +5,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.Collection;
+
 import com.google.gson.reflect.TypeToken;
 import com.model.GameRoom;
 import com.model.Player;
 import com.server.services.IGameRoomService;
+import com.server.services.INotificationService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 
-public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService {
+public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService, INotificationService {
 	
 	// Socket to use for communicating with server. Kept open
 	// for performance and simplicity.
@@ -23,6 +25,11 @@ public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService 
 	@Override
 	public GameRoom createGameRoom(String name, Player p) throws JSONRPC2Error {
 		return invokeOnServer("createGameRoom", GameRoom.class, name, p);
+	}
+	
+	@Override
+	public GameRoom refreshGameRoom(String name) throws JSONRPC2Error {
+		return invokeOnServer("refreshGameRoom", GameRoom.class, name);
 	}
 	
 	@Override
@@ -40,6 +47,11 @@ public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService 
 
 	@Override
 	public void startGame(String room) throws JSONRPC2Error {
-		invokeOnServer("startGame");		
+		invokeOnServer("startGame", room);		
+	}
+
+	@Override
+	public <T> T receiveNotification() {
+		return null;
 	}
 }
