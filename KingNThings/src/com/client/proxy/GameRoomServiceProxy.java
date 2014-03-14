@@ -10,10 +10,9 @@ import com.google.gson.reflect.TypeToken;
 import com.model.GameRoom;
 import com.model.Player;
 import com.server.services.IGameRoomService;
-import com.server.services.INotificationService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 
-public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService, INotificationService {
+public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService {
 	
 	// Socket to use for communicating with server. Kept open
 	// for performance and simplicity.
@@ -48,10 +47,5 @@ public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService,
 	@Override
 	public void startGame(String room) throws JSONRPC2Error {
 		invokeOnServer("startGame", room);		
-	}
-
-	@Override
-	public <T> T receiveNotification() {
-		return null;
 	}
 }

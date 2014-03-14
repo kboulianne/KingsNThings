@@ -6,7 +6,6 @@ import com.model.GameRoom;
 import com.model.Player;
 import com.model.game.Game;
 import com.server.services.IGameRoomService;
-import com.server.services.INotificationService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 
 import static com.server.KNTServer.*;
