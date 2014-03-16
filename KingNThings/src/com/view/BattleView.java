@@ -242,6 +242,14 @@ public class BattleView extends VBox{
 		setInfoLbl(info);
 		setOffHitsLbl();
 		setDefHitsLbl();
+		
+		/*if(battle.getCurrentPlayer().equals(battle.getDefender())){
+			defGrid.getStyleClass().add("border");
+			offGrid.getStyleClass().removeAll("border");
+		}else{
+			offGrid.getStyleClass().add("border");
+			defGrid.getStyleClass().removeAll("border");
+		}*/
 	}
 	
 	// getter dones and setter dones

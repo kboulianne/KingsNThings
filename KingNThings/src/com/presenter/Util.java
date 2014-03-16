@@ -102,13 +102,20 @@ public class Util {
 	private final static Media audioFile = new Media( Util.class.getResource("greensleeves.mp3").toString() );    
 	final static MediaPlayer player = new MediaPlayer(audioFile);
 	public static void playMusic(){
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				
-		        //player.play();
-		        // player.setCycleCount(MediaPlayer.INDEFINITE);
-			}
-		}).start();
+		player.setVolume(0.2);
+        player.play();
+        player.setCycleCount(MediaPlayer.INDEFINITE);
+	}
+	
+	private final static Media audioFile2 = new Media( Util.class.getResource("battlemusic.mp3").toString() );    
+	final static MediaPlayer player2 = new MediaPlayer(audioFile2);
+	public static void playBattleMusic(){
+		player.stop();    
+		player2.play();
+		player2.setCycleCount(MediaPlayer.INDEFINITE);
+	}
+	public static void stopBattleMusic(){
+		player2.stop();    
+		playMusic();
 	}
 }

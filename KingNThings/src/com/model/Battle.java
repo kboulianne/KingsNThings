@@ -118,12 +118,6 @@ public class Battle {
 		defendingForces.get(phase).remove(c);
 	}
 	
-	public boolean canSkipPhase() {
-		// Skip magic, ranged, or melee if attacker or defender has no troops to roll for
-		return attackingForces.get(battlePhase).isEmpty()
-				|| defendingForces.get(battlePhase).isEmpty();
-	}
-	
 	public boolean isBattleResolved() {
 		// Resovled when one or both sides can no longer roll.
 		//boolean att, def;
