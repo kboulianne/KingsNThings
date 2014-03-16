@@ -9,6 +9,7 @@ import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Board;
 import com.model.game.Game;
+import com.presenter.Util;
 import com.view.GameView;
 
 /**
@@ -31,6 +32,7 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 	
 	@Override
 	public void turnStart() {
+		Util.playClickSound();
 		//top label
 		gv.getCurrentPlayerLbl().setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(game.getCurrentPlayer());

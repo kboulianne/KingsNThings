@@ -99,8 +99,8 @@ public final class GamePlay {
 		gamePhases.add(new RecruitCharPhase(this));
 		gamePhases.add(new RecruitThingsPhase(this));
 		gamePhases.add(new RandomEventPhase(this));
-		gamePhases.add(new MovementPhase(this));
-		gamePhases.add(new CombatPhase(this));
+			gamePhases.add(new MovementPhase(this));
+			gamePhases.add(new CombatPhase(this));
 		gamePhases.add(new ConstructionPhase(this));
 		gamePhases.add(new SpecialPowersPhase(this));
 		gamePhases.add(new ChangePlayOrderPhase(this));
@@ -175,27 +175,7 @@ public final class GamePlay {
 
 		// Execute logic then go to startTurn player / phase
 		phaseLogic.turnStart();
-		
-		// FOR NOW! Automatic phase skipping!
-	if (
-				false 	// For testing, easier to comment out
-//				|| phaseLogic instanceof PlayerOrderPhase
-//				|| phaseLogic instanceof StartingPosPhase
-//				|| phaseLogic instanceof StartingKingdomPhase
-//				|| phaseLogic instanceof StartingTowerPhase
-//				|| phaseLogic instanceof StartingForcesPhase
-//				|| phaseLogic instanceof ExchangePhase
-//				|| phaseLogic instanceof GoldCollectPhase
-//				|| phaseLogic instanceof RecruitCharPhase
-//				|| phaseLogic instanceof RecruitThingsPhase
-//				|| phaseLogic instanceof RandomEventPhase
-//				|| phaseLogic instanceof CombatPhase
-//				|| phaseLogic instanceof MovementPhase
-//				|| phaseLogic instanceof ConstructionPhase
-///				|| phaseLogic instanceof SpecialPowersPhase
-				|| phaseLogic instanceof ChangePlayOrderPhase
-				)
-			endTurn();
+	
 	}
 	
 	/**

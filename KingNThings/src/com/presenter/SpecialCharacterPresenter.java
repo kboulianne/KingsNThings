@@ -29,7 +29,7 @@ public class SpecialCharacterPresenter {
 			public void handle(ActionEvent arg0) {
 				Player currPlayer = GameService.getInstance().getGame().getCurrentPlayer();
 				if(currPlayer.getGold()>=cost){
-					
+					Util.playClickSound();
 					currPlayer.setGold(currPlayer.getGold()-cost);
 					KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlayer);
 					
@@ -50,6 +50,7 @@ public class SpecialCharacterPresenter {
 		view.getRecruitButton().setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {
+				Util.playClickSound();
 				GameService.getInstance().getGame().moveThingFromCupToPlayer(selectedSpecialCharacter, GameService.getInstance().getGame().getCurrentPlayer());
 				GamePlay.getInstance().endTurn();
 			}

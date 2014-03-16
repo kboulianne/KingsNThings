@@ -6,9 +6,6 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.stage.Stage;
-
-import com.main.KNTAppFactory;
 import com.main.LobbyTestMain;
 import com.model.GameRoom;
 import com.server.services.IGameRoomService;

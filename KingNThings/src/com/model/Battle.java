@@ -57,16 +57,16 @@ public class Battle {
 	}
 	
 	private Map<BattlePhase, List<Creature>> splitCreatures(List<Creature> creatures) {
-		Map<BattlePhase, List<Creature>> forces = new HashMap<>();
+		Map<BattlePhase, List<Creature>> forces = new HashMap<BattlePhase, List<Creature>>();
 		// Init the map
 		forces.put(BattlePhase.MAGIC, new ArrayList<Creature>());
 		forces.put(BattlePhase.MELEE, new ArrayList<Creature>());
 		forces.put(BattlePhase.RANGED, new ArrayList<Creature>());
 		
-		BattlePhase phase;
+		BattlePhase phase = null;
 		List<Creature> list = null;
 		for (Creature c: creatures) {
-			c.setSelected(false);
+			c.setSelected(true);
 			if (c.isMagic()) {
 				phase = BattlePhase.MAGIC;
 				list = forces.get(phase);
@@ -88,13 +88,34 @@ public class Battle {
 	public void killAttackerCreature(Creature c) {
 		// remove from hex, and from map
 		associatedHex.getArmies(offender).remove(c);
-		attackingForces.get(battlePhase).remove(c);
+		
+		BattlePhase phase = null;
+		if (c.isMagic()) {
+			phase = BattlePhase.MAGIC;
+		} 
+		else if (c.isRanged() && !c.isMagic()) {
+			phase = BattlePhase.RANGED;
+		}
+		else if (!c.isRanged() && !c.isMagic()) { // MELEE
+			phase = BattlePhase.MELEE;
+		}
+		attackingForces.get(phase).remove(c);
 	}
 	
 	public void killDefenderCreature(Creature c) {
 		// remove from hex, and from map
 		associatedHex.getArmies(defender).remove(c);
-		defendingForces.get(battlePhase).remove(c);
+		BattlePhase phase = null;
+		if (c.isMagic()) {
+			phase = BattlePhase.MAGIC;
+		} 
+		else if (c.isRanged() && !c.isMagic()) {
+			phase = BattlePhase.RANGED;
+		}
+		else if (!c.isRanged() && !c.isMagic()) { // MELEE
+			phase = BattlePhase.MELEE;
+		}
+		defendingForces.get(phase).remove(c);
 	}
 	
 	public boolean canSkipPhase() {

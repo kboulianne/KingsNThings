@@ -57,6 +57,7 @@ public class BoardPresenter {
 	 * @param selected  The index of the hex in the list.
 	 */
 	public void handleHexClick(int selected) {
+		Util.playHexClickSound();
 		// Only need service to fetch board.
 		// TODO create GameService#selectHex(...)?
 		Board b = svc.getGame().getBoard();
@@ -80,13 +81,14 @@ public class BoardPresenter {
 	 * @param selected The index of the selected hex in the list.
 	 */
 	public void handleStartingTowerHexClick(int selected) {
+		
 		Board b = svc.getGame().getBoard();
 		Hex hex = b.getHexes().get(selected);
 		Player current = svc.getGame().getCurrentPlayer();
 		
 		// Make sure the selected hex's own is the current player
 		if (hex.getHexOwner() != null && hex.getHexOwner().equals(current)) {
-
+			Util.playHexClickSound();
 			hex.setFort(Fort.create());
 			// Update view
 			view.setBoard(b);
@@ -101,6 +103,7 @@ public class BoardPresenter {
 	 * @param selected The index of the selected hex in the list.
 	 */
 	public void handleStartingKingdomsHexClick(int selected) {
+		
 		Board b = svc.getGame().getBoard();
 		Hex hex = b.getHexes().get(selected);
 		Player current = svc.getGame().getCurrentPlayer();
@@ -110,6 +113,7 @@ public class BoardPresenter {
 		// Do nothing if selected hex is owned
 		
 		if (hex.getHexOwner() == null) {
+			Util.playHexClickSound();
 			// Get the adjacent hexes.
 			// Make sure current player owns one of the hexes. That is, there is a path from
 			// current's start position to the selected hex.
@@ -156,6 +160,7 @@ public class BoardPresenter {
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		
 		if(hex.getHexOwner() == null)	{
+			Util.playHexClickSound();
 			if(hex.getType() == Hex.HexType.SEA)	{
 				List<Hex> hexes = svc.getGame().getHexPool();
 				HexFactory fact = new HexFactory();
@@ -208,7 +213,7 @@ public class BoardPresenter {
 	}
 	
 	public void handleHexExchangeClick(int selected)	{
-		
+		Util.playHexClickSound();
 		Player currPlayer = GameService.getInstance().getGame().getCurrentPlayer();
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		boolean neighbour = false;
@@ -263,9 +268,11 @@ public class BoardPresenter {
 	 * @param selected The index of the selected hex in the list.
 	 */
 	public void handleMovementSelectedHexClick(int selected) {
+		
 		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
 		
 		if(hex.isHighlighted())	{
+			Util.playHexClickSound();
 			Hex lastSelected = svc.getGame().getBoard().getHexes().get(lastHexSelected);
 			Player currentPlayer = svc.getGame().getCurrentPlayer();
 			if(movingArmy)	{ // move whole army
@@ -323,11 +330,13 @@ public class BoardPresenter {
 	 * @param selected The index of the selected hex in the list.
 	 */
 	public void handlePlacementSelectedHexClick(int selected) {
+		
 		Hex h = svc.getGame().getBoard().getHexes().get(selected);
 		Player player = svc.getGame().getCurrentPlayer();
 		ArrayList<Thing> listOfThings = svc.getGame().getLastSelectedThingsOfCurrentPlayerBlock();
 		
 		if(h.getHexOwner() == player)	{
+			Util.playHexClickSound();
 			for(Thing t: listOfThings)	{
 				if(t.getHexLocation() == -1)	{
 					if(t instanceof IncomeCounter)	{
@@ -356,16 +365,17 @@ public class BoardPresenter {
 	}
 	
 	public void handleConstructionHexClick(int selected) {
+		
 		Hex h = svc.getGame().getBoard().getHexes().get(selected);
 		Player player = svc.getGame().getCurrentPlayer();
 		
 		if(h.getHexOwner() != player)	return;
-		
+		Util.playHexClickSound();
 		KNTAppFactory.getSidePanePresenter().getView().showBuildMenu(h);
 	}
 
 	public void handleMoveSetupForThing(Thing t) {
-		
+		Util.playHexClickSound();
 		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
 		
 		int availableMovesForSelectedThing = 4;
@@ -377,6 +387,7 @@ public class BoardPresenter {
 	}
 	
 	public void handleMoveSetupForArmy() {
+		Util.playHexClickSound();
 		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
 		//set to 4 for now
 		calculateMovementWeight(lastHexSelected, 4, moveableHexIdList);
@@ -473,12 +484,14 @@ public class BoardPresenter {
 	}
 	
 	public void handleBattleSelectionHex(int selected) {
+		
 		Board b = svc.getGame().getBoard();
 		Player current = svc.getGame().getCurrentPlayer();
 		Player defender = null;
 		Hex hex = b.getHexes().get(selected);
 		
 		if (hex.hasConflict()) {
+			Util.playStartBattleSound();
 			// Create battle. Assume first opposing player returned from valueSet.
 			for (Player p : hex.getArmies().keySet()) {
 				if (!p.equals(current)) {

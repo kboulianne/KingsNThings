@@ -2,7 +2,6 @@ package com.view.customcontrols;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
-import com.model.Battle;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
@@ -107,7 +106,7 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
-
+				Util.playClickSound();
 				if(thing.getHexLocation() == -1)	thing.setSelected(!thing.isSelected());
 				//refresh view
 				if(thing.isSelected()){
@@ -123,6 +122,7 @@ public class ThingView extends StackPane{
 	void setRecruitingThingsHandler()	{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>()	{
 			public void handle(MouseEvent m)	{
+				Util.playClickSound();
 				if(thing.getHexLocation() == -1)	thing.setSelected(!thing.isSelected());
 				
 				if(thing.isSelected())	{
@@ -138,6 +138,7 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
+				Util.playClickSound();
 				thing.setSelected(!thing.isSelected());
 				if(thing.isSelected()){
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
@@ -149,8 +150,6 @@ public class ThingView extends StackPane{
 				if(thing.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
 					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(thing);
 				}
-				
-				//img.fireEvent(new ThingEvent(thing));
 			}
 		});
 	}
@@ -164,16 +163,6 @@ public class ThingView extends StackPane{
 			}
 		});
 	}
-	
-	/*
-	public void setRackHandler(){
-		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {			
-				KNTAppFactory.getPlayerInfoPresenter().handleRackClick(thing);
-			}
-		});
-	}*/
 
 	void setExchangeThingHandler() {
 		
@@ -185,6 +174,7 @@ public class ThingView extends StackPane{
 					KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange things by clicking the rack\n"
 							   + "     Exchange only once per thing", Game.CROWN_IMAGE);
 				} else {
+					Util.playClickSound();
 					Game game = GameService.getInstance().getGame();	
 					Thing t = game.getCup().getRandomThing();
 					game.moveThingFromCupToPlayer(t, game.getCurrentPlayer());
@@ -205,6 +195,7 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
+				Util.playClickSound();
 				thing.setSelected(true);
 				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment((SpecialCharacter) thing);
 			}
@@ -215,21 +206,7 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
-				
-				Battle battle = KNTAppFactory.getBattlePresenter().getView().getBattle();
-				if(battle.getBattlePhase() == Battle.BattlePhase.APPLYMAJHITS ||
-						battle.getBattlePhase() == Battle.BattlePhase.APPLYMELHITS ||
-						battle.getBattlePhase() == Battle.BattlePhase.APPLYRANHITS ){
-					
-					if(KNTAppFactory.getBattlePresenter().isDefender()){
-						Util.log("apply hits defender");
-					}else{
-						Util.log("apply hits offender");
-					}
-
-				}else{
-					Util.log("cannot apply hits");
-				}
+				KNTAppFactory.getBattlePresenter().handleThingPressed(thing);
 			}
 		});
 	}
@@ -239,6 +216,7 @@ public class ThingView extends StackPane{
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
+				Util.playClickSound();
 				Game game = GameService.getInstance().getGame();
 				Player currPlay = game.getCurrentPlayer();
 				game.getCup().addThing(currPlay.removeSpecialCharacter((SpecialCharacter)thing));

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.stage.Stage;
-
 import com.main.KNTAppFactory;
 import com.main.LobbyTestMain;
 import com.model.GameRoom;

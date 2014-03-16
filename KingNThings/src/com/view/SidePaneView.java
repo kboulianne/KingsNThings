@@ -175,6 +175,7 @@ public class SidePaneView extends VBox {
 				Player player = GameService.getInstance().getGame().getCurrentPlayer();
 				
 				if((player.getGold() >= 5) && (view.getPaidRecruitsValue() < 5))	{
+					Util.playClickSound();
 					player.removeGold(5);
 					KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(player);
 					view.increasePaidRecruits();
@@ -184,6 +185,7 @@ public class SidePaneView extends VBox {
 		
 		view.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent arg)	{
+				Util.playClickSound();
 				int total = 0;
 				ArrayList<Thing> listOfThings = GameService.getInstance().getGame().getLastSelectedThingsOfCurrentPlayerBlock();
 				Player player = GameService.getInstance().getGame().getCurrentPlayer();
@@ -270,6 +272,7 @@ public class SidePaneView extends VBox {
 		
 		upgrade.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent e)	{
+				Util.playClickSound();
 				h.upgradeFort();
 				h.getHexOwner().removeGold(5);
 				h.getFort().setUpgraded(true);
@@ -281,6 +284,7 @@ public class SidePaneView extends VBox {
 		
 		build.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent e)	{
+				Util.playClickSound();
 				h.setFort(Fort.create());
 				h.getHexOwner().removeGold(5);
 				h.getFort().setUpgraded(true);

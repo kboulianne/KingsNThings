@@ -13,7 +13,6 @@ import com.view.customcontrols.Rack;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -73,7 +72,7 @@ public class PlayerInfoView extends AnchorPane {
 		rack = new Rack();
 		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
 
-		// For now Should be in GameView
+		//FIXME For now Should be in GameView
 		viewCupImg = new ImageView(/*new Image("view/com/assets/pics/cup.png")*/);
 		viewCupImg.getStyleClass().add("hand");
 		viewCupImg.setOnMouseEntered(new EventHandler<MouseEvent>() {

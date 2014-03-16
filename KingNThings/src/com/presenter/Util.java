@@ -73,9 +73,30 @@ public class Util {
 		clickSound.play();
 	}
 	
+	private final static AudioClip hexClickSound = new AudioClip(Util.class.getResource("click2.wav").toString());
+	public static void playHexClickSound(){
+		hexClickSound.play();
+	}
+	
+	private final static AudioClip startBattleSound = new AudioClip(Util.class.getResource("battle.wav").toString());
+	public static void playStartBattleSound(){
+		startBattleSound.play();
+	}
+	
 	private final static AudioClip diceRoll = new AudioClip(Util.class.getResource("dice.wav").toString());
 	static void playDiceRollSound(){
 		diceRoll.play();
+	}
+	
+	private final static AudioClip swordSound = new AudioClip(Util.class.getResource("sword.wav").toString());
+		static void playSwordSound(){
+			swordSound.play();
+	}
+	
+	//TODO as a joke change later
+	private final static AudioClip deathSound = new AudioClip(Util.class.getResource("dyingmanLOL.wav").toString());
+	static void playDeathSound(){
+		deathSound.play();
 	}
 	
 	private final static Media audioFile = new Media( Util.class.getResource("greensleeves.mp3").toString() );    

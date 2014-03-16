@@ -6,19 +6,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.server.KNTServer.GameHandler;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.server.Dispatcher;
-import com.thetransactioncompany.jsonrpc2.server.MessageContext;
 
 public class PlayerRunnable implements Runnable {
 	private BufferedReader reader;
 	private PrintWriter writer;
-	private Socket socket;
+	//private Socket socket;
 	
 	// Dispatcher which delegates processing to handlers
 	private static final Dispatcher DISPATCHER;
@@ -33,7 +30,7 @@ public class PlayerRunnable implements Runnable {
 	}
 	
 	public PlayerRunnable(Socket player) {
-		socket = player;
+		//socket = player;
 		
 		try {
 			reader = new BufferedReader(new InputStreamReader(player.getInputStream()));
