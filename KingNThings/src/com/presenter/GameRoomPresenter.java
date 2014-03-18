@@ -6,8 +6,10 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+
 import com.main.LobbyTestMain;
 import com.model.GameRoom;
+import com.model.Player;
 import com.server.services.IGameRoomService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.view.GameRoomView;
@@ -16,6 +18,8 @@ public class GameRoomPresenter {
 	private final GameRoomView view;
 	private final IGameRoomService gameRoomSvc;
 	private GameRoom room;
+	//TODO Keep player and game room in application main.
+	private Player owner;
 	
 	Service<GameRoom> service = new Service<GameRoom>() {
 		@Override
@@ -49,10 +53,16 @@ public class GameRoomPresenter {
 		// Only show start button for host player.
 	}
 	
-	public void showGameRoom(GameRoom room) {
+	/**
+	 * 
+	 * @param owner Player owning the window
+	 * @param room
+	 */
+	public void showGameRoom(Player owner, GameRoom room) {
 		LobbyTestMain.setView(view);
-		view.setGameRoom(room);
+		view.setGameRoom(owner, room);
 		this.room = room;
+		this.owner = owner;
 		
 		service.start();
 	}
@@ -69,7 +79,7 @@ public class GameRoomPresenter {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
-					view.setGameRoom(room);
+					view.setGameRoom(owner, room);
 				}
 			});
 			

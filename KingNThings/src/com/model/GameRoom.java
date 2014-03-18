@@ -3,6 +3,8 @@ package com.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.model.Player.PlayerId;
+
 public class GameRoom {
 	/** The name of this game room. */
 	private String name;
@@ -21,6 +23,9 @@ public class GameRoom {
 	public GameRoom(String name, Player host) {
 		this.name = name;
 		this.host = host;
+		
+		// Assign ID 1 to host
+		host.setPlayerID(PlayerId.ONE);
 		
 		players = new ArrayList<>();
 	}
@@ -41,8 +46,11 @@ public class GameRoom {
 	 */
 	public void addPlayer(final Player p) {
 		// Cannot have more than 3 opponents.
-		if (!isFull())
+		if (!isFull()) {
+			// Assign ID according to player size
+			p.setPlayerID(PlayerId.values()[players.size() + 1]);
 			players.add(p);
+		}
 	}
 	
 	/**

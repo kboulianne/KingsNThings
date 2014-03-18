@@ -68,54 +68,54 @@ public class Util {
 	
 	
 	// Sounds
-	private final static AudioClip clickSound = new AudioClip(Util.class.getResource("click.wav").toString());
+//	private final static AudioClip clickSound = new AudioClip(Util.class.getResource("click.wav").toString());
 	public static void playClickSound(){
-		clickSound.play();
+//		clickSound.play();
 	}
 	
-	private final static AudioClip hexClickSound = new AudioClip(Util.class.getResource("click2.wav").toString());
+//	private final static AudioClip hexClickSound = new AudioClip(Util.class.getResource("click2.wav").toString());
 	public static void playHexClickSound(){
-		hexClickSound.play();
+//		hexClickSound.play();
 	}
 	
-	private final static AudioClip startBattleSound = new AudioClip(Util.class.getResource("battle.wav").toString());
+//	private final static AudioClip startBattleSound = new AudioClip(Util.class.getResource("battle.wav").toString());
 	public static void playStartBattleSound(){
-		startBattleSound.play();
+//		startBattleSound.play();
 	}
 	
-	private final static AudioClip diceRoll = new AudioClip(Util.class.getResource("dice.wav").toString());
+//	private final static AudioClip diceRoll = new AudioClip(Util.class.getResource("dice.wav").toString());
 	static void playDiceRollSound(){
-		diceRoll.play();
+//		diceRoll.play();
 	}
 	
-	private final static AudioClip swordSound = new AudioClip(Util.class.getResource("sword.wav").toString());
+//	private final static AudioClip swordSound = new AudioClip(Util.class.getResource("sword.wav").toString());
 		static void playSwordSound(){
-			swordSound.play();
+//			swordSound.play();
 	}
 	
 	//TODO as a joke change later
-	private final static AudioClip deathSound = new AudioClip(Util.class.getResource("dyingmanLOL.wav").toString());
+//	private final static AudioClip deathSound = new AudioClip(Util.class.getResource("dyingmanLOL.wav").toString());
 	static void playDeathSound(){
-		deathSound.play();
+//		deathSound.play();
 	}
 	
-	private final static Media audioFile = new Media( Util.class.getResource("greensleeves.mp3").toString() );    
-	final static MediaPlayer player = new MediaPlayer(audioFile);
+//	private final static Media audioFile = new Media( Util.class.getResource("test.mp3").toString() );    
+//	final static MediaPlayer player = new MediaPlayer(audioFile);
 	public static void playMusic(){
-		player.setVolume(0.2);
-        player.play();
-        player.setCycleCount(MediaPlayer.INDEFINITE);
+//		player.setVolume(0.2);
+//        player.play();
+//        player.setCycleCount(MediaPlayer.INDEFINITE);
 	}
 	
-	private final static Media audioFile2 = new Media( Util.class.getResource("battlemusic.mp3").toString() );    
-	final static MediaPlayer player2 = new MediaPlayer(audioFile2);
+//	private final static Media audioFile2 = new Media( Util.class.getResource("battlemusic.mp3").toString() );    
+//	final static MediaPlayer player2 = new MediaPlayer(audioFile2);
 	public static void playBattleMusic(){
-		player.stop();    
-		player2.play();
-		player2.setCycleCount(MediaPlayer.INDEFINITE);
+//		player.stop();    
+//		player2.play();
+//		player2.setCycleCount(MediaPlayer.INDEFINITE);
 	}
 	public static void stopBattleMusic(){
-		player2.stop();    
-		playMusic();
+//		player2.stop();    
+//		playMusic();
 	}
 }

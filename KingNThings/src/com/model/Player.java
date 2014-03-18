@@ -25,6 +25,13 @@ public class Player 	{
 		}
 	}
 	
+	public Player(String name) {
+		// Set on server
+		this.name = name;
+		this.block = new Block();
+		setStartPos(null);
+	}
+	
 	public Player(PlayerId i, String name) {
 	    this.name = name;
 	    color = i.color;
@@ -143,6 +150,11 @@ public class Player 	{
 		this.startPos = startPos;
 	}
 
+	public void setPlayerID(PlayerId id) {
+		this.id = id;
+		this.color = id.color;
+	}
+	
 	public int calculateIncome() {
 		int hexGold = 0;
 		int fortGold = 0;
@@ -167,5 +179,15 @@ public class Player 	{
 		hexGold = (int) Math.ceil(hexGold/2.0);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 		return totalGold;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Player) {
+			Player p = (Player) obj;
+			// TODO: Modify me
+			return name.equals(p.name);
+		}
+		return false;
 	}
 }

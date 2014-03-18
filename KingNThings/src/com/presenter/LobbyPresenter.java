@@ -16,6 +16,7 @@ import com.view.LobbyView;
 public class LobbyPresenter {
 	private final LobbyView view;
 	private final IGameRoomService gameRoomSvc;
+	private Player player;
 //	private Stage window;
 	
 	// Observable list that contains the gamerooms contained in the ui list.
@@ -52,13 +53,11 @@ public class LobbyPresenter {
 
 	public void handleHostButton() {
 		System.out.println("Host");
-		//TODO: Testing
-		Player host = new Player(PlayerId.ONE, "Tester 1");
 		try {
-			GameRoom room = gameRoomSvc.createGameRoom("Tester 1's Game Room", host);
+			GameRoom room = gameRoomSvc.createGameRoom("Tester 1's Game Room", player);
 			
 			// Delegate to GameRoomPresenter
-			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
+			KNTAppFactory.getGameRoomPresenter().showGameRoom(player, room);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,18 +67,16 @@ public class LobbyPresenter {
 
 	public void handleJoinButton() {
 		//TODO: Testing
-		Player guest = new Player(PlayerId.ONE, "Tester 2");
+//		Player guest = new Player(PlayerId.ONE, "Tester 2");
 		
 		try {
 			// Join the selected game room.
 			GameRoom room = view.getGameRoomsList().getSelectionModel().getSelectedItem();
 			if (room == null) return;
 			
-			gameRoomSvc.joinGameRoom(room.getName(), guest);
-			// TODO: Delegate to GameRoomPresenter
-			LobbyTestMain.setView(KNTAppFactory.getGameRoomPresenter().getView());
+			gameRoomSvc.joinGameRoom(room.getName(), player);
 			// Delegate to GameRoomPresenter
-			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
+			KNTAppFactory.getGameRoomPresenter().showGameRoom(player, room);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,10 +84,10 @@ public class LobbyPresenter {
 
 	}
 
-	public void handleWindowShown() {
-		System.out.println("Fetching GameRooms.");
-		updateGameRoomsList();
-	}
+//	public void handleWindowShown() {
+//		System.out.println("Fetching GameRooms.");
+//		updateGameRoomsList();
+//	}
 	
 	private void updateGameRoomsList() {
 		try {
@@ -99,5 +96,13 @@ public class LobbyPresenter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void show(Player p) {
+		LobbyTestMain.setView(view);
+		this.player = p;
+		view.setPlayer(p);
+		
+		updateGameRoomsList();
 	}
 }
