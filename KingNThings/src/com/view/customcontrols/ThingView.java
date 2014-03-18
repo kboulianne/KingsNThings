@@ -5,6 +5,7 @@ import com.main.KNTAppFactory;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
+import com.model.Treasure;
 import com.model.game.Game;
 import com.presenter.Util;
 
@@ -189,6 +190,24 @@ public class ThingView extends StackPane{
 			}
 		});
 		
+	}
+	
+	public void setExchangeTreasureHandler() {
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {	
+				Util.playClickSound();
+				Game game = GameService.getInstance().getGame();	
+
+				game.getCurrentPlayer().getBlock().removeThing(thing);
+				game.getCup().addThing(thing);
+				
+				game.getCurrentPlayer().addGold(((Treasure) thing).getValue());
+				KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(game.getCurrentPlayer());
+				KNTAppFactory.getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
+				refreshView();
+			}
+		});		
 	}
 
 	public void setChooseSpecialCharToRecruitHandler() {

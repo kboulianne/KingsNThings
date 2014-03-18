@@ -33,7 +33,6 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 
 		gv.getCurrentActionLbl().setText("Gold Collection");
 		KNTAppFactory.getBoardPresenter().getView().setDisable(true);
-		KNTAppFactory.getPlayerInfoPresenter().getView().getRack().setDisable(true);
 	}
 	
 	@Override
@@ -41,12 +40,13 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 		Util.log("Game Phase: End of Gold Collection Phase");
 		KNTAppFactory.getSidePanePresenter().getView().clearDetailsView();
 		KNTAppFactory.getBoardPresenter().getView().setDisable(false);
-		KNTAppFactory.getPlayerInfoPresenter().getView().getRack().setDisable(false);
+		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
 	}
 
 	@Override
 	public void turnStart() {
 		super.turnStart();
+		KNTAppFactory.getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
 		
 		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 		
@@ -72,21 +72,12 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 		}
 		
 		hexGold = (int) Math.ceil(hexGold/2.0);
-		totalGold += (hexGold + fortGold + counterGold + specCharGold);
-		
+		totalGold += (hexGold + fortGold + counterGold + specCharGold);	
 
 		KNTAppFactory.getSidePanePresenter().getView().showGoldCollection(hexGold, fortGold, counterGold, specCharGold);
-		KNTAppFactory.getPopupPresenter().getView().getCloseBtn().setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent arg0) {
-				KNTAppFactory.getPopupPresenter().dismissPopup();
-				context.endTurn();
-			}
-		});
 		
 		player.addGold(totalGold);
-		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+		KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(player);
 	}
 
 	@Override

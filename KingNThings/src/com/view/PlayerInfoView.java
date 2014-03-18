@@ -8,6 +8,7 @@ package com.view;
 import com.view.customcontrols.PlayerLabel;
 import com.model.Player;
 import com.presenter.PlayerInfoPresenter;
+import com.presenter.Util;
 import com.view.customcontrols.Rack;
 
 import javafx.event.EventHandler;
@@ -113,6 +114,7 @@ public class PlayerInfoView extends AnchorPane {
 
 	public void setPlayer(Player current) {
 		if (current != null) {
+			Util.log("oh boyo");
 			currentPlayerlbl.setPlayer(current);
 			goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
 			
@@ -120,7 +122,7 @@ public class PlayerInfoView extends AnchorPane {
 		}
 	}
 	
-	void updateGold(Player current)	{
+	public void updateGold(Player current)	{
 		if(current != null)	{
 			goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
 		}
@@ -138,12 +140,19 @@ public class PlayerInfoView extends AnchorPane {
 		}
 	}
 	
+	public void setRackTreasureExchangeHandler(Player current)	{
+		if(current != null)	{
+			Util.log("heyo");
+			rack.setRackTreasureExchangeHandler(current.getBlock().getListOfThings());
+		}
+	}
+	
 	public void setRackDefaultHandler(Player current){
 		if (current != null) {
 			rack.setThings(current.getBlock().getListOfThings());
 		}
 	}
-	
+		
 	public void setRackDoNothingHandler(Player current){
 		if (current != null) {
 			rack.setDoNothingHandler(current.getBlock().getListOfThings());
