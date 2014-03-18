@@ -5,9 +5,6 @@
  */
 package com.model.game.phase;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Creature;

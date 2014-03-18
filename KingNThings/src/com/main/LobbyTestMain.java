@@ -1,16 +1,13 @@
 package com.main;
 
-import com.presenter.LobbyPresenter;
 import com.presenter.StartScreenPresenter;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 public class LobbyTestMain extends Application {
     static final double WIDTH = 400;
@@ -42,6 +39,14 @@ public class LobbyTestMain extends Application {
 //				lobby.handleWindowShown();
 //			}
 //		});
+        
+      //fade
+//		FadeTransition ft = new FadeTransition(Duration.millis(2000), root);
+//		ft.setFromValue(0.5);
+//		ft.setToValue(1.0);
+//		ft.play();
+//
+//		new StartScreenCntrl(textField, startButton);
         
         scene = new Scene(start.getView());
         scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
