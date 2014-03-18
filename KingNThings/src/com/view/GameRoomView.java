@@ -62,18 +62,36 @@ public class GameRoomView extends VBox {
 		getChildren().addAll(host, guest1, guest2, guest3, bottomPane);
 	}
 	
-	public void setGameRoom(final GameRoom room) {
+	public void setGameRoom(final Player owner, final GameRoom room) {
 		if (room == null) return;
 		
 		host.setText(room.getHost().getName());
+		host.setTextFill(room.getHost().getColor());
+		
+		if (owner.equals(room.getHost())) {
+			startGame.setVisible(true);
+		}
+		else {
+			startGame.setVisible(false);
+		}
+		
 		if (room.getPlayers() != null && !room.getPlayers().isEmpty()) {
 			
-			//TODO: Put guests in list?
+			//TODO: Put guests in array
 			int i = 0;
 			for (Player p : room.getPlayers()) {
-				if (i == 0) guest1.setText(p.getName()); 
-				else if (i == 1) guest2.setText(p.getName());
-				else if (i == 2) guest3.setText(p.getName());
+				if (i == 0) {
+					guest1.setText(p.getName());
+					guest1.setTextFill(p.getColor());
+				}
+				else if (i == 1) {
+					guest2.setText(p.getName());
+					guest2.setTextFill(p.getColor());
+				}
+				else if (i == 2) {
+					guest3.setText(p.getName());
+					guest3.setTextFill(p.getColor());
+				}
 				i ++;
 			}
 		}

@@ -2,6 +2,7 @@ package com.view;
 
 import com.main.KNTAppFactory;
 import com.model.GameRoom;
+import com.model.Player;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,6 +28,8 @@ public class LobbyView extends BorderPane {
 	private Button joinBtn;
 	private ListView<GameRoom> gameRoomList;
 	
+	private Label playerLabel;
+	
 	public LobbyView() {
 		buildView();
 	}
@@ -40,13 +43,13 @@ public class LobbyView extends BorderPane {
 			.onAction(REFRESH_EVENT)
 		.build();
 		
-		Label lobbyLbl = LabelBuilder.create()
+		playerLabel = LabelBuilder.create()
 				.text("Lobby")
 		.build();
 		
 		BorderPane topPane = BorderPaneBuilder.create()
 				.padding(new Insets(0, 0, 10, 10))
-				.left(lobbyLbl)
+				.left(playerLabel)
 				.right(refreshBtn)
 		.build();
 		
@@ -83,6 +86,10 @@ public class LobbyView extends BorderPane {
 		setTop(topPane);
 		setCenter(gameRoomList);
 		setBottom(bottomPane);
+	}
+	
+	public final void setPlayer(Player p) {
+		playerLabel.setText("Welcome " + p.getName());
 	}
 	
 	public final ListView<GameRoom> getGameRoomsList() {

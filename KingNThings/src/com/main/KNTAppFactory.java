@@ -14,6 +14,7 @@ import com.presenter.PlayerInfoPresenter;
 import com.presenter.PopupPresenter;
 import com.presenter.SidePanePresenter;
 import com.presenter.SpecialCharacterPresenter;
+import com.presenter.StartScreenPresenter;
 import com.presenter.ThingDetailsPresenter;
 import com.view.ArmyDetailsView;
 import com.view.BattleView;
@@ -27,6 +28,7 @@ import com.view.PlayerInfoView;
 import com.view.PopupView;
 import com.view.SidePaneView;
 import com.view.SpecialCharacterView;
+import com.view.StartScreenView;
 import com.view.ThingDetailsView;
 
 /**
@@ -36,6 +38,7 @@ import com.view.ThingDetailsView;
  */
 public class KNTAppFactory {
 
+	private static final StartScreenPresenter startScreenPresenter;
 	private static final LobbyPresenter lobbyPresenter;
 	private static final GameRoomPresenter gameRoomPresenter;
 	private static final GamePresenter gamePresenter;
@@ -57,6 +60,7 @@ public class KNTAppFactory {
     		CLIENT = new KNTClient("localhost", 6868);
 		
     		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
+    	startScreenPresenter = createStartScreenPresenter();
 		lobbyPresenter = createLobbyPresenter();
 		gameRoomPresenter = createGameRoomPresenter();
 		gamePresenter = createMainPresenter();
@@ -77,6 +81,13 @@ public class KNTAppFactory {
 	private KNTAppFactory() {
 	}
 
+	private static StartScreenPresenter createStartScreenPresenter() {
+		StartScreenView view = new StartScreenView();
+		StartScreenPresenter presenter = new StartScreenPresenter(view);
+		
+		return presenter;
+	}
+	
 	private static LobbyPresenter createLobbyPresenter() {
 		LobbyView view = new LobbyView();
 		LobbyPresenter presenter = new LobbyPresenter(view, CLIENT.getGameRoomService());
@@ -175,6 +186,10 @@ public class KNTAppFactory {
 		return presenter;
 	}
 
+	public static final StartScreenPresenter getStartScreenPresenter() {
+		return startScreenPresenter;
+	}
+	
 	public static final LobbyPresenter getLobbyPresenter() {
 		return lobbyPresenter;
 	}

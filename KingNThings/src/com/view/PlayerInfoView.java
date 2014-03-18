@@ -74,7 +74,11 @@ public class PlayerInfoView extends AnchorPane {
 		rack = new Rack();
 		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
 
+<<<<<<< HEAD
 
+=======
+		//FIXME For now Should be in GameView
+>>>>>>> FETCH_HEAD
 		viewCupImg = new ImageView(new Image("view/com/assets/pics/cup.png"));
 		viewCupImg.getStyleClass().add("hand");
 		viewCupImg.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -115,7 +119,6 @@ public class PlayerInfoView extends AnchorPane {
 
 	public void setPlayer(Player current) {
 		if (current != null) {
-			Util.log("oh boyo");
 			currentPlayerlbl.setPlayer(current);
 			goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
 			
@@ -143,7 +146,6 @@ public class PlayerInfoView extends AnchorPane {
 	
 	public void setRackTreasureExchangeHandler(Player current)	{
 		if(current != null)	{
-			Util.log("heyo");
 			rack.setRackTreasureExchangeHandler(current.getBlock().getListOfThings());
 		}
 	}

@@ -55,7 +55,6 @@ public class Rack extends HBox {
 		for (Thing t : things) {
 			t.setSelected(false);
 			if(t instanceof Treasure)	{
-				Util.log("oh boy");
 				ThingView tv = new ThingView(50, t);
 				getChildren().add(tv);
 				tv.setExchangeTreasureHandler();
