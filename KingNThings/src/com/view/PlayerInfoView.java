@@ -74,11 +74,7 @@ public class PlayerInfoView extends AnchorPane {
 		rack = new Rack();
 		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
 
-<<<<<<< HEAD
 
-=======
-		//FIXME For now Should be in GameView
->>>>>>> FETCH_HEAD
 		viewCupImg = new ImageView(new Image("view/com/assets/pics/cup.png"));
 		viewCupImg.getStyleClass().add("hand");
 		viewCupImg.setOnMouseEntered(new EventHandler<MouseEvent>() {
