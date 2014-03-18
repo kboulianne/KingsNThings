@@ -74,7 +74,7 @@ public class PlayerInfoView extends AnchorPane {
 		currentPlayerInfoBox.getChildren().addAll(currentPlayerNameAndGold, rack);
 
 		//FIXME For now Should be in GameView
-		viewCupImg = new ImageView(/*new Image("view/com/assets/pics/cup.png")*/);
+		viewCupImg = new ImageView(new Image("view/com/assets/pics/cup.png"));
 		viewCupImg.getStyleClass().add("hand");
 		viewCupImg.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
