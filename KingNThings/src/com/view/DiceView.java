@@ -90,12 +90,15 @@ public class DiceView extends HBox {
 	public void setRollBtn(Button rollBtn) {	this.rollBtn = rollBtn;		}
 
 	public void hideDie2(boolean hide) {
-		if (hide) {
-			getChildren().remove(die2Iv);
+		//if (hide) {
+		die2Iv.setVisible(!hide);
+		die2Iv.setManaged(true);
+			
+		/*	getChildren().remove(die2Iv);
 		}
 		else {
 			getChildren().add(1, die2Iv);
-		}
+		}*/
 	}
 	
 	public DicePresenter getPresenter() {
