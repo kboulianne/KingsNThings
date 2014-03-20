@@ -26,7 +26,7 @@ public class PlayerRunnable implements Runnable {
 		DISPATCHER = new Dispatcher();
 		
 		DISPATCHER.register(new GameRoomHandler());
-//		DISPATCHER.register(new GameHandler());
+		DISPATCHER.register(new GameHandler());
 	}
 	
 	public PlayerRunnable(Socket player) {

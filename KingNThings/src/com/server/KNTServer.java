@@ -20,7 +20,7 @@ public class KNTServer {
 	static final Map<String, GameRoom> GAME_ROOMS;
 	// It does not make sense to keep Game in GameRoom on the client side.
 	// Track game instances here.
-	static final Map<String, Game> GAMES;
+//	static final Map<String, Game> GAMES;
 	
 	// TODO Need to handle client disconnections and thread pool cleanup
 	static {
@@ -34,17 +34,9 @@ public class KNTServer {
 			e.printStackTrace();
 		}
 		GAME_ROOMS = Collections.synchronizedMap(new HashMap<String, GameRoom>());
-		GAMES = Collections.synchronizedMap(new HashMap<String, Game>());
+//		GAMES = Collections.synchronizedMap(new HashMap<String, Game>());
 		
 		SERVER = server;
-	}
-	
-	public static class GameHandler extends KNTRequestHandler {
-		@Override
-		public String[] handledRequests() {
-			return null;
-		}
-		
 	}
 	
 	public void listen() throws IOException {

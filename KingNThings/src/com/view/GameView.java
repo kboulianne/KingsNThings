@@ -36,18 +36,6 @@ public class GameView extends StackPane {
 		buildView();
 	}
 
-//	public void setPresenter(final GamePresenter presenter) {
-//		if (presenter == null) {
-//			throw new NullPointerException("Presenter cannot be null");
-//		}
-//
-//		if (this.presenter != null) {
-//			throw new IllegalStateException("The presenter was already set.");
-//		}
-//
-//		this.presenter = presenter;
-//	}
-
 	private void buildView() {
 		// Root Pane stuff
 		rootVBox = new VBox();

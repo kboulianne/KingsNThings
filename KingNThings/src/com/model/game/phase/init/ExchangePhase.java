@@ -5,12 +5,12 @@
  */
 package com.model.game.phase.init;
 
-import com.main.KNTAppFactory;
 import com.model.Block;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
@@ -25,8 +25,8 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Exchange Things Phase");
-		gv.getCurrentActionLbl().setText("Exchange Things");
-		KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
+		getGamePresenter().getView().getCurrentActionLbl().setText("Exchange Things");
+		getBoardPresenter().getView().addPlacementHandler();
 	}
 	
 	@Override
@@ -36,14 +36,14 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnStart() {
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("        Exchange things by clicking the rack\n"
+		getSidePanePresenter().getView().showArbitraryView("        Exchange things by clicking the rack\n"
 																	   + "   1 new recruit is given for every 1 returned", Game.CROWN_IMAGE);
 		Block currentPlayerBlock = game.getCurrentPlayer().getBlock();
 		if(currentPlayerBlock.getListOfThings().isEmpty()){
 			context.endTurn();	
 		} else {
 			super.turnStart();
-			KNTAppFactory.getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(game.getCurrentPlayer());		
+			getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(game.getCurrentPlayer());		
 		}
 	}
 

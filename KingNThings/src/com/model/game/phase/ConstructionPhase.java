@@ -15,6 +15,8 @@ import com.main.KNTAppFactory;
 import com.model.Hex;
 import com.model.game.Game;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
+
 
 /**
  *
@@ -30,9 +32,9 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Construction Phase");
 
-		gv.getCurrentActionLbl().setText("Construction Phase");
+		getGamePresenter().getView().getCurrentActionLbl().setText("Construction Phase");
 		
-		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -40,22 +42,22 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 			}
 		});
 		
-		KNTAppFactory.getBoardPresenter().getView().addFortBuildingHandler();
-		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDoNothingHandler(game.getCurrentPlayer());
+		getBoardPresenter().getView().addFortBuildingHandler();
+		getPlayerInfoPresenter().getView().setRackDoNothingHandler(game.getCurrentPlayer());
 	}
 
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Construction Phase");
 		
-		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
-		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
+		getBoardPresenter().getView().addDefaultHandler();
+		getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
 	}
 
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Build new forts or upgrade existing forts", Game.CROWN_IMAGE);		
+		getSidePanePresenter().getView().showArbitraryView("Build new forts or upgrade existing forts", Game.CROWN_IMAGE);		
 	}
 
 	@Override

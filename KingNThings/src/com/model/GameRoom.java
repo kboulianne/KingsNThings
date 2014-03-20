@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.model.Player.PlayerId;
+import com.model.game.Game;
 
 public class GameRoom {
 	/** The name of this game room. */
 	private String name;
 	/** The player hosting this game room.*/
-	private Player host;
+	protected Player host;
 	/** Guest players. */
 	//TODO: Keep these in Game?
-	private List<Player> players;
+	protected List<Player> players;
+	/** Transient so that GSON does not serialize it. In here for simplicity,
+	 * GameService is responsible for accessing this. 
+	 */
+//	private transient Game game;
 	
 	private boolean started;
 	

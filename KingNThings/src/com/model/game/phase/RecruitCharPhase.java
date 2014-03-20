@@ -5,9 +5,9 @@
  */
 package com.model.game.phase;
 
-import com.main.KNTAppFactory;
 import com.model.Player;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
@@ -23,7 +23,7 @@ class RecruitCharPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Recruiting Character Phase");
 		
-		gv.getCurrentActionLbl().setText("Recruit Special Character");
+		getGamePresenter().getView().getCurrentActionLbl().setText("Recruit Special Character");
 	}
 	
 	@Override
@@ -37,13 +37,13 @@ class RecruitCharPhase extends AbstractPhaseStrategy {
 		
 		Player currPlay = game.getCurrentPlayer();
 		//set cup thing to do nothing
-		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDoNothingHandler(currPlay);
-		KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment(currPlay.getName(), currPlay.getAllOwnedSpecialChar());
+		getPlayerInfoPresenter().getView().setRackDoNothingHandler(currPlay);
+		getSidePanePresenter().getView().showSpecialCharRecruitment(currPlay.getName(), currPlay.getAllOwnedSpecialChar());
 	}
 
 	@Override
 	public void turnEnd() {
 		Player currPlay = game.getCurrentPlayer();
-		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlay);
+		getPlayerInfoPresenter().getView().setPlayer(currPlay);
 	}
 }

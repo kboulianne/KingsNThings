@@ -5,12 +5,12 @@
  */
 package com.model.game.phase.init;
 
-import com.main.KNTAppFactory;
 import com.model.Player;
 import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
@@ -26,10 +26,10 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Starting Kingdoms Phase");
 		
-		gv.getCurrentActionLbl().setText("Choose Starting Kingdom");
+		getGamePresenter().getView().getCurrentActionLbl().setText("Choose Starting Kingdom");
 
-		KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setVisible(false);
-		KNTAppFactory.getBoardPresenter().getView().addStartKingdomsHandler();
+		getDicePresenter().getView().getEndTurnBtn().setVisible(false);
+		getBoardPresenter().getView().addStartKingdomsHandler();
 		
 		// This phase cycles, so set context to execute turns 2 times (normal cycle + secondary cycle)
 		context.setCycleCount(1);
@@ -38,24 +38,24 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Choose an adjacent owned hex for your kingdom", Game.CROWN_IMAGE);
+		getSidePanePresenter().getView().showArbitraryView("Choose an adjacent owned hex for your kingdom", Game.CROWN_IMAGE);
 		if(Util.AUTOMATE){
 			Util.log("Automated");
 			if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE)){
-				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(9);
-				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(10);
+				getBoardPresenter().handleStartingKingdomsHexClick(9);
+				getBoardPresenter().handleStartingKingdomsHexClick(10);
 			}
 			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO)){
-				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(13);
-				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(12);
+				getBoardPresenter().handleStartingKingdomsHexClick(13);
+				getBoardPresenter().handleStartingKingdomsHexClick(12);
 			}
 			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE)){
-				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(15);
-				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(16);
+				getBoardPresenter().handleStartingKingdomsHexClick(15);
+				getBoardPresenter().handleStartingKingdomsHexClick(16);
 			}
 			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR)){
-				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(7);
-				KNTAppFactory.getBoardPresenter().handleStartingKingdomsHexClick(18);
+				getBoardPresenter().handleStartingKingdomsHexClick(7);
+				getBoardPresenter().handleStartingKingdomsHexClick(18);
 			}
 		}
 	
@@ -71,6 +71,6 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 		// Make sure to remove cycles, as a precaution
 		context.setCycleCount(0);
 		
-		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
+		getBoardPresenter().getView().addDefaultHandler();
 	}
 }

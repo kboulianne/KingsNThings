@@ -2,11 +2,14 @@ package com.presenter;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.main.NetworkedMain;
 import com.model.Player;
 import com.model.game.Game;
 import com.model.game.phase.GamePlay;
+import com.server.services.IGameService;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.view.GameView;
-
+import static com.main.KNTAppFactory.*;
 //import javafx.event.EventHandler;
 
 /**
@@ -19,32 +22,25 @@ import com.view.GameView;
 public class GamePresenter {
 
 	private final GameView view;
+	private IGameService gameSvc;
 	
-	public GamePresenter( final GameView view) {
+	public GamePresenter( final GameView view, IGameService gameSvc) {
 		this.view = view;
-		
-		// Update view
-		updateView();
-
+		this.gameSvc = gameSvc;
 	}
 
 	/**
 	 * Initial setup for this presenter. Adds all necessary sub-views to the GameView.
 	 */
 	public void setupSubViews() {
-		
 		// DiceView
 		this.view.addDiceView(KNTAppFactory.getDicePresenter().getView());
-		
 		// SidePaneView
 		this.view.addSidePaneView(KNTAppFactory.getSidePanePresenter().getView());
-		
 		// BoardView
 		this.view.addBoardView(KNTAppFactory.getBoardPresenter().getView());
-		
 		// PlayerInfoView
 		this.view.addPlayerInfoView(KNTAppFactory.getPlayerInfoPresenter().getView());
-		
 		// PopupView
 		KNTAppFactory.getPopupPresenter().getView().setParent(view);
 	}
@@ -64,8 +60,19 @@ public class GamePresenter {
 	/**
 	 * Refreshes the view so that it displays current game state.
 	 */
-	void updateView() {
-		view.setGame(GameService.getInstance().getGame());
+	void updateViews() {
+		try {
+			Game game = gameSvc.refreshGame(NetworkedMain.getRoomName());
+			
+			// Update subviews
+			getDicePresenter().getView().setDice(game.getDie1(), game.getDie2());
+			getSidePanePresenter().getView().setOpponents(game.getOpponentsFor(NetworkedMain.getPlayer()));
+			getBoardPresenter().getView().setBoard(game.getBoard());
+			getPlayerInfoPresenter().getView().setPlayer(NetworkedMain.getPlayer());
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -104,12 +111,20 @@ public class GamePresenter {
 		KNTAppFactory.getPopupPresenter().dismissPopup();
 	}
 
+	public void showGameUI() {
+		NetworkedMain.setView(view, 1280, 800);
+		
+		updateViews();
+		// TODO: MOVE ME
+		startGame();
+	}
+	
 	/**
 	 * Signals start of phase. Should only be called once.
 	 */
 	public void startGame() {
 		// TODO Keep track of whether this was called?
 		// Triggers the First phase
-		GamePlay.getInstance().start();
+		KNTAppFactory.getGamePlay().start();
 	}
 }

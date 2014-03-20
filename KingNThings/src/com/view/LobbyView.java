@@ -15,6 +15,8 @@ import javafx.scene.control.LabelBuilder;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ListViewBuilder;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderPaneBuilder;
 import javafx.scene.layout.FlowPane;
@@ -58,6 +60,7 @@ public class LobbyView extends BorderPane {
 		ListViewBuilder<GameRoom, ? extends ListViewBuilder> builder =
 				ListViewBuilder.create();
 		gameRoomList = builder
+			.onKeyPressed(LIST_ENTER_EVENT)
 			.cellFactory(new Callback<ListView<GameRoom>, ListCell<GameRoom>>() {
 				@Override
 				public ListCell<GameRoom> call(ListView<GameRoom> param) {
@@ -115,6 +118,14 @@ public class LobbyView extends BorderPane {
 		@Override
 		public void handle(ActionEvent event) {
 			KNTAppFactory.getLobbyPresenter().handleJoinButton();
+		}
+	};
+	
+	private final EventHandler<KeyEvent> LIST_ENTER_EVENT = new EventHandler<KeyEvent>() {
+		@Override
+		public void handle(KeyEvent event) {
+			if (event.getCode() == KeyCode.ENTER)
+				KNTAppFactory.getLobbyPresenter().handleJoinButton();
 		}
 	};
 	

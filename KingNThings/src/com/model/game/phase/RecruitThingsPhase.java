@@ -9,10 +9,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-import com.main.KNTAppFactory;
 import com.model.Hex;
 import com.model.Player;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
@@ -28,9 +28,9 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Recruiting Things Phase");
 		
-		gv.getCurrentActionLbl().setText("Recruit Things");
+		getGamePresenter().getView().getCurrentActionLbl().setText("Recruit Things");
 		
-		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -44,8 +44,8 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 	public void phaseEnd() {
 		Util.log("Game Logic: End of Recruiting Things Phase");
 		
-		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
-		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		getBoardPresenter().getView().addDefaultHandler();
+		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(true);
 		finishBtn.setOnAction(null);
 	}
@@ -56,7 +56,7 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 		
 		int freeRecruits = 0;
 	
-		KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setDisable(true);
+		getDicePresenter().getView().getEndTurnBtn().setDisable(true);
 		Player player = game.getCurrentPlayer();
 		
 		for (Hex h : game.getBoard().getHexes()) {
@@ -67,15 +67,15 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 		
 		freeRecruits = (int) Math.ceil(freeRecruits/2.0);
 		
-		KNTAppFactory.getSidePanePresenter().getView().showThingRecruitment(freeRecruits, 0);
-		KNTAppFactory.getBoardPresenter().getView().setDisable(true);
-		KNTAppFactory.getPlayerInfoPresenter().getView().setRackRecruitingThingsHandler(game.getCurrentPlayer());	
+		getSidePanePresenter().getView().showThingRecruitment(freeRecruits, 0);
+		getBoardPresenter().getView().setDisable(true);
+		getPlayerInfoPresenter().getView().setRackRecruitingThingsHandler(game.getCurrentPlayer());	
 	}
 
 	@Override
 	public void turnEnd() {
 		game.getCurrentPlayer().trimBlock();
-		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
+		getBoardPresenter().getView().addDefaultHandler();
 	}
 
 }

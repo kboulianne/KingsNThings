@@ -16,6 +16,7 @@ import com.model.Die;
 import com.model.Hex;
 import com.model.Player;
 import com.model.Thing;
+import com.model.game.phase.init.PlayerOrderPhase;
 import com.presenter.HexFactory;
 import com.presenter.Util;
 
@@ -26,9 +27,9 @@ import com.presenter.Util;
  */
 public final class Game {
 
-	private Player opponent1;
-	private Player opponent2;
-	private Player opponent3;
+//	private Player opponent1;
+//	private Player opponent2;
+//	private Player opponent3;
 
 	/**
 	 * The player who's is currently playing his/her turn.
@@ -38,36 +39,35 @@ public final class Game {
 	 * The game board representing hex tiles and all their contents.
 	 */
 	private Board board;
-//    private Die die1;
-    private Die die1;
-    private Die die2;
+    private transient Die die1;
+    private transient Die die2;
     private int mode;
-    private static final int 
+    private transient static final int 
     	MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
     //private GamePlay gamePlay;
 
-    private List<Hex> hexPool;
-    private Iterator<Player> nextPlayerIt;
+    private transient List<Hex> hexPool;
+    private transient Iterator<Player> nextPlayerIt;
     private List<Player> playerOrder;
-    private Cup cup;
+    private transient Cup cup;
     
   	//private ArrayList<Creature> lastSelectedCreatures;
  
     
-    public final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
-	public final static Image START_HEX_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
-  	public final static Image FACE_DOWN_THING_IMAGE = new Image("view/com/assets/pics/icon-inverted.png");
- 	public final static Image GOLD_IMAGE = new Image("view/com/assets/pics/gold.png");
- 	public final static Image DICE_IMAGE = new Image("view/com/assets/pics/dice.png");
- 	public final static Image CROWN_IMAGE = new Image("view/com/assets/pics/crown.png");
+    //TODO: Game is initialized on server and this should not be here. Unnecessary object creations. 
+    public transient final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
+	public transient final static Image START_HEX_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
+  	public transient final static Image FACE_DOWN_THING_IMAGE = new Image("view/com/assets/pics/icon-inverted.png");
+ 	public transient final static Image GOLD_IMAGE = new Image("view/com/assets/pics/gold.png");
+ 	public transient final static Image DICE_IMAGE = new Image("view/com/assets/pics/dice.png");
+ 	public transient final static Image CROWN_IMAGE = new Image("view/com/assets/pics/crown.png");
     // Constructors & Initializer Methods ==============================================================================
     
  	/**
      *	Creates a new Game instance defaulting to Four player mode.
      */
     public Game() {
-
 		mode = MODE_FOUR_PLAYER;
 
 		// Initialize the dice
@@ -155,9 +155,11 @@ public final class Game {
     		this();
     		
     		currentPlayer = host;
-    		opponent1 = guests.get(0);
-    		opponent2 = guests.get(1);
-    		opponent3 = guests.get(2);
+    		playerOrder.add(host);
+    		playerOrder.addAll(guests);
+//    		opponent1 = guests.get(0);
+//    		opponent2 = guests.get(1);
+//    		opponent3 = guests.get(2);
     }
     
 	// Getters and Setters =============================================================================================
@@ -273,54 +275,54 @@ public final class Game {
 	 *
 	 * @return The opponent.
 	 */
-	public final Player getOpponent1() {
-		return opponent1;
-	}
-
-	/**
-	 * Sets the first opponent instance.
-	 *
-	 * @param opponent1 The new opponent.
-	 */
-	public final void setOpponent1(final Player opponent1) {
-		this.opponent1 = opponent1;
-	}
+//	public final Player getOpponent1() {
+//		return opponent1;
+//	}
+//
+//	/**
+//	 * Sets the first opponent instance.
+//	 *
+//	 * @param opponent1 The new opponent.
+//	 */
+//	public final void setOpponent1(final Player opponent1) {
+//		this.opponent1 = opponent1;
+//	}
 
 	/**
 	 * Gets the second opponent.
 	 *
 	 * @return The opponent.
 	 */
-	public final Player getOpponent2() {
-		return opponent2;
-	}
+//	public final Player getOpponent2() {
+//		return opponent2;
+//	}
 
 	/**
 	 * Sets the second opponent instance.
 	 *
 	 * @param opponent2 The new opponent.
 	 */
-	public final void setOpponent2(final Player opponent2) {
-		this.opponent2 = opponent2;
-	}
+//	public final void setOpponent2(final Player opponent2) {
+//		this.opponent2 = opponent2;
+//	}
 
 	/**
 	 * Gets the third opponent.
 	 *
 	 * @return The opponent.
-	 */
-	public final Player getOpponent3() {
-		return opponent3;
-	}
+//	 */
+//	public final Player getOpponent3() {
+//		return opponent3;
+//	}
 
 	/**
 	 * Sets the third opponent instance.
 	 *
 	 * @param opponent3 The new opponent.
 	 */
-	public void setOpponent3(Player opponent3) {
-		this.opponent3 = opponent3;
-	}
+//	public void setOpponent3(Player opponent3) {
+//		this.opponent3 = opponent3;
+//	}
 
 	public final int diceTotal() {
 		return die1.getValue() + die2.getValue();
@@ -366,13 +368,32 @@ public final class Game {
 // 	public boolean hasNextPlayer(){
 // 		return nextPlayerIt.hasNext();
 // 	}
-
 	public final List<Player> getOpponentsForCurrent() {
 		List<Player> opponents = new ArrayList<>(playerOrder);
 		// Remove the current player
 		opponents.remove(currentPlayer);
 		
 		return opponents;
+	}
+	
+	public final List<Player> getOpponentsFor(Player p) {
+		List<Player> opponents = new ArrayList<>(playerOrder);
+		System.out.println("Player order: " + playerOrder);
+		System.out.println("Opponents: " + opponents);
+		System.out.println("Removed: " + opponents.remove(p));
+		
+		
+		return opponents;
+	}
+	
+	// TODO: Find a better way if we have time. This is hacky.
+	// Returns updated version of p, or p itself if null or not found.
+	public final Player getUpdatedPlayer(Player p) {
+		for (Player player : playerOrder) {
+			if (p.equals(player)) return player;
+		}
+		
+		return p;
 	}
 	
 	/**

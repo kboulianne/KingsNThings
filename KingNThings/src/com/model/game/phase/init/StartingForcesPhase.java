@@ -17,6 +17,7 @@ import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
@@ -32,9 +33,9 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Init Phase: Start of Starting Forces Phase");
 
-		gv.getCurrentActionLbl().setText("Place Forces");		
+		getGamePresenter().getView().getCurrentActionLbl().setText("Place Forces");		
 		
-		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -43,14 +44,14 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		});
 		finishBtn.setVisible(true);
 		finishBtn.setDisable(false);
-		KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
+		getBoardPresenter().getView().addPlacementHandler();
 	}
 	
 	@Override
 	public void phaseEnd() {
 		Util.log("Init Phase: End of Starting Forces Phase");
-		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
-		//Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		getBoardPresenter().getView().addDefaultHandler();
+		//Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		//finishBtn.setDisable(true);
 		//finishBtn.setOnAction(null);
 	}
@@ -59,7 +60,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	public void turnStart() {
 		super.turnStart();
 		
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Choose things from rack and\n"
+		getSidePanePresenter().getView().showArbitraryView("Choose things from rack and\n"
 																	   + "   place them on the board", Game.CROWN_IMAGE);
 		
 		Player player = game.getCurrentPlayer();
@@ -72,7 +73,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 			player.addThing(t);
 		}
 		
-		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);	
+		getPlayerInfoPresenter().getView().setPlayer(player);	
 	}
 
 	@Override

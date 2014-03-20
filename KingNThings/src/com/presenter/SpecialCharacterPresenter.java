@@ -52,7 +52,8 @@ public class SpecialCharacterPresenter {
 			public void handle(ActionEvent arg0) {
 				Util.playClickSound();
 				GameService.getInstance().getGame().moveThingFromCupToPlayer(selectedSpecialCharacter, GameService.getInstance().getGame().getCurrentPlayer());
-				GamePlay.getInstance().endTurn();
+//				GamePlay.getInstance().endTurn();
+				KNTAppFactory.getGamePlay().endTurn();
 			}
 		});
 	}
@@ -62,7 +63,7 @@ public class SpecialCharacterPresenter {
 			@Override
 			public void handle(ActionEvent arg0) {
 
-				int rollVal = view.getdV().getPresenter().roll();
+				int rollVal = KNTAppFactory.getDicePresenter().roll();
 				rolledValue += rollVal;
 				
 				view.getRollValueLbl().setText("Current rolled value: "+rolledValue);

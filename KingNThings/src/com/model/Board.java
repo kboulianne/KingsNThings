@@ -29,6 +29,12 @@ public class Board {
 		}
 	}
 	
+	/*
+	 * For gson.
+	 */
+	@SuppressWarnings("unused")
+	private Board() {}
+	
 	public Board(NumberOfHexes nOH){
 	    faceDown = true;
 	    numOfHexes = nOH.numberOfHexes;

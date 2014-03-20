@@ -403,6 +403,8 @@ public class BoardView extends Canvas {
 	 * @param board The board to display.
 	 */
 	public void setBoard(Board board) {
+		if (board == null) return;
+		
 		List<Hex> hexes = board.getHexes();
 		for (Hex h : hexes) {
 			paintHex(h);

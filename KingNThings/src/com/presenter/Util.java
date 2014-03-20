@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -13,6 +16,12 @@ public class Util {
 
 	private final static boolean DEBUG = true;
 	final public static boolean AUTOMATE = true;
+//	private static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+	
+	public static final Gson GSON = new GsonBuilder()
+		// TODO Use InstanceCreator for GamePiece Hierarchy?
+	.create();
+	
 	
 	public static void log(String message) {
 		if(DEBUG)

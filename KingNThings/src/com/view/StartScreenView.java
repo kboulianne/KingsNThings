@@ -1,20 +1,16 @@
 package com.view;
 
 import com.main.KNTAppFactory;
-import com.presenter.StartScreenCntrl;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 public class StartScreenView extends VBox {
 
@@ -35,7 +31,13 @@ public class StartScreenView extends VBox {
 		Label playersName = new Label("Enter your Noble's name:");
 		final TextField textField = new TextField();
 		textField.setId("startTF");
-
+		textField.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				KNTAppFactory.getStartScreenPresenter().handlePlay(textField.getText());
+			}
+		});
+		
 		Button startButton = new Button("Play");
 		startButton.setId("startButton");
 		startButton.setOnAction(new EventHandler<ActionEvent>() {

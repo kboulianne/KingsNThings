@@ -12,6 +12,7 @@ import com.model.game.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
@@ -29,45 +30,45 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Start of Starting Positions Phase");
 		
-		gv.getCurrentActionLbl().setText("Choose Starting Position");
+		getGamePresenter().getView().getCurrentActionLbl().setText("Choose Starting Position");
 		
-		finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setVisible(false);KNTAppFactory.getDicePresenter().getView().getRollBtn().setVisible(false);
+		finishBtn = getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setVisible(false);getDicePresenter().getView().getRollBtn().setVisible(false);
 		
-		KNTAppFactory.getDicePresenter().getView().getDie1().setVisible(false);
-		KNTAppFactory.getDicePresenter().getView().getDie2().setVisible(false);		
+		getDicePresenter().getView().getDie1().setVisible(false);
+		getDicePresenter().getView().getDie2().setVisible(false);		
 	}
 
 	@Override
 	public void phaseEnd() {
 		Util.log("End of Starting Positions Phase");
 		game.getBoard().setFaceDown(false);
-		KNTAppFactory.getBoardPresenter().getView().setBoard(game.getBoard());
-		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
+		getBoardPresenter().getView().setBoard(game.getBoard());
+		getBoardPresenter().getView().addDefaultHandler();
 		finishBtn.setVisible(true);
 		
-		KNTAppFactory.getSidePanePresenter().getView().clearDetailsView();
+		getSidePanePresenter().getView().clearDetailsView();
 	}
 
 	@Override
 	public void turnStart() {
 		super.turnStart();
 
-		KNTAppFactory.getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Choose a starting position", Game.START_HEX_IMAGE);
+		getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
+		getSidePanePresenter().getView().showArbitraryView("Choose a starting position", Game.START_HEX_IMAGE);
 		game.getBoard().setFaceDown(true);
-		KNTAppFactory.getBoardPresenter().getView().setBoard(game.getBoard());
+		getBoardPresenter().getView().setBoard(game.getBoard());
 				
 		if(Util.AUTOMATE){
 			Util.log("Automated");
 			if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE))
-				KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(23);
+				getBoardPresenter().handleStartPositionSelectedHexClick(23);
 			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO))
-				KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(28);
+				getBoardPresenter().handleStartPositionSelectedHexClick(28);
 			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE))
-				KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(32);
+				getBoardPresenter().handleStartPositionSelectedHexClick(32);
 			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR))
-				KNTAppFactory.getBoardPresenter().handleStartPositionSelectedHexClick(19);
+				getBoardPresenter().handleStartPositionSelectedHexClick(19);
 		}
 	}
 

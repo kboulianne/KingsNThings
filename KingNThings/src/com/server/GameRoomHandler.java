@@ -29,12 +29,12 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 	
 	@Override
 	public GameRoom createGameRoom(String name, Player host) throws JSONRPC2Error {
-		GameRoom room = null;
+		ServerGameRoom room = null;
 		
 		synchronized (GAME_ROOMS) {
 			// Make sure the room does not exist.
 			if (!GAME_ROOMS.containsKey(name)) {
-				room = new GameRoom(name, host);
+				room = new ServerGameRoom(name, host);
 				
 				GAME_ROOMS.put(name, room);
 			}
@@ -64,6 +64,7 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 		//TODO: Change me to collection
 		// Must lock the collection to make sure no changes are made in between.
 		synchronized (GAME_ROOMS) {
+			
 			return GAME_ROOMS.values();
 		}
 	}
@@ -92,7 +93,7 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 		synchronized (GAME_ROOMS) {
 			if (GAME_ROOMS.containsKey(room)) {
 				// Make sure there are four players in the room (including host.)
-				GameRoom gr = GAME_ROOMS.get(room);
+				ServerGameRoom gr = (ServerGameRoom)GAME_ROOMS.get(room);
 				
 				// Make sure the game was not already started.
 				if (gr.hasStarted()) throw GAME_ROOM_GAME_IN_PROGRESS;
@@ -102,10 +103,12 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 					// Create and initialize the Game instance with Host and Opponents.
 					Game game = new Game(gr.getHost(), gr.getPlayers());
 					
+					gr.setGame(game);
+					gr.setStarted(true);
 					// Lock the Games map and add this game instance
-					synchronized (GAMES) {
-						GAMES.put(room, game);
-					}
+//					synchronized (GAMES) {
+//						GAMES.put(room, game);
+//					}
 				}
 				else {
 					// For now

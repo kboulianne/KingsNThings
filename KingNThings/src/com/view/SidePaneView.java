@@ -7,6 +7,7 @@ package com.view;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.SortedMap;
 
 import com.view.customcontrols.PlayerLabel;
@@ -40,9 +41,6 @@ import javafx.scene.input.MouseEvent;
  * @author kurtis
  */
 public class SidePaneView extends VBox {
-
-	private SidePanePresenter presenter;
-
     // Current detailsview being displayed in the view
 	// TODO Create abstract DetailsView?
 	private StackPane content;
@@ -87,7 +85,7 @@ public class SidePaneView extends VBox {
 			public void handle(MouseEvent t) {
 				PlayerLabel lbl = (PlayerLabel) t.getSource();
 				// TODO create a custom event.
-				presenter.showOpponentInfo(lbl.getPlayer());
+				KNTAppFactory.getSidePanePresenter().showOpponentInfo(lbl.getPlayer());
 			}
 		};
 		opp1Lbl.setOnMouseEntered(playerLabelHandler);
@@ -98,7 +96,7 @@ public class SidePaneView extends VBox {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.dismissOpponentInfo();
+				KNTAppFactory.getSidePanePresenter().dismissOpponentInfo();
 			}
 		};
 		opp1Lbl.setOnMouseExited(exitHandler);
@@ -106,23 +104,14 @@ public class SidePaneView extends VBox {
 		opp3Lbl.setOnMouseExited(exitHandler);
 	}
 
-	public void setPresenter(final SidePanePresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
+	public void setOpponents(List<Player> players) {
+		System.out.println("Set opponents: " + players);
+		// FIXME: Problem if not four player.
+		if (!players.isEmpty()) {
+			opp1Lbl.setPlayer(players.get(0));
+			opp2Lbl.setPlayer(players.get(1));
+			opp3Lbl.setPlayer(players.get(2));
 		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
-	}
-
-	// TODO pass list/set?
-	public void setOpponents(Player o1, Player o2, Player o3) {
-		opp1Lbl.setPlayer(o1);
-		opp2Lbl.setPlayer(o2);
-		opp3Lbl.setPlayer(o3);
 	}
 	
 	public void showGoldCollection(int hexGold, int fortGold, int counterGold, int specCharGold){

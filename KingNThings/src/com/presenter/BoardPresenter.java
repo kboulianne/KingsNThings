@@ -93,7 +93,8 @@ public class BoardPresenter {
 			// Update view
 			view.setBoard(b);
 			
-			GamePlay.getInstance().endTurn();
+//			GamePlay.getInstance().endTurn();
+			KNTAppFactory.getGamePlay().endTurn();
 		}
 	}
 	
@@ -146,7 +147,8 @@ public class BoardPresenter {
 				
 				
 				view.setBoard(b);
-				GamePlay.getInstance().endTurn();
+//				GamePlay.getInstance().endTurn();
+				KNTAppFactory.getGamePlay().endTurn();
 			}
 		}
 	}
@@ -192,7 +194,8 @@ public class BoardPresenter {
 				Hex curr = svc.getGame().getBoard().getHexes().get(hex.getJoiningHexes()[i]);
 				if(curr.getType() != Hex.HexType.SEA)	count++;
 				if(count >= 2)	{
-					GamePlay.getInstance().endTurn();
+//					GamePlay.getInstance().endTurn();
+					KNTAppFactory.getGamePlay().endTurn();
 					break;
 				}
 			}
@@ -257,7 +260,8 @@ public class BoardPresenter {
 			Hex curr = svc.getGame().getBoard().getHexes().get(startPos.getJoiningHexes()[i]);
 			if(curr.getType() != Hex.HexType.SEA)	count++;
 			if(count >= 2)	{
-				GamePlay.getInstance().endTurn();
+//				GamePlay.getInstance().endTurn();
+				KNTAppFactory.getGamePlay().endTurn();
 				return;
 			}
 		}
@@ -356,10 +360,12 @@ public class BoardPresenter {
 				t.setHexLocation(selected);
 				view.setBoard(svc.getGame().getBoard());
 			}
-			if(GamePlay.getInstance().getPhaseLogic() instanceof ExchangePhase)
+			//TODO: Is there a better way to do this?
+			if(KNTAppFactory.getGamePlay().getPhaseLogic() instanceof ExchangePhase)
 				KNTAppFactory.getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(player);
 			else
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+			
 			KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 		}
 	}

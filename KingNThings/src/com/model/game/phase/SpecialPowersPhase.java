@@ -8,6 +8,7 @@ package com.model.game.phase;
 import com.main.KNTAppFactory;
 import com.model.game.Game;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
@@ -23,7 +24,7 @@ class SpecialPowersPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Special Powers Phase");
 		
-		gv.getCurrentActionLbl().setText("Deploy Special Powers");
+		getGamePresenter().getView().getCurrentActionLbl().setText("Deploy Special Powers");
 		
 	}
 
@@ -35,7 +36,7 @@ class SpecialPowersPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Special Powers TODO", Game.CROWN_IMAGE);
+		getSidePanePresenter().getView().showArbitraryView("Special Powers TODO", Game.CROWN_IMAGE);
 	}
 
 	@Override

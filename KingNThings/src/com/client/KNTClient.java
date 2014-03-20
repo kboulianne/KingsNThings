@@ -9,7 +9,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.client.proxy.GameRoomServiceProxy;
+import com.client.proxy.GameServiceProxy;
 import com.server.services.IGameRoomService;
+import com.server.services.IGameService;
 
 /*
  * Clients will have one instance of this in the Application.
@@ -19,6 +21,7 @@ import com.server.services.IGameRoomService;
 public class KNTClient {
 	private Socket socket;
 	private IGameRoomService proxy;
+	private IGameService gameProxy;
 	
 	/**
 	 * Creates a new connection to the game server with specified host and port.
@@ -37,6 +40,7 @@ public class KNTClient {
 			reader.readLine();
 			
 			proxy = new GameRoomServiceProxy(reader, writer);
+			gameProxy = new GameServiceProxy(reader, writer);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,5 +54,9 @@ public class KNTClient {
 	// get service methods
 	public final IGameRoomService getGameRoomService() {
 		return proxy;
+	}
+	
+	public final IGameService getGameService() {
+		return gameProxy;
 	}
 }

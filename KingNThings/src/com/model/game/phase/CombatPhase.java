@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import com.main.KNTAppFactory;
 import com.model.game.Game;
 import com.presenter.Util;
-
+import static com.main.KNTAppFactory.*;
 /**
  *
  * @author kurtis
@@ -27,9 +27,9 @@ class CombatPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Combat Phase");
 
-		gv.getCurrentActionLbl().setText("Combat Phase");
+		getGamePresenter().getView().getCurrentActionLbl().setText("Combat Phase");
 		
-		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -37,7 +37,7 @@ class CombatPhase extends AbstractPhaseStrategy {
 			}
 		});
 		
-		KNTAppFactory.getBoardPresenter().getView().addBattleSelectionHandler();
+		getBoardPresenter().getView().addBattleSelectionHandler();
 	}
 
 	@Override
@@ -50,17 +50,17 @@ class CombatPhase extends AbstractPhaseStrategy {
 		super.turnStart();
 		Util.log("Game Phase: Logic for " + game.getCurrentPlayer().getName());
 
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Available battles displayed as red hexes", Game.CROWN_IMAGE);
+		getSidePanePresenter().getView().showArbitraryView("Available battles displayed as red hexes", Game.CROWN_IMAGE);
 		
 		// highlight hexes with available battles
-		KNTAppFactory.getBoardPresenter().findAndHighlightConflicts();
+		getBoardPresenter().findAndHighlightConflicts();
 		
 	}
 	
 	@Override
 	public void turnEnd() {
 		//GameService.getInstance().endTurn(this);
-		KNTAppFactory.getBoardPresenter().clearConflictHighlights();
+		getBoardPresenter().clearConflictHighlights();
 		
 	}
 }

@@ -7,7 +7,8 @@ import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-import com.main.LobbyTestMain;
+import com.main.KNTAppFactory;
+import com.main.NetworkedMain;
 import com.model.GameRoom;
 import com.model.Player;
 import com.server.services.IGameRoomService;
@@ -18,16 +19,15 @@ public class GameRoomPresenter {
 	private final GameRoomView view;
 	private final IGameRoomService gameRoomSvc;
 	private GameRoom room;
-	//TODO Keep player and game room in application main.
-	private Player owner;
 	
+	private final Timer updateTimer = new Timer();
 	Service<GameRoom> service = new Service<GameRoom>() {
 		@Override
 		protected Task<GameRoom> createTask() {
 			return new Task<GameRoom>() {	
 				@Override
 				protected GameRoom call() throws Exception {
-					new Timer().scheduleAtFixedRate(new TimerTask() {
+					updateTimer.scheduleAtFixedRate(new TimerTask() {
 						@Override
 						public void run() {
 							refreshGameRoom();
@@ -51,6 +51,12 @@ public class GameRoomPresenter {
 
 	public void handleStartGameButton() {
 		// Only show start button for host player.
+		try {
+			gameRoomSvc.startGame(room.getName());
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -58,11 +64,10 @@ public class GameRoomPresenter {
 	 * @param owner Player owning the window
 	 * @param room
 	 */
-	public void showGameRoom(Player owner, GameRoom room) {
-		LobbyTestMain.setView(view);
-		view.setGameRoom(owner, room);
+	public void showGameRoom(GameRoom room) {
+		NetworkedMain.setView(view);
+		view.setGameRoom(room);
 		this.room = room;
-		this.owner = owner;
 		
 		service.start();
 	}
@@ -79,7 +84,20 @@ public class GameRoomPresenter {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {
-					view.setGameRoom(owner, room);
+					view.setGameRoom(room);
+					
+					// Check if game was started
+					if (room.hasStarted()) {
+						// Kill the update service
+						service.cancel();
+						updateTimer.cancel();
+						
+						NetworkedMain.setRoomName(room.getName());
+						// Delegate to GamePresenter.
+						KNTAppFactory.getGamePresenter().showGameUI();
+						
+
+					}
 				}
 			});
 			

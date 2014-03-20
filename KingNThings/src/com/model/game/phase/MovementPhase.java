@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import com.main.KNTAppFactory;
 import com.model.game.Game;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
@@ -25,13 +26,13 @@ class MovementPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void phaseStart() {
-		KNTAppFactory.getBoardPresenter().getView().setDisable(false);
+		getBoardPresenter().getView().setDisable(false);
 		
 		Util.log("Game Phase: Start of Movement Phase");
 
-		gv.getCurrentActionLbl().setText("Movement Phase");
+		getGamePresenter().getView().getCurrentActionLbl().setText("Movement Phase");
 		
-		Button finishBtn = KNTAppFactory.getDicePresenter().getView().getEndTurnBtn();
+		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(false);
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {		
 			@Override
@@ -40,23 +41,23 @@ class MovementPhase extends AbstractPhaseStrategy {
 			}
 		});
 		
-		KNTAppFactory.getBoardPresenter().getView().addMovementHandler();
+		getBoardPresenter().getView().addMovementHandler();
 	}
 
 	@Override
 	public void phaseEnd() {
-		KNTAppFactory.getArmyDetailsPresenter().getView().setDefaultHandler();
-		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
+		getArmyDetailsPresenter().getView().setDefaultHandler();
+		getBoardPresenter().getView().addDefaultHandler();
 		Util.log("Game Phase: End of Movement Phase");
 	}
 
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		KNTAppFactory.getArmyDetailsPresenter().getView().setMovementHandler();	
-		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(true);
-		KNTAppFactory.getHexDetailsPresenter().getView().getCounter().setMoving(true);		
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Move characters within hexes", Game.CROWN_IMAGE);
+		getArmyDetailsPresenter().getView().setMovementHandler();	
+		getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(true);
+		getHexDetailsPresenter().getView().getCounter().setMoving(true);		
+		getSidePanePresenter().getView().showArbitraryView("Move characters within hexes", Game.CROWN_IMAGE);
 		
 		/*// for testing
 		Player currentPlayer = game.getCurrentPlayer();
@@ -78,7 +79,7 @@ class MovementPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnEnd() {
 		super.turnEnd();
-		KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(false);
-		KNTAppFactory.getHexDetailsPresenter().getView().getCounter().setMoving(false);
+		getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(false);
+		getHexDetailsPresenter().getView().getCounter().setMoving(false);
 	}
 }

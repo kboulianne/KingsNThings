@@ -1,6 +1,7 @@
 package com.view;
 
 import com.main.KNTAppFactory;
+import com.main.NetworkedMain;
 import com.model.GameRoom;
 import com.model.Player;
 
@@ -62,13 +63,13 @@ public class GameRoomView extends VBox {
 		getChildren().addAll(host, guest1, guest2, guest3, bottomPane);
 	}
 	
-	public void setGameRoom(final Player owner, final GameRoom room) {
+	public void setGameRoom(final GameRoom room) {
 		if (room == null) return;
 		
 		host.setText(room.getHost().getName());
 		host.setTextFill(room.getHost().getColor());
 		
-		if (owner.equals(room.getHost())) {
+		if (NetworkedMain.getPlayer().equals(room.getHost())) {
 			startGame.setVisible(true);
 		}
 		else {

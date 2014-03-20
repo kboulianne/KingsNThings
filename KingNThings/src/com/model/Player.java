@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.game.services.GameService;
 import com.model.game.Game;
@@ -182,12 +183,64 @@ public class Player 	{
 	}
 	
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((block == null) ? 0 : block.hashCode());
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + gold;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((startPos == null) ? 0 : startPos.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		
 		if (obj instanceof Player) {
-			Player p = (Player) obj;
-			// TODO: Modify me
+			Player p = (Player)obj;
+			
 			return name.equals(p.name);
 		}
+		
 		return false;
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Player other = (Player) obj;
+//		if (block == null) {
+//			if (other.block != null)
+//				return false;
+//		} else if (!block.equals(other.block))
+//			return false;
+//		if (color == null) {
+//			if (other.color != null)
+//				return false;
+//		} else if (!color.equals(other.color))
+//			return false;
+//		if (gold != other.gold)
+//			return false;
+//		if (name == null) {
+//			if (other.name != null)
+//				return false;
+//		} else if (!name.equals(other.name))
+//			return false;
+//		if (startPos == null) {
+//			if (other.startPos != null)
+//				return false;
+//		} else if (!startPos.equals(other.startPos))
+//			return false;
+//		return true;
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 }

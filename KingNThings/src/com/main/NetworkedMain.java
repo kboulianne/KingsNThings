@@ -1,5 +1,6 @@
 package com.main;
 
+import com.model.Player;
 import com.presenter.LobbyPresenter;
 import com.presenter.StartScreenPresenter;
 
@@ -12,12 +13,16 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-public class LobbyTestMain extends Application {
-    static final double WIDTH = 400;
-    static final double HEIGHT = 800;
+public class NetworkedMain extends Application {
+//    static final double WIDTH = 400;
+//    static final double HEIGHT = 800;
     
     static Stage primaryStage;
     static Scene scene;
+    
+    // The player which owns/plays on this client.
+    private static Player player;
+    private static String roomName;
     
     public static void main(String[] args) {
         launch(args);
@@ -25,9 +30,7 @@ public class LobbyTestMain extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-//    	final GamePresenter main = KNTAppFactory.getGamePresenter();
-//    		final LobbyPresenter lobby = KNTAppFactory.getLobbyPresenter();
-    	final StartScreenPresenter start = KNTAppFactory.getStartScreenPresenter();
+    		final StartScreenPresenter start = KNTAppFactory.getStartScreenPresenter();
     	
         stage.setTitle("Kings & Things");
 //        stage.setMinWidth(1000);
@@ -53,10 +56,35 @@ public class LobbyTestMain extends Application {
         stage.show();
     }
     
+    public static final Player getPlayer() {
+    		return player;
+    }
+    
+    public static final void setPlayer(final Player player) {
+    		NetworkedMain.player = player;
+    }
+    
+    public static final String getRoomName() {
+    		return roomName;
+    }
+    
+	public static final void setRoomName(String room) {
+		roomName = room;
+	}
+    
     // TODO Implement view interface
     public static void setView(Parent n) {
-    	scene.setRoot(n);
-    	// size content
-    	primaryStage.sizeToScene();
+	    	scene.setRoot(n);
+	    	// size content
+	    	primaryStage.sizeToScene();
+    }
+    
+    public static void setView(Parent n, double w, double h) {
+    		scene.setRoot(n);
+    		primaryStage.setMinWidth(w);
+    		primaryStage.setMinHeight(h);
+    		primaryStage.setWidth(w);
+    		primaryStage.setHeight(h);
+//    		primaryStage.sizeToScene();
     }
 }

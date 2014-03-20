@@ -16,6 +16,7 @@ import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.game.Game;
 import com.presenter.Util;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
@@ -31,22 +32,22 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 	public void phaseStart() {
 		Util.log("Game Phase: Start of Gold Collection Phase");
 
-		gv.getCurrentActionLbl().setText("Gold Collection");
-		KNTAppFactory.getBoardPresenter().getView().setDisable(true);
+		getGamePresenter().getView().getCurrentActionLbl().setText("Gold Collection");
+		getBoardPresenter().getView().setDisable(true);
 	}
 	
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Gold Collection Phase");
-		KNTAppFactory.getSidePanePresenter().getView().clearDetailsView();
-		KNTAppFactory.getBoardPresenter().getView().setDisable(false);
-		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
+		getSidePanePresenter().getView().clearDetailsView();
+		getBoardPresenter().getView().setDisable(false);
+		getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
 	}
 
 	@Override
 	public void turnStart() {
 		super.turnStart();
-		KNTAppFactory.getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
+		getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
 		
 		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 		
@@ -74,10 +75,10 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 		hexGold = (int) Math.ceil(hexGold/2.0);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);	
 
-		KNTAppFactory.getSidePanePresenter().getView().showGoldCollection(hexGold, fortGold, counterGold, specCharGold);
+		getSidePanePresenter().getView().showGoldCollection(hexGold, fortGold, counterGold, specCharGold);
 		
 		player.addGold(totalGold);
-		KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(player);
+		getPlayerInfoPresenter().getView().updateGold(player);
 	}
 
 	@Override

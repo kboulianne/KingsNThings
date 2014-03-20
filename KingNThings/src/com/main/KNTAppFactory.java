@@ -2,6 +2,7 @@ package com.main;
 
 import com.client.KNTClient;
 import com.model.Die;
+import com.model.game.phase.GamePlay;
 import com.presenter.ArmyDetailsPresenter;
 import com.presenter.BattlePresenter;
 import com.presenter.DicePresenter;
@@ -53,14 +54,18 @@ public class KNTAppFactory {
 	private static final BattlePresenter battlePresenter;
 	private static final SpecialCharacterPresenter specialCharacterPresenter; 
 
+	// Game logic
+	private static GamePlay gamePlay;
+	
 	// One per application? Maybe two in the future, one for Notifications and one For requests
     private static final KNTClient CLIENT; 
 	
 	static {
-    		CLIENT = new KNTClient("localhost", 6868);
+		CLIENT = new KNTClient("localhost", 6868);
 		
+    		
     		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
-    	startScreenPresenter = createStartScreenPresenter();
+    		startScreenPresenter = createStartScreenPresenter();
 		lobbyPresenter = createLobbyPresenter();
 		gameRoomPresenter = createGameRoomPresenter();
 		gamePresenter = createMainPresenter();
@@ -104,14 +109,14 @@ public class KNTAppFactory {
 	
 	private static GamePresenter createMainPresenter() {
 		GameView view = new GameView();
-		GamePresenter presenter = new GamePresenter(view);
+		GamePresenter presenter = new GamePresenter(view, CLIENT.getGameService());
 
 		return presenter;
 	}
 
 	private static DicePresenter createDicePresenter() {
 		DiceView view = new DiceView();
-		DicePresenter presenter = new DicePresenter(view);
+		DicePresenter presenter = new DicePresenter(view, CLIENT.getGameService());
 
 		return presenter;
 	}
@@ -240,5 +245,13 @@ public class KNTAppFactory {
 
 	public static SpecialCharacterPresenter getSpecialCharacterPresenter() {
 		return specialCharacterPresenter;
+	}
+	
+	public static GamePlay getGamePlay() {
+		// Created when first called.
+		if (gamePlay == null)
+			gamePlay = new GamePlay(CLIENT.getGameService());
+		
+		return gamePlay;
 	}
 }
