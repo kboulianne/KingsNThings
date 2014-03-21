@@ -5,7 +5,7 @@
  */
 package com.view;
 
-import com.model.game.Game;
+import com.model.Game;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

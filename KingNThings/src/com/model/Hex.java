@@ -89,7 +89,7 @@ public class Hex extends GamePiece {
     }
     
     public final void setOwner(final Player player) {
-    	this.hexOwner = player;
+    		this.hexOwner = player;
 		
 		this.color = player.getColor();
     }
@@ -98,6 +98,7 @@ public class Hex extends GamePiece {
 	    return color;
     }
     public void setColor(Color color) {
+    		
 	    this.color = color;
     }
     public boolean isSelected() {

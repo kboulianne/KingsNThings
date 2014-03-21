@@ -2,8 +2,8 @@ package com.presenter;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Game;
 import com.model.Player;
-import com.model.game.Game;
 import com.view.PlayerInfoView;
 
 /**

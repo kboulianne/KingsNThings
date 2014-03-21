@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.model.Game;
 import com.model.GameRoom;
-import com.model.game.Game;
 
 public class KNTServer {
 	private static final ServerSocket SERVER;

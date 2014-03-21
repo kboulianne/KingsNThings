@@ -9,7 +9,7 @@ import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.Board;
-import com.model.game.Game;
+import com.model.Game;
 import com.presenter.Util;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.view.GameView;
@@ -24,13 +24,25 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 
 	protected final GamePlay context;
 
-	protected Game game;
+	// Same instance for every phase.
+	protected static Game game;
 //	protected GameView gv;
 
 	protected AbstractPhaseStrategy(final GamePlay context) {
 		this.context = context;
+//		try {
+//			game = context.getService().refreshGame(NetworkedMain.getRoomName());
+//		} catch (JSONRPC2Error e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	}
+	
+	@Override
+	public void phaseStart() {
+		// Always refresh the local game instance
 		try {
-			game = context.gameSvc.refreshGame(NetworkedMain.getRoomName());
+			game = context.getService().refreshGame(NetworkedMain.getRoomName());
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,6 +52,15 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 	@Override
 	public void turnStart() {
 		Util.playClickSound();
+		
+		// Always refresh the game instance
+		try {
+			game = context.getService().refreshGame(NetworkedMain.getRoomName());
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		//top label
 		getGamePresenter().getView().getCurrentPlayerLbl()
 				.setText(game.getCurrentPlayer().getName()+"'s Turn: ");

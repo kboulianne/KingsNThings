@@ -11,11 +11,12 @@ import javafx.event.EventHandler;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Creature;
+import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
 import com.model.SpecialCharacter;
-import com.model.game.Game;
 import com.presenter.Util;
+
 import static com.main.KNTAppFactory.*;
 
 /**

@@ -8,8 +8,8 @@ package com.game.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.model.Game;
 import com.model.Player;
-import com.model.game.Game;
 
 /**
  *

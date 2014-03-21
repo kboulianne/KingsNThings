@@ -1,7 +1,7 @@
 package com.server;
 
+import com.model.Game;
 import com.model.Player;
-import com.model.game.Game;
 
 import static com.server.KNTServer.*;
 
@@ -11,7 +11,7 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 public class GameHandler extends KNTRequestHandler implements IGameService {
 	@Override
 	public String[] handledRequests() {
-		return new String[] { "refreshGame" };
+		return new String[] { "refreshGame", "updateGame", "isPlayerTurn" };
 	}
 
 	@Override
@@ -24,4 +24,22 @@ public class GameHandler extends KNTRequestHandler implements IGameService {
 		return game;
 	}
 	
+	@Override
+	public void updateGame(String roomName, Game game) throws JSONRPC2Error {
+		
+		synchronized (GAME_ROOMS) {
+			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
+			
+			room.setGame(game);
+		}		
+	}
+
+	@Override
+	public boolean isPlayerTurn(String roomName, Player p) throws JSONRPC2Error {
+		synchronized (GAME_ROOMS) {
+			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
+			
+			return room.getGame().getCurrentPlayer().equals(p);
+		}
+	}
 }

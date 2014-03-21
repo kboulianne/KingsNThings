@@ -3,9 +3,9 @@ package com.server;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.model.Game;
 import com.model.GameRoom;
 import com.model.Player;
-import com.model.game.Game;
 
 public class ServerGameRoom extends GameRoom {
 
@@ -20,16 +20,18 @@ public class ServerGameRoom extends GameRoom {
 	}
 	
 	public final void setGame(final Game game) {
+		
+		// Initialization
+		if (this.game == null) {
+			// Update Player references in game.
+			game.setCurrentPlayer(host);
+			List<Player> order = new ArrayList<>();
+			order.add(host);
+			order.addAll(players);
+			game.setPlayerOrder(order);
+		}
+		
 		this.game = game;
-		
-		// Update Player references in game.
-		game.setCurrentPlayer(host);
-		List<Player> order = new ArrayList<>();
-		order.add(host);
-		order.addAll(players);
-		game.setPlayerOrder(order);
-		
-		
 //		game.setOpponent1(players.get(0));
 //		game.setOpponent2(players.get(1));
 //		game.setOpponent3(players.get(2));

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
@@ -27,6 +28,8 @@ public class PlayerRunnable implements Runnable {
 		
 		DISPATCHER.register(new GameRoomHandler());
 		DISPATCHER.register(new GameHandler());
+		
+		LOGGER.setLevel(Level.OFF);
 	}
 	
 	public PlayerRunnable(Socket player) {

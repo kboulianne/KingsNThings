@@ -4,7 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.List;
+
 import com.google.gson.Gson;
+import com.presenter.Util;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
@@ -12,11 +14,6 @@ import com.thetransactioncompany.jsonrpc2.server.MessageContext;
 import com.thetransactioncompany.jsonrpc2.server.RequestHandler;
 
 public abstract class KNTRequestHandler implements RequestHandler {
-	protected static final Gson GSON;
-	
-	static {
-		GSON = new Gson();
-	}
 	
 	@Override
 	public JSONRPC2Response process(JSONRPC2Request request, MessageContext requestCtx) {
@@ -71,7 +68,7 @@ public abstract class KNTRequestHandler implements RequestHandler {
 					params[i] = (String)reqParams.get(i);					
 				}
 				else {
-					params[i] = GSON.fromJson((String)reqParams.get(i), types[i]);
+					params[i] = Util.GSON.fromJson((String)reqParams.get(i), types[i]);
 				}
 			}
 		}
@@ -95,7 +92,7 @@ public abstract class KNTRequestHandler implements RequestHandler {
 			res = new JSONRPC2Response(req.getID());
 		}
 		else {
-			res = new JSONRPC2Response(GSON.toJson(returnValue, returnType), req.getID());
+			res = new JSONRPC2Response(Util.GSON.toJson(returnValue, returnType), req.getID());
 		}
 		
 		return res;

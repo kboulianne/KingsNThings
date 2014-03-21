@@ -2,9 +2,9 @@ package com.server;
 
 import java.util.Collection;
 
+import com.model.Game;
 import com.model.GameRoom;
 import com.model.Player;
-import com.model.game.Game;
 import com.server.services.IGameRoomService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 

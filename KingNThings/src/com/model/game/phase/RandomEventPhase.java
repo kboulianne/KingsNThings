@@ -10,8 +10,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.main.KNTAppFactory;
-import com.model.game.Game;
+import com.model.Game;
 import com.presenter.Util;
+
 import static com.main.KNTAppFactory.*;
 
 /**

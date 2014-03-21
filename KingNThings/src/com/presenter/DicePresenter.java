@@ -4,7 +4,7 @@ import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.Die;
-import com.model.game.Game;
+import com.model.Game;
 import com.model.game.phase.GamePlay;
 import com.server.services.IGameService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
@@ -78,23 +78,29 @@ public class DicePresenter {
 	 */
 	public int roll() {
 		Util.playDiceRollSound();
-		
-		// For now
-		if (die1 == null || die2 == null) {
-			Game game = null;
-			try {
-				game = gameSvc.refreshGame(NetworkedMain.getRoomName());
-			} catch (JSONRPC2Error e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	
+		// FIXME: Will cause problems for battle.
+		Game game = null;
+		try {
+			game = gameSvc.refreshGame(NetworkedMain.getRoomName());
+
 			die1 = game.getDie1();
 			die2 = game.getDie2();
-
+	
+			
+			die1.roll();
+			die2.roll();
+		
+			System.out.println("Rolled: " + (die1.getValue() + die2.getValue()));
+			
+			// Update the server instance
+			//TODO: add update dice for efficiency, low priority.
+			gameSvc.updateGame(NetworkedMain.getRoomName(), game);
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		die1.roll();
-		die2.roll();
 		// Update the view
 		view.setDice(die1, die2);
 		

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.model.Player.PlayerId;
-import com.model.game.Game;
 
 public class GameRoom {
 	/** The name of this game room. */

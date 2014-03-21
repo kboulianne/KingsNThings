@@ -1,9 +1,11 @@
 package com.server.services;
 
+import com.model.Game;
 import com.model.Player;
-import com.model.game.Game;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 
 public interface IGameService {
 	Game refreshGame(String roomName) throws JSONRPC2Error;
+	void updateGame(String roomName, Game game) throws JSONRPC2Error;
+	boolean isPlayerTurn(String roomName, Player p) throws JSONRPC2Error;
 }

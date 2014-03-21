@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.game.services.GameService;
-import com.model.game.Game;
 
 import javafx.scene.paint.Color;
 
@@ -207,36 +206,6 @@ public class Player 	{
 		}
 		
 		return false;
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Player other = (Player) obj;
-//		if (block == null) {
-//			if (other.block != null)
-//				return false;
-//		} else if (!block.equals(other.block))
-//			return false;
-//		if (color == null) {
-//			if (other.color != null)
-//				return false;
-//		} else if (!color.equals(other.color))
-//			return false;
-//		if (gold != other.gold)
-//			return false;
-//		if (name == null) {
-//			if (other.name != null)
-//				return false;
-//		} else if (!name.equals(other.name))
-//			return false;
-//		if (startPos == null) {
-//			if (other.startPos != null)
-//				return false;
-//		} else if (!startPos.equals(other.startPos))
-//			return false;
-//		return true;
 	}
 
 	@Override

@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 
 public class Die extends GamePiece {
 	private int value;
-	private Image image;
 	
 	public Die(){
 	    roll();
@@ -16,9 +15,9 @@ public class Die extends GamePiece {
 		setValue(randomNumber);
 
 		this.setImage("view/com/assets/pics/die/die"+value+".png");
-		if (image == null) {
-		    image = getImage();
-		}		
+//		if (image == null) {
+//		    image = getImage();
+//		}		
 		return randomNumber;
 	}
 	

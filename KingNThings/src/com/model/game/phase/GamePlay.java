@@ -5,6 +5,8 @@
  */
 package com.model.game.phase;
 
+import static com.main.KNTAppFactory.getGamePresenter;
+
 import com.game.services.GameService;
 import com.presenter.Util;
 import com.server.services.IGameService;
@@ -17,8 +19,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import com.main.NetworkedMain;
+import com.model.Game;
 import com.model.Player;
-import com.model.game.Game;
 import com.model.game.phase.init.ExchangePhase;
 import com.model.game.phase.init.PlayerOrderPhase;
 import com.model.game.phase.init.StartingForcesPhase;
@@ -38,8 +40,7 @@ public final class GamePlay {
 	 * Current gameplay logic to execute.
 	 */
 	private AbstractPhaseStrategy phaseLogic;
-	protected IGameService gameSvc;
-	
+	private IGameService gameSvc;
 	
 	/**
 	 * Initial phases
@@ -51,7 +52,7 @@ public final class GamePlay {
 
 	// TODO Add a model?
 	// Maps dice total to the player that made the roll.
-	private final SortedMap<Integer, Player> rolls;
+//	private final SortedMap<Integer, Player> rolls;
 
 	// Used by Starting Kingdoms Phase to cycle player order before ending
 	// phase.
@@ -76,7 +77,7 @@ public final class GamePlay {
 		this.gameSvc = gameSvc;
 		initPhases = new LinkedHashSet<>();
 		gamePhases = new LinkedHashSet<>();
-		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
+//		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
 
 		createInitPhases();
 		createGamePhases();
@@ -121,34 +122,10 @@ public final class GamePlay {
 		this.cycles = cycle;
 	}
 
-	/**
-	 * Adds the specified dice total for the player.
-	 * 
-	 * @param total
-	 *            The total to add
-	 * @param p
-	 *            The player that rolled this total.
-	 */
-	public void addPlayerRoll(int total, Player p) {
-		// TODO Handle case where two players have the same dice total.
-		rolls.put(total, p);
-	}
 
-	/**
-	 * Clears the rolls previously added to the map.
-	 */
-	public void clearRolls() {
-		rolls.clear();
-	}
 
-	/**
-	 * Gets the the players ordered by their dice totals in descending order.
-	 * 
-	 * @return The collection of players, in descending order.
-	 */
-	public final Collection<Player> getPlayersHighToLow() {
-		return rolls.values();
-	}
+
+
 
 	/**
 	 * Called when the last player in turn order has executed his turn. Switches
@@ -170,6 +147,7 @@ public final class GamePlay {
 	 * Signals the start of game.
 	 */
 	public void start() {
+		//TODO: Check if already started.
 		// Initial phase start
 		phaseLogic.phaseStart();
 
@@ -180,7 +158,7 @@ public final class GamePlay {
 	/**
 	 * Exectues turnStart logic for the current player.
 	 */
-	private final void startTurn() {
+	public final void startTurn() {
 		// Execute logic then go to startTurn player / phase
 		phaseLogic.turnStart();
 
@@ -196,14 +174,9 @@ public final class GamePlay {
 		phaseLogic.turnEnd();
 		// State modification. Call method in game
 //		Game game = GameService.getInstance().getGame();
-		Game game = null;
-		
-		try {
-			game = gameSvc.refreshGame(NetworkedMain.getRoomName());
-		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		// When turn ends, local copy of game is up to date.
+		Game game = AbstractPhaseStrategy.game; 
 		
 		// Signal end of phase if last player or when no more cycles are left
 		// TODO: Create rpc call for this check. Would be more efficient.
@@ -219,14 +192,25 @@ public final class GamePlay {
 
 		// Switch to the next player and start the turn.
 		game.nextPlayer();
-		startTurn();
-	}
-
-	public SortedMap<Integer, Player> getRolls() {
-		return rolls;
+		
+		// For now, until notifications are implemented.
+		// Fire changes towards server
+		try {
+			gameSvc.updateGame(NetworkedMain.getRoomName(), game);
+			
+			// Tell game presenter that the turn has ended.
+			getGamePresenter().turnHasEnded();
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public AbstractPhaseStrategy getPhaseLogic() {
 		return phaseLogic;
+	}
+	
+	public IGameService getService() {
+		return gameSvc;
 	}
 }

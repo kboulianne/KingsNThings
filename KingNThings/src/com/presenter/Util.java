@@ -1,25 +1,76 @@
 package com.presenter;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Random;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.InstanceCreator;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 
 // misc. global static functions
-public class Util {
+public class Util {	
 
 	private final static boolean DEBUG = true;
 	final public static boolean AUTOMATE = true;
 //	private static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 	
+	private static class ColorInstanceCreator implements InstanceCreator<Color> {
+		@Override
+		public Color createInstance(Type arg0) {
+			// Default to black since there is no default color constructor.
+			return Color.BLACK;
+		}
+	}
+	private static class ColorSerializer implements JsonSerializer<Color> {
+		@Override
+		public JsonElement serialize(Color color, Type arg1,
+				JsonSerializationContext arg2) {
+			JsonArray array = new JsonArray();
+			array.add(new JsonPrimitive(color.getRed()));
+			array.add(new JsonPrimitive(color.getGreen()));
+			array.add(new JsonPrimitive(color.getBlue()));
+			array.add(new JsonPrimitive(color.getOpacity()));
+			
+			return array;
+		}
+	}
+	private static class ColorDeserializer implements JsonDeserializer<Color> {
+		@Override
+		public Color deserialize(JsonElement json, Type arg1,
+				JsonDeserializationContext arg2) throws JsonParseException {
+			JsonArray array = json.getAsJsonArray();
+			
+			return new Color(
+				array.get(0).getAsDouble(),
+				array.get(1).getAsDouble(),
+				array.get(2).getAsDouble(),
+				array.get(3).getAsDouble());
+		}
+		
+	}
+	
+	
 	public static final Gson GSON = new GsonBuilder()
 		// TODO Use InstanceCreator for GamePiece Hierarchy?
+		.registerTypeAdapter(Color.class, new ColorInstanceCreator())
+		.registerTypeAdapter(Color.class, new ColorSerializer())
+		.registerTypeAdapter(Color.class, new ColorDeserializer())
 	.create();
 	
 	

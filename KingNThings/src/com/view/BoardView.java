@@ -6,9 +6,9 @@
 package com.view;
 
 import com.model.Board;
+import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
-import com.model.game.Game;
 import com.presenter.BoardPresenter;
 import com.presenter.Util;
 

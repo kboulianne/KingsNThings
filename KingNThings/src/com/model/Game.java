@@ -1,21 +1,17 @@
-package com.model.game;
+package com.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javafx.scene.image.Image;
 
 import com.main.KNTAppFactory;
-import com.model.Board;
-import com.model.Creature;
-import com.model.Cup;
-import com.model.Die;
-import com.model.Hex;
-import com.model.Player;
-import com.model.Thing;
 import com.model.game.phase.init.PlayerOrderPhase;
 import com.presenter.HexFactory;
 import com.presenter.Util;
@@ -39,8 +35,8 @@ public final class Game {
 	 * The game board representing hex tiles and all their contents.
 	 */
 	private Board board;
-    private transient Die die1;
-    private transient Die die2;
+    private Die die1;
+    private Die die2;
     private int mode;
     private transient static final int 
     	MODE_FOUR_PLAYER = 1,
@@ -48,7 +44,11 @@ public final class Game {
     //private GamePlay gamePlay;
 
     private transient List<Hex> hexPool;
-    private transient Iterator<Player> nextPlayerIt;
+    // Iterators are not serializable.
+    private int nextPlayerIdx;
+//    private transient ListIterator<Player> nextPlayerIt;
+    //TODO: Use state pattern to keep states for every phase.
+//    private transient SortedMap<Integer, Player> rolls;
     private List<Player> playerOrder;
     private transient Cup cup;
     
@@ -56,12 +56,12 @@ public final class Game {
  
     
     //TODO: Game is initialized on server and this should not be here. Unnecessary object creations. 
-    public transient final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
-	public transient final static Image START_HEX_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
-  	public transient final static Image FACE_DOWN_THING_IMAGE = new Image("view/com/assets/pics/icon-inverted.png");
- 	public transient final static Image GOLD_IMAGE = new Image("view/com/assets/pics/gold.png");
- 	public transient final static Image DICE_IMAGE = new Image("view/com/assets/pics/dice.png");
- 	public transient final static Image CROWN_IMAGE = new Image("view/com/assets/pics/crown.png");
+    public final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
+	public final static Image START_HEX_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
+  	public final static Image FACE_DOWN_THING_IMAGE = new Image("view/com/assets/pics/icon-inverted.png");
+ 	public final static Image GOLD_IMAGE = new Image("view/com/assets/pics/gold.png");
+ 	public final static Image DICE_IMAGE = new Image("view/com/assets/pics/dice.png");
+ 	public final static Image CROWN_IMAGE = new Image("view/com/assets/pics/crown.png");
     // Constructors & Initializer Methods ==============================================================================
     
  	/**
@@ -69,16 +69,14 @@ public final class Game {
      */
     public Game() {
 		mode = MODE_FOUR_PLAYER;
-
+		// PlayerOrderPhase state.
+//		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
 		// Initialize the dice
 		die1 = new Die();
 		die2 = new Die();
 
 		// Player order is arbitrary in the beginning.
 		playerOrder = new ArrayList<>();
-		//	nextPlayerIt = playerOrder.iterator();
-
-//		gamePlay = new GamePlay();
 		cup = new Cup();
 
 		// TODO: Factory for 2 or 4 player.
@@ -157,9 +155,6 @@ public final class Game {
     		currentPlayer = host;
     		playerOrder.add(host);
     		playerOrder.addAll(guests);
-//    		opponent1 = guests.get(0);
-//    		opponent2 = guests.get(1);
-//    		opponent3 = guests.get(2);
     }
     
 	// Getters and Setters =============================================================================================
@@ -258,72 +253,6 @@ public final class Game {
 		}
 	}
 
-	/**
-	 * Gets the phase that the players must currently go through.
-	 *
-	 * @return The current phase.
-	 */
-//    public final GamePlay getPhase() { return gamePlay; }
-//    
-//    /**
-//     * Sets the new phase that the players will go through.
-//     * @param phase The phase
-//     */
-//    public final void setPhase(final GamePlay phase) { this.gamePlay = phase; }
-	/**
-	 * Gets the first opponent.
-	 *
-	 * @return The opponent.
-	 */
-//	public final Player getOpponent1() {
-//		return opponent1;
-//	}
-//
-//	/**
-//	 * Sets the first opponent instance.
-//	 *
-//	 * @param opponent1 The new opponent.
-//	 */
-//	public final void setOpponent1(final Player opponent1) {
-//		this.opponent1 = opponent1;
-//	}
-
-	/**
-	 * Gets the second opponent.
-	 *
-	 * @return The opponent.
-	 */
-//	public final Player getOpponent2() {
-//		return opponent2;
-//	}
-
-	/**
-	 * Sets the second opponent instance.
-	 *
-	 * @param opponent2 The new opponent.
-	 */
-//	public final void setOpponent2(final Player opponent2) {
-//		this.opponent2 = opponent2;
-//	}
-
-	/**
-	 * Gets the third opponent.
-	 *
-	 * @return The opponent.
-//	 */
-//	public final Player getOpponent3() {
-//		return opponent3;
-//	}
-
-	/**
-	 * Sets the third opponent instance.
-	 *
-	 * @param opponent3 The new opponent.
-	 */
-//	public void setOpponent3(Player opponent3) {
-//		this.opponent3 = opponent3;
-//	}
-
 	public final int diceTotal() {
 		return die1.getValue() + die2.getValue();
 	}
@@ -337,22 +266,17 @@ public final class Game {
 	}
 
 	// Behaviour Methods ===============================================================================================
-// TODO Remove unused code found by UCDetector
-// 	/**
-// 	 * Rolls the dice and notifies the server.
-// 	 */
-// 	public void rollDice() {
-// 		die1.roll();
-// 		die2.roll();
-// 	}
-
 	public final void nextPlayer() {
-		// Get next in iterator
-		if (!nextPlayerIt.hasNext()) {
-			nextPlayerIt = playerOrder.iterator();
-			// Notify GamePlay that it should switch phases?
+		// Reset to beginning
+		if (isLastPlayer()) {
+			nextPlayerIdx = 0;
+			currentPlayer = playerOrder.get(0);
+			return;
 		}
-		currentPlayer = nextPlayerIt.next();
+		// Get next player
+		currentPlayer = playerOrder.get(++ nextPlayerIdx);
+		System.out.println("Current: " + currentPlayer);
+		System.out.println("Next Player index: " + nextPlayerIdx);
 	}
 
 	/**
@@ -361,7 +285,7 @@ public final class Game {
 	 * @return The player is last in player order.
 	 */
 	public final boolean isLastPlayer() {
-		return !nextPlayerIt.hasNext();
+		return nextPlayerIdx == playerOrder.size() - 1;
 	}
 	
 // TODO Remove unused code found by UCDetector
@@ -378,10 +302,7 @@ public final class Game {
 	
 	public final List<Player> getOpponentsFor(Player p) {
 		List<Player> opponents = new ArrayList<>(playerOrder);
-		System.out.println("Player order: " + playerOrder);
-		System.out.println("Opponents: " + opponents);
-		System.out.println("Removed: " + opponents.remove(p));
-		
+		opponents.remove(p);
 		
 		return opponents;
 	}
@@ -404,12 +325,8 @@ public final class Game {
 	public final void setPlayerOrder(final Collection<Player> playersHighToLow) {
 		// Contains all four players.
 		this.playerOrder = new ArrayList<>(playersHighToLow);
-		// Reset Iterator to the new playerOrder
-		nextPlayerIt = playerOrder.iterator();
-		
-		// Set new current player
-//		if (init)
-//			currentPlayer = nextPlayerIt.next();
+		// Reset the index to the new playerOrder
+		nextPlayerIdx = 0;
 	}
 	
 	
@@ -472,4 +389,37 @@ public final class Game {
 	public void setHexPool(List<Hex> hexPool) {
 		this.hexPool = hexPool;
 	}
+	
+//	/**
+//	 * Adds the specified dice total for the player.
+//	 * 
+//	 * @param total
+//	 *            The total to add
+//	 * @param p
+//	 *            The player that rolled this total.
+//	 */
+//	public void addPlayerRoll(int total, Player p) {
+//		// TODO Handle case where two players have the same dice total.
+//		rolls.put(total, p);
+//	}
+//	
+//	/**
+//	 * Clears the rolls previously added to the map.
+//	 */
+//	public void clearRolls() {
+//		rolls.clear();
+//	}
+//
+//	/**
+//	 * Gets the the players ordered by their dice totals in descending order.
+//	 * 
+//	 * @return The collection of players, in descending order.
+//	 */
+//	public final Collection<Player> getPlayersHighToLow() {
+//		return rolls.values();
+//	}
+//	
+//	public SortedMap<Integer, Player> getRolls() {
+//		return rolls;
+//	}
 }

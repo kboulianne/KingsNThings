@@ -1,8 +1,12 @@
 package com.model.game.phase.init;
 
+import com.main.NetworkedMain;
+import com.model.Game;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -21,19 +25,14 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void phaseStart() {
+		super.phaseStart();
+		
 		Util.playMusic();
 		Util.log("Init Phase: Start of Player Order Phase");
-		context.clearRolls();
+//		game.clearRolls();
 		
 		//top label
 		getGamePresenter().getView().getCurrentActionLbl().setText("Roll the Dice");
-
-		
-		//detail pane
-		
-		//on clicks
-		//GameService.getInstance().endTurn();
-		//game.nextPlayer();
 		
 		game.getBoard().setFaceDown(true);
 		// Update the view
@@ -52,6 +51,8 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 			}
 		});
 		rollBtn.setVisible(true);
+		
+		//TODO: Update?
 	}
 
 	@Override
@@ -59,15 +60,16 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		//top label
 		super.turnStart();
 		getGamePresenter().getView().setGame(game);
-		getSidePanePresenter().getView().showRolls(context.getRolls());
+//		getSidePanePresenter().getView().showRolls(game.getRolls());
 	}
 
 	@Override
 	public void turnEnd() {
-		context.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());				
-		Util.log("Added roll total " + game.diceTotal()
-				+ " for " + game.getCurrentPlayer().getName());
-
+		super.turnEnd();
+//		game.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());				
+//		Util.log("Added roll total " + game.diceTotal()
+//				+ " for " + game.getCurrentPlayer().getName());
+		
 		// Notify UI
 		getGamePresenter().getView().setGame(game);
 	}

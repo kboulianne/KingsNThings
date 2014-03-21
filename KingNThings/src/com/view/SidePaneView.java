@@ -15,11 +15,11 @@ import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Cup;
 import com.model.Fort;
+import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
-import com.model.game.Game;
 import com.presenter.SidePanePresenter;
 import com.presenter.Util;
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.google.gson.Gson;
+import com.presenter.Util;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
@@ -21,13 +22,9 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 public abstract class ProxyBase {
 	// TODO: Represent this as a shared class. Only one instance of this needs to exist
 	// for the client and server. They both serialize/deserialize in the same manner.
-	protected static final Gson GSON;
 	protected final BufferedReader reader;
 	protected final PrintWriter writer;
-	
-	static {
-		GSON = new Gson();
-	}
+
 	
 	// TODO: Pass socket and use it to initialize the readers writers according to implementation?
 	/**
@@ -72,7 +69,7 @@ public abstract class ProxyBase {
 					posParams.add(o);
 				}
 				else {
-					posParams.add(GSON.toJson(o));
+					posParams.add(Util.GSON.toJson(o));
 				}
 			}
 			
@@ -105,6 +102,6 @@ public abstract class ProxyBase {
 		
 		if (expected.equals(Void.TYPE)) return null;
 		
-		return GSON.fromJson((String)res.getResult(), expected);
+		return Util.GSON.fromJson((String)res.getResult(), expected);
 	}
 }

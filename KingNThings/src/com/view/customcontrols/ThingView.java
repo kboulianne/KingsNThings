@@ -2,11 +2,11 @@ package com.view.customcontrols;
 
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Game;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
 import com.model.Treasure;
-import com.model.game.Game;
 import com.presenter.Util;
 
 import javafx.event.EventHandler;
