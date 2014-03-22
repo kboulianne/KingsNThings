@@ -6,6 +6,9 @@ import java.util.List;
 import com.model.Game;
 import com.model.GameRoom;
 import com.model.Player;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
+
+import static com.server.KNTServer.*;
 
 public class ServerGameRoom extends GameRoom {
 
@@ -32,8 +35,22 @@ public class ServerGameRoom extends GameRoom {
 		}
 		
 		this.game = game;
-//		game.setOpponent1(players.get(0));
-//		game.setOpponent2(players.get(1));
-//		game.setOpponent3(players.get(2));
+	}
+	
+	public void notifyOthers(String playerName, JSONRPC2Notification not) {
+		// Exclude notifying playerName
+		if (!host.getName().equals(playerName)) {
+			synchronized (this) {
+				PLAYERS.get(host.getName()).notifyClient(not);
+			}
+		}
+		
+		for (Player p : players) {
+			if (!p.getName().equals(playerName)) {
+				synchronized (this) {
+					PLAYERS.get(p.getName()).notifyClient(not);
+				}
+			}
+		}
 	}
 }

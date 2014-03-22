@@ -60,15 +60,13 @@ public class LobbyPresenter {
 	}
 
 	public void handleJoinButton() {
-		//TODO: Testing
-//		Player guest = new Player(PlayerId.ONE, "Tester 2");
-		
 		try {
 			// Join the selected game room.
 			GameRoom room = view.getGameRoomsList().getSelectionModel().getSelectedItem();
 			if (room == null) return;
 			
 			gameRoomSvc.joinGameRoom(room.getName(), NetworkedMain.getPlayer());
+
 			// Delegate to GameRoomPresenter
 			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
 		} catch (JSONRPC2Error e) {

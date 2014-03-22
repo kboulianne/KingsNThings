@@ -1,6 +1,7 @@
 package com.main;
 
 import com.client.KNTClient;
+import com.client.KNTClient2;
 import com.model.Die;
 import com.model.game.phase.GamePlay;
 import com.presenter.ArmyDetailsPresenter;
@@ -58,10 +59,10 @@ public class KNTAppFactory {
 	private static GamePlay gamePlay;
 	
 	// One per application? Maybe two in the future, one for Notifications and one For requests
-    private static final KNTClient CLIENT; 
+    private static final KNTClient2 CLIENT; 
 	
 	static {
-		CLIENT = new KNTClient("localhost", 6868);
+		CLIENT = new KNTClient2("localhost", 6868);
 		
     		
     		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
@@ -88,7 +89,7 @@ public class KNTAppFactory {
 
 	private static StartScreenPresenter createStartScreenPresenter() {
 		StartScreenView view = new StartScreenView();
-		StartScreenPresenter presenter = new StartScreenPresenter(view);
+		StartScreenPresenter presenter = new StartScreenPresenter(view, CLIENT.getPlayerService());
 		
 		return presenter;
 	}
@@ -109,14 +110,14 @@ public class KNTAppFactory {
 	
 	private static GamePresenter createMainPresenter() {
 		GameView view = new GameView();
-		GamePresenter presenter = new GamePresenter(view, CLIENT.getGameService());
+		GamePresenter presenter = new GamePresenter(view, null/*CLIENT.getGameService()*/);
 
 		return presenter;
 	}
 
 	private static DicePresenter createDicePresenter() {
 		DiceView view = new DiceView();
-		DicePresenter presenter = new DicePresenter(view, CLIENT.getGameService());
+		DicePresenter presenter = new DicePresenter(view, null/*CLIENT.getGameService()*/);
 
 		return presenter;
 	}
@@ -130,7 +131,7 @@ public class KNTAppFactory {
 
 	private static BoardPresenter createBoardPresenter() {
 		BoardView view = new BoardView();
-		BoardPresenter presenter = new BoardPresenter(view);
+		BoardPresenter presenter = new BoardPresenter(view, null/*CLIENT.getGameService()*/);
 
 		return presenter;
 	}
@@ -250,7 +251,7 @@ public class KNTAppFactory {
 	public static GamePlay getGamePlay() {
 		// Created when first called.
 		if (gamePlay == null)
-			gamePlay = new GamePlay(CLIENT.getGameService());
+			gamePlay = new GamePlay(null/*CLIENT.getGameService()*/);
 		
 		return gamePlay;
 	}

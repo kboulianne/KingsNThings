@@ -96,7 +96,7 @@ public final class GamePlay {
 
 		// Set current phase logic/strategy
 		phaseIt = initPhases.iterator();
-		phaseLogic = phaseIt.next();
+//		phaseLogic = phaseIt.next();
 	}
 
 	/**
@@ -131,7 +131,7 @@ public final class GamePlay {
 	 * Called when the last player in turn order has executed his turn. Switches
 	 * to the startTurn phase.
 	 */
-	private void nextPhase() {
+	public void nextPhase() {
 
 		if (!phaseIt.hasNext()) {
 			// Move iterator to gamePhases.
@@ -149,6 +149,7 @@ public final class GamePlay {
 	public void start() {
 		//TODO: Check if already started.
 		// Initial phase start
+		phaseLogic = phaseIt.next();
 		phaseLogic.phaseStart();
 
 		// First player's turn.

@@ -19,25 +19,7 @@ public class GameRoomPresenter {
 	private final GameRoomView view;
 	private final IGameRoomService gameRoomSvc;
 	private GameRoom room;
-	
-	private final Timer updateTimer = new Timer();
-	Service<GameRoom> service = new Service<GameRoom>() {
-		@Override
-		protected Task<GameRoom> createTask() {
-			return new Task<GameRoom>() {	
-				@Override
-				protected GameRoom call() throws Exception {
-					updateTimer.scheduleAtFixedRate(new TimerTask() {
-						@Override
-						public void run() {
-							refreshGameRoom();
-						}
-					}, 1000, 2000);
-					return null;
-				}
-			};
-		}
-	};
+
 	
 	
 	public GameRoomPresenter(final GameRoomView view, final IGameRoomService gameRoomSvc) {
@@ -69,37 +51,36 @@ public class GameRoomPresenter {
 		view.setGameRoom(room);
 		this.room = room;
 		
-		service.start();
+		refreshGameRoom();
+//		service.start();
 	}
 	
-	// TODO: In the future, subscribe to notifications on the server. Lets just get things working first.
-	/**
-	 * HACK FOR NOW. Request data refresh every two seconds.
-	 */
-	private void refreshGameRoom() {
+
+	public void refreshGameRoom() {
 		try {
 			room = gameRoomSvc.refreshGameRoom(room.getName());
 			
-			// This must be done on FXApplicationThread
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					view.setGameRoom(room);
-					
-					// Check if game was started
-					if (room.hasStarted()) {
-						// Kill the update service
-						service.cancel();
-						updateTimer.cancel();
-						
-						NetworkedMain.setRoomName(room.getName());
-						// Delegate to GamePresenter.
-						KNTAppFactory.getGamePresenter().showGameUI();
-						
-
-					}
-				}
-			});
+			view.setGameRoom(room);
+//			// This must be done on FXApplicationThread
+//			Platform.runLater(new Runnable() {
+//				@Override
+//				public void run() {
+//					view.setGameRoom(room);
+//					
+//					// Check if game was started
+//					if (room.hasStarted()) {
+//						// Kill the update service
+//						service.cancel();
+//						updateTimer.cancel();
+//						
+//						NetworkedMain.setRoomName(room.getName());
+//						// Delegate to GamePresenter.
+//						KNTAppFactory.getGamePresenter().showGameUI();
+//						
+//
+//					}
+//				}
+//			});
 			
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block

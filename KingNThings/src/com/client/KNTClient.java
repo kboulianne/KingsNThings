@@ -39,8 +39,8 @@ public class KNTClient {
 			// Wait for server to respond connected. Just for synchronization and to avoid potential problems.
 			reader.readLine();
 			
-			proxy = new GameRoomServiceProxy(reader, writer);
-			gameProxy = new GameServiceProxy(reader, writer);
+//			proxy = new GameRoomServiceProxy(reader, writer);
+//			gameProxy = new GameServiceProxy(reader, writer);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

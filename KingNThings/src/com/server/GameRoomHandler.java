@@ -1,12 +1,15 @@
 package com.server;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.model.Game;
 import com.model.GameRoom;
 import com.model.Player;
 import com.server.services.IGameRoomService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
 
 import static com.server.KNTServer.*;
 import static com.server.Errors.*;
@@ -18,6 +21,8 @@ import static com.server.Errors.*;
  */
 //TODO: Separate implementation from handler?
 public class GameRoomHandler extends KNTRequestHandler implements IGameRoomService {
+	
+
 	
 	@Override
 	public String[] handledRequests() {
@@ -74,12 +79,17 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 		
 		synchronized (GAME_ROOMS) {
 			if (GAME_ROOMS.containsKey(room)) {
-				GameRoom gr = GAME_ROOMS.get(room);
+				ServerGameRoom gr = (ServerGameRoom)GAME_ROOMS.get(room);
 				
 				if (gr.isFull())
 					throw GAME_ROOM_ROOM_FULL;
 				
 				gr.addPlayer(player);
+				
+				// TESTING
+				// Player joined. Notify other clients.
+				// TODO: Need to ensure that the request takes priority. Meaning respond to request, then send notification.
+				gr.notifyOthers(player.getName(), Notifications.PLAYER_JOINED_GAME_ROOM);
 			}
 			else {
 				throw GAME_ROOM_ROOM_INEXISTANT;

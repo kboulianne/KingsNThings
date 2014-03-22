@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import com.google.gson.Gson;
 import com.presenter.Util;
@@ -22,21 +23,30 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 public abstract class ProxyBase {
 	// TODO: Represent this as a shared class. Only one instance of this needs to exist
 	// for the client and server. They both serialize/deserialize in the same manner.
-	protected final BufferedReader reader;
-	protected final PrintWriter writer;
+//	protected final BufferedReader reader;
+//	protected final PrintWriter writer;
 
+	protected final LinkedBlockingQueue<JSONRPC2Response> in;
+	protected final LinkedBlockingQueue<JSONRPC2Request> out;
 	
-	// TODO: Pass socket and use it to initialize the readers writers according to implementation?
-	/**
-	 * Creates a new instance of ProxyBase which receives its input from reader and sends its output
-	 * through writer.
-	 * 
-	 * @param reader
-	 * @param writer
-	 */
-	public ProxyBase(BufferedReader reader, PrintWriter writer) {
-		this.reader = reader;
-		this.writer = writer;
+//	// TODO: Pass socket and use it to initialize the readers writers according to implementation?
+//	/**
+//	 * Creates a new instance of ProxyBase which receives its input from reader and sends its output
+//	 * through writer.
+//	 * 
+//	 * @param reader
+//	 * @param writer
+//	 */
+//	public ProxyBase(BufferedReader reader, PrintWriter writer) {
+//		this.reader = reader;
+//		this.writer = writer;
+//		in = null;
+//	}
+	
+	public ProxyBase(LinkedBlockingQueue<JSONRPC2Response> in, 
+			LinkedBlockingQueue<JSONRPC2Request> out) {
+		this.in = in;
+		this.out = out;
 	}
 	
 	/**
@@ -75,25 +85,22 @@ public abstract class ProxyBase {
 			
 			req.setPositionalParams(posParams);
 		}
-		
-		// Send the request.
-		writer.println(req.toJSONString());
-		
+
 		// Wait for response
 		JSONRPC2Response res = null;
-		String line = null;
 		
 		try {
-			line = reader.readLine();
-			// Socket closed if readLine returns null
-			//TODO: Throw exception instead.
-			if (line == null) return null;
-			
-			res = JSONRPC2Response.parse(line);
-		} catch (IOException | JSONRPC2ParseException e) {
+			// Queue the request.
+			out.put(req);
+
+			// Wait for response to be sent and processed.
+			res = in.take();
+		} 
+		catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		if (!res.indicatesSuccess()) {
 			// An error has occured.

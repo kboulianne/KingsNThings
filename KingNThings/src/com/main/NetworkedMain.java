@@ -60,6 +60,7 @@ public class NetworkedMain extends Application {
     		return player;
     }
     
+    
     public static final void setPlayer(final Player player) {
     		NetworkedMain.player = player;
     }

@@ -178,9 +178,12 @@ public class GamePresenter {
 			view.setDisable(true);
 			service.start();
 		}
+		else {
+			// Triggers the First phase
+			KNTAppFactory.getGamePlay().start();
+		}
 		
-		// Triggers the First phase
-		KNTAppFactory.getGamePlay().start();
+		
 	}
 
 	public void turnHasEnded() {
@@ -203,7 +206,6 @@ public class GamePresenter {
 
 				service.cancel();
 				updateTimer.cancel();
-				
 				view.setDisable(false);
 				
 				// Fetch the updated game
@@ -214,6 +216,7 @@ public class GamePresenter {
 				getPlayerInfoPresenter().getView().setPlayer(NetworkedMain.getPlayer());
 				
 				// Have no choice...
+				KNTAppFactory.getGamePlay().nextPhase();
 				KNTAppFactory.getGamePlay().startTurn();
 			}
 			
