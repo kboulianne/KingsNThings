@@ -25,7 +25,7 @@ class CombatPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Combat Phase");
 
 		getGamePresenter().getView().getCurrentActionLbl().setText("Combat Phase");
@@ -47,8 +47,8 @@ class CombatPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		Util.log("Game Phase: Logic for " + game.getCurrentPlayer().getName());
 
 		getSidePanePresenter().getView().showArbitraryView("Available battles displayed as red hexes", Game.CROWN_IMAGE);
@@ -59,7 +59,7 @@ class CombatPhase extends AbstractPhaseStrategy {
 	}
 	
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		//GameService.getInstance().endTurn(this);
 		getBoardPresenter().clearConflictHighlights();
 		

@@ -22,7 +22,7 @@ class SpecialPowersPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Special Powers Phase");
 		
 		getGamePresenter().getView().getCurrentActionLbl().setText("Deploy Special Powers");
@@ -35,13 +35,13 @@ class SpecialPowersPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		getSidePanePresenter().getView().showArbitraryView("Special Powers TODO", Game.CROWN_IMAGE);
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 
 	}
 }

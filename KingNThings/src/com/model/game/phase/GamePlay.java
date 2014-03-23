@@ -7,7 +7,6 @@ package com.model.game.phase;
 
 import static com.main.KNTAppFactory.getGamePresenter;
 
-import com.game.services.GameService;
 import com.presenter.Util;
 import com.server.services.IGameService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
@@ -112,20 +111,11 @@ public final class GamePlay {
 		gamePhases.add(new ConstructionPhase(this));
 		gamePhases.add(new SpecialPowersPhase(this));
 		gamePhases.add(new ChangePlayOrderPhase(this));
-
-		// FOR TESTING: The one in initPhases is correct.
-		// phaseIt = gamePhases.iterator();
-		// phaseLogic = phaseIt.next();
 	}
 
 	public void setCycleCount(int cycle) {
 		this.cycles = cycle;
 	}
-
-
-
-
-
 
 	/**
 	 * Called when the last player in turn order has executed his turn. Switches
@@ -140,17 +130,18 @@ public final class GamePlay {
 		phaseLogic = phaseIt.next();
 
 		// Phase start
-		phaseLogic.phaseStart();
+		phaseLogic.phaseStart(null);
 	}
 
 	/**
 	 * Signals the start of game.
 	 */
+	@Deprecated
 	public void start() {
 		//TODO: Check if already started.
 		// Initial phase start
 		phaseLogic = phaseIt.next();
-		phaseLogic.phaseStart();
+		phaseLogic.phaseStart(null);
 
 		// First player's turn.
 		startTurn();
@@ -159,9 +150,10 @@ public final class GamePlay {
 	/**
 	 * Exectues turnStart logic for the current player.
 	 */
+	@Deprecated
 	public final void startTurn() {
 		// Execute logic then go to startTurn player / phase
-		phaseLogic.turnStart();
+		phaseLogic.turnStart(null);
 
 	}
 
@@ -170,9 +162,10 @@ public final class GamePlay {
 	 * switches to the next phase if it is the last player in turn order,
 	 * switches to the next player and starts their turn.
 	 */
+	@Deprecated
 	public void endTurn() {
 		// End the player's turn and go to startTurn player.
-		phaseLogic.turnEnd();
+		phaseLogic.turnEnd(null);
 		// State modification. Call method in game
 //		Game game = GameService.getInstance().getGame();
 
@@ -198,9 +191,10 @@ public final class GamePlay {
 		// Fire changes towards server
 		try {
 			gameSvc.updateGame(NetworkedMain.getRoomName(), game);
-			
+//			gameSvc.endTurn(NetworkedMain.getRoomName(), NetworkedMain.getPlayer());
+
 			// Tell game presenter that the turn has ended.
-			getGamePresenter().turnHasEnded();
+//			getGamePresenter().onTurnEnded();
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

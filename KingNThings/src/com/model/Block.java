@@ -3,8 +3,6 @@ package com.model;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.game.services.GameService;
-
 public class Block extends GamePiece {
 	
 	// Note each player has two racks of capicity 10 items
@@ -43,12 +41,13 @@ public class Block extends GamePiece {
 	void trimBlock()	{
 		int index = 0;
 		Random r = new Random();
-		Cup cup = GameService.getInstance().getGame().getCup();
-		
-		while(listOfThings.size() > 10)	{
-			index = r.nextInt(listOfThings.size());
-			cup.addThing(listOfThings.get(index));
-			listOfThings.remove(index);
-		}
+		//FIXME: Can't be here.
+//		Cup cup = GameService.getInstance().getGame().getCup();
+//		
+//		while(listOfThings.size() > 10)	{
+//			index = r.nextInt(listOfThings.size());
+//			cup.addThing(listOfThings.get(index));
+//			listOfThings.remove(index);
+//		}
 	}
 }

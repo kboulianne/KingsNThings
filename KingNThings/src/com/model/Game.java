@@ -82,51 +82,6 @@ public final class Game {
 		// TODO: Factory for 2 or 4 player.
 		board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 		
-		// added for iteration 1 hard-coded
-		
-		/*board.addHex(new HexSea(0));
-		board.addHex(new HexSea(1));
-		board.addHex(new HexSea(2));
-		board.addHex(new HexSea(3));
-		board.addHex(new HexSea(4));
-		board.addHex(new HexSea(5));
-		board.addHex(new HexSea(6));
-		board.addHex(new HexSea(7));
-		board.addHex(new HexSea(8));
-		board.addHex(new HexSea(9));
-		board.addHex(new HexSea(10));
-		board.addHex(new HexSea(11));
-		board.addHex(new HexSea(12));
-		board.addHex(new HexSea(13));
-		board.addHex(new HexSea(14));
-		board.addHex(new HexSea(15));
-		board.addHex(new HexSea(16));
-		board.addHex(new HexSea(17));
-		board.addHex(new HexSea(18));
-		board.addHex(new HexSea(19));
-		board.addHex(new HexSea(20));
-		board.addHex(new HexSea(21));
-		board.addHex(new HexSea(22));
-		board.addHex(new HexSea(23));
-		board.addHex(new HexSea(24));
-		board.addHex(new HexSea(25));
-		board.addHex(new HexSea(26));
-		board.addHex(new HexSea(27));
-		board.addHex(new HexSea(28));
-		board.addHex(new HexSea(29));
-		board.addHex(new HexSea(30));
-		board.addHex(new HexSea(31));
-		board.addHex(new HexSea(32));
-		board.addHex(new HexSea(33));
-		board.addHex(new HexSea(34));
-		board.addHex(new HexSea(35));
-		board.addHex(new HexSea(36));
-		
-		for (int i = 0 ; i < board.getHexNum() ; i ++) {
-		    board.getHexes().get(i).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
-		}
-		
-*/
 		
 		//Removed for iteration 1
 		HexFactory hexFactory = new HexFactory();
@@ -137,11 +92,14 @@ public final class Game {
 		int rand = 0;
 		Random rnd = new Random();
 	
+		// TODO: Put in board constructor since board initializes to faceDown
 		for (int i = 0 ; i < board.getHexNum() ; i ++) {
 		    rand = rnd.nextInt(hexPool.size());
+		    Hex hex = hexPool.get(rand);
 		    // Add hex to position i in board hex array.
-		    board.addHex(hexPool.get(rand));
-		    hexPool.get(rand).setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
+		    board.addHex(hex);
+		    hex.setId(i, Board.NumberOfHexes.THIRTY_SEVEN);
+		    hex.setFaceDown(board.isFaceDown());
 		    hexPool.remove(rand);
 		}
 

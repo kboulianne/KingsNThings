@@ -20,7 +20,9 @@ import com.client.proxy.GameRoomServiceProxy;
 import com.client.proxy.GameServiceProxy;
 import com.client.proxy.PlayerServiceProxy;
 import com.server.services.IGameRoomService;
+import com.server.services.IGameService;
 import com.server.services.IPlayerService;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Message;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
@@ -34,6 +36,7 @@ public class KNTClient2 {
 	private final ExecutorService socketThreads = Executors.newFixedThreadPool(2);
 	private PlayerServiceProxy playerProxy;
 	private GameRoomServiceProxy gameRoomProxy;
+	private final GameServiceProxy gameProxy;
 	
 //	private final LinkedBlockingQueue<String> outputMessages;
 	private final LinkedBlockingQueue<JSONRPC2Request> outputMessages;
@@ -45,6 +48,7 @@ public class KNTClient2 {
 		DISPATCHER = new Dispatcher();
 		
 		DISPATCHER.register(new GameRoomNotificationHandler());
+		DISPATCHER.register(new GameNotificationHandler());
 	}
 	
 	/**
@@ -59,6 +63,10 @@ public class KNTClient2 {
 		inputMessages = new LinkedBlockingQueue<>();
 		outputMessages = new LinkedBlockingQueue<>();
 		
+		PlayerServiceProxy playerProxy = null;
+		GameRoomServiceProxy gameRoomProxy = null;
+		GameServiceProxy gameProxy = null;
+		
 		try {
 			socket = new Socket(host, port);
 		
@@ -69,6 +77,7 @@ public class KNTClient2 {
 			
 			playerProxy = new PlayerServiceProxy(inputMessages, outputMessages);
 			gameRoomProxy = new GameRoomServiceProxy(inputMessages, outputMessages);
+			gameProxy = new GameServiceProxy(inputMessages, outputMessages);
 			
 			socketThreads.execute(createReadRunnable());
 			socketThreads.execute(createWriteRunnable());
@@ -80,6 +89,9 @@ public class KNTClient2 {
 			e.printStackTrace();
 		}
 		
+		this.playerProxy = playerProxy;
+		this.gameRoomProxy = gameRoomProxy;
+		this.gameProxy = gameProxy;
 	}
 	
 	private Runnable createReadRunnable() {
@@ -87,11 +99,11 @@ public class KNTClient2 {
 			
 			@Override
 			public void run() {
-				// Process data continuously.
+
 				try {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-					
-					// TODO: distinguish between Notification and request.
+
+					// Process data continuously.
 					while (true) {
 						// Puts responses in the queue.
 						// Process the response and determine if it is a notification or response
@@ -108,10 +120,17 @@ public class KNTClient2 {
 							// Add the response to the queue of received responses.
 							inputMessages.put(res);
 						}
-						else {
+						else if (message instanceof JSONRPC2Notification){
 							System.out.println("Notification");
 							//TODO: Check if notification requires a request to complete first.
 							DISPATCHER.process((JSONRPC2Notification)message, null);
+						}
+						else {
+							System.out.println("ERROR");
+							// Error
+//							JSONRPC2Error error = message.;
+//							
+//							throw error;
 						}
 						
 						
@@ -130,18 +149,6 @@ public class KNTClient2 {
 			}
 		};
 	}
-	
-//	private Runnable processResponses() {
-//		return new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				while (true) {
-//					inputMessages.take();
-//				}
-//			}
-//		};
-//	}
 	
 	private Runnable createWriteRunnable() {
 		return new Runnable() {
@@ -179,5 +186,7 @@ public class KNTClient2 {
 		return gameRoomProxy;
 	}
 	
-
+	public final IGameService getGameService() {
+		return gameProxy;
+	}
 }

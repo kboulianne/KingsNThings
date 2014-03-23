@@ -2,7 +2,7 @@ package com.presenter;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import com.game.services.GameService;
+
 import com.main.KNTAppFactory;
 import com.model.Player;
 import com.model.SpecialCharacter;
@@ -27,21 +27,22 @@ public class SpecialCharacterPresenter {
 		view.getAddRollButton().setOnAction(new EventHandler<ActionEvent>() {		
 			@Override
 			public void handle(ActionEvent arg0) {
-				Player currPlayer = GameService.getInstance().getGame().getCurrentPlayer();
-				if(currPlayer.getGold()>=cost){
-					Util.playClickSound();
-					currPlayer.setGold(currPlayer.getGold()-cost);
-					KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlayer);
-					
-					rolledValue++;
-					view.getRollValueLbl().setText("Current rolled value: "+rolledValue);
-					
-					if(rolledValue >= valueNeeded)
-						view.getRecruitButton().setDisable(false);
-					
-					if(currPlayer.getGold()<cost)
-						view.getAddRollButton().setDisable(true);
-				}
+				throw new IllegalAccessError("Use new service.");
+//				Player currPlayer = GameService.getInstance().getGame().getCurrentPlayer();
+//				if(currPlayer.getGold()>=cost){
+//					Util.playClickSound();
+//					currPlayer.setGold(currPlayer.getGold()-cost);
+//					KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlayer);
+//					
+//					rolledValue++;
+//					view.getRollValueLbl().setText("Current rolled value: "+rolledValue);
+//					
+//					if(rolledValue >= valueNeeded)
+//						view.getRecruitButton().setDisable(false);
+//					
+//					if(currPlayer.getGold()<cost)
+//						view.getAddRollButton().setDisable(true);
+//				}
 			}
 		});
 	}
@@ -50,10 +51,11 @@ public class SpecialCharacterPresenter {
 		view.getRecruitButton().setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {
-				Util.playClickSound();
-				GameService.getInstance().getGame().moveThingFromCupToPlayer(selectedSpecialCharacter, GameService.getInstance().getGame().getCurrentPlayer());
-//				GamePlay.getInstance().endTurn();
-				KNTAppFactory.getGamePlay().endTurn();
+				throw new IllegalAccessError("Use new service.");
+//				Util.playClickSound();
+//				GameService.getInstance().getGame().moveThingFromCupToPlayer(selectedSpecialCharacter, GameService.getInstance().getGame().getCurrentPlayer());
+////				GamePlay.getInstance().endTurn();
+//				KNTAppFactory.getGamePlay().endTurn();
 			}
 		});
 	}

@@ -17,7 +17,6 @@ import com.model.MagicItem;
 import com.model.Player;
 import com.model.Thing;
 import com.model.Treasure;
-import com.model.game.phase.GamePlay;
 import com.model.game.phase.init.ExchangePhase;
 import com.server.services.IGameService;
 import com.view.BoardView;
@@ -30,7 +29,6 @@ public class BoardPresenter {
 
 	private final BoardView view;
 
-	// Usually BoardService, but ok for our purposes. We will see in IT2
 	private final IGameService gameSvc;
 	// Ui Models
 	private boolean movingArmy;

@@ -56,18 +56,6 @@ public class BoardView extends Canvas {
 		addDefaultHandler();
 	}
 
-	public void setPresenter(final BoardPresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
-		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
-	}
-
 	private void buildView() {
 		setId("playingArea");
 		//getStyleClass().add("border");

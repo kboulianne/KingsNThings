@@ -8,7 +8,6 @@ package com.model.game.phase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Creature;
 import com.model.Game;
@@ -30,7 +29,7 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Gold Collection Phase");
 
 		getGamePresenter().getView().getCurrentActionLbl().setText("Gold Collection");
@@ -46,18 +45,18 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
-		
-		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
+		//FIXME: Use service in context.
+//		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
 		
 		int hexGold = 0;
 		int fortGold = 0;
 		int counterGold = 0;
 		int specCharGold = 0;
 		int totalGold = 0;
-		Game game = GameService.getInstance().getGame();
+//		Game game = GameService.getInstance().getGame();
 		Player player = game.getCurrentPlayer();
 		
 		for (Hex h : game.getBoard().getHexes()) {
@@ -83,7 +82,7 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		
 	}
 

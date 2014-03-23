@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -15,6 +16,7 @@ import com.presenter.Util;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 import com.thetransactioncompany.jsonrpc2.server.Dispatcher;
 
 public class PlayerConnection {
@@ -31,6 +33,7 @@ public class PlayerConnection {
 		DISPATCHER = new Dispatcher();
 		DISPATCHER.register(new PlayerHandler());
 		DISPATCHER.register(new GameRoomHandler());
+		DISPATCHER.register(new GameRequestHandler());
 	}
 	
 	public PlayerConnection(Socket socket) {
@@ -61,9 +64,9 @@ public class PlayerConnection {
 					if (json == null) return;
 					
 					JSONRPC2Request req = JSONRPC2Request.parse(json);
-					String res = DISPATCHER.process(req, new RequestContext(PlayerConnection.this)).toJSONString();
+					JSONRPC2Response res = DISPATCHER.process(req, new RequestContext(PlayerConnection.this));
 					// Put the response on the queue
-					messages.put(res);
+					messages.put(res.toJSONString());
 					
 					// Now ready for request processing.
 					while (true) {
@@ -74,8 +77,19 @@ public class PlayerConnection {
 							System.out.println("Read: " + json);
 							
 							req = JSONRPC2Request.parse(json);
-							res = DISPATCHER.process(req, new RequestContext(PlayerConnection.this)).toJSONString();
-							messages.put(res);
+							res = DISPATCHER.process(req, new RequestContext(PlayerConnection.this));
+							messages.put(res.toJSONString());
+							
+//							// Put pending notifications.
+//							//TODO: Still no guarantee that client will receive response to request before notification.
+//							if (KNTServer.PENDING_NOTIFICATIONS.containsKey(UUID.fromString((String)res.getID()))) {
+//								List<JSONRPC2Notification> notifications = KNTServer.PENDING_NOTIFICATIONS.get(UUID.fromString((String)res.getID()));
+//								
+//								for (JSONRPC2Notification n : notifications) {
+//									System.out.println("QUEUED NOTIFICATION.");
+//									messages.put(n.toJSONString());
+//								}
+//							}
 							
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -92,9 +106,6 @@ public class PlayerConnection {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
-
 			}
 		};
 	}
@@ -111,7 +122,7 @@ public class PlayerConnection {
 				try {
 					PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
 				
-					// TODO Auto-generated method stub
+					// Ready to dispatch messages to clients.
 					while (true) {
 						// Lock until there is something to write.
 //						System.out.println("Waiting for messages to be put in queue.");
@@ -135,6 +146,12 @@ public class PlayerConnection {
 	
 	public void notifyClient(JSONRPC2Notification notify) {
 		try {
+//			List<JSONRPC2Notification> notifyList = new ArrayList<>();
+//			notifyList.add(notify);
+//			
+//			synchronized (KNTServer.PENDING_NOTIFICATIONS) {
+//				KNTServer.PENDING_NOTIFICATIONS.put(key, value)
+//			}
 			messages.put(notify.toJSONString());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

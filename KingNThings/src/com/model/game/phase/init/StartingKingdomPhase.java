@@ -24,7 +24,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Starting Kingdoms Phase");
 		
 		getGamePresenter().getView().getCurrentActionLbl().setText("Choose Starting Kingdom");
@@ -37,8 +37,8 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		getSidePanePresenter().getView().showArbitraryView("Choose an adjacent owned hex for your kingdom", Game.CROWN_IMAGE);
 		if(Util.AUTOMATE){
 			Util.log("Automated");
@@ -63,7 +63,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		
 	}
 	

@@ -6,6 +6,7 @@
 package com.model.game.phase;
 
 import com.main.KNTAppFactory;
+import com.model.Game;
 import com.presenter.Util;
 
 /**
@@ -19,7 +20,7 @@ class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		// Nothing to be done here
 		Util.log("Change Player Order.");
 		
@@ -43,12 +44,12 @@ class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		// Nothing to be done here.
 	}
 }

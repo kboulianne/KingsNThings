@@ -95,6 +95,8 @@ public class LobbyPresenter {
 	
 	public void show() {
 		NetworkedMain.setView(view);
+		// FOR TESTING PURPOSES
+		NetworkedMain.setTitle(NetworkedMain.getPlayer().getName());
 		view.setPlayer(NetworkedMain.getPlayer());
 		
 		updateGameRoomsList();

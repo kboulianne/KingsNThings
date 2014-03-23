@@ -5,8 +5,10 @@
  */
 package com.model.game.phase;
 
+import com.model.Game;
 import com.model.Player;
 import com.presenter.Util;
+
 import static com.main.KNTAppFactory.*;
 
 /**
@@ -20,7 +22,7 @@ class RecruitCharPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Recruiting Character Phase");
 		
 		getGamePresenter().getView().getCurrentActionLbl().setText("Recruit Special Character");
@@ -32,8 +34,8 @@ class RecruitCharPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		
 		Player currPlay = game.getCurrentPlayer();
 		//set cup thing to do nothing
@@ -42,7 +44,7 @@ class RecruitCharPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		Player currPlay = game.getCurrentPlayer();
 		getPlayerInfoPresenter().getView().setPlayer(currPlay);
 	}

@@ -15,7 +15,7 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 import com.thetransactioncompany.jsonrpc2.server.MessageContext;
 import com.thetransactioncompany.jsonrpc2.server.RequestHandler;
 
-public abstract class KNTRequestHandler implements RequestHandler {
+public abstract class BaseRequestHandler implements RequestHandler {
 	
 	//TODO: Make this synchronized.
 //	protected List<JSONRPC2Notification> pendingNotifications = new LinkedList<>();

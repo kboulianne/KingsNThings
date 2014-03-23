@@ -30,7 +30,7 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Construction Phase");
 
 		getGamePresenter().getView().getCurrentActionLbl().setText("Construction Phase");
@@ -56,13 +56,13 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		getSidePanePresenter().getView().showArbitraryView("Build new forts or upgrade existing forts", Game.CROWN_IMAGE);		
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		List<Hex> hexes = game.getBoard().getHexes();
 		
 		for(int i=0; i<hexes.size(); i++)	{

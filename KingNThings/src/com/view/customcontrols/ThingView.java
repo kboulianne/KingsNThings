@@ -1,6 +1,5 @@
 package com.view.customcontrols;
 
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Game;
 import com.model.Player;
@@ -136,23 +135,24 @@ public class ThingView extends StackPane{
 	}
 	
 	void setMovementHandler(){
-		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {
-				Util.playClickSound();
-				thing.setSelected(!thing.isSelected());
-				if(thing.isSelected()){
-					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
-				}else{
-					//GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
-					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
-				}
-				
-				if(thing.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
-					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(thing);
-				}
-			}
-		});
+		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+//		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//			@Override
+//			public void handle(MouseEvent me) {
+//				Util.playClickSound();
+//				thing.setSelected(!thing.isSelected());
+//				if(thing.isSelected()){
+//					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
+//				}else{
+//					//GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
+//					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
+//				}
+//				
+//				if(thing.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
+//					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(thing);
+//				}
+//			}
+//		});
 	}
 	
 	void setDoNothingHandler(){
@@ -166,48 +166,49 @@ public class ThingView extends StackPane{
 	}
 
 	void setExchangeThingHandler() {
-		
-		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {	
-
-				if(thing.isSelected()){
-					KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange things by clicking the rack\n"
-							   + "     Exchange only once per thing", Game.CROWN_IMAGE);
-				} else {
-					Util.playClickSound();
-					Game game = GameService.getInstance().getGame();	
-					Thing t = game.getCup().getRandomThing();
-					game.moveThingFromCupToPlayer(t, game.getCurrentPlayer());
-					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
-					game.getCurrentPlayer().getBlock().removeThing(thing);
-					game.getCup().addThing(thing);
-					thing = t;
-					thing.setSelected(true);
-					thing.setFacedDown(false);
-					refreshView();
-				}
-			}
-		});
+		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+//		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//			@Override
+//			public void handle(MouseEvent me) {	
+//
+//				if(thing.isSelected()){
+//					KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange things by clicking the rack\n"
+//							   + "     Exchange only once per thing", Game.CROWN_IMAGE);
+//				} else {
+//					Util.playClickSound();
+//					Game game = GameService.getInstance().getGame();	
+//					Thing t = game.getCup().getRandomThing();
+//					game.moveThingFromCupToPlayer(t, game.getCurrentPlayer());
+//					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
+//					game.getCurrentPlayer().getBlock().removeThing(thing);
+//					game.getCup().addThing(thing);
+//					thing = t;
+//					thing.setSelected(true);
+//					thing.setFacedDown(false);
+//					refreshView();
+//				}
+//			}
+//		});
 		
 	}
 	
 	public void setExchangeTreasureHandler() {
-		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {	
-				Util.playClickSound();
-				Game game = GameService.getInstance().getGame();	
-
-				game.getCurrentPlayer().getBlock().removeThing(thing);
-				game.getCup().addThing(thing);
-				
-				game.getCurrentPlayer().addGold(((Treasure) thing).getValue());
-				KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(game.getCurrentPlayer());
-				KNTAppFactory.getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
-				refreshView();
-			}
-		});		
+		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+//		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//			@Override
+//			public void handle(MouseEvent me) {	
+//				Util.playClickSound();
+//				Game game = GameService.getInstance().getGame();	
+//
+//				game.getCurrentPlayer().getBlock().removeThing(thing);
+//				game.getCup().addThing(thing);
+//				
+//				game.getCurrentPlayer().addGold(((Treasure) thing).getValue());
+//				KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(game.getCurrentPlayer());
+//				KNTAppFactory.getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
+//				refreshView();
+//			}
+//		});		
 	}
 
 	public void setChooseSpecialCharToRecruitHandler() {
@@ -232,16 +233,17 @@ public class ThingView extends StackPane{
 	
 	
 	public void setSendSpecialCharacterBackToCupHandler() {
-		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {
-				Util.playClickSound();
-				Game game = GameService.getInstance().getGame();
-				Player currPlay = game.getCurrentPlayer();
-				game.getCup().addThing(currPlay.removeSpecialCharacter((SpecialCharacter)thing));
-				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlay);
-				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment(currPlay.getName(), currPlay.getAllOwnedSpecialChar());
-			}
-		});
+		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+//		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//			@Override
+//			public void handle(MouseEvent me) {
+//				Util.playClickSound();
+//				Game game = GameService.getInstance().getGame();
+//				Player currPlay = game.getCurrentPlayer();
+//				game.getCup().addThing(currPlay.removeSpecialCharacter((SpecialCharacter)thing));
+//				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlay);
+//				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment(currPlay.getName(), currPlay.getAllOwnedSpecialChar());
+//			}
+//		});
 	}
 }

@@ -10,7 +10,7 @@ import com.thetransactioncompany.jsonrpc2.server.MessageContext;
 
 import static com.server.KNTServer.*;
 
-public class PlayerHandler extends KNTRequestHandler implements IPlayerService {
+public class PlayerHandler extends BaseRequestHandler implements IPlayerService {
 
 	@Override
 	public String[] handledRequests() {

@@ -33,7 +33,9 @@ public class Board {
 	 * For gson.
 	 */
 	@SuppressWarnings("unused")
-	private Board() {}
+	private Board() {
+		this(NumberOfHexes.THIRTY_SEVEN);
+	}
 	
 	public Board(NumberOfHexes nOH){
 	    faceDown = true;
@@ -65,7 +67,7 @@ public class Board {
 		
 	    faceDown = b;
 	    for (Hex h:hexes)
-	    	h.setFaceDown(b);
+	    		h.setFaceDown(b);
 	    
 	}
 	public final boolean isFaceDown() {
@@ -78,7 +80,7 @@ public class Board {
 	
 	public void reset(){
 		for (Hex h:hexes){
-	    	h.setHighlighted(false);
+			h.setHighlighted(false);
 			h.setSelected(false);
 		}
 	}

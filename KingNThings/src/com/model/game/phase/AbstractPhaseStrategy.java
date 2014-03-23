@@ -5,7 +5,6 @@
  */
 package com.model.game.phase;
 
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.Board;
@@ -39,27 +38,27 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 	}
 	
 	@Override
-	public void phaseStart() {
-		// Always refresh the local game instance
-		try {
-			game = context.getService().refreshGame(NetworkedMain.getRoomName());
-		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void phaseStart(Game game) {
+//		// Always refresh the local game instance
+//		try {
+//			game = context.getService().refreshGame(NetworkedMain.getRoomName());
+//		} catch (JSONRPC2Error e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	@Override
-	public void turnStart() {
+	public void turnStart(Game game) {
 		Util.playClickSound();
 		
-		// Always refresh the game instance
-		try {
-			game = context.getService().refreshGame(NetworkedMain.getRoomName());
-		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		// Always refresh the game instance
+//		try {
+//			game = context.getService().refreshGame(NetworkedMain.getRoomName());
+//		} catch (JSONRPC2Error e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		//top label
 		getGamePresenter().getView().getCurrentPlayerLbl()
@@ -70,11 +69,12 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 	}
 	
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		Board b = game.getBoard();
 		b.reset();	
 		getBoardPresenter().getView().setBoard(b);
 		getSidePanePresenter().getView().clearDetailsView();
 		getPopupPresenter().dismissPopup();
+
 	}
 }

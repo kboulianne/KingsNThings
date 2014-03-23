@@ -88,4 +88,8 @@ public class NetworkedMain extends Application {
     		primaryStage.setHeight(h);
 //    		primaryStage.sizeToScene();
     }
+    
+    public static void setTitle(String title) {
+    		primaryStage.setTitle(title);
+    }
 }

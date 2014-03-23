@@ -29,7 +29,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Start of Starting Positions Phase");
 		
 		getGamePresenter().getView().getCurrentActionLbl().setText("Choose Starting Position");
@@ -53,8 +53,8 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 
 		getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
 		getSidePanePresenter().getView().showArbitraryView("Choose a starting position", Game.START_HEX_IMAGE);
@@ -75,7 +75,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		
 	}
 }

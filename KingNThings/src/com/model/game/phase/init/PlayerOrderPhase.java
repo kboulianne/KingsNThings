@@ -24,8 +24,8 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
-		super.phaseStart();
+	public void phaseStart(Game game) {
+		super.phaseStart(game);
 		
 		Util.playMusic();
 		Util.log("Init Phase: Start of Player Order Phase");
@@ -34,20 +34,28 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		//top label
 		getGamePresenter().getView().getCurrentActionLbl().setText("Roll the Dice");
 		
-		game.getBoard().setFaceDown(true);
-		// Update the view
-		getBoardPresenter().getView().setBoard(game.getBoard());
+//		game.getBoard().setFaceDown(true);
+//		// Update the view
+//		getBoardPresenter().getView().setBoard(game.getBoard());
 		getBoardPresenter().getView().setOnMouseClicked(null);
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setDisable(true);
+//		finishBtn.setDisable(false);
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+//				context.endTurn();
+				//FIXME: For now
+				getGamePresenter().endTurn();
+			}
+		});
 		
 		Button rollBtn = getDicePresenter().getView().getRollBtn();
 		rollBtn.setOnAction(new EventHandler<ActionEvent>()	{
 			@Override
 			public void handle(ActionEvent arg0) {
 				getDicePresenter().roll();
-				context.endTurn();
 			}
 		});
 		rollBtn.setVisible(true);
@@ -56,16 +64,16 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
+	public void turnStart(Game game) {
 		//top label
-		super.turnStart();
+		super.turnStart(game);
 		getGamePresenter().getView().setGame(game);
 //		getSidePanePresenter().getView().showRolls(game.getRolls());
 	}
 
 	@Override
-	public void turnEnd() {
-		super.turnEnd();
+	public void turnEnd(Game game) {
+		super.turnEnd(game);
 //		game.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());				
 //		Util.log("Added roll total " + game.diceTotal()
 //				+ " for " + game.getCurrentPlayer().getName());

@@ -1,6 +1,5 @@
 package com.main;
 
-import com.client.KNTClient;
 import com.client.KNTClient2;
 import com.model.Die;
 import com.model.game.phase.GamePlay;
@@ -110,14 +109,14 @@ public class KNTAppFactory {
 	
 	private static GamePresenter createMainPresenter() {
 		GameView view = new GameView();
-		GamePresenter presenter = new GamePresenter(view, null/*CLIENT.getGameService()*/);
+		GamePresenter presenter = new GamePresenter(view, CLIENT.getGameService());
 
 		return presenter;
 	}
 
 	private static DicePresenter createDicePresenter() {
 		DiceView view = new DiceView();
-		DicePresenter presenter = new DicePresenter(view, null/*CLIENT.getGameService()*/);
+		DicePresenter presenter = new DicePresenter(view, CLIENT.getGameService());
 
 		return presenter;
 	}
@@ -251,7 +250,7 @@ public class KNTAppFactory {
 	public static GamePlay getGamePlay() {
 		// Created when first called.
 		if (gamePlay == null)
-			gamePlay = new GamePlay(null/*CLIENT.getGameService()*/);
+			gamePlay = new GamePlay(CLIENT.getGameService());
 		
 		return gamePlay;
 	}

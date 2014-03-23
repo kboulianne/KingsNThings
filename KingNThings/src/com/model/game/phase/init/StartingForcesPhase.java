@@ -31,7 +31,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Starting Forces Phase");
 
 		getGamePresenter().getView().getCurrentActionLbl().setText("Place Forces");		
@@ -58,8 +58,8 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		
 		getSidePanePresenter().getView().showArbitraryView("Choose things from rack and\n"
 																	   + "   place them on the board", Game.CROWN_IMAGE);
@@ -78,7 +78,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		//GameService.getInstance().endTurn(this);
 		
 	}

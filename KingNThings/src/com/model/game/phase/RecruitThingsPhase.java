@@ -9,9 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
 import com.presenter.Util;
+
 import static com.main.KNTAppFactory.*;
 
 /**
@@ -25,7 +27,7 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Recruiting Things Phase");
 		
 		getGamePresenter().getView().getCurrentActionLbl().setText("Recruit Things");
@@ -51,8 +53,8 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		
 		int freeRecruits = 0;
 	
@@ -73,7 +75,7 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		game.getCurrentPlayer().trimBlock();
 		getBoardPresenter().getView().addDefaultHandler();
 	}

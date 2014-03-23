@@ -20,7 +20,7 @@ import static com.server.Errors.*;
  *
  */
 //TODO: Separate implementation from handler?
-public class GameRoomHandler extends KNTRequestHandler implements IGameRoomService {
+public class GameRoomHandler extends BaseRequestHandler implements IGameRoomService {
 	
 
 	
@@ -89,7 +89,7 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 				// TESTING
 				// Player joined. Notify other clients.
 				// TODO: Need to ensure that the request takes priority. Meaning respond to request, then send notification.
-				gr.notifyOthers(player.getName(), Notifications.PLAYER_JOINED_GAME_ROOM);
+				gr.notifyOtherClients(player.getName(), Notifications.PLAYER_JOINED_GAME_ROOM);
 			}
 			else {
 				throw GAME_ROOM_ROOM_INEXISTANT;
@@ -115,10 +115,8 @@ public class GameRoomHandler extends KNTRequestHandler implements IGameRoomServi
 					
 					gr.setGame(game);
 					gr.setStarted(true);
-					// Lock the Games map and add this game instance
-//					synchronized (GAMES) {
-//						GAMES.put(room, game);
-//					}
+
+					gr.notifyAllClients(Notifications.GAME_STARTED);
 				}
 				else {
 					// For now

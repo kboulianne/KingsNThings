@@ -6,13 +6,15 @@
 
 package com.model.game.phase;
 
+import com.model.Game;
+
 /**
  *
  * @author kurtis
  */
 public interface IPhaseStrategy {
-    void phaseStart();
-    void turnStart();
-    void turnEnd(); 
+    void phaseStart(Game game);
+    void turnStart(Game game);
+    void turnEnd(Game game); 
     void phaseEnd();
 }

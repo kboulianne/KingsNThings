@@ -2,10 +2,12 @@ package com.model.game.phase.init;
 
 import javafx.scene.image.Image;
 
+import com.model.Game;
 import com.model.Player;
 import com.model.game.phase.AbstractPhaseStrategy;
 import com.model.game.phase.GamePlay;
 import com.presenter.Util;
+
 import static com.main.KNTAppFactory.*;
 
 public class StartingTowerPhase extends AbstractPhaseStrategy {
@@ -15,7 +17,7 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Starting Tower Phase");
 		getGamePresenter().getView().getCurrentActionLbl().setText("Place Tower");	
 		
@@ -23,8 +25,8 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 	}
 	
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		
 		getBoardPresenter().getView().addStartTowerHandler();
 		
@@ -45,7 +47,7 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 		
 	}
 

@@ -26,7 +26,7 @@ class RandomEventPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Random Events Phase");
 		
 		getGamePresenter().getView().getCurrentActionLbl().setText("Random Events");
@@ -47,13 +47,13 @@ class RandomEventPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
-		super.turnStart();
+	public void turnStart(Game game) {
+		super.turnStart(game);
 		getSidePanePresenter().getView().showArbitraryView("Random Events: TODO", Game.CROWN_IMAGE);
 	}
 
 	@Override
-	public void turnEnd() {
+	public void turnEnd(Game game) {
 				
 	}
 }

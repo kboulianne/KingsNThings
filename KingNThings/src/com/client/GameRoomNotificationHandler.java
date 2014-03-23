@@ -9,6 +9,11 @@ import com.thetransactioncompany.jsonrpc2.server.MessageContext;
 public class GameRoomNotificationHandler extends BaseNotificationHandler {
 	
 	@Override
+	public String[] handledNotifications() {
+		return new String[] {"onPlayerJoinedRoom"};
+	}
+	
+	@Override
 	public void process(JSONRPC2Notification not, MessageContext arg1) {
 		// For now, will mimic Server's RequestHandler
 		switch (not.getMethod()) {

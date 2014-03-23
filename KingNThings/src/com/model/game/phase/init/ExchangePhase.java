@@ -24,7 +24,7 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseStart() {
+	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Exchange Things Phase");
 		getGamePresenter().getView().getCurrentActionLbl().setText("Exchange Things");
 		getBoardPresenter().getView().addPlacementHandler();
@@ -36,14 +36,14 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void turnStart() {
+	public void turnStart(Game game) {
 		getSidePanePresenter().getView().showArbitraryView("        Exchange things by clicking the rack\n"
 																	   + "   1 new recruit is given for every 1 returned", Game.CROWN_IMAGE);
 		Block currentPlayerBlock = game.getCurrentPlayer().getBlock();
 		if(currentPlayerBlock.getListOfThings().isEmpty()){
 			context.endTurn();	
 		} else {
-			super.turnStart();
+			super.turnStart(game);
 			getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(game.getCurrentPlayer());		
 		}
 	}

@@ -41,4 +41,9 @@ public class GameServiceProxy extends ProxyBase implements IGameService {
 	public boolean isPlayerTurn(String roomName, Player p) throws JSONRPC2Error {
 		return invokeOnServer("isPlayerTurn", Boolean.class, roomName, p);
 	}
+
+	@Override
+	public void endTurn(String gameRoom, Player p) throws JSONRPC2Error {
+		invokeOnServer("endTurn", gameRoom, p);		
+	}
 }
