@@ -1,8 +1,8 @@
 package com.main;
 
 import com.client.KNTClient2;
+import com.game.phase.GamePlay;
 import com.model.Die;
-import com.model.game.phase.GamePlay;
 import com.presenter.ArmyDetailsPresenter;
 import com.presenter.BattlePresenter;
 import com.presenter.DicePresenter;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.model.game.phase;
+package com.game.phase;
 
 import static com.main.KNTAppFactory.getGamePresenter;
 
@@ -17,15 +17,15 @@ import java.util.LinkedHashSet;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import com.game.phase.init.ExchangePhase;
+import com.game.phase.init.PlayerOrderPhase;
+import com.game.phase.init.StartingForcesPhase;
+import com.game.phase.init.StartingKingdomPhase;
+import com.game.phase.init.StartingPosPhase;
+import com.game.phase.init.StartingTowerPhase;
 import com.main.NetworkedMain;
 import com.model.Game;
 import com.model.Player;
-import com.model.game.phase.init.ExchangePhase;
-import com.model.game.phase.init.PlayerOrderPhase;
-import com.model.game.phase.init.StartingForcesPhase;
-import com.model.game.phase.init.StartingKingdomPhase;
-import com.model.game.phase.init.StartingPosPhase;
-import com.model.game.phase.init.StartingTowerPhase;
 
 /**
  * The Context class in the Strategy Pattern. This is the Game's "Behaviour" or
@@ -136,7 +136,7 @@ public final class GamePlay {
 		phaseLogic = phaseIt.next();
 
 		// Phase start
-		phaseLogic.phaseStart(null);
+//		phaseLogic.phaseStart(null);
 	}
 
 	/**

@@ -88,7 +88,7 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 				// TESTING
 				// Player joined. Notify other clients.
 				// TODO: Need to ensure that the request takes priority. Meaning respond to request, then send notification.
-				gr.notifyOtherClients(player.getName(), Notifications.PLAYER_JOINED_GAME_ROOM);
+				notifyOtherClients(gr, Notifications.PLAYER_JOINED_GAME_ROOM, player);
 			}
 			else {
 				throw GAME_ROOM_ROOM_INEXISTANT;
@@ -118,7 +118,7 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 //					// Update the current status for the Host player (they are first in player order).
 //					game.setGameStatus("Roll the Dice");
 
-					gr.notifyAllClients(Notifications.GAME_STARTED);
+					notifyAllClients(gr, Notifications.GAME_STARTED);
 				}
 				else {
 					// For now

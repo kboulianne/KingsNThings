@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.game.phase.init.ExchangePhase;
 import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.Battle;
@@ -17,7 +18,6 @@ import com.model.MagicItem;
 import com.model.Player;
 import com.model.Thing;
 import com.model.Treasure;
-import com.model.game.phase.init.ExchangePhase;
 import com.server.services.IGameService;
 import com.view.BoardView;
 
@@ -48,13 +48,14 @@ public class BoardPresenter {
 	}
 
 	private Game getGame() {
-		try {
-			return gameSvc.getGame(NetworkedMain.getRoomName());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
-		return null;
+//		try {
+//			return gameSvc.getGame(NetworkedMain.getRoomName());
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		};
+		// Use local instance.
+		return KNTAppFactory.getGamePresenter().getLocalInstance();
 	}
 	
 	/**
@@ -99,7 +100,7 @@ public class BoardPresenter {
 			view.setBoard(b);
 			
 //			GamePlay.getInstance().endTurn();
-			KNTAppFactory.getGamePlay().endTurn();
+//			KNTAppFactory.getGamePlay().endTurn();
 		}
 	}
 	
@@ -200,7 +201,8 @@ public class BoardPresenter {
 				if(curr.getType() != Hex.HexType.SEA)	count++;
 				if(count >= 2)	{
 //					GamePlay.getInstance().endTurn();
-					KNTAppFactory.getGamePlay().endTurn();
+//					KNTAppFactory.getGamePlay().endTurn();
+					KNTAppFactory.getGamePresenter().endTurn();
 					break;
 				}
 			}

@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.model.game.phase.init;
+package com.game.phase.init;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+import com.game.phase.AbstractPhaseStrategy;
+import com.game.phase.GamePlay;
 import com.main.KNTAppFactory;
 import com.model.Cup;
 import com.model.Game;
 import com.model.Player;
 import com.model.Thing;
-import com.model.game.phase.AbstractPhaseStrategy;
-import com.model.game.phase.GamePlay;
 import com.presenter.Util;
 
 import static com.main.KNTAppFactory.*;

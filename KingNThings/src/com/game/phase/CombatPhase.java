@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.model.game.phase;
+package com.game.phase;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,47 +14,55 @@ import com.model.Game;
 import com.presenter.Util;
 
 import static com.main.KNTAppFactory.*;
-
 /**
  *
  * @author kurtis
  */
-class RandomEventPhase extends AbstractPhaseStrategy {
+class CombatPhase extends AbstractPhaseStrategy {
 
-	RandomEventPhase(GamePlay context) {
+	CombatPhase(GamePlay context) {
 		super(context);
 	}
 
 	@Override
 	public void phaseStart(Game game) {
-		Util.log("Game Phase: Start of Random Events Phase");
-		
-		getGamePresenter().getView().getCurrentActionLbl().setText("Random Events");
+		Util.log("Game Phase: Start of Combat Phase");
+
+		getGamePresenter().getView().getCurrentActionLbl().setText("Combat Phase");
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setDisable(false);
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {		
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {
 				context.endTurn();
 			}
 		});
+		
+		getBoardPresenter().getView().addBattleSelectionHandler();
 	}
 
 	@Override
 	public void phaseEnd() {
-		Util.log("Game Phase: End of Random Events Phase");
+		Util.log("Game Phase: End of Combat Phase");
 	}
 
 	@Override
 	public void turnStart(Game game) {
 		super.turnStart(game);
-		getSidePanePresenter().getView().showArbitraryView("Random Events: TODO", Game.CROWN_IMAGE);
-	}
+		Util.log("Game Phase: Logic for " + game.getCurrentPlayer().getName());
 
+		getSidePanePresenter().getView().showArbitraryView("Available battles displayed as red hexes", Game.CROWN_IMAGE);
+		
+		// highlight hexes with available battles
+		getBoardPresenter().findAndHighlightConflicts();
+		
+	}
+	
 	@Override
 	public void turnEnd(Game game) {
-				
+		//GameService.getInstance().endTurn(this);
+		getBoardPresenter().clearConflictHighlights();
+		
 	}
 
 	@Override

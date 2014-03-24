@@ -49,16 +49,20 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 		// Notify other clients that the player completed his/her turn.
 		synchronized (GAME_ROOMS.get(gameRoom)) {
 			ServerGameRoom room = (ServerGameRoom)GAME_ROOMS.get(gameRoom);
-			Game game = room.getGame();
+//			Game game = room.getGame();
 			
-			// Either send next turn or nextTurn and nextPhase.
-			if (!game.isLastPlayer()) {
-				// Switches current Player
-				game.nextPlayer();
-				
-				// TODO: Update game here?
-				room.notifyAllClients(Notifications.TURN_ENDED);
-			}
+//			room.getGamePlay().
+			// Manages next turn and next phase.
+			room.getGamePlay().next();
+			
+			
+//			if (!game.isLastPlayer()) {
+//				// Switches current Player
+//				game.nextPlayer();
+//				
+//				// TODO: Update game here?
+//				room.notifyAllClients(Notifications.TURN_ENDED);
+//			}
 		}
 	}
 }

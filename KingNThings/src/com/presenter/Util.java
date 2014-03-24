@@ -27,7 +27,7 @@ import javafx.scene.paint.Color;
 public class Util {	
 
 	private final static boolean DEBUG = true;
-	final public static boolean AUTOMATE = true;
+	final public static boolean AUTOMATE = false;
 //	private static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 	
 	private static class ColorInstanceCreator implements InstanceCreator<Color> {

@@ -11,8 +11,8 @@ import java.util.TreeMap;
 
 import javafx.scene.image.Image;
 
+import com.game.phase.init.PlayerOrderPhase;
 import com.main.KNTAppFactory;
-import com.model.game.phase.init.PlayerOrderPhase;
 import com.presenter.HexFactory;
 import com.presenter.Util;
 
@@ -41,16 +41,9 @@ public final class Game {
     private static final int 
     	MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
-    /* This variable holds the <Player Name>... <Phase> ... <Action> text set during phases. */
-//    private String gameStatus;
-    //private GamePlay gamePlay;
-
     private transient List<Hex> hexPool;
-    // Iterators are not serializable.
+    // Iterators are not serializable. Use index instead.
     private int nextPlayerIdx;
-//    private transient ListIterator<Player> nextPlayerIt;
-    //TODO: Use state pattern to keep states for every phase.
-//    private transient SortedMap<Integer, Player> rolls;
     private List<Player> playerOrder;
     private transient Cup cup;
     
@@ -71,8 +64,7 @@ public final class Game {
      */
     public Game() {
 		mode = MODE_FOUR_PLAYER;
-		// PlayerOrderPhase state.
-//		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
+
 		// Initialize the dice
 		die1 = new Die();
 		die2 = new Die();
@@ -117,15 +109,7 @@ public final class Game {
     		playerOrder.addAll(guests);
     }
     
-	// Getters and Setters =============================================================================================
-//    public final String getGameStatus() {
-//    		return gameStatus;
-//    }
-//    
-//    public final void setGameStatus(String status) {
-//    		this.gameStatus = status;
-//    }
-    
+	// Getters and Setters =============================================================================================    
 	/**
 	 * Gets the Player which is currently executing their turn.
 	 *
@@ -295,6 +279,7 @@ public final class Game {
 		this.playerOrder = new ArrayList<>(playersHighToLow);
 		// Reset the index to the new playerOrder
 		nextPlayerIdx = 0;
+		currentPlayer = playerOrder.get(0);
 	}
 	
 	
@@ -356,6 +341,10 @@ public final class Game {
 
 	public void setHexPool(List<Hex> hexPool) {
 		this.hexPool = hexPool;
+	}
+
+	public List<Player> getPlayerOrder() {
+		return playerOrder;
 	}
 	
 //	/**

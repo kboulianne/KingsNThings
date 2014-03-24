@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.model.game.phase.init;
+package com.game.phase.init;
 
 import javafx.scene.control.Button;
 
+import com.game.phase.AbstractPhaseStrategy;
+import com.game.phase.GamePlay;
 import com.main.KNTAppFactory;
 import com.model.Game;
 import com.model.Player;
-import com.model.game.phase.AbstractPhaseStrategy;
-import com.model.game.phase.GamePlay;
 import com.presenter.Util;
 
 import static com.main.KNTAppFactory.*;
@@ -32,10 +32,8 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Start of Starting Positions Phase");
 		
-		getGamePresenter().getView().getCurrentActionLbl().setText("Choose Starting Position");
-		
 		finishBtn = getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setVisible(false);getDicePresenter().getView().getRollBtn().setVisible(false);
+		finishBtn.setDisable(true);
 		
 		getDicePresenter().getView().getDie1().setVisible(false);
 		getDicePresenter().getView().getDie2().setVisible(false);		
@@ -44,10 +42,9 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseEnd() {
 		Util.log("End of Starting Positions Phase");
-		game.getBoard().setFaceDown(false);
-		getBoardPresenter().getView().setBoard(game.getBoard());
+//		getBoardPresenter().getView().setBoard(game.getBoard());
 		getBoardPresenter().getView().addDefaultHandler();
-		finishBtn.setVisible(true);
+//		finishBtn.setVisible(true);
 		
 		getSidePanePresenter().getView().clearDetailsView();
 	}
@@ -81,6 +78,6 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Choose Starting Position";
 	}
 }

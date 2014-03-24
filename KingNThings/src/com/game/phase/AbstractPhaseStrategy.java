@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.model.game.phase;
+package com.game.phase;
 
 import com.main.KNTAppFactory;
 import com.main.NetworkedMain;

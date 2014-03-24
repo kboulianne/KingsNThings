@@ -1,5 +1,7 @@
 package com.server;
 
+import static com.server.KNTServer.PLAYERS;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -58,6 +60,33 @@ public class KNTServer {
 			PlayerConnection connection = new PlayerConnection(playerSocket);
 			connection.startOn(THREAD_POOL);
 
+		}
+	}
+	
+	public static void notifyAllClients(GameRoom room, JSONRPC2Notification notification) {
+		synchronized (PLAYERS) {
+			PLAYERS.get(room.getHost().getName()).notifyClient(notification);
+			
+			for (Player p : room.getPlayers()) {
+				PLAYERS.get(p.getName()).notifyClient(notification);
+			}
+		}
+	}
+	
+	public static void notifyOtherClients(ServerGameRoom room, JSONRPC2Notification notification, Player exclude) {
+		// Exclude notifying playerName
+		if (!room.getHost().getName().equals(exclude.getName())) {
+			synchronized (PLAYERS) {
+				PLAYERS.get(room.getHost().getName()).notifyClient(notification);
+			}
+		}
+		
+		synchronized (PLAYERS) {
+			for (Player p : room.getPlayers()) {
+				if (!p.getName().equals(exclude.getName())) {
+						PLAYERS.get(p.getName()).notifyClient(notification);			
+				}
+			}
 		}
 	}
 	

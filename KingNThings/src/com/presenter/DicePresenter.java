@@ -1,10 +1,10 @@
 package com.presenter;
 
+import com.game.phase.GamePlay;
 import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.Die;
 import com.model.Game;
-import com.model.game.phase.GamePlay;
 import com.server.services.IGameService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.view.DiceView;

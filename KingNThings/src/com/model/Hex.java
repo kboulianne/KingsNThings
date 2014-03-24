@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 public class Hex extends GamePiece {
 	
     private int id; // location on grid
-	private Player hexOwner;
+	private transient Player hexOwner;
 	private Color color;
 	private boolean startPosition; // Is the owner's start position
 	private boolean selected;

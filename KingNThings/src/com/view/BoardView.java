@@ -22,14 +22,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
+import static com.main.KNTAppFactory.*;
 /**
  *
  * @author kurtis
  */
 public class BoardView extends Canvas {
-
-	private BoardPresenter presenter;
 
 	// TODO Duplicated in SidePane. Create HexView?
 	private static final double HEX_WIDTH = 100.0;
@@ -83,7 +81,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-							presenter.handleHexClick(i);
+							getBoardPresenter().handleHexClick(i);
 						break;
 					}
 				}
@@ -107,7 +105,7 @@ public class BoardView extends Canvas {
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
 						if(startPositions.contains(i))
-							presenter.handleStartPositionSelectedHexClick(i);
+							getBoardPresenter().handleStartPositionSelectedHexClick(i);
 						break;
 					}
 				}
@@ -126,7 +124,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-							presenter.handleHexExchangeClick(i);
+							getBoardPresenter().handleHexExchangeClick(i);
 						break;
 					}
 				}
@@ -145,7 +143,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-							presenter.handleStartingKingdomsHexClick(i);
+							getBoardPresenter().handleStartingKingdomsHexClick(i);
 						break;
 					}
 				}
@@ -165,7 +163,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-							presenter.handleStartingTowerHexClick(i);
+							getBoardPresenter().handleStartingTowerHexClick(i);
 						break;
 					}
 				}
@@ -186,7 +184,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-						presenter.handleMovementSelectedHexClick(i);
+							getBoardPresenter().handleMovementSelectedHexClick(i);
 						break;
 					}
 				}
@@ -207,7 +205,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-						presenter.handlePlacementSelectedHexClick(i);
+						getBoardPresenter().handlePlacementSelectedHexClick(i);
 						break;
 					}
 				}
@@ -226,7 +224,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-						presenter.handleConstructionHexClick(i);
+						getBoardPresenter().handleConstructionHexClick(i);
 						break;
 					}
 				}
@@ -247,8 +245,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-//						presenter.handlePlacementSelectedHexClick(i);
-						presenter.handleBattleSelectionHex(i);
+						getBoardPresenter().handleBattleSelectionHex(i);
 						break;
 					}
 				}

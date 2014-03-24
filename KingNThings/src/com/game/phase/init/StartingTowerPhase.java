@@ -1,11 +1,11 @@
-package com.model.game.phase.init;
+package com.game.phase.init;
 
 import javafx.scene.image.Image;
 
+import com.game.phase.AbstractPhaseStrategy;
+import com.game.phase.GamePlay;
 import com.model.Game;
 import com.model.Player;
-import com.model.game.phase.AbstractPhaseStrategy;
-import com.model.game.phase.GamePlay;
 import com.presenter.Util;
 
 import static com.main.KNTAppFactory.*;

@@ -1,9 +1,9 @@
-package com.model.game.phase.init;
+package com.game.phase.init;
 
+import com.game.phase.AbstractPhaseStrategy;
+import com.game.phase.GamePlay;
 import com.main.NetworkedMain;
 import com.model.Game;
-import com.model.game.phase.AbstractPhaseStrategy;
-import com.model.game.phase.GamePlay;
 import com.presenter.Util;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 
@@ -44,22 +44,14 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		getBoardPresenter().getView().setOnMouseClicked(null);
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
-//		finishBtn.setDisable(false);
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-//				context.endTurn();
-				//FIXME: For now
-				getGamePresenter().endTurn();
-			}
-		});
+		finishBtn.setDisable(true);
 		
 		Button rollBtn = getDicePresenter().getView().getRollBtn();
 		rollBtn.setOnAction(new EventHandler<ActionEvent>()	{
 			@Override
 			public void handle(ActionEvent arg0) {
 				getDicePresenter().roll();
+				getGamePresenter().endTurn();
 			}
 		});
 		rollBtn.setVisible(true);
@@ -78,26 +70,18 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnEnd(Game game) {
 		super.turnEnd(game);
-//		game.addPlayerRoll(game.diceTotal(), game.getCurrentPlayer());				
-//		Util.log("Added roll total " + game.diceTotal()
-//				+ " for " + game.getCurrentPlayer().getName());
-		
+
 		// Notify UI
 		getGamePresenter().getView().setGame(game, getActionText());
 	}
 	
 	@Override
 	public void phaseEnd() {
-		// Updates the player order.
-		// DEACTIVATED =======================================
-//		game.setPlayerOrder(context.getPlayersHighToLow());
-		// ===================================================
-		
-//		Util.log("Init Phase: End of Player Order Phase");
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(false);
 		Button rollBtn = getDicePresenter().getView().getRollBtn();
 		rollBtn.setOnAction(null);
+		rollBtn.setDisable(true);
 	}
 
 	@Override
