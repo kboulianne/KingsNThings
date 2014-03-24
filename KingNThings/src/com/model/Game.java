@@ -240,10 +240,6 @@ public final class Game {
 		return nextPlayerIdx == playerOrder.size() - 1;
 	}
 	
-// TODO Remove unused code found by UCDetector
-// 	public boolean hasNextPlayer(){
-// 		return nextPlayerIt.hasNext();
-// 	}
 	public final List<Player> getOpponentsForCurrent() {
 		List<Player> opponents = new ArrayList<>(playerOrder);
 		// Remove the current player
@@ -278,7 +274,7 @@ public final class Game {
 		// Contains all four players.
 		this.playerOrder = new ArrayList<>(playersHighToLow);
 		// Reset the index to the new playerOrder
-		nextPlayerIdx = 0;
+//		nextPlayerIdx = 0;
 		currentPlayer = playerOrder.get(0);
 	}
 	

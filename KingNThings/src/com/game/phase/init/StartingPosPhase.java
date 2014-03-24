@@ -55,8 +55,8 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 
 		getBoardPresenter().getView().addStartPosHandler(game.getBoard().getStartPositions());
 		getSidePanePresenter().getView().showArbitraryView("Choose a starting position", Game.START_HEX_IMAGE);
-		game.getBoard().setFaceDown(true);
-		getBoardPresenter().getView().setBoard(game.getBoard());
+
+//		getBoardPresenter().getView().setBoard(game.getBoard());
 				
 		if(Util.AUTOMATE){
 			Util.log("Automated");

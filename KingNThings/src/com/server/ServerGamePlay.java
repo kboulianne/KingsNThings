@@ -25,6 +25,7 @@ public final class ServerGamePlay {
 		phases = new LinkedHashSet<>();
 		
 		phases.add(new ServerPlayerOrderPhase(this));
+		phases.add(new ServerStartingPosPhase(this));
 		phases.add(new ServerNOOPPhase(this));
 		
 		phaseIt = phases.iterator();
@@ -42,10 +43,9 @@ public final class ServerGamePlay {
 			phase.phaseEnd();
 			nextPhase();
 		}
-		else {
 			// Next player's turn.
 			nextTurn();			
-		}
+		
 	}
 	
 	private final void nextPhase() {

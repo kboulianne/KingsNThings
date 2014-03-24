@@ -13,10 +13,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.model.Block;
+import com.model.Hex;
+import com.model.Player;
+import com.model.Player.PlayerId;
 
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
@@ -64,13 +69,70 @@ public class Util {
 		}
 		
 	}
-	
+	private static class PlayerDeserializer implements JsonDeserializer<Player> {
+		@Override
+		public Player deserialize(JsonElement json, Type arg1,
+				JsonDeserializationContext context) throws JsonParseException {
+			JsonObject jPlayer = json.getAsJsonObject();
+			Player player = null;
+			
+			if (jPlayer.has("id")) {
+				PlayerId id = PlayerId.valueOf(jPlayer.get("id").getAsString());
+				player = new Player(id, jPlayer.getAsJsonPrimitive("name").getAsString());
+			}
+			else {
+				player = new Player(jPlayer.getAsJsonPrimitive("name").getAsString());
+			}
+			
+			// Normal serialization
+			player.setBlock(context.<Block>deserialize(jPlayer.get("block"), Block.class));
+			player.setStartPos(context.<Hex>deserialize(jPlayer.get("startPos"), Hex.class));
+			
+			
+			// Make sure to rebuild circular reference to owner in hex
+			if (player.getStartPos() != null)
+				player.getStartPos().setOwner(player);
+			
+			return player;
+		}
+		
+	}
+//	private static class HexSerializer implements JsonSerializer<Hex> {
+//
+//		@Override
+//		public JsonElement serialize(Hex hex, Type arg1,
+//				JsonSerializationContext context) {
+//			// Serialize normally, skipping transient fields.
+//			JsonObject elem = (JsonObject) context.serialize(hex);
+//			
+//			// Fields marked transient that should be included.
+//			// Serialize owner as string.
+//			elem.addProperty("hexOwner", hex.getHexOwner().getName());
+//			
+//			return elem;
+//		}
+//		
+//	}
+//	private static class HexDeserializer implements JsonDeserializer<Hex> {
+//
+//		@Override
+//		public Hex deserialize(JsonElement json, Type arg1,
+//				JsonDeserializationContext context) throws JsonParseException {
+//			// Use standard deserializer.
+//			Hex hex = context.<Hex>deserialize(json, Hex.class);
+//			
+//			// Deserialize the hexOwner
+//			return null;
+//		}
+//		
+//	}
 	
 	public static final Gson GSON = new GsonBuilder()
 		// TODO Use InstanceCreator for GamePiece Hierarchy?
 		.registerTypeAdapter(Color.class, new ColorInstanceCreator())
 		.registerTypeAdapter(Color.class, new ColorSerializer())
 		.registerTypeAdapter(Color.class, new ColorDeserializer())
+		.registerTypeAdapter(Player.class, new PlayerDeserializer())
 	.create();
 	
 	

@@ -27,7 +27,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Starting Kingdoms Phase");
 		
-		getGamePresenter().getView().getCurrentActionLbl().setText("Choose Starting Kingdom");
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Choose Starting Kingdom");
 
 		getDicePresenter().getView().getEndTurnBtn().setVisible(false);
 		getBoardPresenter().getView().addStartKingdomsHandler();
@@ -77,6 +77,6 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Choose Starting Kingdom";
 	}
 }
