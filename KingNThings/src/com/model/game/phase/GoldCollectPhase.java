@@ -86,4 +86,9 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 		
 	}
 
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
+
 }

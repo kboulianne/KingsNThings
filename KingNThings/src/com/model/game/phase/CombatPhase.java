@@ -64,4 +64,9 @@ class CombatPhase extends AbstractPhaseStrategy {
 		getBoardPresenter().clearConflictHighlights();
 		
 	}
+
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
 }

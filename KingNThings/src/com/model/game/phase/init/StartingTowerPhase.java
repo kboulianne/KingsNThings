@@ -59,4 +59,9 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 		getSidePanePresenter().getView().clearDetailsView();
 	}
 
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
+
 }

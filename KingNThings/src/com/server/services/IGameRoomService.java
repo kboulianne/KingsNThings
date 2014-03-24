@@ -27,7 +27,7 @@ public interface IGameRoomService {
 	 * @return The Game Room.
 	 * @throws JSONRPC2Error
 	 */
-	GameRoom refreshGameRoom(String name) throws JSONRPC2Error;
+	GameRoom getGameRoom(String name) throws JSONRPC2Error;
 	
 	/**
 	 * Gets all available  

@@ -39,7 +39,7 @@ class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 	public void phaseEnd() {
 		// Rotate the player order and display
 		game.rotatePlayerOrder();
-		KNTAppFactory.getGamePresenter().getView().setGame(game);
+		KNTAppFactory.getGamePresenter().getView().setGame(game, getActionText());
 		Util.log("Changed Player Order.");
 	}
 
@@ -51,5 +51,10 @@ class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 	@Override
 	public void turnEnd(Game game) {
 		// Nothing to be done here.
+	}
+
+	@Override
+	public String getActionText() {
+		return "Update Me!";
 	}
 }

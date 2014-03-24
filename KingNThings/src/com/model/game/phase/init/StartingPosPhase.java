@@ -78,4 +78,9 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 	public void turnEnd(Game game) {
 		
 	}
+
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
 }

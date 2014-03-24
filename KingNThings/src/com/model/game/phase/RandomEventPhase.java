@@ -56,4 +56,9 @@ class RandomEventPhase extends AbstractPhaseStrategy {
 	public void turnEnd(Game game) {
 				
 	}
+
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
 }

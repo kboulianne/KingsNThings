@@ -52,7 +52,7 @@ public class GameRoomPresenter {
 
 	public void refreshGameRoom() {
 		try {
-			room = gameRoomSvc.refreshGameRoom(room.getName());
+			room = gameRoomSvc.getGameRoom(room.getName());
 			
 			view.setGameRoom(room);
 		} catch (JSONRPC2Error e) {

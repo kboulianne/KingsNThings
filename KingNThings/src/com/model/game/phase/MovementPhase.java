@@ -83,4 +83,9 @@ class MovementPhase extends AbstractPhaseStrategy {
 		getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(false);
 		getHexDetailsPresenter().getView().getCounter().setMoving(false);
 	}
+
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
 }

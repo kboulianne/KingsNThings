@@ -117,6 +117,12 @@ public final class GamePlay {
 		this.cycles = cycle;
 	}
 
+	public final String getActionText() {
+		if (phaseLogic == null) return null;
+		
+		return phaseLogic.getActionText();
+	}
+	
 	/**
 	 * Called when the last player in turn order has executed his turn. Switches
 	 * to the startTurn phase.

@@ -48,4 +48,9 @@ class RecruitCharPhase extends AbstractPhaseStrategy {
 		Player currPlay = game.getCurrentPlayer();
 		getPlayerInfoPresenter().getView().setPlayer(currPlay);
 	}
+
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
 }

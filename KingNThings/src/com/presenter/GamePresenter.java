@@ -64,7 +64,7 @@ public class GamePresenter {
 	 */
 	public void updateViews() {
 		try {
-			Game game = gameSvc.refreshGame(NetworkedMain.getRoomName());
+			Game game = gameSvc.getGame(NetworkedMain.getRoomName());
 			updateViews(game);
 
 		} catch (JSONRPC2Error e) {
@@ -75,6 +75,7 @@ public class GamePresenter {
 	
 	public void updateViews(Game game) {
 		// Update subviews
+		view.setGame(game, getGamePlay().getActionText());
 		getDicePresenter().getView().setDice(game.getDie1(), game.getDie2());
 		getSidePanePresenter().getView().setOpponents(game.getOpponentsFor(NetworkedMain.getPlayer()));
 		getBoardPresenter().getView().setBoard(game.getBoard());
@@ -122,40 +123,9 @@ public class GamePresenter {
 
 	public void showGameUI() {
 		NetworkedMain.setView(view, 1280, 800);
-		
-//		Game game = null;
-//		try {
-//			game = gameSvc.refreshGame(NetworkedMain.getRoomName());
-//			updateViews(game);
-//
-//			// Test
-////			System.out.println(gameSvc.isPlayerTurn(NetworkedMain.getRoomName(), NetworkedMain.getPlayer()));
-//		} catch (JSONRPC2Error e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		startGame(game);
 	}
 	
-	public void onGameStarted() {
-		// Show view
-		// Show the UI
-		showGameUI();
-		
-		try {
-			game = gameSvc.refreshGame(NetworkedMain.getRoomName());
-			updateViews(game);
-		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// Trigger initial phase.
-		getGamePlay().nextPhase();
-		getGamePlay().getPhaseLogic().turnStart(game);
-		System.out.println("onGameStarted");
-	}
+
 	/**
 	 * Signals start of phase. Should only be called once.
 	 */
@@ -173,30 +143,7 @@ public class GamePresenter {
 		}
 	}
 
-	/**
-	 * Handles notification sent by server.
-	 * Current player's turn ended. 
-	 */
-	public void onTurnEnded() {
-		// Lock the UI by disabling it
-		view.setDisable(true);
-		System.out.println("Turn ended");
 
-		try {
-			// Refresh local instance.
-			game = gameSvc.refreshGame(NetworkedMain.getRoomName());
-			updateViews(game);
-		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// Call end turn on clients that are observers
-		if (!game.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {
-			// Now have consistent phase states.
-//			getGamePlay().endTurn();
-		}
-	}
 
 	public void endTurn() {
 		try {
@@ -213,5 +160,67 @@ public class GamePresenter {
 	
 	public Game getLocalInstance() {
 		return game;
+	}
+
+	public void onGameStarted() {
+		// Show the UI
+		showGameUI();
+		
+		try {
+			game = gameSvc.getGame(NetworkedMain.getRoomName());
+			updateViews(game);
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (!NetworkedMain.isPlayerTurn(game.getCurrentPlayer())) 
+			view.setDisable(true);
+		
+		// Trigger initial phase.
+		getGamePlay().nextPhase();
+		getGamePlay().getPhaseLogic().turnStart(game);
+		System.out.println("onGameStarted");
+	}
+	
+	// Notifications sent from the server.
+	public void onTurnStarted() {
+		System.out.println("onTurnStarted");
+
+		// Two ways to do this
+		//  Clients receive onTurnStarted when it is their turn.
+		// otherwise they receive onUpdate?
+		// ==== OR ====
+		// Receive onTurnStarted AND check if current player is equal to the client's player. If their turn,
+		// then they play, otherwise they simply update? (Already updated onTurnEnd?)
+
+
+	}
+	
+	/**
+	 * Handles notification sent by server.
+	 * Current player's turn ended. 
+	 */
+	public void onTurnEnded() {
+		// Lock the UI by disabling it
+		view.setDisable(true);
+		System.out.println("Turn ended");
+
+		try {
+			// Refresh local instance.
+			game = gameSvc.getGame(NetworkedMain.getRoomName());
+			updateViews(game);
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Local instance is in sync. Check if it is this client's, re-enable UI and execute client-side turnStart logic
+		if (NetworkedMain.isPlayerTurn(game.getCurrentPlayer())) {
+			view.setDisable(false);
+			
+			// Trigger turnStart in phase logic.
+			getGamePlay().getPhaseLogic().turnStart(game);
+		}
 	}
 }

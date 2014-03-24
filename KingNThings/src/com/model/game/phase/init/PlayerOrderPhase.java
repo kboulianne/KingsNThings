@@ -19,6 +19,8 @@ import static com.main.KNTAppFactory.*;
 //TODO needs a different strategy implementation one with simply executePhase()
 public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	
+	
+	
 	public PlayerOrderPhase(GamePlay context) {
 		super(context);
 	}
@@ -31,8 +33,10 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		Util.log("Init Phase: Start of Player Order Phase");
 //		game.clearRolls();
 		
-		//top label
-		getGamePresenter().getView().getCurrentActionLbl().setText("Roll the Dice");
+		//top label, get it from game status. Server updates this.
+
+//		getGamePresenter().getView().getCurrentActionLbl().setText(game.getGameStatus());
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Roll the Dice");
 		
 //		game.getBoard().setFaceDown(true);
 //		// Update the view
@@ -67,7 +71,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	public void turnStart(Game game) {
 		//top label
 		super.turnStart(game);
-		getGamePresenter().getView().setGame(game);
+		getGamePresenter().getView().setGame(game, getActionText());
 //		getSidePanePresenter().getView().showRolls(game.getRolls());
 	}
 
@@ -79,7 +83,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 //				+ " for " + game.getCurrentPlayer().getName());
 		
 		// Notify UI
-		getGamePresenter().getView().setGame(game);
+		getGamePresenter().getView().setGame(game, getActionText());
 	}
 	
 	@Override
@@ -94,5 +98,10 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		finishBtn.setDisable(false);
 		Button rollBtn = getDicePresenter().getView().getRollBtn();
 		rollBtn.setOnAction(null);
+	}
+
+	@Override
+	public String getActionText() {
+		return "Roll the dice";
 	}
 }

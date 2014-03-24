@@ -24,6 +24,9 @@ public class GameNotificationHandler extends BaseNotificationHandler {
 					// Show GameView
 					KNTAppFactory.getGamePresenter().onGameStarted();
 					break;
+				case "onTurnStarted":
+					KNTAppFactory.getGamePresenter().onTurnStarted();
+					break;
 				case "onTurnEnded":
 					KNTAppFactory.getGamePresenter().onTurnEnded();
 					break;

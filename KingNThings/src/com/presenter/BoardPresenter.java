@@ -49,7 +49,7 @@ public class BoardPresenter {
 
 	private Game getGame() {
 		try {
-			return gameSvc.refreshGame(NetworkedMain.getRoomName());
+			return gameSvc.getGame(NetworkedMain.getRoomName());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -11,11 +11,11 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 public class GameRequestHandler extends BaseRequestHandler implements IGameService {
 	@Override
 	public String[] handledRequests() {
-		return new String[] { "refreshGame", "updateGame", "isPlayerTurn", "endTurn" };
+		return new String[] { "getGame", "updateGame", "isPlayerTurn", "endTurn" };
 	}
 
 	@Override
-	public Game refreshGame(String roomName) throws JSONRPC2Error {
+	public Game getGame(String roomName) throws JSONRPC2Error {
 		Game game = null;
 		synchronized (GAME_ROOMS) {
 			game = ((ServerGameRoom)GAME_ROOMS.get(roomName)).getGame();
@@ -34,6 +34,7 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 		}		
 	}
 
+	//TODO: Remove me. This can be determined on the client.
 	@Override
 	public boolean isPlayerTurn(String roomName, Player p) throws JSONRPC2Error {
 		synchronized (GAME_ROOMS) {
@@ -48,8 +49,16 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 		// Notify other clients that the player completed his/her turn.
 		synchronized (GAME_ROOMS.get(gameRoom)) {
 			ServerGameRoom room = (ServerGameRoom)GAME_ROOMS.get(gameRoom);
-			// TODO: Update game here?
-			room.notifyOtherClients(p.getName(), Notifications.TURN_ENDED);
+			Game game = room.getGame();
+			
+			// Either send next turn or nextTurn and nextPhase.
+			if (!game.isLastPlayer()) {
+				// Switches current Player
+				game.nextPlayer();
+				
+				// TODO: Update game here?
+				room.notifyAllClients(Notifications.TURN_ENDED);
+			}
 		}
 	}
 }

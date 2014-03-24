@@ -56,6 +56,10 @@ public class NetworkedMain extends Application {
         stage.show();
     }
     
+    public static boolean isPlayerTurn(Player gameCurrent) {
+    		return gameCurrent.equals(player);
+    }
+    
     public static final Player getPlayer() {
     		return player;
     }

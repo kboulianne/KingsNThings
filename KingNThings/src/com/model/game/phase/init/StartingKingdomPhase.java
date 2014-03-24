@@ -74,4 +74,9 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 		
 		getBoardPresenter().getView().addDefaultHandler();
 	}
+
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
 }

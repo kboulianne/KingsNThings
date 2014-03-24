@@ -38,9 +38,11 @@ public final class Game {
     private Die die1;
     private Die die2;
     private int mode;
-    private transient static final int 
+    private static final int 
     	MODE_FOUR_PLAYER = 1,
 	    MODE_TWO_THREE_PLAYER = 2;
+    /* This variable holds the <Player Name>... <Phase> ... <Action> text set during phases. */
+//    private String gameStatus;
     //private GamePlay gamePlay;
 
     private transient List<Hex> hexPool;
@@ -116,6 +118,14 @@ public final class Game {
     }
     
 	// Getters and Setters =============================================================================================
+//    public final String getGameStatus() {
+//    		return gameStatus;
+//    }
+//    
+//    public final void setGameStatus(String status) {
+//    		this.gameStatus = status;
+//    }
+    
 	/**
 	 * Gets the Player which is currently executing their turn.
 	 *

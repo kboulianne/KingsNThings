@@ -48,4 +48,9 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 		}
 	}
 
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
+
 }

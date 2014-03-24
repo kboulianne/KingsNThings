@@ -24,8 +24,8 @@ public class GameServiceProxy extends ProxyBase implements IGameService {
 	
 	// TODO: Keep a local instance of the game.
 	@Override
-	public Game refreshGame(String roomName) throws JSONRPC2Error {
-		Game game = invokeOnServer("refreshGame", Game.class, roomName);
+	public Game getGame(String roomName) throws JSONRPC2Error {
+		Game game = invokeOnServer("getGame", Game.class, roomName);
 		// Keep Owner info synchronized
 		NetworkedMain.setPlayer(game.getUpdatedPlayer(NetworkedMain.getPlayer()));
 		

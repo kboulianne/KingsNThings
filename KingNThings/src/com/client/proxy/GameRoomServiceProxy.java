@@ -36,8 +36,8 @@ public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService 
 	}
 	
 	@Override
-	public GameRoom refreshGameRoom(String name) throws JSONRPC2Error {
-		return invokeOnServer("refreshGameRoom", GameRoom.class, name);
+	public GameRoom getGameRoom(String name) throws JSONRPC2Error {
+		return invokeOnServer("getGameRoom", GameRoom.class, name);
 	}
 	
 	@Override

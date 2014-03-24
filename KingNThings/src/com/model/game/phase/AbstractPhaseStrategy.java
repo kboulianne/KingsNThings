@@ -37,6 +37,8 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 //		}
 	}
 	
+	public abstract String getActionText();
+	
 	@Override
 	public void phaseStart(Game game) {
 //		// Always refresh the local game instance
@@ -52,17 +54,10 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 	public void turnStart(Game game) {
 		Util.playClickSound();
 		
-//		// Always refresh the game instance
-//		try {
-//			game = context.getService().refreshGame(NetworkedMain.getRoomName());
-//		} catch (JSONRPC2Error e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
 		//top label
-		getGamePresenter().getView().getCurrentPlayerLbl()
-				.setText(game.getCurrentPlayer().getName()+"'s Turn: ");
+		// OK
+//		getGamePresenter().getView().getCurrentPlayerLbl()
+//				.setText(game.getCurrentPlayer().getName()+"'s Turn: ");
 //		getPlayerInfoPresenter().getView().setPlayer(game.getCurrentPlayer());
 //		getSidePanePresenter().getView().setOpponents(game.getOpponentsForCurrent());
 		

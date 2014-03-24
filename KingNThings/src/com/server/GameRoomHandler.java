@@ -28,7 +28,7 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 	public String[] handledRequests() {
 		// Report available methods
 		//TODO: Get method names from reflection
-		return new String[] { "getGameRooms", "refreshGameRoom", "joinGameRoom", "createGameRoom",
+		return new String[] { "getGameRooms", "getGameRoom", "joinGameRoom", "createGameRoom",
 				"startGame"};
 	}
 	
@@ -53,7 +53,7 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 	}
 	
 	@Override
-	public GameRoom refreshGameRoom(String name) throws JSONRPC2Error {
+	public GameRoom getGameRoom(String name) throws JSONRPC2Error {
 		synchronized (GAME_ROOMS) {
 			if (!GAME_ROOMS.containsKey(name)) {
 				throw GAME_ROOM_ROOM_INEXISTANT;
@@ -66,7 +66,6 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 	
 	@Override
 	public Collection<GameRoom> getGameRooms() throws JSONRPC2Error {
-		//TODO: Change me to collection
 		// Must lock the collection to make sure no changes are made in between.
 		synchronized (GAME_ROOMS) {
 			
@@ -115,6 +114,9 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 					
 					gr.setGame(game);
 					gr.setStarted(true);
+					
+//					// Update the current status for the Host player (they are first in player order).
+//					game.setGameStatus("Roll the Dice");
 
 					gr.notifyAllClients(Notifications.GAME_STARTED);
 				}

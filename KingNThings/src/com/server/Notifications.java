@@ -7,6 +7,8 @@ public class Notifications {
 			new JSONRPC2Notification("onPlayerJoinedRoom");
 	public static final JSONRPC2Notification GAME_STARTED =
 			new JSONRPC2Notification("onGameStarted");
+	public static final JSONRPC2Notification TURN_START =
+			new JSONRPC2Notification("onTurnStarted");
 	public static final JSONRPC2Notification TURN_ENDED =
 			new JSONRPC2Notification("onTurnEnded");
 }

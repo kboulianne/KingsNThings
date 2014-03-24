@@ -82,4 +82,9 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		//GameService.getInstance().endTurn(this);
 		
 	}
+
+	@Override
+	public String getActionText() {
+		return "Update Me!";
+	}
 }

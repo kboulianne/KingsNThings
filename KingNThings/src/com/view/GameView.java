@@ -105,14 +105,12 @@ public class GameView extends StackPane {
 	 *
 	 * @param game The game object the UI should display.
 	 */
-	public void setGame(final Game game) {
-		//TODO Could actually do most updating here since this presenter has all
-		// other presenters as a dependency.
+	public void setGame(final Game game, final String actionText) {
 		// As a precaution.
-		/*if (game != null) {
-			currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: ");
-	
-		}*/
+		if (game != null) {
+			currentPlayerLbl.setText(game.getCurrentPlayer().getName() + "'s Turn: ");
+			currentActionLbl.setText((actionText == null ? "" : actionText));
+		}
 	}
 
 	public Label getCurrentPlayerLbl() {
