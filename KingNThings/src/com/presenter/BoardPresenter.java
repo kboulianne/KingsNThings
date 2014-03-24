@@ -154,7 +154,8 @@ public class BoardPresenter {
 				
 				view.setBoard(b);
 //				GamePlay.getInstance().endTurn();
-				KNTAppFactory.getGamePlay().endTurn();
+//				KNTAppFactory.getGamePlay().endTurn();
+				KNTAppFactory.getGamePresenter().endTurn();
 			}
 		}
 	}

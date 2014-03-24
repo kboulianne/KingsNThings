@@ -20,18 +20,19 @@ public class ServerPlayerOrderPhase extends AbstractServerPhase {
 	//TODO: since context stores GameRoom, we do not need to pass Game to method calls.
 	// Create Server-side strategy interface.
 	@Override
-	public void phaseStart(Game game) {
+	public void phaseStart() {
 		rolls.clear();
 	}
 
 	@Override
-	public void turnStart(Game game) {
+	public void turnStart() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void turnEnd(Game game) {
+	public void turnEnd() {
+		Game game = context.room.getGame();
 		// When a player ends their turn, extract roll values and store them for the player
 		rolls.put(game.diceTotal(), game.getCurrentPlayer());
 	}

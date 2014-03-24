@@ -11,7 +11,9 @@ public class Player 	{
 	private Block block;
 	private int gold;
 	private String name;
-	private Hex startPos;
+//	private int startPosIdx = -1;
+	//TODO: Non-transient would cause circular reference which causes JSON to loop to infinity
+	private transient Hex startPos;
 	
 	public enum PlayerId { ONE(Color.YELLOW),TWO(Color.valueOf("555555")),THREE(Color.GREEN),FOUR(Color.RED); 
 		private final Color color;
@@ -146,10 +148,18 @@ public class Player 	{
 	public Hex getStartPos() {
 		return startPos;
 	}
-
+	
 	public void setStartPos(Hex startPos) {
 		this.startPos = startPos;
 	}
+	
+//	public int getStartPosition() {
+//		return startPosIdx;
+//	}
+//	
+//	public void setStartPosition(int pos) {
+//		this.startPosIdx = pos;
+//	}
 
 	public void setPlayerID(PlayerId id) {
 		this.id = id;
@@ -162,6 +172,7 @@ public class Player 	{
 		int counterGold = 0;
 		int specCharGold = 0;
 		int totalGold = 0;
+		throw new IllegalAccessError("Access to service must be in appropriate presenter.");
 //		Game game = GameService.getInstance().getGame();
 //		
 //		for (Hex h : game.getBoard().getHexes()) {
@@ -180,7 +191,7 @@ public class Player 	{
 //		hexGold = (int) Math.ceil(hexGold/2.0);
 //		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 		// Game Service can't be used here.
-		return totalGold;
+//		return totalGold;
 	}
 	
 //	@Override

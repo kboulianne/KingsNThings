@@ -13,6 +13,7 @@ import com.model.Game;
  * @author kurtis
  */
 public interface IPhaseStrategy {
+	
     void phaseStart(Game game);
     void turnStart(Game game);
     void turnEnd(Game game); 

@@ -93,6 +93,8 @@ public class Util {
 			if (player.getStartPos() != null)
 				player.getStartPos().setOwner(player);
 			
+			System.out.println("startPos for: " +  player + " = " + player.getStartPos());
+			
 			return player;
 		}
 		
@@ -132,7 +134,7 @@ public class Util {
 		.registerTypeAdapter(Color.class, new ColorInstanceCreator())
 		.registerTypeAdapter(Color.class, new ColorSerializer())
 		.registerTypeAdapter(Color.class, new ColorDeserializer())
-		.registerTypeAdapter(Player.class, new PlayerDeserializer())
+//		.registerTypeAdapter(Player.class, new PlayerDeserializer())
 	.create();
 	
 	

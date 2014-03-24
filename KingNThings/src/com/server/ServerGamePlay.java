@@ -14,10 +14,10 @@ public final class ServerGamePlay {
 
 	/** The game instance to operate on. */
 //	private Game game;
-	private IPhaseStrategy phase;
+	private IServerPhaseStrategy phase;
 	// These are unique, put in set
-	private Set<IPhaseStrategy> phases;
-	private Iterator<IPhaseStrategy> phaseIt;
+	private Set<IServerPhaseStrategy> phases;
+	private Iterator<IServerPhaseStrategy> phaseIt;
 	protected ServerGameRoom room;
 	
 	public ServerGamePlay(ServerGameRoom room) {
@@ -26,10 +26,10 @@ public final class ServerGamePlay {
 		
 		phases.add(new ServerPlayerOrderPhase(this));
 		phases.add(new ServerStartingPosPhase(this));
+		phases.add(new ServerStartingKingdomPhase(this));
 		phases.add(new ServerNOOPPhase(this));
 		
 		phaseIt = phases.iterator();
-//		phase = phaseIt.next();
 	}
 	
 	public final void next() {
@@ -39,12 +39,20 @@ public final class ServerGamePlay {
 		// Move to the next phase if the last player played his/her turn.
 		if (room.getGame().isLastPlayer()) {
 			// Only notify phase end at this point this implies the turn ended as well.
-			phase.turnEnd(room.getGame());
-			phase.phaseEnd();
-			nextPhase();
+			
+			if (phase.mustCycle()) {
+				phase.decrementCycles();
+			} else {
+				phase.turnEnd();
+				phase.phaseEnd();
+				nextPhase();
+			}
+		}
+		else {
+			
 		}
 			// Next player's turn.
-			nextTurn();			
+		nextTurn();			
 		
 	}
 	
@@ -53,7 +61,7 @@ public final class ServerGamePlay {
 		// GamePlay
 		if (phaseIt.hasNext()) {
 			phase = phaseIt.next();
-			phase.phaseStart(room.getGame());
+			phase.phaseStart();
 		}
 //		room.getGame().nextPlayer();
 		
@@ -64,7 +72,7 @@ public final class ServerGamePlay {
 	private final void nextTurn() {
 		Game game = room.getGame();
 		// Execute any server-side logic to end turn in the current phase.
-		phase.turnEnd(game);
+		phase.turnEnd();
 		game.nextPlayer();
 		
 		// Notify clients that a new player is now playing a turn

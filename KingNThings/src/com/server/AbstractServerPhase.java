@@ -1,12 +1,28 @@
 package com.server;
 
-import com.game.phase.IPhaseStrategy;
 
-public abstract class AbstractServerPhase implements IPhaseStrategy {
+public abstract class AbstractServerPhase implements IServerPhaseStrategy {
 
 	protected ServerGamePlay context;
+	private int cycleCount = 0;
 	
 	public AbstractServerPhase(ServerGamePlay context) {
 		this.context = context;
+	}
+	
+	public AbstractServerPhase(ServerGamePlay context, int cycleCount) {
+		this.context = context;
+		
+		this.cycleCount = cycleCount;
+	}
+	
+	@Override
+	public void decrementCycles() {
+		cycleCount --;
+	}
+	
+	@Override
+	public boolean mustCycle() {
+		return cycleCount > 0;
 	}
 }

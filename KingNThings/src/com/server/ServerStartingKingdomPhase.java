@@ -2,16 +2,17 @@ package com.server;
 
 import com.model.Game;
 
-public class ServerStartingPosPhase extends AbstractServerPhase {
+public class ServerStartingKingdomPhase extends AbstractServerPhase {
 
-	public ServerStartingPosPhase(ServerGamePlay context) {
-		super(context);
+	
+	public ServerStartingKingdomPhase(ServerGamePlay context) {
+		// Repeat phase once.
+		super(context, 1);
 	}
 
 	@Override
 	public void phaseStart() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -28,8 +29,7 @@ public class ServerStartingPosPhase extends AbstractServerPhase {
 
 	@Override
 	public void phaseEnd() {
-		// Flip the tiles.
-		context.room.getGame().getBoard().setFaceDown(false);
+
 	}
 
 }

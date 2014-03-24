@@ -1,8 +1,5 @@
 package com.server;
 
-import com.game.phase.IPhaseStrategy;
-import com.model.Game;
-
 public class ServerNOOPPhase extends AbstractServerPhase {
 
 	public ServerNOOPPhase(ServerGamePlay context) {
@@ -10,19 +7,19 @@ public class ServerNOOPPhase extends AbstractServerPhase {
 	}
 
 	@Override
-	public void phaseStart(Game game) {
+	public void phaseStart() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void turnStart(Game game) {
+	public void turnStart() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void turnEnd(Game game) {
+	public void turnEnd() {
 		// TODO Auto-generated method stub
 		
 	}

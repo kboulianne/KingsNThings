@@ -1,8 +1,14 @@
 package com.server;
 
+import com.model.Game;
+
 public interface IServerPhaseStrategy {
-	void prePhaseContitions();
-	void preTurnConditions();
-	void postTurnConditions();
-	void postPhaseConditions();
+	
+    void phaseStart();
+    void turnStart();
+    void turnEnd(); 
+    void phaseEnd();
+    
+    void decrementCycles();
+    boolean mustCycle();
 }

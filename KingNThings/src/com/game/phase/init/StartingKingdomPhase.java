@@ -33,7 +33,8 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 		getBoardPresenter().getView().addStartKingdomsHandler();
 		
 		// This phase cycles, so set context to execute turns 2 times (normal cycle + secondary cycle)
-		context.setCycleCount(1);
+		// Cycles are now on server.
+//		context.setCycleCount(1);
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseEnd() {
 		// Make sure to remove cycles, as a precaution
-		context.setCycleCount(0);
+//		context.setCycleCount(0);
 		
 		getBoardPresenter().getView().addDefaultHandler();
 	}
