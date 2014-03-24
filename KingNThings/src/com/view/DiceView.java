@@ -49,12 +49,12 @@ public class DiceView extends HBox {
 			
 		endTurnBtn = new Button("End Turn");
 		// Permanent handler
-		endTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent t) {
-				KNTAppFactory.getDicePresenter().endTurn();
-			}
-		});
+//		endTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent t) {
+//
+//			}
+//		});
 		
 		// Add all controls
 		getChildren().addAll(die1Iv, die2Iv, rollBtn, endTurnBtn);

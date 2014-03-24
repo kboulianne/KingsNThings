@@ -39,7 +39,6 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				context.endTurn();
 			}
 		});
 		

@@ -29,14 +29,14 @@ public class BoardPresenter {
 
 	private final BoardView view;
 
-	private final IGameService gameSvc;
+//	private final IGameService gameSvc;
 	// Ui Models
 	private boolean movingArmy;
 	private int lastHexSelected = -1;
 
-	public BoardPresenter(BoardView view, IGameService svc) {
+	public BoardPresenter(BoardView view) {
 		this.view = view;
-		gameSvc = svc;
+//		gameSvc = svc;
 		movingArmy = false;
 
 //
@@ -99,6 +99,7 @@ public class BoardPresenter {
 			// Update view
 			view.setBoard(b);
 			
+			KNTAppFactory.getGamePresenter().endTurn();
 //			GamePlay.getInstance().endTurn();
 //			KNTAppFactory.getGamePlay().endTurn();
 		}
@@ -270,7 +271,7 @@ public class BoardPresenter {
 			if(curr.getType() != Hex.HexType.SEA)	count++;
 			if(count >= 2)	{
 //				GamePlay.getInstance().endTurn();
-				KNTAppFactory.getGamePlay().endTurn();
+//				KNTAppFactory.getGamePlay().endTurn();
 				return;
 			}
 		}

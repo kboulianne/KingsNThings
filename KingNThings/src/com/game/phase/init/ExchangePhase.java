@@ -41,7 +41,7 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 																	   + "   1 new recruit is given for every 1 returned", Game.CROWN_IMAGE);
 		Block currentPlayerBlock = game.getCurrentPlayer().getBlock();
 		if(currentPlayerBlock.getListOfThings().isEmpty()){
-			context.endTurn();	
+			
 		} else {
 			super.turnStart(game);
 			getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(game.getCurrentPlayer());		

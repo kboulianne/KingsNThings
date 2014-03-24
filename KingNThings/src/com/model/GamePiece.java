@@ -53,7 +53,7 @@ abstract class GamePiece {
 		if (obj instanceof GamePiece) {
 			GamePiece gp = (GamePiece)obj;
 			
-			return image.equals(gp.image)
+			return Objects.equals(image, gp.image)
 					&& name.equals(gp.name)
 					&& owner.equals(gp.owner);
 		}

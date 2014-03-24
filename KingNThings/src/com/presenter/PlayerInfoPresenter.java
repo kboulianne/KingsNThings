@@ -1,6 +1,7 @@
 package com.presenter;
 
 import com.main.KNTAppFactory;
+import com.main.NetworkedMain;
 import com.model.Game;
 import com.model.Player;
 import com.view.PlayerInfoView;
@@ -17,11 +18,6 @@ public class PlayerInfoPresenter {
 
 	public PlayerInfoPresenter(PlayerInfoView view) {
 		this.view = view;
-		this.view.setPresenter(this);
-
-		// Update the ui.
-//		Game game = GameService.getInstance().getGame();
-//		view.setPlayer(game.getCurrentPlayer());
 	}
 
 	/**
@@ -54,9 +50,8 @@ public class PlayerInfoPresenter {
 	 * Pops up the information for the current player.
 	 */
 	public void showCurrentPlayerInfo() {
-		throw new IllegalAccessError("Use new service.");
-//		Player p = GameService.getInstance().getGame().getCurrentPlayer();
-//		KNTAppFactory.getGamePresenter().showPlayerInfoPopup(p);
+		KNTAppFactory.getGamePresenter().showPlayerInfoPopup(NetworkedMain.getPlayer());
+
 	}
 
 	/**

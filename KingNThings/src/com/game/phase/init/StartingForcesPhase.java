@@ -34,13 +34,13 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Starting Forces Phase");
 
-		getGamePresenter().getView().getCurrentActionLbl().setText("Place Forces");		
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Place Forces");		
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				context.endTurn();
+
 			}
 		});
 		finishBtn.setVisible(true);
@@ -79,12 +79,10 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void turnEnd(Game game) {
-		//GameService.getInstance().endTurn(this);
-		
 	}
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Place Forces";
 	}
 }

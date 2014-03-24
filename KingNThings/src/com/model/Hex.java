@@ -50,7 +50,7 @@ public class Hex extends GamePiece {
 	// list of misc Things
 	private HashMap<Player, ArrayList<Creature>> armies;
 	// Only one fort per tile.
-	private transient Fort fort;
+	private Fort fort;
 	private transient IncomeCounter counter;
 	
 	public enum HexType {

@@ -20,14 +20,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import static com.main.KNTAppFactory.*;
 
 /**
  *
  * @author kurtis
  */
 public class PlayerInfoView extends AnchorPane {
-
-	private PlayerInfoPresenter presenter;
 
 	private PlayerLabel currentPlayerlbl;
 	private Label goldLbl;
@@ -56,14 +55,14 @@ public class PlayerInfoView extends AnchorPane {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.showCurrentPlayerInfo();
+				getPlayerInfoPresenter().showCurrentPlayerInfo();
 			}
 		});
 		currentPlayerlbl.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.dismissPopup();
+				getPlayerInfoPresenter().dismissPopup();
 			}
 		});
 
@@ -81,14 +80,14 @@ public class PlayerInfoView extends AnchorPane {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.handleCupClick();
+				getPlayerInfoPresenter().handleCupClick();
 			}
 		});
 		viewCupImg.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.dismissPopup();
+				getPlayerInfoPresenter().dismissPopup();
 			}
 		});
 		
@@ -99,18 +98,6 @@ public class PlayerInfoView extends AnchorPane {
 		AnchorPane.setTopAnchor(viewCupImg, 8.0);
 
 		getChildren().addAll(viewCupImg, currentPlayerInfoBox);
-	}
-
-	public void setPresenter(final PlayerInfoPresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
-		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
 	}
 
 	public void setPlayer(Player current) {

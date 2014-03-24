@@ -343,6 +343,13 @@ public final class Game {
 		return playerOrder;
 	}
 	
+	public Player getGameOwner(Player p) {
+		for (Player player : playerOrder) {
+			if (player.getName().equals(p.getName())) return player;
+		}
+		
+		return null;
+	}
 //	/**
 //	 * Adds the specified dice total for the player.
 //	 * 

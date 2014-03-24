@@ -130,7 +130,7 @@ public class KNTAppFactory {
 
 	private static BoardPresenter createBoardPresenter() {
 		BoardView view = new BoardView();
-		BoardPresenter presenter = new BoardPresenter(view, null/*CLIENT.getGameService()*/);
+		BoardPresenter presenter = new BoardPresenter(view);
 
 		return presenter;
 	}
@@ -250,7 +250,7 @@ public class KNTAppFactory {
 	public static GamePlay getGamePlay() {
 		// Created when first called.
 		if (gamePlay == null)
-			gamePlay = new GamePlay(CLIENT.getGameService());
+			gamePlay = new GamePlay();
 		
 		return gamePlay;
 	}

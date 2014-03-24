@@ -17,6 +17,7 @@ import com.view.DiceView;
 public class DicePresenter {
 
 	private final DiceView view;
+	//TODO: Will need this for battle.
 	private final IGameService gameSvc;
 	
 	private Die die1;
@@ -116,10 +117,10 @@ public class DicePresenter {
 		return die1.getValue() + die2.getValue();
 	}
 	
-	/**
-	 * For now, ends the player's turn.
-	 */
-	public void endTurn() {
-		KNTAppFactory.getGamePlay().endTurn();
-	}
+//	/**
+//	 * For now, ends the player's turn.
+//	 */
+//	public void endTurn() {
+//		KNTAppFactory.getGamePlay().endTurn();
+//	}
 }

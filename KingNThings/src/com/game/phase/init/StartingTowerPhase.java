@@ -19,7 +19,7 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Starting Tower Phase");
-		getGamePresenter().getView().getCurrentActionLbl().setText("Place Tower");	
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Place Tower");	
 		
 		
 	}
@@ -61,7 +61,7 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Place Tower";
 	}
 
 }

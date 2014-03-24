@@ -1,6 +1,5 @@
 package com.presenter;
 
-import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.Game;
 import com.model.Player;
@@ -79,7 +78,10 @@ public class GamePresenter {
 		getDicePresenter().getView().setDice(game.getDie1(), game.getDie2());
 		getSidePanePresenter().getView().setOpponents(game.getOpponentsFor(NetworkedMain.getPlayer()));
 		getBoardPresenter().getView().setBoard(game.getBoard());
-		getPlayerInfoPresenter().getView().setPlayer(NetworkedMain.getPlayer());
+		// Player in main is stale. Needs to point to the new instance.
+		Player owner = game.getGameOwner(NetworkedMain.getPlayer());
+		NetworkedMain.setPlayer(owner);
+		getPlayerInfoPresenter().getView().setPlayer(owner);
 		
 		// Enable UI for current player.
 		if (NetworkedMain.isPlayerTurn(game.getCurrentPlayer())) {
@@ -118,7 +120,7 @@ public class GamePresenter {
 	 * Shows player information when the mouse is hovered over a player name.
 	 * @param p 
 	 */
-	void showPlayerInfoPopup(Player p) {
+	public void showPlayerInfoPopup(Player p) {
 		getPopupPresenter().showPlayerPopup(p);
 	}
 
@@ -132,26 +134,6 @@ public class GamePresenter {
 	public void showGameUI() {
 		NetworkedMain.setView(view, 1280, 800);
 	}
-	
-
-	/**
-	 * Signals start of phase. Should only be called once.
-	 */
-	@Deprecated
-	private void startGame(Game game) {		
-		// Trigger first phase in every client.
-		getGamePlay().nextPhase();
-		// TODO: Do not access phaselogic.
-		getGamePlay().getPhaseLogic().turnStart(null);
-		
-		// Disable UI's of players for observing players.
-		//TODO: Create helper in NetworkedMain
-		if (!game.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {
-			view.setDisable(true);
-		}
-	}
-
-
 
 	public void endTurn() {
 		try {
@@ -185,7 +167,6 @@ public class GamePresenter {
 		// Trigger initial phase.
 		getGamePlay().nextPhase();
 		getGamePlay().getPhaseLogic().phaseStart(game);
-		// TODO: We can technically get rid of turn start and phase start on the client?
 		getGamePlay().getPhaseLogic().turnStart(game);
 		System.out.println("onGameStarted");
 	}
