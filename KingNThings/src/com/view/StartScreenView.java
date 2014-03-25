@@ -1,16 +1,20 @@
 package com.view;
 
 import com.main.KNTAppFactory;
+import com.presenter.StartScreenCntrl;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class StartScreenView extends VBox {
 
@@ -26,7 +30,7 @@ public class StartScreenView extends VBox {
 		crownImg.setCache(true);
 
 		Label title = new Label("Kings & Things");
-		title.setStyle("-fx-font-size:30;-fx-font-weight: bold;");
+		title.setId("title");
 
 		Label playersName = new Label("Enter your Noble's name:");
 		final TextField textField = new TextField();
@@ -53,4 +57,33 @@ public class StartScreenView extends VBox {
 		getChildren().addAll(crownImg, title, playersName, textField, startButton);
 		setAlignment(Pos.CENTER);
 	}
+	
+//	public void show() {
+//		VBox container = new VBox();
+//		container.setMaxWidth(478);
+//		container.setSpacing(10);
+//		container.getChildren().addAll(title, playersName, textField, startButton);
+//
+//		VBox root = new VBox();
+//		root.setId("vBox");
+//		root.getChildren().addAll(crownImg, container);
+//		root.setAlignment(Pos.CENTER);
+//
+//		Scene scene = new Scene(root);// 1000 x 600
+//		scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");
+//		scene.getStylesheets().add("view/com/assets/docs/startScreen.css");
+//
+//		//Stage stage = Main.getStage();
+//		//stage.setScene(scene);
+//		//stage.show();
+//
+//		//fade
+//		FadeTransition ft = new FadeTransition(Duration.millis(2000), root);
+//		ft.setFromValue(0.5);
+//		ft.setToValue(1.0);
+//		ft.play();
+//
+//		new StartScreenCntrl(textField, startButton);
+//	}
+
 }

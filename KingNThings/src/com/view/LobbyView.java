@@ -48,7 +48,6 @@ public class LobbyView extends BorderPane {
 		playerLabel = LabelBuilder.create()
 				.text("Lobby")
 		.build();
-		playerLabel.setStyle("-fx-font-size:30;-fx-font-weight: bold;");
 		
 		BorderPane topPane = BorderPaneBuilder.create()
 				.padding(new Insets(0, 0, 10, 10))
