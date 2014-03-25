@@ -5,6 +5,8 @@
  */
 package com.view;
 
+import java.util.List;
+
 import com.model.Creature;
 import com.model.Fort;
 import com.model.IncomeCounter;
@@ -69,47 +71,47 @@ public class ThingDetailsView extends VBox {
 		testLbl = new Label();
 	}
 
-	public void setThing(final Thing thing) {
-		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
-//		if (thing != null) {
+	public void setThing(final Thing thing, List<Thing> lastSelected) {
+//		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+		if (thing != null) {
 //
-//			if(thing.isFacedDown()){
-//				thingNameLbl.setText("UNKNOWN");
-//				ThingView tv =new ThingView(260, thing);
-//				getChildren().clear();
-//				getChildren().addAll(thingNameLbl, tv);
-//				return;
-//			}
-//			
-//			String type = "error";
-//			if (thing instanceof SpecialCharacter){
-//				type = "Special Character";
-//			}else if (thing instanceof Creature) {
-//				type = ((Creature) thing).getDomain();
-//			}
-//			else if (thing instanceof IncomeCounter) {
-//				type = "Income Counter";
-//			}
-//			else if (thing instanceof Fort){
-//				type = "Fort";
-//			}
-//
-//			ThingView tv =new ThingView(260, thing);
-//
-//			thingNameLbl.setText(thing.getName().toUpperCase());
-//			typeLbl.setText("Type: " + type);
-//			ownerLbl.setText("Owner: " + thing.getOwner());
-//			getChildren().clear();
-//			if (thing instanceof Creature || thing instanceof SpecialCharacter) {
-//				Creature c = (Creature)thing;
-//			    testLbl.setText("Available Moves: "+ c.getNumberOfMovesAvailable());
-//			    combatLbl.setText("Combat Value: " + c.getCombatVal());
-//			    specialAbilitiesLbl.setText("Abilities: " + c.getAbilitiesString());
-//				GameService.getInstance().getGame().getLastSelectedThingsOfCurrentPlayerBlock().add(c);
-//				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl, testLbl);
-//			}else{
-//				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl);
-//			}	
-//		}
+			if(thing.isFacedDown()){
+				thingNameLbl.setText("UNKNOWN");
+				ThingView tv =new ThingView(260, thing);
+				getChildren().clear();
+				getChildren().addAll(thingNameLbl, tv);
+				return;
+			}
+			
+			String type = "error";
+			if (thing instanceof SpecialCharacter){
+				type = "Special Character";
+			}else if (thing instanceof Creature) {
+				type = ((Creature) thing).getDomain();
+			}
+			else if (thing instanceof IncomeCounter) {
+				type = "Income Counter";
+			}
+			else if (thing instanceof Fort){
+				type = "Fort";
+			}
+
+			ThingView tv = new ThingView(260, thing);
+
+			thingNameLbl.setText(thing.getName().toUpperCase());
+			typeLbl.setText("Type: " + type);
+			ownerLbl.setText("Owner: " + thing.getOwner());
+			getChildren().clear();
+			if (thing instanceof Creature || thing instanceof SpecialCharacter) {
+				Creature c = (Creature)thing;
+			    testLbl.setText("Available Moves: "+ c.getNumberOfMovesAvailable());
+			    combatLbl.setText("Combat Value: " + c.getCombatVal());
+			    specialAbilitiesLbl.setText("Abilities: " + c.getAbilitiesString());
+			    lastSelected.add(c);
+				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl, testLbl);
+			}else{
+				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl);
+			}	
+		}
 	}
 }

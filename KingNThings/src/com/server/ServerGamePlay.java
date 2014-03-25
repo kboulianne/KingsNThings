@@ -28,6 +28,8 @@ public final class ServerGamePlay {
 		phases.add(new ServerStartingPosPhase(this));
 		phases.add(new ServerStartingKingdomPhase(this));
 		phases.add(new ServerNOOPPhase(this));
+		phases.add(new ServerStartingForcesPhase(this));
+		phases.add(new ServerNOOPPhase(this));
 		
 		phaseIt = phases.iterator();
 	}
@@ -74,6 +76,7 @@ public final class ServerGamePlay {
 		// Execute any server-side logic to end turn in the current phase.
 		phase.turnEnd();
 		game.nextPlayer();
+		phase.turnStart();
 		
 		// Notify clients that a new player is now playing a turn
 		notifyAllClients(room, Notifications.TURN_ENDED);

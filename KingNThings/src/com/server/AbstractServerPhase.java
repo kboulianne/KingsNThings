@@ -17,12 +17,12 @@ public abstract class AbstractServerPhase implements IServerPhaseStrategy {
 	}
 	
 	@Override
-	public void decrementCycles() {
+	public final void decrementCycles() {
 		cycleCount --;
 	}
 	
 	@Override
-	public boolean mustCycle() {
+	public final boolean mustCycle() {
 		return cycleCount > 0;
 	}
 }

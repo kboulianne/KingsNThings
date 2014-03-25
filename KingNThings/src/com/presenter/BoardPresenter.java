@@ -347,7 +347,7 @@ public class BoardPresenter {
 		Game game = getGame();
 		Hex h = game.getBoard().getHexes().get(selected);
 		Player player = game.getCurrentPlayer();
-		ArrayList<Thing> listOfThings = game.getLastSelectedThingsOfCurrentPlayerBlock();
+		List<Thing> listOfThings = game.getLastSelectedThingsOfCurrentPlayerBlock();
 		
 		if(h.getHexOwner() == player)	{
 			Util.playHexClickSound();

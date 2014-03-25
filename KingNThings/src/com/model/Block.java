@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Block extends GamePiece {
@@ -8,7 +9,7 @@ public class Block extends GamePiece {
 	// Note each player has two racks of capicity 10 items
 	//int capacity;
 	
-	private final ArrayList<Thing> listOfThings;
+	private final List<Thing> listOfThings;
 	
 	public Block()	{
 		listOfThings = new ArrayList<>();
@@ -34,7 +35,7 @@ public class Block extends GamePiece {
 		return true;
 	}
 
-	public ArrayList<Thing> getListOfThings() {
+	public List<Thing> getListOfThings() {
 		return listOfThings;
 	}
 	

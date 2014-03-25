@@ -19,9 +19,30 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.model.Block;
+import com.model.Creature;
+import com.model.DesertCreature;
+import com.model.ForestCreature;
+import com.model.FrozenWasteCreature;
+import com.model.GamePiece;
 import com.model.Hex;
+import com.model.JungleCreature;
+import com.model.MountainCreature;
+import com.model.PlainsCreature;
 import com.model.Player;
 import com.model.Player.PlayerId;
+
+
+
+
+
+
+
+
+
+
+
+import com.model.SwampCreature;
+import com.model.Thing;
 
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
@@ -42,6 +63,38 @@ public class Util {
 			return Color.BLACK;
 		}
 	}
+	private static class GamePieceInstanceCreator implements InstanceCreator<Thing> {
+
+		@Override
+		public Thing createInstance(Type t) {
+			if (t instanceof DesertCreature) {
+				return new DesertCreature("");
+			}
+			else if (t instanceof ForestCreature) {
+				return new ForestCreature("");
+			}
+			else if (t instanceof FrozenWasteCreature) {
+				return new FrozenWasteCreature("");
+			}
+			else if (t instanceof JungleCreature) {
+				return new JungleCreature("");
+			}
+			else if (t instanceof PlainsCreature) {
+				return new PlainsCreature("");
+			}
+			else if (t instanceof MountainCreature) {
+				return new MountainCreature("");
+			}
+			else if (t instanceof SwampCreature) {
+				return new SwampCreature("");
+			}
+			
+			return new Thing();
+		}
+
+		
+	}
+	
 	private static class ColorSerializer implements JsonSerializer<Color> {
 		@Override
 		public JsonElement serialize(Color color, Type arg1,
@@ -135,6 +188,7 @@ public class Util {
 		.registerTypeAdapter(Color.class, new ColorSerializer())
 		.registerTypeAdapter(Color.class, new ColorDeserializer())
 //		.registerTypeAdapter(Player.class, new PlayerDeserializer())
+		.registerTypeAdapter(Thing.class, new GamePieceInstanceCreator())
 	.create();
 	
 	

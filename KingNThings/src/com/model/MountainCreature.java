@@ -2,9 +2,9 @@ package com.model;
 
 import javafx.scene.paint.Color;
 
-class MountainCreature extends Creature {
+public class MountainCreature extends Creature {
 
-	MountainCreature(String name) {
+	public MountainCreature(String name) {
 		super(name);
 		setDomain("Mountain");
 		setColor(Color.BROWN);

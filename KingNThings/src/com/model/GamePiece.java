@@ -3,7 +3,7 @@ package com.model;
 import java.util.Objects;
 import javafx.scene.image.Image;
 
-abstract class GamePiece {
+public abstract class GamePiece {
 	// Do not serialize the image, let serializer/deserializer handle this as directory string.
 	//TODO: Server now has image instances which does not make sense.
 	private transient Image image;

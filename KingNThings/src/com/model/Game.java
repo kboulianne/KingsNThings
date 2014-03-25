@@ -303,8 +303,8 @@ public final class Game {
 // 		}
 // 	}
 
-	public ArrayList<Thing> getLastSelectedThingsOfCurrentPlayerBlock() {
-		ArrayList<Thing> list = new ArrayList<Thing>();
+	public List<Thing> getLastSelectedThingsOfCurrentPlayerBlock() {
+		List<Thing> list = new ArrayList<Thing>();
 		List<Thing> blockList = getCurrentPlayer().getBlock().getListOfThings();
 		for(Thing t: blockList){
 			if(t.isSelected())

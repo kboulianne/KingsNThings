@@ -63,18 +63,20 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		
 		getSidePanePresenter().getView().showArbitraryView("Choose things from rack and\n"
 																	   + "   place them on the board", Game.CROWN_IMAGE);
+//---------------------------
+// NOW ON SERVER
+//---------------------------
+//		Player player = game.getCurrentPlayer();
+//		player.addGold(10);
+//		Cup cup = game.getCup();
+//		
+//		for(int i = 0; i < 10; i++)	{
+//			Thing t = cup.getRandomThing();
+//			cup.removeThing(t);
+//			player.addThing(t);
+//		}
 		
-		Player player = game.getCurrentPlayer();
-		player.addGold(10);
-		Cup cup = game.getCup();
-		
-		for(int i = 0; i < 10; i++)	{
-			Thing t = cup.getRandomThing();
-			cup.removeThing(t);
-			player.addThing(t);
-		}
-		
-		getPlayerInfoPresenter().getView().setPlayer(player);	
+//		getPlayerInfoPresenter().getView().setPlayer(player);	
 	}
 
 	@Override

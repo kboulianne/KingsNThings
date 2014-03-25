@@ -272,7 +272,7 @@ public abstract class Creature extends Thing	{
 		magicCreat.add("archmage");
 	}
 	
-	Creature(String name)	{
+	public Creature(String name)	{
 		super(name);
 		setNumberOfMovesAvailable(4);
 		

@@ -5,15 +5,18 @@ import java.util.Objects;
 
 import javafx.scene.paint.Color;
 
-
-public abstract class Thing extends GamePiece	{
+// No longer abstract for GSON serialization.
+public class Thing extends GamePiece	{
 	
 	private Color color;
 	private int hexLocation;
 	private boolean selected;
 	private boolean facedDown;
 	
-	Thing(String name)	{
+	// For GSON
+	public Thing() {}
+	
+	public Thing(String name)	{
 		super(name);
 		setOwner("Cup");
 		setHexLocation(-1);

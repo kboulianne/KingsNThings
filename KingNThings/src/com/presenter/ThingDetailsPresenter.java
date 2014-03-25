@@ -6,8 +6,8 @@
 package com.presenter;
 
 
+import com.main.KNTAppFactory;
 import com.model.Thing;
-
 import com.view.ThingDetailsView;
 
 /**
@@ -50,6 +50,6 @@ public class ThingDetailsPresenter {
 	 */
 	void showThing(Thing t) {
 		// Need to swap views according to Thing Type
-		getViewFor(t).setThing(t);
+		getViewFor(t).setThing(t, KNTAppFactory.getGamePresenter().getLocalInstance().getLastSelectedThingsOfCurrentPlayerBlock());
 	}
 }

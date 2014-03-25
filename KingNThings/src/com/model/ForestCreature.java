@@ -2,9 +2,9 @@ package com.model;
 
 import javafx.scene.paint.Color;
 
-class ForestCreature extends Creature {
+public class ForestCreature extends Creature {
 
-	ForestCreature(String name) {
+	public ForestCreature(String name) {
 		super(name);
 		setDomain("Forest");
 		setColor(Color.rgb(100, 165, 95));//DARKGREEN.brighter());
