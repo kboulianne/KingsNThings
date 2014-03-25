@@ -76,7 +76,7 @@ public class SpecialCharacter extends Creature	{
 	public String getAbilitiesString(){
 		String abilities = "";
 	    
-	    if (getFly()) {
+	    if (isFlying()) {
 	    	abilities += " Flying";
 	    }
 	    if (isRanged()) {

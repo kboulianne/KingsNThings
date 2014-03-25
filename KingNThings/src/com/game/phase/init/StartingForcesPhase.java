@@ -40,7 +40,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-
+				getGamePresenter().endTurn();
 			}
 		});
 		finishBtn.setVisible(true);

@@ -203,20 +203,20 @@ public class GamePresenter {
 		getGamePlay().getPhaseLogic().phaseEnd();
 
 		
-//		try {
+		try {
 			getGamePlay().nextPhase();
 			// Refresh local instance.
-//			game = gameSvc.getGame(NetworkedMain.getRoomName());
+			game = gameSvc.getGame(NetworkedMain.getRoomName());
 			getGamePlay().getPhaseLogic().phaseStart(game);
-//			getGamePlay().getPhaseLogic().turnStart(game);
-//			updateViews(game);
+			getGamePlay().getPhaseLogic().turnStart(game);
+			updateViews(game);
 			
 			//TODO: Re-integrate phase navigation in GamePlay.
-//			getGamePlay().getPhaseLogic().phaseStart(game);
-//		} catch (JSONRPC2Error e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+			getGamePlay().getPhaseLogic().phaseStart(game);
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		System.out.println("New Player Order: " + game.getPlayerOrder());
 	}

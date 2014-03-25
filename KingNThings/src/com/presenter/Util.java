@@ -68,29 +68,29 @@ public class Util {
 
 		@Override
 		public Thing createInstance(Type t) {
-			if (t instanceof DesertCreature) {
-				return new DesertCreature("");
-			}
-			else if (t instanceof ForestCreature) {
-				return new ForestCreature("");
-			}
-			else if (t instanceof FrozenWasteCreature) {
-				return new FrozenWasteCreature("");
-			}
-			else if (t instanceof JungleCreature) {
-				return new JungleCreature("");
-			}
-			else if (t instanceof PlainsCreature) {
-				return new PlainsCreature("");
-			}
-			else if (t instanceof MountainCreature) {
-				return new MountainCreature("");
-			}
-			else if (t instanceof SwampCreature) {
-				return new SwampCreature("");
-			}
+//			if (t instanceof DesertCreature) {
+//				return new DesertCreature("");
+//			}
+//			else if (t instanceof ForestCreature) {
+//				return new ForestCreature("");
+//			}
+//			else if (t instanceof FrozenWasteCreature) {
+//				return new FrozenWasteCreature("");
+//			}
+//			else if (t instanceof JungleCreature) {
+//				return new JungleCreature("");
+//			}
+//			else if (t instanceof PlainsCreature) {
+//				return new PlainsCreature("");
+//			}
+//			else if (t instanceof MountainCreature) {
+//				return new MountainCreature("");
+//			}
+//			else if (t instanceof SwampCreature) {
+//				return new SwampCreature("");
+//			}
 			
-			return new Thing();
+			return new Creature();
 		}
 
 		
@@ -123,36 +123,36 @@ public class Util {
 		}
 		
 	}
-	private static class PlayerDeserializer implements JsonDeserializer<Player> {
-		@Override
-		public Player deserialize(JsonElement json, Type arg1,
-				JsonDeserializationContext context) throws JsonParseException {
-			JsonObject jPlayer = json.getAsJsonObject();
-			Player player = null;
-			
-			if (jPlayer.has("id")) {
-				PlayerId id = PlayerId.valueOf(jPlayer.get("id").getAsString());
-				player = new Player(id, jPlayer.getAsJsonPrimitive("name").getAsString());
-			}
-			else {
-				player = new Player(jPlayer.getAsJsonPrimitive("name").getAsString());
-			}
-			
-			// Normal serialization
-			player.setBlock(context.<Block>deserialize(jPlayer.get("block"), Block.class));
-			player.setStartPos(context.<Hex>deserialize(jPlayer.get("startPos"), Hex.class));
-			
-			
-			// Make sure to rebuild circular reference to owner in hex
-			if (player.getStartPos() != null)
-				player.getStartPos().setOwner(player);
-			
-			System.out.println("startPos for: " +  player + " = " + player.getStartPos());
-			
-			return player;
-		}
-		
-	}
+//	private static class PlayerDeserializer implements JsonDeserializer<Player> {
+//		@Override
+//		public Player deserialize(JsonElement json, Type arg1,
+//				JsonDeserializationContext context) throws JsonParseException {
+//			JsonObject jPlayer = json.getAsJsonObject();
+//			Player player = null;
+//			
+//			if (jPlayer.has("id")) {
+//				PlayerId id = PlayerId.valueOf(jPlayer.get("id").getAsString());
+//				player = new Player(id, jPlayer.getAsJsonPrimitive("name").getAsString());
+//			}
+//			else {
+//				player = new Player(jPlayer.getAsJsonPrimitive("name").getAsString());
+//			}
+//			
+//			// Normal serialization
+//			player.setBlock(context.<Block>deserialize(jPlayer.get("block"), Block.class));
+//			player.setStartPos(context.<Hex>deserialize(jPlayer.get("startPos"), Hex.class));
+//			
+//			
+//			// Make sure to rebuild circular reference to owner in hex
+//			if (player.getStartPos() != null)
+//				player.getStartPos().setOwner(player);
+//			
+//			System.out.println("startPos for: " +  player + " = " + player.getStartPos());
+//			
+//			return player;
+//		}
+//		
+//	}
 //	private static class HexSerializer implements JsonSerializer<Hex> {
 //
 //		@Override
@@ -183,13 +183,45 @@ public class Util {
 //		
 //	}
 	
+	public static class CreatureSerializer implements JsonSerializer<Creature> {
+
+		@Override
+		public JsonElement serialize(Creature c, Type t,
+				JsonSerializationContext ctx) {
+//			JsonObject elem = new JsonObject();
+//			
+//			elem = (JsonObject) ctx.serialize(c, Thing.class);
+//			elem.addProperty("domain", c.getDomain());
+//			elem.addProperty("fly", c.isFlying());
+//			elem.addProperty("ranged", c.isRanged());
+//			elem.addProperty("charge", c.isCharge());
+//			elem.addProperty("magic", c.isMagic());
+//			elem.addProperty("combatVal", c.getCombatVal());
+//			elem.addProperty("numberOfMovesAvailable", c.getNumberOfMovesAvailable());
+//			
+//			
+//			return elem;
+			
+			return new Gson().toJsonTree(c);
+		}
+		
+	}
+	
 	public static final Gson GSON = new GsonBuilder()
 		// TODO Use InstanceCreator for GamePiece Hierarchy?
 		.registerTypeAdapter(Color.class, new ColorInstanceCreator())
 		.registerTypeAdapter(Color.class, new ColorSerializer())
 		.registerTypeAdapter(Color.class, new ColorDeserializer())
 //		.registerTypeAdapter(Player.class, new PlayerDeserializer())
-		.registerTypeAdapter(Thing.class, new GamePieceInstanceCreator())
+//		.registerTypeAdapter(Thing.class, new GamePieceInstanceCreator())
+//		.registerTypeAdapter(Creature.class, new GamePieceInstanceCreator())
+		.registerTypeAdapter(DesertCreature.class, new CreatureSerializer())
+		.registerTypeAdapter(ForestCreature.class, new CreatureSerializer())
+		.registerTypeAdapter(FrozenWasteCreature.class, new CreatureSerializer())
+		.registerTypeAdapter(JungleCreature.class, new CreatureSerializer())
+		.registerTypeAdapter(MountainCreature.class, new CreatureSerializer())
+		.registerTypeAdapter(PlainsCreature.class, new CreatureSerializer())
+		.registerTypeAdapter(SwampCreature.class, new CreatureSerializer())
 	.create();
 	
 	
@@ -296,5 +328,11 @@ public class Util {
 	public static void stopBattleMusic(){
 //		player2.stop();    
 //		playMusic();
+	}
+	
+	public static void main(String[] args) {
+		List<Thing> list = Thing.createThings();
+		
+		System.out.println(GSON.toJson(list.get(30)));
 	}
 }
