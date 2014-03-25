@@ -45,7 +45,6 @@ public class GameService {
 	 * Inner class responsible for holding singleton instance. Initialized once.
 	 */
 	private static class SingletonHolder {
-
 		public static final GameService INSTANCE = new GameService();
 	}
 

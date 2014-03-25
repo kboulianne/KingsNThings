@@ -268,6 +268,11 @@ public class SidePaneView extends VBox {
 			upgrade.setDisable(true);
 		}
 		
+		if(h.getFort() != null && h.getFort().getFortType() == Fort.FortType.CASTLE && 
+				player.isCitadelOwner())	{
+			upgrade.setDisable(true);
+		}
+		
 		
 		
 		upgrade.setOnAction(new EventHandler<ActionEvent>()	{
@@ -276,6 +281,11 @@ public class SidePaneView extends VBox {
 				h.upgradeFort();
 				h.getHexOwner().removeGold(5);
 				h.getFort().setUpgraded(true);
+				
+				if(h.getFort().getFortType() == Fort.FortType.CITADEL)	{
+					h.getHexOwner().setCitadelOwner(true);
+				}
+				
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 				KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
 				showBuildMenu(h);

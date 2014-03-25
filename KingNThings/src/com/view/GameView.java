@@ -5,10 +5,13 @@
  */
 package com.view;
 
+import com.model.Player;
 import com.model.game.Game;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -133,5 +136,21 @@ public class GameView extends StackPane {
 
 	public Label getCurrentActionLbl() {
 		return currentActionLbl;
+	}
+	
+	public void showWinnerScreen(Player winner)	{
+		rootVBox.getChildren().clear();
+		
+		Label title = new Label("Sir " + winner.getName() + " has become King of Kadab!");
+		title.getStyleClass().add("title");
+		Label info = new Label("Close the window and restart to begin a new game");
+		
+		ImageView im = new ImageView(Game.CROWN_IMAGE);
+		im.setFitWidth(300);
+		im.setPreserveRatio(true);
+		
+		rootVBox.setSpacing(20);
+		rootVBox.setAlignment(Pos.CENTER);
+		rootVBox.getChildren().addAll(title, info, im);
 	}
 }

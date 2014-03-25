@@ -375,6 +375,12 @@ public final class Game {
 		return opponents;
 	}
 	
+	public final List<Player> getPlayers() {
+		List<Player> players = new ArrayList<>(playerOrder);
+		
+		return players;
+	}
+	
 	/**
 	 * Sets the turn order for the players of the Game.
 	 *

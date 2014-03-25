@@ -14,6 +14,8 @@ public class Player 	{
 	private int gold;
 	private String name;
 	private Hex startPos;
+	private boolean citadelOwner = false;
+	private int timeCitOwned = -1;
 	
 	public enum PlayerId { ONE(Color.YELLOW),TWO(Color.valueOf("555555")),THREE(Color.GREEN),FOUR(Color.RED); 
 		private final Color color;
@@ -189,5 +191,21 @@ public class Player 	{
 			return name.equals(p.name);
 		}
 		return false;
+	}
+
+	public boolean isCitadelOwner() {
+		return citadelOwner;
+	}
+
+	public void setCitadelOwner(boolean citadelOwner) {
+		this.citadelOwner = citadelOwner;
+	}
+
+	public int getTimeCitOwned() {
+		return timeCitOwned;
+	}
+
+	public void addTimeCitOwned() {
+		this.timeCitOwned++;
 	}
 }

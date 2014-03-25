@@ -99,8 +99,8 @@ public final class GamePlay {
 		gamePhases.add(new RecruitCharPhase(this));
 		gamePhases.add(new RecruitThingsPhase(this));
 		gamePhases.add(new RandomEventPhase(this));
-			gamePhases.add(new MovementPhase(this));
-			gamePhases.add(new CombatPhase(this));
+		gamePhases.add(new MovementPhase(this));
+		gamePhases.add(new CombatPhase(this));
 		gamePhases.add(new ConstructionPhase(this));
 		gamePhases.add(new SpecialPowersPhase(this));
 		gamePhases.add(new ChangePlayOrderPhase(this));

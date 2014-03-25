@@ -107,6 +107,5 @@ public class Board {
 		
 		
 		return conflicts;
-	}
-	
+	}	
 }
