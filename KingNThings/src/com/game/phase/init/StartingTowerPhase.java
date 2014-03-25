@@ -1,5 +1,8 @@
 package com.game.phase.init;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 
 import com.game.phase.AbstractPhaseStrategy;
@@ -20,7 +23,15 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Starting Tower Phase");
 //		getGamePresenter().getView().getCurrentActionLbl().setText("Place Tower");	
-		
+		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setDisable(false);
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				getGamePresenter().endTurn();
+			}
+		});
 		
 	}
 	

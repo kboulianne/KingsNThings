@@ -5,6 +5,8 @@
  */
 package com.game.phase.init;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import com.game.phase.AbstractPhaseStrategy;
@@ -33,7 +35,14 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 		Util.log("Start of Starting Positions Phase");
 		
 		finishBtn = getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setDisable(true);
+		finishBtn.setDisable(false);
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				getGamePresenter().endTurn();
+			}
+		});
 		
 		getDicePresenter().getView().getDie1().setVisible(false);
 		getDicePresenter().getView().getDie2().setVisible(false);		

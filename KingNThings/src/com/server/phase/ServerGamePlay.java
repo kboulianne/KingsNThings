@@ -26,9 +26,15 @@ public final class ServerGamePlay {
 		this.room = room;
 		phases = new LinkedHashSet<>();
 		
-		phases.add(new ServerPlayerOrderPhase(this));
+//		phases.add(new ServerPlayerOrderPhase(this));
+//		phases.add(new ServerStartingPosPhase(this));
+//		phases.add(new ServerStartingKingdomPhase(this));
+//		phases.add(new ServerNOOPPhase(this));
+//		phases.add(new ServerStartingForcesPhase(this));
+//		phases.add(new ServerNOOPPhase(this));
+		phases.add(new ServerNOOPPhase(this));
 		phases.add(new ServerStartingPosPhase(this));
-		phases.add(new ServerStartingKingdomPhase(this));
+		phases.add(new ServerNOOPPhase(this));
 		phases.add(new ServerNOOPPhase(this));
 		phases.add(new ServerStartingForcesPhase(this));
 		phases.add(new ServerNOOPPhase(this));

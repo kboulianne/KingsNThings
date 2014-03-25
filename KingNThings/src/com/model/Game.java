@@ -23,10 +23,6 @@ import com.presenter.Util;
  */
 public final class Game {
 
-//	private Player opponent1;
-//	private Player opponent2;
-//	private Player opponent3;
-
 	/**
 	 * The player who's is currently playing his/her turn.
 	 */
@@ -48,9 +44,7 @@ public final class Game {
     private transient Cup cup;
     
   	//private ArrayList<Creature> lastSelectedCreatures;
- 
-    
-    //TODO: Game is initialized on server and this should not be here. Unnecessary object creations. 
+  
     public final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
 	public final static Image START_HEX_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
   	public final static Image FACE_DOWN_THING_IMAGE = new Image("view/com/assets/pics/icon-inverted.png");
@@ -305,8 +299,6 @@ public final class Game {
 
 	public List<Thing> getLastSelectedThingsOfCurrentPlayerBlock() {
 		List<Thing> list = new ArrayList<Thing>();
-		System.out.println("Gets selected, then somehow unselected. ID's in debugger are not the same, this means they are"
-				+ "different objects. (game.getLastSelectedThingsOfCurrentPlayerBlock()");
 		List<Thing> blockList = currentPlayer.getBlock().getListOfThings();
 		for(Thing t: blockList){
 			if(t.isSelected())

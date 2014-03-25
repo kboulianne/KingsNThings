@@ -82,6 +82,7 @@ public class NetworkedMain extends Application {
 	    	scene.setRoot(n);
 	    	// size content
 	    	primaryStage.sizeToScene();
+	    	primaryStage.centerOnScreen();
     }
     
     public static void setView(Parent n, double w, double h) {
@@ -90,6 +91,7 @@ public class NetworkedMain extends Application {
     		primaryStage.setMinHeight(h);
     		primaryStage.setWidth(w);
     		primaryStage.setHeight(h);
+    		primaryStage.centerOnScreen();
 //    		primaryStage.sizeToScene();
     }
     

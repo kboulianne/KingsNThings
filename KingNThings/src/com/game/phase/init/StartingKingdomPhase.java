@@ -5,6 +5,10 @@
  */
 package com.game.phase.init;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+
 import com.game.phase.AbstractPhaseStrategy;
 import com.game.phase.GamePlay;
 import com.model.Game;
@@ -29,8 +33,18 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 		
 //		getGamePresenter().getView().getCurrentActionLbl().setText("Choose Starting Kingdom");
 
-		getDicePresenter().getView().getEndTurnBtn().setVisible(false);
+		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		getBoardPresenter().getView().addStartKingdomsHandler();
+		
+		finishBtn = getDicePresenter().getView().getEndTurnBtn();
+		finishBtn.setDisable(false);
+		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				getGamePresenter().endTurn();
+			}
+		});
 		
 		// This phase cycles, so set context to execute turns 2 times (normal cycle + secondary cycle)
 		// Cycles are now on server.

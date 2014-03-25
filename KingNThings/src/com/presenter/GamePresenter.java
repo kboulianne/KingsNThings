@@ -79,13 +79,14 @@ public class GamePresenter {
 		getDicePresenter().getView().setDice(game.getDie1(), game.getDie2());
 		getSidePanePresenter().getView().setOpponents(game.getOpponentsFor(NetworkedMain.getPlayer()));
 		getBoardPresenter().getView().setBoard(game.getBoard());
-		// Player in main is stale. Needs to point to the new instance.
-		Player owner = game.getGameOwner(NetworkedMain.getPlayer());
-		NetworkedMain.setPlayer(owner);
-		getPlayerInfoPresenter().getView().setPlayer(owner);
+		
 		
 		// Enable UI for current player.
 		if (NetworkedMain.isPlayerTurn(game.getCurrentPlayer())) {
+			// Get latest player info
+			NetworkedMain.setPlayer(game.getCurrentPlayer());
+			getPlayerInfoPresenter().getView().setPlayer(game.getCurrentPlayer());
+			
 			view.setDisable(false);
 		}
 		else {
@@ -202,20 +203,20 @@ public class GamePresenter {
 		getGamePlay().getPhaseLogic().phaseEnd();
 
 		
-		try {
+//		try {
 			getGamePlay().nextPhase();
 			// Refresh local instance.
-			game = gameSvc.getGame(NetworkedMain.getRoomName());
+//			game = gameSvc.getGame(NetworkedMain.getRoomName());
 			getGamePlay().getPhaseLogic().phaseStart(game);
-			getGamePlay().getPhaseLogic().turnStart(game);
-			updateViews(game);
+//			getGamePlay().getPhaseLogic().turnStart(game);
+//			updateViews(game);
 			
 			//TODO: Re-integrate phase navigation in GamePlay.
 //			getGamePlay().getPhaseLogic().phaseStart(game);
-		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		} catch (JSONRPC2Error e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		System.out.println("New Player Order: " + game.getPlayerOrder());
 	}

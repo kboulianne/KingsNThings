@@ -23,7 +23,6 @@ public class ThingDetailsPresenter {
 	
 	public ThingDetailsPresenter(ThingDetailsView view){//, CreatureDetailsView cView) {
 		this.view = view;
-		this.view.setPresenter(this);
 		//this.cView = cView;
 		//this.cView.setPresenter(this);
 	}
@@ -37,6 +36,7 @@ public class ThingDetailsPresenter {
 		//if (t instanceof Creature) {
 			//return cView;
 		//} else {
+		System.out.println("STILL SELECTED HERE");
 			return view;
 		//}
 	}
