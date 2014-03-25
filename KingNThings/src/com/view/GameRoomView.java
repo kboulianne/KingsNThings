@@ -12,8 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBuilder;
 import javafx.scene.control.Label;
 import javafx.scene.control.LabelBuilder;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.FlowPaneBuilder;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class GameRoomView extends VBox {
@@ -33,21 +36,30 @@ public class GameRoomView extends VBox {
 	}
 	
 	protected void buildView() {
-		host = LabelBuilder.create()
-			
-		.build();
 		
-		guest1 = LabelBuilder.create()
-				
-		.build();
+		Label title = new Label("Kings & Things");
+		title.setPrefHeight(50);
+		title.setStyle("-fx-font-size:30;-fx-font-weight: bold;");
+		setAlignment(Pos.CENTER);
 		
-		guest2 = LabelBuilder.create()
-				
-		.build();
+		VBox leftVBox = new VBox();
+		ImageView dragonImg = new ImageView(new Image("view/com/assets/pics/dragon.png"));
+		dragonImg.setFitWidth(400);
+		dragonImg.setPreserveRatio(true);
+		dragonImg.setSmooth(true);
+		dragonImg.setCache(true);
+		leftVBox.getChildren().add(dragonImg);
 		
-		guest3 = LabelBuilder.create()
-				
-		.build();
+		VBox rightVBox = new VBox();
+		Label players = new Label("Noble Players:");
+		players.setStyle("-fx-font-weight: bold;");
+		players.setGraphicTextGap(20);
+		host = LabelBuilder.create().build();
+		guest1 = LabelBuilder.create().build();
+		guest2 = LabelBuilder.create().build();
+		guest3 = LabelBuilder.create().build();
+		rightVBox.setAlignment(Pos.CENTER);
+		rightVBox.setSpacing(12);
 		
 		//TODO: Make visible only to the host once we have the screen that captures player name.
 		startGame = ButtonBuilder.create()
@@ -56,11 +68,20 @@ public class GameRoomView extends VBox {
 		.build();
 		
 		FlowPane bottomPane = FlowPaneBuilder.create()
-			.alignment(Pos.CENTER_RIGHT)
+			.alignment(Pos.CENTER)
 			.children(startGame)
 		.build();
 		
-		getChildren().addAll(host, guest1, guest2, guest3, bottomPane);
+		
+		rightVBox.getChildren().addAll(players, host, guest1, guest2, guest3, bottomPane);
+		
+		HBox hBox = new HBox();
+		hBox.getChildren().addAll(leftVBox, rightVBox);
+		
+		getChildren().addAll(title, hBox);
+		
+		//getStylesheets().add("view/com/assets/docs/kingsnthings.css");
+		//getStylesheets().add("view/com/assets/docs/connectionScreen.css");
 	}
 	
 	public void setGameRoom(final GameRoom room) {
