@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javafx.scene.paint.Color;
@@ -25,7 +26,7 @@ public class Thing extends GamePiece	{
 		selected = false;
 	}
 	
-	public static ArrayList<Thing> createThings()	{
+	public static List<Thing> createThings()	{
 		ArrayList<Thing> things = new ArrayList<Thing>();
 		
 		//Add swamp creatures

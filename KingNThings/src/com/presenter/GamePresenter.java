@@ -73,6 +73,7 @@ public class GamePresenter {
 	}
 	
 	public void updateViews(Game game) {
+		//FIXME: Called twice when turn ends and phase ends. PhaseEnd should imply turnEnd.
 		// Update subviews
 		view.setGame(game, getGamePlay().getActionText());
 		getDicePresenter().getView().setDice(game.getDie1(), game.getDie2());

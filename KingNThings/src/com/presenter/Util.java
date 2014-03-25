@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import com.google.gson.Gson;
@@ -231,11 +232,11 @@ public class Util {
 	 * @param list
 	 * @return
 	 */
-	public static <T> ArrayList<T> getRandomList(ArrayList<T> list) {
+	public static <T> List<T> getRandomList(List<T> list) {
 		int rand = 0;
 		int size = list.size();
 		Random rnd = new Random();
-		ArrayList<T> newList = new ArrayList<T>();
+		List<T> newList = new ArrayList<T>();
 		for (int i = 0; i < size; i++) {
 			rand = rnd.nextInt(list.size());
 			newList.add(list.get(rand));

@@ -48,12 +48,6 @@ public class BoardPresenter {
 	}
 
 	private Game getGame() {
-//		try {
-//			return gameSvc.getGame(NetworkedMain.getRoomName());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		};
 		// Use local instance.
 		return KNTAppFactory.getGamePresenter().getLocalInstance();
 	}
@@ -304,7 +298,7 @@ public class BoardPresenter {
 				
 				movingArmy = false;
 			} else { 
-				ArrayList<Thing> things = game.getLastSelectedThingsOfCurrentPlayerHex();
+				List<Thing> things = game.getLastSelectedThingsOfCurrentPlayerHex();
 				if(things.isEmpty())
 					return;
 
@@ -349,7 +343,7 @@ public class BoardPresenter {
 		Player player = game.getCurrentPlayer();
 		List<Thing> listOfThings = game.getLastSelectedThingsOfCurrentPlayerBlock();
 		
-		if(h.getHexOwner() == player)	{
+		if(h.getHexOwner().equals(player))	{
 			Util.playHexClickSound();
 			for(Thing t: listOfThings)	{
 				if(t.getHexLocation() == -1)	{

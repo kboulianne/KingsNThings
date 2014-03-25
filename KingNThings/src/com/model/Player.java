@@ -97,6 +97,7 @@ public class Player 	{
 
 	// get special characters from hexes and players block
 	public ArrayList<SpecialCharacter> getAllOwnedSpecialChar() {
+		throw new UnsupportedOperationException("FIXME!");
 //		ArrayList<Hex> hexes = (ArrayList<Hex>) GameService.getInstance().getGame().getBoard().getHexes();
 //		ArrayList<SpecialCharacter> specChars = new ArrayList<SpecialCharacter>();
 //		for(Hex h:hexes){
@@ -116,11 +117,12 @@ public class Player 	{
 //		}
 //		return specChars;
 		// Game service can't be used here. Put in presenter.
-		return null;
+//		return null;
 	}
 
 	// remove special characters from block or Hexes
 	public SpecialCharacter removeSpecialCharacter(SpecialCharacter sC) {
+		throw new UnsupportedOperationException("FIXME!");
 //		ArrayList<Thing> blockChars = block.getListOfThings();
 //		for(Thing t: blockChars){
 //			if (sC.equals(t)){
@@ -142,7 +144,7 @@ public class Player 	{
 //			}
 //		}
 		// Game service can't be used here
-		return null;
+//		return null;
 	}
 
 	public Hex getStartPos() {

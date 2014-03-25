@@ -305,7 +305,9 @@ public final class Game {
 
 	public List<Thing> getLastSelectedThingsOfCurrentPlayerBlock() {
 		List<Thing> list = new ArrayList<Thing>();
-		List<Thing> blockList = getCurrentPlayer().getBlock().getListOfThings();
+		System.out.println("Gets selected, then somehow unselected. ID's in debugger are not the same, this means they are"
+				+ "different objects. (game.getLastSelectedThingsOfCurrentPlayerBlock()");
+		List<Thing> blockList = currentPlayer.getBlock().getListOfThings();
 		for(Thing t: blockList){
 			if(t.isSelected())
 				list.add(t);
@@ -313,7 +315,7 @@ public final class Game {
 		return list;
 	}
 	
-	public ArrayList<Thing> getLastSelectedThingsOfCurrentPlayerHex() {
+	public List<Thing> getLastSelectedThingsOfCurrentPlayerHex() {
 		ArrayList<Thing> list = new ArrayList<Thing>();
 
 		Hex hex = getBoard().getHexes().get(KNTAppFactory.getBoardPresenter().getLastHexSelected());
