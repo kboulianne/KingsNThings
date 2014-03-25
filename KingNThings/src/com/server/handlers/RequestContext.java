@@ -1,7 +1,8 @@
-package com.server;
+package com.server.handlers;
 
 import java.security.Principal;
 
+import com.server.PlayerConnection;
 import com.thetransactioncompany.jsonrpc2.server.MessageContext;
 
 /**

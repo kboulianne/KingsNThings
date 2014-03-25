@@ -1,8 +1,10 @@
-package com.server;
+package com.server.phase;
 
-public class ServerNOOPPhase extends AbstractServerPhase {
+import com.model.Game;
 
-	public ServerNOOPPhase(ServerGamePlay context) {
+public class ServerStartingPosPhase extends AbstractServerPhase {
+
+	public ServerStartingPosPhase(ServerGamePlay context) {
 		super(context);
 	}
 
@@ -26,8 +28,8 @@ public class ServerNOOPPhase extends AbstractServerPhase {
 
 	@Override
 	public void phaseEnd() {
-		// TODO Auto-generated method stub
-		
+		// Flip the tiles.
+		context.room.getGame().getBoard().setFaceDown(false);
 	}
 
 }

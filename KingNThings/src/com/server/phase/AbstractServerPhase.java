@@ -1,4 +1,5 @@
-package com.server;
+package com.server.phase;
+
 
 
 public abstract class AbstractServerPhase implements IServerPhaseStrategy {

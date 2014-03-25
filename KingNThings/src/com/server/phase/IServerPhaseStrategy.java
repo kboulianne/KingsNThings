@@ -1,4 +1,4 @@
-package com.server;
+package com.server.phase;
 
 import com.model.Game;
 

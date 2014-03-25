@@ -30,7 +30,7 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 import com.thetransactioncompany.jsonrpc2.server.Dispatcher;
 
-public class KNTClient2 {
+public class KNTClient {
 	private Socket socket;
 	private Set<UUID> pendingRequests;
 	private final ExecutorService socketThreads = Executors.newFixedThreadPool(2);
@@ -57,7 +57,7 @@ public class KNTClient2 {
 	 * @param host The host to connect to.
 	 * @param port The destination port.
 	 */
-	public KNTClient2(String host, int port) {
+	public KNTClient(String host, int port) {
 //		outputMessages = new LinkedBlockingQueue<>(1);
 		pendingRequests = Collections.synchronizedSet(new HashSet<UUID>());
 		inputMessages = new LinkedBlockingQueue<>();

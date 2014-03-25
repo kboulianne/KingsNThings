@@ -1,4 +1,4 @@
-package com.server;
+package com.server.phase;
 
 import com.model.Cup;
 import com.model.Game;

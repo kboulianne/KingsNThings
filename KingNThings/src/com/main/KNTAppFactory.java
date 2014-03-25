@@ -1,6 +1,6 @@
 package com.main;
 
-import com.client.KNTClient2;
+import com.client.KNTClient;
 import com.game.phase.GamePlay;
 import com.model.Die;
 import com.presenter.ArmyDetailsPresenter;
@@ -58,10 +58,10 @@ public class KNTAppFactory {
 	private static GamePlay gamePlay;
 	
 	// One per application? Maybe two in the future, one for Notifications and one For requests
-    private static final KNTClient2 CLIENT; 
+    private static final KNTClient CLIENT; 
 	
 	static {
-		CLIENT = new KNTClient2("localhost", 6868);
+		CLIENT = new KNTClient("localhost", 6868);
 		
     		
     		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.

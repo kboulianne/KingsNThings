@@ -1,4 +1,4 @@
-package com.server;
+package com.server.handlers;
 
 import com.model.Player;
 import com.presenter.Util;

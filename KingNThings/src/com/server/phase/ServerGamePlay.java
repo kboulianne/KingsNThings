@@ -1,4 +1,4 @@
-package com.server;
+package com.server.phase;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -7,6 +7,8 @@ import java.util.Set;
 
 import com.game.phase.IPhaseStrategy;
 import com.model.Game;
+import com.server.Notifications;
+import com.server.ServerGameRoom;
 
 import static com.server.KNTServer.*;
 

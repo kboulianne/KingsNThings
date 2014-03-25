@@ -1,4 +1,4 @@
-package com.server;
+package com.server.handlers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

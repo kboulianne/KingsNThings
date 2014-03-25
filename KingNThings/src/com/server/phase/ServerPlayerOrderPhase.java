@@ -1,4 +1,4 @@
-package com.server;
+package com.server.phase;
 
 import java.util.SortedMap;
 import java.util.TreeMap;

@@ -1,10 +1,11 @@
-package com.server;
+package com.server.handlers;
 
 import com.model.Game;
 import com.model.Player;
 
 import static com.server.KNTServer.*;
 
+import com.server.ServerGameRoom;
 import com.server.services.IGameService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 
