@@ -28,7 +28,7 @@ import static com.main.KNTAppFactory.*;
  */
 class GoldCollectPhase extends AbstractPhaseStrategy {
 
-	GoldCollectPhase(GamePlay context) {
+	public GoldCollectPhase(GamePlay context) {
 		super(context);
 	}
 
@@ -36,7 +36,7 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Gold Collection Phase");
 
-		getGamePresenter().getView().getCurrentActionLbl().setText("Gold Collection");
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Gold Collection");
 		getBoardPresenter().getView().setDisable(true);
 	}
 	
@@ -55,7 +55,7 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 		getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
 		//FIXME: Use service in context.
 //		Util.log("Game Phase: Logic for " + GameService.getInstance().getGame().getCurrentPlayer().getName());
-		
+		// Display gold collection for the player currently executing a turn.
 		int hexGold = 0;
 		int fortGold = 0;
 		int counterGold = 0;
@@ -65,10 +65,12 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 		Player player = game.getCurrentPlayer();
 		
 		for (Hex h : game.getBoard().getHexes()) {
-			if ((h != null) && (h.getHexOwner() == player)) {
+			if (h.getHexOwner() != null && h.getHexOwner().equals(player)) {
 				hexGold++;
-				if(h.getFort() != null)	fortGold += h.getFort().getValue();
-				if(h.getCounter() != null)	counterGold += h.getCounter().getValue();
+				if(h.getFort() != null)	
+					fortGold += h.getFort().getValue();
+				if(h.getCounter() != null)	
+					counterGold += h.getCounter().getValue();
 				if(h.getArmies(player) != null)	{
 					for(Creature c: h.getArmies(player)) {
 						if(c instanceof SpecialCharacter)	specCharGold++;
