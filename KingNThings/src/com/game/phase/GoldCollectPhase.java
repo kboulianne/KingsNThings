@@ -45,7 +45,8 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 		Util.log("Game Phase: End of Gold Collection Phase");
 		getSidePanePresenter().getView().clearDetailsView();
 		getBoardPresenter().getView().setDisable(false);
-		getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
+		// already updated in GamePresenter#updateViews
+//		getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
 	}
 
 	@Override
@@ -76,7 +77,7 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 			}
 		}
 		
-		hexGold = (int) Math.ceil(hexGold/2.0);
+		hexGold = (int) Math.ceil(hexGold / 2.0);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);	
 
 		getSidePanePresenter().getView().showGoldCollection(hexGold, fortGold, counterGold, specCharGold);
@@ -92,7 +93,7 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Gold Collection";
 	}
 
 }

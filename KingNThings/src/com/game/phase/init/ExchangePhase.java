@@ -26,7 +26,7 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Exchange Things Phase");
-		getGamePresenter().getView().getCurrentActionLbl().setText("Exchange Things");
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Exchange Things");
 		getBoardPresenter().getView().addPlacementHandler();
 	}
 	
@@ -50,7 +50,7 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Exchange Things";
 	}
 
 }

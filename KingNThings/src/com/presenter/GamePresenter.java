@@ -98,9 +98,8 @@ public class GamePresenter {
 	 * Shows the contents of the cup as a popup.
 	 */
 	void showCup() {
-		throw new IllegalAccessError("Use new Game Service");
 		// Get the cup content
-//		Game game = GameService.getInstance().getGame();
+		
 
 		// For now until can find a cleaner way.
 		/*EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
@@ -115,7 +114,7 @@ public class GamePresenter {
 		
 		
 		
-//		getPopupPresenter().showCupPopup(game.getCup());
+		getPopupPresenter().showCupPopup(game.getCup());
 	}
 
 	/**

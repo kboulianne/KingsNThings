@@ -6,6 +6,7 @@
 package com.view;
 
 import com.view.customcontrols.PlayerLabel;
+import com.main.KNTAppFactory;
 import com.model.Player;
 import com.presenter.PlayerInfoPresenter;
 import com.view.customcontrols.Rack;
@@ -25,8 +26,6 @@ import javafx.scene.layout.VBox;
  * @author kurtis
  */
 public class PlayerInfoView extends AnchorPane {
-
-	private PlayerInfoPresenter presenter;
 
 	private PlayerLabel currentPlayerlbl;
 	private Label goldLbl;
@@ -55,14 +54,14 @@ public class PlayerInfoView extends AnchorPane {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.showCurrentPlayerInfo();
+				KNTAppFactory.getPlayerInfoPresenter().showCurrentPlayerInfo();
 			}
 		});
 		currentPlayerlbl.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.dismissPopup();
+				KNTAppFactory.getPlayerInfoPresenter().dismissPopup();
 			}
 		});
 
@@ -80,14 +79,14 @@ public class PlayerInfoView extends AnchorPane {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.handleCupClick();
+				KNTAppFactory.getPlayerInfoPresenter().handleCupClick();
 			}
 		});
 		viewCupImg.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.dismissPopup();
+				KNTAppFactory.getPlayerInfoPresenter().dismissPopup();
 			}
 		});
 		
@@ -98,18 +97,6 @@ public class PlayerInfoView extends AnchorPane {
 		AnchorPane.setTopAnchor(viewCupImg, 8.0);
 
 		getChildren().addAll(viewCupImg, currentPlayerInfoBox);
-	}
-
-	public void setPresenter(final PlayerInfoPresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
-		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
 	}
 
 	public void setPlayer(Player current) {

@@ -83,7 +83,7 @@ public class ThingView extends StackPane{
 		getChildren().addAll(borderRect, coloredRect, img, selectRect);
 	}
 	
-	private void refreshView(){
+	public  void refreshView(){
 		Image im = null;
 		if(thing.isFacedDown()){
 			coloredRect.setFill(Color.BLACK);
@@ -166,49 +166,22 @@ public class ThingView extends StackPane{
 	}
 
 	void setExchangeThingHandler() {
-		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
-//		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//			@Override
-//			public void handle(MouseEvent me) {	
-//
-//				if(thing.isSelected()){
-//					KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange things by clicking the rack\n"
-//							   + "     Exchange only once per thing", Game.CROWN_IMAGE);
-//				} else {
-//					Util.playClickSound();
-//					Game game = GameService.getInstance().getGame();	
-//					Thing t = game.getCup().getRandomThing();
-//					game.moveThingFromCupToPlayer(t, game.getCurrentPlayer());
-//					KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
-//					game.getCurrentPlayer().getBlock().removeThing(thing);
-//					game.getCup().addThing(thing);
-//					thing = t;
-//					thing.setSelected(true);
-//					thing.setFacedDown(false);
-//					refreshView();
-//				}
-//			}
-//		});
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {	
+				KNTAppFactory.getPlayerInfoPresenter().handleExchangeThings(ThingView.this, thing);
+			}
+		});
 		
 	}
 	
 	public void setExchangeTreasureHandler() {
-		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
-//		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//			@Override
-//			public void handle(MouseEvent me) {	
-//				Util.playClickSound();
-//				Game game = GameService.getInstance().getGame();	
-//
-//				game.getCurrentPlayer().getBlock().removeThing(thing);
-//				game.getCup().addThing(thing);
-//				
-//				game.getCurrentPlayer().addGold(((Treasure) thing).getValue());
-//				KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(game.getCurrentPlayer());
-//				KNTAppFactory.getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
-//				refreshView();
-//			}
-//		});		
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {	
+				KNTAppFactory.getPlayerInfoPresenter().handleExchangeTreasures(ThingView.this, thing);
+			}
+		});		
 	}
 
 	public void setChooseSpecialCharToRecruitHandler() {

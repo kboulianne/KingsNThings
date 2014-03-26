@@ -138,6 +138,8 @@ public class Util {
 				return new MountainCreature();
 			else if (t.equals(PlainsCreature.class))
 				return new PlainsCreature();
+			else if (t.equals(SpecialCharacter.class))
+				return new SpecialCharacter();
 			
 			return new SwampCreature();
 		}

@@ -65,6 +65,10 @@ public class SpecialCharacter extends Creature	{
 		setImage("view/com/assets/pics/gamepieces/specialcharacters/" + getName() + ".jpeg");
 	}
 
+	// For serialization.
+	public SpecialCharacter() {
+	}
+
 	public String getAlternateName() {
 		return alternateName;
 	}

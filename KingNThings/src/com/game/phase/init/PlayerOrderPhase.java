@@ -44,14 +44,14 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 		getBoardPresenter().getView().setOnMouseClicked(null);
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
-		finishBtn.setDisable(false);
-		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				getGamePresenter().endTurn();
-			}
-		});
+		finishBtn.setDisable(true);
+//		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
+//			
+//			@Override
+//			public void handle(ActionEvent event) {
+//				getGamePresenter().endTurn();
+//			}
+//		});
 		
 		Button rollBtn = getDicePresenter().getView().getRollBtn();
 		rollBtn.setOnAction(new EventHandler<ActionEvent>()	{
