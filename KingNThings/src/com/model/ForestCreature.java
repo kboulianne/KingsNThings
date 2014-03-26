@@ -10,6 +10,8 @@ public class ForestCreature extends Creature {
 		setColor(Color.rgb(100, 165, 95));//DARKGREEN.brighter());
 	}
 
+	public ForestCreature() {}
+
 	@Override
 	public boolean equals(Object obj) {
 		return super.equals(obj);

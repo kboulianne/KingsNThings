@@ -10,6 +10,8 @@ public class DesertCreature extends Creature	{
 		setColor(Color.KHAKI);
 	}
 
+	public DesertCreature() {}
+
 	@Override
 	public boolean equals(Object obj) {
 		return super.equals(obj);

@@ -10,6 +10,8 @@ public class FrozenWasteCreature extends Creature {
 		setColor(Color.SILVER);
 	}
 
+	public FrozenWasteCreature() {}
+
 	@Override
 	public boolean equals(Object obj) {
 		return super.equals(obj);

@@ -3,6 +3,7 @@ package com.presenter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -133,6 +134,27 @@ public class Util {
 			return new Gson().toJsonTree(c);
 		}
 	}
+	private static class CreatureAdapter implements InstanceCreator<Creature> {
+
+		@Override
+		public Creature createInstance(Type t) {
+			if (t.equals(DesertCreature.class))
+				return new DesertCreature();
+			else if (t.equals(ForestCreature.class))
+				return new ForestCreature();
+			else if (t.equals(FrozenWasteCreature.class))
+				return new FrozenWasteCreature();
+			else if (t.equals(JungleCreature.class))
+				return new JungleCreature();
+			else if (t.equals(MountainCreature.class))
+				return new MountainCreature();
+			else if (t.equals(PlainsCreature.class))
+				return new PlainsCreature();
+			
+			return new SwampCreature();
+		}
+		
+	}
 	private static class BlockAdapter implements JsonSerializer<Block>, JsonDeserializer<Block> {
 
 		@Override
@@ -191,49 +213,38 @@ public class Util {
 			JsonElement armies = json.getAsJsonObject().remove("armies");
 			
 			Gson gson = new Gson();
+			// TODO: Hex name does not seem to be serialized.
 			Hex hex = gson.fromJson(json, Hex.class);
 			
-//			Type type = new TypeToken<Map<Player, List<Creature>>>(){}.getType();
+			gson = GSON_BUILDER.create();
+			Type type = new TypeToken<Creature>(){}.getType();
 //			hex.setArmies((Map<Player, List<Creature>>) gson.fromJson(armies, type));
+//			Map<Player, List<Creature>> armies = new HashMap<>();
 			for (Map.Entry<String, JsonElement> entry : armies.getAsJsonObject().entrySet()) {
 				System.err.println(entry);
+				
+				Player p = new Player(entry.getKey());
+				// Loop the json array that contains creatures.
+				JsonElement array = entry.getValue().getAsJsonArray();
+				
+				for (JsonElement elem : array.getAsJsonArray()){
+					try {
+						Class<?> clazz = Class.forName(elem.getAsJsonObject().remove("classType").getAsString());
+						Creature c = (Creature) gson.fromJson(elem, clazz);
+						
+						
+						hex.addCreatToArmy(c, p);
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+				}
 			}
 			
-			gson = GSON_BUILDER.create();
+			
 			hex.setColor(gson.fromJson(color, Color.class));
-			
-			
-			
-			
-//			JsonObject obj = json.getAsJsonObject();
-//			
-//			int id = obj.get("id").getAsInt();
-//			HexType type = ctx.deserialize(obj.get("hexType"), HexType.class);
-//			
-//			Hex hex = new Hex(id, type);
-//			
-//			hex.setColor(ctx.<Color>deserialize(obj.get("color"), Color.class));
-			
-//			Gson gson = GSON_BUILDER.create();
-//			json.getAsJsonObject().remove("armies");
-//			Hex hex = gson.fromJson(json, Hex.class);
-			
-			
-//			Gson gson = GSON_BUILDER.create();
-//			JsonElement elem = null;
-//			Hex hex = null;
-//			// Store and remove the armies
-//			elem = json.getAsJsonObject().get("armies");
-//			json.getAsJsonObject().remove("armies");
-//				
-//			hex = gson.fromJson(json, Hex.class);
-//
-//			
-//			Type type = new TypeToken<Map<Player, List<Creature>>>(){}.getType();
-//			hex.setArmies((Map<Player, List<Creature>>) gson.fromJson(json.getAsJsonObject().get("armies"), type));
-//			for (Map.Entry<String, JsonElement> elem : json.getAsJsonObject().get("armies").getAsJsonObject().entrySet()) {
-//				hex.addCreatToArmy(null, gson.from);
-//			}
 			
 			return hex;
 		}
@@ -251,8 +262,27 @@ public class Util {
 			// Transients are ignored
 //			obj = ctx.serialize(hex, Hex.class);
 			
+			gson = GSON_BUILDER.create();
+			// the map
+			JsonObject map = new JsonObject();
+			// Loop the armies and serialize
+			for (Map.Entry<Player, List<Creature>> entry : hex.getArmies().entrySet()) {
+				// Serialize as object, mapping to arrays
+				JsonArray array = new JsonArray();
+				
+				for (Creature c : entry.getValue()) {
+					JsonElement elem = gson.toJsonTree(c); 
+					
+					elem.getAsJsonObject().addProperty("classType", c.getClass().getCanonicalName());
+					
+					array.add(elem);
+				}
+				
+				
+				map.add(entry.getKey().getName(), array);
+			}
 
-			obj.getAsJsonObject().add("armies", gson.toJsonTree(hex.getArmies()));
+			obj.getAsJsonObject().add("armies", map);
 			// Serialize map as field -> array
 //			JsonObject o = new JsonObject();
 //			
@@ -306,9 +336,10 @@ public class Util {
 		.registerTypeAdapter(Color.class, new ColorDeserializer())
 		.registerTypeAdapter(Block.class, new BlockAdapter())
 		.registerTypeAdapter(Hex.class, new HexAdapter())
+		.registerTypeAdapter(SwampCreature.class, new CreatureAdapter());
 //		.registerTypeAdapterFactory(gamePieceAdapter)
 //		.registerTypeAdapterFactory(hexAdapter)
-		.setPrettyPrinting();
+//		.setPrettyPrinting();
 //		.registerTypeAdapter(Player.class, new PlayerDeserializer())
 //		.registerTypeAdapter(Thing.class, new GamePieceInstanceCreator())
 //		.registerTypeAdapter(Creature.class, new GamePieceInstanceCreator())

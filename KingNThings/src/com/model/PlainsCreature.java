@@ -10,6 +10,9 @@ public class PlainsCreature extends Creature {
 		setColor(Color.CORAL);
 	}
 
+	public PlainsCreature() {
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		return super.equals(obj);
