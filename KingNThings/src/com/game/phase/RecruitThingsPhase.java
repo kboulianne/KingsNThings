@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+import com.main.KNTAppFactory;
 import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
@@ -30,16 +31,17 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Recruiting Things Phase");
 		
-		getGamePresenter().getView().getCurrentActionLbl().setText("Recruit Things");
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Recruit Things");
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-
+				KNTAppFactory.getGamePresenter().endTurn();
 			}
 		});
 		finishBtn.setVisible(true);
+		finishBtn.setDisable(false);
 	}
 
 	@Override
@@ -82,7 +84,7 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Recruit Things";
 	}
 
 }

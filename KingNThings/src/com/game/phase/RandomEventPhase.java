@@ -36,7 +36,7 @@ class RandomEventPhase extends AbstractPhaseStrategy {
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {		
 			@Override
 			public void handle(ActionEvent arg0) {
-
+				KNTAppFactory.getGamePresenter().endTurn();
 			}
 		});
 	}
@@ -59,6 +59,6 @@ class RandomEventPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Random Events";
 	}
 }

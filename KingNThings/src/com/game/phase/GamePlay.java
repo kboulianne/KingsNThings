@@ -39,7 +39,6 @@ public final class GamePlay {
 	 * Current gameplay logic to execute.
 	 */
 	private AbstractPhaseStrategy phaseLogic;
-//	private IGameService gameSvc;
 	
 	/**
 	 * Initial phases
@@ -48,26 +47,6 @@ public final class GamePlay {
 	private final LinkedHashSet<AbstractPhaseStrategy> gamePhases;
 	// Current phase being played by the players.
 	private Iterator<AbstractPhaseStrategy> phaseIt;
-
-	// TODO Add a model?
-	// Maps dice total to the player that made the roll.
-//	private final SortedMap<Integer, Player> rolls;
-
-	// Used by Starting Kingdoms Phase to cycle player order before ending
-	// phase.
-//	private int cycles = 0;
-
-//	/**
-//	 * Inner class responsible for holding singleton instance. Initialized once.
-//	 */
-//	private static class SingletonHolder {
-//
-//		public static final GamePlay INSTANCE = new GamePlay();
-//	}
-//
-//	public static GamePlay getInstance() {
-//		return SingletonHolder.INSTANCE;
-//	}
 
 	/**
 	 * Creates a new, default instance of the game logic.
@@ -112,10 +91,6 @@ public final class GamePlay {
 		gamePhases.add(new SpecialPowersPhase(this));
 		gamePhases.add(new ChangePlayOrderPhase(this));
 	}
-
-//	public void setCycleCount(int cycle) {
-//		this.cycles = cycle;
-//	}
 
 	public final String getActionText() {
 		if (phaseLogic == null) return null;

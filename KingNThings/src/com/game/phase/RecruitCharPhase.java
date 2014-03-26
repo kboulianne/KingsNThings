@@ -25,7 +25,7 @@ class RecruitCharPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Recruiting Character Phase");
 		
-		getGamePresenter().getView().getCurrentActionLbl().setText("Recruit Special Character");
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Recruit Special Character");
 	}
 	
 	@Override
@@ -51,6 +51,6 @@ class RecruitCharPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Recruit Special Character";
 	}
 }

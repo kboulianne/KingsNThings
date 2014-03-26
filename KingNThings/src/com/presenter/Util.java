@@ -219,9 +219,7 @@ public class Util {
 			Hex hex = gson.fromJson(json, Hex.class);
 			
 			gson = GSON_BUILDER.create();
-//			Type type = new TypeToken<Creature>(){}.getType();
-//			hex.setArmies((Map<Player, List<Creature>>) gson.fromJson(armies, type));
-//			Map<Player, List<Creature>> armies = new HashMap<>();
+
 			for (Map.Entry<String, JsonElement> entry : armies.getAsJsonObject().entrySet()) {
 				System.err.println(entry);
 				
@@ -303,33 +301,6 @@ public class Util {
 		
 	}
 	
-	private static final RuntimeTypeAdapterFactory<Thing> gamePieceAdapter =
-			RuntimeTypeAdapterFactory
-			.of(Thing.class)
-			.registerSubtype(Thing.class)
-			.registerSubtype(IncomeCounter.class)
-			.registerSubtype(Treasure.class)
-			.registerSubtype(Creature.class)
-			.registerSubtype(DesertCreature.class)
-			.registerSubtype(ForestCreature.class)
-			.registerSubtype(FrozenWasteCreature.class)
-			.registerSubtype(JungleCreature.class)
-			.registerSubtype(MountainCreature.class)
-			.registerSubtype(PlainsCreature.class)
-			.registerSubtype(SwampCreature.class);
-	private static final RuntimeTypeAdapterFactory<Hex> hexAdapter = 
-			RuntimeTypeAdapterFactory
-				.of(Hex.class)
-				.registerSubtype(Hex.class)
-				.registerSubtype(HexDesert.class)
-				.registerSubtype(HexForest.class)
-				.registerSubtype(HexFrozenWaste.class)
-				.registerSubtype(HexJungle.class)
-				.registerSubtype(HexMountain.class)
-				.registerSubtype(HexPlains.class)
-				.registerSubtype(HexSea.class)
-				.registerSubtype(HexSwamp.class);
-	
 	public static final GsonBuilder GSON_BUILDER = new GsonBuilder()
 		// TODO Use InstanceCreator for GamePiece Hierarchy?
 		.registerTypeAdapter(Color.class, new ColorInstanceCreator())
@@ -337,20 +308,8 @@ public class Util {
 		.registerTypeAdapter(Color.class, new ColorDeserializer())
 		.registerTypeAdapter(Block.class, new BlockAdapter())
 		.registerTypeAdapter(Hex.class, new HexAdapter())
-		.registerTypeAdapter(SwampCreature.class, new CreatureAdapter())
-//		.registerTypeAdapterFactory(gamePieceAdapter)
-//		.registerTypeAdapterFactory(hexAdapter)
-		.setPrettyPrinting();
-//		.registerTypeAdapter(Player.class, new PlayerDeserializer())
-//		.registerTypeAdapter(Thing.class, new GamePieceInstanceCreator())
-//		.registerTypeAdapter(Creature.class, new GamePieceInstanceCreator())
-//		.registerTypeAdapter(DesertCreature.class, new CreatureSerializer())
-//		.registerTypeAdapter(ForestCreature.class, new CreatureSerializer())
-//		.registerTypeAdapter(FrozenWasteCreature.class, new CreatureSerializer())
-//		.registerTypeAdapter(JungleCreature.class, new CreatureSerializer())
-//		.registerTypeAdapter(MountainCreature.class, new CreatureSerializer())
-//		.registerTypeAdapter(PlainsCreature.class, new CreatureSerializer())
-//		.registerTypeAdapter(SwampCreature.class, new CreatureSerializer())
+		.registerTypeAdapter(SwampCreature.class, new CreatureAdapter());
+
 	public static final Gson GSON = GSON_BUILDER.create();
 	
 	

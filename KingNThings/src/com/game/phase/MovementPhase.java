@@ -31,14 +31,14 @@ class MovementPhase extends AbstractPhaseStrategy {
 		
 		Util.log("Game Phase: Start of Movement Phase");
 
-		getGamePresenter().getView().getCurrentActionLbl().setText("Movement Phase");
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Movement Phase");
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(false);
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {		
 			@Override
 			public void handle(ActionEvent arg0) {
-
+				KNTAppFactory.getGamePresenter().endTurn();
 			}
 		});
 		
@@ -86,6 +86,6 @@ class MovementPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Movement Phase";
 	}
 }

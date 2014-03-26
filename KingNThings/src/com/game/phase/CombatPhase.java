@@ -28,13 +28,13 @@ class CombatPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Combat Phase");
 
-		getGamePresenter().getView().getCurrentActionLbl().setText("Combat Phase");
+//		getGamePresenter().getView().getCurrentActionLbl().setText("Combat Phase");
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {
-
+				KNTAppFactory.getGamePresenter().endTurn();
 			}
 		});
 		
@@ -67,6 +67,6 @@ class CombatPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Combat Phase";
 	}
 }
