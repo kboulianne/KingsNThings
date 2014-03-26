@@ -221,8 +221,6 @@ public final class Game {
 		}
 		// Get next player
 		currentPlayer = playerOrder.get(++ nextPlayerIdx);
-		System.out.println("Current: " + currentPlayer);
-		System.out.println("Next Player index: " + nextPlayerIdx);
 	}
 
 	/**
@@ -268,7 +266,7 @@ public final class Game {
 		// Contains all four players.
 		this.playerOrder = new ArrayList<>(playersHighToLow);
 		// Reset the index to the new playerOrder
-//		nextPlayerIdx = 0;
+		//TODO: reset index to -1?
 		currentPlayer = playerOrder.get(0);
 	}
 	
@@ -288,15 +286,6 @@ public final class Game {
 		p.addThing(cup.removeThing(t));
 	}
 
-
-// TODO Remove unused code found by UCDetector
-// 	public void clearLastSelectedThingsOfCurrentPlayerBlock() {
-// 		List<Thing> blockList = GameService.getInstance().getGame().getCurrentPlayer().getBlock().getListOfThings();
-// 		for(Thing t: blockList){
-// 			t.setSelected(false);
-// 		}
-// 	}
-
 	public List<Thing> getLastSelectedThingsOfCurrentPlayerBlock() {
 		List<Thing> list = new ArrayList<Thing>();
 		List<Thing> blockList = currentPlayer.getBlock().getListOfThings();
@@ -311,7 +300,7 @@ public final class Game {
 		ArrayList<Thing> list = new ArrayList<Thing>();
 
 		Hex hex = getBoard().getHexes().get(KNTAppFactory.getBoardPresenter().getLastHexSelected());
-		ArrayList<Creature> army = hex.getArmies(getCurrentPlayer());
+		List<Creature> army = hex.getArmies(getCurrentPlayer());
 		
 		if(army == null){
 			Util.log("nullified "+ hex.getId());
@@ -337,6 +326,10 @@ public final class Game {
 		return playerOrder;
 	}
 	
+	@Deprecated
+	/*
+	 * DOES NOT WORK. WAS IT REALLY NECESSARY?
+	 */
 	public Player getGameOwner(Player p) {
 		for (Player player : playerOrder) {
 			if (player.getName().equals(p.getName())) return player;
@@ -344,36 +337,12 @@ public final class Game {
 		
 		return null;
 	}
-//	/**
-//	 * Adds the specified dice total for the player.
-//	 * 
-//	 * @param total
-//	 *            The total to add
-//	 * @param p
-//	 *            The player that rolled this total.
-//	 */
-//	public void addPlayerRoll(int total, Player p) {
-//		// TODO Handle case where two players have the same dice total.
-//		rolls.put(total, p);
-//	}
-//	
-//	/**
-//	 * Clears the rolls previously added to the map.
-//	 */
-//	public void clearRolls() {
-//		rolls.clear();
-//	}
-//
-//	/**
-//	 * Gets the the players ordered by their dice totals in descending order.
-//	 * 
-//	 * @return The collection of players, in descending order.
-//	 */
-//	public final Collection<Player> getPlayersHighToLow() {
-//		return rolls.values();
-//	}
-//	
-//	public SortedMap<Integer, Player> getRolls() {
-//		return rolls;
-//	}
+	
+	public Player getPlayerByName(String name) {
+		for (Player p : playerOrder) {
+			if (p.getName().equals(name)) return p;
+		}
+		
+		return null;
+	}
 }

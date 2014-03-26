@@ -11,8 +11,8 @@ public abstract class Thing extends GamePiece	{
 	
 	private Color color;
 	private int hexLocation;
-	private boolean selected;
-	private boolean facedDown;
+	private transient boolean selected;
+	private transient boolean facedDown;
 	
 	// For GSON
 	public Thing() {}

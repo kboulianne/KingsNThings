@@ -46,7 +46,6 @@ public class LobbyPresenter {
 	}
 
 	public void handleHostButton() {
-		System.out.println("Host");
 		try {
 			GameRoom room = gameRoomSvc.createGameRoom("Tester 1's Game Room", NetworkedMain.getPlayer());
 			

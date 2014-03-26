@@ -37,8 +37,6 @@ public class KNTClient {
 	private PlayerServiceProxy playerProxy;
 	private GameRoomServiceProxy gameRoomProxy;
 	private final GameServiceProxy gameProxy;
-	
-//	private final LinkedBlockingQueue<String> outputMessages;
 	private final LinkedBlockingQueue<JSONRPC2Request> outputMessages;
 	private final LinkedBlockingQueue<JSONRPC2Response> inputMessages;
 	
@@ -58,7 +56,6 @@ public class KNTClient {
 	 * @param port The destination port.
 	 */
 	public KNTClient(String host, int port) {
-//		outputMessages = new LinkedBlockingQueue<>(1);
 		pendingRequests = Collections.synchronizedSet(new HashSet<UUID>());
 		inputMessages = new LinkedBlockingQueue<>();
 		outputMessages = new LinkedBlockingQueue<>();
@@ -69,11 +66,6 @@ public class KNTClient {
 		
 		try {
 			socket = new Socket(host, port);
-		
-			
-//			
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//			PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
 			
 			playerProxy = new PlayerServiceProxy(inputMessages, outputMessages);
 			gameRoomProxy = new GameRoomServiceProxy(inputMessages, outputMessages);
@@ -113,15 +105,12 @@ public class KNTClient {
 						JSONRPC2Message message = JSONRPC2Message.parse(json);
 						
 						if (message instanceof JSONRPC2Response) {
-							System.out.println("Got response");
 							JSONRPC2Response res = (JSONRPC2Response)message;
-							
 							pendingRequests.remove(UUID.fromString((String)res.getID()));
 							// Add the response to the queue of received responses.
 							inputMessages.put(res);
 						}
 						else if (message instanceof JSONRPC2Notification){
-							System.out.println("Notification");
 							//TODO: Check if notification requires a request to complete first.
 							DISPATCHER.process((JSONRPC2Notification)message, null);
 						}
@@ -150,6 +139,10 @@ public class KNTClient {
 		};
 	}
 	
+	/**
+	 * Runnable which processes outgoing messages.
+	 * @return
+	 */
 	private Runnable createWriteRunnable() {
 		return new Runnable() {
 			

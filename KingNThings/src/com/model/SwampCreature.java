@@ -4,6 +4,8 @@ import javafx.scene.paint.Color;
 
 public class SwampCreature extends Creature {
 
+	public SwampCreature() {}
+	
 	public SwampCreature(String name) {
 		super(name);
 		setDomain("Swamp");

@@ -44,7 +44,6 @@ public class ServerPlayerOrderPhase extends AbstractServerPhase {
 		Game game = context.room.getGame();
 		
 		// Extract new player order.
-		System.out.println("New Player Order: " + rolls.values());
 		game.setPlayerOrder(rolls.values());
 	}
 

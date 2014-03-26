@@ -8,7 +8,6 @@ package com.view;
 import com.view.customcontrols.PlayerLabel;
 import com.model.Player;
 import com.presenter.PlayerInfoPresenter;
-import com.presenter.Util;
 import com.view.customcontrols.Rack;
 
 import javafx.event.EventHandler;
@@ -20,13 +19,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import static com.main.KNTAppFactory.*;
 
 /**
  *
  * @author kurtis
  */
 public class PlayerInfoView extends AnchorPane {
+
+	private PlayerInfoPresenter presenter;
 
 	private PlayerLabel currentPlayerlbl;
 	private Label goldLbl;
@@ -55,14 +55,14 @@ public class PlayerInfoView extends AnchorPane {
 
 			@Override
 			public void handle(MouseEvent t) {
-				getPlayerInfoPresenter().showCurrentPlayerInfo();
+				presenter.showCurrentPlayerInfo();
 			}
 		});
 		currentPlayerlbl.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent t) {
-				getPlayerInfoPresenter().dismissPopup();
+				presenter.dismissPopup();
 			}
 		});
 
@@ -80,14 +80,14 @@ public class PlayerInfoView extends AnchorPane {
 
 			@Override
 			public void handle(MouseEvent t) {
-				getPlayerInfoPresenter().handleCupClick();
+				presenter.handleCupClick();
 			}
 		});
 		viewCupImg.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent t) {
-				getPlayerInfoPresenter().dismissPopup();
+				presenter.dismissPopup();
 			}
 		});
 		
@@ -98,6 +98,18 @@ public class PlayerInfoView extends AnchorPane {
 		AnchorPane.setTopAnchor(viewCupImg, 8.0);
 
 		getChildren().addAll(viewCupImg, currentPlayerInfoBox);
+	}
+
+	public void setPresenter(final PlayerInfoPresenter presenter) {
+		if (presenter == null) {
+			throw new NullPointerException("Presenter cannot be null");
+		}
+
+		if (this.presenter != null) {
+			throw new IllegalStateException("The presenter was already set.");
+		}
+
+		this.presenter = presenter;
 	}
 
 	public void setPlayer(Player current) {

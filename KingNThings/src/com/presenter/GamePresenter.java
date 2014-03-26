@@ -170,7 +170,6 @@ public class GamePresenter {
 		getGamePlay().nextPhase();
 		getGamePlay().getPhaseLogic().phaseStart(game);
 		getGamePlay().getPhaseLogic().turnStart(game);
-		System.out.println("onGameStarted");
 	}
 	
 	/**
@@ -178,9 +177,6 @@ public class GamePresenter {
 	 * Current player's turn ended. 
 	 */
 	public void onTurnEnded() {
-		// Lock the UI by disabling it
-		System.out.println("Turn ended");
-
 		try {
 			// Refresh local instance.
 			game = gameSvc.getGame(NetworkedMain.getRoomName());
@@ -199,7 +195,6 @@ public class GamePresenter {
 	}
 
 	public void onPhaseEnded() {
-		System.out.println("onPhaseEnded");
 		getGamePlay().getPhaseLogic().phaseEnd();
 
 		
@@ -217,7 +212,5 @@ public class GamePresenter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println("New Player Order: " + game.getPlayerOrder());
 	}
 }

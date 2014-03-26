@@ -2,7 +2,7 @@ package com.model;
 
 import java.util.*;
 
-public  class Creature extends Thing	{
+public abstract class Creature extends Thing	{
 	
 	private String domain;
 	private boolean fly;
@@ -11,7 +11,7 @@ public  class Creature extends Thing	{
 	private boolean magic;
 	private int combatVal;
 	private int numberOfMovesAvailable;
-	private static final Map<String, Integer> combatVals;
+	private transient static final Map<String, Integer> combatVals;
 	
 	static	{
 		combatVals = new HashMap<>();

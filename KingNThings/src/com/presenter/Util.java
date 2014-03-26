@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.google.gson.Gson;
@@ -19,6 +20,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 import com.model.Block;
 import com.model.Creature;
 import com.model.DesertCreature;
@@ -26,10 +28,22 @@ import com.model.ForestCreature;
 import com.model.FrozenWasteCreature;
 import com.model.GamePiece;
 import com.model.Hex;
+import com.model.HexDesert;
+import com.model.HexForest;
+import com.model.HexFrozenWaste;
+import com.model.HexJungle;
+import com.model.HexMountain;
+import com.model.HexPlains;
+import com.model.HexSea;
+import com.model.HexSwamp;
+import com.model.IncomeCounter;
 import com.model.JungleCreature;
 import com.model.MountainCreature;
 import com.model.PlainsCreature;
 import com.model.Player;
+import com.model.SpecialCharacter;
+import com.model.Treasure;
+import com.model.Hex.HexType;
 import com.model.Player.PlayerId;
 
 
@@ -44,6 +58,7 @@ import com.model.Player.PlayerId;
 
 import com.model.SwampCreature;
 import com.model.Thing;
+import com.util.RuntimeTypeAdapterFactory;
 
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
@@ -57,43 +72,15 @@ public class Util {
 	final public static boolean AUTOMATE = false;
 //	private static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 	
+	// Mapper for GamePiece hierarchy
+	
+	
 	private static class ColorInstanceCreator implements InstanceCreator<Color> {
 		@Override
 		public Color createInstance(Type arg0) {
 			// Default to black since there is no default color constructor.
 			return Color.BLACK;
 		}
-	}
-	private static class GamePieceInstanceCreator implements InstanceCreator<Thing> {
-
-		@Override
-		public Thing createInstance(Type t) {
-//			if (t instanceof DesertCreature) {
-//				return new DesertCreature("");
-//			}
-//			else if (t instanceof ForestCreature) {
-//				return new ForestCreature("");
-//			}
-//			else if (t instanceof FrozenWasteCreature) {
-//				return new FrozenWasteCreature("");
-//			}
-//			else if (t instanceof JungleCreature) {
-//				return new JungleCreature("");
-//			}
-//			else if (t instanceof PlainsCreature) {
-//				return new PlainsCreature("");
-//			}
-//			else if (t instanceof MountainCreature) {
-//				return new MountainCreature("");
-//			}
-//			else if (t instanceof SwampCreature) {
-//				return new SwampCreature("");
-//			}
-			
-			return new Creature();
-		}
-
-		
 	}
 	
 	private static class ColorSerializer implements JsonSerializer<Color> {
@@ -123,65 +110,6 @@ public class Util {
 		}
 		
 	}
-//	private static class PlayerDeserializer implements JsonDeserializer<Player> {
-//		@Override
-//		public Player deserialize(JsonElement json, Type arg1,
-//				JsonDeserializationContext context) throws JsonParseException {
-//			JsonObject jPlayer = json.getAsJsonObject();
-//			Player player = null;
-//			
-//			if (jPlayer.has("id")) {
-//				PlayerId id = PlayerId.valueOf(jPlayer.get("id").getAsString());
-//				player = new Player(id, jPlayer.getAsJsonPrimitive("name").getAsString());
-//			}
-//			else {
-//				player = new Player(jPlayer.getAsJsonPrimitive("name").getAsString());
-//			}
-//			
-//			// Normal serialization
-//			player.setBlock(context.<Block>deserialize(jPlayer.get("block"), Block.class));
-//			player.setStartPos(context.<Hex>deserialize(jPlayer.get("startPos"), Hex.class));
-//			
-//			
-//			// Make sure to rebuild circular reference to owner in hex
-//			if (player.getStartPos() != null)
-//				player.getStartPos().setOwner(player);
-//			
-//			System.out.println("startPos for: " +  player + " = " + player.getStartPos());
-//			
-//			return player;
-//		}
-//		
-//	}
-//	private static class HexSerializer implements JsonSerializer<Hex> {
-//
-//		@Override
-//		public JsonElement serialize(Hex hex, Type arg1,
-//				JsonSerializationContext context) {
-//			// Serialize normally, skipping transient fields.
-//			JsonObject elem = (JsonObject) context.serialize(hex);
-//			
-//			// Fields marked transient that should be included.
-//			// Serialize owner as string.
-//			elem.addProperty("hexOwner", hex.getHexOwner().getName());
-//			
-//			return elem;
-//		}
-//		
-//	}
-//	private static class HexDeserializer implements JsonDeserializer<Hex> {
-//
-//		@Override
-//		public Hex deserialize(JsonElement json, Type arg1,
-//				JsonDeserializationContext context) throws JsonParseException {
-//			// Use standard deserializer.
-//			Hex hex = context.<Hex>deserialize(json, Hex.class);
-//			
-//			// Deserialize the hexOwner
-//			return null;
-//		}
-//		
-//	}
 	
 	public static class CreatureSerializer implements JsonSerializer<Creature> {
 
@@ -204,25 +132,194 @@ public class Util {
 			
 			return new Gson().toJsonTree(c);
 		}
+	}
+	private static class BlockAdapter implements JsonSerializer<Block>, JsonDeserializer<Block> {
+
+		@Override
+		public JsonElement serialize(Block block, Type t,
+				JsonSerializationContext ctx) {
+			JsonArray json = new JsonArray();
+			
+			for (Thing th : block.getListOfThings()) {
+				JsonElement elem = ctx.serialize(th);
+				// Add the class type.
+				elem.getAsJsonObject().add("classType", new JsonPrimitive(th.getClass().getCanonicalName()));
+				
+				json.add(elem);
+			}
+
+			return json;
+		}
+
+		@Override
+		public Block deserialize(JsonElement json, Type t,
+				JsonDeserializationContext ctx) throws JsonParseException {
+			Block b = new Block();
+			JsonArray array = json.getAsJsonArray();
+			Iterator<JsonElement> it = array.iterator();
+			while (it.hasNext()) {
+				JsonElement elem = it.next();
+				String owner = elem.getAsJsonObject().get("owner").getAsString();
+//				String name = elem.getAsJsonObject().get("name").getAsString();
+				String classType = elem.getAsJsonObject().get("classType").getAsString();
+				
+				try {
+					Class<?> c = Class.forName(classType);
+					Thing th = null;
+					
+					th = ctx.deserialize(elem, c);
+
+					if (th != null)
+						b.addThing(th, owner);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			return b;
+		}
+		
+	}
+	private static class HexAdapter implements JsonSerializer<Hex>, JsonDeserializer<Hex> {
+
+		@Override
+		public Hex deserialize(JsonElement json, Type t,
+				JsonDeserializationContext ctx) throws JsonParseException {
+			// These need special deserialization
+			JsonElement color = json.getAsJsonObject().remove("color");
+			JsonElement armies = json.getAsJsonObject().remove("armies");
+			
+			Gson gson = new Gson();
+			Hex hex = gson.fromJson(json, Hex.class);
+			
+//			Type type = new TypeToken<Map<Player, List<Creature>>>(){}.getType();
+//			hex.setArmies((Map<Player, List<Creature>>) gson.fromJson(armies, type));
+			for (Map.Entry<String, JsonElement> entry : armies.getAsJsonObject().entrySet()) {
+				System.err.println(entry);
+			}
+			
+			gson = GSON_BUILDER.create();
+			hex.setColor(gson.fromJson(color, Color.class));
+			
+			
+			
+			
+//			JsonObject obj = json.getAsJsonObject();
+//			
+//			int id = obj.get("id").getAsInt();
+//			HexType type = ctx.deserialize(obj.get("hexType"), HexType.class);
+//			
+//			Hex hex = new Hex(id, type);
+//			
+//			hex.setColor(ctx.<Color>deserialize(obj.get("color"), Color.class));
+			
+//			Gson gson = GSON_BUILDER.create();
+//			json.getAsJsonObject().remove("armies");
+//			Hex hex = gson.fromJson(json, Hex.class);
+			
+			
+//			Gson gson = GSON_BUILDER.create();
+//			JsonElement elem = null;
+//			Hex hex = null;
+//			// Store and remove the armies
+//			elem = json.getAsJsonObject().get("armies");
+//			json.getAsJsonObject().remove("armies");
+//				
+//			hex = gson.fromJson(json, Hex.class);
+//
+//			
+//			Type type = new TypeToken<Map<Player, List<Creature>>>(){}.getType();
+//			hex.setArmies((Map<Player, List<Creature>>) gson.fromJson(json.getAsJsonObject().get("armies"), type));
+//			for (Map.Entry<String, JsonElement> elem : json.getAsJsonObject().get("armies").getAsJsonObject().entrySet()) {
+//				hex.addCreatToArmy(null, gson.from);
+//			}
+			
+			return hex;
+		}
+
+		@Override
+		public JsonElement serialize(Hex hex, Type t,
+				JsonSerializationContext ctx) {
+			
+			JsonElement obj = null;
+			// Use default serialization. Avoids infinite loop.
+			Gson gson = new Gson();
+			obj = gson.toJsonTree(hex, Hex.class);
+			obj.getAsJsonObject().remove("color");
+			obj.getAsJsonObject().add("color", GSON_BUILDER.create().toJsonTree(hex.getColor()));
+			// Transients are ignored
+//			obj = ctx.serialize(hex, Hex.class);
+			
+
+			obj.getAsJsonObject().add("armies", gson.toJsonTree(hex.getArmies()));
+			// Serialize map as field -> array
+//			JsonObject o = new JsonObject();
+//			
+//			for (Map.Entry<Player, List<Creature>> entry : hex.getArmies().entrySet()) {
+//				o.add(entry.getKey().getName(), ctx.serialize(entry.getValue()));
+//			}
+//			obj.getAsJsonObject().add("armies", o);
+			// Only map player names
+			
+			
+			
+			
+
+			
+			return obj;
+		}
 		
 	}
 	
-	public static final Gson GSON = new GsonBuilder()
+	private static final RuntimeTypeAdapterFactory<Thing> gamePieceAdapter =
+			RuntimeTypeAdapterFactory
+			.of(Thing.class)
+			.registerSubtype(Thing.class)
+			.registerSubtype(IncomeCounter.class)
+			.registerSubtype(Treasure.class)
+			.registerSubtype(Creature.class)
+			.registerSubtype(DesertCreature.class)
+			.registerSubtype(ForestCreature.class)
+			.registerSubtype(FrozenWasteCreature.class)
+			.registerSubtype(JungleCreature.class)
+			.registerSubtype(MountainCreature.class)
+			.registerSubtype(PlainsCreature.class)
+			.registerSubtype(SwampCreature.class);
+	private static final RuntimeTypeAdapterFactory<Hex> hexAdapter = 
+			RuntimeTypeAdapterFactory
+				.of(Hex.class)
+				.registerSubtype(Hex.class)
+				.registerSubtype(HexDesert.class)
+				.registerSubtype(HexForest.class)
+				.registerSubtype(HexFrozenWaste.class)
+				.registerSubtype(HexJungle.class)
+				.registerSubtype(HexMountain.class)
+				.registerSubtype(HexPlains.class)
+				.registerSubtype(HexSea.class)
+				.registerSubtype(HexSwamp.class);
+	
+	public static final GsonBuilder GSON_BUILDER = new GsonBuilder()
 		// TODO Use InstanceCreator for GamePiece Hierarchy?
 		.registerTypeAdapter(Color.class, new ColorInstanceCreator())
 		.registerTypeAdapter(Color.class, new ColorSerializer())
 		.registerTypeAdapter(Color.class, new ColorDeserializer())
+		.registerTypeAdapter(Block.class, new BlockAdapter())
+		.registerTypeAdapter(Hex.class, new HexAdapter())
+//		.registerTypeAdapterFactory(gamePieceAdapter)
+//		.registerTypeAdapterFactory(hexAdapter)
+		.setPrettyPrinting();
 //		.registerTypeAdapter(Player.class, new PlayerDeserializer())
 //		.registerTypeAdapter(Thing.class, new GamePieceInstanceCreator())
 //		.registerTypeAdapter(Creature.class, new GamePieceInstanceCreator())
-		.registerTypeAdapter(DesertCreature.class, new CreatureSerializer())
-		.registerTypeAdapter(ForestCreature.class, new CreatureSerializer())
-		.registerTypeAdapter(FrozenWasteCreature.class, new CreatureSerializer())
-		.registerTypeAdapter(JungleCreature.class, new CreatureSerializer())
-		.registerTypeAdapter(MountainCreature.class, new CreatureSerializer())
-		.registerTypeAdapter(PlainsCreature.class, new CreatureSerializer())
-		.registerTypeAdapter(SwampCreature.class, new CreatureSerializer())
-	.create();
+//		.registerTypeAdapter(DesertCreature.class, new CreatureSerializer())
+//		.registerTypeAdapter(ForestCreature.class, new CreatureSerializer())
+//		.registerTypeAdapter(FrozenWasteCreature.class, new CreatureSerializer())
+//		.registerTypeAdapter(JungleCreature.class, new CreatureSerializer())
+//		.registerTypeAdapter(MountainCreature.class, new CreatureSerializer())
+//		.registerTypeAdapter(PlainsCreature.class, new CreatureSerializer())
+//		.registerTypeAdapter(SwampCreature.class, new CreatureSerializer())
+	public static final Gson GSON = GSON_BUILDER.create();
 	
 	
 	public static void log(String message) {
@@ -331,8 +428,27 @@ public class Util {
 	}
 	
 	public static void main(String[] args) {
+		Hex hex = new Hex(0, HexType.DESERT);
 		List<Thing> list = Thing.createThings();
 		
-		System.out.println(GSON.toJson(list.get(30)));
+		hex.addCreatToArmy((Creature) list.get(0), new Player("test"));
+		
+		String s = GSON.toJson(hex);
+		System.out.println(s);
+		
+		hex = GSON.fromJson(s, Hex.class);
+		System.out.println();
+//		Block b = new Block();
+//		List<Thing> things = Thing.createThings();
+//		System.out.println(things.size());
+//		for (Thing t : things) {
+//			b.addThing(t, "");
+//		}
+//		
+//		String s = GSON.toJson(b);
+//		System.out.println(s);
+//		
+//		b = GSON.fromJson(s, Block.class);
+//		System.out.println(b.getListOfThings().size());
 	}
 }

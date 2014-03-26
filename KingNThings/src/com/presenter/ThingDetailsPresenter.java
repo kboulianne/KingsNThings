@@ -33,12 +33,7 @@ public class ThingDetailsPresenter {
 	 * @return The ThingDetailsView to to be used for the specified Thing.
 	 */
 	ThingDetailsView getViewFor(Thing t) {
-		//if (t instanceof Creature) {
-			//return cView;
-		//} else {
-		System.out.println("STILL SELECTED HERE");
-			return view;
-		//}
+		return view;
 	}
 	
 	public ThingDetailsView getThingView()	{	return view;	}

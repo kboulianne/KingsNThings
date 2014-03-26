@@ -4,26 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Block extends GamePiece {
-	
-	// Note each player has two racks of capicity 10 items
-	//int capacity;
-	
-	private final List<Thing> listOfThings;
+public class Block  {
+
+	private List<Thing> listOfThings;
 	
 	public Block()	{
 		listOfThings = new ArrayList<>();
 		//capacity = 20; // block represents two racks???
 	}
 	
-	boolean addThing(Thing thing, String owner){	
+	public boolean addThing(Thing thing, String owner){	
 		// cannot add special characters, gold counters and forts
-		
-		/*if(thing instanceof SpecialCharacter ||
-				thing instanceof IncomeCounter){
-			Util.log("Error: Unable to add special characters, gold counters or forts to block");
-			return false;
-		}*/
 		thing.setFacedDown(false);
 		thing.setOwner(owner);
 		listOfThings.add(thing);

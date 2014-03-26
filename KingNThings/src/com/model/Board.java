@@ -94,7 +94,7 @@ public class Board {
 	public List<Hex> findConflictsFor(Player p) {
 		List<Hex> conflicts = new ArrayList<>();
 		
-		Map<Player, ArrayList<Creature>> armies = null;
+		Map<Player, List<Creature>> armies = null;
 		
 		for (Hex hex : hexes) {
 			// Get the armies and check size of key set to know if an

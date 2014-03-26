@@ -41,7 +41,7 @@ public class GameRoomPresenter {
 	 */
 	public void showGameRoom(GameRoom room) {
 		NetworkedMain.setView(view);
-		view.setGameRoom(room);
+		view.setGameRoom(NetworkedMain.getPlayer(), room);
 		this.room = room;
 		NetworkedMain.setRoomName(room.getName());
 		
@@ -54,7 +54,7 @@ public class GameRoomPresenter {
 		try {
 			room = gameRoomSvc.getGameRoom(room.getName());
 			
-			view.setGameRoom(room);
+			view.setGameRoom(NetworkedMain.getPlayer(), room);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

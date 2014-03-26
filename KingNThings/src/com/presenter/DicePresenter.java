@@ -91,7 +91,6 @@ public class DicePresenter {
 //			die1.roll();
 //			die2.roll();
 //		
-//			System.out.println("Rolled: " + (die1.getValue() + die2.getValue()));
 //			
 //			// Update the server instance
 //			//TODO: add update dice for efficiency, low priority.
