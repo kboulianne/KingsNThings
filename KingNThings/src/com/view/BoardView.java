@@ -341,8 +341,7 @@ public class BoardView extends Canvas {
 		gc.setFill(Color.LIGHTGREY);
 		double ovalsXOffset = xOffset+27;
 		double ovalsYOffset = yOffset+55;
-		// TODO: REMOVE IF
-		if (hex.getArmies() != null) {
+
 		Iterator<Player> it = hex.getArmies().keySet().iterator();
 		double factor = 0.0;
 		while(it.hasNext()) {
@@ -354,7 +353,7 @@ public class BoardView extends Canvas {
 				factor += 1.5;
 			}
 		}
-		}
+		
 		// FOR DEMO =========================================================
 		// Draw the fort if face up and not null
 //		temp_width = 15;

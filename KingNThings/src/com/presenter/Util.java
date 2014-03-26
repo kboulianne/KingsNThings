@@ -1,3 +1,4 @@
+
 package com.presenter;
 
 import java.lang.reflect.Type;
@@ -117,19 +118,6 @@ public class Util {
 		@Override
 		public JsonElement serialize(Creature c, Type t,
 				JsonSerializationContext ctx) {
-//			JsonObject elem = new JsonObject();
-//			
-//			elem = (JsonObject) ctx.serialize(c, Thing.class);
-//			elem.addProperty("domain", c.getDomain());
-//			elem.addProperty("fly", c.isFlying());
-//			elem.addProperty("ranged", c.isRanged());
-//			elem.addProperty("charge", c.isCharge());
-//			elem.addProperty("magic", c.isMagic());
-//			elem.addProperty("combatVal", c.getCombatVal());
-//			elem.addProperty("numberOfMovesAvailable", c.getNumberOfMovesAvailable());
-//			
-//			
-//			return elem;
 			
 			return new Gson().toJsonTree(c);
 		}
@@ -203,6 +191,18 @@ public class Util {
 		}
 		
 	}
+	
+	// The map represented as:
+	/*{(Map)
+	 * 		nameOfPlayer: {(Player1)
+	 * 			player: {player}
+	 * 			armies: [creatures]
+	 * 		}(Player1)
+	 * 		nameOfOtherPlayer: {(Player2)
+	 * 			...
+	 * 		}(Player2)
+	 * }(Map)
+	 */
 	private static class HexAdapter implements JsonSerializer<Hex>, JsonDeserializer<Hex> {
 
 		@Override
@@ -217,15 +217,17 @@ public class Util {
 			Hex hex = gson.fromJson(json, Hex.class);
 			
 			gson = GSON_BUILDER.create();
-			Type type = new TypeToken<Creature>(){}.getType();
+//			Type type = new TypeToken<Creature>(){}.getType();
 //			hex.setArmies((Map<Player, List<Creature>>) gson.fromJson(armies, type));
 //			Map<Player, List<Creature>> armies = new HashMap<>();
 			for (Map.Entry<String, JsonElement> entry : armies.getAsJsonObject().entrySet()) {
 				System.err.println(entry);
 				
-				Player p = new Player(entry.getKey());
+				Player p = gson.fromJson(entry.getValue().getAsJsonObject().get("player"), Player.class);
+				
+				
 				// Loop the json array that contains creatures.
-				JsonElement array = entry.getValue().getAsJsonArray();
+				JsonElement array = entry.getValue().getAsJsonObject().get("armies");
 				
 				for (JsonElement elem : array.getAsJsonArray()){
 					try {
@@ -263,39 +265,36 @@ public class Util {
 //			obj = ctx.serialize(hex, Hex.class);
 			
 			gson = GSON_BUILDER.create();
-			// the map
+
 			JsonObject map = new JsonObject();
 			// Loop the armies and serialize
 			for (Map.Entry<Player, List<Creature>> entry : hex.getArmies().entrySet()) {
-				// Serialize as object, mapping to arrays
-				JsonArray array = new JsonArray();
+//				JsonObject playerEntry = new JsonObject();
+				// Serialize the player and store it as player in map
+				JsonElement player = gson.toJsonTree(entry.getKey());
+				
+//				playerEntry.add(property, value);
+				
+				
+				JsonArray armies = new JsonArray();
 				
 				for (Creature c : entry.getValue()) {
 					JsonElement elem = gson.toJsonTree(c); 
 					
 					elem.getAsJsonObject().addProperty("classType", c.getClass().getCanonicalName());
 					
-					array.add(elem);
+					armies.add(elem);
 				}
 				
-				
-				map.add(entry.getKey().getName(), array);
+				// Create object to contain player and armies
+				JsonObject playerEntry = new JsonObject();
+				playerEntry.add("player", player);
+				playerEntry.add("armies", armies);
+				// Player name to playerEntry
+				map.add(entry.getKey().getName(), playerEntry);
 			}
 
 			obj.getAsJsonObject().add("armies", map);
-			// Serialize map as field -> array
-//			JsonObject o = new JsonObject();
-//			
-//			for (Map.Entry<Player, List<Creature>> entry : hex.getArmies().entrySet()) {
-//				o.add(entry.getKey().getName(), ctx.serialize(entry.getValue()));
-//			}
-//			obj.getAsJsonObject().add("armies", o);
-			// Only map player names
-			
-			
-			
-			
-
 			
 			return obj;
 		}
@@ -336,10 +335,10 @@ public class Util {
 		.registerTypeAdapter(Color.class, new ColorDeserializer())
 		.registerTypeAdapter(Block.class, new BlockAdapter())
 		.registerTypeAdapter(Hex.class, new HexAdapter())
-		.registerTypeAdapter(SwampCreature.class, new CreatureAdapter());
+		.registerTypeAdapter(SwampCreature.class, new CreatureAdapter())
 //		.registerTypeAdapterFactory(gamePieceAdapter)
 //		.registerTypeAdapterFactory(hexAdapter)
-//		.setPrettyPrinting();
+		.setPrettyPrinting();
 //		.registerTypeAdapter(Player.class, new PlayerDeserializer())
 //		.registerTypeAdapter(Thing.class, new GamePieceInstanceCreator())
 //		.registerTypeAdapter(Creature.class, new GamePieceInstanceCreator())
