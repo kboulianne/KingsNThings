@@ -7,18 +7,18 @@ package com.view;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.SortedMap;
 
 import com.view.customcontrols.PlayerLabel;
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
 import com.model.Cup;
 import com.model.Fort;
+import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
-import com.model.game.Game;
 import com.presenter.SidePanePresenter;
 import com.presenter.Util;
 
@@ -40,9 +40,6 @@ import javafx.scene.input.MouseEvent;
  * @author kurtis
  */
 public class SidePaneView extends VBox {
-
-	private SidePanePresenter presenter;
-
     // Current detailsview being displayed in the view
 	// TODO Create abstract DetailsView?
 	private StackPane content;
@@ -87,7 +84,7 @@ public class SidePaneView extends VBox {
 			public void handle(MouseEvent t) {
 				PlayerLabel lbl = (PlayerLabel) t.getSource();
 				// TODO create a custom event.
-				presenter.showOpponentInfo(lbl.getPlayer());
+				KNTAppFactory.getSidePanePresenter().showOpponentInfo(lbl.getPlayer());
 			}
 		};
 		opp1Lbl.setOnMouseEntered(playerLabelHandler);
@@ -98,7 +95,7 @@ public class SidePaneView extends VBox {
 
 			@Override
 			public void handle(MouseEvent t) {
-				presenter.dismissOpponentInfo();
+				KNTAppFactory.getSidePanePresenter().dismissOpponentInfo();
 			}
 		};
 		opp1Lbl.setOnMouseExited(exitHandler);
@@ -106,23 +103,14 @@ public class SidePaneView extends VBox {
 		opp3Lbl.setOnMouseExited(exitHandler);
 	}
 
-	public void setPresenter(final SidePanePresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
+	public void setOpponents(List<Player> players) {
+		System.out.println("Set opponents: " + players);
+		// FIXME: Problem if not four player.
+		if (!players.isEmpty()) {
+			opp1Lbl.setPlayer(players.get(0));
+			opp2Lbl.setPlayer(players.get(1));
+			opp3Lbl.setPlayer(players.get(2));
 		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
-	}
-
-	// TODO pass list/set?
-	public void setOpponents(Player o1, Player o2, Player o3) {
-		opp1Lbl.setPlayer(o1);
-		opp2Lbl.setPlayer(o2);
-		opp3Lbl.setPlayer(o3);
 	}
 	
 	public void showGoldCollection(int hexGold, int fortGold, int counterGold, int specCharGold){
@@ -168,62 +156,64 @@ public class SidePaneView extends VBox {
 	
 
 	public void showThingRecruitment(final int freeRecruits, int paidRecruits) {
-		final ThingRecruitmentView view = new ThingRecruitmentView(freeRecruits, paidRecruits);
-		
-		view.getBuyRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
-			public void handle(ActionEvent arg)	{
-				Player player = GameService.getInstance().getGame().getCurrentPlayer();
-				
-				if((player.getGold() >= 5) && (view.getPaidRecruitsValue() < 5))	{
-					Util.playClickSound();
-					player.removeGold(5);
-					KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(player);
-					view.increasePaidRecruits();
-				}
-			}
-		});
-		
-		view.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
-			public void handle(ActionEvent arg)	{
-				Util.playClickSound();
-				int total = 0;
-				ArrayList<Thing> listOfThings = GameService.getInstance().getGame().getLastSelectedThingsOfCurrentPlayerBlock();
-				Player player = GameService.getInstance().getGame().getCurrentPlayer();
-				Cup cup = GameService.getInstance().getGame().getCup();
-				
-				for(Thing t: listOfThings)	{
-					total++;
-					player.removeThing(t);
-					cup.addThing(t);
-				}
-				
-				total = (int)Math.ceil(total/2.0);
-				total += (freeRecruits + view.getPaidRecruitsValue());
-				
-				for(int i = 0; i < total; i++)	{
-					Thing c = cup.getRandomThing();
-					cup.removeThing(c);
-					player.addThing(c);
-				}
-				
-				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
-				
-				clearDetailsView();
-				showArbitraryView("Choose things from rack and\n"
-						   + "    place them on the board", Game.CROWN_IMAGE);
-				
-				KNTAppFactory.getBoardPresenter().getView().setDisable(false);
-				KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
-				KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setDisable(false);
-				KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(GameService.getInstance().getGame().getCurrentPlayer());
-			}
-		});
-		
-		content.getChildren().clear();
-		content.getChildren().add(view);
+		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+//		final ThingRecruitmentView view = new ThingRecruitmentView(freeRecruits, paidRecruits);
+//		
+//		view.getBuyRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
+//			public void handle(ActionEvent arg)	{
+//				Player player = GameService.getInstance().getGame().getCurrentPlayer();
+//				
+//				if((player.getGold() >= 5) && (view.getPaidRecruitsValue() < 5))	{
+//					Util.playClickSound();
+//					player.removeGold(5);
+//					KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(player);
+//					view.increasePaidRecruits();
+//				}
+//			}
+//		});
+//		
+//		view.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
+//			public void handle(ActionEvent arg)	{
+//				Util.playClickSound();
+//				int total = 0;
+//				ArrayList<Thing> listOfThings = GameService.getInstance().getGame().getLastSelectedThingsOfCurrentPlayerBlock();
+//				Player player = GameService.getInstance().getGame().getCurrentPlayer();
+//				Cup cup = GameService.getInstance().getGame().getCup();
+//				
+//				for(Thing t: listOfThings)	{
+//					total++;
+//					player.removeThing(t);
+//					cup.addThing(t);
+//				}
+//				
+//				total = (int)Math.ceil(total/2.0);
+//				total += (freeRecruits + view.getPaidRecruitsValue());
+//				
+//				for(int i = 0; i < total; i++)	{
+//					Thing c = cup.getRandomThing();
+//					cup.removeThing(c);
+//					player.addThing(c);
+//				}
+//				
+//				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+//				
+//				clearDetailsView();
+//				showArbitraryView("Choose things from rack and\n"
+//						   + "    place them on the board", Game.CROWN_IMAGE);
+//				
+//				KNTAppFactory.getBoardPresenter().getView().setDisable(false);
+//				KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
+//				KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setDisable(false);
+//				KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(GameService.getInstance().getGame().getCurrentPlayer());
+//			}
+//		});
+//		
+//		content.getChildren().clear();
+//		content.getChildren().add(view);
 	}
 	
 	public void showBuildMenu(final Hex h)	{
+<<<<<<< HEAD
 		final Player player = GameService.getInstance().getGame().getCurrentPlayer();
 		
 		Label title = new Label("Build Options:");
@@ -306,6 +296,81 @@ public class SidePaneView extends VBox {
 		
 		content.getChildren().clear();
 		content.getChildren().add(vbox);
+=======
+		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+//		final Player player = GameService.getInstance().getGame().getCurrentPlayer();
+//		
+//		Label title = new Label("Build Options:");
+//		title.getStyleClass().add("title");
+//		
+//		Button build = new Button("Build Fort (5 gold)");
+//		Button upgrade = new Button("Upgrade Fort (5 gold)");
+//		
+//		Label counters = new Label("To upgrade to a citadel you must \n have a gold income of 20 or more");
+//		VBox cont = new VBox();
+//		
+//		cont.setAlignment(Pos.CENTER);
+//		cont.getStyleClass().add("largeSpacing");
+//		cont.getChildren().addAll(build, upgrade, counters);
+//
+//		VBox vbox = new VBox();
+//		vbox.getStyleClass().add("largeSpacing");
+//		vbox.setAlignment(Pos.CENTER);
+//		vbox.getChildren().addAll(title, cont);
+//		vbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
+//		
+//		if((h.getFort() != null) && h.getFort().upgraded())	{
+//			upgrade.setDisable(true);
+//			build.setDisable(true);
+//		}
+//		
+//		if(h.getFort()!= null && h.getFort().getFortType() == Fort.FortType.CITADEL)	{
+//			upgrade.setDisable(true);
+//			build.setDisable(true);
+//		}
+//		
+//		if(h.getFort() == null || h.getHexOwner().getGold() < 5)	{
+//			upgrade.setDisable(true);
+//		}
+//		
+//		if(h.getFort() != null || h.getHexOwner().getGold() < 5)	{
+//			build.setDisable(true);
+//		}
+//		
+//		if(h.getFort() != null && h.getFort().getFortType() == Fort.FortType.CASTLE && 
+//				player.calculateIncome() < 20)	{
+//			upgrade.setDisable(true);
+//		}
+//		
+//		
+//		
+//		upgrade.setOnAction(new EventHandler<ActionEvent>()	{
+//			public void handle(ActionEvent e)	{
+//				Util.playClickSound();
+//				h.upgradeFort();
+//				h.getHexOwner().removeGold(5);
+//				h.getFort().setUpgraded(true);
+//				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+//				KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
+//				showBuildMenu(h);
+//			}
+//		});
+//		
+//		build.setOnAction(new EventHandler<ActionEvent>()	{
+//			public void handle(ActionEvent e)	{
+//				Util.playClickSound();
+//				h.setFort(Fort.create());
+//				h.getHexOwner().removeGold(5);
+//				h.getFort().setUpgraded(true);
+//				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+//				KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
+//				showBuildMenu(h);
+//			}
+//		});
+//		
+//		content.getChildren().clear();
+//		content.getChildren().add(vbox);
+>>>>>>> 4b5e5881b30c881cfca3de00c67335893a65bcc3
 	}	
 	
 	public void showRolls(SortedMap<Integer, Player> rolls){

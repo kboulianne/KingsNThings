@@ -5,8 +5,12 @@
  */
 package com.view;
 
+<<<<<<< HEAD
 import com.model.Player;
 import com.model.game.Game;
+=======
+import com.model.Game;
+>>>>>>> 4b5e5881b30c881cfca3de00c67335893a65bcc3
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Control;
@@ -38,18 +42,6 @@ public class GameView extends StackPane {
 	public GameView() {
 		buildView();
 	}
-
-//	public void setPresenter(final GamePresenter presenter) {
-//		if (presenter == null) {
-//			throw new NullPointerException("Presenter cannot be null");
-//		}
-//
-//		if (this.presenter != null) {
-//			throw new IllegalStateException("The presenter was already set.");
-//		}
-//
-//		this.presenter = presenter;
-//	}
 
 	private void buildView() {
 		// Root Pane stuff
@@ -120,14 +112,12 @@ public class GameView extends StackPane {
 	 *
 	 * @param game The game object the UI should display.
 	 */
-	public void setGame(final Game game) {
-		//TODO Could actually do most updating here since this presenter has all
-		// other presenters as a dependency.
+	public void setGame(final Game game, final String actionText) {
 		// As a precaution.
-		/*if (game != null) {
-			currentPlayerLbl.setText("Sir " + game.getCurrentPlayer().getName() + "'s Turn: ");
-	
-		}*/
+		if (game != null) {
+			currentPlayerLbl.setText(game.getCurrentPlayer().getName() + "'s Turn: ");
+			currentActionLbl.setText((actionText == null ? "" : actionText));
+		}
 	}
 
 	public Label getCurrentPlayerLbl() {

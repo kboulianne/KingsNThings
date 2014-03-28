@@ -2,8 +2,10 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.model.Board.NumberOfHexes;
+
 import java.util.Map;
 
 import javafx.scene.paint.Color;
@@ -14,13 +16,13 @@ public class Hex extends GamePiece {
 	private Player hexOwner;
 	private Color color;
 	private boolean startPosition; // Is the owner's start position
-	private boolean selected;
+	private transient boolean selected;
 	private boolean selectable;
-	private boolean highlighted;
-	private boolean conflict;
+	private transient boolean highlighted;
+	private transient boolean conflict;
 	private boolean faceDown;
 	//boolean facedUp; // is right side up?
-	private HexType type;
+	private HexType hexType;
 	private String typeAsString; 
 	private int movementWeight; // value of -1 if not able to move to
 	private int[] joiningHexes; // Integer array of hex id's, size 6
@@ -48,10 +50,10 @@ public class Hex extends GamePiece {
 	
 	// list of armies for all players
 	// list of misc Things
-	private HashMap<Player, ArrayList<Creature>> armies;
+	private transient Map<Player, List<Creature>> armies;
 	// Only one fort per tile.
 	private Fort fort;
-	private IncomeCounter counter;
+	private transient IncomeCounter counter;
 	
 	public enum HexType {
 		JUNGLE_HEX("Jungle"),
@@ -67,9 +69,13 @@ public class Hex extends GamePiece {
 			typeName = n;
 		}
 	}
+	// FOR GSON
+	protected Hex() {
+		armies = new HashMap<>();
+	}
 	
-	Hex(int id, HexType type){
-	    this.type = type;
+	public Hex(int id, HexType type){
+	    this.hexType = type;
 	    this.id= id;
 	    setTypeAsString(type.typeName);
 	    color = Color.LIGHTGRAY;
@@ -85,19 +91,24 @@ public class Hex extends GamePiece {
 	
     // setters and getters
     public final Player getHexOwner() {
-    	return hexOwner;
+    		return hexOwner;
     }
     
     public final void setOwner(final Player player) {
-    	this.hexOwner = player;
+    		this.hexOwner = player;
 		
 		this.color = player.getColor();
+    }
+    
+    public HexType getHexType() {
+    		return hexType;
     }
     
     public Color getColor() {
 	    return color;
     }
     public void setColor(Color color) {
+    		
 	    this.color = color;
     }
     public boolean isSelected() {
@@ -107,7 +118,7 @@ public class Hex extends GamePiece {
 	    this.selected = selected;
     }
     public final HexType getType() {
-    	return type;
+    	return hexType;
     }
     public final boolean isStartPosition() {
     	return startPosition;
@@ -149,11 +160,14 @@ public class Hex extends GamePiece {
     public void setHighlighted(boolean highlighted) {
 	    this.highlighted = highlighted;
     }   
-    public Map<Player, ArrayList<Creature>> getArmies() {
-    	return armies;
+    public void setArmies(Map<Player, List<Creature>> map) {
+    		this.armies = map;
     }
-    public ArrayList<Creature> getArmies(Player p)	{
-    	return armies.get(p);
+    public Map<Player, List<Creature>> getArmies() {
+    		return armies;
+    }
+    public List<Creature> getArmies(Player p)	{
+    		return armies.get(p);
     }  
 	public String getTypeAsString() {
 		return typeAsString;

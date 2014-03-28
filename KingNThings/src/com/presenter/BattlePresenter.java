@@ -1,6 +1,5 @@
 package com.presenter;
 
-import com.game.services.GameService;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,8 +7,8 @@ import javafx.event.EventHandler;
 import com.main.KNTAppFactory;
 import com.model.Battle;
 import com.model.Battle.BattlePhase;
-import com.model.game.Game;
 import com.model.Creature;
+import com.model.Game;
 import com.model.Player;
 import com.model.Thing;
 import com.view.BattleView;
@@ -262,33 +261,34 @@ public class BattlePresenter {
 		}	
 	}
 	private void postCombatPhase() {
-		Util.stopBattleMusic();
-		Util.log("post combat phase player: "+battle.getCurrentPlayer().getName());
-		// For demo, eliminate his armies, set hex ownership to opponent
-//		battle.getAssociatedHex().getArmies(retreated);
-		Player winner = null;
-		if(battle.isDefenderEliminated()){
-			winner = battle.getOffender();
-			battle.getAssociatedHex().getArmies().remove(battle.getDefender());
-		}else if(battle.isAttackerEliminated()){
-			winner = battle.getDefender();
-			battle.getAssociatedHex().getArmies().remove(battle.getOffender());
-		}else{ //retreat
-			battle.getAssociatedHex().getArmies().remove(retreated);
-			if (retreated.equals(battle.getOffender())) {
-				winner = battle.getDefender();
-			} 
-			else {
-				winner = battle.getOffender();
-			}
-		}
-		
-		battle.getAssociatedHex().setOwner(winner);
-		battle.getAssociatedHex().setConflict(false);
-		// FOR DEMO
-		KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
-		KNTAppFactory.getPopupPresenter().dismissPopup();
-		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("The winner of the last battle was "+winner.getName(), Game.CROWN_IMAGE);
+		throw new IllegalAccessError("Use new service.");
+//		Util.stopBattleMusic();
+//		Util.log("post combat phase player: "+battle.getCurrentPlayer().getName());
+//		// For demo, eliminate his armies, set hex ownership to opponent
+////		battle.getAssociatedHex().getArmies(retreated);
+//		Player winner = null;
+//		if(battle.isDefenderEliminated()){
+//			winner = battle.getOffender();
+//			battle.getAssociatedHex().getArmies().remove(battle.getDefender());
+//		}else if(battle.isAttackerEliminated()){
+//			winner = battle.getDefender();
+//			battle.getAssociatedHex().getArmies().remove(battle.getOffender());
+//		}else{ //retreat
+//			battle.getAssociatedHex().getArmies().remove(retreated);
+//			if (retreated.equals(battle.getOffender())) {
+//				winner = battle.getDefender();
+//			} 
+//			else {
+//				winner = battle.getOffender();
+//			}
+//		}
+//		
+//		battle.getAssociatedHex().setOwner(winner);
+//		battle.getAssociatedHex().setConflict(false);
+//		// FOR DEMO
+//		KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
+//		KNTAppFactory.getPopupPresenter().dismissPopup();
+//		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("The winner of the last battle was "+winner.getName(), Game.CROWN_IMAGE);
 	}
 	
 	

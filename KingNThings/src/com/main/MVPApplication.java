@@ -37,7 +37,7 @@ public class MVPApplication extends Application {
 		stage.setOnShown(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent t) {
-				main.startGame();
+//				main.startGame(null);
 			}
 		});
 		

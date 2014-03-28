@@ -44,7 +44,7 @@ public class SpecialCharacter extends Creature	{
 		terrainLordCreat.add("plainslord");
 	}
 
-	SpecialCharacter(String name1, String name2) {
+	public SpecialCharacter(String name1, String name2) {
 		super((Util.randomNumber(1, 2) == 1?name1:name2));
 		
 		if(getName().equals(name1)){
@@ -65,6 +65,10 @@ public class SpecialCharacter extends Creature	{
 		setImage("view/com/assets/pics/gamepieces/specialcharacters/" + getName() + ".jpeg");
 	}
 
+	// For serialization.
+	public SpecialCharacter() {
+	}
+
 	public String getAlternateName() {
 		return alternateName;
 	}
@@ -76,7 +80,7 @@ public class SpecialCharacter extends Creature	{
 	public String getAbilitiesString(){
 		String abilities = "";
 	    
-	    if (getFly()) {
+	    if (isFlying()) {
 	    	abilities += " Flying";
 	    }
 	    if (isRanged()) {

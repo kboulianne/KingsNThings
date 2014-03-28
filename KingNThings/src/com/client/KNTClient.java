@@ -7,18 +7,47 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import com.client.proxy.GameRoomServiceProxy;
+import com.client.proxy.GameServiceProxy;
+import com.client.proxy.PlayerServiceProxy;
 import com.server.services.IGameRoomService;
+import com.server.services.IGameService;
+import com.server.services.IPlayerService;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Message;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
+import com.thetransactioncompany.jsonrpc2.server.Dispatcher;
 
-/*
- * Clients will have one instance of this in the Application.
- * 
- * Hold remote proxy(ies) of server objects.
- */
 public class KNTClient {
 	private Socket socket;
-	private IGameRoomService proxy;
+	private Set<UUID> pendingRequests;
+	private final ExecutorService socketThreads = Executors.newFixedThreadPool(2);
+	private PlayerServiceProxy playerProxy;
+	private GameRoomServiceProxy gameRoomProxy;
+	private final GameServiceProxy gameProxy;
+	private final LinkedBlockingQueue<JSONRPC2Request> outputMessages;
+	private final LinkedBlockingQueue<JSONRPC2Response> inputMessages;
+	
+	private static final Dispatcher DISPATCHER;
+	
+	static {
+		DISPATCHER = new Dispatcher();
+		
+		DISPATCHER.register(new GameRoomNotificationHandler());
+		DISPATCHER.register(new GameNotificationHandler());
+	}
 	
 	/**
 	 * Creates a new connection to the game server with specified host and port.
@@ -27,16 +56,23 @@ public class KNTClient {
 	 * @param port The destination port.
 	 */
 	public KNTClient(String host, int port) {
+		pendingRequests = Collections.synchronizedSet(new HashSet<UUID>());
+		inputMessages = new LinkedBlockingQueue<>();
+		outputMessages = new LinkedBlockingQueue<>();
+		
+		PlayerServiceProxy playerProxy = null;
+		GameRoomServiceProxy gameRoomProxy = null;
+		GameServiceProxy gameProxy = null;
+		
 		try {
 			socket = new Socket(host, port);
-		
-			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
 			
-			// Wait for server to respond connected. Just for synchronization and to avoid potential problems.
-			reader.readLine();
+			playerProxy = new PlayerServiceProxy(inputMessages, outputMessages);
+			gameRoomProxy = new GameRoomServiceProxy(inputMessages, outputMessages);
+			gameProxy = new GameServiceProxy(inputMessages, outputMessages);
 			
-			proxy = new GameRoomServiceProxy(reader, writer);
+			socketThreads.execute(createReadRunnable());
+			socketThreads.execute(createWriteRunnable());
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,10 +81,105 @@ public class KNTClient {
 			e.printStackTrace();
 		}
 		
+		this.playerProxy = playerProxy;
+		this.gameRoomProxy = gameRoomProxy;
+		this.gameProxy = gameProxy;
 	}
 	
-	// get service methods
+	private Runnable createReadRunnable() {
+		return new Runnable() {
+			
+			@Override
+			public void run() {
+
+				try {
+					BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+					// Process data continuously.
+					while (true) {
+						// Puts responses in the queue.
+						// Process the response and determine if it is a notification or response
+						String json = reader.readLine();
+						if (json == null) continue;
+						
+						JSONRPC2Message message = JSONRPC2Message.parse(json);
+						
+						if (message instanceof JSONRPC2Response) {
+							JSONRPC2Response res = (JSONRPC2Response)message;
+							pendingRequests.remove(UUID.fromString((String)res.getID()));
+							// Add the response to the queue of received responses.
+							inputMessages.put(res);
+						}
+						else if (message instanceof JSONRPC2Notification){
+							//TODO: Check if notification requires a request to complete first.
+							DISPATCHER.process((JSONRPC2Notification)message, null);
+						}
+						else {
+							System.out.println("ERROR");
+							// Error
+//							JSONRPC2Error error = message.;
+//							
+//							throw error;
+						}
+						
+						
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONRPC2ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		};
+	}
+	
+	/**
+	 * Runnable which processes outgoing messages.
+	 * @return
+	 */
+	private Runnable createWriteRunnable() {
+		return new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+					
+					while (true) {
+						JSONRPC2Request req = outputMessages.take();
+						// Mark request as pending
+						pendingRequests.add(UUID.fromString((String)req.getID()));
+						
+						// Fires requests to the server.
+						writer.println(req.toJSONString());
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+	}
+	
+	public final IPlayerService getPlayerService() {
+		return playerProxy;
+	}
+	
 	public final IGameRoomService getGameRoomService() {
-		return proxy;
+		return gameRoomProxy;
+	}
+	
+	public final IGameService getGameService() {
+		return gameProxy;
 	}
 }

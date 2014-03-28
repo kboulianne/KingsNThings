@@ -8,12 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import com.game.services.GameService;
 import com.model.Die;
 import com.model.SpecialCharacter;
 import com.presenter.DicePresenter;
 import com.presenter.SpecialCharacterPresenter;
-import com.view.customcontrols.ThingView;
 
 public class SpecialCharacterView{
 		
@@ -106,75 +104,75 @@ public class SpecialCharacterView{
 	
 	
 	VBox setScreen1(String playerName, ArrayList<SpecialCharacter> playersSChars){
-
-		ArrayList<SpecialCharacter> specCfromCup = GameService.getInstance().getGame().getCup().getListOfSpecialCharacters();
-		boolean playerHasLord = false;
-		
-		
-		ownedSCharLbl.setText(playerName+"'s special characters: "+playersSChars.size()+" items");
-		if(playersSChars.isEmpty()){
-			ownedSCharIntructionLbl.setText("");
-		}else{
-			ownedSCharIntructionLbl.setText("Click to place special character back in cup");
-		}
-
-		playersSCharBox.getChildren().clear();
-		for(SpecialCharacter sC: playersSChars){
-			ThingView tv = new ThingView(50, sC);
-			tv.setSendSpecialCharacterBackToCupHandler();
-			playersSCharBox.getChildren().add(tv);
-			
-			if(sC.isLord())
-				playerHasLord = true;
-		}
-		cupSCharInstructionLbl.setText("Choose a special characters to recruit");
-		
-		
-		availCupSCharBox.getChildren().clear();
-		for(SpecialCharacter sC: specCfromCup){
-			if(!(sC.isLord() && playerHasLord)){
-				sC.setSelected(false);
-				ThingView tv = new ThingView(50, sC);
-				tv.setChooseSpecialCharToRecruitHandler();
-				availCupSCharBox.getChildren().add(tv);
-			}
-		}
-		
-		cupSCharLbl.setText("Available special characters from cup: "+availCupSCharBox.getChildren().size()+" items");
-		return screen1;
+		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+//		ArrayList<SpecialCharacter> specCfromCup = GameService.getInstance().getGame().getCup().getListOfSpecialCharacters();
+//		boolean playerHasLord = false;
+//		
+//		
+//		ownedSCharLbl.setText(playerName+"'s special characters: "+playersSChars.size()+" items");
+//		if(playersSChars.isEmpty()){
+//			ownedSCharIntructionLbl.setText("");
+//		}else{
+//			ownedSCharIntructionLbl.setText("Click to place special character back in cup");
+//		}
+//
+//		playersSCharBox.getChildren().clear();
+//		for(SpecialCharacter sC: playersSChars){
+//			ThingView tv = new ThingView(50, sC);
+//			tv.setSendSpecialCharacterBackToCupHandler();
+//			playersSCharBox.getChildren().add(tv);
+//			
+//			if(sC.isLord())
+//				playerHasLord = true;
+//		}
+//		cupSCharInstructionLbl.setText("Choose a special characters to recruit");
+//		
+//		
+//		availCupSCharBox.getChildren().clear();
+//		for(SpecialCharacter sC: specCfromCup){
+//			if(!(sC.isLord() && playerHasLord)){
+//				sC.setSelected(false);
+//				ThingView tv = new ThingView(50, sC);
+//				tv.setChooseSpecialCharToRecruitHandler();
+//				availCupSCharBox.getChildren().add(tv);
+//			}
+//		}
+//		
+//		cupSCharLbl.setText("Available special characters from cup: "+availCupSCharBox.getChildren().size()+" items");
+//		return screen1;
 	}
 	
 	VBox setScreen2(final SpecialCharacter sC){
-		
-		final int valueNeeded = sC.getCombatVal()*2;
-		presenter.setSelectedSpecialCharacter(sC);
-		presenter.setRolledValue(0);
-		presenter.setCost(5);
-		
-		tvHolder.getChildren().clear();
-		ThingView tv = new ThingView(200,sC);
-		tvHolder.getChildren().add(tv);
-		
-		rollValueLbl.setText("Current rolled value: "+presenter.getRolledValue());
-		valueNeededLbl.setText("Value needed to recuit character: "+valueNeeded);
-
-		
-		costLbl.setText("Cost to add 1 to roll: "+presenter.getCost()+" Gold");
-		addRollButton.setText("Add to Roll");
-		if(GameService.getInstance().getGame().getCurrentPlayer().getGold()<5)
-			addRollButton.setDisable(true);
-		else
-			addRollButton.setDisable(false);
-		
-		dV.getRollBtn().setVisible(true);
-		dV.getRollBtn().setManaged(true);
-		recruitButton.setDisable(true);
-		// handlers
-		presenter.setOnAddButtonPressHandler(valueNeeded);		
-		presenter.setOnRollButtonPressedHandler(valueNeeded);
-		presenter.setOnRecuitButtonPressHandler();
-		
-		return screen2;
+		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+//		final int valueNeeded = sC.getCombatVal()*2;
+//		presenter.setSelectedSpecialCharacter(sC);
+//		presenter.setRolledValue(0);
+//		presenter.setCost(5);
+//		
+//		tvHolder.getChildren().clear();
+//		ThingView tv = new ThingView(200,sC);
+//		tvHolder.getChildren().add(tv);
+//		
+//		rollValueLbl.setText("Current rolled value: "+presenter.getRolledValue());
+//		valueNeededLbl.setText("Value needed to recuit character: "+valueNeeded);
+//
+//		
+//		costLbl.setText("Cost to add 1 to roll: "+presenter.getCost()+" Gold");
+//		addRollButton.setText("Add to Roll");
+//		if(GameService.getInstance().getGame().getCurrentPlayer().getGold()<5)
+//			addRollButton.setDisable(true);
+//		else
+//			addRollButton.setDisable(false);
+//		
+//		dV.getRollBtn().setVisible(true);
+//		dV.getRollBtn().setManaged(true);
+//		recruitButton.setDisable(true);
+//		// handlers
+//		presenter.setOnAddButtonPressHandler(valueNeeded);		
+//		presenter.setOnRollButtonPressedHandler(valueNeeded);
+//		presenter.setOnRecuitButtonPressHandler();
+//		
+//		return screen2;
 		
 	}
 

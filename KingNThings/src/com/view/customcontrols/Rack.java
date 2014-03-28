@@ -7,6 +7,8 @@ package com.view.customcontrols;
 
 import com.model.Thing;
 import com.model.Treasure;
+import com.presenter.Util;
+
 import java.util.List;
 
 import javafx.geometry.Pos;

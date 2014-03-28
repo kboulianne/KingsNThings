@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.main.KNTAppFactory;
-import com.main.LobbyTestMain;
+import com.main.NetworkedMain;
 import com.model.GameRoom;
 import com.model.Player;
+import com.model.Player.PlayerId;
 import com.server.services.IGameRoomService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.view.LobbyView;
@@ -15,8 +16,6 @@ import com.view.LobbyView;
 public class LobbyPresenter {
 	private final LobbyView view;
 	private final IGameRoomService gameRoomSvc;
-	private Player player;
-//	private Stage window;
 	
 	// Observable list that contains the gamerooms contained in the ui list.
 	private final ObservableList<GameRoom> rooms;
@@ -42,21 +41,16 @@ public class LobbyPresenter {
 		return view;
 	}
 	
-//	public final void setWindow(Stage s) {
-//		window = s;
-//	}
-	
 	public void handleRefreshButton() {
 		updateGameRoomsList();
 	}
 
 	public void handleHostButton() {
-		System.out.println("Host");
 		try {
-			GameRoom room = gameRoomSvc.createGameRoom("Tester 1's Game Room", player);
+			GameRoom room = gameRoomSvc.createGameRoom("Tester 1's Game Room", NetworkedMain.getPlayer());
 			
 			// Delegate to GameRoomPresenter
-			KNTAppFactory.getGameRoomPresenter().showGameRoom(player, room);
+			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,17 +59,15 @@ public class LobbyPresenter {
 	}
 
 	public void handleJoinButton() {
-		//TODO: Testing
-//		Player guest = new Player(PlayerId.ONE, "Tester 2");
-		
 		try {
 			// Join the selected game room.
 			GameRoom room = view.getGameRoomsList().getSelectionModel().getSelectedItem();
 			if (room == null) return;
 			
-			gameRoomSvc.joinGameRoom(room.getName(), player);
+			gameRoomSvc.joinGameRoom(room.getName(), NetworkedMain.getPlayer());
+
 			// Delegate to GameRoomPresenter
-			KNTAppFactory.getGameRoomPresenter().showGameRoom(player, room);
+			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,16 +83,20 @@ public class LobbyPresenter {
 	private void updateGameRoomsList() {
 		try {
 			rooms.setAll(gameRoomSvc.getGameRooms());
+			
+			// Select first entry, easier for debugging
+			view.getGameRoomsList().getSelectionModel().selectFirst();
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void show(Player p) {
-		LobbyTestMain.setView(view);
-		this.player = p;
-		view.setPlayer(p);
+	public void show() {
+		NetworkedMain.setView(view);
+		// FOR TESTING PURPOSES
+		NetworkedMain.setTitle(NetworkedMain.getPlayer().getName());
+		view.setPlayer(NetworkedMain.getPlayer());
 		
 		updateGameRoomsList();
 	}

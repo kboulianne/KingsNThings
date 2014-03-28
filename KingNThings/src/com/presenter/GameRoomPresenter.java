@@ -1,13 +1,7 @@
 package com.presenter;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
-
-import com.main.LobbyTestMain;
+import com.main.KNTAppFactory;
+import com.main.NetworkedMain;
 import com.model.GameRoom;
 import com.model.Player;
 import com.server.services.IGameRoomService;
@@ -18,26 +12,7 @@ public class GameRoomPresenter {
 	private final GameRoomView view;
 	private final IGameRoomService gameRoomSvc;
 	private GameRoom room;
-	//TODO Keep player and game room in application main.
-	private Player owner;
-	
-	Service<GameRoom> service = new Service<GameRoom>() {
-		@Override
-		protected Task<GameRoom> createTask() {
-			return new Task<GameRoom>() {	
-				@Override
-				protected GameRoom call() throws Exception {
-					new Timer().scheduleAtFixedRate(new TimerTask() {
-						@Override
-						public void run() {
-							refreshGameRoom();
-						}
-					}, 1000, 2000);
-					return null;
-				}
-			};
-		}
-	};
+
 	
 	
 	public GameRoomPresenter(final GameRoomView view, final IGameRoomService gameRoomSvc) {
@@ -51,6 +26,12 @@ public class GameRoomPresenter {
 
 	public void handleStartGameButton() {
 		// Only show start button for host player.
+		try {
+			gameRoomSvc.startGame(room.getName());
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -58,31 +39,22 @@ public class GameRoomPresenter {
 	 * @param owner Player owning the window
 	 * @param room
 	 */
-	public void showGameRoom(Player owner, GameRoom room) {
-		LobbyTestMain.setView(view);
-		view.setGameRoom(owner, room);
+	public void showGameRoom(GameRoom room) {
+		NetworkedMain.setView(view);
+		view.setGameRoom(NetworkedMain.getPlayer(), room);
 		this.room = room;
-		this.owner = owner;
+		NetworkedMain.setRoomName(room.getName());
 		
-		service.start();
+		
+		refreshGameRoom();
 	}
 	
-	// TODO: In the future, subscribe to notifications on the server. Lets just get things working first.
-	/**
-	 * HACK FOR NOW. Request data refresh every two seconds.
-	 */
-	private void refreshGameRoom() {
+
+	public void refreshGameRoom() {
 		try {
-			room = gameRoomSvc.refreshGameRoom(room.getName());
+			room = gameRoomSvc.getGameRoom(room.getName());
 			
-			// This must be done on FXApplicationThread
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					view.setGameRoom(owner, room);
-				}
-			});
-			
+			view.setGameRoom(NetworkedMain.getPlayer(), room);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package com.presenter;
 
+import com.main.KNTAppFactory;
+import com.model.Game;
 import com.model.Hex;
 import com.view.HexDetailsView;
 
@@ -14,7 +16,6 @@ public class HexDetailsPresenter {
 
 	public HexDetailsPresenter(HexDetailsView view) {
 		this.view = view;
-		this.view.setPresenter(this);
 	}
 
 	/**
@@ -30,7 +31,8 @@ public class HexDetailsPresenter {
 	 * @param h 
 	 */
 	void showHex(Hex h) {
-		view.setHex(h);
+		Game game = KNTAppFactory.getGamePresenter().getLocalInstance();
+		view.setHex(h, game.getCurrentPlayer(), game.getOpponentsForCurrent());
 	}
 
 }

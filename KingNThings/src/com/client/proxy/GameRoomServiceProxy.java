@@ -5,30 +5,39 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import com.google.gson.reflect.TypeToken;
 import com.model.GameRoom;
 import com.model.Player;
 import com.server.services.IGameRoomService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 
 public class GameRoomServiceProxy extends ProxyBase implements IGameRoomService {
 	
 	// Socket to use for communicating with server. Kept open
 	// for performance and simplicity.
-	public GameRoomServiceProxy(BufferedReader reader, PrintWriter writer) throws IOException {
-		super(reader, writer);
+//	public GameRoomServiceProxy(BufferedReader reader, PrintWriter writer) throws IOException {
+//		super(reader, writer);
+//	}
+	
+	
+	
+	public GameRoomServiceProxy(LinkedBlockingQueue<JSONRPC2Response> inputMessages,
+			LinkedBlockingQueue<JSONRPC2Request> outMessages) {
+		super(inputMessages, outMessages);
 	}
-	
-	
+
 	@Override
 	public GameRoom createGameRoom(String name, Player p) throws JSONRPC2Error {
 		return invokeOnServer("createGameRoom", GameRoom.class, name, p);
 	}
 	
 	@Override
-	public GameRoom refreshGameRoom(String name) throws JSONRPC2Error {
-		return invokeOnServer("refreshGameRoom", GameRoom.class, name);
+	public GameRoom getGameRoom(String name) throws JSONRPC2Error {
+		return invokeOnServer("getGameRoom", GameRoom.class, name);
 	}
 	
 	@Override

@@ -5,11 +5,12 @@
  */
 package com.view;
 
+import com.main.KNTAppFactory;
 import com.model.Die;
 import com.presenter.DicePresenter;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -20,9 +21,6 @@ import javafx.scene.layout.HBox;
  * @author kurtis
  */
 public class DiceView extends HBox {
-
-	private DicePresenter presenter;
-
 	private ImageView die1Iv;
 	private ImageView die2Iv;
 	private Button rollBtn;
@@ -30,18 +28,6 @@ public class DiceView extends HBox {
 
 	public DiceView() {
 		buildView();
-	}
-
-	public void setPresenter(final DicePresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
-		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
 	}
 
 	private void buildView() {
@@ -63,12 +49,12 @@ public class DiceView extends HBox {
 			
 		endTurnBtn = new Button("End Turn");
 		// Permanent handler
-		endTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent t) {
-				presenter.endTurn();
-			}
-		});
+//		endTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent t) {
+//
+//			}
+//		});
 		
 		// Add all controls
 		getChildren().addAll(die1Iv, die2Iv, rollBtn, endTurnBtn);
@@ -100,9 +86,4 @@ public class DiceView extends HBox {
 			getChildren().add(1, die2Iv);
 		}*/
 	}
-	
-	public DicePresenter getPresenter() {
-		return presenter;
-	}
-
 }

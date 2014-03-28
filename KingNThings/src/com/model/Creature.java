@@ -11,7 +11,7 @@ public abstract class Creature extends Thing	{
 	private boolean magic;
 	private int combatVal;
 	private int numberOfMovesAvailable;
-	private static final Map<String, Integer> combatVals;
+	private transient static final Map<String, Integer> combatVals;
 	
 	static	{
 		combatVals = new HashMap<>();
@@ -272,7 +272,9 @@ public abstract class Creature extends Thing	{
 		magicCreat.add("archmage");
 	}
 	
-	Creature(String name)	{
+	public Creature() {}
+	
+	public Creature(String name)	{
 		super(name);
 		setNumberOfMovesAvailable(4);
 		
@@ -302,7 +304,7 @@ public abstract class Creature extends Thing	{
 	public String getAbilitiesString(){
 		String abilities = "";
 	    
-	    if (getFly()) {
+	    if (isFlying()) {
 	    	abilities += " Flying";
 	    }
 	    if (isRanged()) {
@@ -332,7 +334,7 @@ public abstract class Creature extends Thing	{
 	public void setDomain(String dom)	{
 		this.domain = dom;
 	}
-	public boolean getFly()	{
+	public boolean isFlying()	{
 		return fly;
 	}
 	public void setFly(boolean bool){
@@ -369,7 +371,7 @@ public abstract class Creature extends Thing	{
 			Creature c = (Creature)obj;
 			
 			return super.equals(obj)
-					&& domain.equals(c.domain)
+					&& Objects.equals(domain, c.domain)
 					&& fly == c.fly
 					&& ranged == c.ranged
 					&& charge == c.charge

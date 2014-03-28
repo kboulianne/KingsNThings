@@ -1,27 +1,28 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.presenter.Util;
 
 public class Cup extends GamePiece {
-	private ArrayList<Thing> listOfThings;
-	private ArrayList<SpecialCharacter> listOfSpecialCharacters;
+	private List<Thing> listOfThings;
+	private List<SpecialCharacter> listOfSpecialCharacters;
 	
 	public Cup(){
 		listOfThings = new ArrayList<Thing>();
 		listOfSpecialCharacters = new ArrayList<SpecialCharacter>();
 	}
 	
-	public ArrayList<SpecialCharacter> getListOfSpecialCharacters() {
+	public List<SpecialCharacter> getListOfSpecialCharacters() {
 		return listOfSpecialCharacters;
 	}
 
-	public ArrayList<Thing> getListOfThings() {
+	public List<Thing> getListOfThings() {
 		return listOfThings;
 	}
 	
-	public void setListOfThings(ArrayList<Thing> listOfThings) {
+	public void setListOfThings(List<Thing> listOfThings) {
 		for(Thing t: listOfThings)
 			addThing(t);
 	}

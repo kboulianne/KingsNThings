@@ -6,8 +6,8 @@
 package com.presenter;
 
 
+import com.main.KNTAppFactory;
 import com.model.Thing;
-
 import com.view.ThingDetailsView;
 
 /**
@@ -23,7 +23,6 @@ public class ThingDetailsPresenter {
 	
 	public ThingDetailsPresenter(ThingDetailsView view){//, CreatureDetailsView cView) {
 		this.view = view;
-		this.view.setPresenter(this);
 		//this.cView = cView;
 		//this.cView.setPresenter(this);
 	}
@@ -34,11 +33,7 @@ public class ThingDetailsPresenter {
 	 * @return The ThingDetailsView to to be used for the specified Thing.
 	 */
 	ThingDetailsView getViewFor(Thing t) {
-		//if (t instanceof Creature) {
-			//return cView;
-		//} else {
-			return view;
-		//}
+		return view;
 	}
 	
 	public ThingDetailsView getThingView()	{	return view;	}
@@ -50,6 +45,6 @@ public class ThingDetailsPresenter {
 	 */
 	void showThing(Thing t) {
 		// Need to swap views according to Thing Type
-		getViewFor(t).setThing(t);
+		getViewFor(t).setThing(t, KNTAppFactory.getGamePresenter().getLocalInstance().getLastSelectedThingsOfCurrentPlayerBlock());
 	}
 }

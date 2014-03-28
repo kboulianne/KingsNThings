@@ -29,6 +29,14 @@ public class Board {
 		}
 	}
 	
+	/*
+	 * For gson.
+	 */
+	@SuppressWarnings("unused")
+	private Board() {
+		this(NumberOfHexes.THIRTY_SEVEN);
+	}
+	
 	public Board(NumberOfHexes nOH){
 	    faceDown = true;
 	    numOfHexes = nOH.numberOfHexes;
@@ -59,7 +67,7 @@ public class Board {
 		
 	    faceDown = b;
 	    for (Hex h:hexes)
-	    	h.setFaceDown(b);
+	    		h.setFaceDown(b);
 	    
 	}
 	public final boolean isFaceDown() {
@@ -72,7 +80,7 @@ public class Board {
 	
 	public void reset(){
 		for (Hex h:hexes){
-	    	h.setHighlighted(false);
+			h.setHighlighted(false);
 			h.setSelected(false);
 		}
 	}
@@ -86,7 +94,7 @@ public class Board {
 	public List<Hex> findConflictsFor(Player p) {
 		List<Hex> conflicts = new ArrayList<>();
 		
-		Map<Player, ArrayList<Creature>> armies = null;
+		Map<Player, List<Creature>> armies = null;
 		
 		for (Hex hex : hexes) {
 			// Get the armies and check size of key set to know if an

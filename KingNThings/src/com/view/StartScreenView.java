@@ -31,6 +31,13 @@ public class StartScreenView extends VBox {
 		Label playersName = new Label("Enter your Noble's name:");
 		final TextField textField = new TextField();
 		textField.setId("startTF");
+		textField.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				KNTAppFactory.getStartScreenPresenter().handlePlay(textField.getText());
+			}
+		});
 
 		Button startButton = new Button("Play");
 		startButton.setId("startButton");

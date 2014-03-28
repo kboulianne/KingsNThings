@@ -1,10 +1,13 @@
 package com.presenter;
 
-import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.main.NetworkedMain;
+import com.model.Game;
 import com.model.Player;
-import com.model.game.Game;
+import com.model.Thing;
+import com.model.Treasure;
 import com.view.PlayerInfoView;
+import com.view.customcontrols.ThingView;
 
 /**
  * Handles logic related to the player's name and rack.
@@ -18,11 +21,6 @@ public class PlayerInfoPresenter {
 
 	public PlayerInfoPresenter(PlayerInfoView view) {
 		this.view = view;
-		this.view.setPresenter(this);
-
-		// Update the ui.
-		Game game = GameService.getInstance().getGame();
-		view.setPlayer(game.getCurrentPlayer());
 	}
 
 	/**
@@ -55,8 +53,8 @@ public class PlayerInfoPresenter {
 	 * Pops up the information for the current player.
 	 */
 	public void showCurrentPlayerInfo() {
-		Player p = GameService.getInstance().getGame().getCurrentPlayer();
-		KNTAppFactory.getGamePresenter().showPlayerInfoPopup(p);
+		KNTAppFactory.getGamePresenter().showPlayerInfoPopup(NetworkedMain.getPlayer());
+
 	}
 
 	/**
@@ -64,5 +62,40 @@ public class PlayerInfoPresenter {
 	 */
 	public void dismissPopup() {
 		KNTAppFactory.getGamePresenter().dismissPopup();
+	}
+
+	public void handleExchangeThings(ThingView v, Thing thing) {
+		if(thing.isSelected()) {
+			KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange things by clicking the rack\n"
+				   + "     Exchange only once per thing", Game.CROWN_IMAGE);
+		} else {
+			Util.playClickSound();
+			
+			Game game = KNTAppFactory.getGamePresenter().getLocalInstance();
+			//TODO: This could become an RPC call on the server
+			Thing t = game.getCup().getRandomThing();
+			game.moveThingFromCupToPlayer(t, game.getCurrentPlayer());
+			KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
+			game.getCurrentPlayer().getBlock().removeThing(thing);
+			game.getCup().addThing(thing);
+			thing = t;
+			thing.setSelected(true);
+			thing.setFacedDown(false);
+			v.refreshView();
+		}
+	}
+
+	public void handleExchangeTreasures(ThingView thingView, Thing thing) {
+		Util.playClickSound();
+		Game game = KNTAppFactory.getGamePresenter().getLocalInstance();	
+
+		game.getCurrentPlayer().getBlock().removeThing(thing);
+		game.getCup().addThing(thing);
+		
+		game.getCurrentPlayer().addGold(((Treasure) thing).getValue());
+		KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(game.getCurrentPlayer());
+		KNTAppFactory.getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
+		thingView.refreshView();
+		
 	}
 }

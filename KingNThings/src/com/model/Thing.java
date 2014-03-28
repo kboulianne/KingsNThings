@@ -1,19 +1,23 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javafx.scene.paint.Color;
 
-
+// No longer abstract for GSON serialization.
 public abstract class Thing extends GamePiece	{
 	
 	private Color color;
 	private int hexLocation;
-	private boolean selected;
-	private boolean facedDown;
+	private transient boolean selected;
+	private transient boolean facedDown;
 	
-	Thing(String name)	{
+	// For GSON
+	public Thing() {}
+	
+	public Thing(String name)	{
 		super(name);
 		setOwner("Cup");
 		setHexLocation(-1);
@@ -22,7 +26,7 @@ public abstract class Thing extends GamePiece	{
 		selected = false;
 	}
 	
-	public static ArrayList<Thing> createThings()	{
+	public static List<Thing> createThings()	{
 		ArrayList<Thing> things = new ArrayList<Thing>();
 		
 		//Add swamp creatures

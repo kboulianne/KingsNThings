@@ -6,12 +6,13 @@
 package com.view;
 
 import com.view.customcontrols.ArmyOrMisc;
-import com.game.services.GameService;
+import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
-import com.model.game.Game;
 import com.presenter.HexDetailsPresenter;
+
 import java.util.List;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -23,9 +24,6 @@ import javafx.scene.layout.VBox;
  * @author kurtis
  */
 public class HexDetailsView extends StackPane {
-
-	// Presenter managing this view.
-	private HexDetailsPresenter presenter;
 
 	private ImageView hexImage;
 	private Label nameLbl;
@@ -78,22 +76,10 @@ public class HexDetailsView extends StackPane {
 		content.getStyleClass().add("block");
 	}
 
-	public void setPresenter(final HexDetailsPresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
-		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
-	}
-
-	public void setHex(Hex hex) {
+	public void setHex(Hex hex, Player current, List<Player> opponents) {
 	// update ui here.
 		if (hex != null) {
-			setArmies(hex.getId());
+			setArmies(hex, current, opponents);
 		
 			// Set the Hex Name
 			nameLbl.setText(hex.getTypeAsString());
@@ -108,22 +94,13 @@ public class HexDetailsView extends StackPane {
 		}
 	}
 	
-	private void setArmies(int hexId){
-		Game game = GameService.getInstance().getGame();
-		Hex hex = game.getBoard().getHexes().get(hexId);
-		// Doing this is a glitch in our case since the game instance is shared amongst 4 players. This means that
-		// At any point, one of the getOpponents will be equal to current player, therefore, displaying the same
-		// armies for opponents and current player.
-		
-		// TODO will crash for 2-3 players
-		// Use player order to determine opponents.
-		List<Player> opponents = game.getOpponentsForCurrent();
-		
+	private void setArmies(Hex hex, Player current, List<Player> opponents){
+//		// TODO will crash for 2-3 players
 		opp1Army.setArmy(hex, opponents.get(0), hex.getArmies(opponents.get(0)));
 		opp2Army.setArmy(hex, opponents.get(1), hex.getArmies(opponents.get(1)));
 		opp3Army.setArmy(hex, opponents.get(2), hex.getArmies(opponents.get(2)));
-		currentPlayerArmy.setArmy(hex, game.getCurrentPlayer(), hex.getArmies(game.getCurrentPlayer()));
-		
+		currentPlayerArmy.setArmy(hex, current, hex.getArmies(current));
+
 		counter.setIncomeCounter(hex, hex.getCounter());
 	}
 

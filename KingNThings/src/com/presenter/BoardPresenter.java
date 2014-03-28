@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.game.services.GameService;
+import com.game.phase.init.ExchangePhase;
 import com.main.KNTAppFactory;
+import com.main.NetworkedMain;
 import com.model.Battle;
 import com.model.Board;
 import com.model.Creature;
 import com.model.Fort;
+import com.model.Game;
 import com.model.Hex;
 import com.model.IncomeCounter;
 import com.model.MagicItem;
 import com.model.Player;
 import com.model.Thing;
 import com.model.Treasure;
-import com.model.game.Game;
-import com.model.game.phase.GamePlay;
-import com.model.game.phase.init.ExchangePhase;
+import com.server.services.IGameService;
 import com.view.BoardView;
 
 /**
@@ -29,28 +29,28 @@ public class BoardPresenter {
 
 	private final BoardView view;
 
-	// Usually BoardService, but ok for our purposes. We will see in IT2
-	private final GameService svc;
+//	private final IGameService gameSvc;
 	// Ui Models
 	private boolean movingArmy;
 	private int lastHexSelected = -1;
 
 	public BoardPresenter(BoardView view) {
 		this.view = view;
-		this.view.setPresenter(this);
+//		gameSvc = svc;
 		movingArmy = false;
 
-		// Set initial model (usually uses a service.
-		svc = GameService.getInstance();
-		Game game = svc.getGame();
-
-		view.setBoard(game.getBoard());
+//
+//		view.setBoard(game.getBoard());
 	}
 
 	public BoardView getView() {
 		return view;
 	}
 
+	private Game getGame() {
+		// Use local instance.
+		return KNTAppFactory.getGamePresenter().getLocalInstance();
+	}
 	
 	/**
 	 * Default logic to execute when clicking a Hex tile.
@@ -60,7 +60,7 @@ public class BoardPresenter {
 		Util.playHexClickSound();
 		// Only need service to fetch board.
 		// TODO create GameService#selectHex(...)?
-		Board b = svc.getGame().getBoard();
+		Board b = getGame().getBoard();
 
 		// undo last selection.
 		if (lastHexSelected > -1) {
@@ -81,10 +81,10 @@ public class BoardPresenter {
 	 * @param selected The index of the selected hex in the list.
 	 */
 	public void handleStartingTowerHexClick(int selected) {
-		
-		Board b = svc.getGame().getBoard();
+		Game game = getGame();
+		Board b = game.getBoard();
 		Hex hex = b.getHexes().get(selected);
-		Player current = svc.getGame().getCurrentPlayer();
+		Player current = game.getCurrentPlayer();
 		
 		// Make sure the selected hex's own is the current player
 		if (hex.getHexOwner() != null && hex.getHexOwner().equals(current)) {
@@ -93,7 +93,9 @@ public class BoardPresenter {
 			// Update view
 			view.setBoard(b);
 			
-			GamePlay.getInstance().endTurn();
+			KNTAppFactory.getGamePresenter().endTurn();
+//			GamePlay.getInstance().endTurn();
+//			KNTAppFactory.getGamePlay().endTurn();
 		}
 	}
 	
@@ -103,10 +105,10 @@ public class BoardPresenter {
 	 * @param selected The index of the selected hex in the list.
 	 */
 	public void handleStartingKingdomsHexClick(int selected) {
-		
-		Board b = svc.getGame().getBoard();
+		Game game = getGame();
+		Board b = game.getBoard();
 		Hex hex = b.getHexes().get(selected);
-		Player current = svc.getGame().getCurrentPlayer();
+		Player current = game.getCurrentPlayer();
 		
 		// Make sure the selected hex is unowned, adjacent to the current player's starting position
 		// and not adjacent to an opponent's tile.
@@ -146,7 +148,9 @@ public class BoardPresenter {
 				
 				
 				view.setBoard(b);
-				GamePlay.getInstance().endTurn();
+//				GamePlay.getInstance().endTurn();
+//				KNTAppFactory.getGamePlay().endTurn();
+				KNTAppFactory.getGamePresenter().endTurn();
 			}
 		}
 	}
@@ -156,13 +160,13 @@ public class BoardPresenter {
 	 * @param selected The index of the selected hex in the list.
 	 */
 	public void handleStartPositionSelectedHexClick(int selected) {
-		
-		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
+		Game game = getGame();
+		Hex hex = game.getBoard().getHexes().get(selected);
 		
 		if(hex.getHexOwner() == null)	{
 			Util.playHexClickSound();
 			if(hex.getType() == Hex.HexType.SEA)	{
-				List<Hex> hexes = svc.getGame().getHexPool();
+				List<Hex> hexes = game.getHexPool();
 				HexFactory fact = new HexFactory();
 				Random rnd = new Random();
 				int rand = 0;
@@ -173,26 +177,28 @@ public class BoardPresenter {
 				    hexes.add(fact.createHex(0, hex.getType()));
 				    hex = hexes.remove(rand);
 				    hex.setId(selected, Board.NumberOfHexes.THIRTY_SEVEN);
-				    svc.getGame().getBoard().replaceHex(hex);
+				    game.getBoard().replaceHex(hex);
 				    hex.setStartPosition(true);
 				    hex.setFaceDown(true);
 				}
 			}
 			
-			hex = svc.getGame().getBoard().getHexes().get(selected);
-			hex.setOwner(GameService.getInstance().getGame().getCurrentPlayer());
-			GameService.getInstance().getGame().getCurrentPlayer().setStartPos(hex);
+			hex = game.getBoard().getHexes().get(selected);
+			hex.setOwner(game.getCurrentPlayer());
+			game.getCurrentPlayer().setStartPos(hex);
 			
-			view.setBoard(svc.getGame().getBoard());
+			view.setBoard(game.getBoard());
 			
 			int count = 0;
 			for(int i=0; i<hex.getJoiningHexes().length; i++)	{
 				if(hex.getJoiningHexes()[i] == -1)	continue;
 				
-				Hex curr = svc.getGame().getBoard().getHexes().get(hex.getJoiningHexes()[i]);
+				Hex curr = game.getBoard().getHexes().get(hex.getJoiningHexes()[i]);
 				if(curr.getType() != Hex.HexType.SEA)	count++;
 				if(count >= 2)	{
-					GamePlay.getInstance().endTurn();
+//					GamePlay.getInstance().endTurn();
+//					KNTAppFactory.getGamePlay().endTurn();
+					KNTAppFactory.getGamePresenter().endTurn();
 					break;
 				}
 			}
@@ -202,10 +208,10 @@ public class BoardPresenter {
 				for(int i=0; i<hex.getJoiningHexes().length; i++)	{
 					if(hex.getJoiningHexes()[i] == -1)	continue;
 					
-					svc.getGame().getBoard().getHexes().get(hex.getJoiningHexes()[i]).setFaceDown(false);
+					game.getBoard().getHexes().get(hex.getJoiningHexes()[i]).setFaceDown(false);
 				}
 				
-				view.setBoard(svc.getGame().getBoard());
+				view.setBoard(game.getBoard());
 				KNTAppFactory.getBoardPresenter().getView().addHexExchangeHandler();
 				KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Exchange neighbouring sea tiles", Game.START_HEX_IMAGE);
 			}
@@ -214,14 +220,15 @@ public class BoardPresenter {
 	
 	public void handleHexExchangeClick(int selected)	{
 		Util.playHexClickSound();
-		Player currPlayer = GameService.getInstance().getGame().getCurrentPlayer();
-		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
+		Game game = getGame();
+		Player currPlayer = game.getCurrentPlayer();
+		Hex hex = game.getBoard().getHexes().get(selected);
 		boolean neighbour = false;
 		
 		for(int i=0; i<currPlayer.getStartPos().getJoiningHexes().length; i++)	{
 			if(currPlayer.getStartPos().getJoiningHexes()[i] == -1)	continue;
 			
-			Hex curr = svc.getGame().getBoard().getHexes().get(currPlayer.getStartPos().getJoiningHexes()[i]);
+			Hex curr = game.getBoard().getHexes().get(currPlayer.getStartPos().getJoiningHexes()[i]);
 			if(curr == hex)	{
 				neighbour = true;
 				break;
@@ -231,7 +238,7 @@ public class BoardPresenter {
 		if(!neighbour)	return;
 		
 		if(hex.getType() == Hex.HexType.SEA)	{
-			List<Hex> hexes = svc.getGame().getHexPool();
+			List<Hex> hexes = game.getHexPool();
 			HexFactory fact = new HexFactory();
 			Random rnd = new Random();
 			int rand = 0;			
@@ -242,11 +249,11 @@ public class BoardPresenter {
 			    hexes.add(fact.createHex(0, hex.getType()));
 			    hex = hexes.remove(rand);
 			    hex.setId(selected, Board.NumberOfHexes.THIRTY_SEVEN);
-			    svc.getGame().getBoard().replaceHex(hex);
+			    game.getBoard().replaceHex(hex);
 			}
 		}
 		
-		view.setBoard(svc.getGame().getBoard());
+		view.setBoard(game.getBoard());
 		
 		int count = 0;
 		Hex startPos = currPlayer.getStartPos();
@@ -254,10 +261,11 @@ public class BoardPresenter {
 		for(int i=0; i<startPos.getJoiningHexes().length; i++)	{
 			if(startPos.getJoiningHexes()[i] == -1)	continue;
 			
-			Hex curr = svc.getGame().getBoard().getHexes().get(startPos.getJoiningHexes()[i]);
+			Hex curr = game.getBoard().getHexes().get(startPos.getJoiningHexes()[i]);
 			if(curr.getType() != Hex.HexType.SEA)	count++;
 			if(count >= 2)	{
-				GamePlay.getInstance().endTurn();
+//				GamePlay.getInstance().endTurn();
+//				KNTAppFactory.getGamePlay().endTurn();
 				return;
 			}
 		}
@@ -268,13 +276,13 @@ public class BoardPresenter {
 	 * @param selected The index of the selected hex in the list.
 	 */
 	public void handleMovementSelectedHexClick(int selected) {
-		
-		Hex hex = svc.getGame().getBoard().getHexes().get(selected);
+		Game game = getGame();
+		Hex hex = game.getBoard().getHexes().get(selected);
 		
 		if(hex.isHighlighted())	{
 			Util.playHexClickSound();
-			Hex lastSelected = svc.getGame().getBoard().getHexes().get(lastHexSelected);
-			Player currentPlayer = svc.getGame().getCurrentPlayer();
+			Hex lastSelected = game.getBoard().getHexes().get(lastHexSelected);
+			Player currentPlayer = game.getCurrentPlayer();
 			if(movingArmy)	{ // move whole army
 				List<Creature> army = KNTAppFactory.getArmyDetailsPresenter().getView().getLastSelectedArmy();
 
@@ -290,7 +298,7 @@ public class BoardPresenter {
 				
 				movingArmy = false;
 			} else { 
-				ArrayList<Thing> things = svc.getGame().getLastSelectedThingsOfCurrentPlayerHex();
+				List<Thing> things = game.getLastSelectedThingsOfCurrentPlayerHex();
 				if(things.isEmpty())
 					return;
 
@@ -309,17 +317,17 @@ public class BoardPresenter {
 			
 			// Hex is unexplored, skip explore logic and claim it for DEMO
 			if (hex.getHexOwner() == null) {
-				hex.setOwner(svc.getGame().getCurrentPlayer());
+				hex.setOwner(game.getCurrentPlayer());
 				System.out.println("Player claimed tile after exploring.");
 			}
 			
-			view.setBoard(svc.getGame().getBoard());
+			view.setBoard(game.getBoard());
 		}
 		
 		
 		
 		// TOOD add setAllHighlighted(boolean)
-		for(Hex h: svc.getGame().getBoard().getHexes()){
+		for(Hex h: game.getBoard().getHexes()){
 			h.setHighlighted(false);
 		}
 		handleHexClick(selected);
@@ -330,12 +338,12 @@ public class BoardPresenter {
 	 * @param selected The index of the selected hex in the list.
 	 */
 	public void handlePlacementSelectedHexClick(int selected) {
+		Game game = getGame();
+		Hex h = game.getBoard().getHexes().get(selected);
+		Player player = game.getCurrentPlayer();
+		List<Thing> listOfThings = game.getLastSelectedThingsOfCurrentPlayerBlock();
 		
-		Hex h = svc.getGame().getBoard().getHexes().get(selected);
-		Player player = svc.getGame().getCurrentPlayer();
-		ArrayList<Thing> listOfThings = svc.getGame().getLastSelectedThingsOfCurrentPlayerBlock();
-		
-		if(h.getHexOwner() == player)	{
+		if(h.getHexOwner().equals(player))	{
 			Util.playHexClickSound();
 			for(Thing t: listOfThings)	{
 				if(t.getHexLocation() == -1)	{
@@ -354,20 +362,22 @@ public class BoardPresenter {
 				}
 				player.removeThing(t);
 				t.setHexLocation(selected);
-				view.setBoard(svc.getGame().getBoard());
+				view.setBoard(game.getBoard());
 			}
-			if(GamePlay.getInstance().getPhaseLogic() instanceof ExchangePhase)
+			//TODO: Is there a better way to do this?
+			if(KNTAppFactory.getGamePlay().getPhaseLogic() instanceof ExchangePhase)
 				KNTAppFactory.getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(player);
 			else
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+			
 			KNTAppFactory.getSidePanePresenter().showHexDetailsFor(h);
 		}
 	}
 	
 	public void handleConstructionHexClick(int selected) {
-		
-		Hex h = svc.getGame().getBoard().getHexes().get(selected);
-		Player player = svc.getGame().getCurrentPlayer();
+		Game game = getGame();
+		Hex h = game.getBoard().getHexes().get(selected);
+		Player player = game.getCurrentPlayer();
 		
 		if(h.getHexOwner() != player)	return;
 		Util.playHexClickSound();
@@ -376,6 +386,7 @@ public class BoardPresenter {
 
 	public void handleMoveSetupForThing(Thing t) {
 		Util.playHexClickSound();
+		Game game = getGame();
 		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
 		
 		int availableMovesForSelectedThing = 4;
@@ -383,20 +394,22 @@ public class BoardPresenter {
 		
 		calculateMovementWeight(lastHexSelected, availableMovesForSelectedThing, moveableHexIdList);
 
-		view.setBoard(svc.getGame().getBoard());
+		view.setBoard(game.getBoard());
 	}
 	
 	public void handleMoveSetupForArmy() {
 		Util.playHexClickSound();
+		Game game = getGame();
 		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
 		//set to 4 for now
 		calculateMovementWeight(lastHexSelected, 4, moveableHexIdList);
-		view.setBoard(svc.getGame().getBoard());
+		view.setBoard(game.getBoard());
 		movingArmy = true;
 	}
 
 	private void calculateMovementWeight(int hexId, int availableMovesForSelectedThing, ArrayList<Integer> calculated) {
-		Hex hex = svc.getGame().getBoard().getHexes().get(hexId);
+		Game game = getGame();
+		Hex hex = game.getBoard().getHexes().get(hexId);
 
 		ArrayList<Integer> checkedList = new ArrayList<>();
 		ArrayList<Integer> uncheckedList = new ArrayList<>();
@@ -421,9 +434,9 @@ public class BoardPresenter {
 		} else {
 			for (int j : checkedList) {
 				if (minValue == -1) {
-					minValue = svc.getGame().getBoard().getHexes().get(j).getMovementWeight();
-				} else if (svc.getGame().getBoard().getHexes().get(j).getMovementWeight() < minValue) {
-					minValue = svc.getGame().getBoard().getHexes().get(j).getMovementWeight();
+					minValue = game.getBoard().getHexes().get(j).getMovementWeight();
+				} else if (game.getBoard().getHexes().get(j).getMovementWeight() < minValue) {
+					minValue = game.getBoard().getHexes().get(j).getMovementWeight();
 				}
 			}
 		}
@@ -462,8 +475,9 @@ public class BoardPresenter {
 	 * Highlights and sets hexes in conflict. 
 	 */
 	public void findAndHighlightConflicts() {
-		Board board = svc.getGame().getBoard();
-		Player current = svc.getGame().getCurrentPlayer();
+		Game game = getGame();
+		Board board = game.getBoard();
+		Player current = game.getCurrentPlayer();
 		
 		List<Hex> conflicts = board.findConflictsFor(current);
 		
@@ -475,7 +489,8 @@ public class BoardPresenter {
 		view.setBoard(board);
 	}
 	public void clearConflictHighlights() {
-		Board board = svc.getGame().getBoard();
+		Game game = getGame();
+		Board board = game.getBoard();
 		for (Hex h : board.getHexes()) {
 			h.setConflict(false);
 		}		
@@ -484,9 +499,9 @@ public class BoardPresenter {
 	}
 	
 	public void handleBattleSelectionHex(int selected) {
-		
-		Board b = svc.getGame().getBoard();
-		Player current = svc.getGame().getCurrentPlayer();
+		Game game = getGame();
+		Board b = game.getBoard();
+		Player current = game.getCurrentPlayer();
 		Player defender = null;
 		Hex hex = b.getHexes().get(selected);
 		

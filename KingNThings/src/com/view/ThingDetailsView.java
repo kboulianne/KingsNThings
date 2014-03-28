@@ -5,7 +5,8 @@
  */
 package com.view;
 
-import com.game.services.GameService;
+import java.util.List;
+
 import com.model.Creature;
 import com.model.Fort;
 import com.model.IncomeCounter;
@@ -70,9 +71,10 @@ public class ThingDetailsView extends VBox {
 		testLbl = new Label();
 	}
 
-	public void setThing(final Thing thing) {
+	public void setThing(final Thing thing, List<Thing> lastSelected) {
+//		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
 		if (thing != null) {
-
+//
 			if(thing.isFacedDown()){
 				thingNameLbl.setText("UNKNOWN");
 				ThingView tv =new ThingView(260, thing);
@@ -94,7 +96,7 @@ public class ThingDetailsView extends VBox {
 				type = "Fort";
 			}
 
-			ThingView tv =new ThingView(260, thing);
+			ThingView tv = new ThingView(260, thing);
 
 			thingNameLbl.setText(thing.getName().toUpperCase());
 			typeLbl.setText("Type: " + type);
@@ -105,7 +107,7 @@ public class ThingDetailsView extends VBox {
 			    testLbl.setText("Available Moves: "+ c.getNumberOfMovesAvailable());
 			    combatLbl.setText("Combat Value: " + c.getCombatVal());
 			    specialAbilitiesLbl.setText("Abilities: " + c.getAbilitiesString());
-				GameService.getInstance().getGame().getLastSelectedThingsOfCurrentPlayerBlock().add(c);
+			    lastSelected.add(c);
 				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl, testLbl);
 			}else{
 				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl);

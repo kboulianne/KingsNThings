@@ -6,9 +6,9 @@
 package com.view;
 
 import com.model.Board;
+import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
-import com.model.game.Game;
 import com.presenter.BoardPresenter;
 import com.presenter.Util;
 
@@ -22,14 +22,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-
+import static com.main.KNTAppFactory.*;
 /**
  *
  * @author kurtis
  */
 public class BoardView extends Canvas {
-
-	private BoardPresenter presenter;
 
 	// TODO Duplicated in SidePane. Create HexView?
 	private static final double HEX_WIDTH = 100.0;
@@ -54,18 +52,6 @@ public class BoardView extends Canvas {
 		super(1280 * 0.5 - 10, HEX_HEIGHT * 7.2);
 		buildView();
 		addDefaultHandler();
-	}
-
-	public void setPresenter(final BoardPresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
-		}
-
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-
-		this.presenter = presenter;
 	}
 
 	private void buildView() {
@@ -95,7 +81,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-							presenter.handleHexClick(i);
+							getBoardPresenter().handleHexClick(i);
 						break;
 					}
 				}
@@ -119,7 +105,7 @@ public class BoardView extends Canvas {
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
 						if(startPositions.contains(i))
-							presenter.handleStartPositionSelectedHexClick(i);
+							getBoardPresenter().handleStartPositionSelectedHexClick(i);
 						break;
 					}
 				}
@@ -138,7 +124,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-							presenter.handleHexExchangeClick(i);
+							getBoardPresenter().handleHexExchangeClick(i);
 						break;
 					}
 				}
@@ -157,7 +143,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-							presenter.handleStartingKingdomsHexClick(i);
+							getBoardPresenter().handleStartingKingdomsHexClick(i);
 						break;
 					}
 				}
@@ -177,7 +163,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-							presenter.handleStartingTowerHexClick(i);
+							getBoardPresenter().handleStartingTowerHexClick(i);
 						break;
 					}
 				}
@@ -198,7 +184,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-						presenter.handleMovementSelectedHexClick(i);
+							getBoardPresenter().handleMovementSelectedHexClick(i);
 						break;
 					}
 				}
@@ -219,7 +205,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-						presenter.handlePlacementSelectedHexClick(i);
+						getBoardPresenter().handlePlacementSelectedHexClick(i);
 						break;
 					}
 				}
@@ -238,7 +224,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-						presenter.handleConstructionHexClick(i);
+						getBoardPresenter().handleConstructionHexClick(i);
 						break;
 					}
 				}
@@ -259,8 +245,7 @@ public class BoardView extends Canvas {
 					if (Util.distanceBtwTwoPts(
 							clickPtX, clickPtY,
 							hexCenterPoints[i][0], hexCenterPoints[i][1]) < HEX_WIDTH * 0.30) {
-//						presenter.handlePlacementSelectedHexClick(i);
-						presenter.handleBattleSelectionHex(i);
+						getBoardPresenter().handleBattleSelectionHex(i);
 						break;
 					}
 				}
@@ -356,6 +341,7 @@ public class BoardView extends Canvas {
 		gc.setFill(Color.LIGHTGREY);
 		double ovalsXOffset = xOffset+27;
 		double ovalsYOffset = yOffset+55;
+
 		Iterator<Player> it = hex.getArmies().keySet().iterator();
 		double factor = 0.0;
 		while(it.hasNext()) {
@@ -403,6 +389,8 @@ public class BoardView extends Canvas {
 	 * @param board The board to display.
 	 */
 	public void setBoard(Board board) {
+		if (board == null) return;
+		
 		List<Hex> hexes = board.getHexes();
 		for (Hex h : hexes) {
 			paintHex(h);

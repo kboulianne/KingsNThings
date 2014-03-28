@@ -3,14 +3,17 @@ package com.model;
 import java.util.Objects;
 import javafx.scene.image.Image;
 
-abstract class GamePiece {
-	private Image image;
+public abstract class GamePiece {
+	// Do not serialize the image, let serializer/deserializer handle this as directory string.
+	//TODO: Server now has image instances which does not make sense.
+	private transient Image image;
+	private String imageDirectory;
 	private String name;
 	private String owner;
 	
-	public GamePiece()	{	}
+	public GamePiece()	{}
 	
-	GamePiece(String name)	{
+	public GamePiece(String name)	{
 	    setName(name);
 	}
 	
@@ -22,10 +25,19 @@ abstract class GamePiece {
 		name = n;
 	}
 	public void setImage(String directory) {
-		image = new Image(directory);
+		this.imageDirectory = directory;
+		// Null the image so it gets recreated lazily when getImage is called.
+		image = null;		
+//		image = new Image(directory);
 	}
+	
 	public Image getImage() {
-	    return image;
+	    // Create the image instance if null.
+		if (image == null) {
+			image = new Image(imageDirectory);
+		}
+		
+		return image;
 	}
 
 	public String getOwner() {
@@ -41,7 +53,7 @@ abstract class GamePiece {
 		if (obj instanceof GamePiece) {
 			GamePiece gp = (GamePiece)obj;
 			
-			return image.equals(gp.image)
+			return Objects.equals(image, gp.image)
 					&& name.equals(gp.name)
 					&& owner.equals(gp.owner);
 		}
