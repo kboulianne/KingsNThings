@@ -63,7 +63,7 @@ public class DicePresenter {
 		
 		view.setDice(die1, die2);
 		
-		KNTAppFactory.getGamePresenter().updateView();
+		KNTAppFactory.getGamePresenter().updateViews();
 		int[] dieRolls = new int[2];
 		dieRolls[0] = die1.getValue();
 		dieRolls[1] = die2.getValue();
