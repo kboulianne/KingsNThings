@@ -21,7 +21,7 @@ public class Battle {
 	private int offHits;
 	 
 	// Splits creatures according to phases
-	private Map<BattlePhase, List<Creature>> attackingForces;
+	private Map<BattlePhase, List<Creature>> offendingForces;
 	private Map<BattlePhase, List<Creature>> defendingForces;
 	
 	private BattlePhase battlePhase;
@@ -50,7 +50,7 @@ public class Battle {
 		offHits=0;
 		defenderFort = hex.getFort();
 		
-		attackingForces = splitCreatures(hex.getArmies(offender));
+		offendingForces = splitCreatures(hex.getArmies(offender));
 		defendingForces = splitCreatures(hex.getArmies(defender));
 		
 		setUnExploredHex(false);
@@ -85,7 +85,7 @@ public class Battle {
 		return forces;
 	}
 
-	public void killAttackerCreature(Creature c) {
+	public void killOffenderCreature(Creature c) {
 		// remove from hex, and from map
 		associatedHex.getArmies(offender).remove(c);
 		
@@ -99,7 +99,7 @@ public class Battle {
 		else if (!c.isRanged() && !c.isMagic()) { // MELEE
 			phase = BattlePhase.MELEE;
 		}
-		attackingForces.get(phase).remove(c);
+		offendingForces.get(phase).remove(c);
 	}
 	
 	public void killDefenderCreature(Creature c) {
@@ -123,15 +123,15 @@ public class Battle {
 		//boolean att, def;
 		
 		// Forced to retreat
-		if (attackingForces.get(BattlePhase.MAGIC).isEmpty()
-				&& attackingForces.get(BattlePhase.RANGED).isEmpty()
-				&& attackingForces.get(BattlePhase.MELEE).isEmpty())
+		if (offendingForces.get(BattlePhase.MAGIC).isEmpty()
+				&& offendingForces.get(BattlePhase.RANGED).isEmpty()
+				&& offendingForces.get(BattlePhase.MELEE).isEmpty())
 			return true;
 		
 		return false;
 	}
 	
-	public boolean isAttackerEliminated() { // Eliminated if no troops left in the hex.
+	public boolean isOffenderEliminated() { // Eliminated if no troops left in the hex.
 		return associatedHex.getArmies(offender).isEmpty(); 
 	}
 	
@@ -184,7 +184,7 @@ public class Battle {
 	public Player getDefender() {
 		return defender;
 	}
-	public List<Creature> getAttackerCreatures() {
+	public List<Creature> getOffenderCreatures() {
 		return associatedHex.getArmies(offender);
 	}
 	public List<Creature> getDefenderCreatures() {
@@ -195,8 +195,8 @@ public class Battle {
 	 * Gets the attacker's creatures for the specified phase.
 	 * @return The list of creatures.
 	 */
-	public List<Creature> getAttackerCreaturesForPhase() {
-		return attackingForces.get(battlePhase);
+	public List<Creature> getOffenderCreaturesForPhase() {
+		return offendingForces.get(battlePhase);
 	}	
 	/**
 	 * Gets the defender's creatures for the specified phase.
