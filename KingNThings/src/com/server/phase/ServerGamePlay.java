@@ -18,7 +18,7 @@ public final class ServerGamePlay {
 //	private Game game;
 	private IServerPhaseStrategy phase;
 	// These are unique, put in set
-	private Set<IServerPhaseStrategy> phases;
+	private LinkedHashSet<IServerPhaseStrategy> phases;
 	private Iterator<IServerPhaseStrategy> phaseIt;
 	protected ServerGameRoom room;
 	
@@ -26,19 +26,23 @@ public final class ServerGamePlay {
 		this.room = room;
 		phases = new LinkedHashSet<>();
 		
-		phases.add(new ServerPlayerOrderPhase(this));
-		phases.add(new ServerStartingPosPhase(this));
-		phases.add(new ServerStartingKingdomPhase(this));
-		phases.add(new ServerNOOPPhase(this));
-		phases.add(new ServerStartingForcesPhase(this));
-		phases.add(new ServerNOOPPhase(this));
+		phases.add(new ServerPlayerOrderPhase(this));		// PlayerOrderPhase
+		phases.add(new ServerStartingPosPhase(this));		// StartingPosPhase
+		phases.add(new ServerStartingKingdomPhase(this));	// StartingKingdomPhase
+		phases.add(new ServerNOOPPhase(this));				// StartingTowerPhase
+		phases.add(new ServerStartingForcesPhase(this));	// StartingForcesPhase
+		phases.add(new ServerNOOPPhase(this));				// ExchangePhase
 		
-//		phases.add(new ServerNOOPPhase(this));
-//		phases.add(new ServerStartingPosPhase(this));
-//		phases.add(new ServerNOOPPhase(this));
-//		phases.add(new ServerNOOPPhase(this));
-//		phases.add(new ServerStartingForcesPhase(this));
-//		phases.add(new ServerNOOPPhase(this));
+		// Game Phases
+		phases.add(new ServerNOOPPhase(this));				// GoldCollectPhase
+		phases.add(new ServerNOOPPhase(this));				// RecruitCharPhase
+		phases.add(new ServerNOOPPhase(this));				// RecruitThingsPhase
+		phases.add(new ServerNOOPPhase(this));				// RandomEventsPhase
+		phases.add(new ServerNOOPPhase(this));				// MovementPhase
+		phases.add(new ServerNOOPPhase(this));				// CombatPhase
+		phases.add(new ServerNOOPPhase(this));				// ConstructionPhase
+		phases.add(new ServerNOOPPhase(this));				// SpecialPowersPhase
+		phases.add(new ServerNOOPPhase(this));				// ChangePlayerOrderPhase
 		
 		phaseIt = phases.iterator();
 	}
@@ -68,13 +72,22 @@ public final class ServerGamePlay {
 	}
 	
 	private final void nextPhase() {
-		// Stay in NOOP for now until we need more phases. Eventually phases should contain the same number of phases as client's
-		// GamePlay
+		// Cycle phases and loop back to gold collection
 		if (phaseIt.hasNext()) {
 			phase = phaseIt.next();
 			phase.phaseStart();
 		}
-//		room.getGame().nextPlayer();
+		else {
+			// End of phases, reset.
+			phaseIt = phases.iterator();
+			
+			// Advance the iterator to gold collection.
+			int i = 0;
+			while (i <= 6) {
+				phaseIt.next();
+				i++;
+			}
+		}
 		
 		// TODO: Notify clients of phase change. 
 		notifyAllClients(room, Notifications.PHASE_ENDED);

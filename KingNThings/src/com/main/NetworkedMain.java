@@ -39,7 +39,7 @@ public class NetworkedMain extends Application {
     	}
     	
     	// Defaults to localhost and default port if not present.
-    	KNTAppFactory.initClient(host, port);
+    	KNTAppFactory.init(host, port);
     	
     	final StartScreenPresenter start = KNTAppFactory.getStartScreenPresenter();
     	

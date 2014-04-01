@@ -39,20 +39,20 @@ import com.view.ThingDetailsView;
  */
 public class KNTAppFactory {
 
-	private static final StartScreenPresenter startScreenPresenter;
-	private static final LobbyPresenter lobbyPresenter;
-	private static final GameRoomPresenter gameRoomPresenter;
-	private static final GamePresenter gamePresenter;
-	private static final DicePresenter dicePresenter;
-	private static final SidePanePresenter sidePanePresenter;
-	private static final BoardPresenter boardPresenter;
-	private static final HexDetailsPresenter hexDetailsPresenter;
-	private static final ThingDetailsPresenter thingDetailsPresenter;
-	private static final ArmyDetailsPresenter armyDetailsPresenter;
-	private static final PlayerInfoPresenter playerInfoPresenter;
-	private static final PopupPresenter popupPresenter;
-	private static final BattlePresenter battlePresenter;
-	private static final SpecialCharacterPresenter specialCharacterPresenter; 
+	private static StartScreenPresenter startScreenPresenter;
+	private static LobbyPresenter lobbyPresenter;
+	private static GameRoomPresenter gameRoomPresenter;
+	private static GamePresenter gamePresenter;
+	private static DicePresenter dicePresenter;
+	private static SidePanePresenter sidePanePresenter;
+	private static BoardPresenter boardPresenter;
+	private static HexDetailsPresenter hexDetailsPresenter;
+	private static ThingDetailsPresenter thingDetailsPresenter;
+	private static ArmyDetailsPresenter armyDetailsPresenter;
+	private static PlayerInfoPresenter playerInfoPresenter;
+	private static PopupPresenter popupPresenter;
+	private static BattlePresenter battlePresenter;
+	private static SpecialCharacterPresenter specialCharacterPresenter; 
 
 	// Game logic
 	private static GamePlay gamePlay;
@@ -64,8 +64,18 @@ public class KNTAppFactory {
 //		CLIENT = new KNTClient("localhost", 6868);
 		
     		
-    		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
-    		startScreenPresenter = createStartScreenPresenter();
+
+	}
+
+	private KNTAppFactory() {
+	}
+	
+	public static void init(String host, Integer port) {
+		if (CLIENT == null)
+			CLIENT = new KNTClient(host, port);
+		
+		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
+		startScreenPresenter = createStartScreenPresenter();
 		lobbyPresenter = createLobbyPresenter();
 		gameRoomPresenter = createGameRoomPresenter();
 		gamePresenter = createMainPresenter();
@@ -81,14 +91,6 @@ public class KNTAppFactory {
 		specialCharacterPresenter = createSpecialCharacterPresenter();
 		// Done initializing
 		gamePresenter.setupSubViews();
-	}
-
-	private KNTAppFactory() {
-	}
-	
-	public static void initClient(String host, Integer port) {
-		if (CLIENT == null)
-			CLIENT = new KNTClient("localhost", port);
 	}
 
 	private static StartScreenPresenter createStartScreenPresenter() {

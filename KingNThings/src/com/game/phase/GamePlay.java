@@ -5,27 +5,14 @@
  */
 package com.game.phase;
 
-import static com.main.KNTAppFactory.getGamePresenter;
-
-import com.presenter.Util;
-import com.server.services.IGameService;
-import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
-
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
 import com.game.phase.init.ExchangePhase;
 import com.game.phase.init.PlayerOrderPhase;
 import com.game.phase.init.StartingForcesPhase;
 import com.game.phase.init.StartingKingdomPhase;
 import com.game.phase.init.StartingPosPhase;
 import com.game.phase.init.StartingTowerPhase;
-import com.main.NetworkedMain;
-import com.model.Game;
-import com.model.Player;
 
 /**
  * The Context class in the Strategy Pattern. This is the Game's "Behaviour" or
@@ -52,10 +39,8 @@ public final class GamePlay {
 	 * Creates a new, default instance of the game logic.
 	 */
 	public GamePlay() {
-//		this.gameSvc = gameSvc;
 		initPhases = new LinkedHashSet<>();
 		gamePhases = new LinkedHashSet<>();
-//		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
 
 		createInitPhases();
 		createGamePhases();
@@ -74,7 +59,6 @@ public final class GamePlay {
 
 		// Set current phase logic/strategy
 		phaseIt = initPhases.iterator();
-//		phaseLogic = phaseIt.next();
 	}
 
 	/**
