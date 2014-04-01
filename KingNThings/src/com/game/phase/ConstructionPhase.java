@@ -14,11 +14,7 @@ import javafx.scene.control.Button;
 import com.main.KNTAppFactory;
 import com.model.Game;
 import com.model.Hex;
-<<<<<<< HEAD:KingNThings/src/com/model/game/phase/ConstructionPhase.java
 import com.model.Player;
-import com.model.game.Game;
-=======
->>>>>>> 4b5e5881b30c881cfca3de00c67335893a65bcc3:KingNThings/src/com/game/phase/ConstructionPhase.java
 import com.presenter.Util;
 
 import static com.main.KNTAppFactory.*;
@@ -54,8 +50,6 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseEnd() {
 		Util.log("Game Phase: End of Construction Phase");
-		
-<<<<<<< HEAD:KingNThings/src/com/model/game/phase/ConstructionPhase.java
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
 		
@@ -75,10 +69,7 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 			if(citOwner.getTimeCitOwned() == 1)
 				KNTAppFactory.getGamePresenter().getView().showWinnerScreen(citOwner);
 		}
-=======
-		getBoardPresenter().getView().addDefaultHandler();
-		getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
->>>>>>> 4b5e5881b30c881cfca3de00c67335893a65bcc3:KingNThings/src/com/game/phase/ConstructionPhase.java
+
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public class PlayerHandler extends BaseRequestHandler implements IPlayerService 
 			if (request.getMethod().equals("connect")) {
 				// Set player contained in context
 				RequestContext ctx = (RequestContext)requestCtx;
-				Player p = Util.GSON.fromJson((String)res.getResult(), Player.class);
+				Player p = Util.GSON_BUILDER.create().fromJson((String)res.getResult(), Player.class);
 				// Map player to its connection.
 				PLAYERS.put(p.getName(), ctx.getPlayerConnection());
 			}

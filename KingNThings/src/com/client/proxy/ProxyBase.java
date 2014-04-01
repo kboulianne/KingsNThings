@@ -69,6 +69,7 @@ public abstract class ProxyBase {
 	 */
 	protected final <T> T invokeOnServer(String methodName, Type expected, Object... params) throws JSONRPC2Error {
 		JSONRPC2Request req = new JSONRPC2Request(methodName, UUID.randomUUID().toString());
+		final Gson GSON = Util.GSON_BUILDER.create();
 		
 		if (params != null && params.length > 0) {
 			List<Object> posParams = new LinkedList<>();
@@ -79,7 +80,7 @@ public abstract class ProxyBase {
 					posParams.add(o);
 				}
 				else {
-					posParams.add(Util.GSON.toJson(o));
+					posParams.add(GSON.toJson(o));
 				}
 			}
 			
@@ -109,6 +110,6 @@ public abstract class ProxyBase {
 		
 		if (expected.equals(Void.TYPE)) return null;
 		
-		return Util.GSON.fromJson((String)res.getResult(), expected);
+		return GSON.fromJson((String)res.getResult(), expected);
 	}
 }

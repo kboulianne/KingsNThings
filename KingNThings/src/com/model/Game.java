@@ -240,12 +240,13 @@ public final class Game {
 		return opponents;
 	}
 	
-<<<<<<< HEAD:KingNThings/src/com/model/game/Game.java
+
 	public final List<Player> getPlayers() {
 		List<Player> players = new ArrayList<>(playerOrder);
 		
 		return players;
-=======
+	}
+	
 	public final List<Player> getOpponentsFor(Player p) {
 		List<Player> opponents = new ArrayList<>(playerOrder);
 		opponents.remove(p);
@@ -261,7 +262,6 @@ public final class Game {
 		}
 		
 		return p;
->>>>>>> 4b5e5881b30c881cfca3de00c67335893a65bcc3:KingNThings/src/com/model/Game.java
 	}
 	
 	/**

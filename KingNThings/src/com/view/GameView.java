@@ -5,12 +5,9 @@
  */
 package com.view;
 
-<<<<<<< HEAD
+
 import com.model.Player;
-import com.model.game.Game;
-=======
 import com.model.Game;
->>>>>>> 4b5e5881b30c881cfca3de00c67335893a65bcc3
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Control;

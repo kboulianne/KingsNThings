@@ -33,7 +33,8 @@ public abstract class BaseRequestHandler implements RequestHandler {
 	protected JSONRPC2Response respond(final JSONRPC2Request req) throws JSONRPC2Error {
 		//TODO: Dangerous if calling existing method that is not part of the RPC api. i.e. client sending respond(...) would crash the server.
 		// TODO: Optimize by storing on construction
-//		Method[] methods = getClass().getMethods();
+		// Not thread-safe. All references suggest that cost of creation is minimal compared to locking the instance.
+		final Gson GSON = Util.GSON_BUILDER.create();
 		// Safer than above. Does not expose respond, process and object wait/notify.
 		Method[] methods = getClass().getDeclaredMethods();
 		// The method to invoke.
@@ -73,7 +74,7 @@ public abstract class BaseRequestHandler implements RequestHandler {
 					params[i] = (String)reqParams.get(i);					
 				}
 				else {
-					params[i] = Util.GSON.fromJson((String)reqParams.get(i), types[i]);
+					params[i] = GSON.fromJson((String)reqParams.get(i), types[i]);
 				}
 			}
 		}
@@ -97,7 +98,7 @@ public abstract class BaseRequestHandler implements RequestHandler {
 			res = new JSONRPC2Response(req.getID());
 		}
 		else {
-			res = new JSONRPC2Response(Util.GSON.toJson(returnValue, returnType), req.getID());
+			res = new JSONRPC2Response(GSON.toJson(returnValue, returnType), req.getID());
 		}
 		
 		return res;

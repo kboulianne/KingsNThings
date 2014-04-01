@@ -11,15 +11,11 @@ public class Player 	{
 	private Block block;
 	private int gold;
 	private String name;
-<<<<<<< HEAD
-	private Hex startPos;
 	private boolean citadelOwner = false;
 	private int timeCitOwned = -1;
-=======
 //	private int startPosIdx = -1;
 	//TODO: Non-transient would cause circular reference which causes JSON to loop to infinity
 	private transient Hex startPos;
->>>>>>> 4b5e5881b30c881cfca3de00c67335893a65bcc3
 	
 	public enum PlayerId { ONE(Color.YELLOW),TWO(Color.valueOf("555555")),THREE(Color.GREEN),FOUR(Color.RED); 
 		private final Color color;
@@ -103,7 +99,8 @@ public class Player 	{
 
 	// get special characters from hexes and players block
 	public ArrayList<SpecialCharacter> getAllOwnedSpecialChar() {
-		throw new UnsupportedOperationException("FIXME!");
+		throw new UnsupportedOperationException("FIXME! GameService cannot be used here. Move to presenter.");
+		// FIXME: Game presenter cannot be used here.
 //		ArrayList<Hex> hexes = (ArrayList<Hex>) GameService.getInstance().getGame().getBoard().getHexes();
 //		ArrayList<SpecialCharacter> specChars = new ArrayList<SpecialCharacter>();
 //		for(Hex h:hexes){
@@ -230,7 +227,6 @@ public class Player 	{
 		return false;
 	}
 
-<<<<<<< HEAD
 	public boolean isCitadelOwner() {
 		return citadelOwner;
 	}
@@ -245,10 +241,10 @@ public class Player 	{
 
 	public void addTimeCitOwned() {
 		this.timeCitOwned++;
-=======
+	}
+	
 	@Override
 	public String toString() {
 		return name;
->>>>>>> 4b5e5881b30c881cfca3de00c67335893a65bcc3
 	}
 }

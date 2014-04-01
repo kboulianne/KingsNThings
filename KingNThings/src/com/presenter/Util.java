@@ -60,7 +60,6 @@ import com.model.Player.PlayerId;
 
 import com.model.SwampCreature;
 import com.model.Thing;
-import com.util.RuntimeTypeAdapterFactory;
 
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
@@ -310,7 +309,7 @@ public class Util {
 		.registerTypeAdapter(Hex.class, new HexAdapter())
 		.registerTypeAdapter(SwampCreature.class, new CreatureAdapter());
 
-	public static final Gson GSON = GSON_BUILDER.create();
+//	public static final Gson GSON = GSON_BUILDER.create();
 	
 	
 	public static void log(String message) {
@@ -416,30 +415,5 @@ public class Util {
 	public static void stopBattleMusic(){
 //		player2.stop();    
 //		playMusic();
-	}
-	
-	public static void main(String[] args) {
-		Hex hex = new Hex(0, HexType.DESERT);
-		List<Thing> list = Thing.createThings();
-		
-		hex.addCreatToArmy((Creature) list.get(0), new Player("test"));
-		
-		String s = GSON.toJson(hex);
-		System.out.println(s);
-		
-		hex = GSON.fromJson(s, Hex.class);
-		System.out.println();
-//		Block b = new Block();
-//		List<Thing> things = Thing.createThings();
-//		System.out.println(things.size());
-//		for (Thing t : things) {
-//			b.addThing(t, "");
-//		}
-//		
-//		String s = GSON.toJson(b);
-//		System.out.println(s);
-//		
-//		b = GSON.fromJson(s, Block.class);
-//		System.out.println(b.getListOfThings().size());
 	}
 }
