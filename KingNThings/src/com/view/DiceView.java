@@ -91,8 +91,9 @@ public class DiceView extends HBox {
 
 	public void hideDie2(boolean hide) {
 		//if (hide) {
+		
 		die2Iv.setVisible(!hide);
-		die2Iv.setManaged(true);
+		///die2Iv.setManaged(false);
 			
 		/*	getChildren().remove(die2Iv);
 		}

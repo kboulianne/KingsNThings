@@ -84,7 +84,7 @@ public final class GamePlay {
 		initPhases.add(new StartingKingdomPhase(this));
 		initPhases.add(new StartingTowerPhase(this));
 		initPhases.add(new StartingForcesPhase(this));
-		initPhases.add(new ExchangePhase(this));
+		//initPhases.add(new ExchangePhase(this));
 
 		// Set current phase logic/strategy
 		phaseIt = initPhases.iterator();
@@ -95,15 +95,15 @@ public final class GamePlay {
 	 * Creates the phases responsible for normal gameplay.
 	 */
 	private void createGamePhases() {
-		gamePhases.add(new GoldCollectPhase(this));
-		gamePhases.add(new RecruitCharPhase(this));
-		gamePhases.add(new RecruitThingsPhase(this));
-		gamePhases.add(new RandomEventPhase(this));
+		//gamePhases.add(new GoldCollectPhase(this));
+		//gamePhases.add(new RecruitCharPhase(this));
+		//gamePhases.add(new RecruitThingsPhase(this));
+		//gamePhases.add(new RandomEventPhase(this));
 			gamePhases.add(new MovementPhase(this));
 			gamePhases.add(new CombatPhase(this));
-		gamePhases.add(new ConstructionPhase(this));
-		gamePhases.add(new SpecialPowersPhase(this));
-		gamePhases.add(new ChangePlayOrderPhase(this));
+		//gamePhases.add(new ConstructionPhase(this));
+		//gamePhases.add(new SpecialPowersPhase(this));
+		//gamePhases.add(new ChangePlayOrderPhase(this));
 		
 		// FOR TESTING: The one in initPhases is correct.
 		//		phaseIt = gamePhases.iterator();

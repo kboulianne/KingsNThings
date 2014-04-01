@@ -137,7 +137,7 @@ public class BattleView extends VBox{
 		
 		offenderLbl.setText("Offender: "+battle.getOffender().getName());
 		List<Creature> offGamePieces = new ArrayList<>();
-		offGamePieces.addAll(battle.getAttackerCreatures());
+		offGamePieces.addAll(battle.getOffenderCreatures());
 		setBattlePieces(offGamePieces, offGrid);
 
 		defenderLbl.setText("Defender: "+battle.getDefenderName());
