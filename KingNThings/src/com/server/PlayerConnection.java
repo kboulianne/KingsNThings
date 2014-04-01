@@ -62,7 +62,6 @@ public class PlayerConnection {
 					BufferedReader  reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
 					// Wait for client to send Player name
-//					System.out.println("Waiting for player name.");
 					String json = reader.readLine();
 					// Null means client disconnected.
 					if (json == null) return;
@@ -76,24 +75,11 @@ public class PlayerConnection {
 					while (true) {
 						
 						try {
-//							System.out.println("WAITING FOR DATA");
 							json = reader.readLine();
-							System.out.println("Read: " + json);
 							
 							req = JSONRPC2Request.parse(json);
 							res = DISPATCHER.process(req, new RequestContext(PlayerConnection.this));
 							messages.put(res.toJSONString());
-							
-//							// Put pending notifications.
-//							//TODO: Still no guarantee that client will receive response to request before notification.
-//							if (KNTServer.PENDING_NOTIFICATIONS.containsKey(UUID.fromString((String)res.getID()))) {
-//								List<JSONRPC2Notification> notifications = KNTServer.PENDING_NOTIFICATIONS.get(UUID.fromString((String)res.getID()));
-//								
-//								for (JSONRPC2Notification n : notifications) {
-//									System.out.println("QUEUED NOTIFICATION.");
-//									messages.put(n.toJSONString());
-//								}
-//							}
 							
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -128,13 +114,9 @@ public class PlayerConnection {
 				
 					// Ready to dispatch messages to clients.
 					while (true) {
-						// Lock until there is something to write.
-//						System.out.println("Waiting for messages to be put in queue.");
+						// Blocks until there is something to write.
 						String message = messages.take();
 						writer.println(message);
-						System.out.println("Wrote: " + message);
-
-						
 					}
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
@@ -150,12 +132,6 @@ public class PlayerConnection {
 	
 	public void notifyClient(JSONRPC2Notification notify) {
 		try {
-//			List<JSONRPC2Notification> notifyList = new ArrayList<>();
-//			notifyList.add(notify);
-//			
-//			synchronized (KNTServer.PENDING_NOTIFICATIONS) {
-//				KNTServer.PENDING_NOTIFICATIONS.put(key, value)
-//			}
 			messages.put(notify.toJSONString());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

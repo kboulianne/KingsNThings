@@ -74,6 +74,10 @@ public final class GamePlay {
 		gamePhases.add(new ConstructionPhase(this));
 		gamePhases.add(new SpecialPowersPhase(this));
 		gamePhases.add(new ChangePlayOrderPhase(this));
+		
+		// For testing, set to these phases if initPhases is empty
+		if (initPhases.isEmpty())
+			phaseIt = gamePhases.iterator();
 	}
 
 	public final String getActionText() {

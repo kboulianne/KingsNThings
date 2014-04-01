@@ -32,12 +32,7 @@ public class StartScreenPresenter {
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-//		// Delegate to lobby
-//		Player p = new Player(name);
-//		NetworkedMain.setPlayer(p);
-		
-		
+		}		
 	}
 }
 

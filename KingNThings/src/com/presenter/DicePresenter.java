@@ -26,22 +26,6 @@ public class DicePresenter {
 	public DicePresenter(DiceView view, IGameService gameSvc) {
 		this.view = view;
 		this.gameSvc = gameSvc;
-		
-//		// No longer needed.
-//		// Set initial model
-//		Game game = null;
-//		try {
-//			game = gameSvc.refreshGame(NetworkedMain.getRoomName());
-//		} catch (JSONRPC2Error e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		// Defaults to dice in game
-//		die1 = game.getDie1();
-//		die2 = game.getDie2();
-	
-//		view.setDice(game.getDie1(), game.getDie2());
 	}
 
 	//TODO: Restructure this so that we can reuse the existing instance.

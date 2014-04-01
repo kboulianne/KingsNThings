@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 
 import com.game.phase.GamePlay;
 import com.main.KNTAppFactory;
+import com.model.Game;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.view.SpecialCharacterView;
@@ -27,22 +28,22 @@ public class SpecialCharacterPresenter {
 		view.getAddRollButton().setOnAction(new EventHandler<ActionEvent>() {		
 			@Override
 			public void handle(ActionEvent arg0) {
-				throw new IllegalAccessError("Use new service.");
-//				Player currPlayer = GameService.getInstance().getGame().getCurrentPlayer();
-//				if(currPlayer.getGold()>=cost){
-//					Util.playClickSound();
-//					currPlayer.setGold(currPlayer.getGold()-cost);
-//					KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlayer);
-//					
-//					rolledValue++;
-//					view.getRollValueLbl().setText("Current rolled value: "+rolledValue);
-//					
-//					if(rolledValue >= valueNeeded)
-//						view.getRecruitButton().setDisable(false);
-//					
-//					if(currPlayer.getGold()<cost)
-//						view.getAddRollButton().setDisable(true);
-//				}
+				Game game = KNTAppFactory.getGamePresenter().getLocalInstance();
+				Player currPlayer = game.getCurrentPlayer();
+				if(currPlayer.getGold() >= cost){
+					Util.playClickSound();
+					currPlayer.setGold(currPlayer.getGold()-cost);
+					KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(currPlayer);
+					
+					rolledValue++;
+					view.getRollValueLbl().setText("Current rolled value: "+rolledValue);
+					
+					if(rolledValue >= valueNeeded)
+						view.getRecruitButton().setDisable(false);
+					
+					if(currPlayer.getGold()<cost)
+						view.getAddRollButton().setDisable(true);
+				}
 			}
 		});
 	}
@@ -51,11 +52,10 @@ public class SpecialCharacterPresenter {
 		view.getRecruitButton().setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent arg0) {
-				throw new IllegalAccessError("Use new service.");
-//				Util.playClickSound();
-//				GameService.getInstance().getGame().moveThingFromCupToPlayer(selectedSpecialCharacter, GameService.getInstance().getGame().getCurrentPlayer());
-////				GamePlay.getInstance().endTurn();
-//				KNTAppFactory.getGamePlay().endTurn();
+				Game game = KNTAppFactory.getGamePresenter().getLocalInstance();
+				Util.playClickSound();
+				game.moveThingFromCupToPlayer(selectedSpecialCharacter, game.getCurrentPlayer());
+				KNTAppFactory.getGamePresenter().endTurn();
 			}
 		});
 	}

@@ -21,10 +21,8 @@ public class ThingDetailsPresenter {
 	/** The Creature Thing View that displays information specific to creatures. */
 	//private CreatureDetailsView cView;
 	
-	public ThingDetailsPresenter(ThingDetailsView view){//, CreatureDetailsView cView) {
+	public ThingDetailsPresenter(ThingDetailsView view){
 		this.view = view;
-		//this.cView = cView;
-		//this.cView.setPresenter(this);
 	}
 
 	/**
@@ -37,7 +35,6 @@ public class ThingDetailsPresenter {
 	}
 	
 	public ThingDetailsView getThingView()	{	return view;	}
-	//public CreatureDetailsView getCreatureView()	{	return cView;	}
 
 	/** 
 	 * Shows the specified Thing in the Details View of the SidePane.

@@ -120,7 +120,7 @@ public class KNTClient {
 							DISPATCHER.process((JSONRPC2Notification)message, null);
 						}
 						else {
-							System.out.println("ERROR");
+							System.err.println("ERROR");
 							// Error
 //							JSONRPC2Error error = message.;
 //							

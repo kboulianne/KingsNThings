@@ -19,11 +19,6 @@ public class SidePanePresenter {
 
 	public SidePanePresenter(SidePaneView view) {
 		this.view = view;
-
-//		// Update the opponent list.
-//		Game game = GameService.getInstance().getGame();
-//		//FIXME: need same but getOpponentsForPlayer.
-//		view.setOpponents(game.getOpponentsForCurrent());
 	}
 
 	/**

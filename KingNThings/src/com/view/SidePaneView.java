@@ -104,7 +104,6 @@ public class SidePaneView extends VBox {
 	}
 
 	public void setOpponents(List<Player> players) {
-		System.out.println("Set opponents: " + players);
 		// FIXME: Problem if not four player.
 		if (!players.isEmpty()) {
 			opp1Lbl.setPlayer(players.get(0));
@@ -214,6 +213,7 @@ public class SidePaneView extends VBox {
 	
 	public void showBuildMenu(final Hex h)	{
 		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+// ====================  NEWEST =============================================================================
 //		final Player player = GameService.getInstance().getGame().getCurrentPlayer();
 //		
 //		Label title = new Label("Build Options:");

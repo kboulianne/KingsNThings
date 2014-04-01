@@ -74,11 +74,6 @@ public class LobbyPresenter {
 		}
 
 	}
-
-//	public void handleWindowShown() {
-//		System.out.println("Fetching GameRooms.");
-//		updateGameRoomsList();
-//	}
 	
 	private void updateGameRoomsList() {
 		try {

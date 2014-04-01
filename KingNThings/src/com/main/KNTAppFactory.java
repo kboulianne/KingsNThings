@@ -60,13 +60,6 @@ public class KNTAppFactory {
 	// One per application? Maybe two in the future, one for Notifications and one For requests
     private static KNTClient CLIENT; 
 	
-	static {
-//		CLIENT = new KNTClient("localhost", 6868);
-		
-    		
-
-	}
-
 	private KNTAppFactory() {
 	}
 	

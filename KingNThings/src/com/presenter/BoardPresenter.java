@@ -28,25 +28,23 @@ import com.view.BoardView;
 public class BoardPresenter {
 
 	private final BoardView view;
-
-//	private final IGameService gameSvc;
 	// Ui Models
 	private boolean movingArmy;
 	private int lastHexSelected = -1;
 
 	public BoardPresenter(BoardView view) {
 		this.view = view;
-//		gameSvc = svc;
 		movingArmy = false;
-
-//
-//		view.setBoard(game.getBoard());
 	}
 
 	public BoardView getView() {
 		return view;
 	}
 
+	/**
+	 * Helper method.
+	 * @return The Game instance stored locally for this client.
+	 */
 	private Game getGame() {
 		// Use local instance.
 		return KNTAppFactory.getGamePresenter().getLocalInstance();
@@ -94,8 +92,6 @@ public class BoardPresenter {
 			view.setBoard(b);
 			
 			KNTAppFactory.getGamePresenter().endTurn();
-//			GamePlay.getInstance().endTurn();
-//			KNTAppFactory.getGamePlay().endTurn();
 		}
 	}
 	
@@ -146,10 +142,7 @@ public class BoardPresenter {
 				// Take ownership of the hex
 				hex.setOwner(current);
 				
-				
 				view.setBoard(b);
-//				GamePlay.getInstance().endTurn();
-//				KNTAppFactory.getGamePlay().endTurn();
 				KNTAppFactory.getGamePresenter().endTurn();
 			}
 		}
@@ -196,8 +189,6 @@ public class BoardPresenter {
 				Hex curr = game.getBoard().getHexes().get(hex.getJoiningHexes()[i]);
 				if(curr.getType() != Hex.HexType.SEA)	count++;
 				if(count >= 2)	{
-//					GamePlay.getInstance().endTurn();
-//					KNTAppFactory.getGamePlay().endTurn();
 					KNTAppFactory.getGamePresenter().endTurn();
 					break;
 				}
@@ -264,8 +255,7 @@ public class BoardPresenter {
 			Hex curr = game.getBoard().getHexes().get(startPos.getJoiningHexes()[i]);
 			if(curr.getType() != Hex.HexType.SEA)	count++;
 			if(count >= 2)	{
-//				GamePlay.getInstance().endTurn();
-//				KNTAppFactory.getGamePlay().endTurn();
+//				KNTAppFactory.getGamePresenter().endTurn();
 				return;
 			}
 		}
