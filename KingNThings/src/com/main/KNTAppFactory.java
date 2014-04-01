@@ -58,10 +58,10 @@ public class KNTAppFactory {
 	private static GamePlay gamePlay;
 	
 	// One per application? Maybe two in the future, one for Notifications and one For requests
-    private static final KNTClient CLIENT; 
+    private static KNTClient CLIENT; 
 	
 	static {
-		CLIENT = new KNTClient("localhost", 6868);
+//		CLIENT = new KNTClient("localhost", 6868);
 		
     		
     		// Create all presenters then set their dependencies. This way we avoid Circular Dependency problem.
@@ -84,6 +84,11 @@ public class KNTAppFactory {
 	}
 
 	private KNTAppFactory() {
+	}
+	
+	public static void initClient(String host, Integer port) {
+		if (CLIENT == null)
+			CLIENT = new KNTClient("localhost", port);
 	}
 
 	private static StartScreenPresenter createStartScreenPresenter() {

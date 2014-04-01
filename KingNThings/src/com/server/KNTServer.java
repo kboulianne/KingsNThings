@@ -19,7 +19,7 @@ import com.model.Player;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
 
 public class KNTServer {
-	private static final ServerSocket SERVER;
+	private static ServerSocket SERVER;
 	// TODO Move me to a common class so that client and server can use me.
 	private static final ExecutorService THREAD_POOL;
 	
@@ -36,22 +36,24 @@ public class KNTServer {
 	static {
 		THREAD_POOL = Executors.newFixedThreadPool(200);
 		
-		ServerSocket server = null;
-		try {
-			server = new ServerSocket(6868);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		PLAYERS = Collections.synchronizedMap(new HashMap<String, PlayerConnection>());
 		GAME_ROOMS = Collections.synchronizedMap(new HashMap<String, GameRoom>());
 //		PENDING_NOTIFICATIONS = Collections.synchronizedMap(new HashMap<UUID, List<JSONRPC2Notification>>());
 		
-		SERVER = server;
+//		SERVER = server;
 	}
 	
-	public void listen() throws IOException, InterruptedException {
-		System.out.println("Server listening on port 6868");
+	public static void listen(int port) throws IOException, InterruptedException {
+		System.out.println("Server listening on port " + port);
+		
+		try {
+			SERVER = new ServerSocket(port);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		while (true) {
 			Socket playerSocket = SERVER.accept();
 			
@@ -93,8 +95,16 @@ public class KNTServer {
 	//TODO: KNTServer#shutdown()
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		KNTServer server = new KNTServer();
+//		KNTServer server = new KNTServer();
+		int port = 6868;
 		
-		server.listen();
+		// Loop the args and parse --port=
+		for (String s : args) {
+			if (s.startsWith("--port=")) {
+				port = Integer.parseInt(s.replace("--port=", ""));
+			}
+		}
+		
+		KNTServer.listen(port);
 	}
 }

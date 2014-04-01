@@ -42,6 +42,8 @@ public class KNTClient {
 	
 	private static final Dispatcher DISPATCHER;
 	
+	private static final int DEFAULT_PORT = 6868;
+	
 	static {
 		DISPATCHER = new Dispatcher();
 		
@@ -55,7 +57,7 @@ public class KNTClient {
 	 * @param host The host to connect to.
 	 * @param port The destination port.
 	 */
-	public KNTClient(String host, int port) {
+	public KNTClient(String host, Integer port) {
 		pendingRequests = Collections.synchronizedSet(new HashSet<UUID>());
 		inputMessages = new LinkedBlockingQueue<>();
 		outputMessages = new LinkedBlockingQueue<>();
@@ -65,6 +67,9 @@ public class KNTClient {
 		GameServiceProxy gameProxy = null;
 		
 		try {
+			if (port == null)
+				port = DEFAULT_PORT;
+			
 			socket = new Socket(host, port);
 			
 			playerProxy = new PlayerServiceProxy(inputMessages, outputMessages);

@@ -13,10 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-public class NetworkedMain extends Application {
-//    static final double WIDTH = 400;
-//    static final double HEIGHT = 800;
-    
+public class NetworkedMain extends Application {    
     static Stage primaryStage;
     static Scene scene;
     
@@ -30,21 +27,28 @@ public class NetworkedMain extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-    		final StartScreenPresenter start = KNTAppFactory.getStartScreenPresenter();
+    	String host = "localhost";
+    	Integer port = null;
+    	
+    	// Initialize the client with command line arguments if present
+    	if (getParameters().getNamed().containsKey("host")) {
+    		host = getParameters().getNamed().get("host");
+    	}
+    	if (getParameters().getNamed().containsKey("port")) {
+    		getParameters().getNamed().get("port");
+    	}
+    	
+    	// Defaults to localhost and default port if not present.
+    	KNTAppFactory.initClient(host, port);
+    	
+    	final StartScreenPresenter start = KNTAppFactory.getStartScreenPresenter();
     	
         stage.setTitle("Kings & Things");
-//        stage.setMinWidth(1000);
-//        stage.setMinHeight(600);
+
         stage.initStyle(StageStyle.DECORATED);
         stage.setResizable(false);
         stage.setFullScreen(false);
         stage.getIcons().add(new Image("view/com/assets/pics/icon.png"));
-//		stage.setOnShown(new EventHandler<WindowEvent>() {
-//			@Override
-//			public void handle(WindowEvent event) {
-//				lobby.handleWindowShown();
-//			}
-//		});
         
         scene = new Scene(start.getView());
         scene.getStylesheets().add("view/com/assets/docs/kingsnthings.css");

@@ -71,20 +71,19 @@ public class Util {
 
 	private final static boolean DEBUG = true;
 	final public static boolean AUTOMATE = false;
-//	private static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-	
-	// Mapper for GamePiece hierarchy
-	
-	
-	private static class ColorInstanceCreator implements InstanceCreator<Color> {
+
+	/**
+	 * Handles the creation, serialization and deserialization of Color objects to and from JSON.
+	 * @author kurt
+	 *
+	 */
+	private static class ColorAdapter implements InstanceCreator<Color>, JsonSerializer<Color>, JsonDeserializer<Color> {
 		@Override
 		public Color createInstance(Type arg0) {
 			// Default to black since there is no default color constructor.
 			return Color.BLACK;
 		}
-	}
-	
-	private static class ColorSerializer implements JsonSerializer<Color> {
+		
 		@Override
 		public JsonElement serialize(Color color, Type arg1,
 				JsonSerializationContext arg2) {
@@ -96,8 +95,7 @@ public class Util {
 			
 			return array;
 		}
-	}
-	private static class ColorDeserializer implements JsonDeserializer<Color> {
+		
 		@Override
 		public Color deserialize(JsonElement json, Type arg1,
 				JsonDeserializationContext arg2) throws JsonParseException {
@@ -109,7 +107,6 @@ public class Util {
 				array.get(2).getAsDouble(),
 				array.get(3).getAsDouble());
 		}
-		
 	}
 	
 	public static class CreatureSerializer implements JsonSerializer<Creature> {
@@ -139,6 +136,8 @@ public class Util {
 				return new PlainsCreature();
 			else if (t.equals(SpecialCharacter.class))
 				return new SpecialCharacter();
+			else
+				System.err.println("Add me in CreatureAdapter: " + t.getClass().getCanonicalName());
 			
 			return new SwampCreature();
 		}
@@ -302,9 +301,7 @@ public class Util {
 	
 	public static final GsonBuilder GSON_BUILDER = new GsonBuilder()
 		// TODO Use InstanceCreator for GamePiece Hierarchy?
-		.registerTypeAdapter(Color.class, new ColorInstanceCreator())
-		.registerTypeAdapter(Color.class, new ColorSerializer())
-		.registerTypeAdapter(Color.class, new ColorDeserializer())
+		.registerTypeAdapter(Color.class, new ColorAdapter())
 		.registerTypeAdapter(Block.class, new BlockAdapter())
 		.registerTypeAdapter(Hex.class, new HexAdapter())
 		.registerTypeAdapter(SwampCreature.class, new CreatureAdapter());
