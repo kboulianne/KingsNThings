@@ -6,10 +6,14 @@
 package com.view;
 
 
+import com.main.KNTAppFactory;
 import com.model.Player;
 import com.model.Game;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -33,6 +37,7 @@ public class GameView extends StackPane {
 	private HBox centerBox;
 	private Label currentPlayerLbl;
 	private Label currentActionLbl;
+	private Button skipPhase;
 
     // Class-level controls needing exposure outside buildView()
 	// private Button roll;
@@ -57,9 +62,18 @@ public class GameView extends StackPane {
 		currentPlayerLbl = new Label();
 		currentPlayerLbl.getStyleClass().add("title");
 		
+		skipPhase = new Button("Skip");
+		skipPhase.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				KNTAppFactory.getGamePresenter().skipPhase();
+			}
+		});
+		
 		currentActionLbl = new Label();
 		currentActionLbl.getStyleClass().add("title");
-		box.getChildren().addAll(currentPlayerLbl, currentActionLbl);
+		box.getChildren().addAll(currentPlayerLbl, currentActionLbl, skipPhase);
 		
 		gameStatus.getChildren().add(box);
 		AnchorPane.setLeftAnchor(box, 0.0);
@@ -72,6 +86,8 @@ public class GameView extends StackPane {
 		getChildren().add(rootVBox);
 	}
 
+	
+	
 	/**
 	 * Adds the DiceView as a sub-view.
 	 *

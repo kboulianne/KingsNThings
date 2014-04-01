@@ -46,4 +46,9 @@ public class GameServiceProxy extends ProxyBase implements IGameService {
 	public void endTurn(String gameRoom, Player p) throws JSONRPC2Error {
 		invokeOnServer("endTurn", gameRoom, p);		
 	}
+	
+	@Override
+	public void skipPhase(String roomName) throws JSONRPC2Error {
+		invokeOnServer("skipPhase", roomName);
+	}
 }

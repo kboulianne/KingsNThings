@@ -12,7 +12,7 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 public class GameRequestHandler extends BaseRequestHandler implements IGameService {
 	@Override
 	public String[] handledRequests() {
-		return new String[] { "getGame", "updateGame", "isPlayerTurn", "endTurn" };
+		return new String[] { "getGame", "updateGame", "isPlayerTurn", "endTurn", "skipPhase" };
 	}
 
 	@Override
@@ -65,5 +65,13 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 //				room.notifyAllClients(Notifications.TURN_ENDED);
 //			}
 		}
+	}
+
+	@Override
+	public void skipPhase(String roomName) throws JSONRPC2Error {
+		ServerGameRoom room;
+		synchronized (room = (ServerGameRoom) GAME_ROOMS.get(roomName)) {
+			room.getGamePlay().skipPhase();
+		}		
 	}
 }

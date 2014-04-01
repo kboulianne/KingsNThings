@@ -212,4 +212,13 @@ public class GamePresenter {
 			e.printStackTrace();
 		}
 	}
+
+	public void skipPhase() {
+		try {
+			gameSvc.skipPhase(NetworkedMain.getRoomName());
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
 }

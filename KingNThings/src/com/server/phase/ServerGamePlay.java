@@ -104,4 +104,12 @@ public final class ServerGamePlay {
 		// Notify clients that a new player is now playing a turn
 		notifyAllClients(room, Notifications.TURN_ENDED);
 	}
+
+	public void skipPhase() {
+//		phase.phaseEnd();
+		phase = phaseIt.next();
+//		phase.phaseStart();
+		
+		notifyAllClients(room, Notifications.PHASE_ENDED);
+	}
 }

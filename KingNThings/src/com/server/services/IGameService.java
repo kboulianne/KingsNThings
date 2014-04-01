@@ -9,4 +9,5 @@ public interface IGameService {
 	void updateGame(String roomName, Game game) throws JSONRPC2Error;
 	boolean isPlayerTurn(String roomName, Player p) throws JSONRPC2Error;
 	void endTurn(String gameRoom, Player p) throws JSONRPC2Error;
+	void skipPhase(String roomName) throws JSONRPC2Error;
 }
