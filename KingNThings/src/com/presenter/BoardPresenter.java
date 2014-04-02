@@ -489,17 +489,10 @@ public class BoardPresenter {
 	}
 	
 	public void handleBattleSelectionHex(int selected) {
-<<<<<<< HEAD
-		Game game = getGame();
-		Board b = game.getBoard();
-		Player current = game.getCurrentPlayer();
-		Player defender = null;
-=======
+
 		
-		Board b = svc.getGame().getBoard();
-		Player current = svc.getGame().getCurrentPlayer();
-		//Player defender = null;
->>>>>>> battle-test
+		Board b = getGame().getBoard();
+		Player current = getGame().getCurrentPlayer();
 		Hex hex = b.getHexes().get(selected);
 		
 		if (hex.hasConflict()) {
