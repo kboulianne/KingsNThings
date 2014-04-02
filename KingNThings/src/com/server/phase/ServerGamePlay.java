@@ -22,8 +22,6 @@ public final class ServerGamePlay {
 	private Iterator<IServerPhaseStrategy> phaseIt;
 	protected ServerGameRoom room;
 	
-	protected boolean skip;
-	
 	public ServerGamePlay(ServerGameRoom room) {
 		this.room = room;
 		phases = new LinkedHashSet<>();
@@ -54,10 +52,10 @@ public final class ServerGamePlay {
 		if (phase == null) phase = phaseIt.next();
 		
 		// Move to the next phase if the last player played his/her turn.
-		if (room.getGame().isLastPlayer() || skip) {
+		if (room.getGame().isLastPlayer()) {
 			// Only notify phase end at this point this implies the turn ended as well.
 			
-			if (phase.mustCycle() && !skip) {
+			if (phase.mustCycle()) {
 				phase.decrementCycles();
 			} else {
 				phase.turnEnd();
@@ -68,9 +66,8 @@ public final class ServerGamePlay {
 		else {
 			
 		}
-			// Next player's turn.
-		if (!skip)
-			nextTurn();			
+		// Next player's turn.
+		nextTurn();			
 		
 	}
 	
@@ -110,10 +107,17 @@ public final class ServerGamePlay {
 	}
 
 	public void skipPhase() {
+		// Just to circumvent bug if skipping first phase
+		if (phase == null) phase = phaseIt.next();
 		// So we don't have to be invasive in phases.
-		skip = true;
-		next();
-		skip = false;
+//		phase.turnEnd();
+//		phase.phaseEnd();
+		// Equivalent to phase end but uses defaults for testing
+		phase.skipPhase();
+		nextPhase();
+		
+		
+		
 		// So we are less invasive
 //		skip = true;
 //		phase.phaseEnd();

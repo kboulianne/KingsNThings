@@ -14,7 +14,7 @@ import com.game.phase.GamePlay;
 import com.main.KNTAppFactory;
 import com.model.Game;
 import com.model.Player;
-import com.presenter.Util;
+import com.util.Util;
 
 import static com.main.KNTAppFactory.*;
 

@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.SortedMap;
 
+import com.util.Util;
 import com.view.customcontrols.PlayerLabel;
 import com.main.KNTAppFactory;
 import com.model.Battle;
@@ -21,7 +22,6 @@ import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
 import com.presenter.SidePanePresenter;
-import com.presenter.Util;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;

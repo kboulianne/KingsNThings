@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import com.game.phase.init.PlayerOrderPhase;
 import com.main.KNTAppFactory;
 import com.presenter.HexFactory;
-import com.presenter.Util;
+import com.util.Util;
 
 /**
  * This is the game model. Represents the current "State" of the game

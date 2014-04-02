@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javafx.scene.paint.Color;
 
-import com.presenter.Util;
+import com.util.Util;
 
 public class SpecialCharacter extends Creature	{
 	

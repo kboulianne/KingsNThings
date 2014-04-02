@@ -7,9 +7,9 @@ package com.game.phase;
 
 import static com.main.KNTAppFactory.getGamePresenter;
 
-import com.presenter.Util;
 import com.server.services.IGameService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+import com.util.Util;
 
 import java.util.Collection;
 import java.util.Iterator;

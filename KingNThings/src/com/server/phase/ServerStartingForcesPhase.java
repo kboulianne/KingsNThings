@@ -36,4 +36,10 @@ public class ServerStartingForcesPhase extends AbstractServerPhase {
 	@Override
 	public void phaseEnd() {
 	}
+
+	@Override
+	public void skipPhase() {
+		// TODO Auto-generated method stub
+		
+	}
 }

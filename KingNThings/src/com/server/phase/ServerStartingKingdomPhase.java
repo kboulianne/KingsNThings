@@ -32,17 +32,20 @@ public class ServerStartingKingdomPhase extends AbstractServerPhase {
 
 	@Override
 	public void phaseEnd() {
-		if (context.skip) {
-			// Claim tiles to left and right of start position
-			Game game = context.room.getGame();
-			
-			Iterator<Integer> it = game.getBoard().getStartPositions().iterator();
-			for (Player p : game.getPlayerOrder()) {
-				int i = it.next();
-				// Set index +- 1 from start pos as owned by p
-				game.getBoard().getHexes().get(i - 1).setOwner(p);
-				game.getBoard().getHexes().get(i + 1).setOwner(p);
-			}
+
+	}
+
+	@Override
+	public void skipPhase() {
+		// Claim tiles to left and right of start position
+		Game game = context.room.getGame();
+		
+		Iterator<Integer> it = game.getBoard().getStartPositions().iterator();
+		for (Player p : game.getPlayerOrder()) {
+			int i = it.next();
+			// Set index +- 1 from start pos as owned by p
+			game.getBoard().getHexes().get(i - 1).setOwner(p);
+			game.getBoard().getHexes().get(i + 1).setOwner(p);
 		}
 	}
 

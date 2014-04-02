@@ -8,6 +8,7 @@ import com.main.KNTAppFactory;
 import com.model.Game;
 import com.model.Player;
 import com.model.SpecialCharacter;
+import com.util.Util;
 import com.view.SpecialCharacterView;
 
 public class SpecialCharacterPresenter {

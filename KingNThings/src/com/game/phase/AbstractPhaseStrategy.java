@@ -9,8 +9,8 @@ import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.Board;
 import com.model.Game;
-import com.presenter.Util;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+import com.util.Util;
 import com.view.GameView;
 
 import static com.main.KNTAppFactory.*;

@@ -6,6 +6,7 @@ import com.model.Game;
 import com.model.Player;
 import com.model.Thing;
 import com.model.Treasure;
+import com.util.Util;
 import com.view.PlayerInfoView;
 import com.view.customcontrols.ThingView;
 

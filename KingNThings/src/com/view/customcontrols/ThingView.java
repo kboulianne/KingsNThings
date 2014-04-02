@@ -6,7 +6,7 @@ import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
 import com.model.Treasure;
-import com.presenter.Util;
+import com.util.Util;
 
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;

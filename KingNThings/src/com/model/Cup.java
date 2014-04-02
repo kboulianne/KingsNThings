@@ -3,7 +3,7 @@ package com.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.presenter.Util;
+import com.util.Util;
 
 public class Cup extends GamePiece {
 	private List<Thing> listOfThings;

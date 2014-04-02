@@ -7,13 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.presenter.Util;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 import com.thetransactioncompany.jsonrpc2.server.MessageContext;
 import com.thetransactioncompany.jsonrpc2.server.RequestHandler;
+import com.util.Util;
 
 public abstract class BaseRequestHandler implements RequestHandler {
 	

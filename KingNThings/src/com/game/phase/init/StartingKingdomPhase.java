@@ -13,7 +13,7 @@ import com.game.phase.AbstractPhaseStrategy;
 import com.game.phase.GamePlay;
 import com.model.Game;
 import com.model.Player;
-import com.presenter.Util;
+import com.util.Util;
 
 import static com.main.KNTAppFactory.*;
 

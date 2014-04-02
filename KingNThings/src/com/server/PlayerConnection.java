@@ -12,7 +12,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.model.Player;
-import com.presenter.Util;
 import com.server.handlers.GameRequestHandler;
 import com.server.handlers.GameRoomHandler;
 import com.server.handlers.PlayerHandler;
@@ -22,6 +21,7 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 import com.thetransactioncompany.jsonrpc2.server.Dispatcher;
+import com.util.Util;
 
 public class PlayerConnection {
 

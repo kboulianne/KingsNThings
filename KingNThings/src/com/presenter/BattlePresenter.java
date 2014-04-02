@@ -12,6 +12,7 @@ import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
 import com.model.Thing;
+import com.util.Util;
 import com.view.BattleView;
 
 import java.util.Iterator;

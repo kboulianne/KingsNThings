@@ -4,8 +4,8 @@ import com.game.phase.AbstractPhaseStrategy;
 import com.game.phase.GamePlay;
 import com.main.NetworkedMain;
 import com.model.Game;
-import com.presenter.Util;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+import com.util.Util;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

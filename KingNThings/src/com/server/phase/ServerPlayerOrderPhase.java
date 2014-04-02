@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import com.game.phase.IPhaseStrategy;
 import com.model.Game;
 import com.model.Player;
-import com.presenter.Util;
+import com.util.Util;
 
 public class ServerPlayerOrderPhase extends AbstractServerPhase {
 
@@ -42,10 +42,14 @@ public class ServerPlayerOrderPhase extends AbstractServerPhase {
 		// End of PlayerOrderPhase,
 		//TODO:
 		Game game = context.room.getGame();
+
+		// Extract new player order.
+		game.setPlayerOrder(rolls.values());
+	}
+
+	@Override
+	public void skipPhase() {
 		
-		if (!context.skip)
-			// Extract new player order.
-			game.setPlayerOrder(rolls.values());
 	}
 
 }

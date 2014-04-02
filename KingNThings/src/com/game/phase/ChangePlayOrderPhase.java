@@ -7,7 +7,7 @@ package com.game.phase;
 
 import com.main.KNTAppFactory;
 import com.model.Game;
-import com.presenter.Util;
+import com.util.Util;
 
 /**
  *

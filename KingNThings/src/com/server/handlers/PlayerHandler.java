@@ -1,12 +1,12 @@
 package com.server.handlers;
 
 import com.model.Player;
-import com.presenter.Util;
 import com.server.services.IPlayerService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 import com.thetransactioncompany.jsonrpc2.server.MessageContext;
+import com.util.Util;
 
 import static com.server.KNTServer.*;
 

@@ -1,5 +1,5 @@
 
-package com.presenter;
+package com.util;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -379,12 +379,12 @@ public class Util {
 	}
 	
 //	private final static AudioClip diceRoll = new AudioClip(Util.class.getResource("dice.wav").toString());
-	static void playDiceRollSound(){
+	public static void playDiceRollSound(){
 //		diceRoll.play();
 	}
 	
 //	private final static AudioClip swordSound = new AudioClip(Util.class.getResource("sword.wav").toString());
-		static void playSwordSound(){
+		public static void playSwordSound(){
 //			swordSound.play();
 	}
 	

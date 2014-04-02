@@ -10,11 +10,11 @@ import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.google.gson.Gson;
-import com.presenter.Util;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
+import com.util.Util;
 
 /**
  * Base class that creates local (client) method implementations. 

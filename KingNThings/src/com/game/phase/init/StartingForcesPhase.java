@@ -16,7 +16,7 @@ import com.model.Cup;
 import com.model.Game;
 import com.model.Player;
 import com.model.Thing;
-import com.presenter.Util;
+import com.util.Util;
 
 import static com.main.KNTAppFactory.*;
 

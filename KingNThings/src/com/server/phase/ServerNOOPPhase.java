@@ -31,4 +31,10 @@ public class ServerNOOPPhase extends AbstractServerPhase {
 		
 	}
 
+	@Override
+	public void skipPhase() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

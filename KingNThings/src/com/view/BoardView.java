@@ -10,7 +10,7 @@ import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
 import com.presenter.BoardPresenter;
-import com.presenter.Util;
+import com.util.Util;
 
 import java.util.Iterator;
 import java.util.List;
