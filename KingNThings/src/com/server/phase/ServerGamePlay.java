@@ -32,7 +32,7 @@ public final class ServerGamePlay {
 		phases.add(new ServerStartingPosPhase(this));		// StartingPosPhase
 		phases.add(new ServerStartingKingdomPhase(this));	// StartingKingdomPhase
 		phases.add(new ServerNOOPPhase(this));				// StartingTowerPhase
-		phases.add(new ServerStartingForcesPhase(this));	// StartingForcesPhase
+		phases.add(new ServerStartingForcesPhase(this));		// StartingForcesPhase
 		phases.add(new ServerNOOPPhase(this));				// ExchangePhase
 		
 		// Game Phases
