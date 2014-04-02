@@ -22,6 +22,8 @@ public final class ServerGamePlay {
 	private Iterator<IServerPhaseStrategy> phaseIt;
 	protected ServerGameRoom room;
 	
+	protected boolean skip;
+	
 	public ServerGamePlay(ServerGameRoom room) {
 		this.room = room;
 		phases = new LinkedHashSet<>();
@@ -52,10 +54,10 @@ public final class ServerGamePlay {
 		if (phase == null) phase = phaseIt.next();
 		
 		// Move to the next phase if the last player played his/her turn.
-		if (room.getGame().isLastPlayer()) {
+		if (room.getGame().isLastPlayer() || skip) {
 			// Only notify phase end at this point this implies the turn ended as well.
 			
-			if (phase.mustCycle()) {
+			if (phase.mustCycle() && !skip) {
 				phase.decrementCycles();
 			} else {
 				phase.turnEnd();
@@ -67,13 +69,15 @@ public final class ServerGamePlay {
 			
 		}
 			// Next player's turn.
-		nextTurn();			
+		if (!skip)
+			nextTurn();			
 		
 	}
 	
 	private final void nextPhase() {
 		// Cycle phases and loop back to gold collection
 		if (phaseIt.hasNext()) {
+			
 			phase = phaseIt.next();
 			phase.phaseStart();
 		}
@@ -106,10 +110,17 @@ public final class ServerGamePlay {
 	}
 
 	public void skipPhase() {
+		// So we don't have to be invasive in phases.
+		skip = true;
+		next();
+		skip = false;
+		// So we are less invasive
+//		skip = true;
 //		phase.phaseEnd();
-		phase = phaseIt.next();
+//		phase = phaseIt.next();
 //		phase.phaseStart();
-		
-		notifyAllClients(room, Notifications.PHASE_ENDED);
+//		skip = false;
+//		
+//		notifyAllClients(room, Notifications.PHASE_ENDED);
 	}
 }

@@ -70,7 +70,8 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 	@Override
 	public void skipPhase(String roomName) throws JSONRPC2Error {
 		ServerGameRoom room;
-		synchronized (room = (ServerGameRoom) GAME_ROOMS.get(roomName)) {
+		synchronized (GAME_ROOMS.get(roomName)) {
+			room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			room.getGamePlay().skipPhase();
 		}		
 	}
