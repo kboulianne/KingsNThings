@@ -55,7 +55,7 @@ public class PopupPresenter {
 		view.show(new CupPopup(cup));
 	}
 	
-	void showBattlePopup() {
+	public void showBattlePopup() {
 		view.show(KNTAppFactory.getBattlePresenter().getView());
 	}
 }
