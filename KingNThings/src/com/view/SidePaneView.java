@@ -12,6 +12,7 @@ import java.util.SortedMap;
 import com.view.customcontrols.PlayerLabel;
 import com.game.services.GameService;
 import com.main.KNTAppFactory;
+import com.model.Battle;
 import com.model.Cup;
 import com.model.Fort;
 import com.model.Hex;
@@ -337,6 +338,31 @@ public class SidePaneView extends VBox {
 		content.getChildren().add(display);
 	}
 
+	public void showBattleChooserView(final Player current, ArrayList<Player> defendingPlayers, final Hex hex){
+		VBox display = new VBox();
+		Label lbl = new Label("Choose Your Opponent:");
+		display.getChildren().add(lbl);
+		for(int i=0;i<defendingPlayers.size();i++){
+			final Player plyer = defendingPlayers.get(i);
+			
+			Button btn = new Button(plyer.getName());
+			display.getChildren().add(btn);
+			btn.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent arg0) {
+					Battle battle = new Battle(current, plyer, hex);
+					KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
+					KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
+				}
+			});
+		}
+		display.getStyleClass().add("largeSpacing");
+		display.setAlignment(Pos.CENTER);
+		content.getChildren().clear();
+		content.getChildren().add(display);
+	}
+	
+	
 	public void showHexDetailsView(HexDetailsView view) {
 		content.getChildren().clear();
 		content.getChildren().add(view);

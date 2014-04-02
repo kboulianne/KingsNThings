@@ -487,27 +487,30 @@ public class BoardPresenter {
 		
 		Board b = svc.getGame().getBoard();
 		Player current = svc.getGame().getCurrentPlayer();
-		Player defender = null;
+		//Player defender = null;
 		Hex hex = b.getHexes().get(selected);
 		
 		if (hex.hasConflict()) {
 			Util.playStartBattleSound();
 			// Create battle. Assume first opposing player returned from valueSet.
+			
+			ArrayList<Player> defendingPlayers = new ArrayList<Player>();
+			
 			for (Player p : hex.getArmies().keySet()) {
 				if (!p.equals(current)) {
-					defender = p;
-					break;
+					defendingPlayers.add(p);
 				}
 			}
 			
-			//FOR DEMO -- Exploration is skipped
-			// Starts battle between Players
-			Battle battle = new Battle(current, defender, hex);
-			// SHow the popup
-			KNTAppFactory.getPopupPresenter().showBattlePopup();
-			
-			// Start the battle
-			KNTAppFactory.getBattlePresenter().startBattle(battle);	
+			if(defendingPlayers.size()==1){
+				Battle battle = new Battle(current, defendingPlayers.get(0), hex);
+				KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
+				KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
+			}else{
+				KNTAppFactory.getSidePanePresenter().getView().showBattleChooserView(current, defendingPlayers, hex);
+			}
+		}else{
+			KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("Available battles displayed as red hexes", Game.CROWN_IMAGE);
 		}
 		
 		view.setBoard(b);

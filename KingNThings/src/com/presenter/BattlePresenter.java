@@ -10,6 +10,7 @@ import com.model.Battle;
 import com.model.Battle.BattlePhase;
 import com.model.game.Game;
 import com.model.Creature;
+import com.model.Hex;
 import com.model.Player;
 import com.model.Thing;
 import com.view.BattleView;
@@ -53,24 +54,9 @@ public class BattlePresenter {
 			battle.setCurrentPlayer(battle.getDefender());
 		}
 	}
-	
-	//TODO move to view
-	/**
-	 * Determines which controls to display according to attacker/defender turn.
-	 */
-	private void enableControlsForRoll() {
-		if (isDefender()) {
-			offenderDice.getView().getRollBtn().setDisable(true);
-			defenderDice.getView().getRollBtn().setDisable(false);
-		}
-		else {
-			offenderDice.getView().getRollBtn().setDisable(false);
-			defenderDice.getView().getRollBtn().setDisable(true);
-		}
-	}
 
 	// use this to start battle
-	void startBattle(Battle b) {
+	public void startBattle(Battle b) {
 		Util.playBattleMusic();
 		
 		// Display the battle in the view
@@ -229,8 +215,19 @@ public class BattlePresenter {
 			battle.setCurrentPlayer(battle.getOffender());
 			nextBattlePhase();
 			return;
-		}else if(battle.getDefHits()==0){
-			battle.setCurrentPlayer(battle.getDefender());
+		}else if(battle.getDefHits()==0 && !isDefender()){
+			switchPlayers();
+			view.getDefGrid().setDisable(false);
+			view.getOffGrid().setDisable(true);
+			applyHits();
+			return;
+		}else if(battle.getOffHits()==0 && isDefender()){
+			view.getDefGrid().setDisable(true);
+			view.getOffGrid().setDisable(true);
+			switchPlayers();
+			nextBattlePhase();
+			return;
+		}else if(battle.getOffHits()!=0 && isDefender()){
 			view.getDefGrid().setDisable(false);
 			view.getOffGrid().setDisable(true);
 		}else{
@@ -269,31 +266,37 @@ public class BattlePresenter {
 	private void postCombatPhase() {
 		Util.stopBattleMusic();
 		Util.log("post combat phase player: "+battle.getCurrentPlayer().getName());
-		// For demo, eliminate his armies, set hex ownership to opponent
-//		battle.getAssociatedHex().getArmies(retreated);
+
+		Hex associatedHex =battle.getAssociatedHex();
 		Player winner = null;
 		if(battle.isDefenderEliminated()){
 			winner = battle.getOffender();
-			battle.getAssociatedHex().getArmies().remove(battle.getDefender());
+			associatedHex.getArmies().remove(battle.getDefender());
 		}else if(battle.isOffenderEliminated()){
 			winner = battle.getDefender();
-			battle.getAssociatedHex().getArmies().remove(battle.getOffender());
+			associatedHex.getArmies().remove(battle.getOffender());
 		}else{ //retreat
-			battle.getAssociatedHex().getArmies().remove(retreated);
+			associatedHex.getArmies().remove(retreated);
 			if (retreated.equals(battle.getOffender())) {
 				winner = battle.getDefender();
-			} 
-			else {
+			} else {
 				winner = battle.getOffender();
 			}
 		}
 		
-		battle.getAssociatedHex().setOwner(winner);
-		battle.getAssociatedHex().setConflict(false);
+		if(associatedHex.getArmies().keySet().size()==1){
+			associatedHex.setOwner(winner);
+			associatedHex.setConflict(false);
+		}
 		// FOR DEMO
 		KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
 		KNTAppFactory.getPopupPresenter().dismissPopup();
 		KNTAppFactory.getSidePanePresenter().getView().showArbitraryView("The winner of the last battle was "+winner.getName(), Game.CROWN_IMAGE);
+	
+		//FIXME winning game condition
+		/*if(){
+			
+		}*/
 	}
 	
 	
@@ -308,18 +311,11 @@ public class BattlePresenter {
 			if(isDefender()){
 				battle.killDefenderCreature((Creature)thing);
 				info = "Offender killed creature " + thing.getName().toUpperCase();
-				//TODO 
 				Util.playSwordSound();
-				//Util.playDeathSound();
-				// Update view
-				view.setBattle(battle);
+				
 				battle.setOffHits(battle.getOffHits()-1);
-				if(battle.getOffHits()==0){
-					view.getDefGrid().setDisable(true);
-					view.getOffGrid().setDisable(true);
-					switchPlayers();
-					nextBattlePhase();
-				}
+				view.setBattle(battle);
+				
 				// Winning Conditions
 				if(battle.isDefenderEliminated() || battle.isOffenderEliminated()){
 					view.getDefGrid().setDisable(true);
@@ -328,36 +324,46 @@ public class BattlePresenter {
 					postCombatPhase();
 					return;
 				}
-				return;
+				if(battle.getOffHits()==0){
+					view.getDefGrid().setDisable(true);
+					view.getOffGrid().setDisable(true);
+					switchPlayers();
+					nextBattlePhase();
+					return;
+				}
+				
 				
 			}else{ // Offender
 				battle.killOffenderCreature((Creature)thing);
 				info = "Defender killed creature " + thing.getName().toUpperCase();
-				//TODO 
 				Util.playSwordSound();
-				//Util.playDeathSound();
+				
 				battle.setDefHits(battle.getDefHits()-1);
+				view.setBattle(battle);
+				
+				// Winning Conditions
+				if(battle.isDefenderEliminated() || battle.isOffenderEliminated()){
+					view.getDefGrid().setDisable(true);
+					view.getOffGrid().setDisable(true);
+					battle.setBattlePhase(BattlePhase.POSTCOMBAT);
+					postCombatPhase();
+					return;
+				}
 				if(battle.getDefHits()==0){
 					view.getDefGrid().setDisable(false);
 					view.getOffGrid().setDisable(true);
-					switchPlayers(); // to defenders turn
+					switchPlayers();
+					if(battle.getOffHits()==0){
+						view.getDefGrid().setDisable(true);
+						view.getOffGrid().setDisable(true);
+						switchPlayers();
+						nextBattlePhase();
+						return;
+					}
 				}
 			}
-			
 			// Update view
-			view.setBattle(battle);
-			
-			// Winning Conditions
-			if(battle.isDefenderEliminated() || battle.isOffenderEliminated()){
-				view.getDefGrid().setDisable(true);
-				view.getOffGrid().setDisable(true);
-				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-				postCombatPhase();
-				return;
-			}
-		
 			view.refreshView((isDefender() ? "Defender" : "Offender") + " must apply opponent's hits to creatures", info);
-
 		}else{
 			Util.log("cannot apply hits");
 		}
@@ -399,7 +405,11 @@ public class BattlePresenter {
 					currentCreature = creatureIt.next();
 					battle.setCurrentPlayer(battle.getDefender());
 				}
-				offenderDice.getView().hideDie2(true);
+				if(currentCreature.isCharge()){
+					offenderDice.getView().hideDie2(false);
+				}else{
+					offenderDice.getView().hideDie2(true);
+				}
 			}else{
 				currentCreature = creatureIt.next();
 				if(currentCreature.isCharge()){
@@ -448,5 +458,16 @@ public class BattlePresenter {
 		
 		view.refreshView((isDefender() ? "Defender" : "Offender") + " must roll for Creature "+ currentCreature.getName().toUpperCase(), info);
 		enableControlsForRoll();
+	}
+	
+	private void enableControlsForRoll() {
+		if (isDefender()) {
+			offenderDice.getView().getRollBtn().setDisable(true);
+			defenderDice.getView().getRollBtn().setDisable(false);
+		}
+		else {
+			offenderDice.getView().getRollBtn().setDisable(false);
+			defenderDice.getView().getRollBtn().setDisable(true);
+		}
 	}
 }
