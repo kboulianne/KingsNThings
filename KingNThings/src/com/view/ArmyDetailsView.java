@@ -15,7 +15,6 @@ import com.view.customcontrols.ArmyOrMisc;
 
 public class ArmyDetailsView extends VBox{
 
-	private ArmyDetailsPresenter presenter;
 	private Label lbl;
 	private Label sublbl;
 	private ArmyOrMisc army;
@@ -29,16 +28,6 @@ public class ArmyDetailsView extends VBox{
 		buildView();
 	}
 	
-	public void setPresenter(ArmyDetailsPresenter presenter){
-		if (presenter == null)
-            throw new NullPointerException("Presenter cannot be null");
-        
-        if (this.presenter != null)
-            throw new IllegalStateException("The presenter was already set.");
-        
-        this.presenter = presenter;
-	}
-	
 	private void buildView(){
 		lastSelectedArmy = new ArrayList<Creature>();
 		setAlignment(Pos.CENTER);
@@ -46,13 +35,6 @@ public class ArmyDetailsView extends VBox{
 		lbl = new Label();
 		lbl.getStyleClass().add("title");
 		sublbl = new Label();
-		/*handler = new EventHandler<ThingEvent>() {
-			@Override
-			public void handle(ThingEvent t) {
-				KNTAppFactory.getHexDetailsPresenter().handleThingClick(t.getThing());
-			}
-
-		};*/
 		
 		army = new ArmyOrMisc();
 		

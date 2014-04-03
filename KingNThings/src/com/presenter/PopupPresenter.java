@@ -19,7 +19,6 @@ public class PopupPresenter {
 	// All the views (Pane classes) this popup can display.
 	public PopupPresenter(PopupView view) {
 		this.view = view;
-		this.view.setPresenter(this);
 	}
 
 	/**

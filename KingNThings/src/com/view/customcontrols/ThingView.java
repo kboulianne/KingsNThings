@@ -134,7 +134,7 @@ public class ThingView extends StackPane{
 		});
 	}
 	
-	void setMovementHandler(){
+	public void setMovementHandler(){
 		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
 //		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 //			@Override
@@ -155,7 +155,7 @@ public class ThingView extends StackPane{
 //		});
 	}
 	
-	void setDoNothingHandler(){
+	public void setDoNothingHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {			
@@ -165,7 +165,7 @@ public class ThingView extends StackPane{
 		});
 	}
 
-	void setExchangeThingHandler() {
+	public void setExchangeThingHandler() {
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {	

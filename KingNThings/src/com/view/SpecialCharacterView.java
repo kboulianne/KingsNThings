@@ -108,7 +108,6 @@ public class SpecialCharacterView{
 	
 	
 	public VBox setScreen1(Player current, List<SpecialCharacter> playersSChars, Cup cup){
-//		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
 		List<SpecialCharacter> specCfromCup = cup.getListOfSpecialCharacters();
 		boolean playerHasLord = false;
 		

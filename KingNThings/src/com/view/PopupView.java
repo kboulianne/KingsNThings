@@ -19,14 +19,6 @@ import javafx.scene.layout.VBox;
  * @author kurtis
  */
 public class PopupView extends VBox {
-
-	//private GameView parent;
-	private PopupPresenter presenter;
-
-	//private AnchorPane rootAnchorPane;
-    // Content to display
-	//private Pane content;
-
 	private Label titleLbl;
 	private Button closeBtn;
 	private AnchorPane rootAnchorPane;
@@ -35,16 +27,6 @@ public class PopupView extends VBox {
 	// Parent will always be GameView
 	public PopupView() {
 		buildPopup();
-	}
-
-	public void setPresenter(final PopupPresenter presenter) {
-		if (presenter == null) {
-			throw new NullPointerException("Presenter cannot be null");
-		}
-		if (this.presenter != null) {
-			throw new IllegalStateException("The presenter was already set.");
-		}
-		this.presenter = presenter;
 	}
 
 	public void setParent(GameView parent) {

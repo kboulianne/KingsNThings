@@ -13,7 +13,6 @@ public class ArmyDetailsPresenter {
 	
 	public ArmyDetailsPresenter(ArmyDetailsView view) {
 		this.view = view;
-		this.view.setPresenter(this);
 	}
 	
 	public void showArmy(Hex hex, Player armyOwner, List<Creature> army){

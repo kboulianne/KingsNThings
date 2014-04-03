@@ -28,12 +28,6 @@ import javafx.scene.layout.VBox;
 
 public class ThingDetailsView extends VBox {
 
-	private ThingDetailsPresenter presenter;
-
-    //TODO
-    //needs to be set or shouldnt be here
-   // private BoardPresenter boardPresenter;
-
     private Label thingNameLbl;
     private Label typeLbl;
     private Label ownerLbl;
@@ -43,17 +37,7 @@ public class ThingDetailsView extends VBox {
     private Label testLbl;
     
     public ThingDetailsView() {
-    	buildView();
-    }
-    
-    public void setPresenter(final ThingDetailsPresenter presenter) {
-        if (presenter == null)
-            throw new NullPointerException("Presenter cannot be null");
-        
-        if (this.presenter != null)
-            throw new IllegalStateException("The presenter was already set.");
-        
-        this.presenter = presenter;
+    		buildView();
     }
     
     private void buildView() {
@@ -72,9 +56,7 @@ public class ThingDetailsView extends VBox {
 	}
 
 	public void setThing(final Thing thing, List<Thing> lastSelected) {
-//		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
 		if (thing != null) {
-//
 			if(thing.isFacedDown()){
 				thingNameLbl.setText("UNKNOWN");
 				ThingView tv =new ThingView(260, thing);
