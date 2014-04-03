@@ -21,7 +21,6 @@ public class SpecialCharacterPresenter {
 	
 	public SpecialCharacterPresenter(SpecialCharacterView v){
 		view = v;
-		view.setPresenter(this);
 	}
 	
 	//handlers

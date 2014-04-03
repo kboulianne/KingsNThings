@@ -144,72 +144,19 @@ public class SidePaneView extends VBox {
 		content.getChildren().add(vbox);
 	}
 		
-	public void showSpecialCharRecruitment(SpecialCharacter thing) {
+	public void showSpecialCharRecruitment(SpecialCharacter thing, Player current) {
 		content.getChildren().clear();
-		content.getChildren().add(KNTAppFactory.getSpecialCharacterPresenter().getView().setScreen2(thing));
+		content.getChildren().add(KNTAppFactory.getSpecialCharacterPresenter().getView().setScreen2(thing, current));
 	}
 	
-	public void showSpecialCharRecruitment(String playerName, ArrayList<SpecialCharacter> playersSChars){
+	public void showSpecialCharRecruitment(Player current, List<SpecialCharacter> playersSChars, Cup cup){
 		content.getChildren().clear();
-		content.getChildren().add(KNTAppFactory.getSpecialCharacterPresenter().getView().setScreen1(playerName, playersSChars));
+		content.getChildren().add(KNTAppFactory.getSpecialCharacterPresenter().getView().setScreen1(current, playersSChars, cup));
 	}
 	
-
-	public void showThingRecruitment(final int freeRecruits, int paidRecruits) {
-		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
-//		final ThingRecruitmentView view = new ThingRecruitmentView(freeRecruits, paidRecruits);
-//		
-//		view.getBuyRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
-//			public void handle(ActionEvent arg)	{
-//				Player player = GameService.getInstance().getGame().getCurrentPlayer();
-//				
-//				if((player.getGold() >= 5) && (view.getPaidRecruitsValue() < 5))	{
-//					Util.playClickSound();
-//					player.removeGold(5);
-//					KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(player);
-//					view.increasePaidRecruits();
-//				}
-//			}
-//		});
-//		
-//		view.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
-//			public void handle(ActionEvent arg)	{
-//				Util.playClickSound();
-//				int total = 0;
-//				ArrayList<Thing> listOfThings = GameService.getInstance().getGame().getLastSelectedThingsOfCurrentPlayerBlock();
-//				Player player = GameService.getInstance().getGame().getCurrentPlayer();
-//				Cup cup = GameService.getInstance().getGame().getCup();
-//				
-//				for(Thing t: listOfThings)	{
-//					total++;
-//					player.removeThing(t);
-//					cup.addThing(t);
-//				}
-//				
-//				total = (int)Math.ceil(total/2.0);
-//				total += (freeRecruits + view.getPaidRecruitsValue());
-//				
-//				for(int i = 0; i < total; i++)	{
-//					Thing c = cup.getRandomThing();
-//					cup.removeThing(c);
-//					player.addThing(c);
-//				}
-//				
-//				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
-//				
-//				clearDetailsView();
-//				showArbitraryView("Choose things from rack and\n"
-//						   + "    place them on the board", Game.CROWN_IMAGE);
-//				
-//				KNTAppFactory.getBoardPresenter().getView().setDisable(false);
-//				KNTAppFactory.getBoardPresenter().getView().addPlacementHandler();
-//				KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setDisable(false);
-//				KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(GameService.getInstance().getGame().getCurrentPlayer());
-//			}
-//		});
-//		
-//		content.getChildren().clear();
-//		content.getChildren().add(view);
+	public void setThingRecruitment(ThingRecruitmentView view) {
+		this.content.getChildren().clear();
+		content.getChildren().add(view);
 	}
 	
 	public void showBuildMenu(final Hex h)	{

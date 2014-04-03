@@ -73,7 +73,7 @@ public class GameView extends StackPane {
 		
 		currentActionLbl = new Label();
 		currentActionLbl.getStyleClass().add("title");
-		box.getChildren().addAll(currentPlayerLbl, currentActionLbl, skipPhase);
+		box.getChildren().addAll(skipPhase, currentPlayerLbl, currentActionLbl);
 		
 		gameStatus.getChildren().add(box);
 		AnchorPane.setLeftAnchor(box, 0.0);

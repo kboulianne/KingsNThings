@@ -41,6 +41,7 @@ public final class Game {
     // Iterators are not serializable. Use index instead.
     private int nextPlayerIdx;
     private List<Player> playerOrder;
+    //TODO: May need to serialize this.
     private transient Cup cup;
     
   	//private ArrayList<Creature> lastSelectedCreatures;
@@ -351,5 +352,46 @@ public final class Game {
 		}
 		
 		return null;
+	}
+	
+	// get special characters from hexes and players block
+	// For the current player.
+	public List<SpecialCharacter> getAllOwnedSpecialChar() {
+//		throw new UnsupportedOperationException("FIXME! GameService cannot be used here. Move to presenter.");
+		List<Hex> hexes = board.getHexes();
+		List<SpecialCharacter> specChars = new ArrayList<>();
+		
+		for (Hex h : hexes) {
+			if (h.getArmies(currentPlayer) == null) continue;
+			
+			for (Creature c : h.getArmies(currentPlayer)) {
+				if (c instanceof SpecialCharacter) {
+					specChars.add((SpecialCharacter) c);
+				}
+			}
+		}
+		
+
+//		ArrayList<Hex> hexes = (ArrayList<Hex>) GameService.getInstance().getGame().getBoard().getHexes();
+//		ArrayList<SpecialCharacter> specChars = new ArrayList<SpecialCharacter>();
+//		for(Hex h:hexes){
+//			ArrayList<Creature> creatures = h.getArmies(this);
+//			if(creatures!=null){ //TODO fix
+//				for(Creature c: creatures){
+//					if(c instanceof SpecialCharacter)
+//						specChars.add((SpecialCharacter) c);
+//				}
+//			}
+//		}
+//		
+//		ArrayList<Thing> blockChars = block.getListOfThings();
+//		for(Thing t: blockChars){
+//			if (t instanceof SpecialCharacter)
+//				specChars.add((SpecialCharacter) t);
+//		}
+//		return specChars;
+
+		
+		return specChars;
 	}
 }

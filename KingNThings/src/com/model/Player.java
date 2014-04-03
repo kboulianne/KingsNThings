@@ -97,31 +97,7 @@ public class Player 	{
 	}
 
 
-	// get special characters from hexes and players block
-	public ArrayList<SpecialCharacter> getAllOwnedSpecialChar() {
-		throw new UnsupportedOperationException("FIXME! GameService cannot be used here. Move to presenter.");
-		// FIXME: Game presenter cannot be used here.
-//		ArrayList<Hex> hexes = (ArrayList<Hex>) GameService.getInstance().getGame().getBoard().getHexes();
-//		ArrayList<SpecialCharacter> specChars = new ArrayList<SpecialCharacter>();
-//		for(Hex h:hexes){
-//			ArrayList<Creature> creatures = h.getArmies(this);
-//			if(creatures!=null){ //TODO fix
-//				for(Creature c: creatures){
-//					if(c instanceof SpecialCharacter)
-//						specChars.add((SpecialCharacter) c);
-//				}
-//			}
-//		}
-//		
-//		ArrayList<Thing> blockChars = block.getListOfThings();
-//		for(Thing t: blockChars){
-//			if (t instanceof SpecialCharacter)
-//				specChars.add((SpecialCharacter) t);
-//		}
-//		return specChars;
-		// Game service can't be used here. Put in presenter.
-//		return null;
-	}
+
 
 	// remove special characters from block or Hexes
 	public SpecialCharacter removeSpecialCharacter(SpecialCharacter sC) {

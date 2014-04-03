@@ -90,7 +90,6 @@ public final class ServerGamePlay {
 			}
 		}
 		
-		// TODO: Notify clients of phase change. 
 		notifyAllClients(room, Notifications.PHASE_ENDED);
 	}
 	
@@ -109,22 +108,9 @@ public final class ServerGamePlay {
 	public void skipPhase() {
 		// Just to circumvent bug if skipping first phase
 		if (phase == null) phase = phaseIt.next();
-		// So we don't have to be invasive in phases.
-//		phase.turnEnd();
-//		phase.phaseEnd();
+
 		// Equivalent to phase end but uses defaults for testing
 		phase.skipPhase();
 		nextPhase();
-		
-		
-		
-		// So we are less invasive
-//		skip = true;
-//		phase.phaseEnd();
-//		phase = phaseIt.next();
-//		phase.phaseStart();
-//		skip = false;
-//		
-//		notifyAllClients(room, Notifications.PHASE_ENDED);
 	}
 }

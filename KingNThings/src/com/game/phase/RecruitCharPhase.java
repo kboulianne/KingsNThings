@@ -40,7 +40,7 @@ class RecruitCharPhase extends AbstractPhaseStrategy {
 		Player currPlay = game.getCurrentPlayer();
 		//set cup thing to do nothing
 		getPlayerInfoPresenter().getView().setRackDoNothingHandler(currPlay);
-		getSidePanePresenter().getView().showSpecialCharRecruitment(currPlay.getName(), currPlay.getAllOwnedSpecialChar());
+		getSidePanePresenter().getView().showSpecialCharRecruitment(currPlay, game.getAllOwnedSpecialChar(), game.getCup());
 	}
 
 	@Override

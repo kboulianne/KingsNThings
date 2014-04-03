@@ -184,13 +184,13 @@ public class ThingView extends StackPane{
 		});		
 	}
 
-	public void setChooseSpecialCharToRecruitHandler() {
+	public void setChooseSpecialCharToRecruitHandler(final Player current) {
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
 				Util.playClickSound();
 				thing.setSelected(true);
-				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment((SpecialCharacter) thing);
+				KNTAppFactory.getSidePanePresenter().getView().showSpecialCharRecruitment((SpecialCharacter) thing, current);
 			}
 		});
 	}

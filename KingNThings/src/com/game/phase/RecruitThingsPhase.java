@@ -71,7 +71,7 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 		
 		freeRecruits = (int) Math.ceil(freeRecruits/2.0);
 		
-		getSidePanePresenter().getView().showThingRecruitment(freeRecruits, 0);
+		getSidePanePresenter().showThingRecruitment(freeRecruits, 0);
 		getBoardPresenter().getView().setDisable(true);
 		getPlayerInfoPresenter().getView().setRackRecruitingThingsHandler(game.getCurrentPlayer());	
 	}
