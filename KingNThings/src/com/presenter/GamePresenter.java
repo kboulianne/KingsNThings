@@ -98,22 +98,6 @@ public class GamePresenter {
 	 * Shows the contents of the cup as a popup.
 	 */
 	void showCup() {
-		// Get the cup content
-		
-
-		// For now until can find a cleaner way.
-		/*EventHandler<ThingEvent> handler = new EventHandler<ThingEvent>() {
-
-			@Override
-			public void handle(ThingEvent t) {
-				// Dispatch to ThingDetailsView
-				KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t.getThing());
-				KNTAppFactory.getPopupPresenter().dismissPopup();
-			}
-		};*/
-		
-		
-		
 		getPopupPresenter().showCupPopup(game.getCup());
 	}
 
@@ -194,7 +178,7 @@ public class GamePresenter {
 	}
 
 	public void onPhaseEnded() {
-		getGamePlay().getPhaseLogic().phaseEnd();
+		getGamePlay().getPhaseLogic().phaseEnd(game);
 
 		
 		try {
@@ -202,11 +186,13 @@ public class GamePresenter {
 			// Refresh local instance.
 			game = gameSvc.getGame(NetworkedMain.getRoomName());
 			getGamePlay().getPhaseLogic().phaseStart(game);
-			getGamePlay().getPhaseLogic().turnStart(game);
+			// Only call this if it is the player's turn
+			if (NetworkedMain.isPlayerTurn(game.getCurrentPlayer()))
+				getGamePlay().getPhaseLogic().turnStart(game);
 			updateViews(game);
 			
-			//TODO: Re-integrate phase navigation in GamePlay.
-			getGamePlay().getPhaseLogic().phaseStart(game);
+//			//TODO: Re-integrate phase navigation in GamePlay.
+//			getGamePlay().getPhaseLogic().phaseStart(game);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

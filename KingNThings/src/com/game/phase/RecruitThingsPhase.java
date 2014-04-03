@@ -45,7 +45,7 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		Util.log("Game Logic: End of Recruiting Things Phase");
 		
 		getBoardPresenter().getView().addDefaultHandler();

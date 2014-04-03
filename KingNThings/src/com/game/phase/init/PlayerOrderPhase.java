@@ -83,7 +83,7 @@ public class PlayerOrderPhase extends AbstractPhaseStrategy {
 	}
 	
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(false);
 		Button rollBtn = getDicePresenter().getView().getRollBtn();

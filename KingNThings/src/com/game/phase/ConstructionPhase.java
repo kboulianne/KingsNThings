@@ -48,14 +48,14 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		Util.log("Game Phase: End of Construction Phase");
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
 		
 		int total = 0;
 		Player citOwner = null;
-		List<Player> players = game.getPlayers();
+		List<Player> players = game.getPlayerOrder();
 		
 		for(int i=0; i<players.size(); i++)	{
 			if(players.get(i).isCitadelOwner())	{

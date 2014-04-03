@@ -83,7 +83,7 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	}
 	
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		// Make sure to remove cycles, as a precaution
 //		context.setCycleCount(0);
 		

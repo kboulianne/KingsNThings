@@ -31,6 +31,15 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 		synchronized (GAME_ROOMS) {
 			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			
+			// Make sure to keep the current player and playerorder players in sync
+			for (int i = 0 ; i < game.getPlayerOrder().size() ; i ++) {
+				Player p = game.getPlayerOrder().get(i);
+				
+				if (p.equals(game.getCurrentPlayer())) {
+					game.getPlayerOrder().set(i, game.getCurrentPlayer());
+				}
+			}
+			
 			room.setGame(game);
 		}		
 	}

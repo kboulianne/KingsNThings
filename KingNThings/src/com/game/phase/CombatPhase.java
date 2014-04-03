@@ -42,7 +42,7 @@ class CombatPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		Util.log("Game Phase: End of Combat Phase");
 	}
 

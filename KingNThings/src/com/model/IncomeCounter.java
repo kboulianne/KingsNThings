@@ -50,6 +50,9 @@ public class IncomeCounter extends Thing {
 			setColor(Color.rgb(160,140,160));
 	}
 	
+	public IncomeCounter() {
+	}
+
 	//Get and set methods
 	public String getDomain() {
 		return domain;

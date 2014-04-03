@@ -147,33 +147,33 @@ public class Player 	{
 		this.color = id.color;
 	}
 	
-	public int calculateIncome() {
-		int hexGold = 0;
-		int fortGold = 0;
-		int counterGold = 0;
-		int specCharGold = 0;
-		int totalGold = 0;
-		throw new IllegalAccessError("Access to service must be in appropriate presenter.");
-//		Game game = GameService.getInstance().getGame();
-//		
-//		for (Hex h : game.getBoard().getHexes()) {
-//			if ((h != null) && (h.getHexOwner() == this)) {
-//				hexGold++;
-//				if(h.getFort() != null)	fortGold += h.getFort().getValue();
-//				if(h.getCounter() != null)	counterGold += h.getCounter().getValue();
-//				if(h.getArmies(this) != null)	{
-//					for(Creature c: h.getArmies(this)) {
-//						if(c instanceof SpecialCharacter)	specCharGold++;
-//					}
-//				}
-//			}
-//		}
-//		
-//		hexGold = (int) Math.ceil(hexGold/2.0);
-//		totalGold += (hexGold + fortGold + counterGold + specCharGold);
-		// Game Service can't be used here.
-//		return totalGold;
-	}
+//	public int calculateIncome() {
+//		int hexGold = 0;
+//		int fortGold = 0;
+//		int counterGold = 0;
+//		int specCharGold = 0;
+//		int totalGold = 0;
+//		throw new IllegalAccessError("Access to service must be in appropriate presenter.");
+////		Game game = GameService.getInstance().getGame();
+////		
+////		for (Hex h : game.getBoard().getHexes()) {
+////			if ((h != null) && (h.getHexOwner() == this)) {
+////				hexGold++;
+////				if(h.getFort() != null)	fortGold += h.getFort().getValue();
+////				if(h.getCounter() != null)	counterGold += h.getCounter().getValue();
+////				if(h.getArmies(this) != null)	{
+////					for(Creature c: h.getArmies(this)) {
+////						if(c instanceof SpecialCharacter)	specCharGold++;
+////					}
+////				}
+////			}
+////		}
+////		
+////		hexGold = (int) Math.ceil(hexGold/2.0);
+////		totalGold += (hexGold + fortGold + counterGold + specCharGold);
+//		// Game Service can't be used here.
+////		return totalGold;
+//	}
 	
 //	@Override
 //	public int hashCode() {

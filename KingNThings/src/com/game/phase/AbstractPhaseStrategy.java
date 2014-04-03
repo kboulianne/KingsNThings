@@ -23,10 +23,6 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 
 	protected final GamePlay context;
 
-	// Same instance for every phase.
-	protected static Game game;
-//	protected GameView gv;
-
 	protected AbstractPhaseStrategy(final GamePlay context) {
 		this.context = context;
 	}

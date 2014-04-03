@@ -7,7 +7,7 @@ import java.util.Objects;
 import javafx.scene.paint.Color;
 
 // No longer abstract for GSON serialization.
-public abstract class Thing extends GamePiece	{
+public class Thing extends GamePiece	{
 	
 	private Color color;
 	private int hexLocation;

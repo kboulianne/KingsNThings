@@ -94,7 +94,7 @@ public class PlayerInfoPresenter {
 		game.getCup().addThing(thing);
 		
 		game.getCurrentPlayer().addGold(((Treasure) thing).getValue());
-		KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(game.getCurrentPlayer());
+		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(game.getCurrentPlayer());
 		KNTAppFactory.getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
 		thingView.refreshView();
 		

@@ -31,7 +31,7 @@ public class ExchangePhase extends AbstractPhaseStrategy {
 	}
 	
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		Util.log("Init Phase: End of Exchange Things Phase");
 	}
 

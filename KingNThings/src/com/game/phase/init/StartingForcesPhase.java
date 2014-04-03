@@ -49,7 +49,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	}
 	
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		Util.log("Init Phase: End of Starting Forces Phase");
 		getBoardPresenter().getView().addDefaultHandler();
 		//Button finishBtn = getDicePresenter().getView().getEndTurnBtn();

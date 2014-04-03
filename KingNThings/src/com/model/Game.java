@@ -241,13 +241,6 @@ public final class Game {
 		return opponents;
 	}
 	
-
-	public final List<Player> getPlayers() {
-		List<Player> players = new ArrayList<>(playerOrder);
-		
-		return players;
-	}
-	
 	public final List<Player> getOpponentsFor(Player p) {
 		List<Player> opponents = new ArrayList<>(playerOrder);
 		opponents.remove(p);
@@ -334,18 +327,6 @@ public final class Game {
 		return playerOrder;
 	}
 	
-	@Deprecated
-	/*
-	 * DOES NOT WORK. WAS IT REALLY NECESSARY?
-	 */
-	public Player getGameOwner(Player p) {
-		for (Player player : playerOrder) {
-			if (player.getName().equals(p.getName())) return player;
-		}
-		
-		return null;
-	}
-	
 	public Player getPlayerByName(String name) {
 		for (Player p : playerOrder) {
 			if (p.getName().equals(name)) return p;
@@ -357,7 +338,6 @@ public final class Game {
 	// get special characters from hexes and players block
 	// For the current player.
 	public List<SpecialCharacter> getAllOwnedSpecialChar() {
-//		throw new UnsupportedOperationException("FIXME! GameService cannot be used here. Move to presenter.");
 		List<Hex> hexes = board.getHexes();
 		List<SpecialCharacter> specChars = new ArrayList<>();
 		
@@ -370,26 +350,6 @@ public final class Game {
 				}
 			}
 		}
-		
-
-//		ArrayList<Hex> hexes = (ArrayList<Hex>) GameService.getInstance().getGame().getBoard().getHexes();
-//		ArrayList<SpecialCharacter> specChars = new ArrayList<SpecialCharacter>();
-//		for(Hex h:hexes){
-//			ArrayList<Creature> creatures = h.getArmies(this);
-//			if(creatures!=null){ //TODO fix
-//				for(Creature c: creatures){
-//					if(c instanceof SpecialCharacter)
-//						specChars.add((SpecialCharacter) c);
-//				}
-//			}
-//		}
-//		
-//		ArrayList<Thing> blockChars = block.getListOfThings();
-//		for(Thing t: blockChars){
-//			if (t instanceof SpecialCharacter)
-//				specChars.add((SpecialCharacter) t);
-//		}
-//		return specChars;
 
 		
 		return specChars;

@@ -41,7 +41,7 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 	}
 	
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		Util.log("Game Phase: End of Gold Collection Phase");
 		getSidePanePresenter().getView().clearDetailsView();
 		getBoardPresenter().getView().setDisable(false);
@@ -61,7 +61,7 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 		int counterGold = 0;
 		int specCharGold = 0;
 		int totalGold = 0;
-//		Game game = GameService.getInstance().getGame();
+
 		Player player = game.getCurrentPlayer();
 		
 		for (Hex h : game.getBoard().getHexes()) {
@@ -85,12 +85,12 @@ class GoldCollectPhase extends AbstractPhaseStrategy {
 		getSidePanePresenter().getView().showGoldCollection(hexGold, fortGold, counterGold, specCharGold);
 		
 		player.addGold(totalGold);
-		getPlayerInfoPresenter().getView().updateGold(player);
+		getPlayerInfoPresenter().getView().setPlayer(player);
 	}
 
 	@Override
 	public void turnEnd(Game game) {
-		
+		System.out.println();
 	}
 
 	@Override

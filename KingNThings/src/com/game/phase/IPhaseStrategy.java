@@ -17,5 +17,5 @@ public interface IPhaseStrategy {
     void phaseStart(Game game);
     void turnStart(Game game);
     void turnEnd(Game game); 
-    void phaseEnd();
+	void phaseEnd(Game game);
 }

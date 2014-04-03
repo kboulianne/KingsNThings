@@ -49,7 +49,7 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		Util.log("End of Starting Positions Phase");
 //		getBoardPresenter().getView().setBoard(game.getBoard());
 		getBoardPresenter().getView().addDefaultHandler();
@@ -67,17 +67,17 @@ public class StartingPosPhase extends AbstractPhaseStrategy {
 
 //		getBoardPresenter().getView().setBoard(game.getBoard());
 				
-		if(Util.AUTOMATE){
-			Util.log("Automated");
-			if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE))
-				getBoardPresenter().handleStartPositionSelectedHexClick(23);
-			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO))
-				getBoardPresenter().handleStartPositionSelectedHexClick(28);
-			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE))
-				getBoardPresenter().handleStartPositionSelectedHexClick(32);
-			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR))
-				getBoardPresenter().handleStartPositionSelectedHexClick(19);
-		}
+//		if(Util.AUTOMATE){
+//			Util.log("Automated");
+//			if(game.getCurrentPlayer().getId().equals(Player.PlayerId.ONE))
+//				getBoardPresenter().handleStartPositionSelectedHexClick(23);
+//			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.TWO))
+//				getBoardPresenter().handleStartPositionSelectedHexClick(28);
+//			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.THREE))
+//				getBoardPresenter().handleStartPositionSelectedHexClick(32);
+//			else if(game.getCurrentPlayer().getId().equals(Player.PlayerId.FOUR))
+//				getBoardPresenter().handleStartPositionSelectedHexClick(19);
+//		}
 	}
 
 	@Override

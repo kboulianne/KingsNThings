@@ -109,19 +109,10 @@ public class Util {
 		}
 	}
 	
-	public static class CreatureSerializer implements JsonSerializer<Creature> {
+	private static class ThingAdapter implements InstanceCreator<Thing> {
 
 		@Override
-		public JsonElement serialize(Creature c, Type t,
-				JsonSerializationContext ctx) {
-			
-			return new Gson().toJsonTree(c);
-		}
-	}
-	private static class CreatureAdapter implements InstanceCreator<Creature> {
-
-		@Override
-		public Creature createInstance(Type t) {
+		public Thing createInstance(Type t) {
 			if (t.equals(DesertCreature.class))
 				return new DesertCreature();
 			else if (t.equals(ForestCreature.class))
@@ -136,10 +127,14 @@ public class Util {
 				return new PlainsCreature();
 			else if (t.equals(SpecialCharacter.class))
 				return new SpecialCharacter();
+			else if (t.equals(IncomeCounter.class))
+				return new IncomeCounter();
+			else if (t.equals(SwampCreature.class))
+				return new SwampCreature();
 			else
 				System.err.println("Add me in CreatureAdapter: " + t.getClass().getCanonicalName());
 			
-			return new SwampCreature();
+			return null;
 		}
 		
 	}
@@ -304,7 +299,15 @@ public class Util {
 		.registerTypeAdapter(Color.class, new ColorAdapter())
 		.registerTypeAdapter(Block.class, new BlockAdapter())
 		.registerTypeAdapter(Hex.class, new HexAdapter())
-		.registerTypeAdapter(SwampCreature.class, new CreatureAdapter());
+		.registerTypeAdapter(Thing.class, new ThingAdapter())
+		.registerTypeAdapter(DesertCreature.class, new ThingAdapter())
+		.registerTypeAdapter(ForestCreature.class, new ThingAdapter())
+		.registerTypeAdapter(FrozenWasteCreature.class, new ThingAdapter())
+		.registerTypeAdapter(JungleCreature.class, new ThingAdapter())
+		.registerTypeAdapter(MountainCreature.class, new ThingAdapter())
+		.registerTypeAdapter(PlainsCreature.class, new ThingAdapter())
+		.registerTypeAdapter(SwampCreature.class, new ThingAdapter())
+		.registerTypeAdapter(IncomeCounter.class, new ThingAdapter());
 
 //	public static final Gson GSON = GSON_BUILDER.create();
 	

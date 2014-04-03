@@ -46,7 +46,7 @@ class MovementPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		getArmyDetailsPresenter().getView().setDefaultHandler();
 		getBoardPresenter().getView().addDefaultHandler();
 		Util.log("Game Phase: End of Movement Phase");

@@ -107,7 +107,7 @@ public class SidePanePresenter {
 		if (current.getGold() >= 5 && paidRecValue < 5) {
 			Util.playClickSound();
 			current.removeGold(5);
-			KNTAppFactory.getPlayerInfoPresenter().getView().updateGold(current);
+			KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(current);
 			view.setPaidRecruit(++ paidRecValue);
 		}
 	}

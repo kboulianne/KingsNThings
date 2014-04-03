@@ -108,11 +108,11 @@ public class PlayerInfoView extends AnchorPane {
 		}
 	}
 	
-	public void updateGold(Player current)	{
-		if(current != null)	{
-			goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
-		}
-	}
+//	public void updateGold(Player current)	{
+//		if(current != null)	{
+//			goldLbl.setText("Gold: " + String.valueOf(current.getGold()));
+//		}
+//	}
 	
 	public void setRackExchangeThingsHandler(Player current){
 		if (current != null) {

@@ -1,5 +1,7 @@
 package com.server.phase;
 
+import com.model.Player;
+
 
 public class ServerNOOPPhase extends AbstractServerPhase {
 
@@ -15,14 +17,14 @@ public class ServerNOOPPhase extends AbstractServerPhase {
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-		
+		for (Player p : context.room.getGame().getPlayerOrder()) {
+			System.out.println(p.getName() + " now has " + p.getGold());
+		}
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 	}
 
 	@Override
-	public void phaseEnd() {
+	public void phaseEnd(Game game) {
 		Util.log("Init Phase: End of Starting Tower Phase");
 		getBoardPresenter().getView().addDefaultHandler();
 		
