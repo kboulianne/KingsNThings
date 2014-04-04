@@ -52,7 +52,7 @@ public class KNTClient {
 		
 		DISPATCHER.register(new GameRoomNotificationHandler());
 		DISPATCHER.register(new GameNotificationHandler());
-//		DISPATCHER.register(new Battle);
+		DISPATCHER.register(new BattleNotificationHandler());
 	}
 	
 	/**

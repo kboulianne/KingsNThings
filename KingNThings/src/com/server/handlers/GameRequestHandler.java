@@ -23,7 +23,7 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 		synchronized (GAME_ROOMS) {
 			game = ((ServerGameRoom)GAME_ROOMS.get(roomName)).getGame();
 			
-			System.out.println(game.getBoard().getHexes());
+//			System.out.println(game.getBoard().getHexes());
 		}
 		
 		return game;

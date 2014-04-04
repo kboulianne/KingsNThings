@@ -515,8 +515,8 @@ public class BoardPresenter {
 //				KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
 //				KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
 //				Battle battle = new Battle(current, defendingPlayers.get(0), hex);
-				KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
-				KNTAppFactory.getBattlePresenter().startBattle(current, defendingPlayers, hex); // Start the battle
+
+				KNTAppFactory.getBattlePresenter().triggerBattle(current, defendingPlayers, hex); // Start the battle
 				
 			}else{
 				KNTAppFactory.getSidePanePresenter().getView().showBattleChooserView(current, defendingPlayers, hex);

@@ -5,6 +5,7 @@ import java.util.List;
 import com.model.Battle;
 import com.model.Hex;
 import com.model.Player;
+import com.server.Notifications;
 import com.server.ServerGameRoom;
 import com.server.services.IBattleService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
@@ -15,7 +16,7 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 
 	@Override
 	public String[] handledRequests() {
-		return new String[] { "startBattle" };
+		return new String[] { "startBattle", "getOngoingBattle" };
 	}
 
 	@Override
@@ -30,7 +31,19 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			
 			room.setBattle(battle);
 			
+			// Allows opponents to watch the ongoing battle.
+			notifyOtherClients(room, Notifications.BATTLE_STARTED, room.getGame().getCurrentPlayer());
+			
 			return battle;
+		}
+	}
+
+	@Override
+	public Battle getOngoingBattle(String roomName) throws JSONRPC2Error {
+		synchronized (GAME_ROOMS.get(roomName)) {
+			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
+			
+			return room.getBattle();
 		}
 	}
 }

@@ -21,9 +21,8 @@ public class Battle {
 	private int offHits;
 	 
 	// Splits creatures according to phases
-	// TODO: Call splitCreatures every time Battle is refreshed?
-	private transient Map<BattlePhase, List<Creature>> offendingForces;
-	private transient Map<BattlePhase, List<Creature>> defendingForces;
+	private Map<BattlePhase, List<Creature>> offendingForces;
+	private Map<BattlePhase, List<Creature>> defendingForces;
 	
 	private BattlePhase battlePhase;
 	public enum BattlePhase { MAGIC("Magic"), APPLYMAJHITS("Apply Magic Hits"), 
@@ -147,50 +146,65 @@ public class Battle {
 	public int getRoundNumber() {
 		return roundNumber;
 	}
+	
 	public String getDefenderName() {
 		if (defender == null)
 			return "Creatures and Things";
 		return defender.getName();
 	}
+	
 	public Player getOffender() {
 		return offender;
 	}
+	
 	public BattlePhase getBattleRound() {
 		return battlePhase;
 	}
+	
 	public Hex getAssociatedHex() {
 		return associatedHex;
 	}
+	
 	public Fort getDefenderFort() {
 		return defenderFort;
 	}
+	
 	public boolean isUnExploredHex() {
 		return unExploredHex;
 	}
+	
 	public void setUnExploredHex(boolean unExploredHex) {
 		this.unExploredHex = unExploredHex;
 	}
+	
 	public BattlePhase getBattlePhase() {
 		return battlePhase;
 	}
+	
 	public void setBattlePhase(BattlePhase battlePhase) {
 		this.battlePhase = battlePhase;
 	}
+	
 	public void setRoundNumber(int roundNumber) {
 		this.roundNumber = roundNumber;
 	}
+	
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
+	
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
+	
 	public Player getDefender() {
 		return defender;
 	}
+	
 	public List<Creature> getOffenderCreatures() {
 		return associatedHex.getArmies(offender);
 	}
+	
 	public List<Creature> getDefenderCreatures() {
 		return associatedHex.getArmies(defender);
 	}

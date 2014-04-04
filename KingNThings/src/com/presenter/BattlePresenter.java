@@ -62,8 +62,13 @@ public class BattlePresenter {
 		}
 	}
 
-	// use this to start battle
-	public void startBattle(final Player current, List<Player> defending, Hex hex) {
+	/**
+	 * Called by the attacker to trigger a battle between themselves and the defender/s on the hex.
+	 * @param current The current player
+	 * @param defending	The players being attacked
+	 * @param hex The hex the battle is triggered on.
+	 */
+	public void triggerBattle(final Player current, List<Player> defending, Hex hex) {
 		Util.playBattleMusic();
 		
 		// Tell the server to start a new battle 
@@ -74,11 +79,13 @@ public class BattlePresenter {
 			e.printStackTrace();
 		}
 		
+		startBattle();
+	}
+
+	private void startBattle() {
+		KNTAppFactory.getPopupPresenter().showBattlePopup();
 		view.setBattle(battle);
-//		// Display the battle in the view
-//		battle = b;
-//		view.setBattle(battle);
-		
+
 		
 		// set handlers
 		view.getOffRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -142,7 +149,7 @@ public class BattlePresenter {
 		
 		startPhase();
 	}
-
+	
 	// STATE CHARGERS
 	private void nextBattlePhase() {
 		switchToNextPhase();
@@ -486,6 +493,21 @@ public class BattlePresenter {
 		else {
 			offenderDice.getView().getRollBtn().setDisable(false);
 			defenderDice.getView().getRollBtn().setDisable(true);
+		}
+	}
+
+	public void onBattleStarted() {
+		// Called by defending players when an attacker triggers a battle on a hex.
+		
+		// Fetch the battle instance and store it locally
+		try {
+			battle = battleSvc.getOngoingBattle(NetworkedMain.getRoomName());
+			
+			// Show the ui and lock if not currently executing turn.
+			startBattle();
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

@@ -22,9 +22,9 @@ public class ServerNOOPPhase extends AbstractServerPhase {
 
 	@Override
 	public void turnEnd() {
-		for (Player p : context.room.getGame().getPlayerOrder()) {
-			System.out.println(p.getName() + " now has " + p.getGold());
-		}
+//		for (Player p : context.room.getGame().getPlayerOrder()) {
+//			System.out.println(p.getName() + " now has " + p.getGold());
+//		}
 	}
 
 	@Override

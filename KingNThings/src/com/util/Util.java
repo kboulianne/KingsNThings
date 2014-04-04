@@ -330,6 +330,7 @@ public class Util {
 		.registerTypeAdapter(Color.class, new ColorAdapter())
 		.registerTypeAdapter(Block.class, new BlockAdapter())
 		.registerTypeAdapter(Hex.class, new HexAdapter())
+		.registerTypeAdapter(Creature.class, new ThingAdapter())
 		.registerTypeAdapter(Thing.class, new ThingAdapter());
 //		.registerTypeAdapter(DesertCreature.class, new ThingAdapter())
 //		.registerTypeAdapter(ForestCreature.class, new ThingAdapter())
@@ -340,7 +341,6 @@ public class Util {
 //		.registerTypeAdapter(SwampCreature.class, new ThingAdapter())
 //		.registerTypeAdapter(IncomeCounter.class, new ThingAdapter());
 
-//	public static final Gson GSON = GSON_BUILDER.create();
 	
 	
 	public static void log(String message) {

@@ -13,4 +13,6 @@ public class Notifications {
 			new JSONRPC2Notification("onTurnEnded");
 	public static final JSONRPC2Notification PHASE_ENDED = 
 			new JSONRPC2Notification("onPhaseEnded");
+	public static final JSONRPC2Notification BATTLE_STARTED = 
+			new JSONRPC2Notification("onBattleStarted");
 }
