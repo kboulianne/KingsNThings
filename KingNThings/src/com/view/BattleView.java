@@ -130,7 +130,7 @@ public class BattleView extends VBox{
 	public void setBattle(Battle battle){
 		
 		this.battle = battle;
-		setTitleLblText("<Instructions>");
+		setTitleLblText("");
 		setRoundNumLbl();
 		setBattleRoundLbl();
 		hexLbl.setText("Terrain: "+battle.getAssociatedHex().getTypeAsString());
@@ -140,7 +140,11 @@ public class BattleView extends VBox{
 		offGamePieces.addAll(battle.getOffenderCreatures());
 		setBattlePieces(offGamePieces, offGrid);
 
-		defenderLbl.setText("Defender: "+battle.getDefenderName());
+		if(battle.isUnExploredHex()){
+			defenderLbl.setText("Defender: Kedab of Creatures ("+battle.getDefenderName()+")");
+		}else{
+			defenderLbl.setText("Defender: "+battle.getDefenderName());
+		}
 		setBattlePieces(battle.getDefenderCreatures(), battle.getDefenderFort(), defGrid);
 
 		
@@ -258,7 +262,11 @@ public class BattleView extends VBox{
 		return titleLbl;
 	}
 	private void setTurnLblText() {
-		turnLbl.setText("Turn: "+battle.getCurrentPlayer().getName());
+		if(battle.isUnExploredHex() && battle.getCurrentPlayer().equals(battle.getDefender())){
+			turnLbl.setText("Turn: Kedab of Creatures ("+battle.getDefenderName()+")");
+		}else{
+			turnLbl.setText("Turn: "+battle.getCurrentPlayer().getName());
+		}
 	}
 	private void setOffHitsLbl() {
 		offHitsLbl.setText("Hits: "+battle.getOffHits());

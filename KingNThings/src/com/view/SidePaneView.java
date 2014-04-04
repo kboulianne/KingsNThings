@@ -350,7 +350,7 @@ public class SidePaneView extends VBox {
 			btn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent arg0) {
-					Battle battle = new Battle(current, plyer, hex);
+					Battle battle = new Battle(current, plyer, hex, false);
 					KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
 					KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
 				}

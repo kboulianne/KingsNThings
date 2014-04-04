@@ -284,7 +284,9 @@ public class BattlePresenter {
 			}
 		}
 		
-		if(associatedHex.getArmies().keySet().size()==1){
+		if(associatedHex.getOwner() == null && associatedHex.getKedabCreatures().isEmpty()){
+			associatedHex.setOwner(winner);
+		}else if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 
 			associatedHex.setOwner(winner);
 			associatedHex.setConflict(false);
 		}

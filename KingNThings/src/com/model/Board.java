@@ -98,7 +98,7 @@ public class Board {
 				// an army in the hex
 				if (armies.containsKey(p)) {
 					
-					if (armies.size() >= 2) {
+					if (armies.size() >= 2 || !hex.getKedabCreatures().isEmpty()) {
 					// Player has an army, mark as conflict
 					conflicts.add(hex);
 				}
