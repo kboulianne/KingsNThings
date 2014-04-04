@@ -21,8 +21,9 @@ public class Battle {
 	private int offHits;
 	 
 	// Splits creatures according to phases
-	private Map<BattlePhase, List<Creature>> offendingForces;
-	private Map<BattlePhase, List<Creature>> defendingForces;
+	// TODO: Call splitCreatures every time Battle is refreshed?
+	private transient Map<BattlePhase, List<Creature>> offendingForces;
+	private transient Map<BattlePhase, List<Creature>> defendingForces;
 	
 	private BattlePhase battlePhase;
 	public enum BattlePhase { MAGIC("Magic"), APPLYMAJHITS("Apply Magic Hits"), 
@@ -32,6 +33,9 @@ public class Battle {
 		public final String phaseAsString;
 		BattlePhase(String n) { phaseAsString = n; }
 	}
+	
+	// Needed by Gson
+	public Battle() {}
 	
 	/** For PvP.
 	 * 

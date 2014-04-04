@@ -21,6 +21,6 @@ public class BattleServiceProxy extends ProxyBase implements IBattleService {
 	@Override
 	public Battle startBattle(String roomName, Player attacker,
 			List<Player> defenders, Hex hex) throws JSONRPC2Error {
-		return invokeOnServer("startBattle", Battle.class, attacker, defenders, hex);
+		return invokeOnServer("startBattle", Battle.class, roomName, attacker, defenders, hex);
 	}
 }
