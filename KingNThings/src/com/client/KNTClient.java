@@ -16,9 +16,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.client.proxy.BattleServiceProxy;
 import com.client.proxy.GameRoomServiceProxy;
 import com.client.proxy.GameServiceProxy;
 import com.client.proxy.PlayerServiceProxy;
+import com.server.services.IBattleService;
 import com.server.services.IGameRoomService;
 import com.server.services.IGameService;
 import com.server.services.IPlayerService;
@@ -34,9 +36,10 @@ public class KNTClient {
 	private Socket socket;
 	private Set<UUID> pendingRequests;
 	private final ExecutorService socketThreads = Executors.newFixedThreadPool(2);
-	private PlayerServiceProxy playerProxy;
-	private GameRoomServiceProxy gameRoomProxy;
+	private final PlayerServiceProxy playerProxy;
+	private final GameRoomServiceProxy gameRoomProxy;
 	private final GameServiceProxy gameProxy;
+	private final BattleServiceProxy battleProxy;
 	private final LinkedBlockingQueue<JSONRPC2Request> outputMessages;
 	private final LinkedBlockingQueue<JSONRPC2Response> inputMessages;
 	
@@ -49,6 +52,7 @@ public class KNTClient {
 		
 		DISPATCHER.register(new GameRoomNotificationHandler());
 		DISPATCHER.register(new GameNotificationHandler());
+//		DISPATCHER.register(new Battle);
 	}
 	
 	/**
@@ -65,6 +69,7 @@ public class KNTClient {
 		PlayerServiceProxy playerProxy = null;
 		GameRoomServiceProxy gameRoomProxy = null;
 		GameServiceProxy gameProxy = null;
+		BattleServiceProxy battleProxy = null;
 		
 		try {
 			if (port == null)
@@ -75,20 +80,20 @@ public class KNTClient {
 			playerProxy = new PlayerServiceProxy(inputMessages, outputMessages);
 			gameRoomProxy = new GameRoomServiceProxy(inputMessages, outputMessages);
 			gameProxy = new GameServiceProxy(inputMessages, outputMessages);
+			battleProxy = new BattleServiceProxy(inputMessages, outputMessages);
 			
 			socketThreads.execute(createReadRunnable());
 			socketThreads.execute(createWriteRunnable());
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		this.playerProxy = playerProxy;
 		this.gameRoomProxy = gameRoomProxy;
 		this.gameProxy = gameProxy;
+		this.battleProxy = battleProxy;
 	}
 	
 	private Runnable createReadRunnable() {
@@ -186,5 +191,9 @@ public class KNTClient {
 	
 	public final IGameService getGameService() {
 		return gameProxy;
+	}
+	
+	public final IBattleService getBattleService() {
+		return battleProxy;
 	}
 }

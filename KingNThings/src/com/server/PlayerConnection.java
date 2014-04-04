@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.model.Player;
+import com.server.handlers.BattleRequestHandler;
 import com.server.handlers.GameRequestHandler;
 import com.server.handlers.GameRoomHandler;
 import com.server.handlers.PlayerHandler;
@@ -38,6 +39,7 @@ public class PlayerConnection {
 		DISPATCHER.register(new PlayerHandler());
 		DISPATCHER.register(new GameRoomHandler());
 		DISPATCHER.register(new GameRequestHandler());
+		DISPATCHER.register(new BattleRequestHandler());
 	}
 	
 	public PlayerConnection(Socket socket) {

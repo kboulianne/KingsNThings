@@ -116,7 +116,7 @@ public class KNTAppFactory {
 
 	private static DicePresenter createDicePresenter() {
 		DiceView view = new DiceView();
-		DicePresenter presenter = new DicePresenter(view, CLIENT.getGameService());
+		DicePresenter presenter = new DicePresenter(view);
 
 		return presenter;
 	}
@@ -173,7 +173,7 @@ public class KNTAppFactory {
 		
 		
 		BattleView view = new BattleView(dv1, dv2);
-		BattlePresenter presenter = new BattlePresenter(view, dp1, dp2);
+		BattlePresenter presenter = new BattlePresenter(view, dp1, dp2, CLIENT.getBattleService());
 
 		return presenter;
 	}

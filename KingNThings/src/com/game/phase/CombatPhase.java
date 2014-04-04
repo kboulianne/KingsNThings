@@ -27,8 +27,6 @@ class CombatPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Combat Phase");
-
-//		getGamePresenter().getView().getCurrentActionLbl().setText("Combat Phase");
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {	
@@ -60,9 +58,7 @@ class CombatPhase extends AbstractPhaseStrategy {
 	
 	@Override
 	public void turnEnd(Game game) {
-		//GameService.getInstance().endTurn(this);
 		getBoardPresenter().clearConflictHighlights();
-		
 	}
 
 	@Override

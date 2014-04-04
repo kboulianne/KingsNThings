@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import com.main.KNTAppFactory;
+import com.main.NetworkedMain;
 import com.model.Battle;
 import com.model.Battle.BattlePhase;
 import com.model.Creature;
@@ -12,15 +13,20 @@ import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
 import com.model.Thing;
+import com.server.services.IBattleService;
+import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.util.Util;
 import com.view.BattleView;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class BattlePresenter {
 
 	private BattleView view;
+	// The local instance of the battle currently being fought.
 	private Battle battle;
+	private IBattleService battleSvc;
 	
 	private DicePresenter offenderDice;
 	private DicePresenter defenderDice;
@@ -30,9 +36,10 @@ public class BattlePresenter {
 	
 	private Player retreated;
 
-	public BattlePresenter(BattleView v, DicePresenter dp1, DicePresenter dp2) {
+	public BattlePresenter(BattleView v, DicePresenter dp1, DicePresenter dp2, IBattleService svc) {
 		view = v;
-
+		battleSvc = svc;
+		
 		offenderDice = dp1;
 		defenderDice = dp2;
 		
@@ -56,13 +63,23 @@ public class BattlePresenter {
 	}
 
 	// use this to start battle
-	public void startBattle(Battle b) {
+	public void startBattle(final Player current, List<Player> defending, Hex hex) {
 		Util.playBattleMusic();
 		
-		// Display the battle in the view
-		battle = b;
+		// Tell the server to start a new battle 
+		try {
+			battle = battleSvc.startBattle(NetworkedMain.getRoomName(), current, defending, hex);
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		view.setBattle(battle);
-
+//		// Display the battle in the view
+//		battle = b;
+//		view.setBattle(battle);
+		
+		
 		// set handlers
 		view.getOffRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
 			@Override

@@ -18,20 +18,16 @@ import com.view.DiceView;
 public class DicePresenter {
 
 	private final DiceView view;
-	//TODO: Will need this for battle.
-	private final IGameService gameSvc;
 	
 	private Die die1;
 	private Die die2;
 	
-	public DicePresenter(DiceView view, IGameService gameSvc) {
+	public DicePresenter(DiceView view) {
 		this.view = view;
-		this.gameSvc = gameSvc;
 	}
 
-	//TODO: Restructure this so that we can reuse the existing instance.
 	public DicePresenter(DiceView view, Die d1, Die d2) {
-		this(view, null);
+		this(view);
 		
 		// Use the specified dice as the model
 		die1 = d1;
@@ -77,48 +73,27 @@ public class DicePresenter {
 	 */
 	public int roll() {
 		Util.playDiceRollSound();
-	
-//		// FIXME: Will cause problems for battle.
-//		Game game = null;
-//		try {
-//			game = gameSvc.refreshGame(NetworkedMain.getRoomName());
-//
-//			die1 = game.getDie1();
-//			die2 = game.getDie2();
-//	
-//			
-//			die1.roll();
-//			die2.roll();
-//		
-//			
-//			// Update the server instance
-//			//TODO: add update dice for efficiency, low priority.
-//			gameSvc.updateGame(NetworkedMain.getRoomName(), game);
-//		} catch (JSONRPC2Error e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		Game local = KNTAppFactory.getGamePresenter().getLocalInstance();
+
+		// When using dice in game.
+		if (die1 == null || die2 == null) {
+			Game local = KNTAppFactory.getGamePresenter().getLocalInstance();
 		
-		die1 = local.getDie1();
-		die2 = local.getDie2();
-		
+			die1 = local.getDie1();
+			die2 = local.getDie2();
+		}
+			
 		die1.roll();
 		die2.roll();
 		
 		// Update the view
 		view.setDice(die1, die2);
 		
-		// Update GameView
-//		KNTAppFactory.getGamePresenter().updateViews();
+		int value = die1.getValue() + die2.getValue(); 
 		
-		return die1.getValue() + die2.getValue();
+		// Dirty fix but ok for now
+		die1 = null;
+		die2 = null;
+		
+		return value;
 	}
-	
-//	/**
-//	 * For now, ends the player's turn.
-//	 */
-//	public void endTurn() {
-//		KNTAppFactory.getGamePlay().endTurn();
-//	}
 }

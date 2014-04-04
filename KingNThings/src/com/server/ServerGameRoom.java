@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.game.phase.GamePlay;
+import com.model.Battle;
 import com.model.Game;
 import com.model.GameRoom;
 import com.model.Player;
@@ -15,6 +16,8 @@ import static com.server.KNTServer.*;
 public class ServerGameRoom extends GameRoom {
 
 	private transient Game game;
+	/** The battle being fought by two or more players. */
+	private transient Battle battle;
 	/** Server-side state representing the current phase. */
 	private transient ServerGamePlay gamePlay;
 	
@@ -42,6 +45,13 @@ public class ServerGameRoom extends GameRoom {
 		this.game = game;
 	}
 	
+	public final Battle getBattle() {
+		return battle;
+	}
+	
+	public final void setBattle(Battle battle) {
+		this.battle = battle;
+	}
 	
 	public final ServerGamePlay getGamePlay() {
 		return gamePlay;

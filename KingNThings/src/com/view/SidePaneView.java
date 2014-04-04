@@ -285,7 +285,7 @@ public class SidePaneView extends VBox {
 		content.getChildren().add(display);
 	}
 
-	public void showBattleChooserView(final Player current, ArrayList<Player> defendingPlayers, final Hex hex){
+	public void showBattleChooserView(final Player current, List<Player> defendingPlayers, final Hex hex){
 		VBox display = new VBox();
 		Label lbl = new Label("Choose Your Opponent:");
 		display.getChildren().add(lbl);
@@ -297,9 +297,10 @@ public class SidePaneView extends VBox {
 			btn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent arg0) {
-					Battle battle = new Battle(current, plyer, hex);
+//					Battle battle = new Battle(current, plyer, hex);
 					KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
-					KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
+					System.err.println("FIXME: SidePaneView");
+//					KNTAppFactory.getBattlePresenter().startBattle(current, new ArrayList<>(plyer, hex); // Start the battle
 				}
 			});
 		}

@@ -502,7 +502,7 @@ public class BoardPresenter {
 			Util.playStartBattleSound();
 			// Create battle. Assume first opposing player returned from valueSet.
 			
-			ArrayList<Player> defendingPlayers = new ArrayList<Player>();
+			List<Player> defendingPlayers = new ArrayList<Player>();
 			
 			for (Player p : hex.getArmies().keySet()) {
 				if (!p.equals(current)) {
@@ -511,9 +511,13 @@ public class BoardPresenter {
 			}
 			
 			if(defendingPlayers.size()==1){
-				Battle battle = new Battle(current, defendingPlayers.get(0), hex);
+//				Battle battle = new Battle(current, defendingPlayers.get(0), hex);
+//				KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
+//				KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
+//				Battle battle = new Battle(current, defendingPlayers.get(0), hex);
 				KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
-				KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
+				KNTAppFactory.getBattlePresenter().startBattle(current, defendingPlayers, hex); // Start the battle
+				
 			}else{
 				KNTAppFactory.getSidePanePresenter().getView().showBattleChooserView(current, defendingPlayers, hex);
 			}
