@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.util.Util;
 
-public class Cup extends GamePiece {
+public class Cup {
 	private List<Thing> listOfThings;
 	private List<SpecialCharacter> listOfSpecialCharacters;
 	

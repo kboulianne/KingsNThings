@@ -125,6 +125,7 @@ public class GamePresenter {
 			getGamePlay().getPhaseLogic().turnEnd(game);
 			// Update the game on server
 			gameSvc.updateGame(NetworkedMain.getRoomName(), game);
+//			gameSvc.updateCup(NetworkedMain.getRoomName(), game.getCup());
 			// Tell server that this player's turn is done.
 			gameSvc.endTurn(NetworkedMain.getRoomName(), NetworkedMain.getPlayer());
 		} catch (JSONRPC2Error e) {

@@ -41,10 +41,8 @@ public final class Game {
     // Iterators are not serializable. Use index instead.
     private int nextPlayerIdx;
     private List<Player> playerOrder;
-    //TODO: May need to serialize this.
-    private transient Cup cup;
-    
-  	//private ArrayList<Creature> lastSelectedCreatures;
+    private Cup cup;
+   
   
     public final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
 	public final static Image START_HEX_IMAGE = new Image("view/com/assets/pics/tiles/start.png");

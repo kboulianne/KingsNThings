@@ -109,7 +109,7 @@ public class Util {
 		}
 	}
 	
-	private static class ThingAdapter implements InstanceCreator<Thing> {
+	private static class ThingAdapter implements InstanceCreator<Thing>, JsonSerializer<Thing>, JsonDeserializer<Thing> {
 
 		@Override
 		public Thing createInstance(Type t) {
@@ -134,9 +134,40 @@ public class Util {
 			else
 				System.err.println("Add me in CreatureAdapter: " + t.getClass().getCanonicalName());
 			
-			return null;
+			return new Thing();
 		}
 		
+		@Override
+		public JsonElement serialize(Thing thing, Type arg1,
+				JsonSerializationContext arg2) {
+			Gson gson = GSON_BUILDER.create();
+			// Serialize the class type so it can be recovered when deserializing.
+			JsonObject obj = gson.toJsonTree(thing).getAsJsonObject();
+			
+			obj.addProperty("classType", thing.getClass().getCanonicalName());
+			
+			return obj;
+		}
+		
+		@Override
+		public Thing deserialize(JsonElement elem, Type arg1,
+				JsonDeserializationContext arg2) throws JsonParseException {
+			Thing t = null;
+			
+			Gson gson = GSON_BUILDER.create();
+			
+			// Fetch and remove the class
+			try {
+				Class<?> clazz = Class.forName(elem.getAsJsonObject().remove("classType").getAsString());
+				t = (Thing) gson.fromJson(elem, clazz); 
+				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return t;
+		}
 	}
 	private static class BlockAdapter implements JsonSerializer<Block>, JsonDeserializer<Block> {
 
@@ -299,15 +330,15 @@ public class Util {
 		.registerTypeAdapter(Color.class, new ColorAdapter())
 		.registerTypeAdapter(Block.class, new BlockAdapter())
 		.registerTypeAdapter(Hex.class, new HexAdapter())
-		.registerTypeAdapter(Thing.class, new ThingAdapter())
-		.registerTypeAdapter(DesertCreature.class, new ThingAdapter())
-		.registerTypeAdapter(ForestCreature.class, new ThingAdapter())
-		.registerTypeAdapter(FrozenWasteCreature.class, new ThingAdapter())
-		.registerTypeAdapter(JungleCreature.class, new ThingAdapter())
-		.registerTypeAdapter(MountainCreature.class, new ThingAdapter())
-		.registerTypeAdapter(PlainsCreature.class, new ThingAdapter())
-		.registerTypeAdapter(SwampCreature.class, new ThingAdapter())
-		.registerTypeAdapter(IncomeCounter.class, new ThingAdapter());
+		.registerTypeAdapter(Thing.class, new ThingAdapter());
+//		.registerTypeAdapter(DesertCreature.class, new ThingAdapter())
+//		.registerTypeAdapter(ForestCreature.class, new ThingAdapter())
+//		.registerTypeAdapter(FrozenWasteCreature.class, new ThingAdapter())
+//		.registerTypeAdapter(JungleCreature.class, new ThingAdapter())
+//		.registerTypeAdapter(MountainCreature.class, new ThingAdapter())
+//		.registerTypeAdapter(PlainsCreature.class, new ThingAdapter())
+//		.registerTypeAdapter(SwampCreature.class, new ThingAdapter())
+//		.registerTypeAdapter(IncomeCounter.class, new ThingAdapter());
 
 //	public static final Gson GSON = GSON_BUILDER.create();
 	

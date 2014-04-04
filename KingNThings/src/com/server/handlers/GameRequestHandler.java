@@ -1,5 +1,6 @@
 package com.server.handlers;
 
+import com.model.Cup;
 import com.model.Game;
 import com.model.Player;
 
@@ -12,7 +13,8 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 public class GameRequestHandler extends BaseRequestHandler implements IGameService {
 	@Override
 	public String[] handledRequests() {
-		return new String[] { "getGame", "updateGame", "isPlayerTurn", "endTurn", "skipPhase" };
+		return new String[] { "getGame", "updateGame", "isPlayerTurn", "endTurn", "skipPhase", 
+				"updateCup"};
 	}
 
 	@Override
@@ -59,20 +61,9 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 		// Notify other clients that the player completed his/her turn.
 		synchronized (GAME_ROOMS.get(gameRoom)) {
 			ServerGameRoom room = (ServerGameRoom)GAME_ROOMS.get(gameRoom);
-//			Game game = room.getGame();
-			
-//			room.getGamePlay().
+
 			// Manages next turn and next phase.
 			room.getGamePlay().next();
-			
-			
-//			if (!game.isLastPlayer()) {
-//				// Switches current Player
-//				game.nextPlayer();
-//				
-//				// TODO: Update game here?
-//				room.notifyAllClients(Notifications.TURN_ENDED);
-//			}
 		}
 	}
 
@@ -83,5 +74,14 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 			room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			room.getGamePlay().skipPhase();
 		}		
+	}
+
+	@Override
+	public void updateCup(String roomName, Cup cup) throws JSONRPC2Error {
+		synchronized (GAME_ROOMS.get(roomName)) {
+			ServerGameRoom room = (ServerGameRoom)GAME_ROOMS.get(roomName);
+			
+			room.getGame().setCup(cup);
+		}
 	}
 }
