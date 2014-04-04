@@ -22,9 +22,7 @@ public class Cup {
 		return listOfThings;
 	}
 	
-<<<<<<< HEAD
-	public void setListOfThings(List<Thing> listOfThings) {
-=======
+
 	public ArrayList<Creature> getListOfCreatures() {
 		ArrayList<Creature> creatures = new ArrayList<Creature>();
 		for(Thing t: listOfThings){
@@ -35,8 +33,8 @@ public class Cup {
 		return creatures;
 	}
 	
-	public void setListOfThings(ArrayList<Thing> listOfThings) {
->>>>>>> battle-test
+	public void setListOfThings(List<Thing> listOfThings) {
+
 		for(Thing t: listOfThings)
 			addThing(t);
 	}
