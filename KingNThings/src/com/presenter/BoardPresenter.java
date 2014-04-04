@@ -310,7 +310,7 @@ public class BoardPresenter {
 			
 
 			// if Hex is unexplored
-			if(hex.getOwner() == null && hex.getKedabCreatures().isEmpty()){
+			if(hex.getHexOwner() == null && hex.getKedabCreatures().isEmpty()){
 				int randNum = Util.randomNumber(1, 6);
 				if(randNum == 6 || randNum ==1){
 					hex.setOwner(game.getCurrentPlayer());

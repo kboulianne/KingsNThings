@@ -140,11 +140,12 @@ public class BattleView extends VBox{
 		offGamePieces.addAll(battle.getOffenderCreatures());
 		setBattlePieces(offGamePieces, offGrid);
 
-		if(battle.isUnExploredHex()){
-			defenderLbl.setText("Defender: Kedab of Creatures ("+battle.getDefenderName()+")");
+		if(battle.isKedabFight()){
+			defenderLbl.setText("Defender: Creatures of Kedab");
 		}else{
 			defenderLbl.setText("Defender: "+battle.getDefenderName());
 		}
+		
 		setBattlePieces(battle.getDefenderCreatures(), battle.getDefenderFort(), defGrid);
 
 		
@@ -262,8 +263,8 @@ public class BattleView extends VBox{
 		return titleLbl;
 	}
 	private void setTurnLblText() {
-		if(battle.isUnExploredHex() && battle.getCurrentPlayer().equals(battle.getDefender())){
-			turnLbl.setText("Turn: Kedab of Creatures ("+battle.getDefenderName()+")");
+		if(battle.isKedabFight() && battle.getCurrentPlayer().equals(battle.getDefender())){
+			turnLbl.setText("Turn: Creatures of Kedab ("+battle.getDefenderName()+")");
 		}else{
 			turnLbl.setText("Turn: "+battle.getCurrentPlayer().getName());
 		}
