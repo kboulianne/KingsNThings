@@ -308,6 +308,7 @@ public class BoardPresenter {
 				}
 			}
 			
+<<<<<<< HEAD
 			// Hex is unexplored, skip explore logic and claim it for DEMO
 			if (hex.getHexOwner() == null) {
 				hex.setOwner(game.getCurrentPlayer());
@@ -315,6 +316,31 @@ public class BoardPresenter {
 			}
 			
 			view.setBoard(game.getBoard());
+=======
+			// if Hex is unexplored
+			if(hex.getOwner() == null && hex.getKedabCreatures().isEmpty()){
+				int randNum = Util.randomNumber(1, 6);
+				if(randNum == 6 || randNum ==1){
+					hex.setOwner(svc.getGame().getCurrentPlayer());
+					System.out.println("Player claimed tile after exploring.");
+				}
+				else {
+					for(int i =0; i<randNum;i++){
+						Creature c = svc.getGame().getCup().getRandomCreature();
+						if(c==null){
+							if(hex.getKedabCreatures().isEmpty()){
+								hex.setOwner(svc.getGame().getCurrentPlayer());
+								System.out.println("Player claimed tile - no creatures in cup.");
+							}
+							break;
+						}else{
+							hex.addKebabCreature(c);
+						}
+					}
+				}
+			}
+			view.setBoard(svc.getGame().getBoard());
+>>>>>>> battle-test
 		}
 		
 		
@@ -511,7 +537,11 @@ public class BoardPresenter {
 			}
 			
 			if(defendingPlayers.size()==1){
-				Battle battle = new Battle(current, defendingPlayers.get(0), hex);
+				Battle battle = new Battle(current, defendingPlayers.get(0), hex, false);
+				KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
+				KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
+			}else if(defendingPlayers.isEmpty() && !hex.getKedabCreatures().isEmpty()){
+				Battle battle = new Battle(current, svc.getGame().getOpponentsForCurrent().get(0), hex, true);
 				KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
 				KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
 			}else{

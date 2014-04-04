@@ -39,7 +39,7 @@ public class Battle {
 	 * @param defender
 	 * @param hex 
 	 */
-	public Battle(Player offender, Player defender, Hex hex) {
+	public Battle(Player offender, Player defender, Hex hex, boolean unExploredHex) {
 		currentPlayer = offender;
 		this.defender = defender;		
 		associatedHex = hex;
@@ -51,9 +51,15 @@ public class Battle {
 		defenderFort = hex.getFort();
 		
 		offendingForces = splitCreatures(hex.getArmies(offender));
-		defendingForces = splitCreatures(hex.getArmies(defender));
 		
-		setUnExploredHex(false);
+		
+		setUnExploredHex(unExploredHex);
+		
+		if(unExploredHex){
+			defendingForces = splitCreatures(hex.getKedabCreatures());
+		}else{
+			defendingForces = splitCreatures(hex.getArmies(defender));
+		}
 	}
 	
 	private Map<BattlePhase, List<Creature>> splitCreatures(List<Creature> creatures) {
