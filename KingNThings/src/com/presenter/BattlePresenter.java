@@ -286,7 +286,10 @@ public class BattlePresenter {
 		
 		if(associatedHex.getOwner() == null && associatedHex.getKedabCreatures().isEmpty()){
 			associatedHex.setOwner(winner);
-		}else if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 
+		}else if(!associatedHex.getKedabCreatures().isEmpty() && associatedHex.getArmies().size()<2){
+			associatedHex.setConflict(false);
+		}
+		if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 	
 			associatedHex.setOwner(winner);
 			associatedHex.setConflict(false);
 		}
