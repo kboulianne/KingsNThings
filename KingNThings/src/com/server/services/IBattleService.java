@@ -27,4 +27,6 @@ public interface IBattleService {
 	 * @throws JSONRPC2Error
 	 */
 	Battle getOngoingBattle(String roomName) throws JSONRPC2Error;
+	
+	void rolled(String roomName, Battle battle) throws JSONRPC2Error;
 }

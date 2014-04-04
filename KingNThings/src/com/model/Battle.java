@@ -19,7 +19,10 @@ public class Battle {
 	
 	private Player offender;
 	private int offHits;
-	 
+	/** Contains information about the current state of the turn. */
+	private String info; 
+	private String instructions;
+	
 	// Splits creatures according to phases
 	private Map<BattlePhase, List<Creature>> offendingForces;
 	private Map<BattlePhase, List<Creature>> defendingForces;
@@ -244,5 +247,21 @@ public class Battle {
 
 	public void setOffHits(int offHits) {
 		this.offHits = offHits;
+	}
+	
+	public String getInfo() {
+		return info;
+	}
+	
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public void setInstructions(String instructions) {
+		this.instructions = instructions;
+	}
+	
+	public String getInstructions() {
+		return instructions;
 	}
 }

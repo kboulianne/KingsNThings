@@ -10,7 +10,7 @@ public class BattleNotificationHandler extends BaseNotificationHandler {
 
 	@Override
 	public String[] handledNotifications() {
-		return new String[] { "onBattleStarted" };
+		return new String[] { "onBattleStarted", "onPlayerRolled" };
 	}
 
 	@Override
@@ -21,6 +21,9 @@ public class BattleNotificationHandler extends BaseNotificationHandler {
 				switch (not.getMethod()) {
 				case "onBattleStarted":
 					KNTAppFactory.getBattlePresenter().onBattleStarted();
+					break;
+				case "onPlayerRolled":
+					KNTAppFactory.getBattlePresenter().onRolled();
 					break;
 				}
 			}

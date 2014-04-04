@@ -23,7 +23,7 @@ import java.util.List;
 
 public class BattleView extends VBox{
 	
-	private Battle battle;
+//	private Battle battle;
 	
 	private Label titleLbl;
 	private Label turnLbl;
@@ -127,12 +127,14 @@ public class BattleView extends VBox{
 		return playerBox;
 	}
 	
-	public void setBattle(Battle battle){
-		
-		this.battle = battle;
-		setTitleLblText("<Instructions>");
-		setRoundNumLbl();
-		setBattleRoundLbl();
+	public void updateBattle(final Battle battle){
+		setInfoLbl(battle.getInfo());
+		setTitleLblText(battle.getInstructions());
+		setRoundNumLbl(String.valueOf(battle.getRoundNumber()));
+		setBattleRoundLbl(battle.getBattlePhase().phaseAsString);
+		setTurnLblText(battle.getCurrentPlayer().getName());
+		setOffHitsLbl(String.valueOf(battle.getOffHits()));
+		setDefHitsLbl(String.valueOf(battle.getDefHits()));
 		hexLbl.setText("Terrain: "+battle.getAssociatedHex().getTypeAsString());
 		
 		offenderLbl.setText("Offender: "+battle.getOffender().getName());
@@ -234,37 +236,37 @@ public class BattleView extends VBox{
 		return thingBox;
 	}
 	
-	public void refreshView(String instructions, String info){
-		setTitleLblText(instructions);
-		setTurnLblText();
-		setRoundNumLbl();
-		setBattleRoundLbl();
-		setInfoLbl(info);
-		setOffHitsLbl();
-		setDefHitsLbl();
-		
-		/*if(battle.getCurrentPlayer().equals(battle.getDefender())){
-			defGrid.getStyleClass().add("border");
-			offGrid.getStyleClass().removeAll("border");
-		}else{
-			offGrid.getStyleClass().add("border");
-			defGrid.getStyleClass().removeAll("border");
-		}*/
-	}
+//	public void refreshView(String instructions, String info){
+//		setTitleLblText(instructions);
+//		setTurnLblText();
+//		setRoundNumLbl();
+//		setBattleRoundLbl();
+//		setInfoLbl(info);
+//		setOffHitsLbl();
+//		setDefHitsLbl();
+//		
+//		/*if(battle.getCurrentPlayer().equals(battle.getDefender())){
+//			defGrid.getStyleClass().add("border");
+//			offGrid.getStyleClass().removeAll("border");
+//		}else{
+//			offGrid.getStyleClass().add("border");
+//			defGrid.getStyleClass().removeAll("border");
+//		}*/
+//	}
 	
 	// getter dones and setter dones
 
 	public Label getTitleLbl() {
 		return titleLbl;
 	}
-	private void setTurnLblText() {
-		turnLbl.setText("Turn: "+battle.getCurrentPlayer().getName());
+	private void setTurnLblText(String name) {
+		turnLbl.setText("Turn: " + name);
 	}
-	private void setOffHitsLbl() {
-		offHitsLbl.setText("Hits: "+battle.getOffHits());
+	private void setOffHitsLbl(String off) {
+		offHitsLbl.setText("Hits: " + off);
 	}
-	private void setDefHitsLbl() {
-		defHitsLbl.setText("Hits: "+battle.getDefHits());
+	private void setDefHitsLbl(String def) {
+		defHitsLbl.setText("Hits: " + def);
 	}
 	public void setInfoLbl(String info) {
 		infoLbl.setText(info);
@@ -272,11 +274,11 @@ public class BattleView extends VBox{
 	public void setTitleLblText(String instructions) {
 		titleLbl.setText("Battle: "+instructions);
 	}
-	private void setRoundNumLbl() {
-		roundNumLbl.setText("Round Number: "+battle.getRoundNumber());
+	private void setRoundNumLbl(String num) {
+		roundNumLbl.setText("Round Number: " + num);
 	}
-	private void setBattleRoundLbl() {
-		battleRoundLbl.setText("Phase: "+battle.getBattlePhase().phaseAsString);
+	private void setBattleRoundLbl(String round) {
+		battleRoundLbl.setText("Phase: " + round);
 	}
 	public GridPane getOffGrid() {
 		return offGrid;
@@ -290,9 +292,9 @@ public class BattleView extends VBox{
 	public void setDefGrid(GridPane defGrid) {
 		this.defGrid = defGrid;
 	}
-	public Battle getBattle() {
-		return battle;
-	}
+//	public Battle getBattle() {
+//		return battle;
+//	}
 	public HBox getOffButtonBox() {
 		return offButtonBox;
 	}

@@ -84,7 +84,7 @@ public class BattlePresenter {
 
 	private void startBattle() {
 		KNTAppFactory.getPopupPresenter().showBattlePopup();
-		view.setBattle(battle);
+		view.updateBattle(battle);
 
 		
 		// set handlers
@@ -226,8 +226,8 @@ public class BattlePresenter {
 				offenderDice.getView().hideDie2(false);
 			}
 		}
-		
-		view.refreshView((isDefender() ? "Defender" : "Offender") + " must roll for Creature "+ currentCreature.getName().toUpperCase(),"");
+		throw new UnsupportedOperationException("FIX BELOW!");
+//		view.refreshView((isDefender() ? "Defender" : "Offender") + " must roll for Creature "+ currentCreature.getName().toUpperCase(),"");
 	}
 	private void applyHits() {
 		Util.log("apply hits player: "+battle.getCurrentPlayer().getName());
@@ -260,7 +260,8 @@ public class BattlePresenter {
 		}
 		offenderDice.getView().setDisable(true);
 		defenderDice.getView().setDisable(true);
-		view.refreshView((isDefender() ? "Defender" : "Offender") + " must apply opponent's hits to creatures", "");
+		throw new UnsupportedOperationException("FIX BELOW!");
+//		view.refreshView((isDefender() ? "Defender" : "Offender") + " must apply opponent's hits to creatures", "");
 	}
 	private void retreatPhase() {
 		Util.log("retreat phase player: "+battle.getCurrentPlayer().getName());
@@ -282,8 +283,8 @@ public class BattlePresenter {
 			view.getDefContinueBtn().setDisable(true);
 			view.getDefRetreatBtn().setDisable(true);
 		}	
-		
-		view.refreshView((isDefender() ? "Defender" : "Offender") + " must choose to retreat or to continue with battle", "");
+		throw new UnsupportedOperationException("FIX BELOW!");
+//		view.refreshView((isDefender() ? "Defender" : "Offender") + " must choose to retreat or to continue with battle", "");
 	}
 	
 	
@@ -339,7 +340,7 @@ public class BattlePresenter {
 				Util.playSwordSound();
 				
 				battle.setOffHits(battle.getOffHits()-1);
-				view.setBattle(battle);
+				view.updateBattle(battle);
 				
 				// Winning Conditions
 				if(battle.isDefenderEliminated() || battle.isOffenderEliminated()){
@@ -364,7 +365,7 @@ public class BattlePresenter {
 				Util.playSwordSound();
 				
 				battle.setDefHits(battle.getDefHits()-1);
-				view.setBattle(battle);
+				view.updateBattle(battle);
 				
 				// Winning Conditions
 				if(battle.isDefenderEliminated() || battle.isOffenderEliminated()){
@@ -388,7 +389,8 @@ public class BattlePresenter {
 				}
 			}
 			// Update view
-			view.refreshView((isDefender() ? "Defender" : "Offender") + " must apply opponent's hits to creatures", info);
+			throw new UnsupportedOperationException("FIX BELOW!");
+//			view.refreshView((isDefender() ? "Defender" : "Offender") + " must apply opponent's hits to creatures", info);
 		}else{
 			Util.log("cannot apply hits");
 		}
@@ -399,6 +401,7 @@ public class BattlePresenter {
 		int hitPts = 0; 
 		String info = "";
 		
+		// TODO: This won't be needed anymore since roll will be activated on a per-turn basis.
 		if (!isDefender()) { // Attacker's turn to roll.
 					
 			if(currentCreature.isCharge()){  // charging creature gets two die
@@ -481,7 +484,19 @@ public class BattlePresenter {
 			}
 		}
 		
-		view.refreshView((isDefender() ? "Defender" : "Offender") + " must roll for Creature "+ currentCreature.getName().toUpperCase(), info);
+		// Store the info, instructions etc... and send the updated battle to the server.
+		battle.setInfo(info);
+		battle.setInstructions((isDefender() ? "Defender" : "Offender") + " must roll for Creature "+ currentCreature.getName().toUpperCase());
+		
+		try {
+			battleSvc.rolled(NetworkedMain.getRoomName(), battle);
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		view.updateBattle(battle);
+//		view.refreshView(, info);
 		enableControlsForRoll();
 	}
 	
@@ -496,6 +511,20 @@ public class BattlePresenter {
 		}
 	}
 
+	public void onRolled() {
+		// Fetch the updated battle instance.
+		try {
+			battle = battleSvc.getOngoingBattle(NetworkedMain.getRoomName());
+			
+			// Update the ui
+			view.updateBattle(battle);
+//			view.refreshView((isDefender() ? "Defender" : "Offender") + " must roll for Creature "+ currentCreature.getName().toUpperCase(), battle.getInfo());
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void onBattleStarted() {
 		// Called by defending players when an attacker triggers a battle on a hex.
 		

@@ -16,7 +16,7 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 
 	@Override
 	public String[] handledRequests() {
-		return new String[] { "startBattle", "getOngoingBattle" };
+		return new String[] { "startBattle", "getOngoingBattle", "rolled" };
 	}
 
 	@Override
@@ -44,6 +44,18 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			
 			return room.getBattle();
+		}
+	}
+	
+	@Override
+	public void rolled(String roomName, Battle battle) throws JSONRPC2Error {
+		synchronized (GAME_ROOMS.get(roomName)) {
+			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
+			
+			room.setBattle(battle);
+			
+			// Notify opponents
+			notifyOtherClients(room, Notifications.PLAYER_ROLLED, room.getGame().getCurrentPlayer());
 		}
 	}
 }

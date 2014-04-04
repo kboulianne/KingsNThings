@@ -28,4 +28,9 @@ public class BattleServiceProxy extends ProxyBase implements IBattleService {
 	public Battle getOngoingBattle(String roomName) throws JSONRPC2Error {
 		return invokeOnServer("getOngoingBattle", Battle.class, roomName);
 	}
+
+	@Override
+	public void rolled(String roomName, Battle battle) throws JSONRPC2Error {
+		invokeOnServer("rolled", roomName, battle);
+	}
 }
