@@ -29,8 +29,6 @@ class RandomEventPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Random Events Phase");
 		
-		getGamePresenter().getView().getCurrentActionLbl().setText("Random Events");
-		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(false);
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {		

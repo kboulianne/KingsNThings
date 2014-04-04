@@ -50,7 +50,7 @@ public class Hex extends GamePiece {
 	
 	// list of armies for all players
 	// list of misc Things
-	private transient Map<Player, List<Creature>> armies;
+	private Map<Player, List<Creature>> armies;
 	// Only one fort per tile.
 	private Fort fort;
 	private transient IncomeCounter counter;
@@ -224,5 +224,10 @@ public class Hex extends GamePiece {
 
 	public void upgradeFort() {
 		getFort().upgrade();
+	}
+	
+	@Override
+	public String toString() {
+		return id + " armies: " + armies;
 	}
 }

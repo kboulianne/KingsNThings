@@ -347,7 +347,7 @@ public class BoardView extends Canvas {
 		while(it.hasNext()) {
 			//Util.log("hex:"+hex.getId()+"  size"+hex.getArmies().keySet().size());
 			Player p = it.next();
-			if(hex.getArmies(p).size() > 0 || ((p == hex.getHexOwner()) && (hex.getCounter() != null))) {
+			if(hex.getArmies(p).size() > 0 || ((p.equals(hex.getHexOwner())) && (hex.getCounter() != null))) {
 				gc.setFill(p.getColor());
 				gc.fillOval(ovalsXOffset+radius*factor, ovalsYOffset, radius, radius);
 				factor += 1.5;

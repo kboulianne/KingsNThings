@@ -269,8 +269,10 @@ public class BoardPresenter {
 	public void handleMovementSelectedHexClick(int selected) {
 		Game game = getGame();
 		Hex hex = game.getBoard().getHexes().get(selected);
+//		KNTAppFactory.getSidePanePresenter().showHexDetailsFor(hex);
 		
 		if(hex.isHighlighted())	{
+//		if (lastHexSelected != -1) {
 			Util.playHexClickSound();
 			Hex lastSelected = game.getBoard().getHexes().get(lastHexSelected);
 			Player currentPlayer = game.getCurrentPlayer();

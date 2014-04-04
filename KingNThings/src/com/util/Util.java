@@ -245,7 +245,7 @@ public class Util {
 			gson = GSON_BUILDER.create();
 
 			for (Map.Entry<String, JsonElement> entry : armies.getAsJsonObject().entrySet()) {
-				System.err.println(entry);
+//				System.err.println(entry);
 				
 				Player p = gson.fromJson(entry.getValue().getAsJsonObject().get("player"), Player.class);
 				

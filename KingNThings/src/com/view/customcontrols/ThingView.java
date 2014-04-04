@@ -1,6 +1,7 @@
 package com.view.customcontrols;
 
 import com.main.KNTAppFactory;
+import com.main.NetworkedMain;
 import com.model.Game;
 import com.model.Player;
 import com.model.SpecialCharacter;
@@ -135,24 +136,24 @@ public class ThingView extends StackPane{
 	}
 	
 	public void setMovementHandler(){
-		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
-//		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//			@Override
-//			public void handle(MouseEvent me) {
-//				Util.playClickSound();
-//				thing.setSelected(!thing.isSelected());
-//				if(thing.isSelected()){
-//					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
-//				}else{
-//					//GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
-//					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
-//				}
-//				
-//				if(thing.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
-//					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(thing);
-//				}
-//			}
-//		});
+		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {
+				//TODO : Move me to presenter.
+				Util.playClickSound();
+				thing.setSelected(!thing.isSelected());
+				if(thing.isSelected()){
+					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.0));
+				}else{
+					//GameService.getInstance().getGame().getLastSelectedCreaturesOfCurrentPlayerBlock().remove(thing);
+					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
+				}
+				
+				if(thing.getOwner().equals(NetworkedMain.getPlayer()))	{
+					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(thing);
+				}
+			}
+		});
 	}
 	
 	public void setDoNothingHandler(){

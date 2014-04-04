@@ -147,13 +147,14 @@ public class Player 	{
 		this.color = id.color;
 	}
 	
+	
 //	@Override
 //	public int hashCode() {
 //		final int prime = 31;
 //		int result = 1;
 ////		result = prime * result + ((block == null) ? 0 : block.hashCode());
 ////		result = prime * result + ((color == null) ? 0 : color.hashCode());
-//		result = prime * result + gold;
+////		result = prime * result + gold;
 //		result = prime * result + ((name == null) ? 0 : name.hashCode());
 ////		result = prime * result
 ////				+ ((startPos == null) ? 0 : startPos.hashCode());
@@ -173,6 +174,14 @@ public class Player 	{
 		}
 		
 		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
 
 	public boolean isCitadelOwner() {
