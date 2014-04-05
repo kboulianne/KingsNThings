@@ -71,6 +71,19 @@ public class ServerMovementPhase extends AbstractServerPhase {
 				i ++;
 			}
 		}
+		
+		// Setup player 2
+		Player p3 = context.room.getGame().getPlayerOrder().get(2);
+		i = 0;
+		while (i < 10)	{
+			Thing t = cup.getRandomThing();
+			if (t instanceof Creature) {
+				cup.removeThing(t);
+				
+				conflictHex.addCreatToArmy((Creature)t, p3);
+				i ++;
+			}
+		}
 	}
 
 }

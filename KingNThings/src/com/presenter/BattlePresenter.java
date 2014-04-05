@@ -17,6 +17,7 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.util.Util;
 import com.view.BattleView;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -88,14 +89,16 @@ public class BattlePresenter {
 	 * @param hex
 	 *            The hex the battle is triggered on.
 	 */
-	public void triggerBattle(final Player current, List<Player> defending,
+	public void triggerBattle(final Player current, Player defending,
 			Hex hex) {
 		Util.playBattleMusic();
 
 		// Tell the server to start a new battle
 		try {
+			List<Player> def = new ArrayList<>();
+			def.add(defending);
 			battle = battleSvc.startBattle(NetworkedMain.getRoomName(),
-					current, defending, hex);
+					current, def, hex);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,7 +111,7 @@ public class BattlePresenter {
 	private void startBattle() {
 		KNTAppFactory.getPopupPresenter().showBattlePopup();
 //		view.updateBattle(battle);
-
+		disableControls();
 		// Enable ui if current player
 		if (battle.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {
 //			view.showRollControls();
@@ -117,7 +120,7 @@ public class BattlePresenter {
 		} else {
 //			view.hideControls();
 //			view.setDisable(true);
-			disableControls();
+			
 		}
 
 		// set handlers

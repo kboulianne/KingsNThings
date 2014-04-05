@@ -528,14 +528,10 @@ public class BoardPresenter {
 			}
 			
 			if(defendingPlayers.size()==1){
-//				Battle battle = new Battle(current, defendingPlayers.get(0), hex);
-//				KNTAppFactory.getPopupPresenter().showBattlePopup(); // Show the popup
-//				KNTAppFactory.getBattlePresenter().startBattle(battle); // Start the battle
-//				Battle battle = new Battle(current, defendingPlayers.get(0), hex);
-
-				KNTAppFactory.getBattlePresenter().triggerBattle(current, defendingPlayers, hex); // Start the battle
+				KNTAppFactory.getBattlePresenter().triggerBattle(current, defendingPlayers.get(0), hex); // Start the battle
 				
-			}else{
+			}
+			else{
 				KNTAppFactory.getSidePanePresenter().getView().showBattleChooserView(current, defendingPlayers, hex);
 			}
 		}else{

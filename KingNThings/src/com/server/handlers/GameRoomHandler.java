@@ -90,7 +90,7 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 				// TESTING
 				// Player joined. Notify other clients.
 				// TODO: Need to ensure that the request takes priority. Meaning respond to request, then send notification.
-				notifyOtherClients(gr, Notifications.PLAYER_JOINED_GAME_ROOM, player);
+				notifyClientsExclude(gr, Notifications.PLAYER_JOINED_GAME_ROOM, player);
 			}
 			else {
 				throw GAME_ROOM_ROOM_INEXISTANT;
