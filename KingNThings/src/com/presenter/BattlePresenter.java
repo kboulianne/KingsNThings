@@ -124,13 +124,13 @@ public class BattlePresenter {
 		view.getOffRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
-				Util.playClickSound();
-				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-				retreated = battle.getOffender();
-
-				// Dismiss the popup
-				KNTAppFactory.getPopupPresenter().dismissPopup();
-				startPhase();
+//				Util.playClickSound();
+//				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
+//				retreated = battle.getOffender();
+//
+//				// Dismiss the popup
+//				KNTAppFactory.getPopupPresenter().dismissPopup();
+//				startPhase();
 			}
 		});
 		view.getOffContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -197,8 +197,12 @@ public class BattlePresenter {
 		// For good measure
 		disableControls();
 		Util.log("switching from phase " + battle.getBattlePhase() + " to ...");
-		battle.setBattlePhase(BattlePhase.values()[battle.getBattlePhase()
-				.ordinal() + 1]);
+		if (battle.getBattlePhase().ordinal() + 1 < 7)
+			battle.setBattlePhase(BattlePhase.values()[battle.getBattlePhase().ordinal() + 1]);
+		else {
+			battle.setBattlePhase(BattlePhase.MAGIC);
+			battle.incrementRoundNumber();
+		}
 		Util.log("	" + battle.getBattlePhase());
 		
 	
@@ -215,9 +219,9 @@ public class BattlePresenter {
 		case RETREAT:
 			retreatPhase();
 			break;
-		case POSTCOMBAT:
-			postCombatPhase();
-			break;
+//		case POSTCOMBAT:
+//			postCombatPhase();
+//			break;
 		case APPLYMAJHITS:
 		case APPLYMELHITS:
 		case APPLYRANHITS:
@@ -335,32 +339,11 @@ public class BattlePresenter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		// Attacker can choose to retreat. If not then defender can choose to
-		// retreat.
-
-		// Ask attacker if he wants to retreat.
-////		offenderDice.getView().setDisable(true);
-////		defenderDice.getView().setDisable(true);
-//		if (isDefender()) {
-////			view.getOffContinueBtn().setDisable(true);
-////			view.getOffRetreatBtn().setDisable(true);
-//			// view.getDefContinueBtn().setDisable(false);
-//			// view.getDefRetreatBtn().setDisable(false);
-//		} else {
-//			view.getOffContinueBtn().setDisable(false);
-//			view.getOffRetreatBtn().setDisable(false);
-//			// view.getDefContinueBtn().setDisable(true);
-//			// view.getDefRetreatBtn().setDisable(true);
-//		}
-//		throw new UnsupportedOperationException("FIX BELOW!");
-		// view.refreshView((isDefender() ? "Defender" : "Offender") +
-		// " must choose to retreat or to continue with battle", "");
 	}
 
 	private void postCombatPhase() {
 		// TODO: Move to server?
-		throw new UnsupportedOperationException("FIX POST-COMBAT");
+//		throw new UnsupportedOperationException("FIX POST-COMBAT");
 //		Util.stopBattleMusic();
 //		Util.log("post combat phase player: "
 //				+ battle.getCurrentPlayer().getName());
@@ -382,15 +365,7 @@ public class BattlePresenter {
 //			}
 //		}
 //		
-//		if(associatedHex.getOwner() == null && associatedHex.getKedabCreatures().isEmpty()){
-//			associatedHex.setOwner(winner);
-//		}else if(!associatedHex.getKedabCreatures().isEmpty() && associatedHex.getArmies().size()<2){
-//			associatedHex.setConflict(false);
-//		}
-//		if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 	
-//			associatedHex.setOwner(winner);
-//			associatedHex.setConflict(false);
-//		}
+
 //		// FOR DEMO
 //		KNTAppFactory
 //				.getBoardPresenter()
@@ -679,5 +654,26 @@ public class BattlePresenter {
 			// Start the phase
 			startPhase();
 		}
+	}
+
+	public void onBattleEnded() {
+		// Update
+		try {
+			battle = battleSvc.getOngoingBattle(NetworkedMain.getRoomName());
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		KNTAppFactory.getPopupPresenter().dismissPopup();
+		KNTAppFactory
+				.getSidePanePresenter()
+				.getView()
+				.showArbitraryView(
+						"The winner of the last battle was " + battle.getWinner().getName(),
+						Game.CROWN_IMAGE);
+		
+		// Update in game presenter
+		KNTAppFactory.getGamePresenter().updateViews();
 	}
 }

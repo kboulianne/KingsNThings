@@ -58,8 +58,35 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			
 			room.setBattle(battle);
 			
-			// Notify opponents
-			notifyOtherClients(room, Notifications.BATTLE_UPDATED, battle.getCurrentPlayer());
+			// Evaluate winning conditions.
+			if (battle.isOffenderEliminated() || battle.isDefenderEliminated()) {
+				battle.setWinner((battle.isOffenderEliminated() ? 
+				  	battle.getDefender() : 
+					battle.getOffender())
+				);
+				
+				Hex associatedHex = battle.getAssociatedHex();
+				Player winner = battle.getWinner();
+				
+				// Update the hex
+				if(associatedHex.getOwner() == null && associatedHex.getKedabCreatures().isEmpty()){
+					associatedHex.setOwner(winner);
+					associatedHex.setConflict(false);
+				}
+				else if(!associatedHex.getKedabCreatures().isEmpty() && associatedHex.getArmies().size()<2){
+					associatedHex.setConflict(false);
+				}
+				if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 	
+					associatedHex.setOwner(winner);
+					associatedHex.setConflict(false);
+				}
+				
+				notifyAllClients(room, Notifications.BATTLE_ENDED);
+			}
+			else {
+				// Notify opponents
+				notifyOtherClients(room, Notifications.BATTLE_UPDATED, battle.getCurrentPlayer());
+			}
 		}
 	}
 
@@ -70,9 +97,9 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			room.setBattle(battle);
 			
 			// Players decided to continue the battle, check the winning conditions.
-			if (battle.getBattlePhase().equals(BattlePhase.POSTCOMBAT)) {
-				System.out.println("CHECK CONDITIONS");
-			}
+//			if (battle.getBattlePhase().equals(BattlePhase.RETREAT) && battle.getCurrentPlayer().equals(battle.getDefender())) {
+//				System.out.println("CHECK CONDITIONS");
+//			}
 
 			notifyClients(room, Notifications.BATTLE_TURN_ENDED, room.getBattle().getCurrentPlayer());
 		}

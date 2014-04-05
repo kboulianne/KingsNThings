@@ -8,6 +8,7 @@ import java.util.Map;
 public class Battle {
 	
 	private Player currentPlayer; 
+	private Player winner;
 	
 	private int roundNumber;
 	private boolean kedabFight;
@@ -31,7 +32,7 @@ public class Battle {
 	public enum BattlePhase { MAGIC("Magic"), APPLYMAJHITS("Apply Magic Hits"), 
 		RANGED("Ranged"), APPLYRANHITS("Apply Ranged Hits"), 
 		MELEE("Melee"), APPLYMELHITS("Apply Melee Hits"),
-		RETREAT("Retreat"), POSTCOMBAT("Post Combat") ;
+		RETREAT("Retreat")/*, POSTCOMBAT("Post Combat") */;
 		public final String phaseAsString;
 		BattlePhase(String n) { phaseAsString = n; }
 	}
@@ -146,6 +147,8 @@ public class Battle {
 	}
 	
 	public boolean isOffenderEliminated() { // Eliminated if no troops left in the hex.
+		if (associatedHex.getArmies(offender) == null)
+			return true;
 		return associatedHex.getArmies(offender).isEmpty(); 
 	}
 	
@@ -153,6 +156,9 @@ public class Battle {
 		if(isKedabFight()){
 			return associatedHex.getKedabCreatures().isEmpty();
 		}else{
+			if (associatedHex.getArmies(defender) == null) 
+				return true;
+			
 			return associatedHex.getArmies(defender).isEmpty();
 		}
 	}
@@ -160,6 +166,10 @@ public class Battle {
 	//setters and getters
 	public int getRoundNumber() {
 		return roundNumber;
+	}
+	
+	public void incrementRoundNumber() {
+		roundNumber ++;
 	}
 	
 	public String getDefenderName() {
@@ -311,5 +321,12 @@ public class Battle {
 	
 	public String getInstructions() {
 		return instructions;
+	}
+	
+	public Player getWinner() {
+		return winner;
+	}
+	public void setWinner(Player p) {
+		this.winner = p;
 	}
 }
