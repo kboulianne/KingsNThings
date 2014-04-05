@@ -58,7 +58,7 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			room.setBattle(battle);
 			
 			// Notify opponents
-			notifyOtherClients(room, Notifications.BATTLE_UPDATED, room.getGame().getCurrentPlayer());
+			notifyOtherClients(room, Notifications.BATTLE_UPDATED, battle.getCurrentPlayer());
 		}
 	}
 

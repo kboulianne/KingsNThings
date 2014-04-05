@@ -49,7 +49,7 @@ public class DicePresenter {
 		
 		view.setDice(die1, die2);
 		
-		KNTAppFactory.getGamePresenter().updateViews();
+//		KNTAppFactory.getGamePresenter().updateViews();
 		
 		return die1.getValue();
 	}

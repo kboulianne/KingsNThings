@@ -319,11 +319,11 @@ public class BattleView extends VBox{
 	public Button getOffContinueBtn() {
 		return offContinueBtn;
 	}
-	
-	public void hideControls() {
-		offButtonBox.setVisible(false);
-		offDice.getRollBtn().setVisible(false);
-	}
+//	
+//	public void hideControls() {
+//		offButtonBox.setVisible(false);
+//		offDice.getRollBtn().setVisible(false);
+//	}
 	
 	public void showControls() {
 		this.setDisable(false);
