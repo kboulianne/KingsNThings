@@ -64,6 +64,7 @@ public class BattlePresenter {
 		}
 		System.out.println("Switched players");
 		
+		
 		// Trigger battle turn end
 		try {
 			battleSvc.battleTurnEnded(NetworkedMain.getRoomName(), battle);
@@ -71,6 +72,8 @@ public class BattlePresenter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		disableControls();
 	}
 
 	/**
@@ -107,8 +110,8 @@ public class BattlePresenter {
 
 		// Enable ui if current player
 		if (battle.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {
-			view.showControls();
-			view.setDisable(false);
+//			view.showRollControls();
+//			view.setDisable(false);
 		} else {
 //			view.hideControls();
 //			view.setDisable(true);
@@ -132,8 +135,11 @@ public class BattlePresenter {
 			public void handle(ActionEvent t) {
 				Util.playClickSound();
 				switchPlayers();
-				battle.setBattlePhase(BattlePhase.RETREAT);
-				retreatPhase();
+				
+				// Update view
+//				view.updateBattle(battle);
+//				battle.setBattlePhase(BattlePhase.RETREAT);
+//				retreatPhase();
 			}
 		});
 		// view.getDefRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -213,6 +219,8 @@ public class BattlePresenter {
 		default:
 			break;
 		}
+		
+		enableControlsForPhase();
 	}
 
 	// Phases
@@ -245,8 +253,8 @@ public class BattlePresenter {
 //		battle.setOffHits(0);
 
 		// Activate dice, hide retreat stuff
-		dice.getView().setDisable(false);
-		defenderDice.getView().setDisable(false);
+//		dice.getView().setDisable(false);
+//		defenderDice.getView().setDisable(false);
 //		view.getOffContinueBtn().setDisable(true);
 //		view.getOffRetreatBtn().setDisable(true);
 		// view.getDefContinueBtn().setDisable(true);
@@ -256,7 +264,6 @@ public class BattlePresenter {
 
 		if (creatureIt.hasNext()) { 
 			currentCreature = creatureIt.next();
-			enableControlsForRoll();
 		}
 
 		if (currentCreature.isCharge()) {
@@ -298,10 +305,26 @@ public class BattlePresenter {
 			}
 			
 			view.updateBattle(battle);
+			
+			// Enable player's creature grid
+			if (isDefender()) {
+				view.getDefGrid().setDisable(false);
+			}
+			else {
+				view.getOffGrid().setDisable(false);
+			}
+			
 		}
 		else {
 			System.out.println("No hits to apply.");
 			switchPlayers();
+			
+			if (isDefender()) {
+				view.getDefGrid().setDisable(true);
+			}
+			else {
+				view.getOffGrid().setDisable(true);
+			}
 		}
 		
 //		if (battle.getDefHits() == 0 && battle.getOffHits() == 0) {
@@ -341,7 +364,6 @@ public class BattlePresenter {
 
 	private void retreatPhase() {
 		Util.log("retreat phase player: " + battle.getCurrentPlayer().getName());
-
 		
 		// Current player may choose to retreat.
 		battle.setInstructions((isDefender() ? "Defender" : "Offender") +
@@ -349,7 +371,12 @@ public class BattlePresenter {
 		battle.setInfo("");
 		view.updateBattle(battle);
 		
-		
+		try {
+			battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// Attacker can choose to retreat. If not then defender can choose to
 		// retreat.
@@ -374,6 +401,7 @@ public class BattlePresenter {
 	}
 
 	private void postCombatPhase() {
+		// TODO: Move to server?
 		throw new UnsupportedOperationException("FIX POST-COMBAT");
 //		Util.stopBattleMusic();
 //		Util.log("post combat phase player: "
@@ -428,6 +456,27 @@ public class BattlePresenter {
 		 */
 	}
 
+	private void enableControlsForPhase() {
+		switch (battle.getBattlePhase()) {
+		case MAGIC:
+		case RANGED:
+		case MELEE:
+			view.getOffButtonBox().setDisable(false);
+			dice.getView().getRollBtn().setVisible(true);
+			break;
+		}
+	}
+	
+	private void disableControls() {
+		// No longer the player's turn, diable everything
+		view.getOffButtonBox().setDisable(true);
+		dice.getView().getRollBtn().setVisible(false);
+		view.getOffContinueBtn().setVisible(false);
+		view.getOffRetreatBtn().setVisible(false);
+		view.getOffGrid().setDisable(true);
+		view.getDefGrid().setDisable(true);
+	}
+	
 	// HANDLERS
 	public void handleThingPressed(Thing thing) {
 
@@ -509,17 +558,16 @@ public class BattlePresenter {
 				e.printStackTrace();
 			}
 			
-			view.updateBattle(battle);
-			
+		
 			// more hits to apply?
 			if (battle.currentMustApplyHits())
 				applyHits();
 			else
 				switchPlayers();
-			// Update view
-//			throw new UnsupportedOperationException("FIX BELOW!");
-			// view.refreshView((isDefender() ? "Defender" : "Offender") +
-			// " must apply opponent's hits to creatures", info);
+
+			view.updateBattle(battle);
+			
+			
 		} else {
 			Util.log("cannot apply hits");
 		}
@@ -631,19 +679,18 @@ public class BattlePresenter {
 			e.printStackTrace();
 		}
 		view.updateBattle(battle);
-
-		enableControlsForRoll();
 	}
 
-	private void enableControlsForRoll() {
-		if (isDefender()) {
-//			offenderDice.getView().getRollBtn().setDisable(true);
-//			defenderDice.getView().getRollBtn().setDisable(false);
-		} else {
-//			offenderDice.getView().getRollBtn().setDisable(false);
-//			defenderDice.getView().getRollBtn().setDisable(true);
-		}
-	}
+//	private void enableControlsForPhase() {
+//		switch ()
+//		if (isDefender()) {
+////			offenderDice.getView().getRollBtn().setDisable(true);
+////			defenderDice.getView().getRollBtn().setDisable(false);
+//		} else {
+////			offenderDice.getView().getRollBtn().setDisable(false);
+////			defenderDice.getView().getRollBtn().setDisable(true);
+//		}
+//	}
 
 	public void onUpdated() {
 		// Fetch the updated battle instance.
@@ -670,7 +717,7 @@ public class BattlePresenter {
 
 			
 			//TODO: Restrict
-			//Re-enable gameui if participating in the battle.
+			//Re-enable GameUI if participating in the battle. Since gamepresenter locks it when it is not current turn in game.
 			KNTAppFactory.getGamePresenter().getView().setDisable(false);
 			KNTAppFactory.getPopupPresenter().showBattlePopup();
 			// Sets up handlers
@@ -696,11 +743,8 @@ public class BattlePresenter {
 			e.printStackTrace();
 		}
 		
-		// Check if it is now this client's turn to play
-		if (battle.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {
-			// Enable ui
-			view.showControls();
-			
+		// Check if it is now this client's turn to play. Always the case for 1-to-1 PVP
+		if (battle.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {			
 			// Need to switch phases?
 			if (battle.getCurrentPlayer().equals(battle.getOffender())) {
 				switchToNextPhase();

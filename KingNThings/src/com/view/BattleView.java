@@ -33,12 +33,12 @@ public class BattleView extends VBox{
 	private Label infoLbl;
 	
 	private Label offenderLbl;
-	private DiceView offDice;
+	private DiceView diceView;
 	private GridPane offGrid;
-	private HBox offButtonBox;
+	private HBox buttonBox;
 	private Label offHitsLbl;
-	private Button offRetreatBtn;
-	private Button offContinueBtn;
+	private Button retreatBtn;
+	private Button continueBtn;
 	
 	private Label defenderLbl;
 //	private DiceView defDice;
@@ -49,7 +49,7 @@ public class BattleView extends VBox{
 //	private Button defRetreatBtn;
 	
 	public BattleView(DiceView dv1, DiceView dv2){
-		offDice = dv1;
+		diceView = dv1;
 //		defDice = dv2;
 		buildPopup();
 	}
@@ -76,17 +76,21 @@ public class BattleView extends VBox{
 		// setup offender
 		offenderLbl = new Label();
 		offGrid = new GridPane();
-		offButtonBox = new HBox();
+		offGrid.setDisable(true);
+		buttonBox = new HBox();
+		buttonBox.setVisible(false);
 		offHitsLbl = new Label();
-		offRetreatBtn = new Button("Retreat");
+		retreatBtn = new Button("Retreat");
 //		offRetreatBtn.setDisable(true);
-		offContinueBtn = new Button("Continue");
+		continueBtn = new Button("Continue");
 //		offContinueBtn.setDisable(true);
-		VBox offenderBox = playerBox(offenderLbl, offGrid, offDice, offButtonBox, offHitsLbl, offRetreatBtn, offContinueBtn);
+		
+		VBox offenderBox = playerBox(offenderLbl, offGrid, diceView, buttonBox, offHitsLbl, retreatBtn, continueBtn);
 		
 		// setup defender
 		defenderLbl = new Label();
 		defGrid = new GridPane();
+		defGrid.setDisable(true);
 //		defButtonBox = new HBox();
 		defHitsLbl = new Label();
 //		defRetreatBtn = new Button("Retreat");
@@ -311,34 +315,33 @@ public class BattleView extends VBox{
 //		return battle;
 //	}
 	public HBox getOffButtonBox() {
-		return offButtonBox;
+		return buttonBox;
 	}
 	public Button getOffRetreatBtn() {
-		return offRetreatBtn;
+		return retreatBtn;
 	}
 	public Button getOffContinueBtn() {
-		return offContinueBtn;
+		return continueBtn;
 	}
+	
+//	public void hideRollControls() {
+//		diceView.getRollBtn().setVisible(false);
+////		buttonBox.setVisible(false);
+//	}
 //	
-//	public void hideControls() {
-//		offButtonBox.setVisible(false);
-//		offDice.getRollBtn().setVisible(false);
+//	public void showRollControls() {
+//		diceView.getRollBtn().setVisible(true);
+////		buttonBox.setVisible(true);
+//		// Both cannot be shown at the same time.
+//		hideRetreatControls();
 //	}
-	
-	public void showControls() {
-		this.setDisable(false);
-		offButtonBox.setVisible(true);
-		offDice.getRollBtn().setVisible(true);
-		offDice.getRollBtn().setDisable(false);
-	}
-	
-//	public HBox getDefButtonBox() {
-//		return defButtonBox;
+//	
+//	public void  showRetreatControls() {
+//		buttonBox.setVisible(true);
+//		hideRollControls();
 //	}
-//	public Button getDefContinueBtn() {
-//		return defContinueBtn;
-//	}
-//	public Button getDefRetreatBtn() {
-//		return defRetreatBtn;
+//	
+//	public void  hideRetreatControls() {
+//		buttonBox.setVisible(false);
 //	}
 }

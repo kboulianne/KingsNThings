@@ -215,6 +215,14 @@ public class Battle {
 		return associatedHex.getArmies(offender);
 	}
 	
+	public List<Creature> getOffenderCreaturesFor(BattlePhase phase) {
+		return offendingForces.get(phase);
+	}
+
+	public List<Creature> getDefendingCreaturesFor(BattlePhase phase) {
+		return defendingForces.get(phase);
+	}
+	
 	public List<Creature> getDefenderCreatures() {
 		
 		if(isKedabFight()){

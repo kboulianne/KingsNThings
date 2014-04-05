@@ -5,6 +5,7 @@ import java.util.List;
 import com.model.Battle;
 import com.model.Hex;
 import com.model.Player;
+import com.model.Battle.BattlePhase;
 import com.server.Notifications;
 import com.server.ServerGameRoom;
 import com.server.services.IBattleService;
@@ -67,7 +68,11 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 		synchronized (GAME_ROOMS.get(roomName)) {
 			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			room.setBattle(battle);
-			// Current was swapped in client, notify new current that turn has ended.
+			
+			// Players decided to continue the battle, check the winning conditions.
+			if (battle.getBattlePhase().equals(BattlePhase.POSTCOMBAT)) {
+				System.out.println("CHECK CONDITIONS");
+			}
 
 			notifyClients(room, Notifications.BATTLE_TURN_ENDED, room.getBattle().getCurrentPlayer());
 		}
