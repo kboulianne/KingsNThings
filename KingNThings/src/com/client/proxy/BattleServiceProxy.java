@@ -38,4 +38,9 @@ public class BattleServiceProxy extends ProxyBase implements IBattleService {
 	public void battleTurnEnded(String roomName, Battle battle) throws JSONRPC2Error {
 		invokeOnServer("battleTurnEnded", roomName, battle);
 	}
+	
+	@Override
+	public void retreat(String roomName) throws JSONRPC2Error {
+		invokeOnServer("retreat", roomName);
+	}
 }

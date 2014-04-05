@@ -124,6 +124,12 @@ public class BattlePresenter {
 		view.getOffRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
+				try {
+					battleSvc.retreat(NetworkedMain.getRoomName());
+				} catch (JSONRPC2Error e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 //				Util.playClickSound();
 //				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
 //				retreated = battle.getOffender();
@@ -171,20 +177,20 @@ public class BattlePresenter {
 		// }
 		// });
 		dice.getView().getRollBtn()
-				.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent t) {
-						handleRoll();
-					}
-				});
-
-		defenderDice.getView().getRollBtn()
-				.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent t) {
-						handleRoll();
-					}
-				});
+			.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent t) {
+					handleRoll();
+				}
+			});
+//
+//		defenderDice.getView().getRollBtn()
+//				.setOnAction(new EventHandler<ActionEvent>() {
+//					@Override
+//					public void handle(ActionEvent t) {
+//						handleRoll();
+//					}
+//				});
 	}
 
 	// STATE CHARGERS

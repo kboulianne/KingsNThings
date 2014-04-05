@@ -31,4 +31,6 @@ public interface IBattleService {
 	void updateBattle(String roomName, Battle battle) throws JSONRPC2Error;
 	
 	void battleTurnEnded(String roomName, Battle battle) throws JSONRPC2Error;
+	
+	void retreat(String roomName) throws JSONRPC2Error;
 }

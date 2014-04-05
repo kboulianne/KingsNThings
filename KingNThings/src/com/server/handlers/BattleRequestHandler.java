@@ -17,7 +17,7 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 
 	@Override
 	public String[] handledRequests() {
-		return new String[] { "startBattle", "getOngoingBattle", "updateBattle", "battleTurnEnded" };
+		return new String[] { "startBattle", "getOngoingBattle", "updateBattle", "battleTurnEnded", "retreat" };
 	}
 
 	@Override
@@ -60,28 +60,7 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			
 			// Evaluate winning conditions.
 			if (battle.isOffenderEliminated() || battle.isDefenderEliminated()) {
-				battle.setWinner((battle.isOffenderEliminated() ? 
-				  	battle.getDefender() : 
-					battle.getOffender())
-				);
-				
-				Hex associatedHex = battle.getAssociatedHex();
-				Player winner = battle.getWinner();
-				
-				// Update the hex
-				if(associatedHex.getOwner() == null && associatedHex.getKedabCreatures().isEmpty()){
-					associatedHex.setOwner(winner);
-					associatedHex.setConflict(false);
-				}
-				else if(!associatedHex.getKedabCreatures().isEmpty() && associatedHex.getArmies().size()<2){
-					associatedHex.setConflict(false);
-				}
-				if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 	
-					associatedHex.setOwner(winner);
-					associatedHex.setConflict(false);
-				}
-				
-				notifyAllClients(room, Notifications.BATTLE_ENDED);
+				determineWinner(room);
 			}
 			else {
 				// Notify opponents
@@ -95,13 +74,59 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 		synchronized (GAME_ROOMS.get(roomName)) {
 			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			room.setBattle(battle);
-			
-			// Players decided to continue the battle, check the winning conditions.
-//			if (battle.getBattlePhase().equals(BattlePhase.RETREAT) && battle.getCurrentPlayer().equals(battle.getDefender())) {
-//				System.out.println("CHECK CONDITIONS");
-//			}
 
 			notifyClients(room, Notifications.BATTLE_TURN_ENDED, room.getBattle().getCurrentPlayer());
+		}
+	}
+	
+	private void determineWinner(ServerGameRoom room) {
+		Battle battle = room.getBattle();
+		determineWinner(room, (battle.isOffenderEliminated() ? 
+			  	battle.getDefender() : 
+				battle.getOffender()));
+	}
+
+	private void determineWinner(ServerGameRoom room, Player winner) {
+		Battle battle = room.getBattle();
+		battle.setWinner(winner);
+			
+		Hex associatedHex = battle.getAssociatedHex();
+		
+		// Update the hex
+		if(associatedHex.getOwner() == null && associatedHex.getKedabCreatures().isEmpty()){
+			associatedHex.setOwner(winner);
+			associatedHex.setConflict(false);
+		}
+		else if(!associatedHex.getKedabCreatures().isEmpty() && associatedHex.getArmies().size()<2){
+			associatedHex.setConflict(false);
+		}
+		if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 	
+			associatedHex.setOwner(winner);
+			associatedHex.setConflict(false);
+		}
+		
+		notifyAllClients(room, Notifications.BATTLE_ENDED);		
+	}
+	
+	@Override
+	public void retreat(String roomName) throws JSONRPC2Error {
+		synchronized (GAME_ROOMS.get(roomName)) {
+			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
+			
+			Battle battle = room.getBattle();
+			
+			if (!battle.isOffenderEliminated() && !battle.isDefenderEliminated()) {
+				Player p = null;
+				// Current is the one that retreated.
+				if (battle.getCurrentPlayer().equals(battle.getOffender()))
+					p = battle.getDefender();
+				else 
+					p = battle.getOffender();
+				
+				determineWinner(room, p);
+			}
+			
+			
 		}
 	}
 }
