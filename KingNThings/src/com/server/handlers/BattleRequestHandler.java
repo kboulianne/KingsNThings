@@ -27,7 +27,8 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			
 			// Create the object for the current battle.
-			Battle battle = new Battle(attacker, defenders.get(0), hex);
+			//TODO: Change boolean.
+			Battle battle = new Battle(attacker, defenders.get(0), hex, false);
 			
 			room.setBattle(battle);
 			

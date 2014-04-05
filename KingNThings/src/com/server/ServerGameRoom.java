@@ -3,15 +3,11 @@ package com.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.game.phase.GamePlay;
 import com.model.Battle;
 import com.model.Game;
 import com.model.GameRoom;
 import com.model.Player;
 import com.server.phase.ServerGamePlay;
-import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
-
-import static com.server.KNTServer.*;
 
 public class ServerGameRoom extends GameRoom {
 
