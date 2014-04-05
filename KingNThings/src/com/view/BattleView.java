@@ -78,12 +78,9 @@ public class BattleView extends VBox{
 		offGrid = new GridPane();
 		offGrid.setDisable(true);
 		buttonBox = new HBox();
-		buttonBox.setVisible(false);
 		offHitsLbl = new Label();
 		retreatBtn = new Button("Retreat");
-//		offRetreatBtn.setDisable(true);
 		continueBtn = new Button("Continue");
-//		offContinueBtn.setDisable(true);
 		
 		VBox offenderBox = playerBox(offenderLbl, offGrid, diceView, buttonBox, offHitsLbl, retreatBtn, continueBtn);
 		
@@ -311,10 +308,8 @@ public class BattleView extends VBox{
 	public void setDefGrid(GridPane defGrid) {
 		this.defGrid = defGrid;
 	}
-//	public Battle getBattle() {
-//		return battle;
-//	}
-	public HBox getOffButtonBox() {
+	
+	public HBox getRetreatButtonBox() {
 		return buttonBox;
 	}
 	public Button getOffRetreatBtn() {
@@ -323,25 +318,4 @@ public class BattleView extends VBox{
 	public Button getOffContinueBtn() {
 		return continueBtn;
 	}
-	
-//	public void hideRollControls() {
-//		diceView.getRollBtn().setVisible(false);
-////		buttonBox.setVisible(false);
-//	}
-//	
-//	public void showRollControls() {
-//		diceView.getRollBtn().setVisible(true);
-////		buttonBox.setVisible(true);
-//		// Both cannot be shown at the same time.
-//		hideRetreatControls();
-//	}
-//	
-//	public void  showRetreatControls() {
-//		buttonBox.setVisible(true);
-//		hideRollControls();
-//	}
-//	
-//	public void  hideRetreatControls() {
-//		buttonBox.setVisible(false);
-//	}
 }
