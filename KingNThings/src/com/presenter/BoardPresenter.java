@@ -308,12 +308,29 @@ public class BoardPresenter {
 				}
 			}
 			
-			// Hex is unexplored, skip explore logic and claim it for DEMO
-			if (hex.getHexOwner() == null) {
-				hex.setOwner(game.getCurrentPlayer());
-				System.out.println("Player claimed tile after exploring.");
+
+			// if Hex is unexplored
+			if(hex.getHexOwner() == null && hex.getKedabCreatures().isEmpty()){
+				int randNum = Util.randomNumber(1, 6);
+				if(randNum == 6 || randNum ==1){
+					hex.setOwner(game.getCurrentPlayer());
+					System.out.println("Player claimed tile after exploring.");
+				}
+				else {
+					for(int i =0; i<randNum;i++){
+						Creature c = game.getCup().getRandomCreature();
+						if(c==null){
+							if(hex.getKedabCreatures().isEmpty()){
+								hex.setOwner(game.getCurrentPlayer());
+								System.out.println("Player claimed tile - no creatures in cup.");
+							}
+							break;
+						}else{
+							hex.addKebabCreature(c);
+						}
+					}
+				}
 			}
-			
 			view.setBoard(game.getBoard());
 		}
 		

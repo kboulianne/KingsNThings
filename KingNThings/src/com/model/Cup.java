@@ -22,7 +22,19 @@ public class Cup {
 		return listOfThings;
 	}
 	
+
+	public ArrayList<Creature> getListOfCreatures() {
+		ArrayList<Creature> creatures = new ArrayList<Creature>();
+		for(Thing t: listOfThings){
+			if(t instanceof Creature){
+				creatures.add((Creature) t);
+			}
+		}
+		return creatures;
+	}
+	
 	public void setListOfThings(List<Thing> listOfThings) {
+
 		for(Thing t: listOfThings)
 			addThing(t);
 	}
@@ -32,6 +44,14 @@ public class Cup {
 			return null;
 		Thing t = listOfThings.get(Util.randomNumber(0, listOfThings.size()-1));
 		return t;
+	}
+	
+	public Creature getRandomCreature(){
+		ArrayList<Creature> creatures = getListOfCreatures();
+		if(creatures.isEmpty())
+			return null;
+		Creature c = creatures.get(Util.randomNumber(0, creatures.size()-1));
+		return c;
 	}
 	
 	public void addThing(Thing t)	{

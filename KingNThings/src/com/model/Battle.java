@@ -10,7 +10,7 @@ public class Battle {
 	private Player currentPlayer; 
 	
 	private int roundNumber;
-	private boolean unExploredHex;
+	private boolean kedabFight;
 	private Hex associatedHex;
 	
 	private Player defender;
@@ -45,7 +45,7 @@ public class Battle {
 	 * @param defender
 	 * @param hex 
 	 */
-	public Battle(Player offender, Player defender, Hex hex) {
+	public Battle(Player offender, Player defender, Hex hex, boolean kedabFight) {
 		currentPlayer = offender;
 		this.defender = defender;		
 		associatedHex = hex;
@@ -57,9 +57,13 @@ public class Battle {
 		defenderFort = hex.getFort();
 		
 		offendingForces = splitCreatures(hex.getArmies(offender));
-		defendingForces = splitCreatures(hex.getArmies(defender));
+		this.kedabFight = kedabFight;
 		
-		setUnExploredHex(false);
+		if(kedabFight){
+			defendingForces = splitCreatures(hex.getKedabCreatures());
+		}else{
+			defendingForces = splitCreatures(hex.getArmies(defender));
+		}
 	}
 	
 	private Map<BattlePhase, List<Creature>> splitCreatures(List<Creature> creatures) {
@@ -110,7 +114,11 @@ public class Battle {
 	
 	public void killDefenderCreature(Creature c) {
 		// remove from hex, and from map
-		associatedHex.getArmies(defender).remove(c);
+		if(isKedabFight()){
+			associatedHex.getKedabCreatures().remove(c);
+		}else{
+			associatedHex.getArmies(defender).remove(c);
+		}
 		BattlePhase phase = null;
 		if (c.isMagic()) {
 			phase = BattlePhase.MAGIC;
@@ -142,7 +150,11 @@ public class Battle {
 	}
 	
 	public boolean isDefenderEliminated() {
-		return associatedHex.getArmies(defender).isEmpty();
+		if(isKedabFight()){
+			return associatedHex.getKedabCreatures().isEmpty();
+		}else{
+			return associatedHex.getArmies(defender).isEmpty();
+		}
 	}
 	
 	//setters and getters
@@ -171,13 +183,8 @@ public class Battle {
 	public Fort getDefenderFort() {
 		return defenderFort;
 	}
-	
-	public boolean isUnExploredHex() {
-		return unExploredHex;
-	}
-	
-	public void setUnExploredHex(boolean unExploredHex) {
-		this.unExploredHex = unExploredHex;
+	public boolean isKedabFight() {
+		return kedabFight;
 	}
 	
 	public BattlePhase getBattlePhase() {
@@ -209,7 +216,12 @@ public class Battle {
 	}
 	
 	public List<Creature> getDefenderCreatures() {
-		return associatedHex.getArmies(defender);
+		
+		if(isKedabFight()){
+			return associatedHex.getKedabCreatures();
+		}else{
+			return associatedHex.getArmies(defender);
+		}
 	}
 	
 	/**

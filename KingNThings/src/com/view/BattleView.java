@@ -148,6 +148,12 @@ public class BattleView extends VBox{
 		return playerBox;
 	}
 	
+	public void setBattle(Battle battle){
+		
+		this.battle = battle;
+		setTitleLblText("");
+		setRoundNumLbl();
+		setBattleRoundLbl();
 	public void updateBattle(final Battle battle){
 		setInfoLbl(battle.getInfo());
 		setTitleLblText(battle.getInstructions());
@@ -163,7 +169,12 @@ public class BattleView extends VBox{
 		offGamePieces.addAll(battle.getOffenderCreatures());
 		setBattlePieces(offGamePieces, offGrid);
 
-		defenderLbl.setText("Defender: "+battle.getDefenderName());
+		if(battle.isKedabFight()){
+			defenderLbl.setText("Defender: Creatures of Kedab");
+		}else{
+			defenderLbl.setText("Defender: "+battle.getDefenderName());
+		}
+		
 		setBattlePieces(battle.getDefenderCreatures(), battle.getDefenderFort(), defGrid);
 
 		
@@ -262,8 +273,12 @@ public class BattleView extends VBox{
 	public Label getTitleLbl() {
 		return titleLbl;
 	}
-	private void setTurnLblText(String name) {
-		turnLbl.setText("Turn: " + name);
+	private void setTurnLblText() {
+		if(battle.isKedabFight() && battle.getCurrentPlayer().equals(battle.getDefender())){
+			turnLbl.setText("Turn: Creatures of Kedab ("+battle.getDefenderName()+")");
+		}else{
+			turnLbl.setText("Turn: "+battle.getCurrentPlayer().getName());
+		}
 	}
 	private void setOffHitsLbl(String off) {
 		offHitsLbl.setText("Hits: " + off);
