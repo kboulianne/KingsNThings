@@ -14,8 +14,6 @@ import static com.server.KNTServer.*;
 
 public final class ServerGamePlay {
 
-	/** The game instance to operate on. */
-//	private Game game;
 	private IServerPhaseStrategy phase;
 	// These are unique, put in set
 	private LinkedHashSet<IServerPhaseStrategy> phases;

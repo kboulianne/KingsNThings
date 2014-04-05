@@ -41,16 +41,16 @@ public class BattleView extends VBox{
 	private Button offContinueBtn;
 	
 	private Label defenderLbl;
-	private DiceView defDice;
+//	private DiceView defDice;
 	private GridPane defGrid;
-	private HBox defButtonBox;
+//	private HBox defButtonBox;
 	private Label defHitsLbl;
-	private Button defContinueBtn;
-	private Button defRetreatBtn;
+//	private Button defContinueBtn;
+//	private Button defRetreatBtn;
 	
 	public BattleView(DiceView dv1, DiceView dv2){
 		offDice = dv1;
-		defDice = dv2;
+//		defDice = dv2;
 		buildPopup();
 	}
 	
@@ -87,13 +87,14 @@ public class BattleView extends VBox{
 		// setup defender
 		defenderLbl = new Label();
 		defGrid = new GridPane();
-		defButtonBox = new HBox();
+//		defButtonBox = new HBox();
 		defHitsLbl = new Label();
-		defRetreatBtn = new Button("Retreat");
-		defRetreatBtn.setDisable(true);
-		defContinueBtn = new Button("Continue");
-		defContinueBtn.setDisable(true);
-		VBox defenderBox = playerBox(defenderLbl, defGrid, defDice, defButtonBox, defHitsLbl, defRetreatBtn, defContinueBtn);
+//		defRetreatBtn = new Button("Retreat");
+//		defRetreatBtn.setDisable(true);
+//		defContinueBtn = new Button("Continue");
+//		defContinueBtn.setDisable(true);
+//		VBox defenderBox = playerBox(defenderLbl, defGrid, defDice, defButtonBox, defHitsLbl, defRetreatBtn, defContinueBtn);
+		VBox defenderBox = defenderBox(defenderLbl, defGrid, defHitsLbl);
 		
 		HBox offenderDefenderBox = new HBox();
 		offenderDefenderBox.getStyleClass().add("block");
@@ -102,8 +103,28 @@ public class BattleView extends VBox{
 		getChildren().addAll(titleLbl, subTitleLbls, infoLbl, offenderDefenderBox);	
 	}
 	
+	private VBox defenderBox(Label playerLbl, GridPane playerGrid, Label hitsLbl) {
+		VBox playerBox = new VBox();
+		playerBox.setMinWidth(600);
+		playerBox.getStyleClass().add("block");
+		playerLbl.getStyleClass().add("title");
+		playerBox.getChildren().add(playerLbl);
+	    playerGrid.setHgap(5);
+	    playerGrid.setVgap(5);
+	    playerGrid.setMinHeight(520);
+	    playerBox.getChildren().add(playerGrid);
+	    
+	    HBox hits = new HBox();
+	    hits.getChildren().addAll(hitsLbl);
+	    AnchorPane defAp = new AnchorPane();
+		defAp.getChildren().addAll(hits);
+		playerBox.getChildren().addAll(defAp);
+		return playerBox;
+	}
+	
 	private VBox playerBox(Label playerLbl, GridPane playerGrid, DiceView playerDice, HBox playerButtonBox, Label hitsLbl,
 											Button playerRetreatBtn, Button playerContinueBtn){
+
 		VBox playerBox = new VBox();
 		playerBox.setMinWidth(600);
 		playerBox.getStyleClass().add("block");
@@ -235,27 +256,9 @@ public class BattleView extends VBox{
 		
 		return thingBox;
 	}
-	
-//	public void refreshView(String instructions, String info){
-//		setTitleLblText(instructions);
-//		setTurnLblText();
-//		setRoundNumLbl();
-//		setBattleRoundLbl();
-//		setInfoLbl(info);
-//		setOffHitsLbl();
-//		setDefHitsLbl();
-//		
-//		/*if(battle.getCurrentPlayer().equals(battle.getDefender())){
-//			defGrid.getStyleClass().add("border");
-//			offGrid.getStyleClass().removeAll("border");
-//		}else{
-//			offGrid.getStyleClass().add("border");
-//			defGrid.getStyleClass().removeAll("border");
-//		}*/
-//	}
+
 	
 	// getter dones and setter dones
-
 	public Label getTitleLbl() {
 		return titleLbl;
 	}
@@ -304,13 +307,24 @@ public class BattleView extends VBox{
 	public Button getOffContinueBtn() {
 		return offContinueBtn;
 	}
-	public HBox getDefButtonBox() {
-		return defButtonBox;
+	
+	public void hideControls() {
+		offButtonBox.setVisible(false);
+		offDice.getRollBtn().setVisible(false);
 	}
-	public Button getDefContinueBtn() {
-		return defContinueBtn;
+	
+	public void showControls() {
+		offButtonBox.setVisible(true);
+		offDice.getRollBtn().setVisible(true);
 	}
-	public Button getDefRetreatBtn() {
-		return defRetreatBtn;
-	}
+	
+//	public HBox getDefButtonBox() {
+//		return defButtonBox;
+//	}
+//	public Button getDefContinueBtn() {
+//		return defContinueBtn;
+//	}
+//	public Button getDefRetreatBtn() {
+//		return defRetreatBtn;
+//	}
 }

@@ -1,7 +1,5 @@
 package com.server.phase;
 
-
-
 public abstract class AbstractServerPhase implements IServerPhaseStrategy {
 
 	protected ServerGamePlay context;
