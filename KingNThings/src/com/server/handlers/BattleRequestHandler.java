@@ -16,7 +16,7 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 
 	@Override
 	public String[] handledRequests() {
-		return new String[] { "startBattle", "getOngoingBattle", "rolled" };
+		return new String[] { "startBattle", "getOngoingBattle", "updateBattle", "battleTurnEnded" };
 	}
 
 	@Override
@@ -33,7 +33,9 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			room.setBattle(battle);
 			
 			// Allows opponents to watch the ongoing battle.
-			notifyOtherClients(room, Notifications.BATTLE_STARTED, room.getGame().getCurrentPlayer());
+			// For now, only notify opponent
+			notifyClients(room, Notifications.BATTLE_STARTED, battle.getDefender());
+//			notifyOtherClients(room, Notifications.BATTLE_STARTED, room.getGame().getCurrentPlayer());
 			
 			return battle;
 		}
@@ -49,14 +51,25 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 	}
 	
 	@Override
-	public void rolled(String roomName, Battle battle) throws JSONRPC2Error {
+	public void updateBattle(String roomName, Battle battle) throws JSONRPC2Error {
 		synchronized (GAME_ROOMS.get(roomName)) {
 			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			
 			room.setBattle(battle);
 			
 			// Notify opponents
-			notifyOtherClients(room, Notifications.PLAYER_ROLLED, room.getGame().getCurrentPlayer());
+			notifyOtherClients(room, Notifications.BATTLE_UPDATED, room.getGame().getCurrentPlayer());
+		}
+	}
+
+	@Override
+	public void battleTurnEnded(String roomName, Battle battle) throws JSONRPC2Error {
+		synchronized (GAME_ROOMS.get(roomName)) {
+			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
+			room.setBattle(battle);
+			// Current was swapped in client, notify new current that turn has ended.
+
+			notifyClients(room, Notifications.BATTLE_TURN_ENDED, room.getBattle().getCurrentPlayer());
 		}
 	}
 }

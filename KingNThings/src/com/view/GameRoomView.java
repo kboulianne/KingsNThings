@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.LabelBuilder;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.FlowPaneBuilder;
 import javafx.scene.layout.HBox;
@@ -65,6 +67,14 @@ public class GameRoomView extends VBox {
 			.onAction(START_GAME_EVENT)
 			.text("Start")
 		.build();
+		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent arg0) {
+				if (arg0.getCode() == KeyCode.ENTER)
+					KNTAppFactory.getGameRoomPresenter().handleStartGameButton();
+			}
+		});
 		
 		FlowPane bottomPane = FlowPaneBuilder.create()
 			.alignment(Pos.CENTER)

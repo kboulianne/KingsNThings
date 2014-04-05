@@ -62,6 +62,15 @@ public class BattlePresenter {
 		} else {
 			battle.setCurrentPlayer(battle.getDefender());
 		}
+		System.out.println("Switched players");
+		
+		// Trigger battle turn end
+		try {
+			battleSvc.battleTurnEnded(NetworkedMain.getRoomName(), battle);
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -89,11 +98,12 @@ public class BattlePresenter {
 		}
 
 		startBattle();
+		startPhase();
 	}
 
 	private void startBattle() {
 		KNTAppFactory.getPopupPresenter().showBattlePopup();
-		view.updateBattle(battle);
+//		view.updateBattle(battle);
 
 		// Enable ui if current player
 		if (battle.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {
@@ -101,7 +111,7 @@ public class BattlePresenter {
 			view.setDisable(false);
 		} else {
 			view.hideControls();
-			view.setDisable(true);
+//			view.setDisable(true);
 		}
 
 		// set handlers
@@ -166,15 +176,13 @@ public class BattlePresenter {
 						handleRoll();
 					}
 				});
-
-		startPhase();
 	}
 
 	// STATE CHARGERS
-	private void nextBattlePhase() {
-		switchToNextPhase();
-		startPhase();
-	}
+//	private void nextBattlePhase() {
+//		switchToNextPhase();
+////		startPhase();
+//	}
 
 	private void switchToNextPhase() {
 		Util.log("switching from phase " + battle.getBattlePhase() + " to ...");
@@ -188,7 +196,7 @@ public class BattlePresenter {
 		case MAGIC:
 		case RANGED:
 		case MELEE:
-			creatureIt = battle.getOffenderCreaturesForPhase().iterator();
+			creatureIt = battle.getCreaturesForPhase().iterator();
 			rollPhase();
 			break;
 		case RETREAT:
@@ -214,38 +222,41 @@ public class BattlePresenter {
 		Util.log("roll phase " + battle.getBattlePhase() + " player: "
 				+ battle.getCurrentPlayer().getName());
 		
-		// TODO: Move to server.
+		// Determines if player has to roll in this phase
+		if (battle.getCreaturesForPhase().isEmpty()) {
+			switchPlayers();
+		}
 //		if (battle.getOffenderCreaturesForPhase().isEmpty()
 //				&& battle.getDefenderCreaturesForPhase().isEmpty()) {
 //			// TODO: Trigger battle_phase_end
-//			nextBattlePhase();
+////			nextBattlePhase();
 //			return;
 //		}
-
-		// Change to getCreaturesForPhase using current player.
-		if (battle.getOffenderCreaturesForPhase().isEmpty()) {
-			// TODO: trigger battle_turn_end
+//
+//		// Change to getCreaturesForPhase using current player.
+//		if (battle.getOffenderCreaturesForPhase().isEmpty()) {
+//			// TODO: trigger battle_turn_end
 //			switchPlayers();
 //			creatureIt = battle.getDefenderCreaturesForPhase().iterator();
-		}
+//		}
 
-		// Goes on server
-//		battle.setDefHits(0);
-//		battle.setOffHits(0);
+		battle.setDefHits(0);
+		battle.setOffHits(0);
 
 		// Activate dice, hide retreat stuff
 		offenderDice.getView().setDisable(false);
 		defenderDice.getView().setDisable(false);
-		view.getOffContinueBtn().setDisable(true);
-		view.getOffRetreatBtn().setDisable(true);
+//		view.getOffContinueBtn().setDisable(true);
+//		view.getOffRetreatBtn().setDisable(true);
 		// view.getDefContinueBtn().setDisable(true);
 		// view.getDefRetreatBtn().setDisable(true);
-		view.getDefGrid().setDisable(true);
-		view.getOffGrid().setDisable(true);
+//		view.getDefGrid().setDisable(true);
+//		view.getOffGrid().setDisable(true);
 
-		// TODO: move to battle?
-		currentCreature = creatureIt.next();
-		enableControlsForRoll();
+		if (creatureIt.hasNext()) { 
+			currentCreature = creatureIt.next();
+			enableControlsForRoll();
+		}
 
 		if (currentCreature.isCharge()) {
 			if (isDefender()) {
@@ -254,10 +265,20 @@ public class BattlePresenter {
 				offenderDice.getView().hideDie2(false);
 			}
 		}
-		// throw new UnsupportedOperationException("FIX BELOW!");
-		// view.refreshView((isDefender() ? "Defender" : "Offender") +
-		// " must roll for Creature "+
-		// currentCreature.getName().toUpperCase(),"");
+
+		battle.setInstructions((isDefender() ? "Defender" : "Offender") +
+				" must roll for Creature "+
+				currentCreature.getName().toUpperCase());
+		battle.setInfo("");
+		view.updateBattle(battle);
+		
+		// Changes were made, update the server.
+		try {
+			battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void applyHits() {
@@ -265,32 +286,32 @@ public class BattlePresenter {
 
 		if (battle.getDefHits() == 0 && battle.getOffHits() == 0) {
 			battle.setCurrentPlayer(battle.getOffender());
-			view.getDefGrid().setDisable(true);
-			view.getOffGrid().setDisable(true);
+//			view.getDefGrid().setDisable(true);
+//			view.getOffGrid().setDisable(true);
 			battle.setCurrentPlayer(battle.getOffender());
-			nextBattlePhase();
+//			nextBattlePhase();
 			return;
 		} else if (battle.getDefHits() == 0 && !isDefender()) {
 			switchPlayers();
 			view.getDefGrid().setDisable(false);
-			view.getOffGrid().setDisable(true);
+//			view.getOffGrid().setDisable(true);
 			applyHits();
 			return;
 		} else if (battle.getOffHits() == 0 && isDefender()) {
-			view.getDefGrid().setDisable(true);
-			view.getOffGrid().setDisable(true);
+//			view.getDefGrid().setDisable(true);
+//			view.getOffGrid().setDisable(true);
 			switchPlayers();
-			nextBattlePhase();
+//			nextBattlePhase();
 			return;
 		} else if (battle.getOffHits() != 0 && isDefender()) {
 			view.getDefGrid().setDisable(false);
-			view.getOffGrid().setDisable(true);
+//			view.getOffGrid().setDisable(true);
 		} else {
-			view.getDefGrid().setDisable(true);
+//			view.getDefGrid().setDisable(true);
 			view.getOffGrid().setDisable(false);
 		}
-		offenderDice.getView().setDisable(true);
-		defenderDice.getView().setDisable(true);
+//		offenderDice.getView().setDisable(true);
+//		defenderDice.getView().setDisable(true);
 //		throw new UnsupportedOperationException("FIX BELOW!");
 		// view.refreshView((isDefender() ? "Defender" : "Offender") +
 		// " must apply opponent's hits to creatures", "");
@@ -303,11 +324,11 @@ public class BattlePresenter {
 		// retreat.
 
 		// Ask attacker if he wants to retreat.
-		offenderDice.getView().setDisable(true);
-		defenderDice.getView().setDisable(true);
+//		offenderDice.getView().setDisable(true);
+//		defenderDice.getView().setDisable(true);
 		if (isDefender()) {
-			view.getOffContinueBtn().setDisable(true);
-			view.getOffRetreatBtn().setDisable(true);
+//			view.getOffContinueBtn().setDisable(true);
+//			view.getOffRetreatBtn().setDisable(true);
 			// view.getDefContinueBtn().setDisable(false);
 			// view.getDefRetreatBtn().setDisable(false);
 		} else {
@@ -404,10 +425,10 @@ public class BattlePresenter {
 					return;
 				}
 				if (battle.getOffHits() == 0) {
-					view.getDefGrid().setDisable(true);
-					view.getOffGrid().setDisable(true);
+//					view.getDefGrid().setDisable(true);
+//					view.getOffGrid().setDisable(true);
 					switchPlayers();
-					nextBattlePhase();
+//					nextBattlePhase();
 					return;
 				}
 
@@ -423,21 +444,21 @@ public class BattlePresenter {
 				// Winning Conditions
 				if (battle.isDefenderEliminated()
 						|| battle.isOffenderEliminated()) {
-					view.getDefGrid().setDisable(true);
-					view.getOffGrid().setDisable(true);
+//					view.getDefGrid().setDisable(true);
+//					view.getOffGrid().setDisable(true);
 					battle.setBattlePhase(BattlePhase.POSTCOMBAT);
 					postCombatPhase();
 					return;
 				}
 				if (battle.getDefHits() == 0) {
-					view.getDefGrid().setDisable(false);
-					view.getOffGrid().setDisable(true);
+//					view.getDefGrid().setDisable(false);
+//					view.getOffGrid().setDisable(true);
 					switchPlayers();
 					if (battle.getOffHits() == 0) {
-						view.getDefGrid().setDisable(true);
-						view.getOffGrid().setDisable(true);
+//						view.getDefGrid().setDisable(true);
+//						view.getOffGrid().setDisable(true);
 						switchPlayers();
-						nextBattlePhase();
+//						nextBattlePhase();
 						return;
 					}
 				}
@@ -456,9 +477,6 @@ public class BattlePresenter {
 		int hitPts = 0;
 		String info = "";
 
-		// TODO: This won't be needed anymore since roll will be activated on a
-		// per-turn basis.
-		if (!isDefender()) { // Attacker's turn to roll.
 
 			if (currentCreature.isCharge()) { // charging creature gets two die
 				int[] diceRolls = offenderDice.rollTwo();
@@ -483,23 +501,25 @@ public class BattlePresenter {
 			}
 			battle.setOffHits(battle.getOffHits() + hitPts);
 
-			// Attacker is done, now defender's turn
+			// Current player is done, switch to next
 			if (!creatureIt.hasNext()) {
-				if (battle.getDefenderCreaturesForPhase().isEmpty()) {
-					nextBattlePhase();
-					return;
-				} else { // Swap iterator to defender's creatures.
-					switchPlayers();
-					creatureIt = battle.getDefenderCreaturesForPhase()
-							.iterator();
-					currentCreature = creatureIt.next();
-					battle.setCurrentPlayer(battle.getDefender());
-				}
-				if (currentCreature.isCharge()) {
-					offenderDice.getView().hideDie2(false);
-				} else {
-					offenderDice.getView().hideDie2(true);
-				}
+				System.out.println("No more rolls for current. Trigger turn end");
+				switchPlayers();
+//				if (battle.getDefenderCreaturesForPhase().isEmpty()) {
+//					nextBattlePhase();
+//					return;
+//				} else { // Swap iterator to defender's creatures.
+//					switchPlayers();
+//					creatureIt = battle.getDefenderCreaturesForPhase()
+//							.iterator();
+//					currentCreature = creatureIt.next();
+//					battle.setCurrentPlayer(battle.getDefender());
+//				}
+//				if (currentCreature.isCharge()) {
+//					offenderDice.getView().hideDie2(false);
+//				} else {
+//					offenderDice.getView().hideDie2(true);
+//				}
 			} else {
 				currentCreature = creatureIt.next();
 				if (currentCreature.isCharge()) {
@@ -508,57 +528,58 @@ public class BattlePresenter {
 					offenderDice.getView().hideDie2(true);
 				}
 			}
-		} else { // Defender's turn to roll.
-
-			if (currentCreature.isCharge()) { // charging creature gets two die
-				int[] diceRolls = defenderDice.rollTwo();
-				if (diceRolls[0] <= currentCreature.getCombatVal()) {
-					hitPts++;
-				}
-				if (diceRolls[1] <= currentCreature.getCombatVal()) {
-					hitPts++;
-				}
-				info = "Offender rolled a " + diceRolls[0] + " and a "
-						+ diceRolls[1] + " for "
-						+ currentCreature.getName().toUpperCase()
-						+ " and gained " + hitPts + " hit point(s)";
-			} else {
-				int roll = defenderDice.rollOne();
-				if (roll <= currentCreature.getCombatVal()) {
-					hitPts++;
-				}
-				info = "Offender rolled " + roll + " for "
-						+ currentCreature.getName().toUpperCase()
-						+ " and gained " + hitPts + " hit point(s)";
-			}
-			battle.setDefHits(battle.getDefHits() + hitPts);
+//		} else { // Defender's turn to roll.
+//
+//			if (currentCreature.isCharge()) { // charging creature gets two die
+//				int[] diceRolls = defenderDice.rollTwo();
+//				if (diceRolls[0] <= currentCreature.getCombatVal()) {
+//					hitPts++;
+//				}
+//				if (diceRolls[1] <= currentCreature.getCombatVal()) {
+//					hitPts++;
+//				}
+//				info = "Offender rolled a " + diceRolls[0] + " and a "
+//						+ diceRolls[1] + " for "
+//						+ currentCreature.getName().toUpperCase()
+//						+ " and gained " + hitPts + " hit point(s)";
+//			} else {
+//				int roll = defenderDice.rollOne();
+//				if (roll <= currentCreature.getCombatVal()) {
+//					hitPts++;
+//				}
+//				info = "Offender rolled " + roll + " for "
+//						+ currentCreature.getName().toUpperCase()
+//						+ " and gained " + hitPts + " hit point(s)";
+//			}
+//			battle.setDefHits(battle.getDefHits() + hitPts);
 
 			// Defender is done, apply hits, switch phase and reset iterator.
-			if (!creatureIt.hasNext()) {
-				switchPlayers();
-				nextBattlePhase();
-				view.setInfoLbl(info);
-				defenderDice.getView().hideDie2(true);
-				return;
-			} else {
-				currentCreature = creatureIt.next();
-				if (currentCreature.isCharge()) {
-					defenderDice.getView().hideDie2(false);
-				} else {
-					defenderDice.getView().hideDie2(true);
-				}
-			}
-		}
+//			if (!creatureIt.hasNext()) {
+//				switchPlayers();
+//				nextBattlePhase();
+//				view.setInfoLbl(info);
+//				defenderDice.getView().hideDie2(true);
+//				return;
+//			} else {
+//				currentCreature = creatureIt.next();
+//				if (currentCreature.isCharge()) {
+//					defenderDice.getView().hideDie2(false);
+//				} else {
+//					defenderDice.getView().hideDie2(true);
+//				}
+//			}
+//		}
 
 		// Store the info, instructions etc... and send the updated battle to
 		// the server.
+		// TODO: Move up
 		battle.setInfo(info);
 		battle.setInstructions((isDefender() ? "Defender" : "Offender")
 				+ " must roll for Creature "
 				+ currentCreature.getName().toUpperCase());
 
 		try {
-			battleSvc.rolled(NetworkedMain.getRoomName(), battle);
+			battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -570,21 +591,34 @@ public class BattlePresenter {
 
 	private void enableControlsForRoll() {
 		if (isDefender()) {
-			offenderDice.getView().getRollBtn().setDisable(true);
-			defenderDice.getView().getRollBtn().setDisable(false);
+//			offenderDice.getView().getRollBtn().setDisable(true);
+//			defenderDice.getView().getRollBtn().setDisable(false);
 		} else {
-			offenderDice.getView().getRollBtn().setDisable(false);
-			defenderDice.getView().getRollBtn().setDisable(true);
+//			offenderDice.getView().getRollBtn().setDisable(false);
+//			defenderDice.getView().getRollBtn().setDisable(true);
 		}
 	}
 
-	public void onRolled() {
+	public void onUpdated() {
 		// Fetch the updated battle instance.
 		try {
 			battle = battleSvc.getOngoingBattle(NetworkedMain.getRoomName());
 
 			// Update the ui
 			view.updateBattle(battle);
+			
+			// These steps are only performed by those participating in the battle.
+//			if (battle.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {
+//				// need to send 
+//				System.out.println();
+//				// It is now this player's turn
+//				view.setDisable(false);
+////				view.getoff
+//			}
+//			else {
+//				
+//			}
+			
 			// view.refreshView((isDefender() ? "Defender" : "Offender") +
 			// " must roll for Creature "+
 			// currentCreature.getName().toUpperCase(), battle.getInfo());
@@ -594,6 +628,7 @@ public class BattlePresenter {
 		}
 	}
 
+	// Called once
 	public void onBattleStarted() {
 		// Called by defending players when an attacker triggers a battle on a
 		// hex.
@@ -602,11 +637,45 @@ public class BattlePresenter {
 		try {
 			battle = battleSvc.getOngoingBattle(NetworkedMain.getRoomName());
 
-			// Show the ui and lock if not currently executing turn.
+			
+			//TODO: Restrict
+			//Re-enable gameui if participating in the battle.
+			KNTAppFactory.getGamePresenter().getView().setDisable(false);
+			KNTAppFactory.getPopupPresenter().showBattlePopup();
+			// Sets up handlers
 			startBattle();
+			
+			view.updateBattle(battle);
+			
+			// Show the ui and lock if not currently executing turn.
+//			startBattle();
 		} catch (JSONRPC2Error e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	// Called every time a turn ends. (SwitchPlayers)
+	public void onTurnEnded() {
+		// Update the battle instance
+		try {
+			battle = battleSvc.getOngoingBattle(NetworkedMain.getRoomName());
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// Check if it is now this client's turn to play
+		if (battle.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {
+			// Enable ui
+			view.showControls();
+			
+			// Need to switch phases?
+			if (battle.getCurrentPlayer().equals(battle.getDefender())) {
+				switchToNextPhase();
+			}
+			
+			// Start the phase
+			startPhase();
 		}
 	}
 }

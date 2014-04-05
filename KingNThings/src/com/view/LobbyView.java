@@ -124,8 +124,15 @@ public class LobbyView extends BorderPane {
 	private final EventHandler<KeyEvent> LIST_ENTER_EVENT = new EventHandler<KeyEvent>() {
 		@Override
 		public void handle(KeyEvent event) {
-			if (event.getCode() == KeyCode.ENTER)
-				KNTAppFactory.getLobbyPresenter().handleJoinButton();
+			if (event.getCode() == KeyCode.ENTER) {
+				// If nothing selected in list, host
+				if (gameRoomList.getSelectionModel().isEmpty()) {
+					KNTAppFactory.getLobbyPresenter().handleHostButton();
+				}
+				else {
+					KNTAppFactory.getLobbyPresenter().handleJoinButton();
+				}
+			}
 		}
 	};
 	

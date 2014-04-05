@@ -228,16 +228,23 @@ public class Battle {
 	 * Gets the attacker's creatures for the specified phase.
 	 * @return The list of creatures.
 	 */
-	public List<Creature> getOffenderCreaturesForPhase() {
-		return offendingForces.get(battlePhase);
-	}	
+//	public List<Creature> getOffenderCreaturesForPhase() {
+//		return offendingForces.get(battlePhase);
+//	}	
+	
+	public List<Creature> getCreaturesForPhase() {
+		if (currentPlayer.equals(offender))
+			return offendingForces.get(battlePhase);
+		else
+			return defendingForces.get(battlePhase);
+	}
 	/**
 	 * Gets the defender's creatures for the specified phase.
 	 * @return 
 	 */
-	public List<Creature> getDefenderCreaturesForPhase() {
-		return defendingForces.get(battlePhase);
-	}
+//	public List<Creature> getDefenderCreaturesForPhase() {
+//		return defendingForces.get(battlePhase);
+//	}
 	
 	
 	public String toString(){

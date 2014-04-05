@@ -75,6 +75,14 @@ public class KNTServer {
 		}
 	}
 	
+	public static void notifyClients(ServerGameRoom room, JSONRPC2Notification not, Player...players) {
+		synchronized (PLAYERS) {
+			for (Player p : players) {
+				PLAYERS.get(p.getName()).notifyClient(not);
+			}
+		}
+	}
+	
 	public static void notifyOtherClients(ServerGameRoom room, JSONRPC2Notification notification, Player exclude) {
 		// Exclude notifying playerName
 		if (!room.getHost().getName().equals(exclude.getName())) {

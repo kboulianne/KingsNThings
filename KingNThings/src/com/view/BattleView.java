@@ -79,9 +79,9 @@ public class BattleView extends VBox{
 		offButtonBox = new HBox();
 		offHitsLbl = new Label();
 		offRetreatBtn = new Button("Retreat");
-		offRetreatBtn.setDisable(true);
+//		offRetreatBtn.setDisable(true);
 		offContinueBtn = new Button("Continue");
-		offContinueBtn.setDisable(true);
+//		offContinueBtn.setDisable(true);
 		VBox offenderBox = playerBox(offenderLbl, offGrid, offDice, offButtonBox, offHitsLbl, offRetreatBtn, offContinueBtn);
 		
 		// setup defender
@@ -326,8 +326,10 @@ public class BattleView extends VBox{
 	}
 	
 	public void showControls() {
+		this.setDisable(false);
 		offButtonBox.setVisible(true);
 		offDice.getRollBtn().setVisible(true);
+		offDice.getRollBtn().setDisable(false);
 	}
 	
 //	public HBox getDefButtonBox() {
