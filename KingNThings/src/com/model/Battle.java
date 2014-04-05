@@ -252,6 +252,27 @@ public class Battle {
 				"\nOffender: "+ offender.getName()+"\nDefender: "+defender.getName();
 	}
 
+	public boolean currentMustApplyHits() {
+		// Offender applies N hits from defender's rolled counter.
+		if (currentPlayer.equals(offender))
+			return defHits > 0;
+		else
+			return offHits > 0;
+	}
+	
+	public void applyHit(Creature c) {
+		if (currentPlayer.equals(offender)) {
+			// kill the creature and decrement opponent's hit count.
+			killOffenderCreature(c);
+			 defHits --;
+		}
+		else {
+			killDefenderCreature(c);
+			offHits --;
+		}
+			
+	}
+	
 	public int getDefHits() {
 		return defHits;
 	}

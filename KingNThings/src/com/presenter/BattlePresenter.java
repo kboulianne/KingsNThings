@@ -285,7 +285,24 @@ public class BattlePresenter {
 	private void applyHits() {
 		Util.log("apply hits player: " + battle.getCurrentPlayer().getName());
 
-		// Determine who must apply hits
+		if (battle.currentMustApplyHits()) {
+			battle.setInstructions((isDefender() ? "Defender" : "Offender") +
+					" must apply opponent's hits to creatures");
+			battle.setInfo("");
+			
+			try {
+				battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
+			} catch (JSONRPC2Error e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			view.updateBattle(battle);
+		}
+		else {
+			System.out.println("No hits to apply.");
+			switchPlayers();
+		}
 		
 //		if (battle.getDefHits() == 0 && battle.getOffHits() == 0) {
 //			battle.setCurrentPlayer(battle.getOffender());
@@ -317,18 +334,7 @@ public class BattlePresenter {
 //		defenderDice.getView().setDisable(true);
 //		throw new UnsupportedOperationException("FIX BELOW!");
 		
-		battle.setInstructions((isDefender() ? "Defender" : "Offender") +
-				" must apply opponent's hits to creatures");
-		battle.setInfo("");
-		
-		try {
-			battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
-		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		view.updateBattle(battle);
+
 		// view.refreshView((isDefender() ? "Defender" : "Offender") +
 		// " must apply opponent's hits to creatures", "");
 	}
@@ -336,74 +342,83 @@ public class BattlePresenter {
 	private void retreatPhase() {
 		Util.log("retreat phase player: " + battle.getCurrentPlayer().getName());
 
+		
+		// Current player may choose to retreat.
+		battle.setInstructions((isDefender() ? "Defender" : "Offender") +
+				" must choose to retreat or to continue with battle");
+		battle.setInfo("");
+		view.updateBattle(battle);
+		
+		
+		
 		// Attacker can choose to retreat. If not then defender can choose to
 		// retreat.
 
 		// Ask attacker if he wants to retreat.
-//		offenderDice.getView().setDisable(true);
-//		defenderDice.getView().setDisable(true);
-		if (isDefender()) {
-//			view.getOffContinueBtn().setDisable(true);
-//			view.getOffRetreatBtn().setDisable(true);
-			// view.getDefContinueBtn().setDisable(false);
-			// view.getDefRetreatBtn().setDisable(false);
-		} else {
-			view.getOffContinueBtn().setDisable(false);
-			view.getOffRetreatBtn().setDisable(false);
-			// view.getDefContinueBtn().setDisable(true);
-			// view.getDefRetreatBtn().setDisable(true);
-		}
-		throw new UnsupportedOperationException("FIX BELOW!");
+////		offenderDice.getView().setDisable(true);
+////		defenderDice.getView().setDisable(true);
+//		if (isDefender()) {
+////			view.getOffContinueBtn().setDisable(true);
+////			view.getOffRetreatBtn().setDisable(true);
+//			// view.getDefContinueBtn().setDisable(false);
+//			// view.getDefRetreatBtn().setDisable(false);
+//		} else {
+//			view.getOffContinueBtn().setDisable(false);
+//			view.getOffRetreatBtn().setDisable(false);
+//			// view.getDefContinueBtn().setDisable(true);
+//			// view.getDefRetreatBtn().setDisable(true);
+//		}
+//		throw new UnsupportedOperationException("FIX BELOW!");
 		// view.refreshView((isDefender() ? "Defender" : "Offender") +
 		// " must choose to retreat or to continue with battle", "");
 	}
 
 	private void postCombatPhase() {
-
-		Util.stopBattleMusic();
-		Util.log("post combat phase player: "
-				+ battle.getCurrentPlayer().getName());
-
-		Hex associatedHex = battle.getAssociatedHex();
-		Player winner = null;
-		if (battle.isDefenderEliminated()) {
-			winner = battle.getOffender();
-			associatedHex.getArmies().remove(battle.getDefender());
-		} else if (battle.isOffenderEliminated()) {
-			winner = battle.getDefender();
-			associatedHex.getArmies().remove(battle.getOffender());
-		} else { // retreat
-			associatedHex.getArmies().remove(retreated);
-			if (retreated.equals(battle.getOffender())) {
-				winner = battle.getDefender();
-			} else {
-				winner = battle.getOffender();
-			}
-		}
-		
-		if(associatedHex.getOwner() == null && associatedHex.getKedabCreatures().isEmpty()){
-			associatedHex.setOwner(winner);
-		}else if(!associatedHex.getKedabCreatures().isEmpty() && associatedHex.getArmies().size()<2){
-			associatedHex.setConflict(false);
-		}
-		if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 	
-			associatedHex.setOwner(winner);
-			associatedHex.setConflict(false);
-		}
-		// FOR DEMO
-		KNTAppFactory
-				.getBoardPresenter()
-				.getView()
-				.setBoard(
-						KNTAppFactory.getGamePresenter().getLocalInstance()
-								.getBoard());
-		KNTAppFactory.getPopupPresenter().dismissPopup();
-		KNTAppFactory
-				.getSidePanePresenter()
-				.getView()
-				.showArbitraryView(
-						"The winner of the last battle was " + winner.getName(),
-						Game.CROWN_IMAGE);
+		throw new UnsupportedOperationException("FIX POST-COMBAT");
+//		Util.stopBattleMusic();
+//		Util.log("post combat phase player: "
+//				+ battle.getCurrentPlayer().getName());
+//
+//		Hex associatedHex = battle.getAssociatedHex();
+//		Player winner = null;
+//		if (battle.isDefenderEliminated()) {
+//			winner = battle.getOffender();
+//			associatedHex.getArmies().remove(battle.getDefender());
+//		} else if (battle.isOffenderEliminated()) {
+//			winner = battle.getDefender();
+//			associatedHex.getArmies().remove(battle.getOffender());
+//		} else { // retreat
+//			associatedHex.getArmies().remove(retreated);
+//			if (retreated.equals(battle.getOffender())) {
+//				winner = battle.getDefender();
+//			} else {
+//				winner = battle.getOffender();
+//			}
+//		}
+//		
+//		if(associatedHex.getOwner() == null && associatedHex.getKedabCreatures().isEmpty()){
+//			associatedHex.setOwner(winner);
+//		}else if(!associatedHex.getKedabCreatures().isEmpty() && associatedHex.getArmies().size()<2){
+//			associatedHex.setConflict(false);
+//		}
+//		if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 	
+//			associatedHex.setOwner(winner);
+//			associatedHex.setConflict(false);
+//		}
+//		// FOR DEMO
+//		KNTAppFactory
+//				.getBoardPresenter()
+//				.getView()
+//				.setBoard(
+//						KNTAppFactory.getGamePresenter().getLocalInstance()
+//								.getBoard());
+//		KNTAppFactory.getPopupPresenter().dismissPopup();
+//		KNTAppFactory
+//				.getSidePanePresenter()
+//				.getView()
+//				.showArbitraryView(
+//						"The winner of the last battle was " + winner.getName(),
+//						Game.CROWN_IMAGE);
 
 		// FIXME winning game condition
 		/*
@@ -422,65 +437,87 @@ public class BattlePresenter {
 																					// check
 
 			String info = "";
-			if (isDefender()) {
-				battle.killDefenderCreature((Creature) thing);
-				info = "Offender killed creature "
-						+ thing.getName().toUpperCase();
-				Util.playSwordSound();
-
-				battle.setOffHits(battle.getOffHits() - 1);
-				view.updateBattle(battle);
-
-				// Winning Conditions
-				if (battle.isDefenderEliminated()
-						|| battle.isOffenderEliminated()) {
-//					view.getDefGrid().setDisable(true);
-//					view.getOffGrid().setDisable(true);
-					battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-					postCombatPhase();
-					return;
-				}
-				if (battle.getOffHits() == 0) {
-//					view.getDefGrid().setDisable(true);
-//					view.getOffGrid().setDisable(true);
-					switchPlayers();
-//					nextBattlePhase();
-					return;
-				}
-
-			} else { // Offender
-				battle.killOffenderCreature((Creature) thing);
-				info = "Defender killed creature "
-						+ thing.getName().toUpperCase();
-				Util.playSwordSound();
-
-				battle.setDefHits(battle.getDefHits() - 1);
-				view.updateBattle(battle);
-
-				// Winning Conditions
-				if (battle.isDefenderEliminated()
-						|| battle.isOffenderEliminated()) {
-//					view.getDefGrid().setDisable(true);
-//					view.getOffGrid().setDisable(true);
-					battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-					postCombatPhase();
-					return;
-				}
-				if (battle.getDefHits() == 0) {
-//					view.getDefGrid().setDisable(false);
-//					view.getOffGrid().setDisable(true);
-					switchPlayers();
-					if (battle.getOffHits() == 0) {
-//						view.getDefGrid().setDisable(true);
-//						view.getOffGrid().setDisable(true);
-						switchPlayers();
-//						nextBattlePhase();
-						return;
-					}
-				}
+			
+			if (battle.currentMustApplyHits()) {
+				battle.applyHit((Creature) thing);
 			}
+			
+			
+//			if (isDefender()) {
+//				battle.killDefenderCreature((Creature) thing);
+//				info = "Offender killed creature "
+//						+ thing.getName().toUpperCase();
+//				Util.playSwordSound();
+//
+//				battle.setOffHits(battle.getOffHits() - 1);
+//				view.updateBattle(battle);
+//
+//				// Winning Conditions
+//				if (battle.isDefenderEliminated()
+//						|| battle.isOffenderEliminated()) {
+////					view.getDefGrid().setDisable(true);
+////					view.getOffGrid().setDisable(true);
+//					battle.setBattlePhase(BattlePhase.POSTCOMBAT);
+//					postCombatPhase();
+//					return;
+//				}
+//				if (battle.getOffHits() == 0) {
+////					view.getDefGrid().setDisable(true);
+////					view.getOffGrid().setDisable(true);
+//					switchPlayers();
+////					nextBattlePhase();
+//					return;
+//				}
+//
+//			} else { // Offender
+//				battle.killOffenderCreature((Creature) thing);
+//				info = "Defender killed creature "
+//						+ thing.getName().toUpperCase();
+//				Util.playSwordSound();
+//
+//				battle.setDefHits(battle.getDefHits() - 1);
+//				view.updateBattle(battle);
+//
+//				// Winning Conditions
+//				if (battle.isDefenderEliminated()
+//						|| battle.isOffenderEliminated()) {
+////					view.getDefGrid().setDisable(true);
+////					view.getOffGrid().setDisable(true);
+//					battle.setBattlePhase(BattlePhase.POSTCOMBAT);
+//					postCombatPhase();
+//					return;
+//				}
+//				if (battle.getDefHits() == 0) {
+////					view.getDefGrid().setDisable(false);
+////					view.getOffGrid().setDisable(true);
+//					switchPlayers();
+//					if (battle.getOffHits() == 0) {
+////						view.getDefGrid().setDisable(true);
+////						view.getOffGrid().setDisable(true);
+//						switchPlayers();
+////						nextBattlePhase();
+//						return;
+//					}
+//				}
+//			}
+			
+			// Update the battle and determine if more hits should be applied.
+			try {
+				battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
+			} catch (JSONRPC2Error e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			view.updateBattle(battle);
+			
+			// more hits to apply?
+			if (battle.currentMustApplyHits())
+				applyHits();
+			else
+				switchPlayers();
 			// Update view
-			throw new UnsupportedOperationException("FIX BELOW!");
+//			throw new UnsupportedOperationException("FIX BELOW!");
 			// view.refreshView((isDefender() ? "Defender" : "Offender") +
 			// " must apply opponent's hits to creatures", info);
 		} else {
