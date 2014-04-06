@@ -38,7 +38,7 @@ public class Fort extends Thing	{
 	private static final String IMAGE_DIR = "view/com/assets/pics/gamepieces/forts/";
 	
 	
-	private Fort(FortType type) {
+	public Fort(FortType type) {
 		super(type.typeAsString);
 		setColor(Color.LIGHTGREY);
 		setValue(1);
