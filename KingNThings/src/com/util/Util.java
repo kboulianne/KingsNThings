@@ -331,7 +331,8 @@ public class Util {
 		.registerTypeAdapter(Block.class, new BlockAdapter())
 		.registerTypeAdapter(Hex.class, new HexAdapter())
 		.registerTypeAdapter(Creature.class, new ThingAdapter())
-		.registerTypeAdapter(Thing.class, new ThingAdapter());
+		.registerTypeAdapter(Thing.class, new ThingAdapter())
+		.setPrettyPrinting();
 //		.registerTypeAdapter(DesertCreature.class, new ThingAdapter())
 //		.registerTypeAdapter(ForestCreature.class, new ThingAdapter())
 //		.registerTypeAdapter(FrozenWasteCreature.class, new ThingAdapter())

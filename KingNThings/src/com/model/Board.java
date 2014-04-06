@@ -40,7 +40,7 @@ public class Board {
 	public Board(NumberOfHexes nOH){
 	    faceDown = true;
 	    numOfHexes = nOH.numberOfHexes;
-	    hexes = new ArrayList<>();	    
+	    hexes = new ArrayList<>(NumberOfHexes.THIRTY_SEVEN.numberOfHexes);	    
 	}
 	
 	public void addHex(final Hex hex) {

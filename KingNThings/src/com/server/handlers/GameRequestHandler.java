@@ -16,7 +16,7 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 	@Override
 	public String[] handledRequests() {
 		return new String[] { "getGame", "updateGame", "isPlayerTurn", "endTurn", "skipPhase", 
-				"updateCup"};
+				"updateCup", "loadBoard"};
 	}
 
 	@Override

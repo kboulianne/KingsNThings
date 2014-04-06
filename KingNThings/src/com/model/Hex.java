@@ -75,6 +75,7 @@ public class Hex extends GamePiece {
 	// FOR GSON
 	protected Hex() {
 		armies = new HashMap<>();
+		color = Color.LIGHTGREY;
 	}
 	
 	public Hex(int id, HexType type){
@@ -99,7 +100,7 @@ public class Hex extends GamePiece {
     }
     
     public final void setOwner(final Player player) {
-    		this.hexOwner = player;
+    	this.hexOwner = player;
 		
 		this.color = player.getColor();
     }
