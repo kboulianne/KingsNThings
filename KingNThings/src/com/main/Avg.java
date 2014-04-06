@@ -7,6 +7,7 @@ import com.model.DesertCreature;
 import com.model.ForestCreature;
 import com.model.Fort;
 import com.model.Hex;
+import com.model.IncomeCounter;
 import com.model.JungleCreature;
 import com.model.MountainCreature;
 import com.model.PlainsCreature;
@@ -166,34 +167,34 @@ public class Avg {
 		Hex hex22 = new Hex(22, Hex.HexType.JUNGLE_HEX);
 		hex22.setOwner(p4);
 		hex22.setFaceDown(false);
+		hex22.setCounter(new IncomeCounter("village"));
 		hexes.set(22, hex22);
 		
 		Hex hex23 = new Hex(23, Hex.HexType.FROZEN_WASTE_HEX);
 		hex23.setOwner(p4);
-		hex23.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.set(23, hex23);
 		
 		Hex hex24 = new Hex(24, Hex.HexType.PLAINS);
 		hex24.setOwner(p4);
 		hex24.setFaceDown(false);
+		hex24.setFort(new Fort(Fort.FortType.CASTLE));
 		hexes.set(24, hex24);
 		
 		Hex hex25 = new Hex(25, Hex.HexType.FROZEN_WASTE_HEX);
 		hex25.setOwner(p1);
 		hex25.setFaceDown(false);
-		hex25.setFort(new Fort(Fort.FortType.CASTLE));
+		hex25.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.set(25, hex25);
 		
 		Hex hex26 = new Hex(26, Hex.HexType.SWAMP);
 		hex26.setOwner(p1);
 		hex26.setFaceDown(false);
-		hex26.setFort(new Fort(Fort.FortType.KEEP));
+		hex26.setCounter(new IncomeCounter("village"));
 		hexes.set(26, hex26);
 		
 		Hex hex27 = new Hex(27, Hex.HexType.DESERT);
 		hex27.setOwner(p1);
 		hex27.setFaceDown(false);
-		hex27.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.set(27, hex27);
 		
 		Hex hex28 = new Hex(28, Hex.HexType.DESERT);
@@ -214,12 +215,13 @@ public class Avg {
 		Hex hex31 = new Hex(31, Hex.HexType.FOREST);
 		hex31.setOwner(p3);
 		hex31.setFaceDown(false);
+		hex31.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.set(31, hex31);
 		
 		Hex hex32 = new Hex(32, Hex.HexType.SWAMP);
 		hex32.setOwner(p3);
 		hex32.setFaceDown(false);
-		hex32.setFort(new Fort(Fort.FortType.KEEP));
+		hex32.setCounter(new IncomeCounter("city"));
 		hexes.set(32, hex32);
 		
 		Hex hex33 = new Hex(33, Hex.HexType.SEA);
@@ -235,6 +237,7 @@ public class Avg {
 		Hex hex35 = new Hex(35, Hex.HexType.FOREST);
 		hex35.setOwner(p2);
 		hex35.setFaceDown(false);
+		hex35.setCounter(new IncomeCounter("village"));
 		hexes.set(35, hex35);
 		
 		Hex hex36 = new Hex(36, Hex.HexType.PLAINS);
