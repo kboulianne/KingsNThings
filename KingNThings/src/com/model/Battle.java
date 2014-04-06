@@ -113,7 +113,7 @@ public class Battle {
 		offendingForces.get(phase).remove(c);
 	}
 	
-	public void killDefenderCreature(Creature c) {
+	private void killDefenderCreature(Creature c) {
 		// remove from hex, and from map
 		if(isKedabFight()){
 			associatedHex.getKedabCreatures().remove(c);
@@ -225,13 +225,13 @@ public class Battle {
 		return associatedHex.getArmies(offender);
 	}
 	
-	public List<Creature> getOffenderCreaturesFor(BattlePhase phase) {
+	/*public List<Creature> getOffenderCreaturesFor(BattlePhase phase) {
 		return offendingForces.get(phase);
 	}
 
 	public List<Creature> getDefendingCreaturesFor(BattlePhase phase) {
 		return defendingForces.get(phase);
-	}
+	}*/
 	
 	public List<Creature> getDefenderCreatures() {
 		

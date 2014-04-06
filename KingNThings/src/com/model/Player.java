@@ -1,8 +1,5 @@
 package com.model;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 import javafx.scene.paint.Color;
 
 public class Player 	{
@@ -34,6 +31,7 @@ public class Player 	{
 		setStartPos(null);
 	}
 	
+	/*
 	public Player(PlayerId i, String name) {
 	    this.name = name;
 	    color = i.color;
@@ -41,7 +39,7 @@ public class Player 	{
 	    block = new Block();
 	    gold = 0;
 	    setStartPos(null);
-	}
+	}*/
 	
 	/**
 	 * Convenience getter for the player's name.

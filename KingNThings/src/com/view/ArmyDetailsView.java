@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import com.model.Creature;
 import com.model.Hex;
 import com.model.Player;
-import com.presenter.ArmyDetailsPresenter;
 import com.view.customcontrols.ArmyOrMisc;
 
 public class ArmyDetailsView extends VBox{

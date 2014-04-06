@@ -38,7 +38,7 @@ public class LobbyView extends BorderPane {
 	
 	
 	@SuppressWarnings("unchecked")
-	protected void buildView() {
+	private void buildView() {
 		// Top
 		refreshBtn = ButtonBuilder.create()
 			.text("Refresh")

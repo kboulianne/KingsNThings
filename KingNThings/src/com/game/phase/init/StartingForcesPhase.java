@@ -11,11 +11,7 @@ import javafx.scene.control.Button;
 
 import com.game.phase.AbstractPhaseStrategy;
 import com.game.phase.GamePlay;
-import com.main.KNTAppFactory;
-import com.model.Cup;
 import com.model.Game;
-import com.model.Player;
-import com.model.Thing;
 import com.util.Util;
 
 import static com.main.KNTAppFactory.*;

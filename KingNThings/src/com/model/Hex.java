@@ -23,7 +23,7 @@ public class Hex extends GamePiece {
 	private boolean faceDown;
 	//boolean facedUp; // is right side up?
 	private HexType hexType;
-	private HexType type;
+	//private HexType type;
 	private String typeAsString; 
 	private int movementWeight; // value of -1 if not able to move to
 	private int[] joiningHexes; // Integer array of hex id's, size 6
@@ -78,7 +78,7 @@ public class Hex extends GamePiece {
 		color = Color.LIGHTGREY;
 	}
 	
-	public Hex(int id, HexType type){
+	Hex(int id, HexType type){
 	    this.hexType = type;
 	    this.id= id;
 	    setTypeAsString(type.typeName);

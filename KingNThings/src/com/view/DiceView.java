@@ -5,12 +5,7 @@
  */
 package com.view;
 
-import com.main.KNTAppFactory;
 import com.model.Die;
-import com.presenter.DicePresenter;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;

@@ -1,8 +1,5 @@
 package com.client.proxy;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +8,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import com.google.gson.Gson;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
-import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 import com.util.Util;
@@ -20,14 +16,14 @@ import com.util.Util;
  * Base class that creates local (client) method implementations. 
  * @author kurtis
  */
-public abstract class ProxyBase {
+abstract class ProxyBase {
 	// TODO: Represent this as a shared class. Only one instance of this needs to exist
 	// for the client and server. They both serialize/deserialize in the same manner.
 //	protected final BufferedReader reader;
 //	protected final PrintWriter writer;
 
-	protected final LinkedBlockingQueue<JSONRPC2Response> in;
-	protected final LinkedBlockingQueue<JSONRPC2Request> out;
+	private final LinkedBlockingQueue<JSONRPC2Response> in;
+	private final LinkedBlockingQueue<JSONRPC2Request> out;
 	
 //	// TODO: Pass socket and use it to initialize the readers writers according to implementation?
 //	/**
@@ -43,7 +39,7 @@ public abstract class ProxyBase {
 //		in = null;
 //	}
 	
-	public ProxyBase(LinkedBlockingQueue<JSONRPC2Response> in, 
+	ProxyBase(LinkedBlockingQueue<JSONRPC2Response> in, 
 			LinkedBlockingQueue<JSONRPC2Request> out) {
 		this.in = in;
 		this.out = out;

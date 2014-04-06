@@ -1,8 +1,6 @@
 package com.server.phase;
 
-import com.model.Game;
-
-public interface IServerPhaseStrategy {
+interface IServerPhaseStrategy {
 	
     void phaseStart();
     void turnStart();

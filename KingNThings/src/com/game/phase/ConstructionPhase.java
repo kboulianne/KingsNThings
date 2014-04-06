@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import com.main.KNTAppFactory;
 import com.model.Game;
 import com.model.Hex;
-import com.model.Player;
 import com.util.Util;
 
 import static com.main.KNTAppFactory.*;

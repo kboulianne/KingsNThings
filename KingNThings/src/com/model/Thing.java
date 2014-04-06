@@ -17,7 +17,7 @@ public class Thing extends GamePiece	{
 	// For GSON
 	public Thing() {}
 	
-	public Thing(String name)	{
+	Thing(String name)	{
 		super(name);
 		setOwner("Cup");
 		setHexLocation(-1);
@@ -26,7 +26,7 @@ public class Thing extends GamePiece	{
 		selected = false;
 	}
 	
-	public static List<Thing> createThings()	{
+	static List<Thing> createThings()	{
 		ArrayList<Thing> things = new ArrayList<Thing>();
 		
 		//Add swamp creatures

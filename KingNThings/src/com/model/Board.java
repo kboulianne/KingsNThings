@@ -43,7 +43,7 @@ public class Board {
 	    hexes = new ArrayList<>(NumberOfHexes.THIRTY_SEVEN.numberOfHexes);	    
 	}
 	
-	public void addHex(final Hex hex) {
+	void addHex(final Hex hex) {
 	    // Adding at start position, set flag in hex.
 	    int index = hexes.size();   
 	    if (startPositions.contains(index))

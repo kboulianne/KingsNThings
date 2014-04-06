@@ -2,16 +2,10 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
 import javafx.scene.image.Image;
 
-import com.game.phase.init.PlayerOrderPhase;
 import com.main.KNTAppFactory;
 import com.presenter.HexFactory;
 import com.util.Util;
@@ -325,13 +319,13 @@ public final class Game {
 		return playerOrder;
 	}
 	
-	public Player getPlayerByName(String name) {
+	/*public Player getPlayerByName(String name) {
 		for (Player p : playerOrder) {
 			if (p.getName().equals(name)) return p;
 		}
 		
 		return null;
-	}
+	}*/
 	
 	// get special characters from hexes and players block
 	// For the current player.

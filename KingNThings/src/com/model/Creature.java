@@ -274,7 +274,7 @@ public abstract class Creature extends Thing	{
 	
 	public Creature() {}
 	
-	public Creature(String name)	{
+	Creature(String name)	{
 		super(name);
 		setNumberOfMovesAvailable(4);
 		

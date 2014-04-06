@@ -18,7 +18,7 @@ public class StartScreenView extends VBox {
 		buildView();
 	}
 	
-	protected void buildView() {
+	private void buildView() {
 		ImageView crownImg = new ImageView(new Image("view/com/assets/pics/crown.png"));
 		crownImg.setFitWidth(500); //600
 		crownImg.setPreserveRatio(true);

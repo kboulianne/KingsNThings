@@ -3,22 +3,19 @@ package com.main;
 import java.io.File;
 
 import com.model.Player;
-import com.presenter.LobbyPresenter;
 import com.presenter.StartScreenPresenter;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 public class NetworkedMain extends Application {    
-    static Stage primaryStage;
-    static Scene scene;
+    private static Stage primaryStage;
+    private static Scene scene;
     
     // The player which owns/plays on this client.
     private static Player player;

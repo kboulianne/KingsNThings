@@ -6,7 +6,6 @@ import com.model.Game;
 import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.Thing;
-import com.model.Treasure;
 import com.util.Util;
 
 import javafx.event.EventHandler;
@@ -135,7 +134,7 @@ public class ThingView extends StackPane{
 		});
 	}
 	
-	public void setMovementHandler(){
+	void setMovementHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
@@ -156,7 +155,7 @@ public class ThingView extends StackPane{
 		});
 	}
 	
-	public void setDoNothingHandler(){
+	void setDoNothingHandler(){
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {			
@@ -166,7 +165,7 @@ public class ThingView extends StackPane{
 		});
 	}
 
-	public void setExchangeThingHandler() {
+	void setExchangeThingHandler() {
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {	
@@ -176,7 +175,7 @@ public class ThingView extends StackPane{
 		
 	}
 	
-	public void setExchangeTreasureHandler() {
+	void setExchangeTreasureHandler() {
 		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {	

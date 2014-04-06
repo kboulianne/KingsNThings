@@ -1,7 +1,5 @@
 package com.client.proxy;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.model.Player;

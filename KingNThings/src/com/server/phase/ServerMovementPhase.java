@@ -6,9 +6,9 @@ import com.model.Hex;
 import com.model.Player;
 import com.model.Thing;
 
-public class ServerMovementPhase extends AbstractServerPhase {
+class ServerMovementPhase extends AbstractServerPhase {
 
-	public ServerMovementPhase(ServerGamePlay context) {
+	ServerMovementPhase(ServerGamePlay context) {
 		super(context);
 	}
 

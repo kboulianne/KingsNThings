@@ -2,7 +2,6 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Block  {
 
@@ -31,8 +30,8 @@ public class Block  {
 	}
 	
 	void trimBlock()	{
-		int index = 0;
-		Random r = new Random();
+		//int index = 0;
+		//Random r = new Random();
 		//FIXME: Can't be here.
 //		Cup cup = GameService.getInstance().getGame().getCup();
 //		

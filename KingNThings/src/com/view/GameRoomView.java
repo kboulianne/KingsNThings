@@ -36,7 +36,7 @@ public class GameRoomView extends VBox {
 		buildView();
 	}
 	
-	protected void buildView() {
+	private void buildView() {
 		
 		Label title = new Label("Kings & Things");
 		title.setPrefHeight(50);

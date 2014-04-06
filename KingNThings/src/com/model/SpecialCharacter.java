@@ -44,7 +44,7 @@ public class SpecialCharacter extends Creature	{
 		terrainLordCreat.add("plainslord");
 	}
 
-	public SpecialCharacter(String name1, String name2) {
+	SpecialCharacter(String name1, String name2) {
 		super((Util.randomNumber(1, 2) == 1?name1:name2));
 		
 		if(getName().equals(name1)){

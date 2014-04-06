@@ -1,6 +1,5 @@
 package com.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Pos;
@@ -107,7 +106,7 @@ public class SpecialCharacterView{
 	}
 	
 	
-	public VBox setScreen1(Player current, List<SpecialCharacter> playersSChars, Cup cup){
+	VBox setScreen1(Player current, List<SpecialCharacter> playersSChars, Cup cup){
 		List<SpecialCharacter> specCfromCup = cup.getListOfSpecialCharacters();
 		boolean playerHasLord = false;
 		
@@ -146,7 +145,7 @@ public class SpecialCharacterView{
 		return screen1;
 	}
 	
-	public VBox setScreen2(final SpecialCharacter sC, final Player current){
+	VBox setScreen2(final SpecialCharacter sC, final Player current){
 
 		final int valueNeeded = sC.getCombatVal()*2;
 		getSpecialCharacterPresenter().setSelectedSpecialCharacter(sC);

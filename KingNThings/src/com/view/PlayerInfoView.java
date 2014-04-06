@@ -8,7 +8,6 @@ package com.view;
 import com.view.customcontrols.PlayerLabel;
 import com.main.KNTAppFactory;
 import com.model.Player;
-import com.presenter.PlayerInfoPresenter;
 import com.view.customcontrols.Rack;
 
 import javafx.event.EventHandler;

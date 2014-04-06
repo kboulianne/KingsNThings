@@ -12,7 +12,6 @@ import com.model.Fort;
 import com.model.IncomeCounter;
 import com.model.SpecialCharacter;
 import com.model.Thing;
-import com.presenter.ThingDetailsPresenter;
 import com.view.customcontrols.ThingView;
 
 import javafx.geometry.Pos;

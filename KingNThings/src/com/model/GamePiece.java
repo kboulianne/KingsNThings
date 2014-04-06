@@ -13,7 +13,7 @@ public abstract class GamePiece {
 	
 	public GamePiece()	{}
 	
-	public GamePiece(String name)	{
+	GamePiece(String name)	{
 	    setName(name);
 	}
 	

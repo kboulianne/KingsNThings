@@ -6,11 +6,8 @@
 package com.view;
 
 import com.view.customcontrols.ArmyOrMisc;
-import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
-import com.presenter.HexDetailsPresenter;
-
 import java.util.List;
 
 import javafx.geometry.Pos;

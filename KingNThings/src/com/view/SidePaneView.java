@@ -5,7 +5,6 @@
  */
 package com.view;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedMap;
@@ -13,7 +12,6 @@ import java.util.SortedMap;
 import com.util.Util;
 import com.view.customcontrols.PlayerLabel;
 import com.main.KNTAppFactory;
-import com.model.Battle;
 import com.model.Board;
 import com.model.Cup;
 import com.model.Fort;
@@ -21,9 +19,6 @@ import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
 import com.model.SpecialCharacter;
-import com.model.Thing;
-import com.presenter.SidePanePresenter;
-
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;

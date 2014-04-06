@@ -2,8 +2,6 @@ package com.model;
 
 import com.util.Util;
 
-import javafx.scene.image.Image;
-
 public class Die extends GamePiece {
 	private int value;
 	

@@ -1,8 +1,8 @@
 package com.server.phase;
 
-public class ServerChangePlayerOrder extends AbstractServerPhase{
+class ServerChangePlayerOrder extends AbstractServerPhase{
 
-	public ServerChangePlayerOrder(ServerGamePlay context) {
+	ServerChangePlayerOrder(ServerGamePlay context) {
 		super(context);
 	}
 

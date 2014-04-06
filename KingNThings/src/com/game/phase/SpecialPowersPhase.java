@@ -5,7 +5,6 @@
  */
 package com.game.phase;
 
-import com.main.KNTAppFactory;
 import com.model.Game;
 import com.util.Util;
 

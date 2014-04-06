@@ -4,7 +4,6 @@ package com.util;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -22,48 +21,21 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.google.gson.reflect.TypeToken;
 import com.model.Block;
 import com.model.Creature;
 import com.model.DesertCreature;
 import com.model.ForestCreature;
 import com.model.FrozenWasteCreature;
-import com.model.GamePiece;
 import com.model.Hex;
-import com.model.HexDesert;
-import com.model.HexForest;
-import com.model.HexFrozenWaste;
-import com.model.HexJungle;
-import com.model.HexMountain;
-import com.model.HexPlains;
-import com.model.HexSea;
-import com.model.HexSwamp;
 import com.model.IncomeCounter;
 import com.model.JungleCreature;
 import com.model.MountainCreature;
 import com.model.PlainsCreature;
 import com.model.Player;
 import com.model.SpecialCharacter;
-import com.model.Treasure;
-import com.model.Hex.HexType;
-import com.model.Player.PlayerId;
-
-
-
-
-
-
-
-
-
-
-
 import com.model.SwampCreature;
 import com.model.Thing;
 
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 // misc. global static functions
@@ -423,11 +395,6 @@ public class Util {
 //			swordSound.play();
 	}
 	
-	//TODO as a joke change later
-//	private final static AudioClip deathSound = new AudioClip(Util.class.getResource("dyingmanLOL.wav").toString());
-	static void playDeathSound(){
-//		deathSound.play();
-	}
 	
 //	private final static Media audioFile = new Media( Util.class.getResource("test.mp3").toString() );    
 //	final static MediaPlayer player = new MediaPlayer(audioFile);

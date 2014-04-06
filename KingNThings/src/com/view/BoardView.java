@@ -9,7 +9,6 @@ import com.model.Board;
 import com.model.Game;
 import com.model.Hex;
 import com.model.Player;
-import com.presenter.BoardPresenter;
 import com.util.Util;
 
 import java.util.Iterator;
