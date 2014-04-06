@@ -13,6 +13,7 @@ import com.model.MountainCreature;
 import com.model.PlainsCreature;
 import com.model.Player;
 import com.model.SwampCreature;
+import com.model.Treasure;
 
 public class Avg {
 
@@ -27,6 +28,11 @@ public class Avg {
 		Player p3 = new Player("Player 3"); //green
 		Player p4 = new Player("Player 4"); ///red
 		
+		p1.getBlock().addThing(new IncomeCounter("diamondfield"), p1.getName());
+		p1.getBlock().addThing(new IncomeCounter("peatbog"), p1.getName());
+		p2.getBlock().addThing(new IncomeCounter("coppermine"), p2.getName());
+		p2.getBlock().addThing(new IncomeCounter("goldmine"), p2.getName());
+		p2.getBlock().addThing(new Treasure("treasurechest"), p2.getName());
 		
 		Board board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 		
