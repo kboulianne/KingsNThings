@@ -15,6 +15,7 @@ import com.model.MountainCreature;
 import com.model.PlainsCreature;
 import com.model.Player;
 import com.model.SwampCreature;
+import com.model.Player.PlayerId;
 import com.presenter.HexFactory;
 import com.util.Util;
 
@@ -26,9 +27,13 @@ public class Mini {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Player p1 = new Player("Player 1"); //yellow
+		p1.setPlayerID(PlayerId.ONE);
 		Player p2 = new Player("Player 2"); //grey
+		p2.setPlayerID(PlayerId.TWO);
 		Player p3 = new Player("Player 3"); //green
+		p3.setPlayerID(PlayerId.THREE);
 		Player p4 = new Player("Player 4"); ///red
+		p4.setPlayerID(PlayerId.FOUR);
 		
 		HexFactory factory = new HexFactory();
 		
