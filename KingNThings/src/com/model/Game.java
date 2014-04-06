@@ -42,7 +42,7 @@ public final class Game {
     private int nextPlayerIdx;
     private List<Player> playerOrder;
     private Cup cup;
-   
+    private Player winner;
   
     public final static Image FACE_DOWN_HEX_IMAGE = new Image("view/com/assets/pics/tiles/faceddown.png");
 	public final static Image START_HEX_IMAGE = new Image("view/com/assets/pics/tiles/start.png");
@@ -351,5 +351,13 @@ public final class Game {
 
 		
 		return specChars;
+	}
+	
+	public Player getWinner() {
+		return winner;
+	}
+	
+	public void setWinner(Player winner) {
+		this.winner = winner;
 	}
 }

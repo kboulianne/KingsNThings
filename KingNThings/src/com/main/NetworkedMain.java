@@ -27,7 +27,7 @@ public class NetworkedMain extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-    	String host = "localhost";
+    	String host = "127.0.0.1";
     	Integer port = null;
     	
     	// Initialize the client with command line arguments if present

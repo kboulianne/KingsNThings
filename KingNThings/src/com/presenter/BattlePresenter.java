@@ -109,7 +109,8 @@ public class BattlePresenter {
 	}
 
 	private void startBattle() {
-		KNTAppFactory.getPopupPresenter().showBattlePopup();
+//		KNTAppFactory.getPopupPresenter().showBattlePopup();
+		NetworkedMain.setView(view);
 //		view.updateBattle(battle);
 		disableControls();
 		// Enable ui if current player
@@ -133,13 +134,6 @@ public class BattlePresenter {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//				Util.playClickSound();
-//				battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-//				retreated = battle.getOffender();
-//
-//				// Dismiss the popup
-//				KNTAppFactory.getPopupPresenter().dismissPopup();
-//				startPhase();
 			}
 		});
 		view.getOffContinueBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -147,38 +141,9 @@ public class BattlePresenter {
 			public void handle(ActionEvent t) {
 				Util.playClickSound();
 				switchPlayers();
-				
-				// Update view
-//				view.updateBattle(battle);
-//				battle.setBattlePhase(BattlePhase.RETREAT);
-//				retreatPhase();
 			}
 		});
-		// view.getDefRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
-		// @Override
-		// public void handle(ActionEvent t) {
-		// Util.playClickSound();
-		// battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-		// retreated = battle.getDefender();
-		//
-		// KNTAppFactory.getPopupPresenter().dismissPopup();
-		// startPhase();
-		// }
-		// });
-		// view.getDefContinueBtn().setOnAction(new EventHandler<ActionEvent>()
-		// {
-		// @Override
-		// public void handle(ActionEvent t) {
-		// Util.playClickSound();
-		//
-		//
-		// battle.setRoundNumber(battle.getRoundNumber() + 1);
-		// battle.setBattlePhase(BattlePhase.MAGIC);
-		// switchPlayers();
-		// startPhase();
-		//
-		// }
-		// });
+
 		dice.getView().getRollBtn()
 			.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -186,21 +151,7 @@ public class BattlePresenter {
 					handleRoll();
 				}
 			});
-//
-//		defenderDice.getView().getRollBtn()
-//				.setOnAction(new EventHandler<ActionEvent>() {
-//					@Override
-//					public void handle(ActionEvent t) {
-//						handleRoll();
-//					}
-//				});
 	}
-
-	// STATE CHARGERS
-//	private void nextBattlePhase() {
-//		switchToNextPhase();
-////		startPhase();
-//	}
 
 	private void switchToNextPhase() {
 		// For good measure
@@ -674,7 +625,9 @@ public class BattlePresenter {
 			e.printStackTrace();
 		}
 		
-		KNTAppFactory.getPopupPresenter().dismissPopup();
+//		KNTAppFactory.getPopupPresenter().dismissPopup();
+		// Show game view again
+		NetworkedMain.setView(KNTAppFactory.getGamePresenter().getView());
 		KNTAppFactory
 				.getSidePanePresenter()
 				.getView()

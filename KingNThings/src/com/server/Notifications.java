@@ -19,4 +19,6 @@ public class Notifications {
 	public static final JSONRPC2Notification BATTLE_TURN_ENDED = new JSONRPC2Notification("onBattleTurnEnded");
 	public static final JSONRPC2Notification BATTLE_ENDED = 
 			new JSONRPC2Notification("onBattleEnded");
+	public static final JSONRPC2Notification GAME_ENDED = 
+			new JSONRPC2Notification("onGameEnded");
 }

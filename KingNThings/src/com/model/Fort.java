@@ -34,7 +34,7 @@ public class Fort extends Thing	{
 	*/
 	private int value;
 	private FortType fortType;
-	private boolean upgraded = false;
+	private transient boolean upgraded = false;
 	private static final String IMAGE_DIR = "view/com/assets/pics/gamepieces/forts/";
 	
 	

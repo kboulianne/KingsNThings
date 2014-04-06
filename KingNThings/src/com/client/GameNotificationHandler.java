@@ -10,7 +10,7 @@ public class GameNotificationHandler extends BaseNotificationHandler {
 
 	@Override
 	public String[] handledNotifications() {
-		return new String[] {"onGameStarted", "onTurnEnded", "onPhaseEnded"};
+		return new String[] {"onGameStarted", "onTurnEnded", "onPhaseEnded", "onGameEnded"};
 	}
 	
 	@Override
@@ -29,6 +29,9 @@ public class GameNotificationHandler extends BaseNotificationHandler {
 					break;
 				case "onPhaseEnded":
 					KNTAppFactory.getGamePresenter().onPhaseEnded();
+					break;
+				case "onGameEnded":
+					KNTAppFactory.getGamePresenter().onGameEnded();
 					break;
 				default:
 					break;

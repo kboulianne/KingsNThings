@@ -14,6 +14,7 @@ import com.util.Util;
 import com.view.customcontrols.PlayerLabel;
 import com.main.KNTAppFactory;
 import com.model.Battle;
+import com.model.Board;
 import com.model.Cup;
 import com.model.Fort;
 import com.model.Game;
@@ -159,91 +160,97 @@ public class SidePaneView extends VBox {
 		content.getChildren().add(view);
 	}
 	
-	public void showBuildMenu(final Hex h)	{
-		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
+	public void showBuildMenu(final Hex h, final Player player, final Board board)	{
+		
+		
+//		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
 // ====================  NEWEST =============================================================================
 //		final Player player = GameService.getInstance().getGame().getCurrentPlayer();
 //		
-//		Label title = new Label("Build Options:");
-//		title.getStyleClass().add("title");
-//		
-//		Button build = new Button("Build Fort (5 gold)");
-//		Button upgrade = new Button("Upgrade Fort (5 gold)");
-//		
-//		Label counters = new Label("To upgrade to a citadel you must \n have a gold income of 20 or more");
-//		VBox cont = new VBox();
-//		
-//		cont.setAlignment(Pos.CENTER);
-//		cont.getStyleClass().add("largeSpacing");
-//		cont.getChildren().addAll(build, upgrade, counters);
-//
-//		VBox vbox = new VBox();
-//		vbox.getStyleClass().add("largeSpacing");
-//		vbox.setAlignment(Pos.CENTER);
-//		vbox.getChildren().addAll(title, cont);
-//		vbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
-//		
-//		if((h.getFort() != null) && h.getFort().upgraded())	{
-//			upgrade.setDisable(true);
-//			build.setDisable(true);
-//		}
-//		
-//		if(h.getFort()!= null && h.getFort().getFortType() == Fort.FortType.CITADEL)	{
-//			upgrade.setDisable(true);
-//			build.setDisable(true);
-//		}
-//		
-//		if(h.getFort() == null || h.getHexOwner().getGold() < 5)	{
-//			upgrade.setDisable(true);
-//		}
-//		
-//		if(h.getFort() != null || h.getHexOwner().getGold() < 5)	{
-//			build.setDisable(true);
-//		}
-//		
-//		if(h.getFort() != null && h.getFort().getFortType() == Fort.FortType.CASTLE && 
-//				player.calculateIncome() < 20)	{
-//			upgrade.setDisable(true);
-//		}
-//		
-//		if(h.getFort() != null && h.getFort().getFortType() == Fort.FortType.CASTLE && 
-//				player.isCitadelOwner())	{
-//			upgrade.setDisable(true);
-//		}
-//		
-//		
-//		
-//		upgrade.setOnAction(new EventHandler<ActionEvent>()	{
-//			public void handle(ActionEvent e)	{
-//				Util.playClickSound();
-//				h.upgradeFort();
-//				h.getHexOwner().removeGold(5);
-//				h.getFort().setUpgraded(true);
-//				
-//				if(h.getFort().getFortType() == Fort.FortType.CITADEL)	{
-//					h.getHexOwner().setCitadelOwner(true);
-//				}
-//				
-//				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+		Label title = new Label("Build Options:");
+		title.getStyleClass().add("title");
+		
+		Button build = new Button("Build Fort (5 gold)");
+		Button upgrade = new Button("Upgrade Fort (5 gold)");
+		
+		Label counters = new Label("To upgrade to a citadel you must \n have a gold income of 20 or more");
+		VBox cont = new VBox();
+		
+		cont.setAlignment(Pos.CENTER);
+		cont.getStyleClass().add("largeSpacing");
+		cont.getChildren().addAll(build, upgrade, counters);
+
+		VBox vbox = new VBox();
+		vbox.getStyleClass().add("largeSpacing");
+		vbox.setAlignment(Pos.CENTER);
+		vbox.getChildren().addAll(title, cont);
+		vbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
+		
+		if((h.getFort() != null) && h.getFort().upgraded())	{
+			upgrade.setDisable(true);
+			build.setDisable(true);
+		}
+		
+		if(h.getFort()!= null && h.getFort().getFortType() == Fort.FortType.CITADEL)	{
+			upgrade.setDisable(true);
+			build.setDisable(true);
+		}
+		
+		if(h.getFort() == null || h.getHexOwner().getGold() < 5)	{
+			upgrade.setDisable(true);
+		}
+		
+		if(h.getFort() != null || h.getHexOwner().getGold() < 5)	{
+			build.setDisable(true);
+		}
+		
+		if(h.getFort() != null && h.getFort().getFortType() == Fort.FortType.CASTLE && 
+				player.calculateIncome(board) < 20)	{
+			System.out.println("change me back to true");
+			upgrade.setDisable(false);
+		}
+		
+		if(h.getFort() != null && h.getFort().getFortType() == Fort.FortType.CASTLE && 
+				player.isCitadelOwner())	{
+			upgrade.setDisable(true);
+		}
+		
+		
+		
+		upgrade.setOnAction(new EventHandler<ActionEvent>()	{
+			public void handle(ActionEvent e)	{
+				// Should be in presenter.
+				Util.playClickSound();
+				h.upgradeFort();
+				h.getHexOwner().removeGold(5);
+				h.getFort().setUpgraded(true);
+				
+				if(h.getFort().getFortType() == Fort.FortType.CITADEL)	{
+					h.getHexOwner().setCitadelOwner(true);
+				}
+				
+				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+				KNTAppFactory.getBoardPresenter().getView().setBoard(board);
 //				KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
-//				showBuildMenu(h);
-//			}
-//		});
-//		
-//		build.setOnAction(new EventHandler<ActionEvent>()	{
-//			public void handle(ActionEvent e)	{
-//				Util.playClickSound();
-//				h.setFort(Fort.create());
-//				h.getHexOwner().removeGold(5);
-//				h.getFort().setUpgraded(true);
-//				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+				showBuildMenu(h, player, board);
+			}
+		});
+		
+		build.setOnAction(new EventHandler<ActionEvent>()	{
+			public void handle(ActionEvent e)	{
+				Util.playClickSound();
+				h.setFort(Fort.create());
+				h.getHexOwner().removeGold(5);
+				h.getFort().setUpgraded(true);
+				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+				KNTAppFactory.getBoardPresenter().getView().setBoard(board);
 //				KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
-//				showBuildMenu(h);
-//			}
-//		});
-//		
-//		content.getChildren().clear();
-//		content.getChildren().add(vbox);
+				showBuildMenu(h, player, board);
+			}
+		});
+		
+		content.getChildren().clear();
+		content.getChildren().add(vbox);
 	}	
 	
 	public void showRolls(SortedMap<Integer, Player> rolls){

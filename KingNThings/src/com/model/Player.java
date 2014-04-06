@@ -9,7 +9,7 @@ public class Player 	{
 	private PlayerId id; 		// {1, 2, 3, 4}
 	private Color color;	// {blue, green, red, yellow}
 	private Block block;
-	private int gold;
+	private int gold = 500;
 	private String name;
 	private boolean citadelOwner = false;
 	private int timeCitOwned = -1;
@@ -147,6 +147,32 @@ public class Player 	{
 		this.color = id.color;
 	}
 	
+	
+	public int calculateIncome(Board board) {
+		int hexGold = 0;
+		int fortGold = 0;
+		int counterGold = 0;
+		int specCharGold = 0;
+		int totalGold = 0;
+//		Game game = GameService.getInstance().getGame();
+
+		for (Hex h : board.getHexes()) {
+			if ((h != null) && (h.getHexOwner() == this)) {
+				hexGold++;
+				if(h.getFort() != null)	fortGold += h.getFort().getValue();
+				if(h.getCounter() != null)	counterGold += h.getCounter().getValue();
+				if(h.getArmies(this) != null)	{
+					for(Creature c: h.getArmies(this)) {
+						if(c instanceof SpecialCharacter)	specCharGold++;
+					}
+				}
+			}
+		}
+
+		hexGold = (int) Math.ceil(hexGold/2.0);
+		totalGold += (hexGold + fortGold + counterGold + specCharGold);
+		return totalGold;
+	}
 	
 //	@Override
 //	public int hashCode() {

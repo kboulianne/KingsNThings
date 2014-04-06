@@ -34,12 +34,12 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Construction Phase");
 
-		getGamePresenter().getView().getCurrentActionLbl().setText("Construction Phase");
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
+				KNTAppFactory.getGamePresenter().endTurn();
 			}
 		});
 		
@@ -53,22 +53,22 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
 		
-		int total = 0;
-		Player citOwner = null;
-		List<Player> players = game.getPlayerOrder();
+//		int total = 0;
+//		Player citOwner = null;
+//		List<Player> players = game.getPlayerOrder();
+//		
+//		for(int i=0; i<players.size(); i++)	{
+//			if(players.get(i).isCitadelOwner())	{
+//				total++;
+//				citOwner = players.get(i);
+//			}
+//		}
 		
-		for(int i=0; i<players.size(); i++)	{
-			if(players.get(i).isCitadelOwner())	{
-				total++;
-				citOwner = players.get(i);
-			}
-		}
-		
-		if(total == 1)	{
-			citOwner.addTimeCitOwned();
-			if(citOwner.getTimeCitOwned() == 1)
-				KNTAppFactory.getGamePresenter().getView().showWinnerScreen(citOwner);
-		}
+//		if(total == 1)	{
+//			citOwner.addTimeCitOwned();
+//			if(citOwner.getTimeCitOwned() == 1)
+//				KNTAppFactory.getGamePresenter().getView().showWinnerScreen(citOwner);
+//		}
 
 	}
 
@@ -92,7 +92,7 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Construction Phase";
 	}
 	
 	

@@ -208,4 +208,18 @@ public class GamePresenter {
 			e.printStackTrace();
 		}		
 	}
+
+	public void onGameEnded() {
+		// Update the game instance
+		try {
+			game = gameSvc.getGame(NetworkedMain.getRoomName());
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		updateViews(game);
+		view.showWinnerScreen(game.getWinner());
+		
+//		KNTAppFactory.getGamePresenter().getView().showWinnerScreen(citOwner);
+	}
 }
