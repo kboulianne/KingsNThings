@@ -1,5 +1,7 @@
 package com.presenter;
 
+import javafx.stage.FileChooser;
+
 import com.main.NetworkedMain;
 import com.model.Game;
 import com.model.Player;
@@ -221,5 +223,11 @@ public class GamePresenter {
 		view.showWinnerScreen(game.getWinner());
 		
 //		KNTAppFactory.getGamePresenter().getView().showWinnerScreen(citOwner);
+	}
+
+	public void loadBoard() {
+		FileChooser chooser = new FileChooser();
+		
+		NetworkedMain.showChooser(chooser);
 	}
 }

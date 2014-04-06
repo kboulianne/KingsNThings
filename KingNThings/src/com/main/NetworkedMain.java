@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -101,5 +102,9 @@ public class NetworkedMain extends Application {
     
     public static void setTitle(String title) {
     		primaryStage.setTitle(title);
+    }
+    
+    public static void showChooser(FileChooser chooser) {
+    	chooser.showOpenDialog(primaryStage);
     }
 }

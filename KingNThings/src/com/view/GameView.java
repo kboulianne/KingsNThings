@@ -38,6 +38,7 @@ public class GameView extends StackPane {
 	private Label currentPlayerLbl;
 	private Label currentActionLbl;
 	private Button skipPhase;
+	private Button loadBtn;
 
     // Class-level controls needing exposure outside buildView()
 	// private Button roll;
@@ -71,9 +72,18 @@ public class GameView extends StackPane {
 			}
 		});
 		
+		loadBtn = new Button("Load");
+		loadBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				KNTAppFactory.getGamePresenter().loadBoard();
+			}
+		});
+		
 		currentActionLbl = new Label();
 		currentActionLbl.getStyleClass().add("title");
-		box.getChildren().addAll(skipPhase, currentPlayerLbl, currentActionLbl);
+		box.getChildren().addAll(skipPhase, loadBtn, currentPlayerLbl, currentActionLbl );
 		
 		gameStatus.getChildren().add(box);
 		AnchorPane.setLeftAnchor(box, 0.0);
