@@ -191,31 +191,28 @@ public class SidePaneView extends VBox {
 			build.setDisable(true);
 		}
 		
-		if(h.getFort()!= null && h.getFort().getFortType() == Fort.FortType.CITADEL)	{
+		if((h.getFort()!= null) && (h.getFort().getFortType() == Fort.FortType.CITADEL))	{
 			upgrade.setDisable(true);
 			build.setDisable(true);
 		}
 		
-		if(h.getFort() == null || h.getHexOwner().getGold() < 5)	{
+		if((h.getFort() == null) || (h.getHexOwner().getGold() < 5))	{
 			upgrade.setDisable(true);
 		}
 		
-		if(h.getFort() != null || h.getHexOwner().getGold() < 5)	{
+		if((h.getFort() != null) || (h.getHexOwner().getGold() < 5))	{
 			build.setDisable(true);
 		}
 		
-		if(h.getFort() != null && h.getFort().getFortType() == Fort.FortType.CASTLE && 
-				player.calculateIncome(board) < 20)	{
-			System.out.println("change me back to true");
-			upgrade.setDisable(false);
+		if((h.getFort() != null) && (h.getFort().getFortType() == Fort.FortType.CASTLE) && 
+				(player.calculateIncome(board) < 20))	{
+			upgrade.setDisable(true);
 		}
 		
-		if(h.getFort() != null && h.getFort().getFortType() == Fort.FortType.CASTLE && 
+		if((h.getFort() != null) && (h.getFort().getFortType() == Fort.FortType.CASTLE) && 
 				player.isCitadelOwner())	{
 			upgrade.setDisable(true);
-		}
-		
-		
+		}		
 		
 		upgrade.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent e)	{
@@ -231,7 +228,6 @@ public class SidePaneView extends VBox {
 				
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
 				KNTAppFactory.getBoardPresenter().getView().setBoard(board);
-//				KNTAppFactory.getBoardPresenter().getView().setBoard(GameService.getInstance().getGame().getBoard());
 				showBuildMenu(h, player, board);
 			}
 		});
