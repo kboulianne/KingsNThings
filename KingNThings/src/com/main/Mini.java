@@ -6,12 +6,18 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.model.Board;
+import com.model.DesertCreature;
+import com.model.ForestCreature;
 import com.model.Fort;
 import com.model.Hex;
+import com.model.JungleCreature;
+import com.model.MountainCreature;
+import com.model.PlainsCreature;
 import com.model.Player;
 import com.model.Player.PlayerId;
 import com.presenter.HexFactory;
 import com.util.Util;
+import com.model.SwampCreature;
 
 public class Mini {
 
@@ -29,11 +35,9 @@ public class Mini {
 		Player p4 = new Player("Player 4"); ///red
 		p4.setPlayerID(PlayerId.FOUR);
 		
-		
 		Board board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 		
 		List<Hex> hexes = board.getHexes();
-		
 		HexFactory factory = new HexFactory();
 
 		
@@ -51,13 +55,29 @@ public class Mini {
 		hex2.setOwner(p4);
 		hex2.setFaceDown(false);
 		//add stack 1
+		hex2.addCreatToArmy(new JungleCreature("crocodilesjungle"), p4);
+		hex2.addCreatToArmy(new MountainCreature("mountainmen") , p4);
+		hex2.addCreatToArmy(new SwampCreature("giantlizard"), p4);
+		hex2.addCreatToArmy(new SwampCreature("slimebeast") , p4);
+		hex2.addCreatToArmy(new ForestCreature("killerracoon") , p4);
+		hex2.addCreatToArmy(new PlainsCreature("farmers") , p4);
+		hex2.addCreatToArmy(new ForestCreature("wildcat") , p4);
 		hex2.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.add(hex2);
+
 		
 		Hex hex3 = factory.createHex(3, Hex.HexType.FROZEN_WASTE_HEX);
 		hex3.setOwner(p1);
 		hex3.setFaceDown(false);
 		//add stack 2
+		hex3.addCreatToArmy(new SwampCreature("thing"), p1);
+		hex3.addCreatToArmy(new SwampCreature("giantlizard"), p1);
+		hex3.addCreatToArmy(new SwampCreature("swamprat"), p1);
+		hex3.addCreatToArmy(new ForestCreature("unicorn"), p1);
+		hex3.addCreatToArmy(new ForestCreature("bears"), p1);
+		hex3.addCreatToArmy(new DesertCreature("giantspider"), p1);
+		hex3.addCreatToArmy(new DesertCreature("camelcorps"), p1);
+		hex3.addCreatToArmy(new DesertCreature("sandworm"), p1);
 		hex3.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.add(hex3);
 		
@@ -149,7 +169,7 @@ public class Mini {
 		hex18.setOwner(p1);
 		hex18.setFaceDown(false);
 		hex18.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.add(hex0);
+		hexes.add(hex18);
 		
 		Hex hex19 = factory.createHex(19, Hex.HexType.SWAMP);
 		hex19.setOwner(p1);
@@ -161,7 +181,7 @@ public class Mini {
 		hex20.setOwner(p1);
 		hex20.setFaceDown(false);
 		hex20.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.add(hex0);		
+		hexes.add(hex20);		
 		
 		Hex hex21 = factory.createHex(21, Hex.HexType.SEA);
 		hex21.setFaceDown(false);
@@ -170,28 +190,23 @@ public class Mini {
 		Hex hex22 = factory.createHex(22, Hex.HexType.JUNGLE_HEX);
 		hex22.setOwner(p4);
 		hex22.setFaceDown(false);
-		//add stack 1
-		hex22.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.add(hex22);
 		
 		Hex hex23 = factory.createHex(23, Hex.HexType.FROZEN_WASTE_HEX);
-		hex23.setOwner(p1);
-		hex23.setFaceDown(false);
-		//add stack 2
-		hex23.setFort(new Fort(Fort.FortType.TOWER));
+		hex23.setOwner(p4);
+		hex23.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.add(hex23);
 		
 		Hex hex24 = factory.createHex(24, Hex.HexType.PLAINS);
-		hex24.setOwner(p1);
+		hex24.setOwner(p4);
 		hex24.setFaceDown(false);
-		hex24.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.add( hex24);
+		hexes.add(hex24);
+
 		
 		Hex hex25 = factory.createHex(25, Hex.HexType.FROZEN_WASTE_HEX);
 		hex25.setOwner(p1);
-		hex25.setFaceDown(false);
-		hex25.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.add( hex25);
+		hex25.setFort(new Fort(Fort.FortType.CASTLE));
+		hexes.add(hex25);
 		
 		Hex hex26 = factory.createHex(26, Hex.HexType.SWAMP);
 		hex26.setOwner(p1);
@@ -231,8 +246,6 @@ public class Mini {
 		
 		Hex hex32 = factory.createHex(32, Hex.HexType.SWAMP);
 		hex32.setOwner(p1);
-		hex32.setFaceDown(false);
-		hex32.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.add(hex32);
 		
 		Hex hex33 = factory.createHex(33, Hex.HexType.SEA);
@@ -272,7 +285,6 @@ public class Mini {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 }

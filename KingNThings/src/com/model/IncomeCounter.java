@@ -39,7 +39,7 @@ public class IncomeCounter extends Thing {
 		goldInc.put("city", 2);
 	}
 			
-	IncomeCounter(String name) {
+	public IncomeCounter(String name) {
 		super(name);
 		setImage("view/com/assets/pics/gamepieces/things/incomecounters/" + name + ".jpeg");
 		setDomain(domains.get(name));

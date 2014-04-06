@@ -19,7 +19,7 @@ public class Treasure extends Thing	{
 		goldInc.put("diamond", 5);
 	}
 	
-	Treasure(String name) {
+	public Treasure(String name) {
 		super(name);
 		setImage("view/com/assets/pics/gamepieces/things/treasure/" + name + ".jpeg");
 		setValue(goldInc.get(name));
