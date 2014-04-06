@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.model.Board;
 import com.model.Creature;
+import com.model.DesertCreature;
+import com.model.ForestCreature;
 import com.model.Fort;
 import com.model.Hex;
 import com.model.Player;
+import com.model.SwampCreature;
 
 public class Mini {
 
@@ -55,6 +58,14 @@ public class Mini {
 		//add stack 2
 		hex3.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.set(3, hex3);
+		hex3.addCreatToArmy(new SwampCreature("thing"), p1);
+		hex3.addCreatToArmy(new SwampCreature("giantlizard"), p1);
+		hex3.addCreatToArmy(new SwampCreature("swamprat"), p1);
+		hex3.addCreatToArmy(new ForestCreature("unicorn"), p1);
+		hex3.addCreatToArmy(new ForestCreature("bears"), p1);
+		hex3.addCreatToArmy(new DesertCreature("giantspider"), p1);
+		hex3.addCreatToArmy(new DesertCreature("camelcorps"), p1);
+		hex3.addCreatToArmy(new DesertCreature("sandworm"), p1);
 		
 		Hex hex4 = new Hex(4, Hex.HexType.DESERT);
 		hex4.setOwner(p1);
