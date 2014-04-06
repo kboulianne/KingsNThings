@@ -240,12 +240,6 @@ public class Mini {
 		hex36.setFaceDown(false);
 		hex36.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.set(36, hex36);
-		
-		Hex hex37 = new Hex(37, Hex.HexType.SWAMP);
-		hex37.setOwner(p2);
-		hex37.setFaceDown(false);
-		hex37.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.set(37, hex37);
 	}
 
 }
