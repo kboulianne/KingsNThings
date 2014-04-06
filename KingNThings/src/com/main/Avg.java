@@ -68,6 +68,9 @@ public class Avg {
 		hex3.addCreatToArmy(new DesertCreature("giantspider"), p1);
 		hex3.addCreatToArmy(new DesertCreature("camelcorps"), p1);
 		hex3.addCreatToArmy(new DesertCreature("sandworm"), p1);
+		hex3.addCreatToArmy(new SwampCreature("blackknight"), p1);
+		hex3.addCreatToArmy(new DesertCreature("dervish"), p1);
+		hex3.addCreatToArmy(new ForestCreature("forester"), p1);
 		hex3.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.set(3, hex3);
 		
