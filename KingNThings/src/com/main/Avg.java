@@ -35,7 +35,7 @@ public class Avg {
 		hex1.setFaceDown(false);
 		hexes.set(1, hex1);
 		
-		Hex hex2 = new Hex(2, Hex.HexType.DESERT);
+		Hex hex2 = new Hex(2, Hex.HexType.PLAINS);
 		hex2.setOwner(p4);
 		hex2.setFaceDown(false);
 		//add stack 1
@@ -49,25 +49,25 @@ public class Avg {
 		hex3.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.set(3, hex3);
 		
-		Hex hex4 = new Hex(4, Hex.HexType.SWAMP);
+		Hex hex4 = new Hex(4, Hex.HexType.DESERT);
 		hex4.setOwner(p1);
 		hex4.setFaceDown(false);
 		hex4.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.set(4, hex4);
 		
-		Hex hex5 = new Hex(5, Hex.HexType.SWAMP);
+		Hex hex5 = new Hex(5, Hex.HexType.FOREST);
 		hex5.setOwner(p1);
 		hex5.setFaceDown(false);
 		hex5.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.set(5, hex5);
 		
-		Hex hex6 = new Hex(6, Hex.HexType.SWAMP);
+		Hex hex6 = new Hex(6, Hex.HexType.MOUNTAIN);
 		hex6.setOwner(p1);
 		hex6.setFaceDown(false);
 		hex6.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.set(6, hex6);
 		
-		Hex hex7 = new Hex(7, Hex.HexType.SWAMP);
+		Hex hex7 = new Hex(7, Hex.HexType.DESERT);
 		hex7.setOwner(p1);
 		hex7.setFaceDown(false);
 		hex7.setFort(new Fort(Fort.FortType.KEEP));
@@ -79,7 +79,7 @@ public class Avg {
 		hex8.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.set(8, hex8);
 		
-		Hex hex9 = new Hex(9, Hex.HexType.SWAMP);
+		Hex hex9 = new Hex(9, Hex.HexType.MOUNTAIN);
 		hex9.setOwner(p1);
 		hex9.setFaceDown(false);
 		hex9.setFort(new Fort(Fort.FortType.KEEP));
@@ -209,53 +209,53 @@ public class Avg {
 		hex29.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.set(29, hex29);
 		
-		Hex hex10 = new Hex(10, Hex.HexType.SWAMP);
-		hex10.setOwner(p1);
-		hex10.setFaceDown(false);
-		hex10.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.set(10, hex10);
+		Hex hex30 = new Hex(10, Hex.HexType.SWAMP);
+		hex30.setOwner(p1);
+		hex30.setFaceDown(false);
+		hex30.setFort(new Fort(Fort.FortType.KEEP));
+		hexes.set(30, hex30);
 		
-		Hex hex11 = new Hex(11, Hex.HexType.SWAMP);
-		hex11.setOwner(p1);
-		hex11.setFaceDown(false);
-		hex11.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.set(11, hex11);
+		Hex hex31 = new Hex(31, Hex.HexType.SWAMP);
+		hex31.setOwner(p1);
+		hex31.setFaceDown(false);
+		hex31.setFort(new Fort(Fort.FortType.KEEP));
+		hexes.set(31, hex31);
 		
-		Hex hex12 = new Hex(12, Hex.HexType.SWAMP);
-		hex12.setOwner(p1);
-		hex12.setFaceDown(false);
-		hex12.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.set(12, hex12);
+		Hex hex32 = new Hex(32, Hex.HexType.SWAMP);
+		hex32.setOwner(p1);
+		hex32.setFaceDown(false);
+		hex32.setFort(new Fort(Fort.FortType.KEEP));
+		hexes.set(32, hex32);
 		
-		Hex hex13 = new Hex(13, Hex.HexType.SWAMP);
-		hex13.setOwner(p1);
-		hex13.setFaceDown(false);
-		hex13.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.set(13, hex13);
+		Hex hex33 = new Hex(33, Hex.HexType.SWAMP);
+		hex33.setOwner(p1);
+		hex33.setFaceDown(false);
+		hex33.setFort(new Fort(Fort.FortType.KEEP));
+		hexes.set(33, hex33);
 		
-		Hex hex14 = new Hex(14, Hex.HexType.SWAMP);
-		hex14.setOwner(p1);
-		hex14.setFaceDown(false);
-		hex14.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.set(14, hex14);
+		Hex hex34 = new Hex(34, Hex.HexType.SWAMP);
+		hex34.setOwner(p1);
+		hex34.setFaceDown(false);
+		hex34.setFort(new Fort(Fort.FortType.KEEP));
+		hexes.set(34, hex34);
 		
-		Hex hex15 = new Hex(15, Hex.HexType.SWAMP);
-		hex15.setOwner(p1);
-		hex15.setFaceDown(false);
-		hex15.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.set(15, hex15);
+		Hex hex35 = new Hex(35, Hex.HexType.SWAMP);
+		hex35.setOwner(p1);
+		hex35.setFaceDown(false);
+		hex35.setFort(new Fort(Fort.FortType.KEEP));
+		hexes.set(35, hex35);
 		
-		Hex hex16 = new Hex(16, Hex.HexType.SWAMP);
-		hex16.setOwner(p1);
-		hex16.setFaceDown(false);
-		hex16.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.set(16, hex16);
+		Hex hex36 = new Hex(36, Hex.HexType.SWAMP);
+		hex36.setOwner(p1);
+		hex36.setFaceDown(false);
+		hex36.setFort(new Fort(Fort.FortType.KEEP));
+		hexes.set(36, hex36);
 		
-		Hex hex17 = new Hex(17, Hex.HexType.SWAMP);
-		hex17.setOwner(p1);
-		hex17.setFaceDown(false);
-		hex17.setFort(new Fort(Fort.FortType.KEEP));
-		hexes.set(17, hex17);
+		Hex hex37 = new Hex(37, Hex.HexType.SWAMP);
+		hex37.setOwner(p1);
+		hex37.setFaceDown(false);
+		hex37.setFort(new Fort(Fort.FortType.KEEP));
+		hexes.set(37, hex37);
 		
 	}
 
