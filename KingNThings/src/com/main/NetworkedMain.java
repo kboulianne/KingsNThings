@@ -1,5 +1,7 @@
 package com.main;
 
+import java.io.File;
+
 import com.model.Player;
 import com.presenter.LobbyPresenter;
 import com.presenter.StartScreenPresenter;
@@ -104,7 +106,7 @@ public class NetworkedMain extends Application {
     		primaryStage.setTitle(title);
     }
     
-    public static void showChooser(FileChooser chooser) {
-    	chooser.showOpenDialog(primaryStage);
+    public static File showChooser(FileChooser chooser) {
+    	return chooser.showOpenDialog(primaryStage);
     }
 }

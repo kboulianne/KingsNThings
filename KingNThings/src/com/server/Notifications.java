@@ -21,4 +21,5 @@ public class Notifications {
 			new JSONRPC2Notification("onBattleEnded");
 	public static final JSONRPC2Notification GAME_ENDED = 
 			new JSONRPC2Notification("onGameEnded");
+	public static final JSONRPC2Notification GAME_UPDATED = new JSONRPC2Notification("onGameUpdated");
 }

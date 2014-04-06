@@ -1,11 +1,13 @@
 package com.server.handlers;
 
+import com.model.Board;
 import com.model.Cup;
 import com.model.Game;
 import com.model.Player;
 
 import static com.server.KNTServer.*;
 
+import com.server.Notifications;
 import com.server.ServerGameRoom;
 import com.server.services.IGameService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
@@ -84,6 +86,17 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 			ServerGameRoom room = (ServerGameRoom)GAME_ROOMS.get(roomName);
 			
 			room.getGame().setCup(cup);
+		}
+	}
+	
+	@Override
+	public void loadBoard(String roomName, Board b) throws JSONRPC2Error {
+		synchronized (GAME_ROOMS.get(roomName)) {
+			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
+			
+			room.getGame().setBoard(b);
+			
+			notifyAllClients(room, Notifications.GAME_UPDATED);
 		}
 	}
 }

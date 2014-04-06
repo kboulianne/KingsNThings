@@ -1,12 +1,22 @@
 package com.presenter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 import javafx.stage.FileChooser;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.main.NetworkedMain;
+import com.model.Board;
 import com.model.Game;
 import com.model.Player;
 import com.server.services.IGameService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+import com.util.Util;
 import com.view.GameView;
 
 import static com.main.KNTAppFactory.*;
@@ -221,13 +231,39 @@ public class GamePresenter {
 		}
 		updateViews(game);
 		view.showWinnerScreen(game.getWinner());
-		
-//		KNTAppFactory.getGamePresenter().getView().showWinnerScreen(citOwner);
 	}
 
 	public void loadBoard() {
 		FileChooser chooser = new FileChooser();
 		
-		NetworkedMain.showChooser(chooser);
+		File data = NetworkedMain.showChooser(chooser);
+		
+		Gson gson = Util.GSON_BUILDER.setPrettyPrinting().create();
+		
+		try {
+			Board b = gson.fromJson(new FileReader(data), Board.class);
+			
+			game.setBoard(b);
+			
+			// Send the view to the server.
+			gameSvc.loadBoard(NetworkedMain.getRoomName(), b);
+		} catch (JsonSyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONRPC2Error e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void onGameUpdated() {
+		// Update local and show
+		updateViews();
 	}
 }

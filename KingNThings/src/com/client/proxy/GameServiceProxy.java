@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.main.NetworkedMain;
+import com.model.Board;
 import com.model.Cup;
 import com.model.Game;
 import com.model.Player;
@@ -52,5 +53,10 @@ public class GameServiceProxy extends ProxyBase implements IGameService {
 	@Override
 	public void skipPhase(String roomName) throws JSONRPC2Error {
 		invokeOnServer("skipPhase", roomName);
+	}
+
+	@Override
+	public void loadBoard(String roomName, Board b) throws JSONRPC2Error {
+		invokeOnServer("loadBoard", roomName, b);
 	}
 }
