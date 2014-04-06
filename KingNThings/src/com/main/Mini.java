@@ -3,7 +3,6 @@ package com.main;
 import java.util.List;
 
 import com.model.Board;
-import com.model.Creature;
 import com.model.DesertCreature;
 import com.model.ForestCreature;
 import com.model.Fort;
@@ -25,7 +24,6 @@ public class Mini {
 		Player p2 = new Player("Player 2"); //grey
 		Player p3 = new Player("Player 3"); //green
 		Player p4 = new Player("Player 4"); ///red
-		
 		
 		Board board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 		
