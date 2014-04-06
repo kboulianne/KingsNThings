@@ -3,6 +3,7 @@ package com.server.handlers;
 import java.util.List;
 
 import com.model.Battle;
+import com.model.Fort;
 import com.model.Hex;
 import com.model.Player;
 import com.model.Battle.BattlePhase;
@@ -103,6 +104,14 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 		if(associatedHex.getArmies().keySet().size()==1 && associatedHex.getKedabCreatures().isEmpty()){ 	
 			associatedHex.setOwner(winner);
 			associatedHex.setConflict(false);
+		}
+		if((associatedHex.getFort() != null) && (associatedHex.getFort().getFortType() == Fort.FortType.CITADEL))	{
+			if(winner.isCitadelOwner())	{
+				notifyAllClients(room, Notifications.GAME_ENDED);
+				return;
+			} else	{
+				winner.setCitadelOwner(true);
+			}
 		}
 		
 		notifyAllClients(room, Notifications.BATTLE_ENDED);		
