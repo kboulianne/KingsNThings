@@ -4,9 +4,14 @@ import java.util.List;
 
 import com.model.Board;
 import com.model.Creature;
+import com.model.ForestCreature;
 import com.model.Fort;
 import com.model.Hex;
+import com.model.JungleCreature;
+import com.model.MountainCreature;
+import com.model.PlainsCreature;
 import com.model.Player;
+import com.model.SwampCreature;
 
 public class Mini {
 
@@ -39,15 +44,15 @@ public class Mini {
 		hex2.setOwner(p4);
 		hex2.setFaceDown(false);
 		//add stack 1
-		hex2.addCreatToArmy(new (), p4);
-		hex2.addCreatToArmy(new , p4);
-		hex2.addCreatToArmy(new , p4);
-		hex2.addCreatToArmy(new , p4);
-		hex2.addCreatToArmy(new , p4);
-		hex2.addCreatToArmy(new , p4);
-		hex2.addCreatToArmy(new , p4);
+		hex2.addCreatToArmy(new JungleCreature("crocodilesjungle"), p4);
+		hex2.addCreatToArmy(new MountainCreature("mountainmen") , p4);
+		hex2.addCreatToArmy(new SwampCreature("giantlizard"), p4);
+		hex2.addCreatToArmy(new SwampCreature("slimebeast") , p4);
+		hex2.addCreatToArmy(new ForestCreature("killerracoon") , p4);
+		hex2.addCreatToArmy(new PlainsCreature("farmers") , p4);
+		hex2.addCreatToArmy(new ForestCreature("wildcat") , p4);
 		hex2.setFort(new Fort(Fort.FortType.TOWER));
-		hexes.set(0, hex2);
+		hexes.set(2, hex2);
 		
 		Hex hex3 = new Hex(3, Hex.HexType.FROZEN_WASTE_HEX);
 		hex3.setOwner(p1);
@@ -132,7 +137,7 @@ public class Mini {
 		hex18.setOwner(p2);
 		hex18.setFaceDown(false);
 		hex18.setFort(new Fort(Fort.FortType.TOWER));
-		hexes.set(18, hex0);
+		hexes.set(18, hex18);
 		
 		Hex hex19 = new Hex(19, Hex.HexType.SWAMP);
 		hex19.setOwner(p2);
@@ -143,7 +148,7 @@ public class Mini {
 		Hex hex20 = new Hex(20, Hex.HexType.PLAINS);
 		hex20.setOwner(p2);
 		hex20.setFaceDown(false);
-		hexes.set(20, hex0);		
+		hexes.set(20, hex20);		
 		
 		Hex hex21 = new Hex(21, Hex.HexType.SEA);
 		hex21.setFaceDown(false);
@@ -187,12 +192,12 @@ public class Mini {
 		hex28.setFaceDown(false);
 		hexes.set(28, hex28);
 		
-		Hex hex29 = new Hex(9, Hex.HexType.FROZEN_WASTE_HEX);
+		Hex hex29 = new Hex(29, Hex.HexType.FROZEN_WASTE_HEX);
 		hex29.setOwner(p1);
 		hex29.setFaceDown(false);
 		hexes.set(29, hex29);
 		
-		Hex hex30 = new Hex(10, Hex.HexType.MOUNTAIN);
+		Hex hex30 = new Hex(30, Hex.HexType.MOUNTAIN);
 		hex30.setOwner(p3);
 		hex30.setFaceDown(false);
 		hexes.set(30, hex30);
