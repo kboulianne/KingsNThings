@@ -6,6 +6,7 @@ import com.model.Board;
 import com.model.DesertCreature;
 import com.model.ForestCreature;
 import com.model.Fort;
+import com.model.FrozenWasteCreature;
 import com.model.Hex;
 import com.model.IncomeCounter;
 import com.model.JungleCreature;
@@ -23,10 +24,10 @@ public class Avg {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		Player p1 = new Player("Player 1"); //yellow
+		Player p1 = new Player("Player 1"); //yellow		
 		Player p2 = new Player("Player 2"); //grey
 		Player p3 = new Player("Player 3"); //green
-		Player p4 = new Player("Player 4"); ///red
+		Player p4 = new Player("Player 4"); //red
 		
 		p1.getBlock().addThing(new IncomeCounter("diamondfield"), p1.getName());
 		p1.getBlock().addThing(new IncomeCounter("peatbog"), p1.getName());
@@ -54,11 +55,15 @@ public class Avg {
 		//add stack 1
 		hex2.addCreatToArmy(new JungleCreature("crocodilesjungle"), p4);
 		hex2.addCreatToArmy(new MountainCreature("mountainmen") , p4);
-		hex2.addCreatToArmy(new SwampCreature("giantlizard"), p4);
-		hex2.addCreatToArmy(new SwampCreature("slimebeast") , p4);
+		hex2.addCreatToArmy(new DesertCreature("nomads"), p4);
+		hex2.addCreatToArmy(new DesertCreature("giantspider"), p4);
 		hex2.addCreatToArmy(new ForestCreature("killerracoon") , p4);
 		hex2.addCreatToArmy(new PlainsCreature("farmers") , p4);
-		hex2.addCreatToArmy(new ForestCreature("wildcat") , p4);
+		hex2.addCreatToArmy(new FrozenWasteCreature("icegiant") , p4);
+		hex2.addCreatToArmy(new FrozenWasteCreature("whitedragon") , p4);
+		hex2.addCreatToArmy(new FrozenWasteCreature("mammoth") , p4);
+		hex2.addCreatToArmy(new JungleCreature("headhunter") , p4);
+		
 		hex2.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.set(2, hex2);
 		
