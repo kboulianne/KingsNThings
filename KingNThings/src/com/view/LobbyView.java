@@ -15,6 +15,8 @@ import javafx.scene.control.LabelBuilder;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ListViewBuilder;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFieldBuilder;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -29,6 +31,7 @@ public class LobbyView extends BorderPane {
 	private Button hostBtn;
 	private Button joinBtn;
 	private ListView<GameRoom> gameRoomList;
+	private TextField roomName;
 	
 	private Label playerLabel;
 	
@@ -70,6 +73,10 @@ public class LobbyView extends BorderPane {
 		.build();
 
 		// Bottom
+		roomName = TextFieldBuilder.create()
+				.text("Test Room")
+		.build();
+		
 		hostBtn = ButtonBuilder.create()
 				.text("Host")
 				.onAction(HOST_EVENT)
@@ -83,7 +90,7 @@ public class LobbyView extends BorderPane {
 				.alignment(Pos.CENTER_RIGHT)
 				.padding(new Insets(10, 0, 5, 10))
 				.hgap(10)
-				.children(hostBtn, joinBtn)
+				.children(roomName, hostBtn, joinBtn)
 		.build();
 		
 		setTop(topPane);
@@ -110,7 +117,7 @@ public class LobbyView extends BorderPane {
 	private final EventHandler<ActionEvent> HOST_EVENT = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			KNTAppFactory.getLobbyPresenter().handleHostButton();
+			KNTAppFactory.getLobbyPresenter().handleHostButton(roomName.getText());
 		}
 	};
 	
@@ -127,7 +134,7 @@ public class LobbyView extends BorderPane {
 			if (event.getCode() == KeyCode.ENTER) {
 				// If nothing selected in list, host
 				if (gameRoomList.getSelectionModel().isEmpty()) {
-					KNTAppFactory.getLobbyPresenter().handleHostButton();
+					KNTAppFactory.getLobbyPresenter().handleHostButton(roomName.getText());
 				}
 				else {
 					KNTAppFactory.getLobbyPresenter().handleJoinButton();

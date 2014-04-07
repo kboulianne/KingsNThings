@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.GameRoom;
@@ -45,9 +46,11 @@ public class LobbyPresenter {
 		updateGameRoomsList();
 	}
 
-	public void handleHostButton() {
+	public void handleHostButton(String roomName) {
+		if (roomName == null || roomName.isEmpty()) return;
+		
 		try {
-			GameRoom room = gameRoomSvc.createGameRoom("Tester 1's Game Room", NetworkedMain.getPlayer());
+			GameRoom room = gameRoomSvc.createGameRoom(roomName, NetworkedMain.getPlayer());
 			
 			// Delegate to GameRoomPresenter
 			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
