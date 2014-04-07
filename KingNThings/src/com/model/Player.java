@@ -6,7 +6,7 @@ public class Player 	{
 	private PlayerId id; 		// {1, 2, 3, 4}
 	private Color color;	// {blue, green, red, yellow}
 	private Block block;
-	private int gold = 10;
+	private int gold = 0;
 	private String name;
 	private boolean citadelOwner = false;
 	private int timeCitOwned = -1;

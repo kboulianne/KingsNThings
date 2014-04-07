@@ -636,6 +636,9 @@ public class BattlePresenter {
 						"The winner of the last battle was " + battle.getWinner().getName(),
 						Game.CROWN_IMAGE);
 		
+
+		
+		
 		// Update in game presenter
 		KNTAppFactory.getGamePresenter().updateViews();
 	}

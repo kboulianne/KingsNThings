@@ -59,6 +59,7 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			// Evaluate winning conditions.
 			if (battle.isOffenderEliminated() || battle.isDefenderEliminated()) {
 				determineWinner(room);
+				
 			}
 			else {
 				// Notify opponents
@@ -110,6 +111,15 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 				winner.setCitadelOwner(true);
 			}
 		}
+		
+		// Kill off the loser's troops
+		if (winner.equals(battle.getDefender()))
+			associatedHex.getArmies().remove(battle.getOffender());
+		else
+			associatedHex.getArmies().remove(battle.getDefender());
+		
+		int id = associatedHex.getId();
+		room.getGame().getBoard().getHexes().set(id, associatedHex);
 		
 		notifyAllClients(room, Notifications.BATTLE_ENDED);		
 	}
