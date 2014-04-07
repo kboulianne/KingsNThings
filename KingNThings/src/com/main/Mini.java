@@ -16,7 +16,6 @@ import com.model.PlainsCreature;
 import com.model.Player;
 import com.model.Player.PlayerId;
 import com.model.SwampCreature;
-import com.model.Player.PlayerId;
 import com.presenter.HexFactory;
 import com.util.Util;
 
