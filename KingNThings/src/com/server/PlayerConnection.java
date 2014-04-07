@@ -15,7 +15,7 @@ import com.model.Player;
 import com.server.handlers.BattleRequestHandler;
 import com.server.handlers.GameRequestHandler;
 import com.server.handlers.GameRoomHandler;
-import com.server.handlers.PlayerHandler;
+import com.server.handlers.PlayerRequestHandler;
 import com.server.handlers.RequestContext;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
@@ -36,7 +36,7 @@ public class PlayerConnection {
 	
 	static {
 		DISPATCHER = new Dispatcher();
-		DISPATCHER.register(new PlayerHandler());
+		DISPATCHER.register(new PlayerRequestHandler());
 		DISPATCHER.register(new GameRoomHandler());
 		DISPATCHER.register(new GameRequestHandler());
 		DISPATCHER.register(new BattleRequestHandler());

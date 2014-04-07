@@ -219,6 +219,7 @@ public class SidePaneView extends VBox {
 				
 				if(h.getFort().getFortType() == Fort.FortType.CITADEL)	{
 					h.getHexOwner().setCitadelOwner(true);
+					player.setCitadelOwner(true);
 				}
 				
 				KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);

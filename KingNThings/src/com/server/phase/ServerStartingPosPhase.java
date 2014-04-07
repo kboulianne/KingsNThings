@@ -37,14 +37,14 @@ public class ServerStartingPosPhase extends AbstractServerPhase {
 
 	@Override
 	public void skipPhase() {
-		phaseEnd();
-		// Default setup
-		Game game = context.room.getGame();
-		
-		Iterator<Integer> it = game.getBoard().getStartPositions().iterator();
-		for (Player p : game.getPlayerOrder()) {
-			game.getBoard().getHexes().get(it.next()).setOwner(p);
-		}
+//		phaseEnd();
+//		// Default setup
+//		Game game = context.room.getGame();
+//		
+//		Iterator<Integer> it = game.getBoard().getStartPositions().iterator();
+//		for (Player p : game.getPlayerOrder()) {
+//			game.getBoard().getHexes().get(it.next()).setOwner(p);
+//		}
 	}
 
 }

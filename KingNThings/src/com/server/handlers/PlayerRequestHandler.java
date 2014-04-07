@@ -11,7 +11,7 @@ import com.util.Util;
 
 import static com.server.KNTServer.*;
 
-public class PlayerHandler extends BaseRequestHandler implements IPlayerService {
+public class PlayerRequestHandler extends BaseRequestHandler implements IPlayerService {
 
 	@Override
 	public String[] handledRequests() {

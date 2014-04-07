@@ -46,7 +46,7 @@ public class Fort extends Thing	{
 		setImage(IMAGE_DIR + type.typeAsString + ".jpeg");
 	}
 	
-	void upgrade() {
+	public void upgrade() {
 //		if (level <= 3) level ++;
 		switch (fortType) {
 			case TOWER: 

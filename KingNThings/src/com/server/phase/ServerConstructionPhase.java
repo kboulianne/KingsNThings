@@ -2,7 +2,10 @@ package com.server.phase;
 
 import java.util.List;
 
+import com.model.Fort;
+import com.model.Hex;
 import com.model.Player;
+import com.model.Fort.FortType;
 import com.server.KNTServer;
 import com.server.Notifications;
 
@@ -14,8 +17,20 @@ public class ServerConstructionPhase extends AbstractServerPhase {
 
 	@Override
 	public void phaseStart() {
-		// TODO Auto-generated method stub
-		
+//		// Testing
+//		Hex hex = context.room.getGame().getBoard().getHexes().get(19);
+//		
+//		// For testing
+//		if (hex.getFort() == null) {
+//			hex.setFort(Fort.create());
+//			hex.getFort().upgrade();
+//			hex.getFort().upgrade();
+//		}
+//		if (hex.getFort() != null && (!hex.getFort().getFortType().equals(FortType.CASTLE)
+//				&& !hex.getFort().getFortType().equals(FortType.CITADEL))) {
+//			hex.setFort(Fort.create());
+//			hex.getFort().upgrade();
+//		}
 	}
 
 	@Override
@@ -45,9 +60,13 @@ public class ServerConstructionPhase extends AbstractServerPhase {
 		
 		if(total == 1)	{
 			citOwner.addTimeCitOwned();
-			if(citOwner.getTimeCitOwned() == 1)
+			if(citOwner.getTimeCitOwned() == 1) {
+				context.room.getGame().setWinner(citOwner);
 				// Notify clients that the game was won
 				KNTServer.notifyAllClients(context.room, Notifications.GAME_ENDED);
+				
+				// TODO: Remove the game room.
+			}
 		}
 	}
 
