@@ -1,6 +1,7 @@
 package com.server.handlers;
 
 import com.model.Player;
+import com.server.Errors;
 import com.server.services.IPlayerService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
@@ -31,7 +32,14 @@ public class PlayerHandler extends BaseRequestHandler implements IPlayerService 
 				RequestContext ctx = (RequestContext)requestCtx;
 				Player p = Util.GSON_BUILDER.create().fromJson((String)res.getResult(), Player.class);
 				// Map player to its connection.
-				PLAYERS.put(p.getName(), ctx.getPlayerConnection());
+				synchronized (PLAYERS) {
+					// Make sure players are unique
+					if (PLAYERS.containsKey(p.getName())) {
+						throw Errors.PLAYER_EXISTS;
+					}
+					
+					PLAYERS.put(p.getName(), ctx.getPlayerConnection());	
+				}
 			}
 
 		} catch (JSONRPC2Error e) {
