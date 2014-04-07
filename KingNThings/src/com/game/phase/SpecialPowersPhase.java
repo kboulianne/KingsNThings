@@ -23,9 +23,6 @@ class SpecialPowersPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Special Powers Phase");
-		
-		getGamePresenter().getView().getCurrentActionLbl().setText("Deploy Special Powers");
-		
 	}
 
 	@Override
@@ -46,6 +43,6 @@ class SpecialPowersPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public String getActionText() {
-		return "Update Me!";
+		return "Deploy Special Powers";
 	}
 }

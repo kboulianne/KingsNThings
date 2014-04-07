@@ -272,6 +272,8 @@ public final class Game {
 		// Add the first player in the list to the tail.
 		Player p = playerOrder.remove(0);
 		playerOrder.add(p);
+		
+		nextPlayerIdx = -1;
 	}
 	
 	

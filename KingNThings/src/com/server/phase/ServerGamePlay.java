@@ -36,7 +36,7 @@ public final class ServerGamePlay {
 		phases.add(new ServerNOOPPhase(this));				// CombatPhase
 		phases.add(new ServerConstructionPhase(this));				// ConstructionPhase
 		phases.add(new ServerNOOPPhase(this));				// SpecialPowersPhase
-		phases.add(new ServerNOOPPhase(this));		// ChangePlayerOrderPhase
+		phases.add(new ServerChangePlayerOrder(this));		// ChangePlayerOrderPhase
 		
 		phaseIt = phases.iterator();
 	}
@@ -79,9 +79,11 @@ public final class ServerGamePlay {
 			// Advance the iterator to gold collection.
 			int i = 0;
 			while (i <= 6) {
-				phaseIt.next();
+				phase = phaseIt.next();
 				i++;
 			}
+			
+			phase.phaseStart();
 		}
 		
 		notifyAllClients(room, Notifications.PHASE_ENDED);
