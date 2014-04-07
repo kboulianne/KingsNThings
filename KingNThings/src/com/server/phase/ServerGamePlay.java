@@ -36,7 +36,7 @@ public final class ServerGamePlay {
 		phases.add(new ServerNOOPPhase(this));				// CombatPhase
 		phases.add(new ServerNOOPPhase(this));				// ConstructionPhase
 		phases.add(new ServerNOOPPhase(this));				// SpecialPowersPhase
-		phases.add(new ServerChangePlayerOrder(this));		// ChangePlayerOrderPhase
+		phases.add(new ServerNOOPPhase(this));		// ChangePlayerOrderPhase
 		
 		phaseIt = phases.iterator();
 	}

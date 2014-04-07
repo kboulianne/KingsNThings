@@ -35,8 +35,6 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			room.setBattle(battle);
 			
 			// Allows opponents to watch the ongoing battle.
-//			notifyClients(room, Notifications.BATTLE_STARTED, battle.getDefender());
-			System.out.println("Excluding: " + battle.getCurrentPlayer());
 			notifyClientsExclude(room, Notifications.BATTLE_STARTED, battle.getCurrentPlayer());
 			
 			return battle;
