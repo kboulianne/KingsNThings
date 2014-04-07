@@ -254,4 +254,8 @@ public class KNTAppFactory {
 		
 		return gamePlay;
 	}
+	
+	public static void cleanup() {
+		CLIENT.shutdown();
+	}
 }

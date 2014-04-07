@@ -130,14 +130,13 @@ public class KNTClient {
 //							throw error;
 						}
 						
-						
+						System.out.println("looping");
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println("Thread shutdown");
 				} catch (JSONRPC2ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -172,8 +171,7 @@ public class KNTClient {
 					e.printStackTrace();
 				} 
 				catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println("Thread shutdown");
 				}
 			}
 		};
@@ -193,5 +191,9 @@ public class KNTClient {
 	
 	public final IBattleService getBattleService() {
 		return battleProxy;
+	}
+
+	public void shutdown() {
+		socketThreads.shutdownNow();
 	}
 }
