@@ -6,7 +6,6 @@ import com.model.Battle;
 import com.model.Fort;
 import com.model.Hex;
 import com.model.Player;
-import com.model.Battle.BattlePhase;
 import com.server.Notifications;
 import com.server.ServerGameRoom;
 import com.server.services.IBattleService;
