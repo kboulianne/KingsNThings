@@ -109,8 +109,8 @@ public class BattlePresenter {
 	}
 
 	private void startBattle() {
-//		KNTAppFactory.getPopupPresenter().showBattlePopup();
-		NetworkedMain.setView(view);
+		KNTAppFactory.getPopupPresenter().showBattlePopup();
+//		NetworkedMain.setView(view);
 //		view.updateBattle(battle);
 		disableControls();
 		// Enable ui if current player
@@ -627,7 +627,8 @@ public class BattlePresenter {
 		
 //		KNTAppFactory.getPopupPresenter().dismissPopup();
 		// Show game view again
-		NetworkedMain.setView(KNTAppFactory.getGamePresenter().getView());
+//		NetworkedMain.setView(KNTAppFactory.getGamePresenter().getView());
+		KNTAppFactory.getPopupPresenter().dismissPopup();
 		KNTAppFactory
 				.getSidePanePresenter()
 				.getView()

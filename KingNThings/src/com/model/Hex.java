@@ -76,6 +76,8 @@ public class Hex extends GamePiece {
 	protected Hex() {
 		armies = new HashMap<>();
 		color = Color.LIGHTGREY;
+		// Default
+	    setJoiningHexes(NumberOfHexes.THIRTY_SEVEN);
 	}
 	
 	Hex(int id, HexType type){
@@ -91,6 +93,8 @@ public class Hex extends GamePiece {
 	    hexOwner=null;
 	    kedabCreatures = new ArrayList<Creature>();
 	    setMovementWeight(-1);
+	    // Default
+	    setJoiningHexes(NumberOfHexes.THIRTY_SEVEN);
 	}
 
 	

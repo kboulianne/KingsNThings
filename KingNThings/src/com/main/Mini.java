@@ -40,6 +40,7 @@ public class Mini {
 		
 		Board board = new Board(Board.NumberOfHexes.THIRTY_SEVEN);
 		
+		
 		List<Hex> hexes = board.getHexes();
 		
 		Hex hex0 = factory.createHex(0, Hex.HexType.SWAMP);
@@ -253,8 +254,6 @@ public class Mini {
 		hex36.setFaceDown(false);
 		hex36.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.add( hex36);
-		
-		
 		
 		try{
 			FileWriter writer = new FileWriter(args[0]);
