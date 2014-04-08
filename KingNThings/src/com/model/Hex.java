@@ -56,7 +56,7 @@ public class Hex extends GamePiece {
 	//private HashMap<Player, ArrayList<Creature>> armies;
 	// Only one fort per tile.
 	private Fort fort;
-	private transient IncomeCounter counter;
+	private IncomeCounter counter;
 	
 	public enum HexType {
 		JUNGLE_HEX("Jungle"),
