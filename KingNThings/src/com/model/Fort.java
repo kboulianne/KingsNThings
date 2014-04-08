@@ -41,7 +41,17 @@ public class Fort extends Thing	{
 	public Fort(FortType type) {
 		super(type.typeAsString);
 		setColor(Color.LIGHTGREY);
-		setValue(1);
+		
+		if(type == Fort.FortType.TOWER)	{
+			setValue(1);
+		} else if(type == Fort.FortType.KEEP)	{
+			setValue(2);
+		} else if(type == Fort.FortType.CASTLE)	{
+			setValue(3);
+		} else if(type == Fort.FortType.CITADEL)	{
+			setValue(4);
+		}
+		
 		fortType = type;
 		setImage(IMAGE_DIR + type.typeAsString + ".jpeg");
 	}

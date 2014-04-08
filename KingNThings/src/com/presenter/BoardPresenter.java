@@ -350,7 +350,7 @@ public class BoardPresenter {
 		Player player = game.getCurrentPlayer();
 		List<Thing> listOfThings = game.getLastSelectedThingsOfCurrentPlayerBlock();
 		
-		if((h != null) && h.getHexOwner().equals(player))	{
+		if((h.getHexOwner() != null) && h.getHexOwner().equals(player))	{
 			Util.playHexClickSound();
 			for(Thing t: listOfThings)	{
 				if(t.getHexLocation() == -1)	{
