@@ -51,6 +51,7 @@ public class Cup {
 		if(creatures.isEmpty())
 			return null;
 		Creature c = creatures.get(Util.randomNumber(0, creatures.size()-1));
+		c.setFacedDown(false);
 		return c;
 	}
 	
@@ -63,7 +64,7 @@ public class Cup {
 			t.setFacedDown(false);
 		} else {
 			listOfThings.add(t);
-			t.setFacedDown(true);
+			t.setFacedDown(false);
 		}
 	}
 	
@@ -74,6 +75,7 @@ public class Cup {
 		} else {
 			listOfThings.remove(t);
 		}
+		t.setFacedDown(false);
 		return t;
 	}
 }

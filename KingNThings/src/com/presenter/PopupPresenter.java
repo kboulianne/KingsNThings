@@ -55,6 +55,6 @@ public class PopupPresenter {
 	}
 	
 	public void showBattlePopup() {
-		view.show(KNTAppFactory.getBattlePresenter().getView());
+//		view.show(KNTAppFactory.getBattlePresenter().getView());
 	}
 }

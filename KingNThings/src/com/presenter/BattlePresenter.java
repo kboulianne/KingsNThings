@@ -109,8 +109,8 @@ public class BattlePresenter {
 	}
 
 	private void startBattle() {
-		KNTAppFactory.getPopupPresenter().showBattlePopup();
-//		NetworkedMain.setView(view);
+//		KNTAppFactory.getPopupPresenter().showBattlePopup();
+		NetworkedMain.setView(view);
 //		view.updateBattle(battle);
 		disableControls();
 		// Enable ui if current player
@@ -549,7 +549,8 @@ public class BattlePresenter {
 			//TODO: Restrict
 			//Re-enable GameUI if participating in the battle. Since gamepresenter locks it when it is not current turn in game.
 			KNTAppFactory.getGamePresenter().getView().setDisable(false);
-			KNTAppFactory.getPopupPresenter().showBattlePopup();
+//			KNTAppFactory.getPopupPresenter().showBattlePopup();
+//			NetworkedMain.setView(view);
 			// Sets up handlers
 			startBattle();
 			
@@ -598,7 +599,7 @@ public class BattlePresenter {
 		
 //		KNTAppFactory.getPopupPresenter().dismissPopup();
 		// Show game view again
-//		NetworkedMain.setView(KNTAppFactory.getGamePresenter().getView());
+		NetworkedMain.setView(KNTAppFactory.getGamePresenter().getView());
 		KNTAppFactory.getPopupPresenter().dismissPopup();
 		KNTAppFactory
 				.getSidePanePresenter()
