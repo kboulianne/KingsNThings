@@ -3,7 +3,6 @@ package com.presenter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-import com.game.phase.GamePlay;
 import com.main.KNTAppFactory;
 import com.model.Game;
 import com.model.Player;

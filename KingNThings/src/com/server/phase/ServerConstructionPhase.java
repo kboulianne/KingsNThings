@@ -2,10 +2,7 @@ package com.server.phase;
 
 import java.util.List;
 
-import com.model.Fort;
-import com.model.Hex;
 import com.model.Player;
-import com.model.Fort.FortType;
 import com.server.KNTServer;
 import com.server.Notifications;
 

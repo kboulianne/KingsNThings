@@ -1,10 +1,5 @@
 package com.server.phase;
 
-import java.util.Iterator;
-
-import com.model.Game;
-import com.model.Player;
-
 public class ServerStartingPosPhase extends AbstractServerPhase {
 
 	public ServerStartingPosPhase(ServerGamePlay context) {

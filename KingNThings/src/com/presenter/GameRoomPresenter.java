@@ -1,9 +1,7 @@
 package com.presenter;
 
-import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.GameRoom;
-import com.model.Player;
 import com.server.services.IGameRoomService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.view.GameRoomView;

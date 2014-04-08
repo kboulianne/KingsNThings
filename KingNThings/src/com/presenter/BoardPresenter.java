@@ -6,8 +6,6 @@ import java.util.Random;
 
 import com.game.phase.init.ExchangePhase;
 import com.main.KNTAppFactory;
-import com.main.NetworkedMain;
-import com.model.Battle;
 import com.model.Board;
 import com.model.Creature;
 import com.model.Fort;
@@ -18,7 +16,6 @@ import com.model.MagicItem;
 import com.model.Player;
 import com.model.Thing;
 import com.model.Treasure;
-import com.server.services.IGameService;
 import com.util.Util;
 import com.view.BoardView;
 

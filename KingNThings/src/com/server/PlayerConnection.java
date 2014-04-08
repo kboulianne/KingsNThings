@@ -5,13 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import com.model.Player;
 import com.server.handlers.BattleRequestHandler;
 import com.server.handlers.GameRequestHandler;
 import com.server.handlers.GameRoomHandler;
@@ -22,7 +18,6 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2ParseException;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 import com.thetransactioncompany.jsonrpc2.server.Dispatcher;
-import com.util.Util;
 
 public class PlayerConnection {
 
@@ -77,8 +72,10 @@ public class PlayerConnection {
 					while (true) {
 						
 						try {
-							json = reader.readLine();
 							
+							json = reader.readLine();
+							if (json==null)
+								return;
 							req = JSONRPC2Request.parse(json);
 							res = DISPATCHER.process(req, new RequestContext(PlayerConnection.this));
 							messages.put(res.toJSONString());

@@ -8,8 +8,6 @@ import javafx.collections.ObservableList;
 import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.GameRoom;
-import com.model.Player;
-import com.model.Player.PlayerId;
 import com.server.services.IGameRoomService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
 import com.view.LobbyView;
