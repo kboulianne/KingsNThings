@@ -81,11 +81,11 @@ public class SidePanePresenter {
 		tView.setPaidRecruit(paidRecruits);
 
 		
-		tView.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
-			public void handle(ActionEvent arg)	{
-				handlePlaceRecruit();
-			}
-		});
+//		tView.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
+//			public void handle(ActionEvent arg)	{
+//				handlePlaceRecruit();
+//			}
+//		});
 		
 		view.setThingRecruitment(tView);
 	}
@@ -121,15 +121,18 @@ public class SidePanePresenter {
 		Player player = game.getCurrentPlayer();
 		Cup cup = game.getCup();
 		
+		// Return selected items to the cup
 		for(Thing t: listOfThings)	{
 			total++;
 			player.removeThing(t);
 			cup.addThing(t);
 		}
 		
+		
 		total = (int)Math.ceil(total/2.0);
 		total += (freeRecruits + paidRecValue);
 		
+		// Draw recruits from the cup
 		for(int i = 0; i < total; i++)	{
 			Thing c = cup.getRandomThing();
 			cup.removeThing(c);
@@ -137,6 +140,7 @@ public class SidePanePresenter {
 		}
 		
 		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(player);
+		
 		
 		view.clearDetailsView();
 		view.showArbitraryView("Choose things from rack and\n"
