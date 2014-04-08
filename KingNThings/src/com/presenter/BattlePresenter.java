@@ -179,9 +179,6 @@ public class BattlePresenter {
 		case RETREAT:
 			retreatPhase();
 			break;
-//		case POSTCOMBAT:
-//			postCombatPhase();
-//			break;
 		case APPLYMAJHITS:
 		case APPLYMELHITS:
 		case APPLYRANHITS:
@@ -206,32 +203,6 @@ public class BattlePresenter {
 			switchPlayers();
 			return;
 		}
-//		if (battle.getOffenderCreaturesForPhase().isEmpty()
-//				&& battle.getDefenderCreaturesForPhase().isEmpty()) {
-//			// TODO: Trigger battle_phase_end
-////			nextBattlePhase();
-//			return;
-//		}
-//
-//		// Change to getCreaturesForPhase using current player.
-//		if (battle.getOffenderCreaturesForPhase().isEmpty()) {
-//			// TODO: trigger battle_turn_end
-//			switchPlayers();
-//			creatureIt = battle.getDefenderCreaturesForPhase().iterator();
-//		}
-
-//		battle.setDefHits(0);
-//		battle.setOffHits(0);
-
-		// Activate dice, hide retreat stuff
-//		dice.getView().setDisable(false);
-//		defenderDice.getView().setDisable(false);
-//		view.getOffContinueBtn().setDisable(true);
-//		view.getOffRetreatBtn().setDisable(true);
-		// view.getDefContinueBtn().setDisable(true);
-		// view.getDefRetreatBtn().setDisable(true);
-//		view.getDefGrid().setDisable(true);
-//		view.getOffGrid().setDisable(true);
 
 		if (creatureIt.hasNext()) { 
 			currentCreature = creatureIt.next();

@@ -156,12 +156,6 @@ public class SidePaneView extends VBox {
 	}
 	
 	public void showBuildMenu(final Hex h, final Player player, final Board board)	{
-		
-		
-//		throw new IllegalAccessError("Cannot use GameService here. Pass data from Presenter.");
-// ====================  NEWEST =============================================================================
-//		final Player player = GameService.getInstance().getGame().getCurrentPlayer();
-//		
 		Label title = new Label("Build Options:");
 		title.getStyleClass().add("title");
 		

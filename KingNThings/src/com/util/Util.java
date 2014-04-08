@@ -35,6 +35,7 @@ import com.model.Player;
 import com.model.SpecialCharacter;
 import com.model.SwampCreature;
 import com.model.Thing;
+import com.model.Treasure;
 
 import javafx.scene.paint.Color;
 
@@ -97,14 +98,14 @@ public class Util {
 				return new MountainCreature();
 			else if (t.equals(PlainsCreature.class))
 				return new PlainsCreature();
+			else if (t.equals(SwampCreature.class))
+				return new SwampCreature();
 			else if (t.equals(SpecialCharacter.class))
 				return new SpecialCharacter();
 			else if (t.equals(IncomeCounter.class))
 				return new IncomeCounter();
-			else if (t.equals(SwampCreature.class))
-				return new SwampCreature();
-			else if (t.equals(IncomeCounter.class))
-				return new IncomeCounter();
+			else if (t.equals(Treasure.class))
+				return new Treasure("");
 			else
 				System.err.println("Add me in CreatureAdapter: " + t.getClass().getCanonicalName());
 			
