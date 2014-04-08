@@ -31,8 +31,6 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 	public void phaseStart(Game game) {
 		Util.log("Game Phase: Start of Recruiting Things Phase");
 		
-//		getGamePresenter().getView().getCurrentActionLbl().setText("Recruit Things");
-		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

@@ -83,7 +83,7 @@ public class SidePanePresenter {
 		
 		tView.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent arg)	{
-
+				handlePlaceRecruit();
 			}
 		});
 		
