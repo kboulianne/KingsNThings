@@ -114,6 +114,8 @@ public class PlayerConnection {
 						// Blocks until there is something to write.
 						String message = messages.take();
 						writer.println(message);
+						
+						if (message == null) return;
 					}
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block

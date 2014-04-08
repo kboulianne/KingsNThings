@@ -103,6 +103,8 @@ public class Util {
 				return new IncomeCounter();
 			else if (t.equals(SwampCreature.class))
 				return new SwampCreature();
+			else if (t.equals(IncomeCounter.class))
+				return new IncomeCounter();
 			else
 				System.err.println("Add me in CreatureAdapter: " + t.getClass().getCanonicalName());
 			

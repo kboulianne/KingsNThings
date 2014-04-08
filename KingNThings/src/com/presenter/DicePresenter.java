@@ -1,5 +1,8 @@
 package com.presenter;
 
+
+import javafx.scene.input.MouseEvent;
+
 import com.main.KNTAppFactory;
 import com.model.Die;
 import com.model.Game;
@@ -17,6 +20,8 @@ public class DicePresenter {
 	
 	private Die die1;
 	private Die die2;
+	
+	private boolean diceSet = false;
 	
 	public DicePresenter(DiceView view) {
 		this.view = view;
@@ -41,18 +46,26 @@ public class DicePresenter {
 	
 	int rollOne() {
 		Util.playDiceRollSound();
-		die1.roll();
+		if (!diceSet) {
+			die1.roll();
+		}
+		else {
+			diceSet = false;
+		}
 		
 		view.setDice(die1, die2);
-		
-//		KNTAppFactory.getGamePresenter().updateViews();
 		
 		return die1.getValue();
 	}
 	
 	int[] rollTwo() {
 		Util.playDiceRollSound();
-		die1.roll();
+		if (!diceSet) {
+			die1.roll();
+		}
+		else {
+			diceSet = false;
+		}
 		
 		view.setDice(die1, die2);
 		
@@ -69,7 +82,7 @@ public class DicePresenter {
 	 */
 	public int roll() {
 		Util.playDiceRollSound();
-
+		
 		// When using dice in game.
 		if (die1 == null || die2 == null) {
 			Game local = KNTAppFactory.getGamePresenter().getLocalInstance();
@@ -77,9 +90,14 @@ public class DicePresenter {
 			die1 = local.getDie1();
 			die2 = local.getDie2();
 		}
-			
-		die1.roll();
-		die2.roll();
+		
+		if (!diceSet) {
+			die1.roll();
+			die2.roll();
+		}
+		else {
+			diceSet = false;
+		}
 		
 		// Update the view
 		view.setDice(die1, die2);
@@ -91,5 +109,31 @@ public class DicePresenter {
 		die2 = null;
 		
 		return value;
+	}
+
+	public void handleMouseClick(MouseEvent me, boolean isDie1) {
+		// When using dice in game.
+		if (die1 == null || die2 == null) {
+			Game local = KNTAppFactory.getGamePresenter().getLocalInstance();
+		
+			die1 = local.getDie1();
+			die2 = local.getDie2();
+		}
+		
+		Die d = (isDie1 ? die1 : die2);
+		if (me.isPrimaryButtonDown()) {
+			int val = d.getValue() + 1;
+			if (val > 6) val = 1;
+			d.setValue(val);
+		}
+		else {
+			int val = d.getValue() - 1;
+			if (val < 1) val = 6;
+			d.setValue(val);
+		}
+		
+		diceSet = true;
+		
+		view.setDice(die1, die2);
 	}
 }

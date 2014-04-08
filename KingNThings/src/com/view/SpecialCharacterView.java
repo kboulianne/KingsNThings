@@ -89,6 +89,8 @@ public class SpecialCharacterView{
 		dV.setAlignment(Pos.CENTER);
 		// TODO: May need to modify me.
 		new DicePresenter(dV, die1, die2);
+		dV.setDice(die1, die2);
+		
 		recruitButton = dV.getEndTurnBtn();
 		recruitButton.setText("Recruit");
 		rollBox = new VBox();
