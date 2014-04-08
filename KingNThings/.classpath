@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="lib/json-smart-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/jsonrpc2-base-1.35.jar"/>
 	<classpathentry kind="lib" path="lib/jsonrpc2-server-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
