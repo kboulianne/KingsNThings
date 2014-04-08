@@ -129,8 +129,6 @@ public class KNTClient {
 //							
 //							throw error;
 						}
-						
-						System.out.println("looping");
 					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
