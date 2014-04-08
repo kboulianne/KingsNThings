@@ -72,8 +72,10 @@ public class PlayerConnection {
 					while (true) {
 						
 						try {
-							json = reader.readLine();
 							
+							json = reader.readLine();
+							if (json==null)
+								return;
 							req = JSONRPC2Request.parse(json);
 							res = DISPATCHER.process(req, new RequestContext(PlayerConnection.this));
 							messages.put(res.toJSONString());
