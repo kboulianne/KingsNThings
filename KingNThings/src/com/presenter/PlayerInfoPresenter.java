@@ -3,7 +3,6 @@ package com.presenter;
 import com.main.KNTAppFactory;
 import com.main.NetworkedMain;
 import com.model.Game;
-import com.model.Player;
 import com.model.Thing;
 import com.model.Treasure;
 import com.util.Util;

@@ -34,7 +34,7 @@ public class BattlePresenter {
 	private Iterator<Creature> creatureIt;
 	private Creature currentCreature;
 
-	private Player retreated;
+	//private Player retreated;
 
 	public BattlePresenter(BattleView v, DicePresenter dp1, DicePresenter dp2,
 			IBattleService svc) {
@@ -301,7 +301,7 @@ public class BattlePresenter {
 		}
 	}
 
-	private void postCombatPhase() {
+	//private void postCombatPhase() {
 		// TODO: Move to server?
 //		throw new UnsupportedOperationException("FIX POST-COMBAT");
 //		Util.stopBattleMusic();
@@ -347,7 +347,7 @@ public class BattlePresenter {
 		 * 
 		 * }
 		 */
-	}
+	//}
 
 	private void enableControlsForPhase() {
 		switch (battle.getBattlePhase()) {
@@ -395,7 +395,7 @@ public class BattlePresenter {
 				|| battle.getBattlePhase() == Battle.BattlePhase.APPLYRANHITS) { // sanity
 																					// check
 
-			String info = "";
+			//String info = "";
 			
 			if (battle.currentMustApplyHits()) {
 				battle.applyHit((Creature) thing);

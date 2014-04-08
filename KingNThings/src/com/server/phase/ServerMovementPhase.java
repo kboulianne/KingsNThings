@@ -1,11 +1,5 @@
 package com.server.phase;
 
-import com.model.Creature;
-import com.model.Cup;
-import com.model.Hex;
-import com.model.Player;
-import com.model.Thing;
-
 class ServerMovementPhase extends AbstractServerPhase {
 
 	ServerMovementPhase(ServerGamePlay context) {

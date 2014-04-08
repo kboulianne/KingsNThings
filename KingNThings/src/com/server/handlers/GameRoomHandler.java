@@ -1,9 +1,6 @@
 package com.server.handlers;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.model.Game;
 import com.model.GameRoom;
 import com.model.Player;
@@ -11,8 +8,6 @@ import com.server.Notifications;
 import com.server.ServerGameRoom;
 import com.server.services.IGameRoomService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
-import com.thetransactioncompany.jsonrpc2.JSONRPC2Notification;
-
 import static com.server.KNTServer.*;
 import static com.server.Errors.*;
 

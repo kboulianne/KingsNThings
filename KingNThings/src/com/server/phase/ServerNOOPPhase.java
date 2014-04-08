@@ -1,7 +1,5 @@
 package com.server.phase;
 
-import com.model.Player;
-
 
 public class ServerNOOPPhase extends AbstractServerPhase {
 

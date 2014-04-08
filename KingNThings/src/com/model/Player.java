@@ -169,9 +169,9 @@ public class Player 	{
 
 		hexGold = (int) Math.ceil(hexGold/2.0);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
-//		return totalGold;
+
 		System.out.println("Change me - calculateIncome - Player");
-		return 50;
+		return totalGold;
 	}
 	
 //	@Override
