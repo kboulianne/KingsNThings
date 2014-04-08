@@ -5,9 +5,13 @@
  */
 package com.view;
 
+import com.main.KNTAppFactory;
 import com.model.Die;
+
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 /**
@@ -33,23 +37,29 @@ public class DiceView extends HBox {
 		die1Iv = new ImageView();
 		die1Iv.setFitWidth(48);
 		die1Iv.setPreserveRatio(true);
-
+		die1Iv.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {
+				KNTAppFactory.getDicePresenter().handleMouseClick(me, true);
+			}
+		});
+		
+		
 		// Second die
 		die2Iv = new ImageView();
 		die2Iv.setFitWidth(48);
 		die2Iv.setPreserveRatio(true);
-
+		die2Iv.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent me) {
+				KNTAppFactory.getDicePresenter().handleMouseClick(me, false);
+			}
+		});
+		
 		// Roll button
 		rollBtn = new Button("Roll");
 			
 		endTurnBtn = new Button("End Turn");
-		// Permanent handler
-//		endTurnBtn.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent t) {
-//
-//			}
-//		});
 		
 		// Add all controls
 		getChildren().addAll(die1Iv, die2Iv, rollBtn, endTurnBtn);
