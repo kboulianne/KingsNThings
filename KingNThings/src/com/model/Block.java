@@ -2,6 +2,9 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import com.main.KNTAppFactory;
 
 public class Block  {
 
@@ -29,16 +32,16 @@ public class Block  {
 		return listOfThings;
 	}
 	
-	void trimBlock()	{
-		//int index = 0;
-		//Random r = new Random();
-		//FIXME: Can't be here.
-//		Cup cup = GameService.getInstance().getGame().getCup();
-//		
-//		while(listOfThings.size() > 10)	{
-//			index = r.nextInt(listOfThings.size());
-//			cup.addThing(listOfThings.get(index));
-//			listOfThings.remove(index);
-//		}
+	public void trimBlock()	{
+		int index = 0;
+		Random r = new Random();
+		
+		Cup cup = KNTAppFactory.getGamePresenter().getLocalInstance().getCup();
+		
+		while(listOfThings.size() > 10)	{
+			index = r.nextInt(listOfThings.size());
+			cup.addThing(listOfThings.get(index));
+			listOfThings.remove(index);
+		}
 	}
 }
