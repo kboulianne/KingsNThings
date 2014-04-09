@@ -29,8 +29,6 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Starting Forces Phase");
-
-//		getGamePresenter().getView().getCurrentActionLbl().setText("Place Forces");		
 		
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -48,9 +46,6 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 	public void phaseEnd(Game game) {
 		Util.log("Init Phase: End of Starting Forces Phase");
 		getBoardPresenter().getView().addDefaultHandler();
-		//Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
-		//finishBtn.setDisable(true);
-		//finishBtn.setOnAction(null);
 	}
 
 	@Override
@@ -58,21 +53,7 @@ public class StartingForcesPhase extends AbstractPhaseStrategy {
 		super.turnStart(game);
 		
 		getSidePanePresenter().getView().showArbitraryView("Choose things from rack and\n"
-																	   + "   place them on the board", Game.CROWN_IMAGE);
-//---------------------------
-// NOW ON SERVER
-//---------------------------
-//		Player player = game.getCurrentPlayer();
-//		player.addGold(10);
-//		Cup cup = game.getCup();
-//		
-//		for(int i = 0; i < 10; i++)	{
-//			Thing t = cup.getRandomThing();
-//			cup.removeThing(t);
-//			player.addThing(t);
-//		}
-		
-//		getPlayerInfoPresenter().getView().setPlayer(player);	
+																	   + "   place them on the board", Game.CROWN_IMAGE);	
 	}
 
 	@Override

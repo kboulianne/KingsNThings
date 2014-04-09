@@ -386,7 +386,6 @@ public abstract class Creature extends Thing	{
 	@Override
 	public int hashCode() {
 		int hash = 50654;
-//		hash = 59 * hash + Objects.hashCode(this.domain);
 		hash = 59 * hash + (this.fly ? 1 : 0);
 		hash = 59 * hash + (this.ranged ? 1 : 0);
 		hash = 59 * hash + (this.charge ? 1 : 0);

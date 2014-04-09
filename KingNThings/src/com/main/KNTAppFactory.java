@@ -46,7 +46,6 @@ public class KNTAppFactory {
 	private static BoardPresenter boardPresenter;
 	private static HexDetailsPresenter hexDetailsPresenter;
 	private static ThingDetailsPresenter thingDetailsPresenter;
-	//private static ArmyDetailsPresenter armyDetailsPresenter;
 	private static PlayerInfoPresenter playerInfoPresenter;
 	private static PopupPresenter popupPresenter;
 	private static BattlePresenter battlePresenter;
@@ -75,7 +74,6 @@ public class KNTAppFactory {
 		boardPresenter = createBoardPresenter();
 		hexDetailsPresenter = createHexDetailsPresenter();
 		thingDetailsPresenter = createThingDetailsPresenter();
-		//armyDetailsPresenter = createArmyDetailsPresenter();
 		playerInfoPresenter = createPlayerInfoPresenter();
 		popupPresenter = createPopupPresenter();
 		battlePresenter = createBattlePresenter();
@@ -142,18 +140,9 @@ public class KNTAppFactory {
 
 	private static ThingDetailsPresenter createThingDetailsPresenter() {
 		ThingDetailsView tView = new ThingDetailsView();
-		//CreatureDetailsView cView = new CreatureDetailsView();
-		ThingDetailsPresenter presenter = new ThingDetailsPresenter(tView);//, cView);
-
+		ThingDetailsPresenter presenter = new ThingDetailsPresenter(tView);
 		return presenter;
 	}
-	
-	/*private static ArmyDetailsPresenter createArmyDetailsPresenter() {
-		ArmyDetailsView view = new ArmyDetailsView();
-		ArmyDetailsPresenter presenter = new ArmyDetailsPresenter(view);
-
-		return presenter;
-	}*/
 
 	private static PlayerInfoPresenter createPlayerInfoPresenter() {
 		PlayerInfoView view = new PlayerInfoView();
@@ -167,8 +156,7 @@ public class KNTAppFactory {
 		DiceView dv1 = new DiceView();
 		DiceView dv2 = new DiceView();
 		DicePresenter dp1 = new DicePresenter(dv1, new Die(), new Die());
-		DicePresenter dp2 = new DicePresenter(dv2, new Die(), new Die());
-		
+		DicePresenter dp2 = new DicePresenter(dv2, new Die(), new Die());	
 		
 		BattleView view = new BattleView(dv1, dv2);
 		BattlePresenter presenter = new BattlePresenter(view, dp1, dp2, CLIENT.getBattleService());
@@ -232,10 +220,6 @@ public class KNTAppFactory {
 	public static PopupPresenter getPopupPresenter() {
 		return popupPresenter;
 	}
-
-	/*public static ArmyDetailsPresenter getArmyDetailsPresenter() {
-		return armyDetailsPresenter;
-	}*/
 
 	public static BattlePresenter getBattlePresenter() {
 		return battlePresenter;

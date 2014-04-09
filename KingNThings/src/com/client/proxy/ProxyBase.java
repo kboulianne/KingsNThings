@@ -19,8 +19,7 @@ import com.util.Util;
 abstract class ProxyBase {
 	// TODO: Represent this as a shared class. Only one instance of this needs to exist
 	// for the client and server. They both serialize/deserialize in the same manner.
-//	protected final BufferedReader reader;
-//	protected final PrintWriter writer;
+
 
 	private final LinkedBlockingQueue<JSONRPC2Response> in;
 	private final LinkedBlockingQueue<JSONRPC2Request> out;
@@ -94,7 +93,6 @@ abstract class ProxyBase {
 			res = in.take();
 		} 
 		catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

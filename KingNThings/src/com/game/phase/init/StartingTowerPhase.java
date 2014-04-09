@@ -21,8 +21,7 @@ public class StartingTowerPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void phaseStart(Game game) {
-		Util.log("Init Phase: Start of Starting Tower Phase");
-//		getGamePresenter().getView().getCurrentActionLbl().setText("Place Tower");	
+		Util.log("Init Phase: Start of Starting Tower Phase");	
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		finishBtn.setDisable(false);
 		finishBtn.setOnAction(new EventHandler<ActionEvent>() {

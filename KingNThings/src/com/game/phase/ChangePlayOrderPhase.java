@@ -22,22 +22,11 @@ class ChangePlayOrderPhase extends AbstractPhaseStrategy{
 	public void phaseStart(Game game) {
 		// Nothing to be done here
 		Util.log("Change Player Order.");
-		
-		// TESTING
-		// TODO Make method in presenter instead? Would be cleaner.
-		// .getDicePresenter().setEndTurnHandler(...)
-//		KNTAppFactory.getDicePresenter().getView().getEndTurnBtn().setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent t) {
-//				context.endTurn();
-//			}
-//		});;
 	}
 
 	@Override
 	public void phaseEnd(Game game) {
-		// Rotate the player order and display
-		
+		// Rotate the player order and display		
 		Util.log("Changed Player Order.");
 	}
 

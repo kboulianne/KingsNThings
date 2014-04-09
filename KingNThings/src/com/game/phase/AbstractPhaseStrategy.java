@@ -37,7 +37,6 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 	public void turnEnd(Game game) {
 		Board b = game.getBoard();
 		b.reset();	
-//		getBoardPresenter().getView().setBoard(b);
 		getSidePanePresenter().getView().clearDetailsView();
 		getPopupPresenter().dismissPopup();
 

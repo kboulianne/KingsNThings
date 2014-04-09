@@ -9,10 +9,6 @@ import com.thetransactioncompany.jsonrpc2.JSONRPC2Request;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Response;
 
 public class PlayerServiceProxy extends ProxyBase implements IPlayerService {
-	
-//	public PlayerServiceProxy(BufferedReader reader, PrintWriter writer) {
-//		super(reader, writer);
-//	}
 
 	public PlayerServiceProxy(LinkedBlockingQueue<JSONRPC2Response> inputMessages,
 			LinkedBlockingQueue<JSONRPC2Request> outMessages) {

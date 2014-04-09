@@ -251,8 +251,7 @@ public class Thing extends GamePiece	{
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Thing) {
-			Thing t = (Thing)obj;
-			
+			Thing t = (Thing)obj;	// we dont need this	
 			return super.equals(obj);
 		}
 		

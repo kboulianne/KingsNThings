@@ -30,8 +30,6 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	@Override
 	public void phaseStart(Game game) {
 		Util.log("Init Phase: Start of Starting Kingdoms Phase");
-		
-//		getGamePresenter().getView().getCurrentActionLbl().setText("Choose Starting Kingdom");
 
 		Button finishBtn = getDicePresenter().getView().getEndTurnBtn();
 		getBoardPresenter().getView().addStartKingdomsHandler();
@@ -45,10 +43,6 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 				getGamePresenter().endTurn();
 			}
 		});
-		
-		// This phase cycles, so set context to execute turns 2 times (normal cycle + secondary cycle)
-		// Cycles are now on server.
-//		context.setCycleCount(1);
 	}
 
 	@Override
@@ -84,9 +78,6 @@ public class StartingKingdomPhase extends AbstractPhaseStrategy {
 	
 	@Override
 	public void phaseEnd(Game game) {
-		// Make sure to remove cycles, as a precaution
-//		context.setCycleCount(0);
-		
 		getBoardPresenter().getView().addDefaultHandler();
 	}
 

@@ -12,11 +12,9 @@ public class Block  {
 	
 	public Block()	{
 		listOfThings = new ArrayList<>();
-		//capacity = 20; // block represents two racks???
 	}
 	
 	public boolean addThing(Thing thing, String owner){	
-		// cannot add special characters, gold counters and forts
 		thing.setFacedDown(false);
 		thing.setOwner(owner);
 		listOfThings.add(thing);

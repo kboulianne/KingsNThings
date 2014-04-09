@@ -39,11 +39,8 @@ public final class GamePlay {
 	 * Creates a new, default instance of the game logic.
 	 */
 	public GamePlay() {
-//		this.gameSvc = gameSvc;
 		initPhases = new LinkedHashSet<>();
 		gamePhases = new LinkedHashSet<>();
-//		rolls = new TreeMap<>(new Util.ReverseIntegerSortComparator());
-
 		createInitPhases();
 		createGamePhases();
 	}
@@ -61,7 +58,6 @@ public final class GamePlay {
 
 		// Set current phase logic/strategy
 		phaseIt = initPhases.iterator();
-//		phaseLogic = phaseIt.next();
 	}
 
 	/**
@@ -97,83 +93,9 @@ public final class GamePlay {
 		}
 		phaseLogic = phaseIt.next();
 
-		// Phase start
-//		phaseLogic.phaseStart(null);
 	}
-
-	/**
-	 * Signals the start of game.
-	 */
-//	@Deprecated
-//	public void start() {
-//		//TODO: Check if already started.
-//		// Initial phase start
-//		phaseLogic = phaseIt.next();
-//		phaseLogic.phaseStart(null);
-//
-//		// First player's turn.
-//		startTurn();
-//	}
-
-//	/**
-//	 * Exectues turnStart logic for the current player.
-//	 */
-//	@Deprecated
-//	public final void startTurn() {
-//		// Execute logic then go to startTurn player / phase
-//		phaseLogic.turnStart(null);
-//
-//	}
-
-	/**
-	 * Called when a player has pressed Finished Turn. Executes turnEnd() logic,
-	 * switches to the next phase if it is the last player in turn order,
-	 * switches to the next player and starts their turn.
-	 */
-//	@Deprecated
-//	public void endTurn() {
-//		// End the player's turn and go to startTurn player.
-//		phaseLogic.turnEnd(null);
-//		// State modification. Call method in game
-////		Game game = GameService.getInstance().getGame();
-//
-//		// When turn ends, local copy of game is up to date.
-//		Game game = AbstractPhaseStrategy.game; 
-//		
-//		// Signal end of phase if last player or when no more cycles are left
-//		// TODO: Create rpc call for this check. Would be more efficient.
-//		if (game.isLastPlayer()) {
-//			if (cycles == 0) {
-//				phaseLogic.phaseEnd();
-//				nextPhase();
-//			} else {
-//				// Decrement cycle count
-//				cycles--;
-//			}
-//		}
-//
-//		// Switch to the next player and start the turn.
-//		game.nextPlayer();
-//		
-//		// For now, until notifications are implemented.
-//		// Fire changes towards server
-//		try {
-//			gameSvc.updateGame(NetworkedMain.getRoomName(), game);
-////			gameSvc.endTurn(NetworkedMain.getRoomName(), NetworkedMain.getPlayer());
-//
-//			// Tell game presenter that the turn has ended.
-////			getGamePresenter().onTurnEnded();
-//		} catch (JSONRPC2Error e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 
 	public AbstractPhaseStrategy getPhaseLogic() {
 		return phaseLogic;
 	}
-	
-//	public IGameService getService() {
-//		return gameSvc;
-//	}
 }

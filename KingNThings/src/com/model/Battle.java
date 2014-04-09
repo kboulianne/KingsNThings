@@ -32,7 +32,7 @@ public class Battle {
 	public enum BattlePhase { MAGIC("Magic"), APPLYMAJHITS("Apply Magic Hits"), 
 		RANGED("Ranged"), APPLYRANHITS("Apply Ranged Hits"), 
 		MELEE("Melee"), APPLYMELHITS("Apply Melee Hits"),
-		RETREAT("Retreat")/*, POSTCOMBAT("Post Combat") */;
+		RETREAT("Retreat");
 		public final String phaseAsString;
 		BattlePhase(String n) { phaseAsString = n; }
 	}
@@ -111,10 +111,6 @@ public class Battle {
 			phase = BattlePhase.MELEE;
 		}
 		offendingForces.get(phase).remove(c);
-		
-		/*if(offendingForces.get(phase).isEmpty()){
-			offendingForces.remove(phase);
-		}*/
 	}
 	
 	private void killDefenderCreature(Creature c) {
@@ -135,15 +131,10 @@ public class Battle {
 			phase = BattlePhase.MELEE;
 		}
 		defendingForces.get(phase).remove(c);
-		
-		/*if(defendingForces.get(phase).isEmpty()){
-			defendingForces.remove(phase);
-		}*/
 	}
 	
 	public boolean isBattleResolved() {
 		// Resovled when one or both sides can no longer roll.
-		//boolean att, def;
 		
 		// Forced to retreat
 		if (offendingForces.get(BattlePhase.MAGIC).isEmpty()
@@ -233,14 +224,6 @@ public class Battle {
 		return associatedHex.getArmies(offender);
 	}
 	
-	/*public List<Creature> getOffenderCreaturesFor(BattlePhase phase) {
-		return offendingForces.get(phase);
-	}
-
-	public List<Creature> getDefendingCreaturesFor(BattlePhase phase) {
-		return defendingForces.get(phase);
-	}*/
-	
 	public List<Creature> getDefenderCreatures() {
 		
 		if(isKedabFight()){
@@ -250,28 +233,12 @@ public class Battle {
 		}
 	}
 	
-	/**
-	 * Gets the attacker's creatures for the specified phase.
-	 * @return The list of creatures.
-	 */
-//	public List<Creature> getOffenderCreaturesForPhase() {
-//		return offendingForces.get(battlePhase);
-//	}	
-	
 	public List<Creature> getCreaturesForPhase() {
 		if (currentPlayer.equals(offender))
 			return offendingForces.get(battlePhase);
 		else
 			return defendingForces.get(battlePhase);
 	}
-	/**
-	 * Gets the defender's creatures for the specified phase.
-	 * @return 
-	 */
-//	public List<Creature> getDefenderCreaturesForPhase() {
-//		return defendingForces.get(battlePhase);
-//	}
-	
 	
 	public String toString(){
 		return "Battle object: phase: "+ battlePhase.phaseAsString+" hex:"+ associatedHex.getId()+
