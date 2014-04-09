@@ -288,7 +288,13 @@ public class BoardPresenter {
 			// if Hex is unexplored
 			if(hex.getHexOwner() == null && hex.getKedabCreatures().isEmpty()){
 				int randNum = Util.randomNumber(1, 6);
+<<<<<<< HEAD
 				Util.log("Roll value: " + randNum);
+=======
+				
+				Util.log("Rolled a "+ randNum);
+				
+>>>>>>> 1ce824f1d491f2d2dfe8013108142ab17ec9da06
 				if(randNum == 6 || randNum ==1){
 					hex.setOwner(game.getCurrentPlayer());
 					System.out.println("Player claimed tile after exploring.");
