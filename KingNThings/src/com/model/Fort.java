@@ -20,10 +20,7 @@ public class Fort extends Thing	{
 		private FortType(String s) {
 			typeAsString = s;
 		}
-		
-//		public final String getType() {
-//			return type;
-//		}
+
 	}
 	/*
 	Levels:
@@ -57,7 +54,6 @@ public class Fort extends Thing	{
 	}
 	
 	public void upgrade() {
-//		if (level <= 3) level ++;
 		switch (fortType) {
 			case TOWER: 
 				fortType = FortType.KEEP;

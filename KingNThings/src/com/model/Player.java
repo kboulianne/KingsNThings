@@ -3,15 +3,14 @@ package com.model;
 import javafx.scene.paint.Color;
 
 public class Player 	{
-	private PlayerId id; 		// {1, 2, 3, 4}
-	private Color color;	// {blue, green, red, yellow}
+	private PlayerId id; // {1, 2, 3, 4}
+	private Color color; // {blue, green, red, yellow}
 	private Block block;
 	private int gold = 0;
 	private String name;
 	private boolean citadelOwner = false;
 	private int timeCitOwned = -1;
-//	private int startPosIdx = -1;
-	//TODO: Non-transient would cause circular reference which causes JSON to loop to infinity
+
 	private transient Hex startPos;
 	
 	public enum PlayerId { ONE(Color.YELLOW),TWO(Color.valueOf("555555")),THREE(Color.GREEN),FOUR(Color.RED); 
@@ -30,16 +29,6 @@ public class Player 	{
 		this.block = new Block();
 		setStartPos(null);
 	}
-	
-	/*
-	public Player(PlayerId i, String name) {
-	    this.name = name;
-	    color = i.color;
-	    id = i;
-	    block = new Block();
-	    gold = 0;
-	    setStartPos(null);
-	}*/
 	
 	/**
 	 * Convenience getter for the player's name.
@@ -95,33 +84,9 @@ public class Player 	{
 	}
 
 
-
-
 	// remove special characters from block or Hexes
 	public SpecialCharacter removeSpecialCharacter(SpecialCharacter sC) {
 		throw new UnsupportedOperationException("FIXME!");
-//		ArrayList<Thing> blockChars = block.getListOfThings();
-//		for(Thing t: blockChars){
-//			if (sC.equals(t)){
-//				block.removeThing(t);
-//				return (SpecialCharacter) t;
-//			}		
-//		}
-//		
-//		ArrayList<Hex> hexes = (ArrayList<Hex>) GameService.getInstance().getGame().getBoard().getHexes();
-//		for(Hex h:hexes){
-//			ArrayList<Creature> creatures = h.getArmies(this);
-//			if(creatures!=null){ //TODO fix
-//				for(Creature c: creatures){
-//					if(sC.equals(c)){
-//						block.removeThing(c);
-//						return (SpecialCharacter) c;
-//					}
-//				}
-//			}
-//		}
-		// Game service can't be used here
-//		return null;
 	}
 
 	public Hex getStartPos() {
@@ -131,14 +96,6 @@ public class Player 	{
 	public void setStartPos(Hex startPos) {
 		this.startPos = startPos;
 	}
-	
-//	public int getStartPosition() {
-//		return startPosIdx;
-//	}
-//	
-//	public void setStartPosition(int pos) {
-//		this.startPosIdx = pos;
-//	}
 
 	public void setPlayerID(PlayerId id) {
 		this.id = id;
@@ -152,7 +109,6 @@ public class Player 	{
 		int counterGold = 0;
 		int specCharGold = 0;
 		int totalGold = 0;
-//		Game game = GameService.getInstance().getGame();
 
 		for (Hex h : board.getHexes()) {
 			if ((h != null) && (h.getHexOwner() == this)) {
@@ -172,19 +128,6 @@ public class Player 	{
 
 		return totalGold;
 	}
-	
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-////		result = prime * result + ((block == null) ? 0 : block.hashCode());
-////		result = prime * result + ((color == null) ? 0 : color.hashCode());
-////		result = prime * result + gold;
-//		result = prime * result + ((name == null) ? 0 : name.hashCode());
-////		result = prime * result
-////				+ ((startPos == null) ? 0 : startPos.hashCode());
-//		return result;
-//	}
 
 	@Override
 	public boolean equals(Object obj) {

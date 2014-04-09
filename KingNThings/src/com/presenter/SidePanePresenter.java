@@ -76,13 +76,6 @@ public class SidePanePresenter {
 		this.paidRecValue = paidRecruits;
 		tView.setFreeRecruit(freeRecruits);
 		tView.setPaidRecruit(paidRecruits);
-
-		
-//		tView.getPlaceRecruitsButton().setOnAction(new EventHandler<ActionEvent>()	{
-//			public void handle(ActionEvent arg)	{
-//				handlePlaceRecruit();
-//			}
-//		});
 		
 		view.setThingRecruitment(tView);
 	}

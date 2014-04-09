@@ -18,8 +18,6 @@ public class ThingDetailsPresenter {
 
 	/** The General Thing View that this Presenter manages. */
 	private ThingDetailsView view;
-	/** The Creature Thing View that displays information specific to creatures. */
-	//private CreatureDetailsView cView;
 	
 	public ThingDetailsPresenter(ThingDetailsView view){
 		this.view = view;

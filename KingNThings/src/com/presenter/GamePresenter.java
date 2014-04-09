@@ -78,7 +78,6 @@ public class GamePresenter {
 			updateViews(game);
 
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -136,11 +135,9 @@ public class GamePresenter {
 			getGamePlay().getPhaseLogic().turnEnd(game);
 			// Update the game on server
 			gameSvc.updateGame(NetworkedMain.getRoomName(), game);
-//			gameSvc.updateCup(NetworkedMain.getRoomName(), game.getCup());
 			// Tell server that this player's turn is done.
 			gameSvc.endTurn(NetworkedMain.getRoomName(), NetworkedMain.getPlayer());
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -157,7 +154,6 @@ public class GamePresenter {
 			game = gameSvc.getGame(NetworkedMain.getRoomName());
 			updateViews(game);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -177,7 +173,6 @@ public class GamePresenter {
 			game = gameSvc.getGame(NetworkedMain.getRoomName());
 			updateViews(game);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -201,12 +196,10 @@ public class GamePresenter {
 			// Only call this if it is the player's turn
 			if (NetworkedMain.isPlayerTurn(game.getCurrentPlayer()))
 				getGamePlay().getPhaseLogic().turnStart(game);
-			updateViews(game);
-			
+			updateViews(game);			
 //			//TODO: Re-integrate phase navigation in GamePlay.
-//			getGamePlay().getPhaseLogic().phaseStart(game);
+
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -215,7 +208,6 @@ public class GamePresenter {
 		try {
 			gameSvc.skipPhase(NetworkedMain.getRoomName());
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
@@ -225,7 +217,6 @@ public class GamePresenter {
 		try {
 			game = gameSvc.getGame(NetworkedMain.getRoomName());
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		updateViews(game);
@@ -247,16 +238,12 @@ public class GamePresenter {
 			// Send the view to the server.
 			gameSvc.loadBoard(NetworkedMain.getRoomName(), b);
 		} catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonIOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -60,7 +60,7 @@ public class KNTAppFactory {
 	private KNTAppFactory() {
 	}
 	
-	public static void init(String host, Integer port) {
+	static void init(String host, Integer port) {
 		if (CLIENT == null)
 			CLIENT = new KNTClient(host, port);
 		

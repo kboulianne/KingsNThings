@@ -31,16 +31,6 @@ public class PlayerInfoPresenter {
 		return view;
 	}
 
-// TODO Remove unused code found by UCDetector
-// 	/**
-// 	 * A Thing was clicked in the player's rack.
-// 	 * @param t The Thing instance that was clicked.
-// 	 */
-// 	public void handleRackClick(Thing t) {
-// 		// Show thing in detailsview
-// 		KNTAppFactory.getSidePanePresenter().showThingDetailsFor(t);
-// 	}
-
 	/**
 	 *	The view cup button was clicked. Displays the contents of the cup.
 	 */

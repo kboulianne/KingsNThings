@@ -104,7 +104,6 @@ public class DicePresenter {
 		
 		int value = die1.getValue() + die2.getValue(); 
 		
-		// Dirty fix but ok for now
 		die1 = null;
 		die2 = null;
 		

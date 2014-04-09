@@ -2,8 +2,6 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import javafx.scene.paint.Color;
 
 // No longer abstract for GSON serialization.
@@ -250,8 +248,7 @@ public class Thing extends GamePiece	{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Thing) {
-			Thing t = (Thing)obj;	// we dont need this	
+		if (obj instanceof Thing) {	
 			return super.equals(obj);
 		}
 		

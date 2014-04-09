@@ -49,11 +49,9 @@ public class LobbyPresenter {
 		
 		try {
 			GameRoom room = gameRoomSvc.createGameRoom(roomName, NetworkedMain.getPlayer());
-			
 			// Delegate to GameRoomPresenter
 			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		updateGameRoomsList();
@@ -70,7 +68,6 @@ public class LobbyPresenter {
 			// Delegate to GameRoomPresenter
 			KNTAppFactory.getGameRoomPresenter().showGameRoom(room);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -83,7 +80,6 @@ public class LobbyPresenter {
 			// Select first entry, easier for debugging
 			view.getGameRoomsList().getSelectionModel().selectFirst();
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

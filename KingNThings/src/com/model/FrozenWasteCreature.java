@@ -17,5 +17,4 @@ public class FrozenWasteCreature extends Creature {
 		return super.equals(obj);
 	}
 	
-	
 }

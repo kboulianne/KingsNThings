@@ -13,10 +13,6 @@ public class GameRoom {
 	/** Guest players. */
 	//TODO: Keep these in Game?
 	protected List<Player> players;
-	/** Transient so that GSON does not serialize it. In here for simplicity,
-	 * GameService is responsible for accessing this. 
-	 */
-//	private transient Game game;
 	
 	private boolean started;
 	

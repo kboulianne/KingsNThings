@@ -21,9 +21,7 @@ public class Hex extends GamePiece {
 	private transient boolean highlighted;
 	private transient boolean conflict;
 	private boolean faceDown;
-	//boolean facedUp; // is right side up?
 	private HexType hexType;
-	//private HexType type;
 	private String typeAsString; 
 	private int movementWeight; // value of -1 if not able to move to
 	private int[] joiningHexes; // Integer array of hex id's, size 6
@@ -50,11 +48,7 @@ public class Hex extends GamePiece {
 	private static final int joiningHexes19Mapping[][] = {};
 	
 	private ArrayList<Creature> kedabCreatures; // when hex unexplored
-	// list of armies for all players
-	// list of misc Things
 	private Map<Player, List<Creature>> armies;
-	//private HashMap<Player, ArrayList<Creature>> armies;
-	// Only one fort per tile.
 	private Fort fort;
 	private IncomeCounter counter;
 	
@@ -88,7 +82,6 @@ public class Hex extends GamePiece {
 	    startPosition =  false;
 	    selected = false;
 	    selectable = true; // may have to change for startup
-	    //setJoiningHexes();
 	    armies = new HashMap<>();
 	    hexOwner=null;
 	    kedabCreatures = new ArrayList<Creature>();
@@ -100,7 +93,7 @@ public class Hex extends GamePiece {
 	
     // setters and getters
     public final Player getHexOwner() {
-    		return hexOwner;
+    	return hexOwner;
     }
     
     public final void setOwner(final Player player) {
@@ -200,8 +193,6 @@ public class Hex extends GamePiece {
     	if(armies.get(p).size() < 10)	{
     		armies.get(p).add(creature);
     	}
-    	
-    	//Util.log("added army"+ armies.toString());
     }
     
     public void removeCreatureFromArmy(Creature creature, Player p){    		

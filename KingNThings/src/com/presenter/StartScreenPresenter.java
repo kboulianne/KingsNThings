@@ -30,7 +30,6 @@ public class StartScreenPresenter {
 			
 			KNTAppFactory.getLobbyPresenter().show();
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}

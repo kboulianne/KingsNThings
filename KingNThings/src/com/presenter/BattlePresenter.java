@@ -34,8 +34,6 @@ public class BattlePresenter {
 	private Iterator<Creature> creatureIt;
 	private Creature currentCreature;
 
-	//private Player retreated;
-
 	public BattlePresenter(BattleView v, DicePresenter dp1, DicePresenter dp2,
 			IBattleService svc) {
 		view = v;
@@ -71,7 +69,6 @@ public class BattlePresenter {
 		try {
 			battleSvc.battleTurnEnded(NetworkedMain.getRoomName(), battle);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -100,7 +97,6 @@ public class BattlePresenter {
 			battle = battleSvc.startBattle(NetworkedMain.getRoomName(),
 					current, def, hex);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -109,20 +105,12 @@ public class BattlePresenter {
 	}
 
 	private void startBattle() {
-//		KNTAppFactory.getPopupPresenter().showBattlePopup();
 		NetworkedMain.setView(view);
-//		view.updateBattle(battle);
 		disableControls();
 		// Enable ui if current player
 		if (battle.getCurrentPlayer().equals(NetworkedMain.getPlayer())) {
-//			view.showRollControls();
-//			view.setDisable(false);
 			enableControlsForPhase();
-		} else {
-//			view.hideControls();
-//			view.setDisable(true);
-			
-		}
+		} 
 
 		// set handlers
 		view.getOffRetreatBtn().setOnAction(new EventHandler<ActionEvent>() {
@@ -131,7 +119,6 @@ public class BattlePresenter {
 				try {
 					battleSvc.retreat(NetworkedMain.getRoomName());
 				} catch (JSONRPC2Error e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -226,7 +213,6 @@ public class BattlePresenter {
 		try {
 			battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -242,7 +228,6 @@ public class BattlePresenter {
 			try {
 				battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
 			} catch (JSONRPC2Error e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -267,58 +252,9 @@ public class BattlePresenter {
 		try {
 			battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	//private void postCombatPhase() {
-		// TODO: Move to server?
-//		throw new UnsupportedOperationException("FIX POST-COMBAT");
-//		Util.stopBattleMusic();
-//		Util.log("post combat phase player: "
-//				+ battle.getCurrentPlayer().getName());
-//
-//		Hex associatedHex = battle.getAssociatedHex();
-//		Player winner = null;
-//		if (battle.isDefenderEliminated()) {
-//			winner = battle.getOffender();
-//			associatedHex.getArmies().remove(battle.getDefender());
-//		} else if (battle.isOffenderEliminated()) {
-//			winner = battle.getDefender();
-//			associatedHex.getArmies().remove(battle.getOffender());
-//		} else { // retreat
-//			associatedHex.getArmies().remove(retreated);
-//			if (retreated.equals(battle.getOffender())) {
-//				winner = battle.getDefender();
-//			} else {
-//				winner = battle.getOffender();
-//			}
-//		}
-//		
-
-//		// FOR DEMO
-//		KNTAppFactory
-//				.getBoardPresenter()
-//				.getView()
-//				.setBoard(
-//						KNTAppFactory.getGamePresenter().getLocalInstance()
-//								.getBoard());
-//		KNTAppFactory.getPopupPresenter().dismissPopup();
-//		KNTAppFactory
-//				.getSidePanePresenter()
-//				.getView()
-//				.showArbitraryView(
-//						"The winner of the last battle was " + winner.getName(),
-//						Game.CROWN_IMAGE);
-
-		// FIXME winning game condition
-		/*
-		 * if(){
-		 * 
-		 * }
-		 */
-	//}
 
 	private void enableControlsForPhase() {
 		switch (battle.getBattlePhase()) {
@@ -333,15 +269,12 @@ public class BattlePresenter {
 		case APPLYMELHITS:
 			if (isDefender()) {
 				view.getDefGrid().setDisable(false);
-			}
-			else {
+			}else {
 				view.getOffGrid().setDisable(false);
 			}
 			break;
 		case RETREAT:
 			view.getRetreatButtonBox().setVisible(true);
-//			view.getOffContinueBtn().setVisible(true);
-//			view.getOffRetreatBtn().setVisible(true);
 			break;
 		default:
 			disableControls();
@@ -349,11 +282,9 @@ public class BattlePresenter {
 	}
 	
 	private void disableControls() {
-		// No longer the player's turn, diable everything
+		// No longer the player's turn, disable everything
 		view.getRetreatButtonBox().setVisible(false);
 		dice.getView().getRollBtn().setVisible(false);
-//		view.getOffContinueBtn().setVisible(false);
-//		view.getOffRetreatBtn().setVisible(false);
 		view.getOffGrid().setDisable(true);
 		view.getDefGrid().setDisable(true);
 	}
@@ -363,84 +294,20 @@ public class BattlePresenter {
 
 		if (battle.getBattlePhase() == Battle.BattlePhase.APPLYMAJHITS
 				|| battle.getBattlePhase() == Battle.BattlePhase.APPLYMELHITS
-				|| battle.getBattlePhase() == Battle.BattlePhase.APPLYRANHITS) { // sanity
-																					// check
-
-			//String info = "";
+				|| battle.getBattlePhase() == Battle.BattlePhase.APPLYRANHITS) { // sanity check
 			
 			if (battle.currentMustApplyHits()) {
 				battle.applyHit((Creature) thing);
 			}
 			
-			
-//			if (isDefender()) {
-//				battle.killDefenderCreature((Creature) thing);
-//				info = "Offender killed creature "
-//						+ thing.getName().toUpperCase();
-//				Util.playSwordSound();
-//
-//				battle.setOffHits(battle.getOffHits() - 1);
-//				view.updateBattle(battle);
-//
-//				// Winning Conditions
-//				if (battle.isDefenderEliminated()
-//						|| battle.isOffenderEliminated()) {
-////					view.getDefGrid().setDisable(true);
-////					view.getOffGrid().setDisable(true);
-//					battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-//					postCombatPhase();
-//					return;
-//				}
-//				if (battle.getOffHits() == 0) {
-////					view.getDefGrid().setDisable(true);
-////					view.getOffGrid().setDisable(true);
-//					switchPlayers();
-////					nextBattlePhase();
-//					return;
-//				}
-//
-//			} else { // Offender
-//				battle.killOffenderCreature((Creature) thing);
-//				info = "Defender killed creature "
-//						+ thing.getName().toUpperCase();
-//				Util.playSwordSound();
-//
-//				battle.setDefHits(battle.getDefHits() - 1);
-//				view.updateBattle(battle);
-//
-//				// Winning Conditions
-//				if (battle.isDefenderEliminated()
-//						|| battle.isOffenderEliminated()) {
-////					view.getDefGrid().setDisable(true);
-////					view.getOffGrid().setDisable(true);
-//					battle.setBattlePhase(BattlePhase.POSTCOMBAT);
-//					postCombatPhase();
-//					return;
-//				}
-//				if (battle.getDefHits() == 0) {
-////					view.getDefGrid().setDisable(false);
-////					view.getOffGrid().setDisable(true);
-//					switchPlayers();
-//					if (battle.getOffHits() == 0) {
-////						view.getDefGrid().setDisable(true);
-////						view.getOffGrid().setDisable(true);
-//						switchPlayers();
-////						nextBattlePhase();
-//						return;
-//					}
-//				}
-//			}
-			
 			// Update the battle and determine if more hits should be applied.
 			try {
 				battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
 			} catch (JSONRPC2Error e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		
-			// more hits to apply?
+			// more hits to apply
 			if (battle.currentMustApplyHits())
 				applyHits();
 			else
@@ -450,7 +317,7 @@ public class BattlePresenter {
 			
 			
 		} else {
-			Util.log("cannot apply hits");
+			Util.log("Cannot apply hits");
 		}
 	}
 
@@ -506,16 +373,13 @@ public class BattlePresenter {
 			}
 		}
 
-		// Store the info, instructions etc... and send the updated battle to
-		// the server.
-		// TODO: Move up
+		// Store the info, instructions etc... and send the updated battle to the server.
 		battle.setInfo(info);
 		battle.setInstructions(player + " must roll for Creature " + currentCreature.getName().toUpperCase());
 
 		try {
 			battleSvc.updateBattle(NetworkedMain.getRoomName(), battle);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		view.updateBattle(battle);
@@ -531,15 +395,13 @@ public class BattlePresenter {
 			view.updateBattle(battle);
 			
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	// Called once
 	public void onBattleStarted() {
-		// Called by defending players when an attacker triggers a battle on a
-		// hex.
+		// Called by defending players when an attacker triggers a battle on a hex.
 
 		// Fetch the battle instance and store it locally
 		try {
@@ -547,32 +409,25 @@ public class BattlePresenter {
 
 			
 			//TODO: Restrict
-			//Re-enable GameUI if participating in the battle. Since gamepresenter locks it when it is not current turn in game.
+			//Re-enable GameUI if participating in the battle. Since game presenter locks it when it is not current turn in game.
 			KNTAppFactory.getGamePresenter().getView().setDisable(false);
-//			KNTAppFactory.getPopupPresenter().showBattlePopup();
-//			NetworkedMain.setView(view);
+
 			// Sets up handlers
 			startBattle();
 			
 			view.updateBattle(battle);
-			
-			// Show the ui and lock if not currently executing turn.
-//			startBattle();
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	// Called every time a turn ends. (SwitchPlayers)
 	public void onTurnEnded() {
-//		disableControls();
 		
 		// Update the battle instance
 		try {
 			battle = battleSvc.getOngoingBattle(NetworkedMain.getRoomName());
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -593,11 +448,9 @@ public class BattlePresenter {
 		try {
 			battle = battleSvc.getOngoingBattle(NetworkedMain.getRoomName());
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-//		KNTAppFactory.getPopupPresenter().dismissPopup();
 		// Show game view again
 		NetworkedMain.setView(KNTAppFactory.getGamePresenter().getView());
 		KNTAppFactory.getPopupPresenter().dismissPopup();

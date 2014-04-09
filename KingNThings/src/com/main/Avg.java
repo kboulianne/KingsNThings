@@ -28,7 +28,6 @@ public class Avg {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		Player p1 = new Player("Player 1"); //yellow
 		p1.setPlayerID(PlayerId.ONE);

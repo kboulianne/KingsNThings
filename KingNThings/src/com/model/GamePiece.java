@@ -28,7 +28,6 @@ public abstract class GamePiece {
 		this.imageDirectory = directory;
 		// Null the image so it gets recreated lazily when getImage is called.
 		image = null;		
-//		image = new Image(directory);
 	}
 	
 	public Image getImage() {

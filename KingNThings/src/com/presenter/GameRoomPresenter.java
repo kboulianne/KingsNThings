@@ -27,7 +27,6 @@ public class GameRoomPresenter {
 		try {
 			gameRoomSvc.startGame(room.getName());
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -42,8 +41,7 @@ public class GameRoomPresenter {
 		view.setGameRoom(NetworkedMain.getPlayer(), room);
 		this.room = room;
 		NetworkedMain.setRoomName(room.getName());
-		
-		
+			
 		refreshGameRoom();
 	}
 	
@@ -54,7 +52,6 @@ public class GameRoomPresenter {
 			
 			view.setGameRoom(NetworkedMain.getPlayer(), room);
 		} catch (JSONRPC2Error e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

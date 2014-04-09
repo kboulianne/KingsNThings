@@ -288,13 +288,7 @@ public class BoardPresenter {
 			// if Hex is unexplored
 			if(hex.getHexOwner() == null && hex.getKedabCreatures().isEmpty()){
 				int randNum = Util.randomNumber(1, 6);
-<<<<<<< HEAD
 				Util.log("Roll value: " + randNum);
-=======
-				
-				Util.log("Rolled a "+ randNum);
-				
->>>>>>> 1ce824f1d491f2d2dfe8013108142ab17ec9da06
 				if(randNum == 6 || randNum ==1){
 					hex.setOwner(game.getCurrentPlayer());
 					System.out.println("Player claimed tile after exploring.");
@@ -317,9 +311,6 @@ public class BoardPresenter {
 			view.setBoard(game.getBoard());
 		}
 		
-		
-		
-		// TOOD add setAllHighlighted(boolean)
 		for(Hex h: game.getBoard().getHexes()){
 			h.setHighlighted(false);
 		}
@@ -357,7 +348,6 @@ public class BoardPresenter {
 				t.setHexLocation(selected);
 				view.setBoard(game.getBoard());
 			}
-			//TODO: Is there a better way to do this?
 			if(KNTAppFactory.getGamePlay().getPhaseLogic() instanceof ExchangePhase)
 				KNTAppFactory.getPlayerInfoPresenter().getView().setRackExchangeThingsHandler(player);
 			else
@@ -434,10 +424,10 @@ public class BoardPresenter {
 			}
 		}
 
-		//fornow
+		// temporary
 		int weight = minValue + 1;
 		if(weight>availableMovesForSelectedThing+1){
-		return;
+			return;
 		}
 
 		///otherwise
