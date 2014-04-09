@@ -105,6 +105,7 @@ public class HexDetailsView extends StackPane {
 		return currentPlayerArmy;
 	}
 
+
 	public ArmyOrMisc getOpp1Army() {
 		return opp1Army;
 	}

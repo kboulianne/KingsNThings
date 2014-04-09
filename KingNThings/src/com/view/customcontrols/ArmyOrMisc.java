@@ -110,21 +110,22 @@ public class ArmyOrMisc extends HBox {
 	}*/
 
 	private void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
-		boolean selectAll = true;  
-		for(Creature c: army){
-			if(!c.isSelected()){
-				selectAll = false;
-				break;
+		
+		if(moving){
+			boolean allSelected = true;  
+			for(Creature c: army){
+				if(!c.isSelected())	allSelected = false;
 			}
+			
+			for(Creature c: army)	{
+				c.setSelected(!allSelected);
+			}
+		
+			KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setArmy(hex, armyOwner, army);
+			
+			//KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
+			KNTAppFactory.getBoardPresenter().handleMoveSetup();
 		}
-		
-		for(Creature c: army){
-			c.setSelected(selectAll);
-		}
-		
-		
-		//KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
-		if(moving)	KNTAppFactory.getBoardPresenter().handleMoveSetupForArmy();
 	}
 	
 	
@@ -172,7 +173,7 @@ public class ArmyOrMisc extends HBox {
 			
 			for (Thing t : army) {
 				if(!moving)	t.setSelected(true);
-				else	t.setSelected(false);
+				//else	t.setSelected(false);
 				ThingView tv = new ThingView(50, t);
 				thingHolder.getChildren().add(tv);
 				if(moving)

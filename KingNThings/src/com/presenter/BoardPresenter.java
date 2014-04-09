@@ -27,12 +27,12 @@ public class BoardPresenter {
 
 	private final BoardView view;
 	// Ui Models
-	private boolean movingArmy;
+	//private boolean movingArmy;
 	private int lastHexSelected = -1;
 
 	public BoardPresenter(BoardView view) {
 		this.view = view;
-		movingArmy = false;
+		//movingArmy = false;
 	}
 
 	public BoardView getView() {
@@ -393,28 +393,50 @@ public class BoardPresenter {
 		}
 	}
 
-	public void handleMoveSetupForThing(Thing t) {
+	public void handleMoveSetup() {
 		Util.playHexClickSound();
 		Game game = getGame();
-		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
+		Player curr = game.getCurrentPlayer();
+		Hex h = game.getBoard().getHexes().get(lastHexSelected);
+		int selected = 0;
 		
-		int availableMovesForSelectedThing = 4;
-		if(t instanceof Creature)	availableMovesForSelectedThing = ((Creature)t).getNumberOfMovesAvailable();
+		for(Creature c: h.getArmies(curr))	{
+			if(c.isSelected())	selected++;
+		}
 		
-		calculateMovementWeight(lastHexSelected, availableMovesForSelectedThing, moveableHexIdList);
+		if(selected == 0)	{
+			for(Hex hex: game.getBoard().getHexes())	{
+				hex.setHighlighted(false);
+			}
+		} else	{
+			calculateMovementWeight(lastHexSelected, 4, new ArrayList<Integer>());
+		}		
 
 		view.setBoard(game.getBoard());
 	}
 	
-	public void handleMoveSetupForArmy() {
-		Util.playHexClickSound();
-		Game game = getGame();
-		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
-		//set to 4 for now
-		calculateMovementWeight(lastHexSelected, 4, moveableHexIdList);
-		view.setBoard(game.getBoard());
-		movingArmy = true;
-	}
+//	public void handleMoveSetupForThing(Thing t) {
+//		Util.playHexClickSound();
+//		Game game = getGame();
+//		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
+//		
+//		int availableMovesForSelectedThing = 4;
+//		if(t instanceof Creature)	availableMovesForSelectedThing = ((Creature)t).getNumberOfMovesAvailable();
+//		
+//		calculateMovementWeight(lastHexSelected, availableMovesForSelectedThing, moveableHexIdList);
+//
+//		view.setBoard(game.getBoard());
+//	}
+	
+//	public void handleMoveSetupForArmy() {
+//		Util.playHexClickSound();
+//		Game game = getGame();
+//		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
+//		//set to 4 for now
+//		calculateMovementWeight(lastHexSelected, 4, moveableHexIdList);
+//		view.setBoard(game.getBoard());
+//		movingArmy = true;
+//	}
 
 	private void calculateMovementWeight(int hexId, int availableMovesForSelectedThing, ArrayList<Integer> calculated) {
 		Game game = getGame();

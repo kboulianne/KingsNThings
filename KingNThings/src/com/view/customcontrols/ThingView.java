@@ -149,7 +149,7 @@ public class ThingView extends StackPane{
 				}
 				
 				if(thing.getOwner().equals(NetworkedMain.getPlayer()))	{
-					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(thing);
+					KNTAppFactory.getBoardPresenter().handleMoveSetup();
 				}
 			}
 		});
