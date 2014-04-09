@@ -175,30 +175,35 @@ public class SidePaneView extends VBox {
 		vbox.getChildren().addAll(title, cont);
 		vbox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
 		
+		if(player.getGold() < 5)	{
+			upgrade.setDisable(true);
+			build.setDisable(true);
+		}
+		
 		if((h.getFort() != null) && h.getFort().upgraded())	{
 			upgrade.setDisable(true);
 			build.setDisable(true);
-		}
+		}		
 		
-		if((h.getFort()!= null) && (h.getFort().getFortType() == Fort.FortType.CITADEL))	{
+		if ((h.getFort() != null) && h.getFort().getFortType() == Fort.FortType.CITADEL)	{
 			upgrade.setDisable(true);
 			build.setDisable(true);
 		}
 		
-		if((h.getFort() == null) || (h.getHexOwner().getGold() < 5))	{
-			upgrade.setDisable(true);
-		}
-		
-		if((h.getFort() != null) || (h.getHexOwner().getGold() < 5))	{
+		if((h.getFort() != null))	{
 			build.setDisable(true);
 		}
 		
-		if((h.getFort() != null) && (h.getFort().getFortType() == Fort.FortType.CASTLE) && 
-				(player.calculateIncome(board) < 20))	{
+		if(h.getFort() == null)	{
 			upgrade.setDisable(true);
 		}
 		
-		if((h.getFort() != null) && (h.getFort().getFortType() == Fort.FortType.CASTLE) && 
+		if((h.getFort() != null) && h.getFort().getFortType() == Fort.FortType.CASTLE && 
+				player.calculateIncome(board) < 20)	{
+			upgrade.setDisable(true);
+		}
+		
+		if((h.getFort() != null) && h.getFort().getFortType() == Fort.FortType.CASTLE && 
 				player.isCitadelOwner())	{
 			upgrade.setDisable(true);
 		}		
@@ -208,11 +213,11 @@ public class SidePaneView extends VBox {
 				// Should be in presenter.
 				Util.playClickSound();
 				h.upgradeFort();
-				h.getHexOwner().removeGold(5);
+				player.removeGold(5);
 				h.getFort().setUpgraded(true);
 				
 				if(h.getFort().getFortType() == Fort.FortType.CITADEL)	{
-					h.getHexOwner().setCitadelOwner(true);
+					player.setCitadelOwner(true);
 					player.setCitadelOwner(true);
 				}
 				

@@ -386,9 +386,10 @@ public class BoardPresenter {
 		Hex h = game.getBoard().getHexes().get(selected);
 		Player player = game.getCurrentPlayer();
 		
-		if(!h.getHexOwner().equals(player))	return;
-		Util.playHexClickSound();
-		KNTAppFactory.getSidePanePresenter().getView().showBuildMenu(h, player, game.getBoard());
+		if((h.getHexOwner() != null) && (h.getHexOwner().equals(player)))	{
+			Util.playHexClickSound();
+			KNTAppFactory.getSidePanePresenter().getView().showBuildMenu(h, player, game.getBoard());
+		}
 	}
 
 	public void handleMoveSetupForThing(Thing t) {

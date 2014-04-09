@@ -57,7 +57,7 @@ public class Cup {
 	
 	public void addThing(Thing t)	{
 		t.setOwner("Cup");
-		t.setSelected(true);
+		t.setSelected(false);
 		t.setHexLocation(-1);
 		if (t instanceof SpecialCharacter) {
 			listOfSpecialCharacters.add((SpecialCharacter) t);
