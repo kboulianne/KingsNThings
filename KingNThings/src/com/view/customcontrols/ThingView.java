@@ -171,17 +171,7 @@ public class ThingView extends StackPane{
 			public void handle(MouseEvent me) {	
 				KNTAppFactory.getPlayerInfoPresenter().handleExchangeThings(ThingView.this, thing);
 			}
-		});
-		
-	}
-	
-	void setExchangeTreasureHandler() {
-		selectRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent me) {	
-				KNTAppFactory.getPlayerInfoPresenter().handleExchangeTreasures(ThingView.this, thing);
-			}
-		});		
+		});	
 	}
 
 	public void setChooseSpecialCharToRecruitHandler(final Player current) {

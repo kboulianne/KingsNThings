@@ -82,7 +82,7 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 		List<Hex> hexes = game.getBoard().getHexes();
 		
 		for(int i=0; i<hexes.size(); i++)	{
-			if(hexes.get(i).getHexOwner() == game.getCurrentPlayer() &&
+			if(hexes.get(i).getHexOwner() != null && hexes.get(i).getHexOwner().equals(game.getCurrentPlayer()) &&
 					hexes.get(i).getFort() != null)	{
 				hexes.get(i).getFort().setUpgraded(false);
 			}

@@ -6,7 +6,6 @@
 package com.view.customcontrols;
 
 import com.model.Thing;
-import com.model.Treasure;
 import java.util.List;
 
 import javafx.geometry.Pos;
@@ -48,18 +47,6 @@ public class Rack extends HBox {
 		}
 	}
 	
-	public void setRackTreasureExchangeHandler(List<Thing> things) {
-		getChildren().clear();
-		for (Thing t : things) {
-			t.setSelected(false);
-			if(t instanceof Treasure)	{
-				ThingView tv = new ThingView(50, t);
-				getChildren().add(tv);
-				tv.setExchangeTreasureHandler();
-			}
-		}		
-	}
-	
 	public void setRecruitingThingsHandler(List<Thing> things)	{
 		getChildren().clear();
 		for (Thing t : things) {
@@ -74,7 +61,7 @@ public class Rack extends HBox {
 		getChildren().clear();
 		for (Thing t : things) {
 			t.setSelected(false);
-			ThingView tv =new ThingView(50, t);
+			ThingView tv = new ThingView(50, t);
 			getChildren().add(tv);
 			tv.setDoNothingHandler();
 		}
