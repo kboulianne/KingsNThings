@@ -39,7 +39,7 @@ class ServerMovementPhase extends AbstractServerPhase {
 	@Override
 	public void skipPhase() {
 		// Logic for setting up a battle between two players.
-		
+		/*
 		// Claim hex 0 for player 1
 		Player p1 = context.room.getGame().getPlayerOrder().get(0);
 		Hex conflictHex = context.room.getGame().getBoard().getHexes().get(0);
@@ -83,7 +83,7 @@ class ServerMovementPhase extends AbstractServerPhase {
 				conflictHex.addCreatToArmy((Creature)t, p3);
 				i ++;
 			}
-		}
+		}*/
 	}
 
 }
