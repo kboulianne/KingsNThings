@@ -27,12 +27,10 @@ public class BoardPresenter {
 
 	private final BoardView view;
 	// Ui Models
-	//private boolean movingArmy;
 	private int lastHexSelected = -1;
 
 	public BoardPresenter(BoardView view) {
 		this.view = view;
-		//movingArmy = false;
 	}
 
 	public BoardView getView() {
@@ -253,7 +251,6 @@ public class BoardPresenter {
 			Hex curr = game.getBoard().getHexes().get(startPos.getJoiningHexes()[i]);
 			if(curr.getType() != Hex.HexType.SEA)	count++;
 			if(count >= 2)	{
-//				KNTAppFactory.getGamePresenter().endTurn();
 				return;
 			}
 		}
@@ -266,50 +263,32 @@ public class BoardPresenter {
 	public void handleMovementSelectedHexClick(int selected) {
 		Game game = getGame();
 		Hex hex = game.getBoard().getHexes().get(selected);
-//		KNTAppFactory.getSidePanePresenter().showHexDetailsFor(hex);
 		
 		if(hex.isHighlighted())	{
-//		if (lastHexSelected != -1) {
 			Util.playHexClickSound();
 			Hex lastSelected = game.getBoard().getHexes().get(lastHexSelected);
 			Player currentPlayer = game.getCurrentPlayer();
-			//if(movingArmy)	{ // move whole army
-				
-				//List<Creature> army = KNTAppFactory.getArmyDetailsPresenter().getView().getLastSelectedArmy();
+			List<Thing> things = game.getLastSelectedThingsOfCurrentPlayerHex();
+			if(things.isEmpty())
+				return;
 
-				/*if(selected != lastHexSelected)	{
-					for(Creature c: army) { // for same order
-						hex.addCreatToArmy(c, currentPlayer);
-						c.setHexLocation(selected);
+			for(Thing t: things){
+				if(selected != lastHexSelected)	{
+					if(t instanceof IncomeCounter)	{
+						continue;
+					} else	{
+						lastSelected.removeCreatureFromArmy((Creature) t, currentPlayer);
+						hex.addCreatToArmy((Creature) t, currentPlayer);							
 					}
-					for(int i = army.size()-1; i>=0; i--) {
-						lastSelected.removeCreatureFromArmy(army.get(i), currentPlayer);
-					}
+					t.setHexLocation(selected);
 				}
-				
-				movingArmy = false;*/
-			//} else { 
-				List<Thing> things = game.getLastSelectedThingsOfCurrentPlayerHex();
-				if(things.isEmpty())
-					return;
-
-				for(Thing t: things){
-					if(selected != lastHexSelected)	{
-						if(t instanceof IncomeCounter)	{
-							continue;
-						} else	{
-							lastSelected.removeCreatureFromArmy((Creature) t, currentPlayer);
-							hex.addCreatToArmy((Creature) t, currentPlayer);							
-						}
-						t.setHexLocation(selected);
-					}
-				}
-			//}
+			}
 			
 
 			// if Hex is unexplored
 			if(hex.getHexOwner() == null && hex.getKedabCreatures().isEmpty()){
 				int randNum = Util.randomNumber(1, 6);
+				Util.log("Roll value: " + randNum);
 				if(randNum == 6 || randNum ==1){
 					hex.setOwner(game.getCurrentPlayer());
 					System.out.println("Player claimed tile after exploring.");
@@ -414,29 +393,6 @@ public class BoardPresenter {
 
 		view.setBoard(game.getBoard());
 	}
-	
-//	public void handleMoveSetupForThing(Thing t) {
-//		Util.playHexClickSound();
-//		Game game = getGame();
-//		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
-//		
-//		int availableMovesForSelectedThing = 4;
-//		if(t instanceof Creature)	availableMovesForSelectedThing = ((Creature)t).getNumberOfMovesAvailable();
-//		
-//		calculateMovementWeight(lastHexSelected, availableMovesForSelectedThing, moveableHexIdList);
-//
-//		view.setBoard(game.getBoard());
-//	}
-	
-//	public void handleMoveSetupForArmy() {
-//		Util.playHexClickSound();
-//		Game game = getGame();
-//		ArrayList<Integer> moveableHexIdList = new ArrayList<>();
-//		//set to 4 for now
-//		calculateMovementWeight(lastHexSelected, 4, moveableHexIdList);
-//		view.setBoard(game.getBoard());
-//		movingArmy = true;
-//	}
 
 	private void calculateMovementWeight(int hexId, int availableMovesForSelectedThing, ArrayList<Integer> calculated) {
 		Game game = getGame();
@@ -474,23 +430,9 @@ public class BoardPresenter {
 
 		//fornow
 		int weight = minValue + 1;
-		//(hex.getType().equals(Hex.HexType.SWAMP)||
-		// hex.getType().equals(Hex.HexType.MOUNTAIN)||
-		// hex.getType().equals(Hex.HexType.FOREST||
-		// hex.getType().equals(Hex.HexType.JUNGLE)))?2:1);
-		
-		//int availableMovesForSelectedThing; //=
-		//for now
-		//availableMovesForSelectedThing = 1;
 		if(weight>availableMovesForSelectedThing+1){
-		//|| (hex.getType().equals(Hex.HexType.SEA  )&& weight ==availableMovesForSelectedThing)
-	    // || friendly army ==10 at hex(<-- exception citadel)){
-			
-			//Util.log("    id:"+hexId+"-->not selectable");
-			return;
+		return;
 		}
-
-		//Util.log("    id:" + hexId + "-->weight:" + weight);
 
 		///otherwise
 		hex.setHighlighted(true);
