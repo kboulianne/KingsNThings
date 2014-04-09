@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="src" path=""/>
 	<classpathentry kind="lib" path="lib/gson-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
 	<classpathentry kind="lib" path="lib/json-smart-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/jsonrpc2-base-1.35.jar"/>
 	<classpathentry kind="lib" path="lib/jsonrpc2-server-1.9.2.jar"/>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/jfxrt.jar"/>
-=======
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/jfxrt.jar"/>
-=======
-	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
->>>>>>> 55c0e05662d85ca93a26be70bf72581d9b757450
->>>>>>> df8f86d43f7d220361dc8dbf1aca6902313b55f9
 	<classpathentry kind="output" path="bin"/>
 </classpath>
