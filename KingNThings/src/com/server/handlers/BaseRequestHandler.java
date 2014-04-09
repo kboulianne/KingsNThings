@@ -15,15 +15,11 @@ import com.util.Util;
 
 public abstract class BaseRequestHandler implements RequestHandler {
 	
-	//TODO: Make this synchronized.
-//	protected List<JSONRPC2Notification> pendingNotifications = new LinkedList<>();
-	
 	@Override
 	public JSONRPC2Response process(JSONRPC2Request request, MessageContext requestCtx) {
 		try {
 			return respond(request);
 		} catch (JSONRPC2Error e) {
-			
 			return new JSONRPC2Response(e, request.getID());
 		}
 	}
@@ -98,7 +94,6 @@ public abstract class BaseRequestHandler implements RequestHandler {
 		else {
 			res = new JSONRPC2Response(GSON.toJson(returnValue, returnType), req.getID());
 		}
-		
 		return res;
 	}
 }

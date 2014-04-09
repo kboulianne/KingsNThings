@@ -10,31 +10,25 @@ public class ServerNOOPPhase extends AbstractServerPhase {
 	@Override
 	public void phaseStart() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void turnStart() {
-
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void turnEnd() {
-//		for (Player p : context.room.getGame().getPlayerOrder()) {
-//			System.out.println(p.getName() + " now has " + p.getGold());
-//		}
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void phaseEnd() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void skipPhase() {
 		// TODO Auto-generated method stub
-		
 	}
-
 }

@@ -33,13 +33,9 @@ public class ArmyOrMisc extends HBox {
 	private Label sizeLbl;
 	private HBox thingHolder;
 	private StackPane circleStackPane;
-	//private ImageView img;
 	private boolean moving;
 
-	//private EventHandler<ThingEvent> thingHandler;
-
-	public ArmyOrMisc(){//EventHandler<ThingEvent> click) {
-		//this.thingHandler = click;
+	public ArmyOrMisc()	{
 		buildComponent();
 	}
 
@@ -51,7 +47,7 @@ public class ArmyOrMisc extends HBox {
 		circleStackPane = new StackPane();
 		circle = new Circle();
 		circle.setRadius(22);
-		sizeLbl = new Label(/*Integer.toString(army.size())*/);
+		sizeLbl = new Label();
 		circleStackPane.getChildren().addAll(circle, sizeLbl);
 		
 		circleStackPane.setVisible(false);
@@ -62,52 +58,6 @@ public class ArmyOrMisc extends HBox {
 		getChildren().addAll(circleStackPane, thingHolder);
 
 	}
-
-/*	private StackPane createArmyImageView(final Thing t) {
-
-		int size = 50;
-
-		Rectangle borderRect = new Rectangle();
-		borderRect.setX(0);
-		borderRect.setY(0);
-		borderRect.setWidth(size);
-		borderRect.setHeight(size);
-		borderRect.setArcWidth(20);
-		borderRect.setArcHeight(20);
-
-		borderRect.setFill(Color.WHITE);
-
-		final Rectangle coloredRect = new Rectangle();
-		coloredRect.setX(0);
-		coloredRect.setY(0);
-		coloredRect.setWidth(size - 1);
-		coloredRect.setHeight(size - 1);
-		coloredRect.setArcWidth(20);
-		coloredRect.setArcHeight(20);
-		coloredRect.setFill(t.getColor());
-
-		img = new ImageView(t.getImage());
-		img.getStyleClass().add("hand");
-		img.setFitWidth(size - 7);
-		img.setFitHeight(size - 7);
-		img.setPreserveRatio(false);
-		img.setSmooth(true);
-		img.setCache(true);
-		
-		//!!!!!!!!!!!!!!
-		if(moving)	{
-			handleThingClickForMovement(t);
-		} else {
-			handleThingClicked(t);
-		}
-
-		// Add custom handler
-		img.addEventFilter(ThingEvent.THING_CLICKED, thingHandler);
-
-		StackPane pane = new StackPane();
-		pane.getChildren().addAll(borderRect, coloredRect, img);
-		return pane;
-	}*/
 
 	private void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
 		
@@ -123,35 +73,9 @@ public class ArmyOrMisc extends HBox {
 		
 			KNTAppFactory.getHexDetailsPresenter().getView().getCurrentPlayerArmy().setArmy(hex, armyOwner, army);
 			
-			//KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
 			KNTAppFactory.getBoardPresenter().handleMoveSetup();
 		}
 	}
-	
-	
-	/*private void handleThingClicked(final Thing t){
-		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			
-			@Override
-			public void handle(MouseEvent me) {
-				// Fire custom event on mouse clicked
-				img.fireEvent(new ThingEvent(t));
-			}
-		});
-	}*/
-	
-	/*private void handleThingClickForMovement(final Thing t){
-		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			
-			@Override
-			public void handle(MouseEvent me) {
-				if(t.getOwner().equals(GameService.getInstance().getGame().getCurrentPlayer().getName()))	{
-					KNTAppFactory.getBoardPresenter().handleMoveSetupForThing(t);
-				}
-				img.fireEvent(new ThingEvent(t));
-			}
-		});
-	}*/
 	
 	public void setArmy(final Hex hex, final Player armyOwner, final List<Creature> army) {
 		thingHolder.getChildren().clear();
@@ -173,7 +97,6 @@ public class ArmyOrMisc extends HBox {
 			
 			for (Thing t : army) {
 				if(!moving)	t.setSelected(true);
-				//else	t.setSelected(false);
 				ThingView tv = new ThingView(50, t);
 				thingHolder.getChildren().add(tv);
 				if(moving)
@@ -183,26 +106,6 @@ public class ArmyOrMisc extends HBox {
 			}
 		} 
 	}
-	
-	/*
-	public void setSpecialCharacters(final Hex hex, final List<SpecialCharacter> specChars){
-		thingHolder.getChildren().clear();
-		circleStackPane.setVisible(false);
-		if(specChars == null)
-			return;
-		if (!specChars.isEmpty()) {
-			circleStackPane.setVisible(true);
-
-			sizeLbl.setText("SC");
-			circle.setFill(hex.getColor());
-
-			for (SpecialCharacter gp : specChars) {
-				ThingView tv = new ThingView(50, (Thing) gp);
-				thingHolder.getChildren().add(tv);
-				//tv.setDefaultHandler();
-			}
-		} 
-	}*/
 	
 	public void setIncomeCounter(Hex hex, IncomeCounter counter) {
 		thingHolder.getChildren().clear();

@@ -72,12 +72,7 @@ public class ThingRecruitmentView extends VBox {
 	public void setPaidRecruit(int rec) {
 		paidRec.setText(String.valueOf(rec));
 	}
-//	public int getPaidRecruitsValue()	{	return paidRecValue;	}
 	public Label getPaidRecruitsLabel()	{	return paidRec;			}
 	public Button getBuyRecruitsButton()	{	return buyRecBut;	}
 	public Button getPlaceRecruitsButton()	{	return placeRecBut;	}
-//	void increasePaidRecruits()	{
-//		paidRecValue++;
-//		paidRec.setText("" + paidRecValue);
-//	}
 }

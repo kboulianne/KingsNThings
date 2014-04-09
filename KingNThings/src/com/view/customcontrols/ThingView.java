@@ -16,8 +16,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-// TODO create object pool to avoid recreating image views.
-// create and add image views
 
 public class ThingView extends StackPane{
 	private int size;
@@ -27,8 +25,8 @@ public class ThingView extends StackPane{
 	private ImageView img;
 	
 	public ThingView(int frameSize, Thing t){
-		size=frameSize;
-		thing=t;
+		size = frameSize;
+		thing = t;
 		buildComponent();
 	}
 
@@ -99,7 +97,6 @@ public class ThingView extends StackPane{
 			selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
 		}
 		img.setImage(im);
-		//this.
 	}
 	
 	void setDefaultHandler(){

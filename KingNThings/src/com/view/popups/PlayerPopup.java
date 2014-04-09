@@ -5,9 +5,7 @@ package com.view.popups;
  * and open the template in the editor.
  */
 
-
 import com.model.Player;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -33,8 +31,6 @@ public class PlayerPopup extends VBox {
 		iv.setPreserveRatio(true);
     	
     	Label goldLbl = new Label("Gold: " + p.getGold());
-	
-    	// Not supposed to see their rack instance. 
 	
     	getChildren().addAll(nameLbl,iv,goldLbl);
     }

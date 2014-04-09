@@ -61,14 +61,12 @@ public final class ServerGamePlay {
 			
 		}
 		// Next player's turn.
-		nextTurn();			
-		
+		nextTurn();					
 	}
 	
 	private final void nextPhase() {
 		// Cycle phases and loop back to gold collection
-		if (phaseIt.hasNext()) {
-			
+		if (phaseIt.hasNext()) {		
 			phase = phaseIt.next();
 			phase.phaseStart();
 		}
@@ -81,11 +79,9 @@ public final class ServerGamePlay {
 			while (i <= 6) {
 				phase = phaseIt.next();
 				i++;
-			}
-			
+			}		
 			phase.phaseStart();
 		}
-		
 		notifyAllClients(room, Notifications.PHASE_ENDED);
 	}
 	
@@ -108,6 +104,5 @@ public final class ServerGamePlay {
 		// Equivalent to phase end but uses defaults for testing
 		phase.skipPhase();
 		nextPhase();
-//		phase.turnStart();
 	}
 }

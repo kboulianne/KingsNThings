@@ -14,32 +14,17 @@ public class ServerConstructionPhase extends AbstractServerPhase {
 
 	@Override
 	public void phaseStart() {
-//		// Testing
-//		Hex hex = context.room.getGame().getBoard().getHexes().get(19);
-//		
-//		// For testing
-//		if (hex.getFort() == null) {
-//			hex.setFort(Fort.create());
-//			hex.getFort().upgrade();
-//			hex.getFort().upgrade();
-//		}
-//		if (hex.getFort() != null && (!hex.getFort().getFortType().equals(FortType.CASTLE)
-//				&& !hex.getFort().getFortType().equals(FortType.CITADEL))) {
-//			hex.setFort(Fort.create());
-//			hex.getFort().upgrade();
-//		}
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -61,8 +46,6 @@ public class ServerConstructionPhase extends AbstractServerPhase {
 				context.room.getGame().setWinner(citOwner);
 				// Notify clients that the game was won
 				KNTServer.notifyAllClients(context.room, Notifications.GAME_ENDED);
-				
-				// TODO: Remove the game room.
 			}
 		}
 	}
@@ -70,7 +53,5 @@ public class ServerConstructionPhase extends AbstractServerPhase {
 	@Override
 	public void skipPhase() {
 		// TODO Auto-generated method stub
-		
 	}
-
 }

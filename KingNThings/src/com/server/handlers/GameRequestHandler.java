@@ -31,10 +31,7 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 		Game game = null;
 		synchronized (GAME_ROOMS) {
 			game = ((ServerGameRoom)GAME_ROOMS.get(roomName)).getGame();
-			
-//			System.out.println(game.getBoard().getHexes());
-		}
-		
+		}	
 		return game;
 	}
 	
@@ -52,7 +49,6 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 					game.getPlayerOrder().set(i, game.getCurrentPlayer());
 				}
 			}
-			
 			room.setGame(game);
 		}		
 	}
@@ -101,7 +97,6 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 		synchronized (GAME_ROOMS.get(roomName)) {
 			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			
-//			Board old = room.getGame().getBoard();
 			Game game = room.getGame();
 			
 			
@@ -135,8 +130,6 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 				else
 					player = p4;
 				
-//				Player hexOwner = h.getHexOwner();
-//				hexOwner.setName(player.getName());
 				h.setOwner(player);
 				
 				Map<Player, List<Creature>> map = new HashMap<>();

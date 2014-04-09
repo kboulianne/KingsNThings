@@ -59,7 +59,6 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 			// Evaluate winning conditions.
 			if (battle.isOffenderEliminated() || battle.isDefenderEliminated()) {
 				determineWinner(room);
-				
 			}
 			else {
 				// Notify opponents
@@ -140,9 +139,7 @@ public class BattleRequestHandler extends BaseRequestHandler implements IBattleS
 					p = battle.getOffender();
 				
 				determineWinner(room, p);
-			}
-			
-			
+			}	
 		}
 	}
 }

@@ -82,6 +82,4 @@ public class RequestContext extends  MessageContext {
 	protected void finalize() throws Throwable {
 		super.finalize();
 	}
-
-	
 }

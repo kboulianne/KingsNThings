@@ -171,7 +171,6 @@ public class Util {
 			while (it.hasNext()) {
 				JsonElement elem = it.next();
 				String owner = elem.getAsJsonObject().get("owner").getAsString();
-//				String name = elem.getAsJsonObject().get("name").getAsString();
 				String classType = elem.getAsJsonObject().get("classType").getAsString();
 				
 				try {
@@ -220,10 +219,8 @@ public class Util {
 			gson = GSON_BUILDER.create();
 
 			for (Map.Entry<String, JsonElement> entry : armies.getAsJsonObject().entrySet()) {
-//				System.err.println(entry);
 				
 				Player p = gson.fromJson(entry.getValue().getAsJsonObject().get("player"), Player.class);
-				
 				
 				// Loop the json array that contains creatures.
 				JsonElement array = entry.getValue().getAsJsonObject().get("armies");
@@ -233,20 +230,13 @@ public class Util {
 						Class<?> clazz = Class.forName(elem.getAsJsonObject().remove("classType").getAsString());
 						Creature c = (Creature) gson.fromJson(elem, clazz);
 						
-						
 						hex.addCreatToArmy(c, p);
 					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-					
-					
+					}					
 				}
 			}
-			
-			
 			hex.setColor(gson.fromJson(color, Color.class));
-			
 			return hex;
 		}
 
@@ -260,28 +250,21 @@ public class Util {
 			obj = gson.toJsonTree(hex, Hex.class);
 			obj.getAsJsonObject().remove("color");
 			obj.getAsJsonObject().add("color", GSON_BUILDER.create().toJsonTree(hex.getColor()));
-			// Transients are ignored
-//			obj = ctx.serialize(hex, Hex.class);
 			
 			gson = GSON_BUILDER.create();
 
 			JsonObject map = new JsonObject();
 			// Loop the armies and serialize
 			for (Map.Entry<Player, List<Creature>> entry : hex.getArmies().entrySet()) {
-//				JsonObject playerEntry = new JsonObject();
 				// Serialize the player and store it as player in map
-				JsonElement player = gson.toJsonTree(entry.getKey());
-				
-//				playerEntry.add(property, value);
-				
-				
+				JsonElement player = gson.toJsonTree(entry.getKey());				
 				JsonArray armies = new JsonArray();
 				
 				for (Creature c : entry.getValue()) {
 					JsonElement elem = gson.toJsonTree(c); 
 					
 					elem.getAsJsonObject().addProperty("classType", c.getClass().getCanonicalName());
-					
+
 					armies.add(elem);
 				}
 				
@@ -307,17 +290,7 @@ public class Util {
 		.registerTypeAdapter(Hex.class, new HexAdapter())
 		.registerTypeAdapter(Creature.class, new ThingAdapter())
 		.registerTypeAdapter(Thing.class, new ThingAdapter())
-		.setPrettyPrinting();
-//		.registerTypeAdapter(DesertCreature.class, new ThingAdapter())
-//		.registerTypeAdapter(ForestCreature.class, new ThingAdapter())
-//		.registerTypeAdapter(FrozenWasteCreature.class, new ThingAdapter())
-//		.registerTypeAdapter(JungleCreature.class, new ThingAdapter())
-//		.registerTypeAdapter(MountainCreature.class, new ThingAdapter())
-//		.registerTypeAdapter(PlainsCreature.class, new ThingAdapter())
-//		.registerTypeAdapter(SwampCreature.class, new ThingAdapter())
-//		.registerTypeAdapter(IncomeCounter.class, new ThingAdapter());
-
-	
+		.setPrettyPrinting();	
 	
 	public static void log(String message) {
 		if(DEBUG)
@@ -346,10 +319,8 @@ public class Util {
 			if (i1 < i2) {
 				return 1;
 			}
-
 			return -1;
 		}
-
 	}
 
 	/**
@@ -370,7 +341,6 @@ public class Util {
 		}
 		return newList;
 	}
-	
 	
 	// Sounds
 //	private final static AudioClip clickSound = new AudioClip(Util.class.getResource("click.wav").toString());

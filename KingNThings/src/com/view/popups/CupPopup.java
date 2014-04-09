@@ -69,11 +69,9 @@ public class CupPopup extends VBox {
 		for (SpecialCharacter sc : cup.getListOfSpecialCharacters()) {
 			ThingView tv =new ThingView(thingSize, sc);
 			scFP.getChildren().add(tv);
-
 		}
 		
 		getStyleClass().add("block");
-		getChildren().addAll(thingLbl, thingFP, incomeLbl, icFP, scLbl, scFP);
-		
+		getChildren().addAll(thingLbl, thingFP, incomeLbl, icFP, scLbl, scFP);	
     }
 }

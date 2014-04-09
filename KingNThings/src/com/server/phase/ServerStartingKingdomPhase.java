@@ -2,7 +2,6 @@ package com.server.phase;
 
 public class ServerStartingKingdomPhase extends AbstractServerPhase {
 
-	
 	public ServerStartingKingdomPhase(ServerGamePlay context) {
 		// Repeat phase once.
 		super(context, 1);
@@ -10,38 +9,27 @@ public class ServerStartingKingdomPhase extends AbstractServerPhase {
 
 	@Override
 	public void phaseStart() {
-
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void turnStart() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void turnEnd() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void phaseEnd() {
-
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void skipPhase() {
-//		// Claim tiles to left and right of start position
-//		Game game = context.room.getGame();
-//		
-//		Iterator<Integer> it = game.getBoard().getStartPositions().iterator();
-//		for (Player p : game.getPlayerOrder()) {
-//			int i = it.next();
-//			// Set index +- 1 from start pos as owned by p
-//			game.getBoard().getHexes().get(i - 1).setOwner(p);
-//			game.getBoard().getHexes().get(i + 1).setOwner(p);
-//		}
+		// TODO Auto-generated method stub
 	}
 
 }

@@ -8,20 +8,17 @@ class ServerChangePlayerOrder extends AbstractServerPhase{
 
 	@Override
 	public void phaseStart() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void turnEnd() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
@@ -33,5 +30,4 @@ class ServerChangePlayerOrder extends AbstractServerPhase{
 	public void skipPhase() {
 		phaseEnd();
 	}
-
 }

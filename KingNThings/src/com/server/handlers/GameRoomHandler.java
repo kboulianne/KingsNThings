@@ -19,8 +19,6 @@ import static com.server.Errors.*;
 //TODO: Separate implementation from handler?
 public class GameRoomHandler extends BaseRequestHandler implements IGameRoomService {
 	
-
-	
 	@Override
 	public String[] handledRequests() {
 		// Report available methods
@@ -36,16 +34,14 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 		synchronized (GAME_ROOMS) {
 			// Make sure the room does not exist.
 			if (!GAME_ROOMS.containsKey(name)) {
-				room = new ServerGameRoom(name, host);
-				
+				room = new ServerGameRoom(name, host);			
 				GAME_ROOMS.put(name, room);
 			}
 			else {
 				// Throw error
 				throw GAME_ROOM_ROOM_EXISTS;
 			}
-		}
-		
+		}	
 		return room;
 	}
 	
@@ -64,8 +60,7 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 	@Override
 	public Collection<GameRoom> getGameRooms() throws JSONRPC2Error {
 		// Must lock the collection to make sure no changes are made in between.
-		synchronized (GAME_ROOMS) {
-			
+		synchronized (GAME_ROOMS) {		
 			return GAME_ROOMS.values();
 		}
 	}
@@ -111,9 +106,6 @@ public class GameRoomHandler extends BaseRequestHandler implements IGameRoomServ
 					
 					gr.setGame(game);
 					gr.setStarted(true);
-					
-//					// Update the current status for the Host player (they are first in player order).
-//					game.setGameStatus("Roll the Dice");
 
 					notifyAllClients(gr, Notifications.GAME_STARTED);
 				}

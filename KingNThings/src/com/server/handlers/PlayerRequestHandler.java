@@ -36,24 +36,19 @@ public class PlayerRequestHandler extends BaseRequestHandler implements IPlayerS
 					// Make sure players are unique
 					if (PLAYERS.containsKey(p.getName())) {
 						throw Errors.PLAYER_EXISTS;
-					}
-					
+					}				
 					PLAYERS.put(p.getName(), ctx.getPlayerConnection());	
 				}
 			}
-
 		} catch (JSONRPC2Error e) {
 			res = new JSONRPC2Response(e, request.getID());
 		}
-		
 		return res;
 	};
-	
 	
 	@Override
 	public Player connect(String name) {
 		Player p = new Player(name);
 		return p;
 	}
-
 }

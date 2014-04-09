@@ -26,7 +26,6 @@ public class ServerPlayerOrderPhase extends AbstractServerPhase {
 	@Override
 	public void turnStart() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -48,7 +47,6 @@ public class ServerPlayerOrderPhase extends AbstractServerPhase {
 
 	@Override
 	public void skipPhase() {
-		
+		// TODO Auto-generated method stub
 	}
-
 }
