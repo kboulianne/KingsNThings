@@ -317,10 +317,10 @@ public class SidePaneView extends VBox {
 		content.getChildren().add(view);
 	}
 	
-	public void showArmyDetailsView(ArmyDetailsView view) {
+	/*public void showArmyDetailsView(ArmyDetailsView view) {
 		content.getChildren().clear();
 		content.getChildren().add(view);
-	}
+	}*/
 	
 	public void clearDetailsView(){
 		content.getChildren().clear();

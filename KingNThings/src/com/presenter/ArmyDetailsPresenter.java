@@ -6,9 +6,9 @@ import com.main.KNTAppFactory;
 import com.model.Creature;
 import com.model.Hex;
 import com.model.Player;
-import com.view.ArmyDetailsView;
 
-public class ArmyDetailsPresenter {
+
+/*public class ArmyDetailsPresenter {
 	private ArmyDetailsView view;
 	
 	public ArmyDetailsPresenter(ArmyDetailsView view) {
@@ -23,4 +23,4 @@ public class ArmyDetailsPresenter {
 	public ArmyDetailsView getView() {
 		return view;
 	}
-}
+}*/

@@ -12,7 +12,7 @@ import com.model.Hex;
 import com.model.Player;
 import com.view.customcontrols.ArmyOrMisc;
 
-public class ArmyDetailsView extends VBox{
+/*public class ArmyDetailsView extends VBox{
 
 	private Label lbl;
 	private Label sublbl;
@@ -69,4 +69,4 @@ public class ArmyDetailsView extends VBox{
 	public void setFromHex(Hex fromHex) {
 		this.fromHex = fromHex;
 	}
-}
+}*/

@@ -45,7 +45,7 @@ class MovementPhase extends AbstractPhaseStrategy {
 
 	@Override
 	public void phaseEnd(Game game) {
-		getArmyDetailsPresenter().getView().setDefaultHandler();
+		//getArmyDetailsPresenter().getView().setDefaultHandler();
 		getBoardPresenter().getView().addDefaultHandler();
 		Util.log("Game Phase: End of Movement Phase");
 	}
@@ -53,7 +53,7 @@ class MovementPhase extends AbstractPhaseStrategy {
 	@Override
 	public void turnStart(Game game) {
 		super.turnStart(game);
-		getArmyDetailsPresenter().getView().setMovementHandler();	
+		//getArmyDetailsPresenter().getView().setMovementHandler();	
 		getHexDetailsPresenter().getView().getCurrentPlayerArmy().setMoving(true);
 		getHexDetailsPresenter().getView().getCounter().setMoving(true);		
 		getSidePanePresenter().getView().showArbitraryView("Move characters within hexes", Game.CROWN_IMAGE);

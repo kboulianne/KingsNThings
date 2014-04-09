@@ -3,7 +3,6 @@ package com.main;
 import com.client.KNTClient;
 import com.game.phase.GamePlay;
 import com.model.Die;
-import com.presenter.ArmyDetailsPresenter;
 import com.presenter.BattlePresenter;
 import com.presenter.DicePresenter;
 import com.presenter.GamePresenter;
@@ -17,7 +16,6 @@ import com.presenter.SidePanePresenter;
 import com.presenter.SpecialCharacterPresenter;
 import com.presenter.StartScreenPresenter;
 import com.presenter.ThingDetailsPresenter;
-import com.view.ArmyDetailsView;
 import com.view.BattleView;
 import com.view.BoardView;
 import com.view.GameRoomView;
@@ -48,7 +46,7 @@ public class KNTAppFactory {
 	private static BoardPresenter boardPresenter;
 	private static HexDetailsPresenter hexDetailsPresenter;
 	private static ThingDetailsPresenter thingDetailsPresenter;
-	private static ArmyDetailsPresenter armyDetailsPresenter;
+	//private static ArmyDetailsPresenter armyDetailsPresenter;
 	private static PlayerInfoPresenter playerInfoPresenter;
 	private static PopupPresenter popupPresenter;
 	private static BattlePresenter battlePresenter;
@@ -77,7 +75,7 @@ public class KNTAppFactory {
 		boardPresenter = createBoardPresenter();
 		hexDetailsPresenter = createHexDetailsPresenter();
 		thingDetailsPresenter = createThingDetailsPresenter();
-		armyDetailsPresenter = createArmyDetailsPresenter();
+		//armyDetailsPresenter = createArmyDetailsPresenter();
 		playerInfoPresenter = createPlayerInfoPresenter();
 		popupPresenter = createPopupPresenter();
 		battlePresenter = createBattlePresenter();
@@ -150,12 +148,12 @@ public class KNTAppFactory {
 		return presenter;
 	}
 	
-	private static ArmyDetailsPresenter createArmyDetailsPresenter() {
+	/*private static ArmyDetailsPresenter createArmyDetailsPresenter() {
 		ArmyDetailsView view = new ArmyDetailsView();
 		ArmyDetailsPresenter presenter = new ArmyDetailsPresenter(view);
 
 		return presenter;
-	}
+	}*/
 
 	private static PlayerInfoPresenter createPlayerInfoPresenter() {
 		PlayerInfoView view = new PlayerInfoView();
@@ -235,9 +233,9 @@ public class KNTAppFactory {
 		return popupPresenter;
 	}
 
-	public static ArmyDetailsPresenter getArmyDetailsPresenter() {
+	/*public static ArmyDetailsPresenter getArmyDetailsPresenter() {
 		return armyDetailsPresenter;
-	}
+	}*/
 
 	public static BattlePresenter getBattlePresenter() {
 		return battlePresenter;

@@ -273,10 +273,11 @@ public class BoardPresenter {
 			Util.playHexClickSound();
 			Hex lastSelected = game.getBoard().getHexes().get(lastHexSelected);
 			Player currentPlayer = game.getCurrentPlayer();
-			if(movingArmy)	{ // move whole army
-				List<Creature> army = KNTAppFactory.getArmyDetailsPresenter().getView().getLastSelectedArmy();
+			//if(movingArmy)	{ // move whole army
+				
+				//List<Creature> army = KNTAppFactory.getArmyDetailsPresenter().getView().getLastSelectedArmy();
 
-				if(selected != lastHexSelected)	{
+				/*if(selected != lastHexSelected)	{
 					for(Creature c: army) { // for same order
 						hex.addCreatToArmy(c, currentPlayer);
 						c.setHexLocation(selected);
@@ -286,8 +287,8 @@ public class BoardPresenter {
 					}
 				}
 				
-				movingArmy = false;
-			} else { 
+				movingArmy = false;*/
+			//} else { 
 				List<Thing> things = game.getLastSelectedThingsOfCurrentPlayerHex();
 				if(things.isEmpty())
 					return;
@@ -303,7 +304,7 @@ public class BoardPresenter {
 						t.setHexLocation(selected);
 					}
 				}
-			}
+			//}
 			
 
 			// if Hex is unexplored

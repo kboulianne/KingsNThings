@@ -111,6 +111,10 @@ public class Battle {
 			phase = BattlePhase.MELEE;
 		}
 		offendingForces.get(phase).remove(c);
+		
+		/*if(offendingForces.get(phase).isEmpty()){
+			offendingForces.remove(phase);
+		}*/
 	}
 	
 	private void killDefenderCreature(Creature c) {
@@ -131,6 +135,10 @@ public class Battle {
 			phase = BattlePhase.MELEE;
 		}
 		defendingForces.get(phase).remove(c);
+		
+		/*if(defendingForces.get(phase).isEmpty()){
+			defendingForces.remove(phase);
+		}*/
 	}
 	
 	public boolean isBattleResolved() {

@@ -110,10 +110,20 @@ public class ArmyOrMisc extends HBox {
 	}*/
 
 	private void handleArmyClick(Hex hex, Player armyOwner, List<Creature> army){
+		boolean selectAll = true;  
 		for(Creature c: army){
-			c.setSelected(true);
+			if(!c.isSelected()){
+				selectAll = false;
+				break;
+			}
 		}
-		KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
+		
+		for(Creature c: army){
+			c.setSelected(selectAll);
+		}
+		
+		
+		//KNTAppFactory.getArmyDetailsPresenter().showArmy(hex, armyOwner, army);
 		if(moving)	KNTAppFactory.getBoardPresenter().handleMoveSetupForArmy();
 	}
 	
