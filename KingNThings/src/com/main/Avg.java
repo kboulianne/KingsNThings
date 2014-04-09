@@ -252,7 +252,6 @@ public class Avg {
 		
 		Hex hex33 = factory.createHex(33, Hex.HexType.SEA);
 		hex33.setFaceDown(false);
-		hex33.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.add( hex33);
 		
 		Hex hex34 = factory.createHex(34, Hex.HexType.SWAMP);
