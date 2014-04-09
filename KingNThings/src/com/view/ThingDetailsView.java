@@ -7,14 +7,19 @@ package com.view;
 
 import java.util.List;
 
+import com.main.KNTAppFactory;
 import com.model.Creature;
 import com.model.Fort;
 import com.model.IncomeCounter;
 import com.model.SpecialCharacter;
 import com.model.Thing;
+import com.model.Treasure;
 import com.view.customcontrols.ThingView;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -75,9 +80,12 @@ public class ThingDetailsView extends VBox {
 			}
 			else if (thing instanceof Fort){
 				type = "Fort";
+			} 
+			else if (thing instanceof Treasure)	{
+				type = "Treasure";
 			}
 
-			ThingView tv = new ThingView(260, thing);
+			final ThingView tv = new ThingView(260, thing);
 
 			thingNameLbl.setText(thing.getName().toUpperCase());
 			typeLbl.setText("Type: " + type);
@@ -90,9 +98,19 @@ public class ThingDetailsView extends VBox {
 			    specialAbilitiesLbl.setText("Abilities: " + c.getAbilitiesString());
 			    lastSelected.add(c);
 				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl, combatLbl, specialAbilitiesLbl, testLbl);
-			}else{
+			} else {
 				getChildren().addAll(thingNameLbl, tv, typeLbl, ownerLbl);
-			}	
+			}
+			if(thing instanceof Treasure)	{
+				Button exchange = new Button("Exchange");
+				exchange.setOnAction(new EventHandler<ActionEvent>()	{
+					@Override
+					public void handle(ActionEvent arg0) {
+						KNTAppFactory.getPlayerInfoPresenter().handleExchangeTreasures(tv, thing);
+					}
+				});
+				getChildren().add(exchange);
+			}
 		}
 	}
 }

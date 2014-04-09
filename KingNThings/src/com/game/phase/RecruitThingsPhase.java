@@ -62,7 +62,7 @@ class RecruitThingsPhase extends AbstractPhaseStrategy {
 		Player player = game.getCurrentPlayer();
 		
 		for (Hex h : game.getBoard().getHexes()) {
-			if ((h != null) && (h.getHexOwner().equals(player))) {
+			if ((h != null) && (h.getHexOwner() != null) && (h.getHexOwner().equals(player))) {
 				freeRecruits++;
 			}
 		}

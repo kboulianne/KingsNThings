@@ -54,7 +54,6 @@ public class PlayerInfoPresenter {
 	 */
 	public void showCurrentPlayerInfo() {
 		KNTAppFactory.getGamePresenter().showPlayerInfoPopup(NetworkedMain.getPlayer());
-
 	}
 
 	/**
@@ -94,8 +93,6 @@ public class PlayerInfoPresenter {
 		
 		game.getCurrentPlayer().addGold(((Treasure) thing).getValue());
 		KNTAppFactory.getPlayerInfoPresenter().getView().setPlayer(game.getCurrentPlayer());
-		KNTAppFactory.getPlayerInfoPresenter().getView().setRackTreasureExchangeHandler(game.getCurrentPlayer());
-		thingView.refreshView();
-		
+		thingView.refreshView();	
 	}
 }

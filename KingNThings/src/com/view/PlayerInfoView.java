@@ -119,12 +119,6 @@ public class PlayerInfoView extends AnchorPane {
 		}
 	}
 	
-	public void setRackTreasureExchangeHandler(Player current)	{
-		if(current != null)	{
-			rack.setRackTreasureExchangeHandler(current.getBlock().getListOfThings());
-		}
-	}
-	
 	public void setRackDefaultHandler(Player current){
 		if (current != null) {
 			rack.setThings(current.getBlock().getListOfThings());

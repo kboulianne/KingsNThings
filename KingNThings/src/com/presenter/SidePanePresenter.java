@@ -2,9 +2,6 @@ package com.presenter;
 
 import java.util.List;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 import com.main.KNTAppFactory;
 import com.model.Cup;
 import com.model.Game;

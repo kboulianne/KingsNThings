@@ -51,24 +51,6 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 		Util.log("Game Phase: End of Construction Phase");
 		KNTAppFactory.getBoardPresenter().getView().addDefaultHandler();
 		KNTAppFactory.getPlayerInfoPresenter().getView().setRackDefaultHandler(game.getCurrentPlayer());
-		
-//		int total = 0;
-//		Player citOwner = null;
-//		List<Player> players = game.getPlayerOrder();
-//		
-//		for(int i=0; i<players.size(); i++)	{
-//			if(players.get(i).isCitadelOwner())	{
-//				total++;
-//				citOwner = players.get(i);
-//			}
-//		}
-		
-//		if(total == 1)	{
-//			citOwner.addTimeCitOwned();
-//			if(citOwner.getTimeCitOwned() == 1)
-//				KNTAppFactory.getGamePresenter().getView().showWinnerScreen(citOwner);
-//		}
-
 	}
 
 	@Override
@@ -82,7 +64,7 @@ class ConstructionPhase extends AbstractPhaseStrategy {
 		List<Hex> hexes = game.getBoard().getHexes();
 		
 		for(int i=0; i<hexes.size(); i++)	{
-			if(hexes.get(i).getHexOwner() == game.getCurrentPlayer() &&
+			if(hexes.get(i).getHexOwner() != null && hexes.get(i).getHexOwner().equals(game.getCurrentPlayer()) &&
 					hexes.get(i).getFort() != null)	{
 				hexes.get(i).getFort().setUpgraded(false);
 			}
