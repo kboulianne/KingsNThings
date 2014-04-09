@@ -253,18 +253,10 @@ public class Thing extends GamePiece	{
 		if (obj instanceof Thing) {
 			Thing t = (Thing)obj;
 			
-			return super.equals(obj)
-					&& color.equals(t.color);
+			return super.equals(obj);
 		}
 		
 		return super.equals(obj);
-	}
-
-	@Override
-	public int hashCode() {
-		int hash = 7;
-		hash = 17 * hash + Objects.hashCode(this.color);
-		return hash;
 	}
 
 	public boolean isFacedDown() {

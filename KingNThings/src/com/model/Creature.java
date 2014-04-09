@@ -11,7 +11,7 @@ public abstract class Creature extends Thing	{
 	private boolean magic;
 	private int combatVal;
 	private int numberOfMovesAvailable;
-	private transient static final Map<String, Integer> combatVals;
+	private static final Map<String, Integer> combatVals;
 	
 	static	{
 		combatVals = new HashMap<>();
@@ -370,7 +370,7 @@ public abstract class Creature extends Thing	{
 		if (obj instanceof Creature) {
 			Creature c = (Creature)obj;
 			
-			return super.equals(obj)
+			return super.equals(c)
 					&& Objects.equals(domain, c.domain)
 					&& fly == c.fly
 					&& ranged == c.ranged
@@ -385,8 +385,8 @@ public abstract class Creature extends Thing	{
 
 	@Override
 	public int hashCode() {
-		int hash = 5;
-		hash = 59 * hash + Objects.hashCode(this.domain);
+		int hash = 50654;
+//		hash = 59 * hash + Objects.hashCode(this.domain);
 		hash = 59 * hash + (this.fly ? 1 : 0);
 		hash = 59 * hash + (this.ranged ? 1 : 0);
 		hash = 59 * hash + (this.charge ? 1 : 0);
