@@ -148,7 +148,7 @@ public class ThingView extends StackPane{
 					selectRect.setFill(new Color(0.0, 0.0, 0.0, 0.5));
 				}
 				
-				if(thing.getOwner().equals(NetworkedMain.getPlayer()))	{
+				if(thing.getOwner().equals(NetworkedMain.getPlayer().getName()))	{
 					KNTAppFactory.getBoardPresenter().handleMoveSetup();
 				}
 			}
