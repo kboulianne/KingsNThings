@@ -176,35 +176,35 @@ public class Mini {
 		
 		Hex hex22 = factory.createHex(22, Hex.HexType.JUNGLE_HEX);
 		hex22.setOwner(p4);
+		hex22.setFort(new Fort(Fort.FortType.KEEP));
 		hex22.setFaceDown(false);
 		hexes.add( hex22);
 		
 		Hex hex23 = factory.createHex(23, Hex.HexType.FROZEN_WASTE_HEX);
 		hex23.setOwner(p4);
-		hex23.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.add( hex23);
 		
 		Hex hex24 = factory.createHex(24, Hex.HexType.PLAINS);
 		hex24.setOwner(p4);
+		hex24.setFort(new Fort(Fort.FortType.CASTLE));
 		hex24.setFaceDown(false);
 		hexes.add( hex24);
 		
 		Hex hex25 = factory.createHex(25, Hex.HexType.FROZEN_WASTE_HEX);
 		hex25.setOwner(p1);
 		hex25.setFaceDown(false);
-		hex25.setFort(new Fort(Fort.FortType.CASTLE));
+		hex25.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.add( hex25);
 		
 		Hex hex26 = factory.createHex(26, Hex.HexType.SWAMP);
 		hex26.setOwner(p1);
 		hex26.setFaceDown(false);
-		hex26.setFort(new Fort(Fort.FortType.KEEP));
+		hex26.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.add( hex26);
 		
 		Hex hex27 = factory.createHex(27, Hex.HexType.DESERT);
 		hex27.setOwner(p1);
 		hex27.setFaceDown(false);
-		hex27.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.add( hex27);
 		
 		Hex hex28 = factory.createHex(28, Hex.HexType.DESERT);
@@ -225,17 +225,17 @@ public class Mini {
 		Hex hex31 = factory.createHex(31, Hex.HexType.FOREST);
 		hex31.setOwner(p3);
 		hex31.setFaceDown(false);
+		hex31.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.add( hex31);
 		
 		Hex hex32 = factory.createHex(32, Hex.HexType.SWAMP);
 		hex32.setOwner(p3);
 		hex32.setFaceDown(false);
-		hex32.setFort(new Fort(Fort.FortType.KEEP));
+		hex32.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.add( hex32);
 		
 		Hex hex33 = factory.createHex(33, Hex.HexType.SEA);
 		hex33.setFaceDown(false);
-		hex33.setFort(new Fort(Fort.FortType.TOWER));
 		hexes.add( hex33);
 		
 		Hex hex34 = factory.createHex(34, Hex.HexType.SWAMP);
@@ -246,6 +246,7 @@ public class Mini {
 		Hex hex35 = factory.createHex(35, Hex.HexType.FOREST);
 		hex35.setOwner(p2);
 		hex35.setFaceDown(false);
+		hex35.setFort(new Fort(Fort.FortType.KEEP));
 		hexes.add( hex35);
 		
 		Hex hex36 = factory.createHex(36, Hex.HexType.PLAINS);
