@@ -8,7 +8,6 @@ import javafx.stage.FileChooser;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.main.NetworkedMain;
 import com.model.Board;
@@ -232,25 +231,19 @@ public class GamePresenter {
 		Gson gson = Util.GSON_BUILDER.setPrettyPrinting().create();
 		
 		try {
-			JsonObject obj = gson.fromJson(new FileReader(data), JsonObject.class);
+			Board b = gson.fromJson(new FileReader(data), Board.class);
 			
-//			Board b = gson.fromJson(obj.get("board"), Board.class);
-			
-			
-//			Board b = gson.fromJson(new FileReader(data), Board.class);
-			
-//			game.setBoard(b);
+			game.setBoard(b);
 			
 			// Send the view to the server.
-			gameSvc.loadBoard(NetworkedMain.getRoomName(), obj);
+			gameSvc.loadBoard(NetworkedMain.getRoomName(), b);
 		} catch (JsonSyntaxException e) {
 			e.printStackTrace();
 		} catch (JsonIOException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} 
-		catch (JSONRPC2Error e) {
+		} catch (JSONRPC2Error e) {
 			e.printStackTrace();
 		}
 	}

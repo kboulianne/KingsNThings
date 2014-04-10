@@ -1,6 +1,6 @@
 package com.server.services;
 
-import com.google.gson.JsonObject;
+import com.model.Board;
 import com.model.Cup;
 import com.model.Game;
 import com.model.Player;
@@ -20,5 +20,5 @@ public interface IGameService {
 	boolean isPlayerTurn(String roomName, Player p) throws JSONRPC2Error;
 	void endTurn(String gameRoom, Player p) throws JSONRPC2Error;
 	void skipPhase(String roomName) throws JSONRPC2Error;
-	void loadBoard(String roomName, JsonObject obj) throws JSONRPC2Error;
+	void loadBoard(String roomName, Board b) throws JSONRPC2Error;
 }

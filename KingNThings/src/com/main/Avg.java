@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.model.Board;
 import com.model.DesertCreature;
 import com.model.ForestCreature;
@@ -277,21 +274,7 @@ public class Avg {
 		try{
 			FileWriter writer = new FileWriter(args[0]);
 			Gson gson = Util.GSON_BUILDER.create();
-			JsonObject root = new JsonObject();
-			
-			// Board
-			JsonElement boardJson = gson.toJsonTree(board, Board.class);
-			JsonArray array = new JsonArray();
-			
-			array.add(gson.toJsonTree(p1));
-			array.add(gson.toJsonTree(p2));
-			array.add(gson.toJsonTree(p3));
-			array.add(gson.toJsonTree(p4));
-			
-			root.add("board", boardJson);
-			root.add("players", array);
-			
-			writer.write(gson.toJson(root));
+			writer.write(gson.toJson(board, Board.class));
 			writer.close();
 		}catch(IOException e){
 			e.printStackTrace();
