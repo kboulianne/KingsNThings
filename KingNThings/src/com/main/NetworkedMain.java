@@ -35,7 +35,7 @@ public class NetworkedMain extends Application {
 			host = getParameters().getNamed().get("host");
 		}
 		if (getParameters().getNamed().containsKey("port")) {
-			getParameters().getNamed().get("port");
+			port = Integer.parseInt(getParameters().getNamed().get("port"));
 		}
 
 		// Defaults to localhost and default port if not present.

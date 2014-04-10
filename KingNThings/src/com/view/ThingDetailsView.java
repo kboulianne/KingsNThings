@@ -107,6 +107,7 @@ public class ThingDetailsView extends VBox {
 					@Override
 					public void handle(ActionEvent arg0) {
 						KNTAppFactory.getPlayerInfoPresenter().handleExchangeTreasures(tv, thing);
+						setDisable(true);
 					}
 				});
 				getChildren().add(exchange);
