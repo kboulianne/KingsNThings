@@ -126,7 +126,7 @@ public class Player 	{
 		hexGold = (int) Math.ceil(hexGold/2.0);
 		totalGold += (hexGold + fortGold + counterGold + specCharGold);
 
-		return totalGold;
+		return 21;
 	}
 
 	@Override
