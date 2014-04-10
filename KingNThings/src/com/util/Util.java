@@ -37,6 +37,9 @@ import com.model.SwampCreature;
 import com.model.Thing;
 import com.model.Treasure;
 
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
 // misc. global static functions
@@ -44,6 +47,7 @@ public class Util {
 
 	private final static boolean DEBUG = true;
 	final public static boolean AUTOMATE = false;
+	final public static boolean SOUND = true;
 
 	/**
 	 * Handles the creation, serialization and deserialization of Color objects to and from JSON.
@@ -343,38 +347,40 @@ public class Util {
 	}
 	
 	// Sounds
-//	private final static AudioClip clickSound = new AudioClip(Util.class.getResource("click.wav").toString());
+	private final static AudioClip clickSound = new AudioClip(Util.class.getResource("click.wav").toString());
 	public static void playClickSound(){
-//		clickSound.play();
+		clickSound.play();
 	}
 	
-//	private final static AudioClip hexClickSound = new AudioClip(Util.class.getResource("click2.wav").toString());
+	private final static AudioClip hexClickSound = new AudioClip(Util.class.getResource("click2.wav").toString());
 	public static void playHexClickSound(){
-//		hexClickSound.play();
+		hexClickSound.play();
 	}
 	
-//	private final static AudioClip startBattleSound = new AudioClip(Util.class.getResource("battle.wav").toString());
+	final static AudioClip startBattleSound = new AudioClip(Util.class.getResource("battle.wav").toString());
 	public static void playStartBattleSound(){
-//		startBattleSound.play();
+		startBattleSound.play();
 	}
 	
-//	private final static AudioClip diceRoll = new AudioClip(Util.class.getResource("dice.wav").toString());
-	public static void playDiceRollSound(){
-//		diceRoll.play();
+
+	final static AudioClip diceRoll = new AudioClip(Util.class.getResource("dice.wav").toString());
+	public static void playDiceRollSound(){		
+		diceRoll.play();
 	}
 	
-//	private final static AudioClip swordSound = new AudioClip(Util.class.getResource("sword.wav").toString());
-		public static void playSwordSound(){
-//			swordSound.play();
+	private final static AudioClip swordSound = new AudioClip(Util.class.getResource("sword.wav").toString());
+	public static void playSwordSound(){
+			swordSound.play();
 	}
 	
 	
-//	private final static Media audioFile = new Media( Util.class.getResource("test.mp3").toString() );    
-//	final static MediaPlayer player = new MediaPlayer(audioFile);
 	public static void playMusic(){
-//		player.setVolume(0.2);
-//        player.play();
-//        player.setCycleCount(MediaPlayer.INDEFINITE);
+
+		final Media audioFile = new Media( Util.class.getResource("greensleeves.mp3").toString() );    
+		final MediaPlayer player = new MediaPlayer(audioFile);
+		player.setVolume(0.2);
+        player.play();
+        player.setCycleCount(MediaPlayer.INDEFINITE);
 	}
 	
 //	private final static Media audioFile2 = new Media( Util.class.getResource("battlemusic.mp3").toString() );    

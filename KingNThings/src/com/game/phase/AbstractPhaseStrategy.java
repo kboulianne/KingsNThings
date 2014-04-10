@@ -30,7 +30,7 @@ public abstract class AbstractPhaseStrategy implements IPhaseStrategy {
 	
 	@Override
 	public void turnStart(Game game) {
-		Util.playClickSound();
+		//Util.playClickSound();
 	}
 	
 	@Override
