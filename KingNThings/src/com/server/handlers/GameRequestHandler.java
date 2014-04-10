@@ -1,9 +1,13 @@
 package com.server.handlers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.model.Block;
 import com.model.Board;
 import com.model.Creature;
 import com.model.Cup;
@@ -18,6 +22,7 @@ import com.server.Notifications;
 import com.server.ServerGameRoom;
 import com.server.services.IGameService;
 import com.thetransactioncompany.jsonrpc2.JSONRPC2Error;
+import com.util.Util;
 
 public class GameRequestHandler extends BaseRequestHandler implements IGameService {
 	@Override
@@ -93,31 +98,60 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 	}
 	
 	@Override
-	public void loadBoard(String roomName, Board b) throws JSONRPC2Error {
+	public void loadBoard(String roomName, JsonObject obj) throws JSONRPC2Error {
 		synchronized (GAME_ROOMS.get(roomName)) {
 			ServerGameRoom room = (ServerGameRoom) GAME_ROOMS.get(roomName);
 			
 			Game game = room.getGame();
+			
+			Board board = Util.GSON_BUILDER.create().fromJson(obj.get("board"), Board.class);
+			List<Player> players = new ArrayList<>();
+			Map<Player, Block> playerMap = new HashMap<>();
+			
+			for (JsonElement elem : obj.get("players").getAsJsonArray()) {
+				players.add(Util.GSON_BUILDER.create().fromJson(elem, Player.class));
+			}
 			
 			
 			Player p1 = null, p2 = null, p3 = null, p4 = null;
 			
 			// Extract old players by ID
 			for (Player p : game.getPlayerOrder()) {
-				if (p.getId().equals(PlayerId.ONE))
+				if (p.getId().equals(PlayerId.ONE)) {
 					p1 = p;
-				else if (p.getId().equals(PlayerId.TWO))
+				}
+				else if (p.getId().equals(PlayerId.TWO)) {
 					p2 = p;
-				else if (p.getId().equals(PlayerId.THREE))
+				}
+				else if (p.getId().equals(PlayerId.THREE)) {
 					p3 = p;
-				else
+				}
+					
+				else {
 					p4 = p;
+				}
+			}
+			
+			for (Player p : players){
+				if (p.getId().equals(PlayerId.ONE)) {
+					p1.setBlock(p.getBlock());
+				}
+				else if (p.getId().equals(PlayerId.TWO)) {
+					p2.setBlock(p.getBlock());
+				}
+				else if (p.getId().equals(PlayerId.THREE)) {
+					p3.setBlock(p.getBlock());
+				}
+					
+				else {
+					p4.setBlock(p.getBlock());
+				}
 			}
 			
 			Player player = null;
 			// Replace the player names (unique attribute used in equals)
 			// Loop hexes and replace names in player instances
-			for (Hex h : b.getHexes()) {
+			for (Hex h : board.getHexes()) {
 				if (h.getHexOwner() == null) continue;
 				
 				// Update the player names
@@ -150,7 +184,7 @@ public class GameRequestHandler extends BaseRequestHandler implements IGameServi
 				
 				h.setArmies(map);
 			}
-			room.getGame().setBoard(b);
+			room.getGame().setBoard(board);
 			notifyAllClients(room, Notifications.GAME_UPDATED);
 		}
 	}

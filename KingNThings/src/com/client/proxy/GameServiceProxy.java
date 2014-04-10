@@ -2,8 +2,8 @@ package com.client.proxy;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.google.gson.JsonObject;
 import com.main.NetworkedMain;
-import com.model.Board;
 import com.model.Cup;
 import com.model.Game;
 import com.model.Player;
@@ -54,7 +54,7 @@ public class GameServiceProxy extends ProxyBase implements IGameService {
 	}
 
 	@Override
-	public void loadBoard(String roomName, Board b) throws JSONRPC2Error {
-		invokeOnServer("loadBoard", roomName, b);
+	public void loadBoard(String roomName, JsonObject obj) throws JSONRPC2Error {
+		invokeOnServer("loadBoard", roomName, obj);
 	}
 }
