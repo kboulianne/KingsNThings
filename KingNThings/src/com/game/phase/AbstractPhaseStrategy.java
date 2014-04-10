@@ -5,10 +5,11 @@
  */
 package com.game.phase;
 
+import static com.main.KNTAppFactory.getPopupPresenter;
+import static com.main.KNTAppFactory.getSidePanePresenter;
+
 import com.model.Board;
 import com.model.Game;
-import com.util.Util;
-import static com.main.KNTAppFactory.*;
 
 /**
  *
